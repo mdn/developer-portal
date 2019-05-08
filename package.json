@@ -1,0 +1,25 @@
+{
+  "name": "mozilla-developer-portal",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "NODE_ENV=production rollup -c rollup.config.js",
+    "serve": "./manage.py runserver 0.0.0.0:8000",
+    "start": "concurrently 'npm:serve' 'npm:watch' --kill-others",
+    "watch": "NODE_ENV=development rollup -w -c rollup.config.js"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 0.2%",
+    "not dead"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^9.5.1",
+    "concurrently": "^4.1.0",
+    "postcss-preset-env": "^6.6.0",
+    "rollup": "^1.11.3",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-terser": "^4.0.4"
+  }
+}
