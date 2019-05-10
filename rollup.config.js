@@ -1,3 +1,4 @@
+import { eslint } from 'rollup-plugin-eslint';
 import { terser } from 'rollup-plugin-terser';
 import autoprefixer from 'autoprefixer';
 import commonjs from 'rollup-plugin-commonjs';
@@ -11,6 +12,7 @@ export default {
     format: 'iife'
   },
   plugins: [
+    eslint(),
     commonjs(),
     postcss({
       extract: true,
