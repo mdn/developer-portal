@@ -2,6 +2,7 @@ version: '3'
 
 services:
   db:
+    tty: true
     environment:
       POSTGRES_DB: app_db
       POSTGRES_USER: app_user
@@ -12,6 +13,7 @@ services:
       - '5432'
 
   app:
+    tty: true
     command: npm start
     environment:
       DJANGO_SECRET_KEY: changeme
