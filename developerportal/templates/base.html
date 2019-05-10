@@ -15,12 +15,12 @@
         </title>
         <meta name="description" content="Mozilla Developer Portal" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" type="text/css" href="{% static 'bundle.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
         {% block content %}{% endblock %}
-        <script src="{% static 'bundle.js' %}"></script>
+        <script src="{% static 'js/bundle.js' %}"></script>
     </body>
 </html>

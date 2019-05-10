@@ -1,5 +1,7 @@
 // Variables.
 import './variables/colors.css';
+import './variables/typography.css';
 
-// Components.
-import './components/base.css';
+// Base.
+import './base/base.css';
+import './base/typography.css';

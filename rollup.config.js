@@ -9,7 +9,7 @@ import postcssPresetEnv from 'postcss-preset-env';
 export default {
   input: 'src/js/index.js',
   output: {
-    file: 'dist/bundle.js',
+    file: 'dist/js/bundle.js',
     format: 'iife'
   },
   plugins: [
@@ -19,7 +19,7 @@ export default {
       exclude: 'node_modules/**',
     }),
     postcss({
-      extract: true,
+      extract: 'dist/css/bundle.css',
       plugins: [
         autoprefixer,
         postcssPresetEnv(),
