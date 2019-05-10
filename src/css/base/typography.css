@@ -1,55 +1,55 @@
 @font-face {
+  font-display: 'fallback';
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
   src: url('/static/fonts/OpenSans-Regular.woff2') format('woff2'),
        url('/static/fonts/OpenSans-Regular.woff') format('woff');
-  font-display: 'fallback';
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
 }
 
 @font-face {
+  font-display: 'fallback';
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
   src: url('/static/fonts/OpenSans-Italic.woff2') format('woff2'),
        url('/static/fonts/OpenSans-Italic.woff') format('woff');
-  font-display: 'fallback';
-  font-family: 'Open Sans';
-  font-style: italic;
-  font-weight: 400;
 }
 
 @font-face {
-  src: url('/static/fonts/OpenSans-Bold.woff2') format('woff2'),
-       url('/static/fonts/OpenSans-Bold.woff') format('woff');
   font-display: 'fallback';
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
+  src: url('/static/fonts/OpenSans-Bold.woff2') format('woff2'),
+       url('/static/fonts/OpenSans-Bold.woff') format('woff');
 }
 
 @font-face {
-  src: url('/static/fonts/OpenSans-BoldItalic.woff2') format('woff2'),
-       url('/static/fonts/OpenSans-BoldItalic.woff') format('woff');
   font-display: 'fallback';
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
+  src: url('/static/fonts/OpenSans-BoldItalic.woff2') format('woff2'),
+       url('/static/fonts/OpenSans-BoldItalic.woff') format('woff');
 }
 
 @font-face {
-  src: url('/static/fonts/ZillaSlab-Bold.woff2') format('woff2'),
-       url('/static/fonts/ZillaSlab-Bold.woff') format('woff');
   font-display: 'fallback';
   font-family: 'Zilla Slab';
   font-style: normal;
   font-weight: 700;
+  src: url('/static/fonts/ZillaSlab-Bold.woff2') format('woff2'),
+       url('/static/fonts/ZillaSlab-Bold.woff') format('woff');
 }
 
 @font-face {
-  src: url('/static/fonts/ZillaSlabHighlight-Regular.woff2') format('woff2'),
-       url('/static/fonts/ZillaSlabHighlight-Regular.woff') format('woff');
   font-display: 'fallback';
   font-family: 'Zilla Slab Highlight';
   font-style: normal;
   font-weight: 400;
+  src: url('/static/fonts/ZillaSlabHighlight-Regular.woff2') format('woff2'),
+       url('/static/fonts/ZillaSlabHighlight-Regular.woff') format('woff');
 }
 
 html {
