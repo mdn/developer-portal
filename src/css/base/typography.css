@@ -1,0 +1,111 @@
+@font-face {
+  src: url('/static/fonts/OpenSans-Regular.woff2') format('woff2'),
+       url('/static/fonts/OpenSans-Regular.woff') format('woff');
+  font-display: 'fallback';
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  src: url('/static/fonts/OpenSans-Italic.woff2') format('woff2'),
+       url('/static/fonts/OpenSans-Italic.woff') format('woff');
+  font-display: 'fallback';
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  src: url('/static/fonts/OpenSans-Bold.woff2') format('woff2'),
+       url('/static/fonts/OpenSans-Bold.woff') format('woff');
+  font-display: 'fallback';
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  src: url('/static/fonts/OpenSans-BoldItalic.woff2') format('woff2'),
+       url('/static/fonts/OpenSans-BoldItalic.woff') format('woff');
+  font-display: 'fallback';
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  src: url('/static/fonts/ZillaSlab-Bold.woff2') format('woff2'),
+       url('/static/fonts/ZillaSlab-Bold.woff') format('woff');
+  font-display: 'fallback';
+  font-family: 'Zilla Slab';
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  src: url('/static/fonts/ZillaSlabHighlight-Regular.woff2') format('woff2'),
+       url('/static/fonts/ZillaSlabHighlight-Regular.woff') format('woff');
+  font-display: 'fallback';
+  font-family: 'Zilla Slab Highlight';
+  font-style: normal;
+  font-weight: 400;
+}
+
+html {
+  font-size: var(--body-font-size);
+}
+
+body {
+  font-family: var(--body-font-family);
+  line-height: var(--body-line-height);
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+}
+
+h5 {
+  font-size: var(--h5-font-size);
+}
+
+h6 {
+  font-size: var(--h6-font-size);
+}
+
+b,
+strong {
+  font-weight: 700;
+}
+
+p,
+ul,
+ol {
+  margin-bottom: 16px;
+  margin-top: 0;
+}
