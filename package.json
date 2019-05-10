@@ -19,7 +19,16 @@
       "browser": true
     }
   },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env"
+      ]
+    ]
+  },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "autoprefixer": "^9.5.1",
     "concurrently": "^4.1.0",
     "eslint": "^5.3.0",
@@ -27,6 +36,7 @@
     "eslint-plugin-import": "^2.17.2",
     "postcss-preset-env": "^6.6.0",
     "rollup": "^1.11.3",
+    "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-eslint": "^5.1.0",
     "rollup-plugin-postcss": "^2.0.3",
