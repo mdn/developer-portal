@@ -7,6 +7,7 @@ services:
       - 5432
     image: postgres:9.6
     restart: always
+    tty: true
 
   app:
     build:
@@ -19,6 +20,7 @@ services:
     ports:
       - 8000:8000
     restart: always
+    tty: true
     volumes:
       - ./src:/app/src
       - ./developerportal:/app/developerportal

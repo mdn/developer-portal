@@ -143,12 +143,9 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    # Built CSS and JS
-    os.path.join(BASE_DIR, 'dist'),
-    # Fonts and images
+    ('css', os.path.join(BASE_DIR, 'dist/css')),
+    ('js', os.path.join(BASE_DIR, 'dist/js')),
     ('fonts', os.path.join(BASE_DIR, 'src/fonts')),
-    ('img', os.path.join(BASE_DIR, 'src/img')),
-    ('pdf', os.path.join(BASE_DIR, 'src/pdf')),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated

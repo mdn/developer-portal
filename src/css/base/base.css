@@ -1,0 +1,16 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background: var(--body-background-color);
+  color: var(--body-color);
+  margin: 0;
+  padding: 0;
+}
