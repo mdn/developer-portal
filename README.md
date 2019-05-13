@@ -8,6 +8,7 @@ To install dependencies and start the development server, run:
 
 ```shell
 docker-compose build
+docker-compose run app python manage.py migrate
 docker-compose run app python manage.py createsuperuser
 docker-compose up
 ```
