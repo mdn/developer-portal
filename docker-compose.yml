@@ -7,8 +7,6 @@ services:
       - 5432
     image: postgres:9.6
     restart: always
-    volumes:
-      - ./database:/var/lib/postgresql/data
 
   app:
     build:
@@ -24,6 +22,3 @@ services:
     volumes:
       - ./src:/app/src
       - ./developerportal:/app/developerportal
-
-volumes:
-  database:

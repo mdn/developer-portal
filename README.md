@@ -8,7 +8,12 @@ To install dependencies and start the development server, run:
 
 ```shell
 docker-compose build
+docker-compose up
+```
+
+With that running, in a new window run the following to create the database schemas and a super (admin) user.
+
+```shell
 docker-compose run app python manage.py migrate
 docker-compose run app python manage.py createsuperuser
-docker-compose up
 ```
