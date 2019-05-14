@@ -5,7 +5,7 @@ services:
     env_file: .env
     expose:
       - 5432
-    image: postgres:9.6
+    image: postgres:11.3
     restart: always
     tty: true
     volumes:
@@ -14,8 +14,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: npm start
+      dockerfile: ./docker/app.Dockerfile
     depends_on:
       - db
     env_file: .env
@@ -25,8 +24,21 @@ services:
     restart: always
     tty: true
     volumes:
-      - ./src:/app/src
+      - dist:/app/dist
       - ./developerportal:/app/developerportal
+      - ./src:/app/src
+
+  static:
+    build:
+      context: .
+      dockerfile: ./docker/static.Dockerfile
+    command: npm run watch
+    restart: always
+    tty: true
+    volumes:
+      - dist:/app/dist
+      - ./src:/app/src
 
 volumes:
   database:
+  dist:
