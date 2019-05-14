@@ -17,3 +17,33 @@ With that running, in a new window run the following to create the database sche
 docker-compose run app python manage.py migrate
 docker-compose run app python manage.py createsuperuser
 ```
+
+## Static site generation
+
+A static file version of the site is generated using [Wagtail Bakery](https://github.com/wagtail/wagtail-bakery) which is built on top of [Django Bakery](https://github.com/datadesk/django-bakery)
+
+### Usage
+
+Get the container ID:  
+
+```shell
+docker container ls
+```
+
+Run a shell in the running container:  
+
+```shell
+docker exec -it CONTAINER_ID /bin/bash
+```
+
+Build the site out as flat files to the /build folder (specified in settings/base.py):  
+
+```shell
+root@CONTAINER_ID:/app# ./manage.py build
+```
+
+Check the built static site:  
+
+```shell
+root@CONTAINER_ID:/app# ./manage.py buildserver 0.0.0.0:8080
+```
