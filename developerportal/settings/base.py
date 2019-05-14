@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
 
+    'bakery',
+    'wagtailbakery',
+
     'modelcluster',
     'taggit',
 
@@ -167,3 +170,10 @@ WAGTAIL_SITE_NAME = "developerportal"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+# Wagtail Bakery Settings
+BUILD_DIR = os.path.join(BASE_DIR, 'build')
+BAKERY_MULTISITE = True
+BAKERY_VIEWS = (
+	'wagtailbakery.views.AllPublishedPagesView',
+)
