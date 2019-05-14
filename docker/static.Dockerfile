@@ -6,5 +6,3 @@ COPY . /app/
 
 RUN npm ci
 RUN npm run build
-
-CMD exec npm run watch
