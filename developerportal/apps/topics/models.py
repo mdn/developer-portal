@@ -2,4 +2,4 @@ from wagtail.core.models import Page
 
 
 class Topic(Page):
-    pass
+    template = 'topic.html'
