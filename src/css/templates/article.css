@@ -1,0 +1,42 @@
+main {
+  padding: 16px 0;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding: 32px 0;
+  }
+}
+
+.article-header {
+  border: 1px solid red;
+  height: 200px;
+  grid-column-end: span 12;
+}
+
+.article-header img {
+  width: 50%;
+}
+
+.article-content {
+  border: 1px solid blue;
+  height: 1000px;
+  grid-column: 1 / span 12;
+}
+
+@media (min-width: 768px) {
+  .article-content {
+    grid-column: auto / span 8;
+  }
+}
+
+.article-sidebar {
+  border: 1px solid green;
+  grid-column: 1 / span 12;
+}
+
+@media (min-width: 768px) {
+  .article-sidebar {
+    grid-column: auto / span 4;
+  }
+}
