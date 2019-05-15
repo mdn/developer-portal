@@ -24,8 +24,12 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'developerportal.apps.articles',
+    'developerportal.apps.events',
     'developerportal.apps.home',
+    'developerportal.apps.mozillians',
     'developerportal.apps.search',
+    'developerportal.apps.topics',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
