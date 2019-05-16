@@ -63,6 +63,7 @@
   --h4-font-size: 20px;
   --h5-font-size: 18px;
   --h6-font-size: 16px;
+  --highlight-font-size: 16px;
 }
 
 @media (min-width: 768px) {
@@ -71,6 +72,7 @@
     --h2-font-size: 40px;
     --h3-font-size: 32px;
     --h4-font-size: 24px;
+    --highlight-font-size: 18px;
   }
 }
 
@@ -92,8 +94,6 @@ h5,
 h6 {
   font-family: var(--heading-font-family);
   font-weight: 700;
-  margin-bottom: 16px;
-  margin-top: 0;
 }
 
 h1 {
@@ -125,9 +125,7 @@ strong {
   font-weight: 700;
 }
 
-p,
-ul,
-ol {
-  margin-bottom: 16px;
-  margin-top: 0;
+.highlight {
+  font-family: 'Zilla Slab Highlight';
+  font-size: var(--highlight-font-size);
 }
