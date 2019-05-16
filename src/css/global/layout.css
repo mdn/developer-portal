@@ -1,7 +1,9 @@
-:root {
-  --container-max-width: 1024px;
-  --grid-column-gap: 16px;
-  --grid-row-gap: 16px;
+@media (max-width: 768px) {
+  :root {
+    --container-max-width: 1024px;
+    --grid-column-gap: 16px;
+    --grid-row-gap: 16px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -21,7 +23,6 @@
   .grid {
     column-gap: var(--grid-column-gap);
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
     row-gap: var(--grid-row-gap);
   }
 }

@@ -1,6 +1,3 @@
-/*
-TODO
-*/
 import './global';
 import './atoms';
 import './molecules';
