@@ -94,6 +94,8 @@ h5,
 h6 {
   font-family: var(--heading-font-family);
   font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: 0;
 }
 
 h1 {
@@ -124,6 +126,14 @@ b,
 strong {
   font-weight: 700;
 }
+
+p,
+ul,
+ol {
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
 
 .highlight {
   font-family: 'Zilla Slab Highlight';
