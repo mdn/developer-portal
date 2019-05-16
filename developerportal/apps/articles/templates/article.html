@@ -4,5 +4,19 @@
 {% block body_class %}article-detail{% endblock %}
 
 {% block content %}
-  <h1>{{ self.title }}</h1>
+  <main>
+    <div class="container">
+      <div class="grid grid-article">
+        <div class="article-header">
+          <h1>{{ self.title }}</h1>
+        </div>
+        <div class="article-content">
+          TODO
+        </div>
+        <div class="article-sidebar">
+          TODO
+        </div>
+      </div>
+    </div>
+  </main>
 {% endblock content %}
