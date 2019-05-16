@@ -1,6 +1,9 @@
+:root {
+  --container-max-width: 1024px;
+}
+
 @media (max-width: 768px) {
   :root {
-    --container-max-width: 1024px;
     --grid-column-gap: 16px;
     --grid-row-gap: 16px;
   }

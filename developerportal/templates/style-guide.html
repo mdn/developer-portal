@@ -4,6 +4,11 @@
 
 {% block content %}
   <style>
+    .style-guide {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+    }
+
     .style-guide-sidebar,
     .style-guide-content {
       min-height: 100vh;
@@ -19,6 +24,10 @@
       position: fixed;
     }
 
+    .style-guide-sidebar nav a {
+      display: block;
+    }
+
     .style-guide-content {
       grid-column-end: span 10;
       padding: 48px 0;
@@ -32,16 +41,19 @@
     }
   </style>
 
-  <div class="grid">
-    <div class="style-guide-sidebar">
+  <div class="style-guide">
+    <aside class="style-guide-sidebar">
       <nav>
         <p>
           <strong><a href="#atoms">Atoms</a></strong>
         </p>
-        <p><a href="#atoms-typography">Typography</a></p>
+        <p>
+          <a href="#atoms-typography">Typography</a>
+          <a href="#atoms-highlight">Highlight</a>
+        </p>
       </nav>
-    </div>
-    <div class="style-guide-content">
+    </aside>
+    <main class="style-guide-content">
       <div class="container">
         <h1>Style guide</h1>
         <p>
@@ -56,7 +68,7 @@
           Atoms are the basic building blocks within the platform.
           Within the platform these are <em>usually</em> HTML tags, such as headings and buttons.
         </p>
-        <h3>Typography</h3>
+        <h3 id="atoms-typography">Typography</h3>
         <p>
           The headings and paragraph styles here are applied to text throughout the platform.
           This includes within other molecules/organisms, and within content fields such as article pages.
@@ -75,7 +87,14 @@
           <h6>Heading 6</h6>
           <p>Paragraph.</p>
         </div>
+        <h3 id="atoms-highlight">Highlight</h3>
+        <p>
+          Highlights are used within components to accent certain pieces of text, such as tags or featured labels.
+        </p>
+        <div class="style-guide-example">
+          <span class="highlight">Featured</span>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
 {% endblock %}
