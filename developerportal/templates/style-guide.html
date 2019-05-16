@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block body_class %}template-style-guide{% endblock %}
+
+{% block content %}
+  <style>
+    .style-guide-sidebar,
+    .style-guide-content {
+      min-height: 100vh;
+    }
+
+    .style-guide-sidebar {
+      background: #f6f6f6;
+      grid-column-end: span 2;
+    }
+
+    .style-guide-sidebar nav {
+      padding: 32px;
+      position: fixed;
+    }
+
+    .style-guide-content {
+      grid-column-end: span 10;
+      padding: 48px 0;
+    }
+
+    .style-guide-example {
+      background: #f6f6f6;
+      border-radius: 5px;
+      padding: 32px;
+      margin: 32px 0;
+    }
+  </style>
+
+  <div class="grid">
+    <div class="style-guide-sidebar">
+      <nav>
+        <p>
+          <strong><a href="#atoms">Atoms</a></strong>
+        </p>
+        <p><a href="#atoms-typography">Typography</a></p>
+      </nav>
+    </div>
+    <div class="style-guide-content">
+      <div class="container">
+        <h1>Style guide</h1>
+        <p>
+          This page acts as a style guide for the Mozilla Developer Portal platform.
+        </p>
+        <p>
+          It details the components used throughout, ranging from small building blocks (<em>atoms</em>) through to larger page modules (<em>organisms</em>).
+          The grouping of these is heavily inspired by Brad Frost's <a href="http://bradfrost.com/blog/post/atomic-web-design/" target="_blank">Atomic Design</a>.
+        </p>
+        <h2 id="atoms">Atoms</h2>
+        <p>
+          Atoms are the basic building blocks within the platform.
+          Within the platform these are <em>usually</em> HTML tags, such as headings and buttons.
+        </p>
+        <h3>Typography</h3>
+        <p>
+          The headings and paragraph styles here are applied to text throughout the platform.
+          This includes within other molecules/organisms, and within content fields such as article pages.
+        </p>
+        <div class="style-guide-example">
+          <h1>Heading 1</h1>
+          <p>Paragraph.</p>
+          <h2>Heading 2</h2>
+          <p>Paragraph.</p>
+          <h3>Heading 3</h3>
+          <p>Paragraph.</p>
+          <h4>Heading 4</h4>
+          <p>Paragraph.</p>
+          <h5>Heading 5</h5>
+          <p>Paragraph.</p>
+          <h6>Heading 6</h6>
+          <p>Paragraph.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
