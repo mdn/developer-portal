@@ -8,4 +8,4 @@ COPY . /app/
 RUN pip install -U pip
 RUN pip install -r requirements.txt
 
-CMD exec gunicorn developerportal.wsgi:application --bind 0.0.0.0:8000 --workers 3
+CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
