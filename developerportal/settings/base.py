@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'developerportal.apps.common',
     'developerportal.apps.articles',
     'developerportal.apps.events',
     'developerportal.apps.home',
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
 
     'bakery',
     'wagtailbakery',
-
+    'livereload',
     'modelcluster',
     'taggit',
 
@@ -68,6 +69,8 @@ MIDDLEWARE = [
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'developerportal.urls'
