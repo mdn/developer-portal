@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 
     'bakery',
     'wagtailbakery',
-
+    'livereload',
     'modelcluster',
     'taggit',
 
@@ -69,6 +69,8 @@ MIDDLEWARE = [
 
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'developerportal.urls'
