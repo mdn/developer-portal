@@ -1,0 +1,15 @@
+<header class="article-header">
+  <div class="article-header-image">
+    <img src="https://blog.mozvr.com/content/images/2019/01/Firefox-NightlyScreenSnapz106-1.png">
+  </div>
+  <div class="article-header-details">
+    <div class="article-header-highlight">
+      <span class="highlight">Featured</span>
+    </div>
+    <h2>{{ title }}</h2>
+    <div class="article-header-subtitle">
+      {{ intro }}
+    </div>
+    {% include "molecules/article-details.html" with date=page.date %}
+  </div>
+</header>

@@ -8,24 +8,20 @@
   <main>
     <div class="container">
       <div class="grid grid-article">
-        <div class="article-header">
-          <h1>{{ page.title }}</h1>
-          {{ page.intro|richtext }}
-          <span>{{ page.date }}</span>
-        </div>
+        {% include "organisms/article-header.html" with title=page.title intro=page.intro|richtext date=page.date %}
         <div class="article-content">
           {% for block in page.body %}
             {{ block }}
           {% endfor %}
         </div>
         <div class="article-sidebar">
-          <h3>Read more</h3>
+          <h4>Read more</h4>
           {% for article in articles %}
             {% with article=article.specific %}
-            <a href="{% pageurl article %}" class="card--link">
+            <a href="{% pageurl article %}" class="card-link">
             <div class="card">
               <img src="https://via.placeholder.com/280x177">
-              <div class="card--content">
+              <div class="card-content">
                 <h5>{{ article.title }}</h5>
                 <span>{{ article.date }}</span>
               </div>
