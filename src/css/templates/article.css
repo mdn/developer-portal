@@ -1,11 +1,5 @@
 main {
-  padding: 16px 0;
-}
-
-@media (min-width: 768px) {
-  main {
-    padding: 32px 0;
-  }
+  padding: var(--grid-column-gap) 0;
 }
 
 @media (max-width: 768px) {
@@ -20,23 +14,14 @@ main {
   }
 }
 
-.article-header {
-  border: 1px solid red;
-  height: 200px;
+.grid-article .article-header {
   grid-column: header;
 }
 
-.article-header img {
-  width: 50%;
-}
-
-.article-content {
-  border: 1px solid blue;
-  height: 500px;
+.grid-article .article-content {
   grid-column: content;
 }
 
-.article-sidebar {
-  border: 1px solid green;
+.grid-article .article-sidebar {
   grid-column: sidebar;
 }
