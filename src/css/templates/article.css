@@ -1,11 +1,5 @@
 main {
-  padding: 16px 0;
-}
-
-@media (min-width: 768px) {
-  main {
-    padding: 32px 0;
-  }
+  padding: var(--grid-column-gap) 0;
 }
 
 @media (max-width: 768px) {
@@ -16,27 +10,18 @@ main {
 
 @media (min-width: 768px) {
   .grid-article {
-    grid-template-columns: [header-start content-start] repeat(8, 1fr) [content-end sidebar-start] repeat(4, 1fr) [sidebar-end header-end];
+    grid-template-columns: [header-start] 1fr [content-start] repeat(7, 1fr) [content-end] 1fr [sidebar-start] repeat(3, 1fr) [sidebar-end header-end];
   }
 }
 
-.article-header {
-  border: 1px solid red;
-  height: 200px;
+.grid-article .article-header {
   grid-column: header;
 }
 
-.article-header img {
-  width: 50%;
-}
-
-.article-content {
-  border: 1px solid blue;
-  height: 500px;
+.grid-article .article-content {
   grid-column: content;
 }
 
-.article-sidebar {
-  border: 1px solid green;
+.grid-article .article-sidebar {
   grid-column: sidebar;
 }

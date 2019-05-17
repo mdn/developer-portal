@@ -1,0 +1,40 @@
+@media (min-width: 768px) {
+  .article-header {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+@media (min-width: 768px) {
+  .article-header-details,
+  .article-header-image {
+    align-self: center;
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .article-header-details {
+    padding-right: 32px;
+  }
+}
+
+.article-header-image img {
+  max-width: 100%;
+  padding-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .article-header-image img {
+    padding-left: 32px;
+  }
+}
+
+.article-header-highlight {
+  margin-bottom: 16px;
+}
+
+.article-header-subtitle {
+  color: #757575;
+  font-size: 18px;
+}

@@ -25,6 +25,25 @@ services:
     tty: true
     volumes:
       - dist:/app/dist
+      - media:/app/media
+      - ./developerportal:/app/developerportal
+      - ./src:/app/src
+
+  reload:
+    build:
+      context: .
+      dockerfile: ./docker/app.Dockerfile
+    command: python manage.py livereload --host=0.0.0.0
+    depends_on:
+      - app
+    env_file: .env
+    ports:
+      - "35729:35729"
+    restart: always
+    tty: true
+    volumes:
+      - dist:/app/dist
+      - media:/app/media
       - ./developerportal:/app/developerportal
       - ./src:/app/src
 
@@ -42,3 +61,4 @@ services:
 volumes:
   database:
   dist:
+  media:
