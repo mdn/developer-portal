@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'developerportal.apps.common',
     'developerportal.apps.articles',
     'developerportal.apps.events',
     'developerportal.apps.home',
