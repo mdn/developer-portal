@@ -23,7 +23,10 @@ RICH_TEXT_FEATURES = (
 
 class CustomStreamField(StreamField):
     def __init__(self, *args, **kwargs):
+        if 'default' not in kwargs:
+            kwargs['default'] = None
+
         super(CustomStreamField, self).__init__([
             ('paragraph', RichTextBlock(features=RICH_TEXT_FEATURES)),
             ('image', ImageChooserBlock()),
-        ], **dict(default=None, **kwargs))
+        ], **kwargs)
