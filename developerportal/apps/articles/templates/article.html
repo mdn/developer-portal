@@ -14,7 +14,9 @@
           <span>{{ page.date }}</span>
         </div>
         <div class="article-content">
-          TODO
+          {% for block in page.body %}
+            {{ block }}
+          {% endfor %}
         </div>
         <div class="article-sidebar">
           <h3>Read more</h3>
