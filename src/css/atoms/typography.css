@@ -58,20 +58,30 @@
   --body-font-size: 16px;
   --body-line-height: 1.5;
   --h1-font-size: 36px;
+  --h1-line-height: 44px;
   --h2-font-size: 32px;
+  --h2-line-height: 40px;
   --h3-font-size: 24px;
+  --h3-line-height: 32px;
   --h4-font-size: 20px;
+  --h4-line-height: 28px;
   --h5-font-size: 18px;
+  --h5-line-height: 26px;
   --h6-font-size: 16px;
+  --h6-line-height: 24px;
   --highlight-font-size: 16px;
 }
 
 @media (min-width: 768px) {
   :root {
     --h1-font-size: 48px;
+    --h1-line-height: 56px;
     --h2-font-size: 40px;
+    --h2-line-height: 48px;
     --h3-font-size: 32px;
+    --h3-line-height: 40px;
     --h4-font-size: 24px;
+    --h4-line-height: 32px;
     --highlight-font-size: 18px;
   }
 }
@@ -100,26 +110,32 @@ h6 {
 
 h1 {
   font-size: var(--h1-font-size);
+  line-height: var(--h1-line-height);
 }
 
 h2 {
   font-size: var(--h2-font-size);
+  line-height: var(--h2-line-height);
 }
 
 h3 {
   font-size: var(--h3-font-size);
+  line-height: var(--h3-line-height);
 }
 
 h4 {
   font-size: var(--h4-font-size);
+  line-height: var(--h4-line-height);
 }
 
 h5 {
   font-size: var(--h5-font-size);
+  line-height: var(--h5-line-height);
 }
 
 h6 {
   font-size: var(--h6-font-size);
+  line-height: var(--h6-line-height);
 }
 
 b,
