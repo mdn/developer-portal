@@ -25,6 +25,7 @@ services:
     tty: true
     volumes:
       - dist:/app/dist
+      - media:/app/media
       - ./developerportal:/app/developerportal
       - ./src:/app/src
 
@@ -42,3 +43,4 @@ services:
 volumes:
   database:
   dist:
+  media:
