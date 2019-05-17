@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailcore_tags %}
 
 {% block body_class %}article-detail{% endblock %}
 
@@ -8,7 +9,9 @@
     <div class="container">
       <div class="grid grid-article">
         <div class="article-header">
-          <h1>{{ self.title }}</h1>
+          <h1>{{ page.title }}</h1>
+          {{ page.intro|richtext }}
+          <span>{{ page.date }}</span>
         </div>
         <div class="article-content">
           {% for block in page.body %}
@@ -16,7 +19,20 @@
           {% endfor %}
         </div>
         <div class="article-sidebar">
-          TODO
+          <h3>Read more</h3>
+          {% for article in articles %}
+            {% with article=article.specific %}
+            <a href="{% pageurl article %}" class="card--link">
+            <div class="card">
+              <img src="https://via.placeholder.com/280x177">
+              <div class="card--content">
+                <h5>{{ article.title }}</h5>
+                <span>{{ article.date }}</span>
+              </div>
+            </div>
+            </a>
+            {% endwith %}
+          {% endfor %}
         </div>
       </div>
     </div>
