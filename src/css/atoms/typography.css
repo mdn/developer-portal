@@ -38,6 +38,15 @@
   font-display: 'fallback';
   font-family: 'Zilla Slab';
   font-style: normal;
+  font-weight: 400;
+  src: url('/static/fonts/ZillaSlab-Regular.woff2') format('woff2'),
+       url('/static/fonts/ZillaSlab-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-display: 'fallback';
+  font-family: 'Zilla Slab';
+  font-style: bold;
   font-weight: 700;
   src: url('/static/fonts/ZillaSlab-Bold.woff2') format('woff2'),
        url('/static/fonts/ZillaSlab-Bold.woff') format('woff');
@@ -50,6 +59,15 @@
   font-weight: 400;
   src: url('/static/fonts/ZillaSlabHighlight-Regular.woff2') format('woff2'),
        url('/static/fonts/ZillaSlabHighlight-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-display: 'fallback';
+  font-family: 'Zilla Slab Highlight';
+  font-style: bold;
+  font-weight: 700;
+  src: url('/static/fonts/ZillaSlabHighlight-Bold.woff2') format('woff2'),
+       url('/static/fonts/ZillaSlabHighlight-Bold.woff') format('woff');
 }
 
 :root {

@@ -156,6 +156,7 @@ STATICFILES_DIRS = [
     ('css', os.path.join(BASE_DIR, 'dist/css')),
     ('js', os.path.join(BASE_DIR, 'dist/js')),
     ('fonts', os.path.join(BASE_DIR, 'src/fonts')),
+    ('img', os.path.join(BASE_DIR, 'src/img')),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
