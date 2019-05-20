@@ -1,7 +1,6 @@
 import '../css';
-import './molecules';
+import headerInit from './molecules/header';
 
 window.addEventListener('DOMContentLoaded', () => {
-  // eslint-disable-next-line no-console
-  console.log('Hello, World!');
+  headerInit();
 });

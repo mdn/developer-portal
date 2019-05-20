@@ -1,9 +1,9 @@
-window.addEventListener('DOMContentLoaded', () => {
+export default function headerInit() {
   const menuButton = document.getElementById('nav-hamburger');
+  const menu = document.getElementById('nav-topics');
   if (menuButton) {
-    menuButton.onclick = ((e) => {
-      const menu = e.target.parentNode.querySelector('.nav-topics');
+    menuButton.addEventListener('click', () => {
       menu.classList.toggle('nav-topics-open');
     });
   }
-});
+}
