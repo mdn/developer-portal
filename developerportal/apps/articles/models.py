@@ -14,15 +14,15 @@ class Article(Page):
     template = 'article.html'
 
     # Fields
-    intro = RichTextField("Intro", default='')
-    date = models.DateField("Article date", default=datetime.date.today)
+    intro = RichTextField('Intro', default='')
+    date = models.DateField('Article date', default=datetime.date.today)
     body = CustomStreamField()
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
-      FieldPanel('intro'),
-      FieldPanel('date'),
-      StreamFieldPanel('body'),
+        FieldPanel('intro'),
+        FieldPanel('date'),
+        StreamFieldPanel('body'),
     ]
 
     def get_context(self, request):
