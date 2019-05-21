@@ -1,5 +1,4 @@
-# Use the official Python runtime image as the parent.
-FROM node:12.2
+FROM node:12.2-alpine
 
 WORKDIR /app/
 COPY . /app/
