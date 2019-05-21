@@ -5,12 +5,14 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import postcssPresetEnv from 'postcss-preset-env';
+import css from 'rollup-plugin-css-only';
+import atImport from 'postcss-import';
 
 export default {
   input: 'src/js/index.js',
   output: {
     file: 'dist/js/bundle.js',
-    format: 'iife'
+    format: 'iife',
   },
   plugins: [
     eslint(),
@@ -28,6 +30,6 @@ export default {
     terser(),
   ],
   watch: {
-    clearScreen: false
+    clearScreen: false,
   },
 };
