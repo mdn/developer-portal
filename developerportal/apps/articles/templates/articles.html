@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}article-detail{% endblock %}
+
+{% block header %}
+  {% include "header.html" %}
+{% endblock %}
+
+{% block content %}
+  <main>
+    {% if articles %}
+      <ul>
+        {% for article in articles %}
+          <li>
+            <a href="{% pageurl article %}">
+              {{ article.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p> There are no articles </p>
+    {% endif %}
+  </main>
+{% endblock content %}

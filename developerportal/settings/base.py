@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'developerportal.apps.topics',
 
     'wagtail.contrib.forms',
+    'wagtail.contrib.modeladmin',
+    'wagtail.contrib.routable_page',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
     'wagtail.sites',
