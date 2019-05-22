@@ -1,12 +1,17 @@
 import datetime
 
+from django.forms import CheckboxSelectMultiple
 from django.db.models import CASCADE, DateField
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    StreamFieldPanel,
+    PageChooserPanel,
+)
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
@@ -18,6 +23,7 @@ class ArticleTag(TaggedItemBase):
 
 
 class Article(Page):
+    parent_page_types = ['Articles']
     subpage_types = []
     template = 'article.html'
 
@@ -26,12 +32,18 @@ class Article(Page):
     date = DateField('Article date', default=datetime.date.today)
     body = CustomStreamField()
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
+    labels = ParentalManyToManyField(
+        'topics.Topic',
+        blank=True,
+        related_name='+',
+    )
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
         FieldPanel('date'),
         StreamFieldPanel('body'),
+        FieldPanel('labels', widget=CheckboxSelectMultiple),
         FieldPanel('tags'),
     ]
 
