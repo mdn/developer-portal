@@ -6,8 +6,6 @@ class TopicAdmin(ModelAdmin):
     model = Topic
     menu_icon = 'tag'
     menu_order = 300
-    add_to_settings_menu = False
-    exclude_from_explorer = True
     list_display = ('title',)
     list_filter = ()
     list_sort = ('title',)
