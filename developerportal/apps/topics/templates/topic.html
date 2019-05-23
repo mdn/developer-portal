@@ -1,8 +1,87 @@
 {% extends "base.html" %}
 {% load static %}
+{% load app_filters %}
 
 {% block body_class %}topic-detail{% endblock %}
 
 {% block content %}
-  <h1>{{ self.title }}</h1>
+{% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
+<main>
+  <div class="container">
+    <div class="grid">
+      <section>
+        <div class="section-header">
+          <h2>Featured</h2>
+        </div>
+        <div class="card-container">
+          {% for i in 3|times %}
+            {% include "molecules/card-featured.html" %}
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>Get started</h2>
+        </div>
+        <div class="card-container">
+          {% for i in 3|times %}
+            {% include "molecules/item-get-started.html" %}
+          {% endfor %}
+        </div>
+      </section>
+      <div class="topic-content">
+        <!-- content managed content goes here -->
+        {% for block in page.body %}
+          {{ block }}
+        {% endfor %}
+      </div>
+      <section>
+        <div class="section-header">
+          <h2>Continue exploring</h2>
+        </div>
+        <div class="card-container">
+          {% for i in 5|times %}
+            {% include "molecules/item-topic-link.html" %}
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>Latest news</h2>
+          <a href="">See more</a>
+        </div>
+        <div class="card-container">
+          {% for i in 6|times %}
+            {% include "molecules/card-news.html" %}
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>Meet the Mozillians</h2>
+          <a href="">See more</a>
+        </div>
+        <div class="card-container">
+          {% for i in 3|times %}
+            {% include "molecules/item-mozillian.html" %}
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>Upcoming events</h2>
+          <a href="">See more</a>
+        </div>
+        <div class="card-event-container">
+          {% for i in 5|times %}
+            {% include "molecules/card-event.html" %}
+          {% endfor %}
+        </div>
+      </section>
+      <section>
+        {% include "organisms/newsletter-signup.html" %}
+      </section>
+    </div>
+  </div>
+</main>
 {% endblock content %}

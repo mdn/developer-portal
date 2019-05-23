@@ -1,0 +1,29 @@
+@media (max-width: 768px) {
+  .item-get-started {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .item-get-started {
+    width: 32%;
+    margin-bottom: 0;
+  }
+}
+
+.item-get-started {
+  background-color: var(--body-color);
+  padding: 40px;
+}
+
+.item-get-started h5 {
+  background-color: var(--color-aquamarine);
+  display: inline-block;
+  font-weight: normal;
+}
+
+.item-get-started p,
+.item-get-started a {
+  color: var(--color-aquamarine);
+}

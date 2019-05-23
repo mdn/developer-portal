@@ -1,0 +1,15 @@
+.newsletter-signup {
+  align-items: center;
+  background-color: var(--color-jacksons-purple);
+  display: flex;
+}
+
+.newsletter-signup-form {
+  color: #fff;
+  padding: 0 64px;
+}
+
+.newsletter-signup-form input,
+.newsletter-signup-form button {
+  width: 100%;
+}
