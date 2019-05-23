@@ -1,14 +1,14 @@
 @media (max-width: 768px) {
   .item-get-started {
-    width: 100%;
     margin-bottom: 8px;
+    width: 100%;
   }
 }
 
 @media (min-width: 768px) {
   .item-get-started {
-    width: 32%;
     margin-bottom: 0;
+    width: 32%;
   }
 }
 
