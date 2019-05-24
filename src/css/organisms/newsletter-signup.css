@@ -1,3 +1,15 @@
+@media (max-width: 768px) {
+  .newsletter-signup {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  .newsletter-signup {
+    flex-direction: row;
+  }
+}
+
 .newsletter-signup {
   align-items: center;
   background-color: var(--color-jacksons-purple);
@@ -6,7 +18,7 @@
 
 .newsletter-signup-form {
   color: #fff;
-  padding: 0 64px;
+  padding: 64px;
 }
 
 .newsletter-signup-form input,

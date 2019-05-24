@@ -2,7 +2,7 @@
 {% load static %}
 {% load wagtailcore_tags %}
 
-{% block body_class %}articles{% endblock %}
+{% block body_class %}topics{% endblock %}
 
 {% block header %}
   {% include "header.html" %}
@@ -10,18 +10,18 @@
 
 {% block content %}
   <main>
-    {% if articles %}
+    {% if topics %}
       <ul>
-        {% for article in articles %}
+        {% for topic in topics %}
           <li>
-            <a href="{% pageurl article %}">
-              {{ article.title }}
+            <a href="{% pageurl topic %}">
+              {{ topic.title }}
             </a>
           </li>
         {% endfor %}
       </ul>
     {% else %}
-      <p> There are no articles </p>
+      <p> There are no topics </p>
     {% endif %}
   </main>
 {% endblock content %}
