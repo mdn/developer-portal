@@ -11,19 +11,26 @@ before_script:
   - apk add --no-cache py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
   - pip install docker-compose
 
+after_script:
+  - docker-compose down
+
 build:
   stage: build
   artifacts:
     untracked: true
   script:
-    - ./setup.sh --non-interactive --prune
+    - ./setup.sh --non-interactive --prune --detach
 
-test:
+test_app:
   stage: test
   dependencies:
     - build
   script:
-    - docker-compose up --detach
-    - docker-compose run --rm app python manage.py test
-    - docker-compose run --rm app npm run test
-    - docker-compose down
+    - docker-compose exec app python manage.py test
+
+test_static:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - docker-compose exec static npm run test
