@@ -1,0 +1,67 @@
+@media (max-width: 768px) {
+  .mozillian .mozillian-content {
+    left: 20%;
+    width: 80%;
+  }
+}
+
+@media (min-width: 768px) {
+  .mozillian {
+    width: 25%;
+  }
+
+  .mozillian:first-child {
+    width: 50%;
+  }
+
+  .mozillian:not(:first-child) .mozillian-content {
+    left: 20%;
+    width: 80%;
+  }
+}
+
+.mozillian {
+  position: relative;
+}
+
+.mozillian:not(:first-child) h3 {
+  font-size: 22px;
+}
+
+.mozillian img {
+  clip-path: circle(45%);
+}
+
+.mozillian h3,
+.mozillian p,
+.mozillian a {
+  background-color: var(--body-color);
+  color: #fff;
+}
+
+.mozillian h3 {
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.mozillian p {
+  box-decoration-break: clone;
+  box-shadow: 0 0 0 3px #000;
+  display: inline;
+  font-size: 14px;
+  left: 4px;
+  position: relative; 
+}
+
+.mozillian a {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px 8px;
+}
+
+.mozillian-content {
+  left: 40%;
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}

@@ -1,0 +1,26 @@
+.topic-header {
+  background-color: var(--color-athens-gray);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  height: 260px;
+  margin-bottom: 32px;
+  padding-top: 40px;
+}
+
+.topic-header h1 ,
+.topic-header p {
+  background-color: var(--body-color);
+  color: #fff;
+  display: inline-block;
+}
+
+.topic-header-details {
+  max-width: 680px;
+}
+ 
+.topic-header-details p {
+  box-decoration-break: clone;
+  box-shadow: 0 0 0 3px #000;
+  display: inline;
+  left: 4px;
+  position: relative; 
+}
