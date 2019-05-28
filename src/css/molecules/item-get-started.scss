@@ -13,17 +13,17 @@
 }
 
 .item-get-started {
-  background-color: var(--body-color);
+  background-color: $color-black;
   padding: 40px;
 }
 
 .item-get-started h5 {
-  background-color: var(--color-aquamarine);
+  background-color: $color-green-40;
   display: inline-block;
   font-weight: normal;
 }
 
 .item-get-started p,
 .item-get-started a {
-  color: var(--color-aquamarine);
+  color: $color-green-40;
 }
