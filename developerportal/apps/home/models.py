@@ -9,7 +9,10 @@ from wagtail.admin.edit_handlers import (
 )
 
 class HomePage(Page):
-    subpage_types = []
+    subpage_types = [
+      'articles.Articles',
+      'topics.Topic'
+    ]
     template = 'home.html'
 
     # Fields

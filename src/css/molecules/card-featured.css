@@ -1,0 +1,40 @@
+@media (max-width: 768px) {
+  .card-featured {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-featured {
+    width: 32%;
+    margin-bottom: 0;
+  }
+}
+
+.card-featured {
+  background-color: var(--color-athens-gray);
+  color: #fff;
+  padding: 48px 24px;
+}
+
+.card-featured h3,
+.card-featured p,
+.card-featured a {
+  display: inline-block;
+  background-color: var(--body-color);
+}
+
+.card-featured p {
+  display: inline;
+  box-decoration-break: clone;
+  box-shadow: 0 0 0 3px #000;
+  font-size: 14px;
+  position: relative; 
+  left: 4px;
+}
+
+.card-featured a {
+  margin-top: 8px;
+  padding: 4px 12px 8px;
+}

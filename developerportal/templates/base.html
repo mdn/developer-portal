@@ -20,7 +20,9 @@
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
-        {% block header %}{% endblock %}
+        {% block header %}  
+          {% include "header.html" %}
+        {% endblock %}
         {% block content %}{% endblock %}
         {% block footer %}{% endblock %}
         <script src="{% static 'js/bundle.js' %}"></script>

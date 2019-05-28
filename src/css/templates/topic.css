@@ -1,0 +1,18 @@
+@media (max-width: 768px) {
+  section {
+    margin-bottom: 32px;
+  }
+}
+
+@media (min-width: 768px) {
+  section {
+    margin-bottom: 100px;
+  }  
+}
+
+.section-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
