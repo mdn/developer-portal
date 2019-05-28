@@ -33,6 +33,7 @@ done
 
 
 log 'Stopping Docker services.'
+touch .env # Create empty file so docker-compose down can run
 docker-compose --log-level ERROR down
 
 if [ -n "$ARG_PRUNE" ]; then
