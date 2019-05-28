@@ -24,7 +24,7 @@
 
 .nav-topics {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   list-style-type: none;
   margin: 0 0 0 40px;
   padding: 0;
@@ -34,6 +34,10 @@
 .nav-topic {
   font-family: 'Zilla Slab';
   font-size: 18px;
+  padding: 0 32px;
+}
+
+.nav-topic a {
   text-decoration: none;
 }
 

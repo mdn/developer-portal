@@ -91,6 +91,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'page_queries': 'developerportal.templatetags.page_queries',
+            }
         },
     },
 ]
