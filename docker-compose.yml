@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 services:
   db:
@@ -14,7 +14,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/app.Dockerfile
+      target: app
     depends_on:
       - db
     env_file: .env
@@ -32,7 +32,7 @@ services:
   reload:
     build:
       context: .
-      dockerfile: ./docker/app.Dockerfile
+      target: app
     command: python manage.py livereload --host=0.0.0.0
     depends_on:
       - app
@@ -50,7 +50,7 @@ services:
   static:
     build:
       context: .
-      dockerfile: ./docker/static.Dockerfile
+      target: static
     command: npm run watch
     restart: always
     tty: true
