@@ -20,7 +20,7 @@
         </div>
         <div class="article-sidebar">
           <h4>Read more</h4>
-          {% for article in articles %}
+          {% for article in related_articles %}
             {% with article=article.specific %}
             <a href="{% pageurl article %}" class="card-link">
             <div class="card">

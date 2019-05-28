@@ -26,7 +26,7 @@ class CustomStreamField(StreamField):
         if 'default' not in kwargs:
             kwargs['default'] = None
 
-        super(CustomStreamField, self).__init__([
+        super().__init__([
             ('paragraph', RichTextBlock(features=RICH_TEXT_FEATURES)),
             ('image', ImageChooserBlock()),
         ], **kwargs)
