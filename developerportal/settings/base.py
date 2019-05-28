@@ -92,7 +92,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-              'app_filters': 'developerportal.templatetags.app_filters',
+                'app_filters': 'developerportal.templatetags.app_filters',
+                'page_queries': 'developerportal.templatetags.page_queries',
             }
         },
     },
