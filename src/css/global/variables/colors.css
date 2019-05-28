@@ -1,8 +1,0 @@
-@import '../../../node_modules/@mozilla-protocol/core/protocol/css/protocol.css';
-
-:root {
-  --body-background-color: #fff;
-  --body-color: #000;
-  --card-border: #979797;
-  --color-athens-gray: #EDEDF0;
-}

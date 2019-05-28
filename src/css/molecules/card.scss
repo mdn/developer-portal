@@ -1,0 +1,14 @@
+.card {
+  border: 1px solid $color-gray-50;
+  margin-bottom: 24px;
+  max-width: 280px;
+}
+
+.card-link {
+  color: $color-black;
+  text-decoration: none;
+}
+
+.card-content {
+  padding: 24px;
+}
