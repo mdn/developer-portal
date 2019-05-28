@@ -3,21 +3,23 @@ image: docker:latest
 services:
   - docker:dind
 
-before_script:
-  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-
-build-master:
-  stage: build
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" -f docker/app.Dockerfile .
-    - docker push "$CI_REGISTRY_IMAGE"
-  only:
-    - master
+stages:
+  - build
+  - test
 
 build:
   stage: build
+  artifacts:
+    untracked: true
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" -f docker/app.Dockerfile .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-  except:
-    - master
+    - ./setup.sh --non-interactive --prune
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - docker-compose up --detach
+    - docker-compose run --rm app python manage.py test
+    - docker-compose run --rm app npm run test
+    - docker-compose down
