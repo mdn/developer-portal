@@ -1,14 +1,31 @@
 <header class="header">
-  <nav class="container nav-container">
-    <a href="/" class="nav-home">mozilla</a>
-    <button id="nav-hamburger" class="nav-hamburger"></button>
-    <ol id="nav-topics" class="nav-topics">
-      <li><a href="" class="nav-topic">JavaScript</a></li>
-      <li><a href="" class="nav-topic">CSS</a></li>
-      <li><a href="" class="nav-topic">Dweb</a></li>
-      <li><a href="" class="nav-topic">Security</a></li>
-      <li><a href="" class="nav-topic">Mixed Reality</a></li>
-      <li><a href="" class="nav-topic">Rust</a></li>
-    </ol>
-  </nav>
+  <div class="mzp-c-navigation">
+    <div class="mzp-c-navigation-l-content">
+      <div class="mzp-c-navigation-container">
+        <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
+        <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
+          <div class="mzp-c-navigation-menu">
+            <nav class="mzp-c-menu mzp-is-basic">
+              <ul class="mzp-c-menu-category-list">
+                <li class="mzp-c-menu-category">
+                  <a class="mzp-c-menu-title" href="https://www.mozilla.org/">Sample Link</a>
+                </li>
+                <li class="mzp-c-menu-category mzp-has-drop-down mzp-js-expandable">
+                  <a class="mzp-c-menu-title" href="#" aria-haspopup="true" aria-controls="mzp-c-menu-panel-example">Firefox</a>
+                  <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-example">
+                    <div class="mzp-c-menu-panel-container">
+                      <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-example">Close Firefox menu</button>
+                      <div class="mzp-c-menu-panel-content">
+                        Test
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
