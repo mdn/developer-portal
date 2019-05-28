@@ -10,10 +10,11 @@ log() {
 }
 
 show_help() {
-  echo 'Usage: setup.sh [ --help | --prune | --detach ]'
+  echo 'Usage: setup.sh [ --help | --prune | --detach | --non-interactive ]'
   echo '  --help   - Show this help text.'
   echo '  --prune  - Prune images, containers and volumes before building.'
   echo '  --detach - Keep services running in the background when finished.'
+  echo '  --non-interactive - Skip steps that require user input.'
   exit 0
 }
 
