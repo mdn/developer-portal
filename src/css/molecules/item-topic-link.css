@@ -1,0 +1,25 @@
+.item-topic-link {
+  text-decoration: none;
+}
+
+.item-topic-link-bg {
+  align-items: center;
+  background-color: var(--color-purple);
+  border-radius: 50%;
+  display: flex;
+  height: 130px;
+  justify-content: center;
+  width: 130px;
+}
+
+h4 {
+  background-color: white;
+  color: var(--color-purple);
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+h5 {
+  margin-top: 8px;
+  text-align: center;
+}

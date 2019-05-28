@@ -1,3 +1,23 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .card {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    margin-bottom: 0;
+    width: 320px;
+  }
+}
+
 .card-link {
   color: var(--body-color);
   text-decoration: none;
@@ -6,9 +26,12 @@
 .card {
   border: 1px solid var(--card-border);
   margin-bottom: 24px;
-  max-width: 280px;
 }
 
 .card-content {
   padding: 24px;
+}
+
+.card h5 {
+  text-align: left;
 }
