@@ -12,6 +12,8 @@ build:
   artifacts:
     untracked: true
   script:
+    - apk add --no-cache py-pip
+    - pip install docker-compose
     - ./setup.sh --non-interactive --prune
 
 test:
