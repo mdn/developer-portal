@@ -1,6 +1,6 @@
 from wagtail.core.models import Page
 
-from developerportal.apps.articles.models import Article
+from ..articles.models import Article
 
 
 class Topic(Page):

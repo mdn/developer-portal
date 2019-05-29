@@ -15,7 +15,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from developerportal.apps.common.fields import CustomStreamField
+from ..common.fields import CustomStreamField
 
 
 class ArticleTag(TaggedItemBase):

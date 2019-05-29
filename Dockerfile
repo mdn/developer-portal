@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.7-alpine AS app
 
 EXPOSE 8000
 WORKDIR /app/
@@ -20,3 +20,12 @@ RUN pip install -r requirements.txt --no-cache-dir
 RUN apk --purge del .build-deps
 
 CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+
+
+FROM node:12.2-alpine AS static
+
+WORKDIR /app/
+COPY . /app/
+
+RUN npm ci
+CMD npm run build
