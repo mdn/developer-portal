@@ -1,21 +1,59 @@
 # Mozilla Developer Portal
 
-## Setup
+## Development workflow
+
+### Setup
 
 Since this project uses [Docker](https://www.docker.com/), you'll need to install [Docker](https://hub.docker.com/search?q=&type=edition&offering=community) and [Docker Compose](https://docs.docker.com/compose/install/) to run this project locally.
 
-To install dependencies and start the development server, run:
+To get set up in one-command, run:
 
 ```shell
-docker-compose build
+./setup.sh
+```
+
+This command will create an .env file with unique keys, build docker images and containers, run database migrations, load fixture data, and prompt to create a superuser.
+
+### Running
+
+With Docker Desktop running in the background, bring up the services built by the setup script by running:
+
+```shell
 docker-compose up
 ```
 
-With that running, in a new window run the following to create the database schemas and a super (admin) user.
+As you make changes, remember to run the tests…:
 
 ```shell
-docker-compose run app python manage.py migrate
-docker-compose run app python manage.py createsuperuser
+docker-compose exec app python manage.py test
+docker-compose exec static npm run test
+```
+
+…and to make and apply database migrations:
+
+```shell
+docker-compose exec app python manage.py makemigrations
+docker-compose exec app python manage.py migrate
+```
+
+### Updating
+
+After pulling master you may need to install new dependencies…:
+
+```shell
+docker-compose build
+```
+
+…or run database migrations:
+
+```shell
+docker-compose exec app python manage.py migrate
+```
+
+If things get messed up, you could (as a last resort) prune ALL Docker images, containers and volumes, and start from scratch:
+
+```shell
+./setup.sh --prune
 ```
 
 ## Static site generation
@@ -24,26 +62,14 @@ A static file version of the site is generated using [Wagtail Bakery](https://gi
 
 ### Usage
 
-Get the container ID:  
-
-```shell
-docker container ls
-```
-
-Run a shell in the running container:  
-
-```shell
-docker exec -it CONTAINER_ID /bin/bash
-```
-
 Build the site out as flat files to the /build folder (specified in settings/base.py):  
 
 ```shell
-root@CONTAINER_ID:/app# ./manage.py build
+docker-compose exec app python manage.py build
 ```
 
 Check the built static site:  
 
 ```shell
-root@CONTAINER_ID:/app# ./manage.py buildserver 0.0.0.0:8080
+docker-compose exec app python manage.py buildserver 0.0.0.0:8080
 ```
