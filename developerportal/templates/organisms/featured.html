@@ -1,0 +1,12 @@
+{% load app_filters %}
+
+<section>
+  <div class="section-header">
+    <h2>Featured</h2>
+  </div>
+  <div class="card-container">
+    {% for i in count|times %}
+      {% include "molecules/card-featured.html" %}
+    {% endfor %}
+  </div>
+</section>

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load app_filters %}
+
 
 {% block body_class %}homepage{% endblock %}
 
@@ -11,15 +13,9 @@
   <main>
     <div class="container">
       {% include "organisms/homepage-header.html" %}
-      <section>
-        Featured
-      </section>
-      <section>
-        Browse by topic
-      </section>
-      <section>
-        Newsletter signup
-      </section>
+      {% include "organisms/featured.html" with count=3 %}
+      {% include "organisms/topic-links.html" with count=12 pagetheme='home' %}
+      {% include "organisms/newsletter-signup.html" %}
     </div>
   </main>
 {% endblock content %}

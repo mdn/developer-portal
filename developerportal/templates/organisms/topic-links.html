@@ -1,0 +1,17 @@
+{% load app_filters %}
+
+<section>
+  <div class="section-header">
+    {% if pagetheme == 'home' %}
+      <h2>Browse by topic</h2>
+    {% endif %}
+    {% if pagetheme == 'topic' %}
+      <h2>Continue exploring</h2>
+    {% endif %}
+  </div>
+  <div class="topic-links-container">
+    {% for i in count|times %}
+      {% include "molecules/item-topic-link.html" %}
+    {% endfor %}
+  </div>
+</section>

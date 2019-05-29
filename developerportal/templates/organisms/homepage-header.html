@@ -1,8 +1,10 @@
 {% load wagtailcore_tags %}
 
-<section>
-  <h1>{{ page.title }}</h1>
-  <h2>{{ page.subtitle }}</h2>
-  <p>{{ page.intro|richtext }}</p>
-  <a href="{{ page.button_url }}">{{ page.button_text }}</a>
+<section class="homepage-header">
+  <div class="homepage-header-content">
+    <h1>{{ page.title }}</h1>
+    <h2>{{ page.subtitle }}</h2>
+    <p>{{ page.intro|richtext }}</p>
+    <a href="{{ page.button_url }}">{{ page.button_text }}</a>
+  </div>
 </section>

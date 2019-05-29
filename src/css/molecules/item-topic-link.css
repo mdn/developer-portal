@@ -1,3 +1,17 @@
+@media (max-width: 768px) {
+  .item-topic-link {
+    margin: 0;
+    width: 50%;
+  }  
+}
+
+@media (min-width: 768px) {
+  .item-topic-link {
+    margin: 0 16px;
+    width: 16%;
+  }
+}
+
 .item-topic-link {
   text-decoration: none;
 }
@@ -9,14 +23,30 @@
   display: flex;
   height: 130px;
   justify-content: center;
+  margin: 0 auto;
   width: 130px;
+}
+
+.item-topic-link-home {
+  background-color: #000;
+}
+
+.item-topic-link-topic {
+  background-color: var(--color-purple);
 }
 
 h4 {
   background-color: white;
-  color: var(--color-purple);
   display: inline-block;
   margin-bottom: 0;
+}
+
+.item-topic-link-home h4 {
+  color: #000;
+}
+
+.item-topic-link-topic h4 {
+  color: var(--color-purple);
 }
 
 h5 {
