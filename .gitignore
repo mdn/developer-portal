@@ -1,4 +1,5 @@
 *.pyc
+/builds
 /dist
 /node_modules
 .DS_store
