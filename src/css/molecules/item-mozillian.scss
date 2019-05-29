@@ -1,17 +1,3 @@
-// @media (max-width: 768px) {
-//   .mozillian .mozillian-content {
-//     left: 20%;
-//     width: 80%;
-//   }
-// }
-
-
-//   .mozillian:not(:first-child) .mozillian-content {
-//     left: 20%;
-//     width: 80%;
-//   }
-// }
-
 .mozillian {
   position: relative;
 
@@ -62,8 +48,18 @@
 }
 
 .mozillian-content {
-  left: 40%;
+  left: 20%;
   position: absolute;
   top: 50%;
+  width: 80%;
   z-index: 1;
+
+  @media #{$mq-md} {
+    width: 100%;
+
+    .mozillian:not(:first-child) & {
+      left: 20%;
+      width: 80%;
+    }
+  }
 }
