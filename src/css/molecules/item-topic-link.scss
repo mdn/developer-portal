@@ -18,7 +18,7 @@
 
 .item-topic-link-bg {
   align-items: center;
-  background-color: var(--color-purple);
+  background-color: $color-purple-70;
   border-radius: 50%;
   display: flex;
   height: 130px;
@@ -32,11 +32,12 @@
 }
 
 .item-topic-link-topic {
-  background-color: var(--color-purple);
+  background-color: $color-purple-70;
 }
 
 h4 {
   background-color: white;
+  color: $color-purple-70;
   display: inline-block;
   margin-bottom: 0;
 }

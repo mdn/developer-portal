@@ -35,8 +35,8 @@
 .mozillian h3,
 .mozillian p,
 .mozillian a {
-  background-color: var(--body-color);
-  color: #fff;
+  background-color: $color-black;
+  color: $color-white;
 }
 
 .mozillian h3 {
@@ -46,7 +46,7 @@
 
 .mozillian p {
   box-decoration-break: clone;
-  box-shadow: 0 0 0 3px #000;
+  box-shadow: 0 0 0 3px $color-black;
   display: inline;
   font-size: 14px;
   left: 4px;

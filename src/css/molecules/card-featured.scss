@@ -1,19 +1,19 @@
 @media (max-width: 768px) {
   .card-featured {
-    width: 100%;
     margin-bottom: 8px;
+    width: 100%;
   }
 }
 
 @media (min-width: 768px) {
   .card-featured {
-    width: 32%;
     margin-bottom: 0;
+    width: 32%;
   }
 }
 
 .card-featured {
-  background-color: var(--color-athens-gray);
+  background-color: $color-gray-20;
   color: #fff;
   padding: 48px 24px;
 }
@@ -21,14 +21,14 @@
 .card-featured h3,
 .card-featured p,
 .card-featured a {
+  background-color: $color-black;
   display: inline-block;
-  background-color: var(--body-color);
 }
 
 .card-featured p {
   display: inline;
   box-decoration-break: clone;
-  box-shadow: 0 0 0 3px #000;
+  box-shadow: 0 0 0 3px $color-black;
   font-size: 14px;
   position: relative; 
   left: 4px;
