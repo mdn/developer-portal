@@ -70,47 +70,13 @@
        url('/static/fonts/ZillaSlabHighlight-Bold.woff') format('woff');
 }
 
-:root {
-  --heading-font-family: 'Zilla Slab';
-  --body-font-family: 'Open Sans';
-  --body-font-size: 16px;
-  --body-line-height: 1.5;
-  --h1-font-size: 36px;
-  --h1-line-height: 44px;
-  --h2-font-size: 32px;
-  --h2-line-height: 40px;
-  --h3-font-size: 24px;
-  --h3-line-height: 32px;
-  --h4-font-size: 20px;
-  --h4-line-height: 28px;
-  --h5-font-size: 18px;
-  --h5-line-height: 26px;
-  --h6-font-size: 16px;
-  --h6-line-height: 24px;
-  --highlight-font-size: 16px;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --h1-font-size: 48px;
-    --h1-line-height: 56px;
-    --h2-font-size: 40px;
-    --h2-line-height: 48px;
-    --h3-font-size: 32px;
-    --h3-line-height: 40px;
-    --h4-font-size: 24px;
-    --h4-line-height: 32px;
-    --highlight-font-size: 18px;
-  }
-}
-
 html {
-  font-size: var(--body-font-size);
+  font-size: $body-font-size;
 }
 
 body {
-  font-family: var(--body-font-family);
-  line-height: var(--body-line-height);
+  font-family: $body-font-family;
+  line-height: $body-line-height;
   text-rendering: optimizeLegibility;
 }
 
@@ -120,40 +86,64 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--heading-font-family);
+  font-family: $heading-font-family;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 0.5em;
   margin-top: 0;
 }
 
+@function heading-line-height($font-size) {
+  @return $font-size + 8px;
+}
+
 h1 {
-  font-size: var(--h1-font-size);
-  line-height: var(--h1-line-height);
+  font-size: $h1-font-size-mobile;
+  line-height: heading-line-height($h1-font-size-mobile);
+
+  @media (min-width: 768px) {
+    font-size: $h1-font-size;
+    line-height: heading-line-height($h1-font-size);
+  }
 }
 
 h2 {
-  font-size: var(--h2-font-size);
-  line-height: var(--h2-line-height);
+  font-size: $h2-font-size-mobile;
+  line-height: heading-line-height($h2-font-size-mobile);
+
+  @media (min-width: 768px) {
+    font-size: $h2-font-size;
+    line-height: heading-line-height($h2-font-size);
+  }
 }
 
 h3 {
-  font-size: var(--h3-font-size);
-  line-height: var(--h3-line-height);
+  font-size: $h3-font-size-mobile;
+  line-height: heading-line-height($h3-font-size-mobile);
+
+  @media (min-width: 768px) {
+    font-size: $h3-font-size;
+    line-height: heading-line-height($h3-font-size);
+  }
 }
 
 h4 {
-  font-size: var(--h4-font-size);
-  line-height: var(--h4-line-height);
+  font-size: $h4-font-size-mobile;
+  line-height: heading-line-height($h4-font-size-mobile);
+
+  @media (min-width: 768px) {
+    font-size: $h4-font-size;
+    line-height: heading-line-height($h4-font-size);
+  }
 }
 
 h5 {
-  font-size: var(--h5-font-size);
-  line-height: var(--h5-line-height);
+  font-size: $h5-font-size;
+  line-height: heading-line-height($h5-font-size);
 }
 
 h6 {
-  font-size: var(--h6-font-size);
-  line-height: var(--h6-line-height);
+  font-size: $h6-font-size;
+  line-height: heading-line-height($h6-font-size);
 }
 
 b,
@@ -171,5 +161,9 @@ ol {
 
 .highlight {
   font-family: 'Zilla Slab Highlight';
-  font-size: var(--highlight-font-size);
+  font-size: $highlight-font-size-mobile;
+
+  @media (min-width: 768px) {
+    font-size: $highlight-font-size;
+  }
 }

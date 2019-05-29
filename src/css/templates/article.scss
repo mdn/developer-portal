@@ -1,5 +1,9 @@
 main {
-  padding: var(--grid-column-gap) 0;
+  padding: $grid-gap-mobile 0;
+  
+  @media (min-width: 768px) {
+    padding: $grid-gap 0;
+  }
 }
 
 @media (max-width: 768px) {

@@ -1,5 +1,5 @@
 .topic-header {
-  background-color: var(--color-athens-gray);
+  background-color: $color-gray-20;
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   height: 260px;
   margin-bottom: 32px;
@@ -8,8 +8,8 @@
 
 .topic-header h1 ,
 .topic-header p {
-  background-color: var(--body-color);
-  color: #fff;
+  background-color: $color-black;
+  color: $color-white;
   display: inline-block;
 }
 
@@ -19,7 +19,7 @@
  
 .topic-header-details p {
   box-decoration-break: clone;
-  box-shadow: 0 0 0 3px #000;
+  box-shadow: 0 0 0 3px $color-black;
   display: inline;
   left: 4px;
   position: relative; 

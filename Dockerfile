@@ -28,4 +28,5 @@ WORKDIR /app/
 COPY . /app/
 
 RUN npm ci
+RUN rm -rf dist
 CMD npm run build

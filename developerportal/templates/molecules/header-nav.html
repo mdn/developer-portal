@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+<ol id="nav-topics" class="nav-topics">
+{% for nav_item in nav_items %}
+  {% with nav_item=nav_item.specific %}
+  <li class="nav-topic">
+    <a href="{% pageurl nav_item %}">{{  nav_item.title }}</a>
+  </li>
+  {% endwith %}
+{% endfor %}
+</ol>

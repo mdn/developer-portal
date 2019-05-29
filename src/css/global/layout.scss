@@ -1,0 +1,23 @@
+.container {
+  margin: 0 auto;
+  max-width: $container-max-width + $grid-gap-mobile * 2;
+  padding: 0 $grid-gap-mobile;
+
+  @media (min-width: 768px) {
+    max-width: $container-max-width + $grid-gap * 2;
+    padding: 0 $grid-gap;
+  }
+}
+
+@supports (display: grid) {
+  .grid {
+    column-gap: $grid-gap-mobile;
+    display: grid;
+    row-gap: $grid-gap-mobile;
+
+    @media (min-width: 768px) {
+      column-gap: $grid-gap;
+      row-gap: $grid-gap;
+    }
+  }
+}

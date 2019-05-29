@@ -9,8 +9,8 @@ html {
 }
 
 body {
-  background: var(--body-background-color);
-  color: var(--body-color);
+  background: $color-white;
+  color: $color-black;
   margin: 0;
   padding: 0;
 }
