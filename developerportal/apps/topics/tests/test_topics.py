@@ -18,7 +18,7 @@ class TopicsTests(WagtailPageTests):
     """Tests for the Topics page model."""
 
     def test_topics_parent_pages(self):
-        self.assertAllowedParentPageTypes(Topics, {})
+        self.assertAllowedParentPageTypes(Topics, {Page})
 
     def test_topics_subpages(self):
         self.assertAllowedSubpageTypes(Topics, {Topic})
