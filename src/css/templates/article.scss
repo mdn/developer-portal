@@ -1,18 +1,18 @@
 main {
   padding: $grid-gap-mobile 0;
   
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     padding: $grid-gap 0;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $screen-md) {
   .grid-article {
     grid-template-columns: [header-start content-start sidebar-start] repeat(6, 1fr) [content-end sidebar-end header-end];
   }
 }
 
-@media (min-width: 768px) {
+@media #{$mq-md} {
   .grid-article {
     grid-template-columns: [header-start] 1fr [content-start] repeat(7, 1fr) [content-end] 1fr [sidebar-start] repeat(3, 1fr) [sidebar-end header-end];
   }

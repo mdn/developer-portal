@@ -3,7 +3,7 @@
   max-width: $container-max-width + $grid-gap-mobile * 2;
   padding: 0 $grid-gap-mobile;
 
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     max-width: $container-max-width + $grid-gap * 2;
     padding: 0 $grid-gap;
   }
@@ -15,7 +15,7 @@
     display: grid;
     row-gap: $grid-gap-mobile;
 
-    @media (min-width: 768px) {
+    @media #{$mq-md} {
       column-gap: $grid-gap;
       row-gap: $grid-gap;
     }

@@ -100,7 +100,7 @@ h1 {
   font-size: $h1-font-size-mobile;
   line-height: heading-line-height($h1-font-size-mobile);
 
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     font-size: $h1-font-size;
     line-height: heading-line-height($h1-font-size);
   }
@@ -110,7 +110,7 @@ h2 {
   font-size: $h2-font-size-mobile;
   line-height: heading-line-height($h2-font-size-mobile);
 
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     font-size: $h2-font-size;
     line-height: heading-line-height($h2-font-size);
   }
@@ -120,7 +120,7 @@ h3 {
   font-size: $h3-font-size-mobile;
   line-height: heading-line-height($h3-font-size-mobile);
 
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     font-size: $h3-font-size;
     line-height: heading-line-height($h3-font-size);
   }
@@ -130,7 +130,7 @@ h4 {
   font-size: $h4-font-size-mobile;
   line-height: heading-line-height($h4-font-size-mobile);
 
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     font-size: $h4-font-size;
     line-height: heading-line-height($h4-font-size);
   }
@@ -154,16 +154,15 @@ strong {
 p,
 ul,
 ol {
-  margin-bottom: 16px;
+  margin-bottom: $spacing-md;
   margin-top: 0;
 }
-
 
 .highlight {
   font-family: 'Zilla Slab Highlight';
   font-size: $highlight-font-size-mobile;
 
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     font-size: $highlight-font-size;
   }
 }

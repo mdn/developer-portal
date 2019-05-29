@@ -1,5 +1,17 @@
 .item-topic-link {
   text-decoration: none;
+
+  h4 {
+    background-color: $color-white;
+    color: $color-purple-70;
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  
+  h5 {
+    margin-top: 8px;
+    text-align: center;
+  }
 }
 
 .item-topic-link-bg {
@@ -10,16 +22,4 @@
   height: 130px;
   justify-content: center;
   width: 130px;
-}
-
-h4 {
-  background-color: white;
-  color: $color-purple-70;
-  display: inline-block;
-  margin-bottom: 0;
-}
-
-h5 {
-  margin-top: 8px;
-  text-align: center;
 }

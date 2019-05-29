@@ -1,12 +1,8 @@
-@media (max-width: 768px) {
-  .card-featured {
-    margin-bottom: 8px;
-    width: 100%;
-  }
-}
+.card-featured {
+  margin-bottom: 8px;
+  width: 100%;
 
-@media (min-width: 768px) {
-  .card-featured {
+  @media #{$mq-md} {
     margin-bottom: 0;
     width: 32%;
   }
@@ -14,27 +10,27 @@
 
 .card-featured {
   background-color: $color-gray-20;
-  color: #fff;
+  color: $color-white;
   padding: 48px 24px;
-}
 
-.card-featured h3,
-.card-featured p,
-.card-featured a {
-  background-color: $color-black;
-  display: inline-block;
-}
+  h3,
+  p,
+  a {
+    background-color: $color-black;
+    display: inline-block;
+  }
 
-.card-featured p {
-  display: inline;
-  box-decoration-break: clone;
-  box-shadow: 0 0 0 3px $color-black;
-  font-size: 14px;
-  position: relative; 
-  left: 4px;
-}
+  p {
+    display: inline;
+    box-decoration-break: clone;
+    box-shadow: 0 0 0 3px $color-black;
+    font-size: 14px;
+    position: relative; 
+    left: 4px;
+  }
 
-.card-featured a {
-  margin-top: 8px;
-  padding: 4px 12px 8px;
+  a {
+    margin-top: 8px;
+    padding: 4px 12px 8px;
+  }
 }
