@@ -1,12 +1,12 @@
 import datetime
 
 from django.forms import CheckboxSelectMultiple
-from django.db import models
+from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     StreamFieldPanel,
-    PageChooserPanel
+    PageChooserPanel,
 )
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
@@ -20,7 +20,7 @@ from ..common.fields import CustomStreamField
 
 
 class ArticleTag(TaggedItemBase):
-    content_object = ParentalKey('Article', on_delete=models.CASCADE, related_name='tagged_items')
+    content_object = ParentalKey('Article', on_delete=CASCADE, related_name='tagged_items')
 
 
 class Article(Page):
@@ -30,12 +30,12 @@ class Article(Page):
 
     # Fields
     intro = RichTextField(default='')
-    date = models.DateField('Article date', default=datetime.date.today)
-    header_image = models.ForeignKey(
+    date = DateField('Article date', default=datetime.date.today)
+    header_image = ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=SET_NULL,
         related_name='+'
     )
     body = CustomStreamField()
