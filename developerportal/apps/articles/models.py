@@ -1,15 +1,16 @@
 import datetime
 
 from django.forms import CheckboxSelectMultiple
-from django.db.models import CASCADE, DateField
+from django.db import models
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     StreamFieldPanel,
-    PageChooserPanel,
+    PageChooserPanel
 )
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -19,7 +20,7 @@ from ..common.fields import CustomStreamField
 
 
 class ArticleTag(TaggedItemBase):
-    content_object = ParentalKey('Article', on_delete=CASCADE, related_name='tagged_items')
+    content_object = ParentalKey('Article', on_delete=models.CASCADE, related_name='tagged_items')
 
 
 class Article(Page):
@@ -29,7 +30,14 @@ class Article(Page):
 
     # Fields
     intro = RichTextField(default='')
-    date = DateField('Article date', default=datetime.date.today)
+    date = models.DateField('Article date', default=datetime.date.today)
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     body = CustomStreamField()
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
     labels = ParentalManyToManyField(
@@ -42,6 +50,7 @@ class Article(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
         FieldPanel('date'),
+        ImageChooserPanel('header_image'),
         StreamFieldPanel('body'),
         FieldPanel('labels', widget=CheckboxSelectMultiple),
         FieldPanel('tags'),
