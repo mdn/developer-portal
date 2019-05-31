@@ -14,6 +14,17 @@
 
 .item-topic-link {
   text-decoration: none;
+
+  h4 {
+    background-color: $color-white;
+    display: inline-block;
+    margin-bottom: 0;
+  }
+  
+  h5 {
+    margin-top: 8px;
+    text-align: center;
+  }
 }
 
 .item-topic-link-bg {
@@ -28,28 +39,16 @@
 
 .item-topic-link-home {
   background-color: $color-black;
+
+  h4 {
+    color: $color-black;
+  }
 }
 
 .item-topic-link-topic {
   background-color: $color-purple-70;
-}
 
-h4 {
-  background-color: $color-white;
-  display: inline-block;
-  margin-bottom: 0;
-}
-
-.item-topic-link-home h4 {
-  color: $color-black;
-}
-
-.item-topic-link-topic h4 {
-  color: $color-purple-70;
-}
-
-h5 {
-  color: $color-black;
-  margin-top: 8px;
-  text-align: center;
+  h4 {
+    color: $color-purple-70;
+  }
 }

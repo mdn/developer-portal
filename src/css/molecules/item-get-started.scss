@@ -1,29 +1,22 @@
-@media (max-width: 768px) {
-  .item-get-started {
-    margin-bottom: 8px;
-    width: 100%;
-  }
-}
+.item-get-started {
+  background-color: $color-black;
+  margin-bottom: 8px;
+  padding: 40px;
+  width: 100%;
 
-@media (min-width: 768px) {
-  .item-get-started {
+  @media #{$mq-md} {
     margin-bottom: 0;
     width: 32%;
   }
-}
 
-.item-get-started {
-  background-color: $color-black;
-  padding: 40px;
-}
-
-.item-get-started h5 {
-  background-color: $color-green-40;
-  display: inline-block;
-  font-weight: normal;
-}
-
-.item-get-started p,
-.item-get-started a {
-  color: $color-green-40;
+  h5 {
+    background-color: $color-green-40;
+    display: inline-block;
+    font-weight: normal;
+  }
+  
+  p,
+  a {
+    color: $color-green-40;
+  }
 }
