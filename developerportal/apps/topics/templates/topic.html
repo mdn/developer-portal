@@ -14,16 +14,6 @@
   <div class="topic-grid">
     {% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
     <div class="topic-content">
-      <section>
-        <div class="section-header">
-          <h2>Featured</h2>
-        </div>
-        <div class="card-container">
-          {% for i in 3|times %}
-            {% include "molecules/card-featured.html" %}
-          {% endfor %}
-        </div>
-      </section>
       {% include "organisms/featured.html" with count=3 %}
       <section>
         <div class="section-header">
