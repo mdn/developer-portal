@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load app_filters %}
+
 
 {% block body_class %}homepage{% endblock %}
 
@@ -10,7 +12,10 @@
 {% block content %}
   <main>
     <div class="container">
-      <h1>We are Mozilla</h1>
+      {% include "organisms/homepage-header.html" %}
+      {% include "organisms/featured.html" with count=3 %}
+      {% include "organisms/topic-links.html" with count=12 pagetheme='home' %}
+      {% include "organisms/newsletter-signup.html" %}
     </div>
   </main>
 {% endblock content %}

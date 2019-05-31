@@ -1,31 +1,29 @@
-@media (min-width: 768px) {
-  .article-header {
+.article-header {
+  @media #{$mq-md} {
     display: flex;
     flex-direction: row-reverse;
   }
 }
 
-@media (min-width: 768px) {
-  .article-header-details,
-  .article-header-image {
+.article-header-details,
+.article-header-image {
+  @media #{$mq-md} {
     align-self: center;
     width: 50%;
   }
 }
 
-@media (min-width: 768px) {
-  .article-header-details {
+.article-header-details {
+  @media #{$mq-md} {
     padding-right: 32px;
   }
 }
 
 .article-header-image img {
   max-width: 100%;
-}
 
-@media (min-width: 768px) {
-  .article-header-image img {
-    padding-right: 32px;
+  @media #{$mq-md} {
+    padding-left: 32px;
   }
 }
 
@@ -34,6 +32,6 @@
 }
 
 .article-header-subtitle {
-  color: #757575;
+  color: $color-gray-60;
   font-size: 18px;
 }
