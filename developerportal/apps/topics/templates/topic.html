@@ -14,16 +14,7 @@
 <main>
   <div class="container">
     <div class="grid">
-      <section>
-        <div class="section-header">
-          <h2>Featured</h2>
-        </div>
-        <div class="card-container">
-          {% for i in 3|times %}
-            {% include "molecules/card-featured.html" %}
-          {% endfor %}
-        </div>
-      </section>
+      {% include "organisms/featured.html" with count=3 %}
       <section>
         <div class="section-header">
           <h2>Get started</h2>
@@ -40,16 +31,7 @@
           {{ block }}
         {% endfor %}
       </div>
-      <section>
-        <div class="section-header">
-          <h2>Continue exploring</h2>
-        </div>
-        <div class="card-container">
-          {% for i in 5|times %}
-            {% include "molecules/item-topic-link.html" %}
-          {% endfor %}
-        </div>
-      </section>
+      {% include "organisms/topic-links.html" with count=5 pagetheme='topic' %}
       <section>
         <div class="section-header">
           <h2>Latest news</h2>

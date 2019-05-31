@@ -5,6 +5,7 @@
     <div class="mzp-c-navigation-l-content">
       <div class="mzp-c-navigation-container">
         <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
+        <div class="mzp-c-navigation-logo"><a href="https://www.mozilla.org/">Mozilla</a></div>
         <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
           <div class="mzp-c-navigation-menu">
             <nav class="mzp-c-menu mzp-is-basic">
@@ -15,7 +16,13 @@
                     <div class="mzp-c-menu-panel-container">
                       <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-example">Close Topics menu</button>
                       <div class="mzp-c-menu-panel-content">
-                        {% render_nav %}
+                        <ul>
+                          <li>
+                            <section class="mzp-c-menu-item">
+                              {% render_nav %}
+                            </section>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>

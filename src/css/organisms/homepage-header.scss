@@ -1,0 +1,26 @@
+@media (max-width: 768px) {
+  .homepage-header-content {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .homepage-header-content {
+    width: 50%;
+  }
+}
+
+.homepage-header {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.homepage-header-content {
+  text-align: center;
+}
+
+.homepage-header h2 {
+  font-size: 24px;
+  line-height: calc(29/24);
+}
