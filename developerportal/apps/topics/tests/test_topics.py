@@ -1,7 +1,7 @@
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import Topic, Topics
+from ..models import SubTopic, Topic, Topics
 
 
 class TopicTests(WagtailPageTests):
@@ -11,7 +11,17 @@ class TopicTests(WagtailPageTests):
         self.assertAllowedParentPageTypes(Topic, {Topics})
 
     def test_topic_subpages(self):
-        self.assertAllowedSubpageTypes(Topic, {})
+        self.assertAllowedSubpageTypes(Topic, {SubTopic})
+
+
+class SubTopicTests(WagtailPageTests):
+    """Tests for the Topic page model."""
+
+    def test_subtopic_parent_pages(self):
+        self.assertAllowedParentPageTypes(SubTopic, {Topic})
+
+    def test_subtopic_subpages(self):
+        self.assertAllowedSubpageTypes(SubTopic, {})
 
 
 class TopicsTests(WagtailPageTests):

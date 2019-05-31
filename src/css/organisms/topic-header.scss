@@ -4,23 +4,23 @@
   height: 260px;
   margin-bottom: 32px;
   padding-top: 40px;
-}
 
-.topic-header h1 ,
-.topic-header p {
-  background-color: $color-black;
-  color: $color-white;
-  display: inline-block;
+  h1,
+  p {
+    background-color: $color-black;
+    color: $color-white;
+    display: inline-block;
+  }
 }
 
 .topic-header-details {
   max-width: 680px;
-}
- 
-.topic-header-details p {
-  box-decoration-break: clone;
-  box-shadow: 0 0 0 3px $color-black;
-  display: inline;
-  left: 4px;
-  position: relative; 
+
+  p {
+    box-decoration-break: clone;
+    box-shadow: 0 0 0 3px $color-black;
+    display: inline;
+    left: 4px;
+    position: relative; 
+  }  
 }

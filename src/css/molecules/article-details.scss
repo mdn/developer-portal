@@ -2,24 +2,24 @@
   display: flex;
   font-size: 12px;
   margin-top: 24px;
-}
 
-.article-details img {
-  border-radius: 50%;
-  height: 48px;
-  margin-right: 16px;
-  width: 48px;
+  img {
+    border-radius: 50%;
+    height: 48px;
+    margin-right: 16px;
+    width: 48px;
+  }
 }
 
 .article-details-meta {
   align-self: center;
   flex-grow: 1;
-}
 
-.article-details-meta p {
-  margin-bottom: 4px;
-}
+  p {
+    margin-bottom: 4px;
 
-.article-details-meta p:last-child {
-  margin-bottom: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

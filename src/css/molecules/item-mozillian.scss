@@ -1,67 +1,65 @@
-@media (max-width: 768px) {
-  .mozillian .mozillian-content {
-    left: 20%;
-    width: 80%;
-  }
-}
+.mozillian {
+  position: relative;
 
-@media (min-width: 768px) {
-  .mozillian {
+  @media #{$mq-md} {
     width: 25%;
   }
 
-  .mozillian:first-child {
-    width: 50%;
+  &:first-child {
+    @media #{$mq-md} {
+      width: 50%;
+    }
   }
 
-  .mozillian:not(:first-child) .mozillian-content {
-    left: 20%;
-    width: 80%;
+  img {
+    clip-path: circle(45%);
   }
-}
 
-.mozillian {
-  position: relative;
-}
+  h3,
+  p,
+  a {
+    background-color: $color-black;
+    color: $color-white;
+  }
 
-.mozillian:not(:first-child) h3 {
-  font-size: 22px;
-}
+  h3 {
+    display: inline-block;
+    margin-bottom: 8px;
 
-.mozillian img {
-  clip-path: circle(45%);
-}
+    .mozillian:not(:first-child) & {
+      font-size: 22px;
+    }
+  }
 
-.mozillian h3,
-.mozillian p,
-.mozillian a {
-  background-color: $color-black;
-  color: $color-white;
-}
+  p {
+    box-decoration-break: clone;
+    box-shadow: 0 0 0 3px $color-black;
+    display: inline;
+    font-size: 14px;
+    left: 4px;
+    position: relative; 
+  }
 
-.mozillian h3 {
-  display: inline-block;
-  margin-bottom: 8px;
-}
-
-.mozillian p {
-  box-decoration-break: clone;
-  box-shadow: 0 0 0 3px $color-black;
-  display: inline;
-  font-size: 14px;
-  left: 4px;
-  position: relative; 
-}
-
-.mozillian a {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 4px 12px 8px;
+  a {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px 8px;
+  }
 }
 
 .mozillian-content {
-  left: 40%;
+  left: 20%;
   position: absolute;
   top: 50%;
+  width: 80%;
   z-index: 1;
+
+  @media #{$mq-md} {
+    width: 100%;
+
+    .mozillian:not(:first-child) & {
+      left: 20%;
+      width: 80%;
+    }
+  }
 }

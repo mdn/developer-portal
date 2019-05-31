@@ -1,13 +1,9 @@
-@media (max-width: 768px) {
-  section {
-    margin-bottom: 32px;
-  }
-}
+section {
+  margin-bottom: 32px;
 
-@media (min-width: 768px) {
-  section {
+  @media #{$mq-md} {
     margin-bottom: 100px;
-  }  
+  }
 }
 
 .section-header {

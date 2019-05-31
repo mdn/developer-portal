@@ -4,28 +4,19 @@
   justify-content: space-between;
 }
 
-@media (max-width: 768px) {
-  .card {
-    margin-bottom: 8px;
-    width: 100%;
-  }
-}
-
-@media (min-width: 768px) {
-  .card {
-    margin-bottom: 0;
-    width: 320px;
-  }
-}
-
-.card-link {
-  color: $color-black;
-  text-decoration: none;
-}
-
 .card {
   border: 1px solid $color-gray-50;
   margin-bottom: 24px;
+  width: 100%;
+
+  @media #{$mq-md} {
+    margin-bottom: 0;
+    width: 320px;
+  }
+
+  h5 {
+    text-align: left;
+  }
 }
 
 .card-link {
@@ -35,8 +26,4 @@
 
 .card-content {
   padding: 24px;
-}
-
-.card h5 {
-  text-align: left;
 }

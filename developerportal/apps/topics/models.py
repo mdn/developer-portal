@@ -5,7 +5,7 @@ from ..articles.models import Article
 
 class Topic(Page):
     parent_page_types = ['Topics']
-    subpage_types = []
+    subpage_types = ['SubTopic']
     template = 'topic.html'
 
     def get_context(self, request):
@@ -15,6 +15,11 @@ class Topic(Page):
 
     def get_articles(self, limit=12):
         return Article.objects.filter(labels__pk=self.pk).live().public().order_by('-date')[:limit]
+
+
+class SubTopic(Topic):
+    parent_page_types = ['Topic']
+    subpage_types = []
 
 
 class Topics(Page):
