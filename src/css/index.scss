@@ -5,7 +5,6 @@
 // Protocol base elements.
 @import '~@mozilla-protocol/core/protocol/css/base/elements/forms';
 @import '~@mozilla-protocol/core/protocol/css/base/elements/links';
-@import '~@mozilla-protocol/core/protocol/css/base/elements/quotes';
 @import '~@mozilla-protocol/core/protocol/css/base/elements/sections';
 @import '~@mozilla-protocol/core/protocol/css/base/elements/tables';
 
@@ -32,6 +31,8 @@
 @import 'molecules/item-get-started';
 @import 'molecules/item-mozillian';
 @import 'molecules/item-topic-link';
+@import 'molecules/resource-meta';
+@import 'molecules/resource-share';
 
 // Organisms.
 @import 'organisms/article-header';
