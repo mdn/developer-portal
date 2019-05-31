@@ -1,7 +1,7 @@
 import datetime
 
 from django.forms import CheckboxSelectMultiple
-from django.db.models import CASCADE, DateField
+from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -29,6 +29,13 @@ class Article(Page):
 
     # Fields
     intro = RichTextField(default='')
+    author = ForeignKey(
+      'wagtailcore.Page',
+      null=True,
+      blank=True,
+      on_delete=SET_NULL,
+      related_name='+',
+    )
     date = DateField('Article date', default=datetime.date.today)
     body = CustomStreamField()
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
@@ -41,6 +48,7 @@ class Article(Page):
     # Editor panel configuration
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
+        PageChooserPanel('author', 'people.person'),
         FieldPanel('date'),
         StreamFieldPanel('body'),
         FieldPanel('labels', widget=CheckboxSelectMultiple),

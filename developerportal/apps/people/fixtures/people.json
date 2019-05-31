@@ -1,0 +1,91 @@
+[
+  {
+    "model": "people.people",
+    "pk": 9,
+    "fields": {}
+  },
+  {
+    "model": "people.person",
+    "pk": 11,
+    "fields": {
+      "first_name": "Josh",
+      "last_name": "Marinacci",
+      "job_title": "Developer advocate",
+      "is_mozillian": true,
+      "profile_picture": null,
+      "intro": "<p>I am Josh Marinacci: developer advocate, software engineer, researcher, usability expert, and general miscreant. I have a passion for great user experiences. I live in Oregon with my wife and kiddo. I&#x27;m currently helping to keep the Web open and free at Mozilla.</p><p>I speak professionally at conferences world wide and have written many technical articles for publications like Java.net, the Java Magazine, and the Palm Developer Blog, and Embedded Computing. I have also published three books: Swing Hacks, Building Mobile Applications in Java, and HTML Canvas: A Travelogue. See more on my writings page.</p>",
+      "intro_image": null,
+      "twitter": "",
+      "facebook": "",
+      "linkedin": "",
+      "github": "",
+      "email": "",
+      "labels": [
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 9,
+    "fields": {
+      "path": "000100010003",
+      "depth": 3,
+      "numchild": 1,
+      "title": "People",
+      "draft_title": "People",
+      "slug": "people",
+      "content_type": [
+        "people",
+        "people"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/people/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 11,
+    "fields": {
+      "path": "0001000100030001",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Josh Marinacci",
+      "draft_title": "Josh Marinacci",
+      "slug": "josh-marinacci",
+      "content_type": [
+        "people",
+        "person"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/people/josh-marinacci/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
+    }
+  }
+]

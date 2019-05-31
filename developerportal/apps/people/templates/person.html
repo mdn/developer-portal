@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}person{% endblock %}
+
+{% block content %}
+  <main>
+    <div class="container">
+      <div class="grid">
+        <section>
+          <h1>{{ page.title }}</h1>
+          <p>{{ page.job_title }}</p>
+          {% image page.profile_picture width-200 %}
+        </section>
+        <section>
+          <h2>Overview</h2>
+          {{ page.intro|richtext }}
+        </section>
+        <section>
+          <h2>Topics I'm interested in</h2>
+          {% for label in page.labels.specific.all %}
+            <a href="">
+                {{ label.title }}
+            </a>
+          {% endfor %}
+        </section>
+        <section>
+          <div class="section-header">
+            <h2>My latest articles</h2>
+            <a href="">See more</a>
+          </div>
+        </section>
+        <section>
+          <div class="section-header">
+            <h2>Upcoming events</h2>
+            <a href="">See more</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+{% endblock content %}

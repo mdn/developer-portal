@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'developerportal.apps.articles',
     'developerportal.apps.events',
     'developerportal.apps.home',
-    'developerportal.apps.mozillians',
+    'developerportal.apps.people',
     'developerportal.apps.search',
     'developerportal.apps.topics',
 
