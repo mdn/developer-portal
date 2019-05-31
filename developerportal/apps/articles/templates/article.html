@@ -10,15 +10,15 @@
 
 {% block content %}
   <main>
-    <article class="article-grid">
+    <div class="article-grid">
       {% include "organisms/article-header.html" with title=page.title intro=page.intro|richtext date=page.date %}
       <div class="article-content">
-        <section class="article-body">
+        <article class="article-body">
           {% include "molecules/resource-share.html" with resource=page type="article" %}
           {% for block in page.body %}
             {{ block }}
           {% endfor %}
-        </section>
+        </article>
         <aside class="article-sidebar">
           <h4>Read more</h4>
           {% for resource in related_articles %}
@@ -26,6 +26,6 @@
           {% endfor %}
         </aside>
       </div>
-    </article>
+    </div>
   </main>
 {% endblock content %}
