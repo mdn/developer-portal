@@ -1,0 +1,14 @@
+.share {
+  align-items: center;
+  border-bottom: 2px solid $color-gray-30;
+  display: flex;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.share-buttons {
+  color: $color-gray-60;
+  font-size: 12px;
+  flex-grow: 1;
+  text-align: right;
+}
