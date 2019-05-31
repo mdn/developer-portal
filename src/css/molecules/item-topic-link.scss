@@ -1,25 +1,55 @@
+@media (max-width: 768px) {
+  .item-topic-link {
+    margin: 0;
+    width: 50%;
+  }  
+}
+
+@media (min-width: 768px) {
+  .item-topic-link {
+    margin: 0 16px;
+    width: 16%;
+  }
+}
+
 .item-topic-link {
   text-decoration: none;
 }
 
 .item-topic-link-bg {
   align-items: center;
-  background-color: $color-purple-70;
   border-radius: 50%;
   display: flex;
   height: 130px;
   justify-content: center;
+  margin: 0 auto;
   width: 130px;
 }
 
+.item-topic-link-home {
+  background-color: $color-black;
+}
+
+.item-topic-link-topic {
+  background-color: $color-purple-70;
+}
+
 h4 {
-  background-color: white;
-  color: $color-purple-70;
+  background-color: $color-white;
   display: inline-block;
   margin-bottom: 0;
 }
 
+.item-topic-link-home h4 {
+  color: $color-black;
+}
+
+.item-topic-link-topic h4 {
+  color: $color-purple-70;
+}
+
 h5 {
+  color: $color-black;
   margin-top: 8px;
   text-align: center;
 }
