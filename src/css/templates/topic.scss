@@ -1,3 +1,17 @@
+.topic-grid {
+  display: grid;
+  grid-column-gap: $grid-gap-mobile;
+  grid-template-columns: [full-start] 1fr [main-start] minmax(0, 1024px) [main-end] 1fr [full-end];
+
+  @media #{$mq-md} {
+    grid-column-gap: $grid-gap;
+  }
+}
+
+.topic-content {
+  grid-column: main;
+}
+
 section {
   margin-bottom: 32px;
 

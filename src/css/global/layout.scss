@@ -1,11 +1,11 @@
 .container {
-  margin: 0 auto;
-  max-width: $container-max-width + $grid-gap-mobile * 2;
-  padding: 0 $grid-gap-mobile;
+  // margin: 0 auto;
+  // max-width: $container-max-width + $grid-gap-mobile * 2;
+  // padding: 0 $grid-gap-mobile;
 
   @media #{$mq-md} {
-    max-width: $container-max-width + $grid-gap * 2;
-    padding: 0 $grid-gap;
+    // max-width: $container-max-width + $grid-gap * 2;
+    // padding: 0 $grid-gap;
   }
 }
 
