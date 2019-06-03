@@ -1,7 +1,12 @@
 <span class="resource-meta">
-  {% if type == "article" %}
-    {{ read_time }}
-  {% elif type == "event" %}
-    September 10, 2019
-  {% endif %}
+  <span class="icon">
+    {% include "atoms/icons/date.svg" %}
+  </span>
+  <span class="resource-meta-body">
+    {% if type == "article" %}
+      {{ read_time }}
+    {% elif type == "event" %}
+      September 10, 2019
+    {% endif %}
+  </span>
 </span>
