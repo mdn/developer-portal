@@ -52,9 +52,20 @@ class Article(Page):
         context['related_articles'] = self.get_related(limit=3)
         return context
 
-    def get_related(self, limit=10):
-        """Returns live (i.e. not draft), public pages, which are not the current page, ordered by most recent."""
-        return Article.objects.live().public().not_page(self).order_by('-date')[:limit]
+    def get_related(self, limit=12):
+        """Returns articles that are related to the current article, i.e. live, public articles which have the same
+        label, but are not the current article."""
+        label_ids = [topic.id for topic in self.labels.get_object_list()]
+        return (
+            Article
+            .objects
+            .all()
+            .live()
+            .public()
+            .not_page(self)
+            .order_by('-date')
+            .filter(labels__in=label_ids)[:limit]
+        )
 
 
 class Articles(Page):
