@@ -37,7 +37,7 @@
 .article-header-image img {
   max-width: 100%;
   position: relative;
-  z-index: 9999;
+  z-index: 99;
 
   @media #{$mq-md} {
     padding-right: 16px;
