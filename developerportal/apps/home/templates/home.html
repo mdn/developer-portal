@@ -3,7 +3,7 @@
 {% load app_filters %}
 
 
-{% block body_class %}homepage{% endblock %}
+{% block body_class %}home{% endblock %}
 
 {% block header %}
   {% include "header.html" %}
@@ -11,11 +11,13 @@
 
 {% block content %}
   <main>
-    <div class="container">
-      {% include "organisms/homepage-header.html" %}
-      {% include "organisms/featured.html" with count=3 %}
-      {% include "organisms/topic-links.html" with count=12 pagetheme='home' %}
-      {% include "organisms/newsletter-signup.html" %}
+    <div class="home-grid">
+      <div class="home-content">
+        {% include "organisms/homepage-header.html" %}
+        {% include "organisms/featured.html" with count=3 %}
+        {% include "organisms/topic-links.html" with count=12 pagetheme='home' %}
+        {% include "organisms/newsletter-signup.html" %}
+      </div>
     </div>
   </main>
 {% endblock content %}
