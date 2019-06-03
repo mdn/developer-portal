@@ -1,7 +1,21 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% with page.author.specific as author %}
+{% image author.profile_picture width-60 as author_pic %}
 <div class="article-details">
-  <img src="https://pbs.twimg.com/profile_images/907326035569500160/eMfjAaBP_400x400.jpg">
+  {% if author_pic %}
+    <img
+      src="{{ author_pic.url }}" 
+      width="{{ author_pic.width }}"
+      height="{{ author_pic.height }}" 
+      alt="{{ author_pic.alt }}"/>
+  {% else %}
+    <img src="https://via.placeholder.com/60"/>
+  {% endif %}
   <div class="article-details-meta">
-    <p>Josh Marinacci &middot; Mixed Reality Blog</p>
-    <p>{{ date }} &middot; {{ read_time }}</p>
+    <p>{{ author.title }} &middot; Mixed Reality Blog</p>
+    <p>{{ date }}</p>
   </div>
 </div>
+{% endwith %}

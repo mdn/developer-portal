@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+<a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
+  <div class="card">
+    <div class="card-image" style="background-image: url('https://via.placeholder.com/320x200')"></div>
+    <div class="card-content">
+      {% include "molecules/resource-meta.html" with resource=resource type=type %}
+      <h4>{{ resource.title }}</h4>
+    </div>
+  </div>
+</a>
