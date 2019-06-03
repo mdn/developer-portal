@@ -11,6 +11,8 @@ RUN apk add --no-cache postgresql-libs
 RUN apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
 # Alpine deps for pylibmc
 RUN apk add --no-cache libmemcached-dev zlib-dev
+# Alpine deps for libxml, used by readtime
+RUN apk add --no-cache libc-dev gcc libxslt-dev
 
 # Python deps
 RUN pip install -U pip
