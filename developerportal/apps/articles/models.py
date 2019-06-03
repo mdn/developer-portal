@@ -32,7 +32,7 @@ class Article(Page):
     date = DateField('Article date', default=datetime.date.today)
     body = CustomStreamField()
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
-    labels = ParentalManyToManyField(
+    topics = ParentalManyToManyField(
         'topics.Topic',
         blank=True,
         related_name='+',
@@ -43,7 +43,7 @@ class Article(Page):
         FieldPanel('intro'),
         FieldPanel('date'),
         StreamFieldPanel('body'),
-        FieldPanel('labels', widget=CheckboxSelectMultiple),
+        FieldPanel('topics', widget=CheckboxSelectMultiple),
         FieldPanel('tags'),
     ]
 
@@ -54,8 +54,8 @@ class Article(Page):
 
     def get_related(self, limit=12):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
-        label, but are not the current article."""
-        label_ids = [topic.id for topic in self.labels.get_object_list()]
+        topic, but are not the current article."""
+        topic_ids = [topic.id for topic in self.topics.get_object_list()]  # pylint: disable=no-member
         return (
             Article
             .objects
@@ -64,7 +64,7 @@ class Article(Page):
             .public()
             .not_page(self)
             .order_by('-date')
-            .filter(labels__in=label_ids)[:limit]
+            .filter(topics__in=topic_ids)[:limit]
         )
 
 
