@@ -1,7 +1,14 @@
+{% load wagtailimages_tags %}
+{% image page.header_image width-464 as header_image %}
+
 <header class="article-header">
   <div class="article-header-container">
     <div class="article-header-image">
-      <img src="https://hacks.mozilla.org/files/2019/05/Worker-Threads-Panel.png">
+      <img 
+        src="{{ header_image.url }}" 
+        width="{{ header_image.width }}"
+        height="{{ header_image.height }}" 
+        alt="{{ header_image.alt }}" />
       <div class="article-header-pattern"></div>
     </div>
     <div class="article-header-details">
