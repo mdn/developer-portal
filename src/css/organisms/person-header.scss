@@ -1,0 +1,17 @@
+.person-header {
+  background: $color-gray-10;
+  grid-column: full;
+  padding: $grid-gap-mobile;
+
+  @media #{$mq-md} {
+    padding: 0 $grid-gap;
+  }
+}
+
+.person-header-container {
+  @media #{$mq-md} {
+    max-width: 1024px;
+    margin: 0 auto;
+    position: relative;
+  }
+}

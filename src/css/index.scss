@@ -40,10 +40,12 @@
 @import 'organisms/article-header';
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
+@import 'organisms/person-header';
 @import 'organisms/topic-header';
 @import 'organisms/topic-links';
 
 // Templates.
 @import 'templates/article';
 @import 'templates/home';
+@import 'templates/person';
 @import 'templates/topic';

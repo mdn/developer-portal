@@ -7,13 +7,15 @@
 
 {% block content %}
   <main>
-    <div class="container">
-      <div class="grid">
-        <section>
+    <div class="person-grid">
+      <header class="person-header">
+        <div class="person-header-container">
           <h1>{{ page.title }}</h1>
           <p>{{ page.job_title }}</p>
           {% image page.profile_picture width-200 %}
-        </section>
+        </div>
+      </header>
+      <div class="person-content">
         <section>
           <h2>Overview</h2>
           {{ page.intro|richtext }}
