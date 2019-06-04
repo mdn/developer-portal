@@ -1,4 +1,5 @@
 import datetime
+import readtime
 
 from django.forms import CheckboxSelectMultiple
 from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
@@ -67,6 +68,7 @@ class Article(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_articles'] = self.get_related(limit=3)
+        context['read_time'] = str(readtime.of_html(str(self.body)))
         return context
 
     def get_related(self, limit=12):
