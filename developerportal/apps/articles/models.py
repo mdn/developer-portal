@@ -114,10 +114,10 @@ class Article(Page):
         )
 
     def get_article_topic(self):
-        # pylint: disable=no-member
+        """Return the first (primary) topic specified for the article if there is one"""
         article_topics = self.topics.get_object_list()
         if len(article_topics) > 0:
-            return article_topics[0] 
+            return article_topics[0].topic 
         else:
             return None
 
