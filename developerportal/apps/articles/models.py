@@ -6,11 +6,13 @@ from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
     StreamFieldPanel,
     PageChooserPanel,
 )
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -22,6 +24,15 @@ from ..common.fields import CustomStreamField
 
 class ArticleTag(TaggedItemBase):
     content_object = ParentalKey('Article', on_delete=CASCADE, related_name='tagged_items')
+
+
+class ArticleTopic(Orderable):
+    article = ParentalKey('Article', related_name='topics')
+    topic = ForeignKey('topics.Topic', null=True, blank=False, on_delete=CASCADE, related_name="+")
+
+    panels = [
+        PageChooserPanel('topic'),
+    ]
 
 
 class Article(Page):
@@ -48,11 +59,6 @@ class Article(Page):
     )
     body = CustomStreamField()
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
-    topics = ParentalManyToManyField(
-        'topics.Topic',
-        blank=True,
-        related_name='+',
-    )
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
@@ -61,7 +67,9 @@ class Article(Page):
         FieldPanel('date'),
         ImageChooserPanel('header_image'),
         StreamFieldPanel('body'),
-        FieldPanel('topics', widget=CheckboxSelectMultiple),
+        MultiFieldPanel([
+            InlinePanel('topics', min_num=1)
+        ], heading='Topics'),
         FieldPanel('tags'),
     ]
 
