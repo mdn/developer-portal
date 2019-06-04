@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+
+<div class="card card-topic">
+  <div class="card-topic-content">
+    <img src="https://via.placeholder.com/174x149"/>
+    <h4>{{ article_topic.title }}</h4>
+    <a href="{% pageurl article_topic %}" class="mzp-c-button mzp-t-small mzp-t-dark">
+      See more
+    </a>
+  </div>
+</div>
