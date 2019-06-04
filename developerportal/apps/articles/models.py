@@ -6,11 +6,15 @@ from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    ObjectList,
     StreamFieldPanel,
     PageChooserPanel,
+    TabbedInterface,
 )
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
@@ -22,6 +26,15 @@ from ..common.fields import CustomStreamField
 
 class ArticleTag(TaggedItemBase):
     content_object = ParentalKey('Article', on_delete=CASCADE, related_name='tagged_items')
+
+
+class ArticleTopic(Orderable):
+    article = ParentalKey('Article', related_name='topics')
+    topic = ForeignKey('topics.Topic', null=True, blank=False, on_delete=CASCADE)
+
+    panels = [
+        PageChooserPanel('topic'),
+    ]
 
 
 class Article(Page):
@@ -48,11 +61,6 @@ class Article(Page):
     )
     body = CustomStreamField()
     tags = ClusterTaggableManager(through=ArticleTag, blank=True)
-    topics = ParentalManyToManyField(
-        'topics.Topic',
-        blank=True,
-        related_name='+',
-    )
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
@@ -61,9 +69,27 @@ class Article(Page):
         FieldPanel('date'),
         ImageChooserPanel('header_image'),
         StreamFieldPanel('body'),
-        FieldPanel('topics', widget=CheckboxSelectMultiple),
+    ]
+
+    topic_panels = [
+        MultiFieldPanel([
+            InlinePanel('topics', min_num=1)
+        ], heading='Topics', help_text=(
+            'These are the topic pages the article will appear on. The first '
+            'topic in the list will be treated as the primary topic.'
+        )),
+    ]
+
+    promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
     ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(topic_panels, heading='Topics'),
+        ObjectList(promote_panels, heading='SEO'),
+        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+    ])
 
     def get_context(self, request):
         context = super().get_context(request)
