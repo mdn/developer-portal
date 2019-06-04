@@ -75,8 +75,8 @@ class Article(Page):
         MultiFieldPanel([
             InlinePanel('topics', min_num=1)
         ], heading='Topics', help_text=(
-            'This topic pages this article will appear on. The first topic in '
-            'this list will be treated as the primary topic.'
+            'These are the topic pages the article will appear on. The first '
+            'topic in the list will be treated as the primary topic.'
         )),
     ]
 
