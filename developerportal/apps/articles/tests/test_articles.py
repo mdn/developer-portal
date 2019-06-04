@@ -7,11 +7,18 @@ from ..models import Article, Articles
 class ArticleTests(WagtailPageTests):
     """Tests for the Article page model."""
 
+    fixtures = ['articles.json']
+
     def test_article_parent_pages(self):
         self.assertAllowedParentPageTypes(Article, {Articles})
 
     def test_article_subpages(self):
         self.assertAllowedSubpageTypes(Article, {})
+
+    def test_related_articles(self):
+        article = Article.objects.all()[0]
+        related = article.get_related()
+        self.assertCountEqual([], related)
 
 
 class ArticlesTests(WagtailPageTests):

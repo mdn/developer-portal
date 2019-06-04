@@ -1,5 +1,6 @@
 {% load wagtailcore_tags %}
 
+{% if article_topic %}
 <div class="card card-topic">
   <div class="card-topic-content">
     <img src="https://via.placeholder.com/174x149"/>
@@ -9,3 +10,4 @@
     </a>
   </div>
 </div>
+{% endif %}

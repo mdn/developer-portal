@@ -42,7 +42,7 @@ class Person(Page):
     linkedin = CharField(max_length=250, blank=True, default='')
     github = CharField(max_length=250, blank=True, default='')
     email = CharField(max_length=250, blank=True, default='')
-    labels = ParentalManyToManyField(
+    topics = ParentalManyToManyField(
         'topics.Topic',
         blank=True,
         related_name='+',
@@ -68,7 +68,7 @@ class Person(Page):
             FieldPanel('email'),
           ],
           heading='Profiles'),
-        FieldPanel('labels', widget=CheckboxSelectMultiple),
+        FieldPanel('topics', widget=CheckboxSelectMultiple),
     ]
 
     def clean(self):

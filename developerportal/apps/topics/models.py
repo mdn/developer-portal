@@ -14,7 +14,7 @@ class Topic(Page):
         return context
 
     def get_articles(self, limit=12):
-        return Article.objects.filter(labels__pk=self.pk).live().public().order_by('-date')[:limit]
+        return Article.objects.filter(topics__pk=self.pk).live().public().order_by('-date')[:limit]
 
 
 class SubTopic(Topic):
