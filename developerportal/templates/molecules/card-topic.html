@@ -1,13 +1,16 @@
 {% load wagtailcore_tags %}
 
 {% if article_topic %}
-<div class="card card-topic">
-  <div class="card-topic-content">
-    <img src="https://via.placeholder.com/174x149"/>
-    <h4>{{ article_topic.title }}</h4>
-    <a href="{% pageurl article_topic %}" class="mzp-c-button mzp-t-small mzp-t-dark">
-      See more
-    </a>
+<a href="{% pageurl article_topic %}" class="card-link">
+  <div class="card-topic">
+    <div class="card-topic-content">
+      <img src="https://via.placeholder.com/174x149/000"/>
+      <h4 class="highlighted">{{ article_topic.title }}</h4>
+      <button class="mzp-c-button mzp-t-small mzp-t-dark">
+        See more
+      </button>
+    </div>
+    <div class="card-topic-pattern"></div>
   </div>
-</div>
+</a>
 {% endif %}

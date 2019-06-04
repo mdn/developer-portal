@@ -166,3 +166,8 @@ ol {
     font-size: $highlight-font-size;
   }
 }
+
+.highlighted {
+  background-color: $color-black;
+  color: $color-white;
+}
