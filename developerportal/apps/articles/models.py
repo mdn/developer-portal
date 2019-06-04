@@ -8,8 +8,10 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
+    ObjectList,
     StreamFieldPanel,
     PageChooserPanel,
+    TabbedInterface,
 )
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
@@ -28,7 +30,7 @@ class ArticleTag(TaggedItemBase):
 
 class ArticleTopic(Orderable):
     article = ParentalKey('Article', related_name='topics')
-    topic = ForeignKey('topics.Topic', null=True, blank=False, on_delete=CASCADE, related_name="+")
+    topic = ForeignKey('topics.Topic', null=True, blank=False, on_delete=CASCADE)
 
     panels = [
         PageChooserPanel('topic'),
@@ -67,11 +69,27 @@ class Article(Page):
         FieldPanel('date'),
         ImageChooserPanel('header_image'),
         StreamFieldPanel('body'),
+    ]
+
+    topic_panels = [
         MultiFieldPanel([
             InlinePanel('topics', min_num=1)
-        ], heading='Topics'),
+        ], heading='Topics', help_text=(
+            'This topic pages this article will appear on. The first topic in '
+            'this list will be treated as the primary topic.'
+        )),
+    ]
+
+    promote_panels = Page.promote_panels + [
         FieldPanel('tags'),
     ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(topic_panels, heading='Topics'),
+        ObjectList(promote_panels, heading='SEO'),
+        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+    ])
 
     def get_context(self, request):
         context = super().get_context(request)
