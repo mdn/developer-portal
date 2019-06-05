@@ -1,0 +1,16 @@
+.topic-icon {
+  position: relative;
+  width: 88px;
+}
+
+.topic-icon-tile {
+  max-width: 100%;
+}
+
+.topic-icon-image {
+  left: 50%;
+  max-width: 80px;
+  position: absolute;
+  top: 50%;
+  transform: translate(calc(-50% - 4px), calc(-50% - 4px));
+}

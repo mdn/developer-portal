@@ -171,3 +171,12 @@ ol {
   background-color: $color-black;
   color: $color-white;
 }
+
+.highlighted-inline {
+  background-color: $color-black;
+  box-decoration-break: clone;
+  box-shadow: 0 0 0 3px $color-black;
+  display: inline;
+  left: 3px;
+  position: relative; 
+}

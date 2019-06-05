@@ -9,7 +9,9 @@
         width="{{ header_image.width }}"
         height="{{ header_image.height }}" 
         alt="{{ header_image.alt }}" />
-      <div class="article-header-pattern"></div>
+      <div class="article-header-pattern">
+        {% include "atoms/pattern.html" %}
+      </div>
     </div>
     <div class="article-header-details">
       <div class="article-header-highlight">
