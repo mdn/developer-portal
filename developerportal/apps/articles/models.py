@@ -1,3 +1,5 @@
+# pylint: disable=no-member
+
 import datetime
 import readtime
 
@@ -17,7 +19,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
@@ -100,7 +102,7 @@ class Article(Page):
     def get_related(self, limit=12):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
-        topic_ids = [topic.id for topic in self.topics.get_object_list()]  # pylint: disable=no-member
+        topic_ids = [topic.id for topic in self.topics.get_object_list()]
         return (
             Article
             .objects

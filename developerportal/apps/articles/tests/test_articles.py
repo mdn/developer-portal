@@ -53,5 +53,5 @@ class ArticlesTests(ArticlesFixturesMixin, WagtailPageTests):
         self.assertAllowedParentPageTypes(Articles, {Page})
 
     def test_articles_page_subpages(self):
-        """The Articles page should only have child pages of type article."""
+        """The Articles page should only have article child pages."""
         self.assertAllowedSubpageTypes(Articles, {Article})
