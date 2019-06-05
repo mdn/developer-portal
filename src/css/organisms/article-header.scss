@@ -54,10 +54,7 @@
 }
 
 .article-header-pattern {
-  background-color: #3FE1B0;
-  background-image: url('/static/img/pattern.svg');
-  background-repeat: repeat-x;
-  background-size: auto 100%;
+  background-color: $color-black;
   display: none;
   height: 100%;
   position: absolute;

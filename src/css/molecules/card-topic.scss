@@ -1,29 +1,18 @@
 .card-topic {
-  border: 1px solid $color-white;
+  background: $color-black;
+  border: 1px solid transparent;
   position: relative;
+}
 
-  &-content {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin: 72px auto;
-    position: relative;
-    z-index: 99;
+.card-topic-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 72px auto;
+  position: relative;
+  z-index: 99;
 
-    h4 {
-      margin-top: 24px;
-    }
-  }
-
-  &-pattern {
-    background-color: #3FE1B0;
-    background-image: url('/static/img/pattern.svg');
-    background-repeat: repeat-x;
-    background-size: auto 100%;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 320px;
+  h4 {
+    margin-top: 24px;
   }
 }
