@@ -20,10 +20,15 @@
           {% endfor %}
         </article>
         <aside class="article-sidebar">
-          <h4>Read more</h4>
-          {% for resource in related_articles %}
-            {% include "molecules/card.html" with resource=resource.specific type="article" %}
-          {% endfor %}
+          {% if related_articles %}
+            <h4>Read more</h4>
+            {% for resource in related_articles %}
+              {% include "molecules/card.html" with resource=resource.specific type="article" %}
+            {% endfor %}
+          {% endif %}
+          {% if article_topic %}
+            {% include "molecules/card-topic.html" %}
+          {% endif %}
         </aside>
       </div>
     </div>

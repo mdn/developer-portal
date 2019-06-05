@@ -94,6 +94,7 @@ class Article(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_articles'] = self.get_related(limit=3)
+        context['article_topic'] = self.get_article_topic()
         context['read_time'] = str(readtime.of_html(str(self.body)))
         return context
 
@@ -112,6 +113,13 @@ class Article(Page):
             .filter(topics__in=topic_ids)[:limit]
         )
 
+    def get_article_topic(self):
+        """Return the first (primary) topic specified for the article if there is one"""
+        article_topics = self.topics.get_object_list()
+        if len(article_topics) > 0:
+            return article_topics[0].topic 
+        else:
+            return None
 
 class Articles(Page):
     subpage_types = ['Article']
