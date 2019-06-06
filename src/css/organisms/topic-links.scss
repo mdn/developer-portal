@@ -1,8 +1,3 @@
-.topic-links-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .topic-links-section {
   grid-column: full;
   position: relative;
@@ -12,7 +7,7 @@
   }
 }
 
-.topic-links-background-container {
+.topic-links-section-background {
   background: $color-gray-20;
   margin: 0 auto;
   max-width: 1190px;
@@ -27,7 +22,7 @@
   }
 }
 
-.topic-links-inner {
+.topic-links-section-container {
   margin: 0 auto;
   max-width: $container-max-width;
 }
