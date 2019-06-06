@@ -15,7 +15,9 @@
       <div class="home-content">
         {% include "organisms/homepage-header.html" %}
         {% include "organisms/featured.html" with count=3 %}
-        {% include "organisms/topic-links.html" with count=12 pagetheme='home' %}
+      </div>
+      {% include "organisms/topic-links.html" with topics=topics pagetheme='home' %}
+      <div class="home-content">
         {% include "organisms/newsletter-signup.html" %}
       </div>
     </div>

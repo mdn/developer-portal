@@ -15,8 +15,8 @@
         {% endif %}
       </div>
       <div class="card-container">
-        {% for i in count|times %}
-          {% include "molecules/item-topic-link.html" %}
+        {% for topic in topics %}
+          {% include "molecules/item-topic-link.html" with topic=topic %}
         {% endfor %}
       </div>
     </div>

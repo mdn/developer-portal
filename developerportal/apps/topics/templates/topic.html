@@ -33,7 +33,11 @@
         {% endfor %}
       </section>
     </div>
-    {% include "organisms/topic-links.html" with count=3 pagetheme='topic' %}
+    {% with subtopics=self.get_children.specific %}
+      {% if subtopics %}
+        {% include "organisms/topic-links.html" with topics=subtopics pagetheme='topic' %}
+      {% endif %}
+    {% endwith %}
     <div class="topic-content">
       <section>
         <div class="section-header">
