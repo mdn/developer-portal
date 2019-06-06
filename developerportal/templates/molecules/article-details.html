@@ -1,7 +1,6 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% with page.author.specific as author %}
 {% image author.profile_picture width-60 as author_pic %}
 <div class="article-details">
   {% if author_pic %}
@@ -18,4 +17,3 @@
     <p>{{ date }}</p>
   </div>
 </div>
-{% endwith %}
