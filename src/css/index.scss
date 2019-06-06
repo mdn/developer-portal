@@ -9,6 +9,7 @@
 @import '~@mozilla-protocol/core/protocol/css/base/elements/lists';
 @import '~@mozilla-protocol/core/protocol/css/base/elements/sections';
 @import '~@mozilla-protocol/core/protocol/css/base/elements/tables';
+@import '~@mozilla-protocol/core/protocol/css/base/elements/details';
 
 // Protocol components.
 @import '~@mozilla-protocol/core/protocol/css/components/button';
@@ -39,6 +40,7 @@
 
 // Organisms.
 @import 'organisms/article-header';
+@import 'organisms/get-started';
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
 @import 'organisms/person-header';
