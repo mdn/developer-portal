@@ -1,13 +1,16 @@
 <header class="topic-header">
   <div class="topic-header-container">
+    <div class="topic-header-icon">
+      {% include "atoms/topic-icon.html" with icon="mixed-reality" %}
+    </div>
     <div class="topic-header-details">
       <h1>{{ title }}</h1>
-      <div class="topic-header-subtitle">
-        {{ intro }}
+      <div>
+        <p class="topic-header-subtitle highlighted-inline">
+          <span>Cascading Style Sheets (CSS) is a stylesheet language used to describe the presentation of a document written in HTML or XML (including XML dialects such as SVG, MathML or XHTML).</span>
+        </p>
       </div>
-      <p>
-        <span>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted</span>
-      </p>
     </div>
   </div>
+  {% include "atoms/pattern.html" %}
 </header>

@@ -25,12 +25,15 @@
 @import 'atoms/icon';
 @import 'atoms/image';
 @import 'atoms/typography';
+@import 'atoms/topic-icon';
+@import 'atoms/pattern';
 
 // Molecules.
 @import 'molecules/article-details';
 @import 'molecules/card';
 @import 'molecules/card-event';
 @import 'molecules/card-featured';
+@import 'molecules/card-topic';
 @import 'molecules/header';
 @import 'molecules/item-get-started';
 @import 'molecules/item-mozillian';

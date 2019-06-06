@@ -1,3 +1,5 @@
+# pylint: disable=no-member
+
 import datetime
 import readtime
 
@@ -17,7 +19,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
@@ -94,13 +96,14 @@ class Article(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_articles'] = self.get_related(limit=3)
+        context['article_topic'] = self.get_article_topic()
         context['read_time'] = str(readtime.of_html(str(self.body)))
         return context
 
     def get_related(self, limit=12):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
-        topic_ids = [topic.id for topic in self.topics.get_object_list()]  # pylint: disable=no-member
+        topic_ids = [topic.id for topic in self.topics.get_object_list()]
         return (
             Article
             .objects
@@ -112,6 +115,13 @@ class Article(Page):
             .filter(topics__in=topic_ids)[:limit]
         )
 
+    def get_article_topic(self):
+        """Return the first (primary) topic specified for the article if there is one"""
+        article_topics = self.topics.get_object_list()
+        if len(article_topics) > 0:
+            return article_topics[0].topic 
+        else:
+            return None
 
 class Articles(Page):
     subpage_types = ['Article']

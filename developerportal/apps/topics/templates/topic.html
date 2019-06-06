@@ -7,6 +7,7 @@
 
 {% block header %}
   {% include "header.html" %}
+  {% include "utils/accent-color.html" with color="#00ddff" %}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +15,7 @@
   <div class="topic-grid">
     {% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
     <div class="topic-content">
-      {% include "organisms/featured.html" with count=3 %}
+      {% include "organisms/featured.html" with featured=featured %}
       {% include "organisms/get-started.html" %}
       <div class="topic-content">
         <!-- content managed content goes here -->

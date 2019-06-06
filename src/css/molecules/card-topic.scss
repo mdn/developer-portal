@@ -1,0 +1,18 @@
+.card-topic {
+  background: $color-black;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.card-topic-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 72px auto;
+  position: relative;
+  z-index: 99;
+
+  h4 {
+    margin-top: 24px;
+  }
+}
