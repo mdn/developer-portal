@@ -1,6 +1,28 @@
-from wagtail.core.models import Page
+# pylint: disable=no-member
+
+from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
+
+from wagtail.admin.edit_handlers import (
+    InlinePanel,
+    MultiFieldPanel,
+    ObjectList,
+    PageChooserPanel,
+    TabbedInterface,
+)
+from wagtail.core.models import Orderable, Page
+
+from modelcluster.fields import ParentalKey
 
 from ..articles.models import Article
+
+
+class TopicFeaturedArticle(Orderable):
+    topic = ParentalKey('Topic', related_name='featured_articles')
+    article = ForeignKey('articles.Article', null=True, blank=False, on_delete=CASCADE)
+
+    panels = [
+        PageChooserPanel('article'),
+    ]
 
 
 class Topic(Page):
@@ -8,13 +30,37 @@ class Topic(Page):
     subpage_types = ['SubTopic']
     template = 'topic.html'
 
+    featured_panels = [
+        MultiFieldPanel([
+            InlinePanel('featured_articles', min_num=4, max_num=4)
+        ], heading='Featured Articles', help_text=(
+            'These articles will appear at the top of the topic page. Please '
+            'choose four articles.'
+        )),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(featured_panels, heading='Featured'),
+        ObjectList(Page.promote_panels, heading='SEO'),
+        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+    ])
+
     def get_context(self, request):
         context = super().get_context(request)
         context['articles'] = self.get_articles()
+        context['featured'] = self.get_featured_articles()
         return context
 
     def get_articles(self, limit=12):
         return Article.objects.filter(topics__pk=self.pk).live().public().order_by('-date')[:limit]
+
+    def get_featured_articles(self):
+        return [{
+            'title': item.article.title,
+            'description': item.article.search_description,
+            'url': item.article.url,
+         } for item in self.featured_articles.get_object_list()]
 
 
 class SubTopic(Topic):

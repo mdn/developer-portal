@@ -1,0 +1,13 @@
+[
+  {
+    "model": "wagtailcore.site",
+    "pk": 2,
+    "fields": {
+      "hostname": "localhost",
+      "port": 80,
+      "site_name": "Mozilla Developer Portal",
+      "root_page": 3,
+      "is_default_site": true
+    }
+  }
+]
