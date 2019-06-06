@@ -90,6 +90,19 @@ h6 {
   font-weight: 700;
   margin-bottom: 0.5em;
   margin-top: 0;
+  position: relative;
+}
+
+h2::after {
+  border-bottom: 8px solid #ffed00;
+  content: '';
+  display: inline-block;
+  height: .9em;
+  left: 0;
+  margin-top: 5px;  
+  position: absolute;
+  width: 100%;
+  z-index: -1;
 }
 
 @function heading-line-height($font-size) {
