@@ -1,11 +1,11 @@
 <div class="pattern">
   <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <pattern id="pattern" x="7" y="7" width="20px" height="20px" patternUnits="userSpaceOnUse">
+      <pattern id="pattern-{{ name }}" x="7" y="7" width="20px" height="20px" patternUnits="userSpaceOnUse">
         <rect x="7" y="4" rx="2" width="2" height="8" />
         <rect x="4" y="7" rx="2" width="8" height="2" />
       </pattern>
     </defs>
-    <rect fill="url(#pattern)" width="100%" height="100%" />
+    <rect fill="url(#pattern-{{ name }})" width="100%" height="100%" />
   </svg>
 </div>

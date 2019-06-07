@@ -1,17 +1,27 @@
 {% load app_filters %}
 
-<section>
-  <div class="section-header">
-    {% if pagetheme == 'home' %}
-      <h2>Browse by topic</h2>
-    {% endif %}
-    {% if pagetheme == 'topic' %}
-      <h2>Continue exploring</h2>
-    {% endif %}
+<section class="topic-links-section">
+  <div class="topic-links-section-pattern topic-links-section-pattern-before">
+    {% include "atoms/pattern.html" with name="topic-link-before" %}
   </div>
-  <div class="topic-links-container">
-    {% for i in count|times %}
-      {% include "molecules/item-topic-link.html" %}
-    {% endfor %}
+  <div class="topic-links-section-background">
+    <div class="topic-links-section-container">
+      <div class="section-header">
+        {% if pagetheme == 'home' %}
+          <h2>Browse by topic</h2>
+        {% endif %}
+        {% if pagetheme == 'topic' %}
+          <h2>Continue exploring</h2>
+        {% endif %}
+      </div>
+      <div class="card-container">
+        {% for topic in topics %}
+          {% include "molecules/item-topic-link.html" with topic=topic %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="topic-links-section-pattern topic-links-section-pattern-after">
+    {% include "atoms/pattern.html" with name="topic-link-after" %}
   </div>
 </section>
