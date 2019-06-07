@@ -17,13 +17,19 @@
     <div class="topic-content">
       {% include "organisms/featured.html" with featured=featured %}
       {% include "organisms/get-started.html" %}
-      <div class="topic-content">
-        <!-- content managed content goes here -->
-        {% for block in page.body %}
-          {{ block }}
-        {% endfor %}
-      </div>
-      {% include "organisms/topic-links.html" with count=5 pagetheme='topic' %}
+      <!-- content managed content goes here -->
+      <section>
+      {% for block in page.body %}
+        {{ block }}
+      {% endfor %}
+      </section>
+    </div>
+    {% with subtopics=self.get_children.specific %}
+      {% if subtopics %}
+        {% include "organisms/topic-links.html" with topics=subtopics pagetheme='topic' %}
+      {% endif %}
+    {% endwith %}
+    <div class="topic-content">
       <section>
         <div class="section-header">
           <h2>Latest news</h2>

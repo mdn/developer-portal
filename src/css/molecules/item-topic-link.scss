@@ -1,60 +1,26 @@
-.item-topic-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-@media (max-width: 768px) {
-  .item-topic-link {
-    margin: 0;
-    width: 50%;
-  }  
-}
-
-@media (min-width: 768px) {
-  .item-topic-link {
-    margin: 0 16px;
-    width: 16%;
-  }
-}
-
 .item-topic-link {
-  text-decoration: none;
-
-  h4 {
-    background-color: $color-white;
-    display: inline-block;
-    margin-bottom: 0;
-  }
-  
-  h5 {
-    margin-top: 8px;
-    text-align: center;
-  }
-}
-
-.item-topic-link-bg {
-  align-items: center;
-  border-radius: 50%;
+  background-color: $color-white;
+  color: inherit;
   display: flex;
-  height: 130px;
-  justify-content: center;
-  margin: 0 auto;
-  width: 130px;
-}
+  padding: 20px;
+  text-decoration: none;
+  width: 100%;
 
-.item-topic-link-home {
-  background-color: $color-black;
-
-  h4 {
-    color: $color-black;
+  p {
+    margin: 0;
   }
 }
 
-.item-topic-link-topic {
-  background-color: $color-purple-70;
-
-  h4 {
-    color: $color-purple-70;
+.item-topic-link-icon {
+  flex-shrink: 0;
+  margin-right: 16px;
+  padding-top: 4px;
+  
+  img {
+    width: 24px;
   }
+}
+
+.item-topic-link-content {
+  flex-grow: 1;
 }
