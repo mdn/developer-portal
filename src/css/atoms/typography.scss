@@ -93,8 +93,14 @@ h6 {
   position: relative;
 }
 
-h2::after {
-  border-bottom: 8px solid #ffed00;
+h2::after,
+h3::after,
+h4::after,
+h5::after,
+h6::after {
+  border-bottom-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-width: 8px;
   content: '';
   display: inline-block;
   height: .9em;

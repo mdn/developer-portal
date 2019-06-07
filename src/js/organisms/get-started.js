@@ -15,12 +15,9 @@ class GetStarted {
   }
 
   setInitialState() {
-    let isFirst = true;
-    Array.from(document.getElementsByClassName('get-started-content-panel')).forEach((el) => {
-      if (!isFirst) {
+    document.querySelectorAll('.get-started-content-bg').forEach((el, idx) => {
+      if (idx !== 0) {
         el.classList.remove('displayed');
-      } else {
-        isFirst = false;
       }
     });
     document.getElementById('get-started-nav').classList.remove('hidden');
@@ -28,8 +25,7 @@ class GetStarted {
 
   showContent(hash) {
     if (hash.length > 0) {
-      // show link as active
-      Array.from(document.getElementsByClassName('get-started-toggle')).forEach((el) => {
+      document.querySelectorAll('.get-started-toggle').forEach((el) => {
         if (el.attributes.href.value === hash) {
           el.classList.add('active');
         } else {
@@ -37,9 +33,8 @@ class GetStarted {
         }
       });
 
-      // show relevant content
-      Array.from(document.getElementsByClassName('get-started-content-panel')).forEach((el) => {
-        if (el.attributes['data-hash'].value === hash) {
+      document.querySelectorAll('.get-started-content-bg').forEach((el) => {
+        if (`#${el.attributes['data-hash'].value}` === hash) {
           el.classList.add('displayed');
         } else {
           el.classList.remove('displayed');
