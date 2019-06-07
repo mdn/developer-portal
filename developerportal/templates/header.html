@@ -2,34 +2,32 @@
 
 <header class="header">
   <div class="mzp-c-navigation">
-    <div class="mzp-c-navigation-l-content">
-      <div class="mzp-c-navigation-container">
-        <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
-        <div class="mzp-c-navigation-logo"><a href="/">Mozilla</a></div>
-        <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
-          <div class="mzp-c-navigation-menu">
-            <nav class="mzp-c-menu mzp-is-basic">
-              <ul class="mzp-c-menu-category-list">
-                <li class="mzp-c-menu-category mzp-has-drop-down mzp-js-expandable">
-                  <a class="mzp-c-menu-title" href="#" aria-haspopup="true" aria-controls="mzp-c-menu-panel-example">Topics</a>
-                  <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-example">
-                    <div class="mzp-c-menu-panel-container">
-                      <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-example">Close Topics menu</button>
-                      <div class="mzp-c-menu-panel-content">
-                        <ul>
-                          <li>
-                            <section class="mzp-c-menu-item">
-                              {% render_nav %}
-                            </section>
-                          </li>
-                        </ul>
-                      </div>
+    <div class="header-container">
+      <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
+      <div class="mzp-c-navigation-logo"><a href="/">Mozilla</a></div>
+      <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
+        <div class="mzp-c-navigation-menu">
+          <nav class="mzp-c-menu mzp-is-basic">
+            <ul class="mzp-c-menu-category-list">
+              <li class="mzp-c-menu-category mzp-has-drop-down mzp-js-expandable">
+                <a class="mzp-c-menu-title" href="#" aria-haspopup="true" aria-controls="mzp-c-menu-panel-example">Topics</a>
+                <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-example">
+                  <div class="mzp-c-menu-panel-container">
+                    <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-example">Close Topics menu</button>
+                    <div class="mzp-c-menu-panel-content">
+                      <ul>
+                        <li>
+                          <section class="mzp-c-menu-item">
+                            {% render_nav %}
+                          </section>
+                        </li>
+                      </ul>
                     </div>
                   </div>
-                </li>
-              </ul>
-            </nav>
-          </div>
+                </div>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>

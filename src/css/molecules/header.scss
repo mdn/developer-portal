@@ -2,3 +2,9 @@
   // FIX required for mzp
   box-sizing: unset;
 }
+
+.header-container {
+  margin: 0 auto;
+  max-width: $container-max-width;
+  padding: 0 $grid-gap;
+}
