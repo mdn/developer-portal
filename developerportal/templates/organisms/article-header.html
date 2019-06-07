@@ -1,5 +1,5 @@
 {% load wagtailimages_tags %}
-{% image page.header_image width-464 as header_image %}
+{% image header_image width-464 as header_image %}
 
 <header class="article-header">
   <div class="article-header-container">
@@ -10,7 +10,7 @@
         height="{{ header_image.height }}" 
         alt="{{ header_image.alt }}" />
       <div class="article-header-pattern">
-        {% include "atoms/pattern.html" %}
+        {% include "atoms/pattern.html" with name="article-header" %}
       </div>
     </div>
     <div class="article-header-details">
@@ -21,7 +21,7 @@
       <div class="article-header-subtitle">
         {{ intro }}
       </div>
-      {% include "molecules/article-details.html" with date=page.date %}
+      {% include "molecules/article-details.html" with date=date author=author %}
     </div>
   </div>
 </header>

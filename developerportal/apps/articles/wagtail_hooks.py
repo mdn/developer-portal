@@ -1,8 +1,10 @@
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from wagtail.contrib.modeladmin.options import modeladmin_register
+
 from .models import Article
+from ..common.helpers import ViewModelAdmin
 
 
-class ArticleAdmin(ModelAdmin):
+class ArticleAdmin(ViewModelAdmin):
     model = Article
     menu_icon = 'doc-full'
     menu_order = 200

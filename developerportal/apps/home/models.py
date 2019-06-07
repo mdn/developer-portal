@@ -1,4 +1,5 @@
 from django.db.models import CharField, URLField
+
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import (
@@ -7,6 +8,9 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     PageChooserPanel,
 )
+
+from ..topics.models import Topic
+
 
 class HomePage(Page):
     subpage_types = []
@@ -33,4 +37,8 @@ class HomePage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        context['topics'] = self.get_topics()
         return context
+
+    def get_topics(self):
+        return Topic.objects.live().public().order_by('title')
