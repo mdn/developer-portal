@@ -60,6 +60,7 @@ class Topic(Page):
             'title': item.article.title,
             'description': item.article.search_description,
             'url': item.article.url,
+            'header_image': item.article.header_image
          } for item in self.featured_articles.get_object_list()]
 
 

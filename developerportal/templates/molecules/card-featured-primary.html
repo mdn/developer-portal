@@ -2,11 +2,6 @@
 {% image img width-320 as header_image %}
 
 <div class="card-featured">
-  <img 
-    src="{{ header_image.url }}" 
-    width="{{ header_image.width }}"
-    height="{{ header_image.height }}" 
-    alt="{{ header_image.alt }}" />
   <div class="card-featured-content">
     <span class="highlighted">Featured</span>
     <div>
@@ -14,4 +9,9 @@
     </div>
     <a href="{{ url }}">Find out more</a>
   </div>
+  <img 
+    src="{{ header_image.url }}" 
+    width="{{ header_image.width }}"
+    height="{{ header_image.height }}" 
+    alt="{{ header_image.alt }}" />
 </div>

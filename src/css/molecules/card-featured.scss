@@ -1,11 +1,16 @@
 .card-featured {
   background-color: $color-gray-20;
   color: $color-white;
-  margin-bottom: 8px;
-  padding: 48px 24px;
+  position: relative;
 
   @media #{$mq-md} {
     margin-bottom: 0;
+  }
+
+  &-content {
+    position: absolute;
+    top: 0;
+    padding: 24px 16px;
   }
 
   h3,
