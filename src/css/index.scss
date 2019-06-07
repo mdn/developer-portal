@@ -21,11 +21,12 @@
 @import 'global/base';
 
 // Atoms.
+@import 'atoms/code';
 @import 'atoms/icon';
 @import 'atoms/image';
-@import 'atoms/typography';
-@import 'atoms/topic-icon';
 @import 'atoms/pattern';
+@import 'atoms/topic-icon';
+@import 'atoms/typography';
 
 // Molecules.
 @import 'molecules/article-details';

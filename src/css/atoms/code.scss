@@ -1,0 +1,52 @@
+$code-border-radius: 2px;
+
+code,
+pre {
+  background: $color-gray-90;
+  border-radius: $code-border-radius;
+  color: $color-white;
+  font-family: $monospace-font-family;
+  font-size: 14px;
+}
+
+code {
+  margin: 0;
+  padding: 0.2em 0.5em;
+}
+
+pre {
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: $spacing-md;
+  margin-top: 0;
+  overflow-x: scroll;
+  padding: 16px;
+  position: relative;
+
+  &[data-lang] {
+    padding-top: 38px;
+
+    &::before {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0 0 $code-border-radius $code-border-radius;
+      color: rgba(255, 255, 255, 0.4);
+      content: attr(data-lang);
+      font-family: $body-font-family;
+      font-size: 10px;
+      font-weight: bold;
+      left: 8px;
+      letter-spacing: 1px;
+      line-height: 1;
+      padding: 6px 8px;
+      position: absolute;
+      text-transform: uppercase;
+      top: 0;
+    }
+  }
+
+  code {
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    tab-size: 4;
+  }
+}
