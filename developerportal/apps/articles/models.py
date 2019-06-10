@@ -3,8 +3,9 @@
 import datetime
 import readtime
 
-from django.forms import CheckboxSelectMultiple
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
+from django.forms import CheckboxSelectMultiple
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -96,32 +97,32 @@ class Article(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['related_articles'] = self.get_related(limit=3)
-        context['article_topic'] = self.get_article_topic()
+        context['primary_topic'] = self.get_primary_topic()
         context['read_time'] = str(readtime.of_html(str(self.body)))
         return context
 
     def get_related(self, limit=12):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
-        topic_ids = [topic.id for topic in self.topics.get_object_list()]
+        topic_pks = self.topics.values_list('topic')
         return (
             Article
             .objects
-            .all()
+            .filter(topics__topic__pk__in=topic_pks)
+            .not_page(self)
+            .distinct()
             .live()
             .public()
-            .not_page(self)
-            .order_by('-date')
-            .filter(topics__in=topic_ids)[:limit]
+            .order_by('-date')[:limit]
         )
 
-    def get_article_topic(self):
-        """Return the first (primary) topic specified for the article if there is one"""
-        article_topics = self.topics.get_object_list()
-        if len(article_topics) > 0:
-            return article_topics[0].topic 
-        else:
+    def get_primary_topic(self):
+        """Return the first (primary) topic specified for the article."""
+        try:
+            return self.topics.all()[:1].get().topic
+        except ObjectDoesNotExist:
             return None
+
 
 class Articles(Page):
     subpage_types = ['Article']
