@@ -1,6 +1,6 @@
 # Mozilla Developer Portal
 
-## Development workflow
+## Development workflow
 
 ### Setup
 
