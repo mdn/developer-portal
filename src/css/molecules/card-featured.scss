@@ -1,5 +1,75 @@
+
+.card-featured-primary {
+  background-color: $color-black;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 16px;
+  position: relative;
+
+  .card-image-wrapper {
+    width: 100%;
+    @media #{$mq-md} {
+      background-color: $color-black;
+      clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);  
+      width: 50%;
+    }
+  }
+
+  .find-out-more {
+    display: none;
+    @media #{$mq-md} {
+      background-color: $color-white;
+      bottom: 32px;
+      color: $color-black;
+      display: block;
+      left: 32px;
+      padding: 2px;
+      position: absolute;
+    }
+  }
+
+  .find-out-more span {
+    border-bottom: 2px solid $color-black;
+    display: inline-block;
+    line-height: 1;
+  }
+}
+
+.card-image {
+  background-position: center;
+  background-size: cover;
+  padding-top: 75%;
+  position: relative;
+}
+
+.card-featured-primary-content {
+  bottom: 16px;
+  left: 16px;
+  position: absolute;
+  
+  @media #{$mq-md} {
+    left: 32px;
+    top: 32px;
+  }
+
+  .featured {
+    margin-bottom: 16px;
+  }
+
+  h4 {
+    margin-bottom: 0;
+  }
+
+  .featured,
+  h4,
+  p {
+    background-color: $color-white;
+    color: $color-black;
+    display: inline-block;
+  }
+}
+
 .card-featured {
-  background-color: $color-gray-20;
   color: $color-white;
   position: relative;
 
@@ -7,13 +77,21 @@
     margin-bottom: 0;
   }
 
-  &-content {
-    position: absolute;
-    top: 0;
+  .card-featured-content {
+    bottom: 0;
     padding: 24px 16px;
+    position: absolute;
+
+    @media #{$mq-md} {
+      top: 0;
+    }
   }
 
-  h3,
+  .featured {
+    margin-bottom: 16px;
+  }
+
+  span,
   p,
   a {
     background-color: $color-black;
@@ -21,17 +99,30 @@
   }
 
   p {
-    display: inline;
     box-decoration-break: clone;
     box-shadow: 0 0 0 3px $color-black;
+    display: inline;
     font-size: 14px;
-    position: relative; 
     left: 4px;
+    position: relative; 
   }
 
-  a {
-    color: $color-white;
-    margin-top: 8px;
-    padding: 4px 12px 8px;
+  .find-out-more {
+    display: none;
+
+    @media #{$mq-md} {
+      background-color: $color-black;
+      bottom: 16px;
+      color: $color-white;
+      display: block;
+      left: 16px;
+      padding: 2px;
+      position: absolute;
+    }
+  }
+  
+  .find-out-more span {
+    border-bottom: 1px solid $color-white;
+    line-height: 1;
   }
 }

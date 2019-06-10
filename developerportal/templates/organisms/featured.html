@@ -3,12 +3,12 @@
     <h2>Featured</h2>
   </div>
   {% with featured.0 as item %}
-    {% include "molecules/card-featured-primary.html" with title=item.title description=item.description url=item.url img=item.header_image %}
+    {% include "molecules/card-featured-primary.html" with title=item.title intro=item.intro url=item.url img=item.header_image %}
   {% endwith%}
   <div class="card-container">
     {% for item in featured %}
       {% if not forloop.first %}
-        {% include "molecules/card-featured.html" with title=item.title description=item.description url=item.url img=item.header_image %}
+        {% include "molecules/card-featured.html" with title=item.title url=item.url img=item.header_image %}
       {% endif %}
     {% endfor %}
   </div>

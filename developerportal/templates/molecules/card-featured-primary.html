@@ -1,17 +1,21 @@
+{% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% image img width-320 as header_image %}
+{% image img width-512 as header_image %}
 
-<div class="card-featured">
-  <div class="card-featured-content">
-    <span class="highlighted">Featured</span>
-    <div>
-      <p>{{ title }}</p>
+<a href="{{ url }}">
+  <div class="card-featured-primary">
+    <div class="card-image-wrapper">
+      <div class="card-image" style="background-image: url('{{ header_image.url }}')"></div>
     </div>
-    <a href="{{ url }}">Find out more</a>
+    <div class="card-featured-primary-content">
+      <span class="featured">Featured</span>
+      <div>
+        <h4>{{ title }}</h4>
+        {{ intro|richtext }}
+      </div>
+    </div>
+    <div class="find-out-more">
+      <span>Find out more</span>
+    </div>
   </div>
-  <img 
-    src="{{ header_image.url }}" 
-    width="{{ header_image.width }}"
-    height="{{ header_image.height }}" 
-    alt="{{ header_image.alt }}" />
-</div>
+</a>
