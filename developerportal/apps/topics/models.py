@@ -32,6 +32,7 @@ class Topic(Page):
     parent_page_types = ['Topics']
     subpage_types = ['SubTopic']
     template = 'topic.html'
+    show_in_menus_default = True
 
     intro = RichTextField(default='')
 
@@ -76,6 +77,7 @@ class SubTopic(Topic):
     parent_page_types = ['Topic']
     subpage_types = []
     template = 'topic.html'
+    show_in_menus_default = False
 
     class Meta:
         verbose_name = _('Sub-topic')
