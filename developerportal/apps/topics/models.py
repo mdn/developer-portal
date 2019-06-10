@@ -4,12 +4,14 @@ from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
+    FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
     PageChooserPanel,
     TabbedInterface,
 )
+from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 
 from modelcluster.fields import ParentalKey
@@ -31,9 +33,15 @@ class Topic(Page):
     subpage_types = ['SubTopic']
     template = 'topic.html'
 
+    intro = RichTextField(default='')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+    ]
+
     featured_panels = [
         MultiFieldPanel([
-            InlinePanel('featured_articles', min_num=4, max_num=4)
+            InlinePanel('featured_articles', min_num=0, max_num=4)
         ], heading='Featured Articles', help_text=(
             'These articles will appear at the top of the topic page. Please '
             'choose four articles.'
@@ -41,7 +49,7 @@ class Topic(Page):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(content_panels, heading='Content'),
         ObjectList(featured_panels, heading='Featured'),
         ObjectList(Page.promote_panels, heading='SEO'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
