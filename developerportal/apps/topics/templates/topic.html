@@ -16,21 +16,12 @@
     {% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
     <div class="topic-content">
       {% include "organisms/featured.html" with featured=featured %}
-      <section>
-        <div class="section-header">
-          <h2>Get started</h2>
-        </div>
-        <div class="card-container">
-          {% for i in 3|times %}
-            {% include "molecules/item-get-started.html" %}
-          {% endfor %}
-        </div>
-      </section>
+      {% include "organisms/get-started.html" %}
       <!-- content managed content goes here -->
       <section>
-        {% for block in page.body %}
-          {{ block }}
-        {% endfor %}
+      {% for block in page.body %}
+        {{ block }}
+      {% endfor %}
       </section>
     </div>
     {% with subtopics=self.get_children.specific %}
