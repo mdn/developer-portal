@@ -2,12 +2,12 @@
 {% load wagtailimages_tags %}
 
 {% image author.profile_picture width-60 as author_pic %}
-<div class="article-details">
+<a class="article-details" href="{{ author.url }}">
   {% if author_pic %}
     <img
-      src="{{ author_pic.url }}" 
+      src="{{ author_pic.url }}"
       width="{{ author_pic.width }}"
-      height="{{ author_pic.height }}" 
+      height="{{ author_pic.height }}"
       alt="{{ author_pic.alt }}"/>
   {% else %}
     <img src="https://via.placeholder.com/60"/>
@@ -16,4 +16,4 @@
     <p>{{ author.title }} &middot; Mixed Reality Blog</p>
     <p>{{ date }}</p>
   </div>
-</div>
+</a>
