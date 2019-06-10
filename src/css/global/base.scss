@@ -15,6 +15,20 @@ body {
   padding: 0;
 }
 
+.mzp-l-content {
+  max-width: $container-max-width + ($grid-gap * 2);
+  min-width: none;
+  padding: $grid-gap-mobile;
+
+  @media #{$mq-md} {
+    padding: $layout-xs $grid-gap;
+  }
+
+  @media #{$mq-lg} {
+    padding: $layout-xs $grid-gap;
+  }
+}
+
 .hidden {
   display: none;
 }
