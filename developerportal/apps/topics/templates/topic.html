@@ -19,9 +19,9 @@
       {% include "organisms/get-started.html" %}
       <!-- content managed content goes here -->
       <section>
-        {% for block in page.body %}
-          {{ block }}
-        {% endfor %}
+      {% for block in page.body %}
+        {{ block }}
+      {% endfor %}
       </section>
     </div>
     {% with subtopics=self.get_children.specific %}

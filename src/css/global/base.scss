@@ -15,10 +15,6 @@ body {
   padding: 0;
 }
 
-.hidden {
-  display: none;
-}
-
 .mzp-l-content {
   max-width: $container-max-width + ($grid-gap * 2);
   min-width: none;
@@ -31,4 +27,8 @@ body {
   @media #{$mq-lg} {
     padding: $layout-xs $grid-gap;
   }
+}
+
+.hidden {
+  display: none;
 }
