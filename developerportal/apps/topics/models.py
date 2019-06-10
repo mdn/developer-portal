@@ -1,6 +1,7 @@
 # pylint: disable=no-member
 
 from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
     InlinePanel,
@@ -66,6 +67,11 @@ class Topic(Page):
 class SubTopic(Topic):
     parent_page_types = ['Topic']
     subpage_types = []
+    template = 'topic.html'
+
+    class Meta:
+        verbose_name = _('Sub-topic')
+        verbose_name_plural = _('Sub-topics')
 
 
 class Topics(Page):
