@@ -53,7 +53,7 @@ class Topic(Page):
         return context
 
     def get_articles(self, limit=12):
-        return Article.objects.filter(topics__pk=self.pk).live().public().order_by('-date')[:limit]
+        return Article.objects.filter(topics__topic__pk=self.pk).live().public().order_by('-date')[:limit]
 
     def get_featured_articles(self):
         return [{
