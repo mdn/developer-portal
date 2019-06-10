@@ -67,16 +67,16 @@ docker-compose up --build --detach
 
 
 log 'Running migrations.'
-docker-compose run --rm app python manage.py migrate
+docker-compose exec app python manage.py migrate
 
 
 log 'Loading data.'
-docker-compose run --rm app python manage.py loaddata developerportal/apps/**/fixtures/*.json
+docker-compose exec app python manage.py loaddata developerportal/apps/**/fixtures/*.json
 
 
 if [ -z "$ARG_NON_INTERACTIVE" ]; then
   log 'Creating super user.'
-  docker-compose run --rm app python manage.py createsuperuser
+  docker-compose exec app python manage.py createsuperuser
 fi
 
 
