@@ -1,8 +1,170 @@
 [
   {
+    "model": "articles.articletopic",
+    "pk": 4,
+    "fields": {
+      "sort_order": 0,
+      "article": 13,
+      "topic": 6
+    }
+  },
+  {
+    "model": "articles.articletopic",
+    "pk": 5,
+    "fields": {
+      "sort_order": 0,
+      "article": 14,
+      "topic": 6
+    }
+  },
+  {
+    "model": "articles.articletopic",
+    "pk": 6,
+    "fields": {
+      "sort_order": 0,
+      "article": 15,
+      "topic": 6
+    }
+  },
+  {
+    "model": "articles.articletopic",
+    "pk": 7,
+    "fields": {
+      "sort_order": 0,
+      "article": 16,
+      "topic": 6
+    }
+  },
+  {
+    "model": "articles.articletopic",
+    "pk": 8,
+    "fields": {
+      "sort_order": 0,
+      "article": 17,
+      "topic": 6
+    }
+  },
+  {
+    "model": "articles.article",
+    "pk": 13,
+    "fields": {
+      "intro": "<p>An intro</p>",
+      "author": null,
+      "date": "2019-06-06",
+      "header_image": 1,
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Script debugging is one of the most powerful and complex productivity features in the web developer toolbox. Done right, it empowers developers to fix bugs quickly and efficiently. So the question for us, the Firefox DevTools team, has been, are the Firefox DevTools doing it right?</p><p>We\\u2019ve been listening to feedback from our community. Above everything we heard the need for greater <b>reliability</b> and <b>performance</b>; especially with modern web apps. Moreover, script debugging is a hard-to-learn skill that should work in similar fashion across browsers, but isn\\u2019t consistent because of feature and UI gaps.</p><p>With these pain points in mind, the DevTools Debugger team \\u2013 with help from our tireless <a href=\\\"https://devtools-html-slack.herokuapp.com/\\\">developer community</a> \\u2013 landed countless updates to design a more productive debugging experience. The work is ongoing, but Firefox 67 marks an important milestone, and we wanted to highlight some of the fantastic improvements and features. We invite you to <a href=\\\"https://www.mozilla.org/en-US/firefox/developer/\\\">open up Firefox Quantum: Developer Edition</a>, try out the debugger on the examples below and your projects and let us know if you notice the difference.</p><h2>A rock-solid debugging experience</h2><p>Fast and reliable debugging is the result of many smaller interactions. From initial loading and source mapping to breakpoints, console logging, and variable previews, everything needs to <i>feel</i> solid and responsive. The debugger should be consistent, predictable, and capable of understanding common tools like <a href=\\\"https://webpack.js.org/\\\">webpack</a>, <a href=\\\"https://babeljs.io/\\\">Babel</a>, and <a href=\\\"https://www.typescriptlang.org/\\\">TypeScript</a>.</p><p>We can proudly say that <i>all</i> of those areas have improved in the past months:</p><ol><li><b>Faster load time</b>. We\\u2019ve eliminated the worst performance cliffs that made the debugger slow to open. This has resulted in a 30% speedup in our <a href=\\\"https://firefox-dev.tools/performance-dashboard/tools/debugger.html?days=90&amp;filterstddev=true&amp;ignoreFlags=true\\\">performance test suite</a>. We\\u2019ll share more of our performance adventures in a future post.</li><li><b>Excellent source map support.</b> A revamped and <a href=\\\"https://hacks.mozilla.org/2018/01/oxidizing-source-maps-with-rust-and-webassembly/\\\">faster</a> source-map backend perfects the illusion that you\\u2019re debugging <i>your</i> code, not the compiled output from <i>Babel</i>, <i>Webpack</i>, <i>TypeScript</i>, <i>vue.js</i>, etc.<br/> Generating correct source maps can be challenging, so we also contributed patches to build tools (i.e. <a href=\\\"https://github.com/babel/babel/pull/8380\\\">babel</a>, <a href=\\\"https://github.com/vuejs/vue-loader/issues/1163#issuecomment-384712864\\\">vue</a>.<a href=\\\"https://github.com/babel/babel/issues/7632\\\">js</a>, <a href=\\\"https://github.com/facebook/regenerator/issues/342\\\">regenerator</a>) \\u2013 benefiting the whole ecosystem.</li><li><b>Reduced overhead when debugger isn\\u2019t focused.</b> No need to worry any longer about keeping the DevTools open! We found and removed many expensive calculations from running in the debugger when it\\u2019s in the background.</li><li><b>Predictable breakpoints, pausing, and stepping.</b> We fixed many long-standing bugs deep in the debugger architecture, solving some of the most common and frustrating issues related to lost breakpoints, pausing in the wrong script, or stepping through pretty-printed code.</li><li><b>Faster variable preview.</b> Thanks to our faster source-map support (and lots of additional work), previews are now displayed much more quickly when you hover your mouse over a variable while execution is paused.</li></ol><p>These are just a handful of highlights. We\\u2019ve also resolved countless <a href=\\\"https://github.com/firefox-devtools/debugger/issues?q=is%3Aissue+is%3Aclosed+label%3A%22%3Abug%3A+bug%22\\\">bugs</a> and <a href=\\\"https://github.com/firefox-devtools/debugger/issues?q=is%3Aissue+is%3Aclosed+label%3A%22%3Awave%3A+polish%22\\\">polish</a> issues.</p><h3>Looking ahead</h3><p>Foremost, we must maintain a high standard of quality, which we\\u2019ll accomplish by explicitly setting aside time for polish in our planning. Guided by user feedback, we intend to use this time to improve new and existing features alike.</p><p>Second, continued investment in our <a href=\\\"https://firefox-dev.tools/performance-dashboard/\\\">performance</a> and <a href=\\\"https://github.com/firefox-devtools/debugger/tree/master/src/workers/parser/tests/fixtures/frameworks\\\">correctness</a> tests ensures that the ever-changing JavaScript ecosystem, including a wide variety of frameworks and compiled languages, is well supported by our tools.</p><h2>Debug all the things with new features</h2><p>Finding and pausing in just the right location can be key to understanding a bug. This should feel effortless, so we\\u2019ve scrutinized our own tools\\u2014and studied others\\u2014to give you the best possible experience.</p><h3>Inline breakpoints for fine-grained pausing and stepping</h3><p></p><p>Why should breakpoints operate on lines, when lines can have multiple  statements? Thanks to inline breakpoints, it\\u2019s now easier than ever to  debug minified scripts, arrow functions, and chained method calls. Learn  more about <a href=\\\"https://developer.mozilla.org/en-US/docs/Tools/Debugger/How_to/Set_a_breakpoint\\\">breakpoints on MDN</a> or <a href=\\\"https://firefox-devtools-example-babel-typescript.glitch.me/\\\">try out the demo</a>.</p><h3>Logpoints combine the power of Console and Debugger</h3><p>Console logging, also called <code>printf() debugging</code>, is a  quick and easy way to observe your program\\u2019s flow, but it rapidly  becomes tedious. Logpoints break that tiresome edit-build-refresh cycle  by dynamically injecting <code>console.log()</code> statements into your  running application. You can stay in the browser and monitor variables  without pausing or editing any code. Learn more about <a href=\\\"https://developer.mozilla.org/en-US/docs/Tools/Debugger/Set_a_log_point\\\">log points on MDN</a>.</p><h3>Seamless debugging for JavaScript Workers</h3><p><a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API\\\">Web Workers</a> power the modern web and need to be first-class concepts in DevTools. Using the new <i>Threads</i>  panel, you can switch between and independently pause different  execution contexts. This allows workers and their scripts to be debugged  within the same Debugger panel, similarly to other modern browsers.  Learn more about <a href=\\\"https://developer.mozilla.org/en-US/docs/Tools/Debugger\\\">Worker debugging on MDN</a>.</p><h3>Human-friendly variable names for source maps</h3><p>Debugging bundled and compressed code isn\\u2019t easy. The <a href=\\\"https://github.com/mozilla/source-map\\\">Source Maps</a>  project, started and maintained by Firefox, bridges the gap between  minified code running in the browser and its original, human-friendly  version, but the translation isn\\u2019t perfect. Often, bits of the minified  build output shine through and break the illusion. We can do better!</p><p>By combining source maps with the <a href=\\\"https://babeljs.io/docs/en/babel-parser\\\">Babel parser</a>,  Firefox\\u2019s Debugger can now preview the original variables you care  about, and hide the extraneous cruft from compilers and bundlers. This  can even work in the console, automatically resolving human-friendly  identifiers to their actual, minified names behind the scenes. Due to  its performance overhead, you have to <a href=\\\"https://developer.mozilla.org/en-US/docs/Tools/Debugger/Using_the_Debugger_map_scopes_feature\\\">enable this feature</a> separately by clicking the \\u201cMap\\u201d checkbox in the Debugger\\u2019s <i>Scopes</i> panel. Read the MDN documentation on <a href=\\\"https://developer.mozilla.org/en-US/docs/Tools/Debugger/Using_the_Debugger_map_scopes_feature\\\">using the map scopes feature</a>.</p><h3>What\\u2019s next</h3><p>Developers frequently need to switch between browsers to ensure that  the web works for everyone, and we want our DevTools to be an intuitive,  seamless experience. Though browsers have converged on the same broad  organization for tools, we know there are still gaps in both features  and UI. To help us address those gaps, please <a href=\\\"https://bugzilla.mozilla.org/enter_bug.cgi?product=DevTools&amp;component=Debugger\\\">let us know</a> where you experience friction when switching browsers in your daily work.</p><h2>Your input makes a big difference</h2><p>As always, we would love to hear your feedback on how we can improve DevTools and the browser.</p><ul><li>File bug reports in <a href=\\\"https://bugzilla.mozilla.org/enter_bug.cgi?product=DevTools&amp;component=General\\\">here in Bugzilla</a></li><li>Chat with us in the <a href=\\\"https://devtools-html-slack.herokuapp.com/\\\">Firefox DevTools Slack</a></li><li>Share ideas and questions in Mozilla\\u2019s <a href=\\\"https://discourse.mozilla.org/c/devtools\\\">Developer Tools Discourse</a></li><li>Tweet us at <a href=\\\"https://twitter.com/FirefoxDevTools\\\">@FirefoxDevTools</a></li></ul><p>While all these updates will be ready to try out in Firefox 67, when  it\\u2019s released next week, we\\u2019ve polished them to perfection in Firefox 68  and added a few more goodies. Download <a href=\\\"https://www.mozilla.org/en-US/firefox/developer/\\\">Firefox Developer Edition (68)</a> to try the latest updates for devtools and platform now.</p>\", \"id\": \"71e5331c-d9d7-4a2a-91bf-3821d924360d\"}]"
+    }
+  },
+  {
+    "model": "articles.article",
+    "pk": 14,
+    "fields": {
+      "intro": "<p>An intro</p>",
+      "author": null,
+      "date": "2019-06-06",
+      "header_image": 2,
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Today, we announce the start of a new standardization effort\\u200a\\u2014\\u200aWASI, the WebAssembly system interface.</p><p><b>Why:</b> Developers are starting to push WebAssembly beyond the browser, because it provides a fast, scalable, secure way to run the same code across all machines.</p><p>But we don\\u2019t yet have a solid foundation to build upon. Code outside of a browser needs a way to talk to the system\\u200a\\u2014\\u200aa system interface. And the WebAssembly platform doesn\\u2019t have that yet.</p><p><b>What:</b> WebAssembly is an assembly language for a conceptual machine, not a physical one. This is why it can be run across a variety of different machine architectures.</p><p>Just as WebAssembly is an assembly language for a conceptual machine, WebAssembly needs a system interface for a conceptual operating system, not any single operating system. This way, it can be run across all different OSs.</p><p>This is what WASI is\\u200a\\u2014\\u200aa system interface for the WebAssembly platform.</p><p>We aim to create a system interface that will be a true companion to WebAssembly and last the test of time. This means upholding the key principles of WebAssembly\\u200a\\u2014\\u200aportability and security.</p><p><b>Who:</b> We are chartering a WebAssembly subgroup to focus on standardizing <a href=\\\"https://wasi.dev/\\\">WASI</a>. We\\u2019ve already gathered interested partners, and are looking for more to join.</p><p>Here are some of the reasons that we, our partners, and our supporters think this is important:</p><h4>Sean White, Chief R&amp;D Officer of Mozilla</h4><p>\\u201cWebAssembly is already transforming the way the web brings new kinds of compelling content to people and empowers developers and creators to do their best work on the web. Up to now that\\u2019s been through browsers, but with WASI we can deliver the benefits of WebAssembly and the web to more users, more places, on more devices, and as part of more experiences.\\u201d</p><h4>Tyler McMullen, CTO of\\u00a0Fastly</h4><p>\\u201cWe are taking WebAssembly beyond the browser, as a platform for fast, safe execution of code in our edge cloud. Despite the differences in environment between our edge and browsers, WASI means WebAssembly developers won\\u2019t have to port their code to each different platform.\\u201d</p><h4>Myles Borins, Node Technical Steering committee director</h4><p>\\u201cWebAssembly could solve one of the biggest problems in Node\\u200a\\u2014\\u200ahow to get close-to-native speeds and reuse code written in other languages like C and C++ like you can with native modules, while still remaining portable and secure. Standardizing this system interface is the first step towards making that happen.\\u201d</p><h4>Laurie Voss, co-founder of\\u00a0npm</h4><p>\\u201cnpm is tremendously excited by the potential WebAssembly holds to expand the capabilities of the npm ecosystem while hugely simplifying the process of getting native code to run in server-side JavaScript applications. We look forward to the results of this process.\\u201d</p><p>So that\\u2019s the big news! \\ud83c\\udf89</p><p>There are currently 3 implementations of WASI:</p><ul><li><a href=\\\"https://github.com/CraneStation/wasmtime\\\">wasmtime</a>, Mozilla\\u2019s WebAssembly runtime</li><li><a href=\\\"https://www.fastly.com/blog/announcing-lucet-fastly-native-webassembly-compiler-runtime\\\">Lucet</a>, Fastly\\u2019s WebAssembly runtime</li><li><a href=\\\"https://wasi.dev/polyfill/\\\">a browser polyfill</a></li></ul><p>You can see WASI in action in this video:</p><p></p>\", \"id\": \"070ac8cc-1203-454b-be0b-77e51ffe85a0\"}, {\"type\": \"paragraph\", \"value\": \"<p>And if you want to learn more about our proposal for how this system interface should work, keep reading.</p><h3>What\\u2019s a system interface?</h3><p>Many people talk about languages like C giving you direct access to system resources. But that\\u2019s not <i>quite</i> true<i>.</i></p><p>These languages don\\u2019t have direct access to do things like open or create files on most systems. Why not?</p><p>Because these system resources\\u200a\\u2014\\u200asuch as files, memory, and network connections\\u2014 are too important for stability and security.</p><p>If one program unintentionally messes up the resources of another, then it could crash the program. Even worse, if a program (or user) intentionally messes with the resources of another, it could steal sensitive data.</p>\", \"id\": \"bd7b509e-2c86-4fef-84e4-eb775a3feef1\"}, {\"type\": \"paragraph\", \"value\": \"<p>So we need a way to control which programs and users can access which resources. People figured this out pretty early on, and came up with a way to provide this control: protection ring security.</p><p>With protection ring security, the operating system basically puts a protective barrier around the system\\u2019s resources. This is the kernel. The kernel is the only thing that gets to do operations like creating a new file or opening a file or opening a network connection.</p><p>The user\\u2019s programs run outside of this kernel in something called user mode. If a program wants to do anything like open a file, it has to ask the kernel to open the file for it.</p>\", \"id\": \"fe4c3fc8-d78c-4a9c-8eec-53080d5c4485\"}, {\"type\": \"paragraph\", \"value\": \"<p>This is where the concept of the system call comes in. When a program  needs to ask the kernel to do one of these things, it asks using a  system call. This gives the kernel a chance to figure out which user is  asking. Then it can see if that user has access to the file before  opening it.</p><p>On most devices, this is the only way that your code can access the system\\u2019s resources\\u200a\\u2014\\u200athrough system calls.</p>\", \"id\": \"ea677f06-e5aa-4bfd-9630-259736426296\"}, {\"type\": \"paragraph\", \"value\": \"<p>The operating system makes the system calls available. But if each  operating system has its own system calls, wouldn\\u2019t you need a different  version of the code for each operating system? Fortunately, you don\\u2019t.</p><p>How is this problem solved? Abstraction.</p><p>Most languages provide a standard library. While coding, the  programmer doesn\\u2019t need to know what system they are targeting. They  just use the interface.</p><p>Then, when compiling, your toolchain picks which implementation of  the interface to use based on what system you\\u2019re targeting. This  implementation uses functions from the operating system\\u2019s API, so it\\u2019s  specific to the system.</p><p>This is where the system interface comes in. For example, <code>printf</code>  being compiled for a Windows machine could use the Windows API to  interact with the machine. If it\\u2019s being compiled for Mac or Linux, it  will use POSIX instead.</p>\", \"id\": \"f95d3013-000a-4abf-8247-7886e108fae2\"}, {\"type\": \"paragraph\", \"value\": \"<p>This poses a problem for WebAssembly, though.</p><p>With WebAssembly, you don\\u2019t know what kind of operating system you\\u2019re  targeting even when you\\u2019re compiling. So you can\\u2019t use any single OS\\u2019s  system interface inside the WebAssembly implementation of the standard  library.</p>\", \"id\": \"fc6d5d6e-f72d-4204-9cf5-98d233faebf0\"}, {\"type\": \"paragraph\", \"value\": \"<p>I\\u2019ve talked before about how WebAssembly is <a href=\\\"https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/\\\">an assembly language for a conceptual machine</a>,  not a real machine. In the same way, WebAssembly needs a system  interface for a conceptual operating system, not a real operating  system.</p><p>But there are already runtimes that can run WebAssembly outside the  browser, even without having this system interface in place. How do they  do it? Let\\u2019s take a look.</p><h3>How is WebAssembly running outside the browser\\u00a0today?</h3><p>The first tool for producing WebAssembly was Emscripten. It emulates a  particular OS system interface, POSIX, on the web. This means that the  programmer can use functions from the C standard library (libc).</p><p>To do this, Emscripten created its own implementation of libc. This  implementation was split in two\\u200a\\u2014\\u200apart was compiled into the WebAssembly  module, and the other part was implemented in JS glue code. This JS  glue would then call into the browser, which would then talk to the OS.</p>\", \"id\": \"fbb34545-906f-4df8-863b-f7edf8c1ee2d\"}, {\"type\": \"paragraph\", \"value\": \"<p>Most of the early WebAssembly code was compiled with Emscripten. So  when people started wanting to run WebAssembly without a browser, they  started by making Emscripten-compiled code run.</p><p>So these runtimes needed to create their own implementations for all of these functions that were in the JS glue code.</p><p>There\\u2019s a problem here, though. The interface provided by this JS  glue code wasn\\u2019t designed to be a standard, or even a public facing  interface. That wasn\\u2019t the problem it was solving.</p><p>For example, for a function that would be called something like <code>read</code> in an API that was designed to be a public interface, the JS glue code instead uses <code>_system3(which, varargs)</code>.</p>\", \"id\": \"638ce60f-1596-4217-bce9-fac2531733bb\"}, {\"type\": \"paragraph\", \"value\": \"<p>The first parameter, <code>which</code>, is an integer which is always the same as the number in the name (so 3 in this case).</p><p>The second parameter, <code>varargs</code>, are the arguments to use. It\\u2019s called <code>varargs</code>  because you can have a variable number of them. But WebAssembly doesn\\u2019t  provide a way to pass in a variable number of arguments to a function.  So instead, the arguments are passed in via linear memory. This isn\\u2019t  type safe, and it\\u2019s also slower than it would be if the arguments could  be passed in using registers.</p><p>That was fine for Emscripten running in the browser. But now runtimes  are treating this as a de facto standard, implementing their own  versions of the JS glue code. They are emulating an internal detail of  an emulation layer of POSIX.</p><p>This means they are re-implementing choices (like passing arguments  in as heap values) that made sense based on Emscripten\\u2019s constraints,  even though these constraints don\\u2019t apply in their environments.</p>\", \"id\": \"efb642c2-1c91-4bc3-b59b-10958da501cc\"}, {\"type\": \"paragraph\", \"value\": \"<p>If we\\u2019re going to build a WebAssembly ecosystem that lasts for  decades, we need solid foundations. This means our de facto standard  can\\u2019t be an emulation of an emulation.</p><p>But what principles should we apply?</p><h3>What principles does a WebAssembly system interface need to\\u00a0uphold?</h3><p>There are two important principles that are baked into WebAssembly\\u00a0:</p><ul><li>portability</li><li>security</li></ul><p>We need to maintain these key principles as we move to outside-the-browser use cases.</p><p>As it is, POSIX and Unix\\u2019s Access Control approach to security don\\u2019t quite get us there. Let\\u2019s look at where they fall short.</p><h4>Portability</h4><p>POSIX provides source code portability. You can compile the same  source code with different versions of libc to target different  machines.</p>\", \"id\": \"55db35ba-8356-4324-97e1-98b809bd4547\"}, {\"type\": \"paragraph\", \"value\": \"<p>But WebAssembly needs to go one step beyond this. We need to be able  to compile once and run across a whole bunch of different machines. We  need portable binaries.</p>\", \"id\": \"b9e16e3e-0203-4ceb-aa97-9405b33afdbd\"}, {\"type\": \"paragraph\", \"value\": \"<p>This kind of portability makes it much easier to distribute code to users.</p><p>For example, if Node\\u2019s native modules were written in WebAssembly,  then users wouldn\\u2019t need to run node-gyp when they install apps with  native modules, and developers wouldn\\u2019t need to configure and distribute  dozens of binaries.</p><h4>Security</h4><p>When a line of code asks the operating system to do some input or  output, the OS needs to determine if it is safe to do what the code  asks.</p><p>Operating systems typically handle this with access control that is based on ownership and groups.</p><p>For example, the program might ask the OS to open a file. A user has a certain set of files that they have access to.</p><p>When the user starts the program, the program runs on behalf of that  user. If the user has access to the file\\u200a\\u2014\\u200aeither because they are the  owner or because they are in a group with access\\u200a\\u2014\\u200athen the program has  that same access, too.</p>\", \"id\": \"7687137b-7341-4e3e-9ef2-504447b27382\"}, {\"type\": \"paragraph\", \"value\": \"<p>This protects users from each other. That made a lot of sense when  early operating systems were developed. Systems were often multi-user,  and administrators controlled what software was installed. So the most  prominent threat was other users taking a peek at your files.</p><p>That has changed. Systems now are usually single user, but they are  running code that pulls in lots of other, third party code of unknown  trustworthiness. Now the biggest threat is that the code that you  yourself are running will turn against you.</p><p>For example, let\\u2019s say that the library you\\u2019re using in an  application gets a new maintainer (as often happens in open source).  That maintainer might have your interest at heart\\u2026 or they might be one  of the bad guys. And if they have access to do anything on your  system\\u200a\\u2014\\u200afor example, open any of your files and send them over the  network\\u200a\\u2014\\u200athen their code can do a lot of damage.</p>\", \"id\": \"302d2bdb-3c55-4c6b-bf6a-7bc0e3495efe\"}, {\"type\": \"paragraph\", \"value\": \"<p>This is why using third-party libraries that can talk directly to the system can be dangerous.</p><p>WebAssembly\\u2019s way of doing security is different. WebAssembly is sandboxed.</p><p>This means that code can\\u2019t talk directly to the OS. But then how does  it do anything with system resources? The host (which might be a  browser, or might be a wasm runtime) puts functions in the sandbox that  the code can use.</p><p>This means that the host can limit what a program can do on a  program-by-program basis. It doesn\\u2019t just let the program act on behalf  of the user, calling any system call with the user\\u2019s full permissions.</p><p>Just having a mechanism for sandboxing doesn\\u2019t make a system secure  in and of itself\\u200a\\u2014\\u200athe host can still put all of the capabilities into  the sandbox, in which case we\\u2019re no better off\\u200a\\u2014\\u200abut it at least gives  hosts the option of creating a more secure system.</p>\", \"id\": \"d04d8912-7e4e-4b78-8055-f51629456c95\"}, {\"type\": \"paragraph\", \"value\": \"<p>In any system interface we design, we need to uphold these two  principles. Portability makes it easier to develop and distribute  software, and providing the tools for hosts to secure themselves or  their users is an absolute must.,</p><h3>What should this system interface look\\u00a0like?</h3><p>Given those two key principles, what should the design of the WebAssembly system interface be?</p><p>That\\u2019s what we\\u2019ll figure out through the standardization process. We do have a proposal to start with, though:</p><ul><li>Create a modular set of standard interfaces</li><li>Start with standardizing the most fundamental module, wasi-core</li></ul>\", \"id\": \"fa117246-d834-4fef-9e2d-9d8e59966c24\"}, {\"type\": \"paragraph\", \"value\": \"<p>What will be in wasi-core?</p><p>wasi-core will contain the basics that all programs need. It will  cover much of the same ground as POSIX, including things such as files,  network connections, clocks, and random numbers.</p><p>And it will take a very similar approach to POSIX for many of these  things. For example, it will use POSIX\\u2019s file-oriented approach, where  you have system calls such as open, close, read, and write and  everything else basically provides augmentations on top.</p><p>But wasi-core won\\u2019t cover everything that POSIX does. For example,  the process concept does not map clearly onto WebAssembly. And beyond  that, it doesn\\u2019t make sense to say that every WebAssembly engine needs  to support process operations like <code>fork</code>. But we also want to make it possible to standardize <code>fork</code>.</p><p>This is where the modular approach comes in. This way, we can get  good standardization coverage while still allowing niche platforms to  use only the parts of WASI that make sense for them.</p>\", \"id\": \"48461444-32e6-4454-999a-4fd8f54d47ba\"}, {\"type\": \"paragraph\", \"value\": \"<p>Languages like Rust will use wasi-core directly in their standard libraries. For example, Rust\\u2019s <code>open</code> is implemented by calling <code>__wasi_path_open</code> when it\\u2019s compiled to WebAssembly.</p><p>For C and C++, we\\u2019ve created a <a href=\\\"https://github.com/CraneStation/wasi-sysroot\\\">wasi-sysroot</a> that implements libc in terms of wasi-core functions.</p>\", \"id\": \"e9193533-0b0a-4502-937a-2e12fe4a685c\"}, {\"type\": \"paragraph\", \"value\": \"<p>We expect compilers like Clang to be ready to interface with the WASI  API, and complete toolchains like the Rust compiler and Emscripten to  use WASI as part of their system implementations</p><p>How does the user\\u2019s code call these WASI functions?</p><p>The runtime that is running the code passes the wasi-core functions in as imports.</p>\", \"id\": \"edad2e01-7111-41fe-998e-a4e45f869867\"}, {\"type\": \"paragraph\", \"value\": \"<p>This gives us portability, because each host can have their own  implementation of wasi-core that is specifically written for their  platform\\u200a\\u2014\\u200afrom WebAssembly runtimes like Mozilla\\u2019s wasmtime and  Fastly\\u2019s Lucet, to Node, or even the browser.</p><p>It also gives us sandboxing because the host can choose which  wasi-core functions to pass in\\u200a\\u2014\\u200aso, which system calls to allow\\u200a\\u2014\\u200aon a  program-by-program basis. This preserves security.</p><a href=\\\"https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2019/03/05-05-sec-port-1.png\\\"> </a>\", \"id\": \"b282a10e-a4d0-4f9c-a1ce-46ae7f4d339d\"}, {\"type\": \"paragraph\", \"value\": \"<p>WASI gives us a way to extend this security even further. It brings in more concepts from capability-based security.</p><p>Traditionally, if code needs to open a file, it calls <code>open</code>  with a string, which is the path name. Then the OS does a check to see  if the code has permission (based on the user who started the program).</p><p>With WASI, if you\\u2019re calling a function that needs to access a file,  you have to pass in a file descriptor, which has permissions attached to  it. This could be for the file itself, or for a directory that contains  the file.</p><p>This way, you can\\u2019t have code that randomly asks to open <code>/etc/passwd</code>. Instead, the code can only operate on the directories that are passed in to it.</p>\", \"id\": \"f57f0d1a-d7da-4e49-81aa-62da855046e8\"}, {\"type\": \"paragraph\", \"value\": \"<p>This makes it possible to safely give sandboxed code more access to  different system calls\\u200a\\u2014\\u200abecause the capabilities of these system calls  can be limited.</p><p>And this happens on a module-by-module basis. By default, a module  doesn\\u2019t have any access to file descriptors. But if code in one module  has a file descriptor, it can choose to pass that file descriptor to  functions it calls in other modules. Or it can create more limited  versions of the file descriptor to pass to the other functions.</p><p>So the runtime passes in the file descriptors that an app can use to  the top level code, and then file descriptors get propagated through the  rest of the system on an as-needed basis.</p>\", \"id\": \"30a8ef25-ca3e-46ad-9976-bcef00e98a95\"}, {\"type\": \"paragraph\", \"value\": \"<p>This gets WebAssembly closer to the principle of least privilege,  where a module can only access the exact resources it needs to do its  job.</p><p>These concepts come from capability-oriented systems, like CloudABI  and Capsicum. One problem with capability-oriented systems is that it is  often hard to port code to them. But we think this problem can be  solved.</p><p>If code already uses <code>openat</code> with relative file paths, compiling the code will just work.</p><p>If code uses <code>open</code> and migrating to the <code>openat</code> style is too much up-front investment, WASI can provide an incremental solution. With <a href=\\\"https://github.com/musec/libpreopen\\\">libpreopen</a>, you can create a list of file paths that the application legitimately needs access to. Then you can use <code>open</code>, but only with those paths.</p><h3>What\\u2019s next?</h3><p>We think wasi-core is a good start. It preserves WebAssembly\\u2019s  portability and security, providing a solid foundation for an ecosystem.</p><p>But there are still questions we\\u2019ll need to address after wasi-core is fully standardized. Those questions include:</p><ul><li>asynchronous I/O</li><li>file watching</li><li>file locking</li></ul><p>This is just the beginning, so if you have ideas for how to solve these problems, <a href=\\\"https://wasi.dev/\\\">join us</a>!</p>\", \"id\": \"dcf98247-4066-422c-9e32-fd45c05c9166\"}]"
+    }
+  },
+  {
+    "model": "articles.article",
+    "pk": 15,
+    "fields": {
+      "intro": "<p>intro</p>",
+      "author": null,
+      "date": "2019-06-06",
+      "header_image": 3,
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Firefox 66 is out, and brings with it a host of great new features like screen sharing, scroll anchoring, autoplay blocking for audible media, and initial support for the Touch Bar on macOS.</p><p>These are just highlights. For complete information, see:</p><ul><li><a href=\\\"https://www.mozilla.org/firefox/66.0/releasenotes/\\\">Firefox 66 Release Notes</a></li><li><a href=\\\"https://developer.mozilla.org/docs/Mozilla/Firefox/Releases/66\\\">Firefox 66 for Developers</a></li><li><a href=\\\"https://www.fxsitecompat.com/versions/66/\\\">Firefox 66 Site Compatibility</a></li></ul><h2>Audible Autoplay Blocking</h2><p>Starting with version 66, Firefox will <a href=\\\"https://hacks.mozilla.org/2019/02/firefox-66-to-block-automatically-playing-audible-video-and-audio/\\\">block audible autoplaying video and audio</a>. This means media (audio and video) have to wait for user interaction before playing, unless the <code>muted</code> property is set on the associated <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement\\\">HTMLMediaElement</a>. Blocking can be disabled on a case-by-case basis in the site information overlay:</p>\", \"id\": \"6902f860-5ca6-4108-bbe0-db5a353faf0f\"}, {\"type\": \"paragraph\", \"value\": \"<p>Now <i>you</i> get to decide when to disturb <a href=\\\"https://www.youtube.com/watch?v=NAEppFUWLfc\\\">the sound of silence</a><a href=\\\"https://www.youtube.com/watch?v=dQw4w9WgXcQ\\\">.</a></p><p><b><i>Note:</i></b><i> We\\u2019re rolling out blocking gradually to  ensure that it doesn\\u2019t break legitimate use cases. All Firefox users  should have blocking enabled </i><a href=\\\"https://bugzilla.mozilla.org/1535667\\\"><i>within a few days</i></a><i>.</i><br/> </p><h2>Usability Improvements</h2><h3>Scroll Anchoring</h3><p>Firefox now implements <a href=\\\"https://drafts.csswg.org/css-scroll-anchoring/\\\">scroll anchoring</a>, which prevents slow-loading content from suddenly appearing and pushing visible content off the page.</p><h3>Touch Bar</h3><p>The Touch Bar on macOS is now supported, offering quick access to  common browser features without having to learn keyboard shortcuts.</p>\", \"id\": \"0af1f0df-c313-4e2f-a582-9a1e1c9b389e\"}, {\"type\": \"paragraph\", \"value\": \"<h3>Tab Search</h3><p>Too many tabs? The overflow menu sports a new option to search through your open tabs and switch to the right one.</p>\", \"id\": \"d090395a-cfb7-4e6a-af37-53c91b5fdb16\"}, {\"type\": \"paragraph\", \"value\": \"<p>Astute users will note that clicking on \\u201cSearch Tabs\\u201d focuses the Awesomebar and types a <code>%</code>  sign in front of your query. Thus, while the menu entry makes tab  search much more discoverable, you can actually achieve the same effect  by focusing the Awesomebar and manually typing a <code>%</code> sign or <a href=\\\"https://support.mozilla.org/en-US/kb/awesome-bar-search-firefox-bookmarks-history-tabs#w_changing-results-on-the-fly\\\">other modifier</a>.</p><h3>Extension Shortcuts</h3><p>Speaking of shortcuts, you can now manage and change all of the shortcuts set by extensions by visiting <code>about:addons</code> and clicking \\u201cManage Extension Shortcuts\\u201d under the gear icon on the Extensions overview page.</p>\", \"id\": \"0395b545-36d2-44d4-9b6a-d52a9b82d19b\"}, {\"type\": \"paragraph\", \"value\": \"<h3>Better Security Warnings</h3><p>We\\u2019ve <a href=\\\"https://blog.mozilla.org/ux/2019/03/designing-better-security-warnings/\\\">completely redesigned Firefox\\u2019s security warnings</a> to better encourage safe browsing practices (i.e., don\\u2019t ignore the warnings!)</p><h2>Expanded CSS Features</h2><p>Firefox is the first browser to support animating the CSS Grid <code>grid-template-rows</code> and <code>grid-template-columns</code> properties, as seen in the <a href=\\\"https://www.youtube.com/watch?v=dC4W7t7JlHw\\\">video</a> below.</p>\", \"id\": \"55b3a728-1cec-4054-a7ef-96ff8cfb2105\"}, {\"type\": \"paragraph\", \"value\": \"<p>We\\u2019re also the first browser to support the <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/CSS/@media/overflow-inline\\\"><code>overflow-inline</code></a> and <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/CSS/@media/overflow-block\\\"><code>overflow-block</code></a>  media queries, which make it possible to apply styles based on whether  (and how) overflowing content is available to the user. For example, a  digital billboard might report <code>overflow-block: none</code>, while an e-reader would match <code>overflow-block: paged</code>.</p><p>Furthermore, Firefox now supports:</p><ul><li>Optional <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors#case-sensitive\\\">case sensitivity</a> for <code>[attr]</code> selectors.</li><li>Unprefixed <code>min-content</code> and <code>max-content</code> size keywords.</li><li><a href=\\\"https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/66#CSS\\\">19 new shorthand logical properties</a> \\u2014 these specify values relative to the current writing mode rather than the edges of the screen .</li></ul><h2>New DOM APIs</h2><p>The new <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia\\\"><code>getDisplayMedia</code></a> API enables screen sharing on the Web similarly to how <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia\\\"><code>getUserMedia</code></a> provides access to webcams. The resulting stream can be processed locally or shared over the network with WebRTC.\\u00a0See <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture\\\">Using the Screen Capture API</a> on MDN for more information.</p>\", \"id\": \"10dac6c1-6959-44a4-b8ac-1d7125c6b2f2\"}, {\"type\": \"paragraph\", \"value\": \"<p>Mozilla is using <code>getDisplayMedia</code> in Bugzilla to allow people to <a href=\\\"https://twitter.com/BugzillaUX/status/1106203965497081856\\\">take and attach screenshots</a> to their bug reports, directly from inside the browser.</p><p>Also, starting with Firefox 66, <code>InputEvent</code> now has a read-only property, <code>inputType</code>. This distinguishes between many different types of edits that can happen inside an input field, for example <code>insertText</code> versus <code>insertFromPaste</code>. To learn more, check out the documentation (and live demo) <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/InputEvent/inputType\\\">on MDN</a>.</p><h2>Browser Internals</h2><p>Lastly, we\\u2019ve made a few changes to how Firefox works under the hood:</p><ul><li>Local storage for browser extensions is now backed by IndexedDB, offering <a href=\\\"https://blog.mozilla.org/addons/2019/02/15/extensions-in-firefox-66/\\\">significant performance and memory improvements</a>,  especially for users with many extensions installed. No  developer-facing APIs were changed; this improvement is completely  transparent and automatic for extension authors.</li><li>We\\u2019ve <a href=\\\"http://www.erahm.org/2019/03/13/doubling-the-number-of-content-processes-in-firefox/\\\">doubled Firefox\\u2019s default number of content processes</a>  from 4 to 8. We\\u2019ve managed to do this while keeping Firefox\\u2019s memory  usage virtually unchanged thanks to Project Fission\\u2019s efforts to <a href=\\\"https://wiki.mozilla.org/Project_Fission/Memory\\\">reduce per-process overhead</a>.</li><li>Firefox now supports <a href=\\\"https://blog.mozilla.org/security/2019/03/19/passwordless-web-authentication-support-via-windows-hello/\\\">Windows Hello for passwordless authentication</a> online via <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API\\\">WebAuthn</a>.</li></ul><p>From all of us at Mozilla, thank you for choosing Firefox!</p>\", \"id\": \"a17ecc4d-6507-4f4e-b021-b25451776501\"}]"
+    }
+  },
+  {
+    "model": "articles.article",
+    "pk": 16,
+    "fields": {
+      "intro": "<p>An extensive intro</p>",
+      "author": null,
+      "date": "2019-06-06",
+      "header_image": 4,
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<p><i>In Part 2 of my three-part</i> <a href=\\\"https://hacks.mozilla.org/category/fearless-security/\\\"><i>Fearless Security</i></a><i> series, I\\u2019ll explore thread safety.</i></p><p>Today\\u2019s applications are multi-threaded\\u2014instead of sequentially completing tasks, a program uses threads to perform multiple tasks simultaneously. We all use <i>concurrency</i> and <i>parallelism</i> every day:</p><ul><li>Web sites serve multiple simultaneous users.</li><li>User interfaces perform background work that doesn\\u2019t interrupt the user. (Imagine if your application froze each time you typed a character because it was spell-checking).</li><li>Multiple applications can run at the same time on a computer.</li></ul><p>While this allows programs to do more faster, it comes with a set of  synchronization problems, namely deadlocks and data races. From a  security standpoint, why do we care about thread safety? Memory safety  bugs and thread safety bugs have the same core problem: invalid resource  use. Concurrency attacks can lead to similar consequences as memory  attacks, including privilege escalation, arbitrary code execution (ACE),  and bypassing security checks.</p><p>Concurrency bugs, like implementation bugs, are closely related to  program correctness. While memory vulnerabilities are nearly always  dangerous, implementation/logic bugs don\\u2019t always indicate a security  concern, unless they occur in the part of the code that deals with  ensuring security contracts are upheld (e.g. allowing a security check  bypass). However, while security problems stemming from logic errors  often occur near the error in sequential code, concurrency bugs often  happen in <a href=\\\"http://www.cs.columbia.edu/~junfeng/papers/owl-dsn18.pdf\\\">different functions from their corresponding vulnerability</a>,  making them difficult to trace and resolve. Another complication is the  overlap between mishandling memory and concurrency flaws, which we see  in data races.</p><p>Programming languages have evolved different concurrency strategies  to help developers manage both the performance and security challenges  of multi-threaded applications.</p><h2>Problems with concurrency</h2><p>It\\u2019s a common axiom that parallel programming is hard\\u2014our brains are  better at sequential reasoning. Concurrent code can have unexpected and  unwanted interactions between threads, including deadlocks, race  conditions, and data races.</p><p>A <i>deadlock</i> occurs when multiple threads are each waiting on  the other to take some action in order to proceed, leading to the  threads becoming permanently blocked. While this is undesirable behavior  and could cause a denial of service attack, it wouldn\\u2019t cause  vulnerabilities like ACE.</p><p>A <i>race condition</i> is a situation in which the timing or ordering of tasks can affect the correctness of a program, while a <i>data race</i>  happens when multiple threads attempt to concurrently access the same  location in memory and at least one of those accesses is a write.  There\\u2019s a lot of overlap between data races and race conditions, but  they can also <a href=\\\"https://blog.regehr.org/archives/490\\\">occur independently</a>. <a href=\\\"https://software.intel.com/en-us/blogs/2013/01/06/benign-data-races-what-could-possibly-go-wrong\\\">There are no benign data races</a>.</p><h3>Potential consequences of concurrency bugs:</h3><ol><li>Deadlock</li><li>Information loss: another thread overwrites information</li><li>Integrity loss: information from multiple threads is interlaced</li><li>Loss of liveness: performance problems resulting from uneven access to shared resources</li></ol><p>The best-known type of concurrency attack is called a <a href=\\\"https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use\\\">TOCTOU</a>  (time of check to time of use) attack, which is a race condition  between checking a condition (like a security credential) and using the  results. TOCTOU attacks are examples of integrity loss.</p><p>Deadlocks and loss of <i>liveness</i> are considered performance  problems, not security issues, while information and integrity loss are  both more likely to be security-related. This <a href=\\\"https://www.redballoonsecurity.com/publications/papers/Concurrency_Attacks.pdf\\\">paper from Red Balloon Security</a>  examines some exploitable concurrency errors. One example is a pointer  corruption that allows privilege escalation or remote execution\\u2014a  function that loads a shared ELF (Executable and Linkable Format)  library holds a semaphore correctly the first time it\\u2019s called, but the  second time it doesn\\u2019t, enabling kernel memory corruption. This attack  is an example of information loss.</p><p>The trickiest part of concurrent programming is testing and  debugging\\u2014concurrency bugs have poor reproducibility. Event timings,  operating system decisions, network traffic, etc. can all cause  different behavior each time you run a program that has a concurrency  bug.</p>\", \"id\": \"5b66bec8-4cb5-489e-b76c-d338927671f3\"}, {\"type\": \"paragraph\", \"value\": \"<p>Not only can behavior change each time we run a concurrent program,  but inserting print or debugging statements can also modify the  behavior, causing <i>heisenbugs</i> (nondeterministic, hard to  reproduce bugs that are common in concurrent programming) to  mysteriously disappear. These operations are slow compared to others and  change message interleaving and event timing accordingly.</p><p>Concurrent programming is hard. Predicting how concurrent code  interacts with other concurrent code is difficult to do. When bugs  appear, they\\u2019re difficult to find and fix. Instead of relying on  programmers to worry about this, let\\u2019s look at ways to design programs  and use languages to make it easier to write concurrent code.</p><p>First, we need to define what \\u201cthreadsafe\\u201d means:</p><blockquote>  \\u201cA data type or static method is threadsafe if it behaves correctly  when used from multiple threads, regardless of how those threads are  executed, and without demanding additional coordination from the calling  code.\\u201d <a href=\\\"http://web.mit.edu/6.031/www/fa17/classes/20-thread-safety/\\\"><i>MIT</i></a> </blockquote><h2>How programming languages manage concurrency</h2><p>In languages that don\\u2019t statically enforce thread safety, programmers  must remain constantly vigilant when interacting with memory that can  be shared with another thread and could change at any time. In  sequential programming, we\\u2019re taught to avoid global variables in case  another part of code has silently modified them. Like manual memory  management, requiring programmers to safely mutate shared data is  problematic.</p>\", \"id\": \"4164ba20-cd97-4fd3-a5c2-17c7717a3420\"}, {\"type\": \"paragraph\", \"value\": \"<p>Generally, programming languages are limited to two approaches for managing safe concurrency:</p><ol><li>Confining mutability or limiting sharing</li><li>Manual thread safety (e.g. locks, semaphores)</li></ol><p>Languages that limit threading either confine mutable variables to a  single thread or require that all shared variables be immutable. Both  approaches eliminate the core problem of data races\\u2014improperly mutating  shared data\\u2014but this can be too limiting. To solve this, languages have  introduced low-level synchronization primitives like <i>mutexes</i>. These can be used to build threadsafe data structures.</p><h3>Python and the global interpreter lock</h3><p>The reference implementation of Python, CPython, has a mutex called  the Global Interpreter Lock (GIL), which only allows a single thread to  access a Python object. Multi-threaded Python is notorious for being <a href=\\\"https://hackernoon.com/concurrent-programming-in-python-is-not-what-you-think-it-is-b6439c3f3e6a\\\">inefficient</a>  because of the time spent waiting to acquire the GIL. Instead, most  parallel Python programs use multiprocessing, meaning each process has  its own GIL.</p><h3>Java and runtime exceptions</h3><p><a href=\\\"https://en.wikipedia.org/wiki/Java_concurrency\\\">Java</a>  is designed to support concurrent programming via a shared-memory  model. Each thread has its own execution path, but is able to access any  object in the program\\u2014it\\u2019s up to the programmer to synchronize accesses  between threads using Java built-in primitives.</p><p>While Java has the building blocks for creating thread-safe programs, <a href=\\\"https://www.journaldev.com/1061/thread-safety-in-java\\\">thread safety</a> is <b>not</b>  guaranteed by the compiler (unlike memory safety). If an unsynchronized  memory access occurs (aka a data race), then Java will raise a runtime  exception\\u2014however, this still relies on programmers appropriately using  concurrency primitives.</p><h3>C++ and the programmer\\u2019s brain</h3><p>While Python avoids data races by synchronizing everything with the  GIL, and Java raises runtime exceptions if it detects a data race, C++  relies on programmers to manually synchronize memory accesses. Prior to  C++11, the standard library <a href=\\\"http://www.modernescpp.com/index.php/c-core-guidelines-rules-for-concurrency-and-parallelism\\\">did not include concurrency primitives</a>.</p><p>Most programming languages provide programmers with the tools to  write thread-safe code, and post hoc methods exist for detecting data  races and race conditions; however, this does not result in any  guarantees of thread safety or data race freedom.</p><h2>How does Rust manage concurrency?</h2><p>Rust takes a multi-pronged approach to eliminating data races, using  ownership rules and type safety to guarantee data race freedom at  compile time.</p><p>The <a href=\\\"https://hacks.mozilla.org/2019/01/fearless-security-memory-safety/\\\">first post</a>  of this series introduced ownership\\u2014one of the core concepts of Rust.  Each variable has a unique owner and can either be moved or borrowed. If  a different thread needs to modify a resource, then we can transfer  ownership by moving the variable to the new thread.</p><p>Moving enforces exclusion, allowing multiple threads to write to the  same memory, but never at the same time. Since an owner is confined to a  single thread, what happens if another thread borrows a variable?</p><p>In Rust, you can have either one mutable borrow or as many immutable  borrows as you want. You can never simultaneously have a mutable borrow  and an immutable borrow (or multiple mutable borrows). When we talk  about memory safety, this ensures that resources are freed properly, but  when we talk about thread safety, it means that only one thread can  ever modify a variable at a time. Furthermore, we know that no other  threads will try to reference an out of date borrow\\u2014borrowing enforces  either sharing or writing, but never both.</p><p>Ownership was designed to mitigate memory vulnerabilities. It turns out that it also prevents data races.</p><p>While many programming languages have methods to enforce memory  safety (like reference counting and garbage collection), they usually  rely on manual synchronization or prohibitions on concurrent sharing to  prevent data races. Rust\\u2019s approach addresses both kinds of safety by  attempting to solve the core problem of identifying valid resource use  and enforcing that validity during compilation.</p>\", \"id\": \"9cb5a795-d9b1-4aaf-a32c-321e5293079a\"}, {\"type\": \"paragraph\", \"value\": \"<h3>But wait! There\\u2019s more!</h3><p>The ownership rules prevent multiple threads from writing to the same  memory and disallow simultaneous sharing between threads and  mutability, but this doesn\\u2019t necessarily provide thread-safe data  structures. Every data structure in Rust is either thread-safe or it\\u2019s  not. This is communicated to the compiler using the type system.</p><blockquote>  A well-typed program can\\u2019t go wrong.  <i>Robin Milner, 1978</i> </blockquote><p>In programming languages, type systems describe valid behaviors. In  other words, a well-typed program is well-defined. As long as our types  are expressive enough to capture our intended meaning, then a well-typed  program will behave as intended.</p><p>Rust is a type safe language\\u2014the compiler verifies that all types are  consistent. For example, the following code would not compile:</p>\", \"id\": \"808f15f1-c3bd-4332-a4e8-02b56a39c086\"}, {\"type\": \"paragraph\", \"value\": \"<p>All variables in Rust have a type\\u2014often, they\\u2019re implicit. We can  also define new types and describe what capabilities a type has using  the <a href=\\\"https://blog.rust-lang.org/2015/05/11/traits.html\\\">trait system</a>. Traits provide an interface abstraction in Rust. Two important built-in traits are <code>Send</code> and <code>Sync</code>, which are exposed by default by the Rust compiler for every type in a Rust program:</p><ul><li><code>Send</code> indicates that a struct may safely be sent between threads (required for an ownership move)</li><li><code>Sync</code> indicates that a struct may safely be shared between threads</li></ul><p>This example is a simplified version of the <a href=\\\"https://github.com/rust-lang/rust/blob/c84e7976423bb910bb5eb5eecffc7e33a897a97f/src/libstd/thread/mod.rs#L379-L383\\\">standard library code</a> that spawns threads:</p>\", \"id\": \"f791eb7e-cf28-4d0a-b415-a9e7e52450ec\"}, {\"type\": \"paragraph\", \"value\": \"<p>The <code>spawn</code> function takes a single argument, <code>closure</code>, and requires that <code>closure</code> has a type that implements the <code>Send</code> and <code>Fn</code> traits. When we try to spawn a thread and pass a closure value that makes use of the variable <code>x</code>, the compiler rejects the program for not fulfilling these requirements with the following error:</p>\", \"id\": \"cc42ee37-26da-4e66-a42f-b55f70e4b59d\"}, {\"type\": \"paragraph\", \"value\": \"<p>The <code>Send</code> and <code>Sync</code> <a href=\\\"https://doc.rust-lang.org/nomicon/send-and-sync.html\\\">traits</a>  allow the Rust type system to reason about what data may be shared. By  including this information in the type system, thread safety becomes  type safety. Instead of relying on documentation, <a href=\\\"https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html\\\">thread safety is part of the compiler\\u2019s law</a>.</p><p>This allows programmers to be opinionated about what can be shared  between threads, and the compiler will enforce those opinions.</p>\", \"id\": \"8a021479-279b-4c2a-97fb-79183ddb40d2\"}, {\"type\": \"paragraph\", \"value\": \"<p>While many programming languages provide tools for concurrent  programming, preventing data races is a difficult problem. Requiring  programmers to reason about complex instruction interleaving and  interaction between threads leads to error prone code. While thread  safety and memory safety violations share similar consequences,  traditional memory safety mitigations like reference counting and  garbage collection don\\u2019t prevent data races. In addition to statically  guaranteeing memory safety, Rust\\u2019s ownership model prevents unsafe data  modification and sharing across threads, while the type system  propagates and enforces thread safety at compile time.</p>\", \"id\": \"50ed5eb3-3865-4011-b89c-4b47ff3280af\"}]"
+    }
+  },
+  {
+    "model": "articles.article",
+    "pk": 17,
+    "fields": {
+      "intro": "<p>A new video series</p>",
+      "author": null,
+      "date": "2019-06-10",
+      "header_image": null,
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Virtual reality (VR) seems complicated, but with a few JavaScript libraries and tools, and the power of <a href=\\\"https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API\\\">WebGL</a>, you can make very nice VR scenes that can be viewed and shared in a headset like an Oculus Go or HTC Vive, in a desktop web browser, or on your smartphone. Let me show you how:</p>\", \"id\": \"e1c84f35-4415-4aac-9d3f-d8e5a36ec29b\"}, {\"type\": \"paragraph\", \"value\": \"<p>In this new YouTube series, <a href=\\\"https://www.youtube.com/playlist?list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin\\\">How to make a virtual reality project in your browser with three.js and WebVR</a>, I\\u2019ll take you through building an interactive birthday card in seven short tutorials, complete with code and examples to get you started. The whole series clocks in under 60 minutes. We begin by getting a basic cube on the screen, add some nice 3D models, set up lights and navigation, then finally add music.</p><p>All you need are basic JavaScript skills and an internet connection.</p><p>Here\\u2019s the whole series. Come join me:</p><p><i>1:</i> <a href=\\\"https://www.youtube.com/watch?v=dfg9FcjsG5o&amp;index=2&amp;list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin&amp;t=10s\\\">Learn how to build virtual reality scenes on the web with WebVR and JavaScript</a></p><p><i>2:</i> <a href=\\\"https://www.youtube.com/watch?v=2TpxkhG9zbk&amp;list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin&amp;index=2\\\">Set up your WebVR workflow and code to build a virtual reality birthday card</a></p><p><i>3:</i> <a href=\\\"https://www.youtube.com/watch?v=BcLVkJSSlEc&amp;list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin&amp;index=3\\\">Using a WebVR editor (Spoke) to create a fun 3D birthday card</a></p><p><i>4:</i> <a href=\\\"https://www.youtube.com/watch?v=jEBNNe3aCvU&amp;list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin&amp;index=4\\\">How to create realistic lighting in a virtual reality scene</a></p><p><i>5:</i> <a href=\\\"https://www.youtube.com/watch?v=J4m1kk7H1q8&amp;list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin&amp;index=5\\\">How to move around in virtual reality using teleportation to navigate your scene</a></p><p><i>6:</i> <a href=\\\"https://www.youtube.com/watch?v=gy_3FiHiDxQ&amp;list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin&amp;index=6\\\">Adding text and text effects to your WebVR scene with a few lines of code</a></p><p><i>7:</i> <a href=\\\"https://www.youtube.com/watch?v=jJdZo0R71Kg&amp;list=PLo3w8EB99pqKLF6R8eAaleDeS-vUqOzin&amp;index=7\\\">How to add finishing touches like sound and sky to your WebVR scene</a></p><p>To learn how to make more cool stuff with web technologies, subscribe to <a href=\\\"https://www.youtube.com/user/mozhacks\\\">Mozilla Hacks</a> on YouTube. And if you want to get more involved in learning to create mixed reality experiences for the web, you can follow <a href=\\\"https://twitter.com/mozillareality\\\">@MozillaReality</a> on twitter for news, articles, and updates.</p>\", \"id\": \"17d98235-6ad0-4fe1-99de-f0518267d889\"}]"
+    }
+  },
+  {
     "model": "articles.articles",
     "pk": 4,
     "fields": {}
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 1,
+    "fields": {
+      "path": "0001",
+      "depth": 1,
+      "numchild": 1,
+      "title": "Root",
+      "draft_title": "Root",
+      "slug": "root",
+      "content_type": [
+        "wagtailcore",
+        "page"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 3,
+    "fields": {
+      "path": "00010001",
+      "depth": 2,
+      "numchild": 2,
+      "title": "Home",
+      "draft_title": "Home",
+      "slug": "home",
+      "content_type": [
+        "home",
+        "homepage"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
+    }
   },
   {
     "model": "wagtailcore.page",
@@ -10,7 +172,7 @@
     "fields": {
       "path": "000100010001",
       "depth": 3,
-      "numchild": 1,
+      "numchild": 5,
       "title": "Articles",
       "draft_title": "Articles",
       "slug": "articles",
@@ -36,31 +198,22 @@
     }
   },
   {
-    "model": "articles.article",
-    "pk": 8,
-    "fields": {
-      "intro": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nunc sed id semper risus in hendrerit.</p>",
-      "date": "2019-01-01",
-      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Nullam eget felis eget nunc lobortis mattis aliquam. Orci phasellus egestas tellus rutrum. Mauris cursus mattis molestie a. Facilisis mauris sit amet massa. Nam libero justo laoreet sit. Semper quis lectus nulla at. Sit amet commodo nulla facilisi nullam vehicula ipsum. Pellentesque id nibh tortor id aliquet lectus. Elementum integer enim neque volutpat ac tincidunt vitae. Varius sit amet mattis vulputate enim nulla aliquet. Blandit cursus risus at ultrices mi. Vel fringilla est ullamcorper eget nulla facilisi etiam dignissim. Velit dignissim sodales ut eu sem integer vitae. Sit amet cursus sit amet dictum sit amet justo.</p>\", \"id\": \"1f62abe6-85a0-42b2-8b35-e56a3ff7fd82\"}]"
-    }
-  },
-  {
     "model": "wagtailcore.page",
-    "pk": 8,
+    "pk": 5,
     "fields": {
-      "path": "0001000100010001",
-      "depth": 4,
-      "numchild": 0,
-      "title": "First Post",
-      "draft_title": "First Post",
-      "slug": "first-post",
+      "path": "000100010002",
+      "depth": 3,
+      "numchild": 3,
+      "title": "Topics",
+      "draft_title": "Topics",
+      "slug": "topic",
       "content_type": [
-        "articles",
-        "article"
+        "topics",
+        "topics"
       ],
       "live": true,
       "has_unpublished_changes": false,
-      "url_path": "/home/articles/first-post/",
+      "url_path": "/home/topic/",
       "owner": null,
       "seo_title": "",
       "show_in_menus": false,
@@ -76,21 +229,325 @@
     }
   },
   {
-    "model": "articles.articletopic",
-    "pk": 1,
+    "model": "wagtailcore.page",
+    "pk": 6,
     "fields": {
-      "sort_order": 0,
-      "article": 8,
-      "topic": 7
+      "path": "0001000100020001",
+      "depth": 4,
+      "numchild": 0,
+      "title": "CSS",
+      "draft_title": "CSS",
+      "slug": "css",
+      "content_type": [
+        "topics",
+        "topic"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/topic/css/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-06-06T12:46:29.168Z",
+      "last_published_at": "2019-06-06T14:26:28.398Z",
+      "latest_revision_created_at": "2019-06-06T14:26:28.356Z",
+      "live_revision": 20
     }
   },
   {
-    "model": "articles.articletopic",
-    "pk": 2,
+    "model": "wagtailcore.page",
+    "pk": 7,
     "fields": {
-      "sort_order": 1,
-      "article": 8,
-      "topic": 6
+      "path": "0001000100020002",
+      "depth": 4,
+      "numchild": 0,
+      "title": "JavaScript",
+      "draft_title": "JavaScript",
+      "slug": "javascript",
+      "content_type": [
+        "topics",
+        "topic"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/topic/javascript/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 9,
+    "fields": {
+      "path": "000100010003",
+      "depth": 3,
+      "numchild": 1,
+      "title": "People",
+      "draft_title": "People",
+      "slug": "people",
+      "content_type": [
+        "people",
+        "people"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/people/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 11,
+    "fields": {
+      "path": "0001000100030001",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Josh Marinacci",
+      "draft_title": "Josh Marinacci",
+      "slug": "josh-marinacci",
+      "content_type": [
+        "people",
+        "person"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/people/josh-marinacci/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 12,
+    "fields": {
+      "path": "0001000100020003",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Mixed Reality",
+      "draft_title": "Mixed Reality",
+      "slug": "mixed-reality",
+      "content_type": [
+        "topics",
+        "topic"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/topic/mixed-reality/",
+      "owner": [
+        "root"
+      ],
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-06-04T12:16:58.230Z",
+      "last_published_at": "2019-06-04T12:16:58.230Z",
+      "latest_revision_created_at": "2019-06-04T12:16:58.206Z",
+      "live_revision": 6
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 13,
+    "fields": {
+      "path": "0001000100010002",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Faster smarter JavaScript debugging in Firefox DevTools",
+      "draft_title": "Faster smarter JavaScript debugging in Firefox DevTools",
+      "slug": "faster-smarter-javascript-debugging-firefox-devtools",
+      "content_type": [
+        "articles",
+        "article"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/articles/faster-smarter-javascript-debugging-firefox-devtools/",
+      "owner": [
+        "root"
+      ],
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-06-06T14:07:57.204Z",
+      "last_published_at": "2019-06-10T13:20:53.710Z",
+      "latest_revision_created_at": "2019-06-10T13:20:53.671Z",
+      "live_revision": 28
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 14,
+    "fields": {
+      "path": "0001000100010003",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Standardizing WASI: A system interface to run WebAssembly outside the web",
+      "draft_title": "Standardizing WASI: A system interface to run WebAssembly outside the web",
+      "slug": "standardizing-wasi-system-interface-run-webassembly-outside-web",
+      "content_type": [
+        "articles",
+        "article"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/articles/standardizing-wasi-system-interface-run-webassembly-outside-web/",
+      "owner": [
+        "root"
+      ],
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-06-06T14:21:51.032Z",
+      "last_published_at": "2019-06-10T13:37:14.361Z",
+      "latest_revision_created_at": "2019-06-10T13:37:14.325Z",
+      "live_revision": 30
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 15,
+    "fields": {
+      "path": "0001000100010004",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Firefox 66: The Sound of Silence",
+      "draft_title": "Firefox 66: The Sound of Silence",
+      "slug": "firefox-66-sound-silence",
+      "content_type": [
+        "articles",
+        "article"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/articles/firefox-66-sound-silence/",
+      "owner": [
+        "root"
+      ],
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-06-06T14:24:30.760Z",
+      "last_published_at": "2019-06-10T13:41:41.686Z",
+      "latest_revision_created_at": "2019-06-10T13:41:41.648Z",
+      "live_revision": 31
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 16,
+    "fields": {
+      "path": "0001000100010005",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Fearless Security: Thread Safety",
+      "draft_title": "Fearless Security: Thread Safety",
+      "slug": "fearless-security-thread-safety",
+      "content_type": [
+        "articles",
+        "article"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/articles/fearless-security-thread-safety/",
+      "owner": [
+        "root"
+      ],
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-06-06T14:25:47.161Z",
+      "last_published_at": "2019-06-10T13:45:04.346Z",
+      "latest_revision_created_at": "2019-06-10T13:45:04.310Z",
+      "live_revision": 32
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 17,
+    "fields": {
+      "path": "0001000100010006",
+      "depth": 4,
+      "numchild": 0,
+      "title": "How to make VR with the web",
+      "draft_title": "How to make VR with the web",
+      "slug": "how-make-vr-web",
+      "content_type": [
+        "articles",
+        "article"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/articles/how-make-vr-web/",
+      "owner": [
+        "root"
+      ],
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-06-10T13:48:24.970Z",
+      "last_published_at": "2019-06-10T13:48:24.970Z",
+      "latest_revision_created_at": "2019-06-10T13:48:24.944Z",
+      "live_revision": 33
     }
   }
 ]
