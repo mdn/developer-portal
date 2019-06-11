@@ -1,12 +1,14 @@
 from django.forms import CheckboxSelectMultiple
 from django.db.models import CharField, BooleanField, ForeignKey, SET_NULL
 from django.utils.text import slugify
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, MultiFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+
 from modelcluster.fields import ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
+
+from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class People(Page):
