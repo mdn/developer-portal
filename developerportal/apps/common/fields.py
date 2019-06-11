@@ -5,6 +5,11 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 RICH_TEXT_FEATURES = (
+    # heading elements
+    'h2',
+    'h3',
+    'h4',
+
     # inline
     'bold',
     'italic',

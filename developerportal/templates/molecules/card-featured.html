@@ -1,11 +1,17 @@
-<div class="card-featured">
-  <div>
-    <h3>{{ title }}</h3>
+{% load wagtailimages_tags %}
+{% image img width-480 as header_image %}
+
+<a href="{{ url }}">
+  <div class="card-featured">
+    <div class="card-featured-image" style="background-image: url('{{ header_image.url }}')"></div>
+    <div class="card-featured-content">
+      <span class="highlighted featured">Featured</span>
+      <div>
+        <p>{{ title }}</p>
+      </div>
+    </div>
+    <div class="card-featured-find-out-more">
+      <span>Find out more</span>
+    </div>
   </div>
-  <p>
-    <span>{{ description }}</span>
-  </p>
-  <div>
-    <a href="{{ url }}">Find out more</a>
-  </div>
-</div>
+</a>
