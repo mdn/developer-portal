@@ -33,7 +33,7 @@ class ArticleTag(TaggedItemBase):
 
 class ArticleTopic(Orderable):
     article = ParentalKey('Article', related_name='topics')
-    topic = ForeignKey('topics.Topic', null=True, blank=False, on_delete=CASCADE)
+    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='+')
 
     panels = [
         PageChooserPanel('topic'),

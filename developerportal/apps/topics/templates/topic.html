@@ -47,8 +47,8 @@
           <a href="">See more</a>
         </div>
         <div class="item-mozillian-container">
-          {% for i in 3|times %}
-            {% include "molecules/item-mozillian.html" %}
+          {% for person in page.people.all %}
+            {% include "molecules/item-mozillian.html" with person=person.person %}
           {% endfor %}
         </div>
       </section>

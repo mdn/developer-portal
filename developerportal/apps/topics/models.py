@@ -21,10 +21,19 @@ from ..articles.models import Article
 
 class TopicFeaturedArticle(Orderable):
     topic = ParentalKey('Topic', related_name='featured_articles')
-    article = ForeignKey('articles.Article', null=True, blank=False, on_delete=CASCADE)
+    article = ForeignKey('articles.Article', on_delete=CASCADE, related_name='+')
 
     panels = [
         PageChooserPanel('article'),
+    ]
+
+
+class TopicPerson(Orderable):
+    topic = ParentalKey('Topic', related_name='people')
+    person = ForeignKey('people.Person', on_delete=CASCADE, related_name='+')
+
+    panels = [
+        PageChooserPanel('person'),
     ]
 
 
@@ -38,11 +47,14 @@ class Topic(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
+        MultiFieldPanel([
+            InlinePanel('people'),
+        ], heading='Meet the Mozillians'),
     ]
 
     featured_panels = [
         MultiFieldPanel([
-            InlinePanel('featured_articles', min_num=0, max_num=4)
+            InlinePanel('featured_articles', max_num=4),
         ], heading='Featured Articles', help_text=(
             'These articles will appear at the top of the topic page. Please '
             'choose four articles.'
