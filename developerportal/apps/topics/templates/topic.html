@@ -36,8 +36,8 @@
           <a href="">See more</a>
         </div>
         <div class="card-container">
-          {% for i in 6|times %}
-            {% include "molecules/card-news.html" %}
+          {% for article in articles.all %}
+            {% include "molecules/card.html" with resource=article type='article' %}
           {% endfor %}
         </div>
       </section>
