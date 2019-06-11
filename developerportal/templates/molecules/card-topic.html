@@ -1,11 +1,11 @@
 {% load wagtailcore_tags %}
 
-<a href="{% pageurl article_topic %}" class="card-link">
+<a href="{% pageurl topic %}" class="card-link">
   <div class="card-topic">
     {% include "atoms/pattern.html" with name="card-topic" %}
     <div class="card-topic-content">
       <img src="https://via.placeholder.com/174x149/000"/>
-      <h4 class="highlighted">{{ article_topic.title }}</h4>
+      <h4 class="highlighted">{{ topic.title }}</h4>
       <button class="mzp-c-button mzp-t-small mzp-t-dark">
         See more
       </button>

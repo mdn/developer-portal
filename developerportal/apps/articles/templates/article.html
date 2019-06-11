@@ -27,8 +27,8 @@
               {% include "molecules/card.html" with resource=resource.specific type="article" %}
             {% endfor %}
           {% endif %}
-          {% if article_topic %}
-            {% include "molecules/card-topic.html" %}
+          {% if primary_topic %}
+            {% include "molecules/card-topic.html" with topic=primary_topic %}
           {% endif %}
         </aside>
       </div>

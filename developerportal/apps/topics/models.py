@@ -1,14 +1,17 @@
 # pylint: disable=no-member
 
 from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
+from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
+    FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
     PageChooserPanel,
     TabbedInterface,
 )
+from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 
 from modelcluster.fields import ParentalKey
@@ -29,10 +32,17 @@ class Topic(Page):
     parent_page_types = ['Topics']
     subpage_types = ['SubTopic']
     template = 'topic.html'
+    show_in_menus_default = True
+
+    intro = RichTextField(default='')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+    ]
 
     featured_panels = [
         MultiFieldPanel([
-            InlinePanel('featured_articles', min_num=4, max_num=4)
+            InlinePanel('featured_articles', min_num=0, max_num=4)
         ], heading='Featured Articles', help_text=(
             'These articles will appear at the top of the topic page. Please '
             'choose four articles.'
@@ -40,7 +50,7 @@ class Topic(Page):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(content_panels, heading='Content'),
         ObjectList(featured_panels, heading='Featured'),
         ObjectList(Page.promote_panels, heading='SEO'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
@@ -53,7 +63,7 @@ class Topic(Page):
         return context
 
     def get_articles(self, limit=12):
-        return Article.objects.filter(topics__pk=self.pk).live().public().order_by('-date')[:limit]
+        return Article.objects.filter(topics__topic__pk=self.pk).live().public().order_by('-date')[:limit]
 
     def get_featured_articles(self):
         return [{
@@ -67,6 +77,12 @@ class Topic(Page):
 class SubTopic(Topic):
     parent_page_types = ['Topic']
     subpage_types = []
+    template = 'topic.html'
+    show_in_menus_default = False
+
+    class Meta:
+        verbose_name = _('Sub-topic')
+        verbose_name_plural = _('Sub-topics')
 
 
 class Topics(Page):
