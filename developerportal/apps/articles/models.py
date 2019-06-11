@@ -48,11 +48,11 @@ class Article(Page):
     # Fields
     intro = RichTextField(default='')
     author = ForeignKey(
-      'wagtailcore.Page',
+      'people.Person',
       null=True,
       blank=True,
       on_delete=SET_NULL,
-      related_name='+',
+      related_name='articles',
     )
     date = DateField('Article date', default=datetime.date.today)
     header_image = ForeignKey(
