@@ -22,11 +22,17 @@
         </section>
         <section>
           <h2>Topics I'm interested in</h2>
-          {% for label in page.topics.specific.all %}
-            <a href="">
-              {{ label.title }}
-            </a>
-          {% endfor %}
+          <ul>
+            {% for topic in page.topics.all %}
+              {% with topic=topic.topic %}
+                <li>
+                  <a href="{% pageurl topic %}">
+                    {{ topic.title }}
+                  </a>
+                </li>
+              {% endwith %}
+            {% endfor %}
+          </ul>
         </section>
         <section>
           <div class="section-header">
