@@ -40,6 +40,15 @@ class ArticleTopic(Orderable):
     ]
 
 
+class ArticleAuthor(Orderable):
+    article = ParentalKey('Article', related_name='authors')
+    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='articles')
+
+    panels = [
+        PageChooserPanel('author')
+    ]
+
+
 class Article(Page):
     parent_page_types = ['Articles']
     subpage_types = []
@@ -47,13 +56,6 @@ class Article(Page):
 
     # Fields
     intro = RichTextField(default='')
-    author = ForeignKey(
-      'people.Person',
-      null=True,
-      blank=True,
-      on_delete=SET_NULL,
-      related_name='articles',
-    )
     date = DateField('Article date', default=datetime.date.today)
     header_image = ForeignKey(
         'wagtailimages.Image',
@@ -68,7 +70,9 @@ class Article(Page):
     # Editor panel configuration
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
-        PageChooserPanel('author', 'people.person'),
+        MultiFieldPanel([
+            InlinePanel('authors'),
+        ], heading='Authors'),
         FieldPanel('date'),
         ImageChooserPanel('header_image'),
         StreamFieldPanel('body'),
@@ -76,7 +80,7 @@ class Article(Page):
 
     topic_panels = [
         MultiFieldPanel([
-            InlinePanel('topics', min_num=1)
+            InlinePanel('topics', min_num=1),
         ], heading='Topics', help_text=(
             'These are the topic pages the article will appear on. The first '
             'topic in the list will be treated as the primary topic.'

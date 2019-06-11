@@ -8,9 +8,11 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from modelcluster.fields import ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
+
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
+
 
 class Person(Page):
     parent_page_types = ['People']
@@ -73,6 +75,6 @@ class Person(Page):
 
     def clean(self):
         super().clean()
-        derived_title = self.first_name + ' ' + self.last_name
+        derived_title = '{} {}'.format(self.first_name, self.last_name)
         self.title = derived_title
         self.slug = slugify(derived_title)
