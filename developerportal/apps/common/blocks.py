@@ -4,6 +4,8 @@ class CodeSnippetBlock(blocks.StructBlock):
     language = blocks.ChoiceBlock(choices=[
       ('python', 'Python'),
       ('rust', 'Rust'),
+      ('js', 'JavaScript'),
+      ('ts', 'TypeScript'),
       ('go', 'Go'),
       ('haskell', 'Haskell'),
     ])
