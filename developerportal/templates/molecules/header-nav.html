@@ -2,7 +2,7 @@
 
 <ul class="mzp-c-menu-item-list">
 {% for nav_item in nav_items %}
-  {% with nav_item=nav_item.specific %}
+  {% with nav_item=nav_item %}
   <li>
     <a href="{% pageurl nav_item %}">{{  nav_item.title }}</a>
   </li>

@@ -23,7 +23,7 @@
         <aside class="article-sidebar">
           {% if page.related_articles %}
             <h4>Read more</h4>
-            {% for resource in page.related_articles.all %}
+            {% for resource in page.related_articles.all|slice:":3" %}
               {% include "molecules/card.html" with resource=resource type="article" %}
             {% endfor %}
           {% endif %}

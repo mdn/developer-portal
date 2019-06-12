@@ -38,7 +38,7 @@
           <div class="section-header">
             <h2>My latest articles</h2>
             <ul>
-              {% for article in page.articles.all %}
+              {% for article in page.articles.all|slice:":12" %}
                 {% with article=article.article %}
                   <li>
                     <a href="{% pageurl article %}">{{ article.title }}</a>
