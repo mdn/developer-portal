@@ -47,7 +47,7 @@
           <a href="">See more</a>
         </div>
         <div class="item-mozillian-container">
-          {% for person in page.people.all %}
+          {% for person in page.people.all|slice:":3" %}
             {% include "molecules/item-mozillian.html" with person=person.person %}
           {% endfor %}
         </div>
