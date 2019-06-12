@@ -1,16 +1,35 @@
 from django.forms import CheckboxSelectMultiple
-from django.db.models import CharField, BooleanField, ForeignKey, SET_NULL
+from django.db.models import BooleanField, CASCADE, CharField, ForeignKey, SET_NULL
 from django.utils.text import slugify
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
-from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, MultiFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
-from modelcluster.fields import ParentalManyToManyField
+
 from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    FieldRowPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    PageChooserPanel,
+)
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, Page
+from wagtail.images.edit_handlers import ImageChooserPanel
+
 
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
+
+
+class PersonTopic(Orderable):
+    person = ParentalKey('Person', related_name='topics')
+    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='+')
+
+    panels = [
+        PageChooserPanel('topic'),
+    ]
+
 
 class Person(Page):
     parent_page_types = ['People']
@@ -42,12 +61,6 @@ class Person(Page):
     linkedin = CharField(max_length=250, blank=True, default='')
     github = CharField(max_length=250, blank=True, default='')
     email = CharField(max_length=250, blank=True, default='')
-    topics = ParentalManyToManyField(
-        'topics.Topic',
-        blank=True,
-        related_name='+',
-        verbose_name='Topics interested in'
-    )
 
     # Editor panel configuration
     content_panels = [
@@ -66,13 +79,14 @@ class Person(Page):
             FieldPanel('linkedin'),
             FieldPanel('github'),
             FieldPanel('email'),
-          ],
-          heading='Profiles'),
-        FieldPanel('topics', widget=CheckboxSelectMultiple),
+        ], heading='Profiles'),
+        MultiFieldPanel([
+            InlinePanel('topics'),
+        ], heading='Topics interested in'),
     ]
 
     def clean(self):
         super().clean()
-        derived_title = self.first_name + ' ' + self.last_name
+        derived_title = '{} {}'.format(self.first_name, self.last_name)
         self.title = derived_title
         self.slug = slugify(derived_title)

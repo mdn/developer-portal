@@ -6,18 +6,14 @@
 
 {% block content %}
   <main>
-    {% if topics %}
-      <ul>
-        {% for topic in topics %}
-          <li>
-            <a href="{% pageurl topic %}">
-              {{ topic.title }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p> There are no topics </p>
-    {% endif %}
+    <ul>
+      {% for topic in page.topics.all %}
+        <li>
+          <a href="{% pageurl topic %}">
+            {{ topic.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
   </main>
 {% endblock content %}

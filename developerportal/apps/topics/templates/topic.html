@@ -15,7 +15,7 @@
   <div class="topic-grid">
     {% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
     <div class="topic-content">
-      {% include "organisms/featured.html" with featured=featured %}
+      {% include "organisms/featured.html" with featured=page.featured_articles.all %}
       {% include "organisms/get-started.html" %}
       <!-- content managed content goes here -->
       <section>
@@ -24,7 +24,7 @@
       {% endfor %}
       </section>
     </div>
-    {% with subtopics=self.get_children.specific %}
+    {% with subtopics=self.get_children.all %}
       {% if subtopics %}
         {% include "organisms/topic-links.html" with topics=subtopics pagetheme='topic' %}
       {% endif %}
@@ -36,8 +36,8 @@
           <a href="">See more</a>
         </div>
         <div class="card-container">
-          {% for i in 6|times %}
-            {% include "molecules/card-news.html" %}
+          {% for article in page.articles.all|slice:":12" %}
+            {% include "molecules/card.html" with resource=article type='article' %}
           {% endfor %}
         </div>
       </section>
@@ -47,8 +47,8 @@
           <a href="">See more</a>
         </div>
         <div class="item-mozillian-container">
-          {% for i in 3|times %}
-            {% include "molecules/item-mozillian.html" %}
+          {% for person in page.people.all|slice:":3" %}
+            {% include "molecules/item-mozillian.html" with person=person.person %}
           {% endfor %}
         </div>
       </section>

@@ -21,7 +21,7 @@ class HomePage(Page):
     intro = RichTextField(default='')
     button_text = CharField(max_length=30, default='')
     button_url = URLField(max_length=140, default='')
-    
+
     # Editor panel configuration
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
@@ -35,10 +35,6 @@ class HomePage(Page):
         )
     ]
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['topics'] = self.get_topics()
-        return context
-
-    def get_topics(self):
+    @property
+    def topics(self):
         return Topic.objects.live().public().order_by('title')

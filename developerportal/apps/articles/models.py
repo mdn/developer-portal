@@ -1,5 +1,3 @@
-# pylint: disable=no-member
-
 import datetime
 import readtime
 
@@ -33,10 +31,19 @@ class ArticleTag(TaggedItemBase):
 
 class ArticleTopic(Orderable):
     article = ParentalKey('Article', related_name='topics')
-    topic = ForeignKey('topics.Topic', null=True, blank=False, on_delete=CASCADE)
+    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='+')
 
     panels = [
         PageChooserPanel('topic'),
+    ]
+
+
+class ArticleAuthor(Orderable):
+    article = ParentalKey('Article', related_name='authors')
+    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='articles')
+
+    panels = [
+        PageChooserPanel('author')
     ]
 
 
@@ -47,13 +54,6 @@ class Article(Page):
 
     # Fields
     intro = RichTextField(default='')
-    author = ForeignKey(
-      'wagtailcore.Page',
-      null=True,
-      blank=True,
-      on_delete=SET_NULL,
-      related_name='+',
-    )
     date = DateField('Article date', default=datetime.date.today)
     header_image = ForeignKey(
         'wagtailimages.Image',
@@ -68,7 +68,9 @@ class Article(Page):
     # Editor panel configuration
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
-        PageChooserPanel('author', 'people.person'),
+        MultiFieldPanel([
+            InlinePanel('authors'),
+        ], heading='Authors'),
         FieldPanel('date'),
         ImageChooserPanel('header_image'),
         StreamFieldPanel('body'),
@@ -76,7 +78,7 @@ class Article(Page):
 
     topic_panels = [
         MultiFieldPanel([
-            InlinePanel('topics', min_num=1)
+            InlinePanel('topics', min_num=1),
         ], heading='Topics', help_text=(
             'These are the topic pages the article will appear on. The first '
             'topic in the list will be treated as the primary topic.'
@@ -94,14 +96,23 @@ class Article(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['related_articles'] = self.get_related(limit=3)
-        context['primary_topic'] = self.get_primary_topic()
-        context['read_time'] = str(readtime.of_html(str(self.body)))
-        return context
+    class Meta:
+        ordering = ['-date']
 
-    def get_related(self, limit=12):
+    @property
+    def primary_topic(self):
+        """Return the first (primary) topic specified for the article."""
+        try:
+            return self.topics.all()[:1].get().topic
+        except ObjectDoesNotExist:
+            return None
+
+    @property
+    def read_time(self):
+        return str(readtime.of_html(str(self.body)))
+
+    @property
+    def related_articles(self):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
         topic_pks = self.topics.values_list('topic')
@@ -113,26 +124,14 @@ class Article(Page):
             .distinct()
             .live()
             .public()
-            .order_by('-date')[:limit]
         )
-
-    def get_primary_topic(self):
-        """Return the first (primary) topic specified for the article."""
-        try:
-            return self.topics.all()[:1].get().topic
-        except ObjectDoesNotExist:
-            return None
 
 
 class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['articles'] = self.get_articles(limit=10)
-        return context
-
-    def get_articles(self, limit=10):
+    @property
+    def articles(self):
         """Returns live (i.e. not draft), public pages, ordered by most recent."""
-        return Article.objects.live().public().order_by('-date')[:limit]
+        return Article.objects.live().public()
