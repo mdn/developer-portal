@@ -77,7 +77,7 @@ docker-compose exec -T app python manage.py loaddata developerportal/apps/**/fix
 
 if [ -z "$ARG_NON_INTERACTIVE" ]; then
   log 'Creating super user.'
-  docker-compose exec -T app python manage.py createsuperuser
+  docker-compose exec app python manage.py createsuperuser
 fi
 
 
