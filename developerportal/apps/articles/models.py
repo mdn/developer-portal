@@ -1,5 +1,3 @@
-# pylint: disable=no-member
-
 import datetime
 import readtime
 
@@ -98,14 +96,23 @@ class Article(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['related_articles'] = self.get_related(limit=3)
-        context['primary_topic'] = self.get_primary_topic()
-        context['read_time'] = str(readtime.of_html(str(self.body)))
-        return context
+    class Meta:
+        ordering = ['-date']
 
-    def get_related(self, limit=12):
+    @property
+    def primary_topic(self):
+        """Return the first (primary) topic specified for the article."""
+        try:
+            return self.topics.all()[:1].get().topic
+        except ObjectDoesNotExist:
+            return None
+
+    @property
+    def read_time(self):
+        return str(readtime.of_html(str(self.body)))
+
+    @property
+    def related_articles(self):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
         topic_pks = self.topics.values_list('topic')
@@ -117,26 +124,14 @@ class Article(Page):
             .distinct()
             .live()
             .public()
-            .order_by('-date')[:limit]
         )
-
-    def get_primary_topic(self):
-        """Return the first (primary) topic specified for the article."""
-        try:
-            return self.topics.all()[:1].get().topic
-        except ObjectDoesNotExist:
-            return None
 
 
 class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['articles'] = self.get_articles(limit=10)
-        return context
-
-    def get_articles(self, limit=10):
+    @property
+    def articles(self):
         """Returns live (i.e. not draft), public pages, ordered by most recent."""
-        return Article.objects.live().public().order_by('-date')[:limit]
+        return Article.objects.live().public()

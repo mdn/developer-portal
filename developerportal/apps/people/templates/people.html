@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailcore_tags %}
 
 {% block body_class %}people{% endblock %}
 
 {% block content %}
-  <h1>People</h1>
+  <main>
+    <ul>
+      {% for person in page.get_children.all %}
+        <li>
+          <a href="{% pageurl person %}">{{ person.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </main>
 {% endblock content %}

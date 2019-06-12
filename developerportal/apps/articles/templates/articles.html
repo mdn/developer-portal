@@ -6,18 +6,14 @@
 
 {% block content %}
   <main>
-    {% if articles %}
-      <ul>
-        {% for article in articles %}
-          <li>
-            <a href="{% pageurl article %}">
-              {{ article.title }}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p> There are no articles </p>
-    {% endif %}
+    <ul>
+      {% for article in page.articles.all %}
+        <li>
+          <a href="{% pageurl article %}">
+            {{ article.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
   </main>
 {% endblock content %}

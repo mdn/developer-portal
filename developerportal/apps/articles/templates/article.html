@@ -21,14 +21,14 @@
           {% endfor %}
         </article>
         <aside class="article-sidebar">
-          {% if related_articles %}
+          {% if page.related_articles %}
             <h4>Read more</h4>
-            {% for resource in related_articles %}
-              {% include "molecules/card.html" with resource=resource.specific type="article" %}
+            {% for resource in page.related_articles.all %}
+              {% include "molecules/card.html" with resource=resource type="article" %}
             {% endfor %}
           {% endif %}
-          {% if primary_topic %}
-            {% include "molecules/card-topic.html" with topic=primary_topic %}
+          {% if page.primary_topic %}
+            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
           {% endif %}
         </aside>
       </div>
