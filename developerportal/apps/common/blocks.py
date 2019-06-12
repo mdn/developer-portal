@@ -2,12 +2,13 @@ from wagtail.core import blocks
 
 class CodeSnippetBlock(blocks.StructBlock):
     language = blocks.ChoiceBlock(choices=[
+      ('css', 'CSS'),
+      ('go', 'Go'),
+      ('html', 'HTML'),
+      ('js', 'JavaScript'),
       ('python', 'Python'),
       ('rust', 'Rust'),
-      ('js', 'JavaScript'),
       ('ts', 'TypeScript'),
-      ('go', 'Go'),
-      ('haskell', 'Haskell'),
     ])
     code = blocks.TextBlock()
 
