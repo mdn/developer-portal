@@ -53,7 +53,7 @@ class HomePage(Page):
         MultiFieldPanel([
             InlinePanel('featured_articles', max_num=4),
         ], heading='Featured Articles', help_text=(
-            'These articles will appear at the top of the topic page. Please '
+            'These articles will appear at the top of the homepage. Please '
             'choose four articles.'
         )),
     ]
