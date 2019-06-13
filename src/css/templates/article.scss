@@ -1,17 +1,6 @@
-.article-grid {
-  display: grid;
-  grid-column-gap: $grid-gap-mobile;
-  grid-template-columns: [full-start] 1fr [main-start] minmax(0, 1024px) [main-end] 1fr [full-end];
-
-  @media #{$mq-md} {
-    grid-column-gap: $grid-gap;
-  }
-}
-
 .article-content {
   display: grid;
   column-gap: $grid-gap-mobile;
-  grid-column: main;
   grid-template-columns: [body-start sidebar-start] 1fr [sidebar-end body-end];
   padding: $grid-gap-mobile 0;
 
@@ -28,4 +17,12 @@
 
 .article-sidebar {
   grid-column: sidebar;
+}
+
+.article-sidebar-cards {
+  margin-bottom: 32px;
+
+  .card:not(:last-child) {
+    margin-bottom: 32px;
+  }
 }

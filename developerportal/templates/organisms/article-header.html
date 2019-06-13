@@ -22,7 +22,7 @@
         {{ intro }}
       </div>
       {% for author in authors %}
-        {% include "molecules/article-details.html" with date=date author=author.author %}
+        {% include "molecules/article-details.html" with date=date author=author.author enable_link=True %}
       {% endfor %}
     </div>
   </div>

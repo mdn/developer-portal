@@ -34,13 +34,13 @@
   }
 }
 
-.article-header-image img {
-  max-width: 100%;
-  position: relative;
-  z-index: 99;
+.article-header-image {
+  padding-right: 16px;
 
-  @media #{$mq-md} {
-    padding-right: 16px;
+  img {
+    max-width: 100%;
+    position: relative;
+    z-index: 99;
   }
 }
 

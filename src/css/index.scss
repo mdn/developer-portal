@@ -20,6 +20,7 @@
 
 // Global.
 @import 'global/base';
+@import 'global/layout';
 
 // Atoms.
 @import 'atoms/code';
@@ -54,6 +55,3 @@
 
 // Templates.
 @import 'templates/article';
-@import 'templates/home';
-@import 'templates/person';
-@import 'templates/topic';

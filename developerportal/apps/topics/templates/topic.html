@@ -11,62 +11,64 @@
 {% endblock %}
 
 {% block content %}
-<main>
-  <div class="topic-grid">
-    {% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
-    <div class="topic-content">
-      {% include "organisms/featured.html" with featured=page.featured_articles.all %}
-      {% include "organisms/get-started.html" %}
-      <!-- content managed content goes here -->
+<main class="has-header">
+  <div class="base-grid">
+    <section class="section-full">
+      {% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
+    </section>
+    {% if page.featured_articles.all %}
       <section>
-      {% for block in page.body %}
-        {{ block }}
-      {% endfor %}
+        {% include "organisms/featured.html" with featured=page.featured_articles.all %}
       </section>
-    </div>
+    {% endif %}
+    <section>
+      {% include "organisms/get-started.html" %}
+    </section>
     {% with subtopics=self.get_children.all %}
       {% if subtopics %}
-        {% include "organisms/topic-links.html" with topics=subtopics pagetheme='topic' %}
+        <section class="section-full">
+          {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
+        </section>
       {% endif %}
     {% endwith %}
-    <div class="topic-content">
+    {% if page.articles.all %}
       <section>
         <div class="section-header">
           <h2>Latest news</h2>
           <a href="">See more</a>
         </div>
         <div class="card-container">
-          {% for article in page.articles.all|slice:":12" %}
-            {% include "molecules/card.html" with resource=article type='article' %}
+          {% for article in page.articles.all|slice:":3" %}
+            {% include "molecules/card.html" with resource=article type="article" show_author=True %}
           {% endfor %}
         </div>
       </section>
-      <section>
-        <div class="section-header">
-          <h2>Meet the Mozillians</h2>
-          <a href="">See more</a>
-        </div>
-        <div class="item-mozillian-container">
-          {% for person in page.people.all|slice:":3" %}
-            {% include "molecules/item-mozillian.html" with person=person.person %}
-          {% endfor %}
-        </div>
-      </section>
-      <section>
-        <div class="section-header">
-          <h2>Upcoming events</h2>
-          <a href="">See more</a>
-        </div>
-        <div class="card-event-container">
-          {% for i in 5|times %}
-            {% include "molecules/card-event.html" %}
-          {% endfor %}
-        </div>
-      </section>
-      <section>
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+    {% endif %}
+    <section>
+      <div class="section-header">
+        <h2>Meet the Mozillians</h2>
+        <a href="">See more</a>
+      </div>
+      <div class="item-mozillian-container">
+        {% for person in page.people.all|slice:":3" %}
+          {% include "molecules/item-mozillian.html" with person=person.person %}
+        {% endfor %}
+      </div>
+    </section>
+    <section>
+      <div class="section-header">
+        <h2>Upcoming events</h2>
+        <a href="">See more</a>
+      </div>
+      <div class="card-event-container">
+        {% for i in 5|times %}
+          {% include "molecules/card-event.html" %}
+        {% endfor %}
+      </div>
+    </section>
+    <section>
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </div>
 </main>
 {% endblock content %}

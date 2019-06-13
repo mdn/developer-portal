@@ -1,0 +1,70 @@
+main {
+  padding: $grid-gap 0;
+
+  @media #{$mq-md} {
+    padding: 64px 0;
+  }
+
+  &.has-header {
+    padding-top: 0;
+  }
+}
+
+.base-grid {
+  display: grid;
+  grid-column-gap: $grid-gap-mobile;
+  grid-template-columns: [full-start] 1fr [main-start] minmax(0, 1024px) [main-end] 1fr [full-end];
+
+  @media #{$mq-md} {
+    grid-column-gap: $grid-gap;
+  }
+
+  // TODO move to section.scss
+  > section {
+    margin-bottom: 32px;
+
+    @media #{$mq-md} {
+      margin-bottom: 64px;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:not(.section-full) {
+      grid-column: main;
+    }
+  }
+}
+
+.section-full {
+  grid-column: full;
+}
+
+.container {
+  @media #{$mq-md} {
+    margin: 0 auto;
+    max-width: $container-max-width;
+    position: relative;
+  }
+}
+
+.section-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0;
+  }
+}
+
+h2::after {
+  border-bottom-color: $color-blue-20;
+}
