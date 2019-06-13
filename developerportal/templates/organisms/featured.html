@@ -1,17 +1,15 @@
-<section>
-  <div class="section-header">
-    <h2>Featured</h2>
-  </div>
-  {% with featured.0.article as item %}
-    {% include "molecules/card-featured-primary.html" with title=item.title intro=item.intro url=item.url img=item.header_image %}
-  {% endwith%}
-  <div class="card-container">
-    {% for item in featured %}
-      {% with item.article as item %}
-        {% if not forloop.first %}
-          {% include "molecules/card-featured.html" with title=item.title url=item.url img=item.header_image %}
-        {% endif %}
-      {% endwith %}
-    {% endfor %}
-  </div>
-</section>
+<div class="section-header">
+  <h2>Featured</h2>
+</div>
+{% with featured.0.article as item %}
+  {% include "molecules/card-featured-primary.html" with title=item.title intro=item.intro url=item.url img=item.header_image %}
+{% endwith%}
+<div class="card-container">
+  {% for item in featured %}
+    {% with item.article as item %}
+      {% if not forloop.first %}
+        {% include "molecules/card-featured.html" with title=item.title url=item.url img=item.header_image %}
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+</div>

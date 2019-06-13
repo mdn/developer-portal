@@ -17,12 +17,12 @@
       <div class="article-header-highlight">
         <span class="highlight">Featured</span>
       </div>
-      <h2>{{ title }}</h2>
+      <h2 class="no-underline">{{ title }}</h2>
       <div class="article-header-subtitle">
         {{ intro }}
       </div>
       {% for author in authors %}
-        {% include "molecules/article-details.html" with date=date author=author.author %}
+        {% include "molecules/article-details.html" with date=date author=author.author enable_link=True %}
       {% endfor %}
     </div>
   </div>

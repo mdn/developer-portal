@@ -1,4 +1,4 @@
-from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
+from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
@@ -9,12 +9,12 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
     TabbedInterface,
 )
-from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 
 from modelcluster.fields import ParentalKey
 
 from ..articles.models import Article
+from ..common.constants import COLOR_CHOICES, COLOR_VALUES
 
 
 class TopicFeaturedArticle(Orderable):
@@ -41,10 +41,12 @@ class Topic(Page):
     template = 'topic.html'
     show_in_menus_default = True
 
-    intro = RichTextField(default='')
+    intro = CharField(blank=True, max_length=250, default='')
+    color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue')
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
+        FieldPanel('color'),
         MultiFieldPanel([
             InlinePanel('people'),
         ], heading='Meet the Mozillians'),
@@ -69,6 +71,10 @@ class Topic(Page):
     @property
     def articles(self):
         return Article.objects.filter(topics__topic__pk=self.pk).live().public()
+
+    @property
+    def color_value(self):
+        return dict(COLOR_VALUES)[self.color]
 
 
 class SubTopic(Topic):

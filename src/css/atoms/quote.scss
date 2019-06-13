@@ -1,0 +1,16 @@
+blockquote {
+  font-family: $heading-font-family;
+  font-size: 24px;
+  line-height: 32px;
+  margin: 24px auto;
+  max-width: 500px;
+  text-align: center;
+
+  :first-child {
+    margin-top: 0;
+  }
+
+  :last-child {
+    margin-bottom: 0;
+  }
+}

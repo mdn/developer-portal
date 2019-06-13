@@ -6,6 +6,10 @@
   text-decoration: none;
   width: 100%;
 
+  &:hover {
+    color: inherit;
+  }
+
   p {
     margin: 0;
   }
@@ -15,7 +19,7 @@
   flex-shrink: 0;
   margin-right: 16px;
   padding-top: 4px;
-  
+
   img {
     width: 24px;
   }

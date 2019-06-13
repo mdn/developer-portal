@@ -20,12 +20,14 @@
 
 // Global.
 @import 'global/base';
+@import 'global/layout';
 
 // Atoms.
 @import 'atoms/code';
 @import 'atoms/icon';
 @import 'atoms/image';
 @import 'atoms/pattern';
+@import 'atoms/quote';
 @import 'atoms/topic-icon';
 @import 'atoms/typography';
 
@@ -53,6 +55,3 @@
 
 // Templates.
 @import 'templates/article';
-@import 'templates/home';
-@import 'templates/person';
-@import 'templates/topic';

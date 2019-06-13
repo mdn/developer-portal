@@ -1,11 +1,20 @@
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% image resource.header_image width-636 as header_image %}
 
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
   <div class="card">
-    <div class="card-image" style="background-image: url('https://via.placeholder.com/320x200')"></div>
+    <div class="card-image" style="background-image: url('{{ header_image.url }}')"></div>
     <div class="card-content">
-      {% include "molecules/resource-meta.html" with resource=resource type=type %}
-      <h4>{{ resource.title }}</h4>
+      <div class="card-content-main">
+        {% include "molecules/resource-meta.html" with resource=resource type=type %}
+        <h4 class="no-underline">{{ resource.title }}</h4>
+      </div>
+      {% if show_author %}
+        {% for author in resource.authors.all %}
+          {% include "molecules/article-details.html" with date=resource.date author=author.author %}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </a>
