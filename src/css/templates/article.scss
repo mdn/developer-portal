@@ -13,6 +13,7 @@
 
 .article-body {
   grid-column: body;
+  overflow-x: auto;
 }
 
 .article-sidebar {
