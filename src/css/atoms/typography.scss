@@ -93,22 +93,26 @@ h6 {
   position: relative;
 }
 
-h2::after,
-h3::after,
-h4::after,
-h5::after,
-h6::after {
-  border-bottom-color: transparent;
-  border-bottom-style: solid;
-  border-bottom-width: 8px;
-  content: '';
-  display: inline-block;
-  height: .9em;
-  left: 0;
-  margin-top: 5px;  
-  position: absolute;
-  width: 100%;
-  z-index: -1;
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &:not(.no-underline) {
+    background: repeating-linear-gradient(to bottom,transparent 0,transparent .8em,$color-yellow-30 .8em,$color-yellow-30 1.1em);
+    display: inline;
+
+    &:before {
+      content: '';
+      display: block;
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      margin-bottom: 0.5em;
+    }
+  }
 }
 
 @function heading-line-height($font-size) {
@@ -197,5 +201,5 @@ ol {
   box-shadow: 0 0 0 3px $color-black;
   display: inline;
   left: 3px;
-  position: relative; 
+  position: relative;
 }
