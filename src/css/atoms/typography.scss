@@ -93,26 +93,22 @@ h6 {
   position: relative;
 }
 
-h2,
-h3,
-h4,
-h5,
-h6 {
-  &:not(.no-underline) {
-    background: repeating-linear-gradient(to bottom,transparent 0,transparent .8em,$color-yellow-30 .8em,$color-yellow-30 1.1em);
-    display: inline;
-
-    &:before {
-      content: '';
-      display: block;
-    }
-
-    &:after {
-      content: '';
-      display: block;
-      margin-bottom: 0.5em;
-    }
-  }
+h2::after,
+h3::after,
+h4::after,
+h5::after,
+h6::after {
+  border-bottom-color: transparent;
+  border-bottom-style: solid;
+  border-bottom-width: 8px;
+  content: '';
+  display: inline-block;
+  height: .9em;
+  left: 0;
+  margin-top: 5px;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
 }
 
 @function heading-line-height($font-size) {
@@ -167,6 +163,56 @@ h5 {
 h6 {
   font-size: $h6-font-size;
   line-height: heading-line-height($h6-font-size);
+}
+
+.highlight1,
+.highlight2,
+.highlight3 {
+  background-color: $color-white;
+  color: $color-black;
+  font-family: $highlight-font-family;
+  font-weight: 700;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+.highlight1-inverse,
+.highlight2-inverse,
+.highlight3-inverse {
+  background-color: $color-black;
+  color: $color-white;
+  font-family: $highlight-font-family;
+  font-weight: 700;
+
+  &:hover {
+    color: $color-white;
+  }
+}
+
+.highlight1,
+.highlight1-inverse {
+  font-size: $highlight1-font-size-mobile;
+  @media #{$mq-md} {
+    font-size: $highlight1-font-size;
+  }
+}
+
+.highlight2,
+.highlight2-inverse {
+  font-size: $highlight2-font-size-mobile;
+  @media #{$mq-md} {
+    font-size: $highlight2-font-size;
+  }
+}
+
+.highlight3,
+.highlight3-inverse {
+  font-size: $highlight3-font-size-mobile;
+  @media #{$mq-md} {
+    font-size: $highlight3-font-size;
+  }
 }
 
 b,

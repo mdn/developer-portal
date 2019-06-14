@@ -8,14 +8,16 @@ from wagtail.admin.edit_handlers import (
     ObjectList,
     PageChooserPanel,
     TabbedInterface,
+    StreamFieldPanel,
 )
 from wagtail.core.models import Orderable, Page
 
 from modelcluster.fields import ParentalKey
+from wagtail.core.fields import StreamField, StreamBlock
 
 from ..articles.models import Article
 from ..common.constants import COLOR_CHOICES, COLOR_VALUES
-
+from ..common.blocks import GetStartedBlock
 
 class TopicFeaturedArticle(Orderable):
     topic = ParentalKey('Topic', related_name='featured_articles')
@@ -43,10 +45,16 @@ class Topic(Page):
 
     intro = CharField(blank=True, max_length=250, default='')
     color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue')
+    get_started = StreamField(
+        StreamBlock([
+            ('panel', GetStartedBlock())
+        ], min_num=1, max_num=3)
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
         FieldPanel('color'),
+        StreamFieldPanel('get_started'),
         MultiFieldPanel([
             InlinePanel('people'),
         ], heading='Meet the Mozillians'),
