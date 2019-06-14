@@ -3,6 +3,27 @@
     {% include "molecules/resource-meta.html" with resource=resource type="article" read_time=read_time %}
   </div>
   <div class="share-buttons">
-    Twitter &middot; Facebook &middot; Email &middot; LinkedIn
+    {% with url=request.build_absolute_uri|urlencode %}
+      <a href="http://twitter.com/share?url={{ url }}" target="_blank">
+        <span class="icon">
+          {% include "atoms/icons/twitter.svg" %}
+        </span>
+      </a>
+      <a href="https://www.facebook.com/sharer.php?u={{ url }}" target="_blank">
+        <span class="icon">
+          {% include "atoms/icons/facebook.svg" %}
+        </span>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ url }}" target="_blank">
+        <span class="icon">
+          {% include "atoms/icons/linkedin.svg" %}
+        </span>
+      </a>
+      <a href="mailto:?body=Check out this page from Mozilla's Developer Portal: {{ url }}">
+        <span class="icon">
+          {% include "atoms/icons/email.svg" %}
+        </span>
+      </a>
+    {% endwith %}
   </div>
 </div>
