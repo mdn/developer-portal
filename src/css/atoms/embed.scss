@@ -1,0 +1,18 @@
+.rich-text img {
+  height: auto;
+  max-width: 100%;
+}
+
+.responsive-object {
+  position: relative;
+}
+
+.responsive-object iframe,
+.responsive-object object,
+.responsive-object embed {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
