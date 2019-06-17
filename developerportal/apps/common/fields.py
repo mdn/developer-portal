@@ -36,6 +36,10 @@ class CustomStreamField(StreamField):
             ('paragraph', RichTextBlock(features=RICH_TEXT_FEATURES)),
             ('image', ImageChooserBlock()),
             ('embed', EmbedBlock()),
-            ('RawHtml', RawHTMLBlock(help_text='Adds Raw HTML to page, WARNING ! Code injects are possable')),
+            ('embed_html', RawHTMLBlock(
+                help_text='''Warning: be careful what you paste here, since
+                          this field could introduce XSS (or similar) bugs.
+                          This field is meant soley for third-party embeds.'''
+            )),
 
         ], **kwargs)
