@@ -182,6 +182,7 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = 'developerportal'
 
+# Embeds Add endpoints to list below
 codepen = {
     'endpoint': 'http://codepen.io/api/oembed',
     'urls': [
@@ -189,7 +190,7 @@ codepen = {
     ],
 }
 
-#add comments to this and above
+# Allows embeds
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',

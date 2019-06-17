@@ -1,5 +1,5 @@
 from wagtail.admin.edit_handlers import StreamFieldPanel
-from wagtail.core.blocks import RichTextBlock
+from wagtail.core.blocks import RichTextBlock, RawHTMLBlock
 from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
@@ -36,4 +36,6 @@ class CustomStreamField(StreamField):
             ('paragraph', RichTextBlock(features=RICH_TEXT_FEATURES)),
             ('image', ImageChooserBlock()),
             ('embed', EmbedBlock()),
+            ('RawHtml', RawHTMLBlock(help_text='Adds Raw HTML to page, WARNING ! Code injects are possable')),
+
         ], **kwargs)
