@@ -8,6 +8,7 @@ class TopicsFixturesMixin():
     fixtures = [
         'topics.json',
         'articles.json',
+        'people.json',
     ]
 
 
@@ -31,7 +32,7 @@ class TopicTests(TopicsFixturesMixin, WagtailPageTests):
         """A topic page should have article pages."""
         topic_page = Topic.objects.all()[0]
         topic_page_article = topic_page.articles.all()[0].article
-        self.assertEqual('First Post', topic_page_article.title)
+        self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', topic_page_article.title)
 
     def test_topic_page_featured_articles(self):
         """A topic page should have featured article pages."""
