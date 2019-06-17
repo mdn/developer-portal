@@ -1,9 +1,8 @@
 .topic-links-section {
-  grid-column: full;
   position: relative;
 
   @media screen and (min-width: 1024px) {
-    margin: 150px 0;
+    margin: 75px 0;
   }
 }
 
@@ -20,11 +19,6 @@
   @media screen and (min-width: 1024px) {
     padding: 80px $grid-gap;
   }
-}
-
-.topic-links-section-container {
-  margin: 0 auto;
-  max-width: $container-max-width;
 }
 
 .topic-links-section-pattern {

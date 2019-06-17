@@ -2,18 +2,20 @@
 {% load wagtailimages_tags %}
 
 {% image author.profile_picture width-60 as author_pic %}
-<a class="article-details" href="{{ author.url }}">
-  {% if author_pic %}
-    <img
-      src="{{ author_pic.url }}"
-      width="{{ author_pic.width }}"
-      height="{{ author_pic.height }}"
-      alt="{{ author_pic.alt }}"/>
-  {% else %}
-    <img src="https://via.placeholder.com/60"/>
-  {% endif %}
-  <div class="article-details-meta">
-    <p>{{ author.title }} &middot; Mixed Reality Blog</p>
-    <p>{{ date }}</p>
+{% if enable_link %}<a href="{{ author.url }}" class="article-details-link">{% endif %}
+  <div class="article-details">
+    {% if author_pic %}
+      <img
+        src="{{ author_pic.url }}"
+        width="{{ author_pic.width }}"
+        height="{{ author_pic.height }}"
+        alt="{{ author_pic.alt }}"/>
+    {% else %}
+      <img src="https://via.placeholder.com/60"/>
+    {% endif %}
+    <div class="article-details-meta">
+      <p>{{ author.title }}</p>
+      <p>{{ date }}</p>
+    </div>
   </div>
-</a>
+{% if enable_link %}</a>{% endif %}

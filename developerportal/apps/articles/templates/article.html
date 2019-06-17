@@ -6,14 +6,14 @@
 
 {% block header %}
   {% include "header.html" %}
-  {% include "utils/accent-color.html" with color="#00ddff" %}
+  {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
 {% endblock %}
 
 {% block content %}
-  <main>
-    <div class="article-grid">
+  <main class="has-header">
+    <div class="base-grid">
       {% include "organisms/article-header.html" with title=page.title intro=page.intro|richtext date=page.date header_image=page.header_image authors=page.authors.all %}
-      <div class="article-content">
+      <section class="article-content">
         <article class="article-body">
           {% include "molecules/resource-share.html" with resource=page type="article" read_time=read_time %}
           {% for block in page.body %}
@@ -23,15 +23,17 @@
         <aside class="article-sidebar">
           {% if page.related_articles %}
             <h4>Read more</h4>
-            {% for resource in page.related_articles.all|slice:":3" %}
-              {% include "molecules/card.html" with resource=resource type="article" %}
-            {% endfor %}
+            <div class="article-sidebar-cards">
+              {% for resource in page.related_articles.all|slice:":3" %}
+                {% include "molecules/card.html" with resource=resource type="article" %}
+              {% endfor %}
+            </div>
           {% endif %}
           {% if page.primary_topic %}
             {% include "molecules/card-topic.html" with topic=page.primary_topic %}
           {% endif %}
         </aside>
-      </div>
+      </section>
     </div>
   </main>
 {% endblock content %}

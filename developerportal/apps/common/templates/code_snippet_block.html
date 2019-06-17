@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+{% load app_filters %}
+
+<div class="syntax-highlight" data-lang="{{ value.language }}">
+  {{ value.code|syntax_highlight:value.language }}
+</div>

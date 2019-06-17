@@ -6,56 +6,54 @@
 {% block body_class %}person{% endblock %}
 
 {% block content %}
-  <main>
-    <div class="person-grid">
-      <header class="person-header">
-        <div class="person-header-container">
+  <main class="has-header">
+    <div class="base-grid">
+      <header class="person-header section-full">
+        <div class="container">
           <h1>{{ page.title }}</h1>
           <p>{{ page.job_title }}</p>
           {% image page.profile_picture width-200 %}
         </div>
       </header>
-      <div class="person-content">
-        <section>
-          <h2>Overview</h2>
-          {{ page.intro|richtext }}
-        </section>
-        <section>
-          <h2>Topics I'm interested in</h2>
+      <section>
+        <h2>Overview</h2>
+        {{ page.intro|richtext }}
+      </section>
+      <section>
+        <h2>Topics I'm interested in</h2>
+        <ul>
+          {% for topic in page.topics.all %}
+            {% with topic=topic.topic %}
+              <li>
+                <a href="{% pageurl topic %}">
+                  {{ topic.title }}
+                </a>
+              </li>
+            {% endwith %}
+          {% endfor %}
+        </ul>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>My latest articles</h2>
           <ul>
-            {% for topic in page.topics.all %}
-              {% with topic=topic.topic %}
+            {% for article in page.articles.all|slice:":3" %}
+              {% with article=article.article %}
                 <li>
-                  <a href="{% pageurl topic %}">
-                    {{ topic.title }}
-                  </a>
+                  <a href="{% pageurl article %}">{{ article.title }}</a>
                 </li>
               {% endwith %}
             {% endfor %}
           </ul>
-        </section>
-        <section>
-          <div class="section-header">
-            <h2>My latest articles</h2>
-            <ul>
-              {% for article in page.articles.all|slice:":12" %}
-                {% with article=article.article %}
-                  <li>
-                    <a href="{% pageurl article %}">{{ article.title }}</a>
-                  </li>
-                {% endwith %}
-              {% endfor %}
-            </ul>
-            <a href="">See more</a>
-          </div>
-        </section>
-        <section>
-          <div class="section-header">
-            <h2>Upcoming events</h2>
-            <a href="">See more</a>
-          </div>
-        </section>
-      </div>
+          <a href="">See more</a>
+        </div>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>Upcoming events</h2>
+          <a href="">See more</a>
+        </div>
+      </section>
     </div>
   </main>
 {% endblock content %}

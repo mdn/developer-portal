@@ -27,10 +27,6 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-    # Add style guide URL
-    urlpatterns += [url(r'^style-guide/', TemplateView.as_view(
-        template_name='style-guide.html'))]
-
 
 # For anything not caught by a more specific rule above, hand over to
 # Wagtail's page serving mechanism. This should be the last pattern in

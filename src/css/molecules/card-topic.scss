@@ -1,6 +1,5 @@
 .card-topic {
   background: $color-black;
-  border: 1px solid transparent;
   position: relative;
 }
 
@@ -8,7 +7,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 72px auto;
+  padding: 72px 0;
   position: relative;
   z-index: 99;
 

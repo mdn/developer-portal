@@ -2,6 +2,7 @@ django-dotenv==1.4.2
 Django==2.2.1
 gunicorn==19.9.0
 psycopg2==2.8.2
+Pygments===2.4.2
 readtime===1.1.1
 wagtail==2.5.1
 wagtail-bakery==0.3.0

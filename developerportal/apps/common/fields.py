@@ -4,6 +4,7 @@ from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 
+from .blocks import CodeSnippetBlock
 
 RICH_TEXT_FEATURES = (
     # heading elements
@@ -41,5 +42,5 @@ class CustomStreamField(StreamField):
                           this field could introduce XSS (or similar) bugs.
                           This field is meant soley for third-party embeds.'''
             )),
-
+            ('code_snippet', CodeSnippetBlock()),
         ], **kwargs)
