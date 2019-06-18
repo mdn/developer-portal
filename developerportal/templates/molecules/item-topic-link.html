@@ -1,8 +1,14 @@
 {% load wagtailcore_tags %}
+{% load app_tags %}
+{% load staticfiles %}
 
 <a href="{{ topic.url }}" class="item-topic-link">
   <div class="item-topic-link-icon">
-    <img src="/static/img/icons/mixed-reality.svg" alt="">
+    {% if topic.icon %}
+      {% render_svg topic.icon %}
+    {% else %}
+      {% include 'molecules/icons/topic-default.svg' %}
+    {% endif %}
   </div>
   <div class="item-topic-link-content">
     <h4 class="no-underline">{{ topic.title }}</h4>

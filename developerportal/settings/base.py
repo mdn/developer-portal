@@ -94,7 +94,7 @@ TEMPLATES = [
             ],
             'libraries': {
                 'app_filters': 'developerportal.templatetags.app_filters',
-                'page_queries': 'developerportal.templatetags.page_queries',
+                'app_tags': 'developerportal.templatetags.app_tags',
             }
         },
     },

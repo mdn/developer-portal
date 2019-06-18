@@ -1,6 +1,7 @@
 from django import template
 from django.template.loader import get_template
 from developerportal.apps.topics.models import Topic
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -10,3 +11,7 @@ def render_nav(context, **kwargs):
     template_context = context.flatten()
     nav_template = get_template('molecules/header-nav.html')
     return nav_template.render(template_context)
+
+@register.simple_tag
+def render_svg(f):
+    return mark_safe(f.read().decode('utf-8'))
