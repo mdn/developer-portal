@@ -182,6 +182,21 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = 'developerportal'
 
+codepen = {
+    'endpoint': 'http://codepen.io/api/oembed',
+    'urls': [
+        '^http(?:s)?://codepen\\.io/.+/pen/.+$',
+    ],
+}
+
+# Add support for CodePen oEmbed
+WAGTAILEMBEDS_FINDERS = [
+    {
+        'class': 'wagtail.embeds.finders.oembed',
+        'providers': [codepen],
+    }
+]
+
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.environ.get('BASE_URL')
