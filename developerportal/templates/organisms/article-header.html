@@ -19,7 +19,9 @@
       </div>
       <h2 class="no-underline">{{ title }}</h2>
       <div class="article-header-subtitle">
-        {{ intro }}
+        {% if intro %}
+        <p>{{ intro }}</p>
+        {% endif %}
       </div>
       {% for author in authors %}
         {% include "molecules/article-details.html" with date=date author=author.author enable_link=True %}

@@ -12,7 +12,7 @@
 {% block content %}
   <main class="has-header">
     <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title intro=page.intro|richtext date=page.date header_image=page.header_image authors=page.authors.all %}
+      {% include "organisms/article-header.html" with title=page.title intro=page.intro date=page.date header_image=page.header_image authors=page.authors.all %}
       <section class="article-content">
         <article class="article-body">
           {% include "molecules/resource-share.html" with resource=page type="article" read_time=read_time %}
