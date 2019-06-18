@@ -40,7 +40,7 @@ class CustomStreamField(StreamField):
             ('embed_html', RawHTMLBlock(
                 help_text='''Warning: be careful what you paste here, since
                           this field could introduce XSS (or similar) bugs.
-                          This field is meant soley for third-party embeds.'''
+                          This field is meant solely for third-party embeds.'''
             )),
             ('code_snippet', CodeSnippetBlock()),
         ], **kwargs)
