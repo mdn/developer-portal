@@ -2,7 +2,7 @@ import datetime
 import readtime
 
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
+from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL, TextField
 from django.forms import CheckboxSelectMultiple
 
 from wagtail.admin.edit_handlers import (
@@ -53,7 +53,7 @@ class Article(Page):
     template = 'article.html'
 
     # Fields
-    intro = RichTextField(default='')
+    intro = TextField(max_length=250, blank=True, default='')
     date = DateField('Article date', default=datetime.date.today)
     header_image = ForeignKey(
         'wagtailimages.Image',

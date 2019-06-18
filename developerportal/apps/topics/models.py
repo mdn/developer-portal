@@ -1,4 +1,4 @@
-from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL
+from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
@@ -41,7 +41,7 @@ class Topic(Page):
     template = 'topic.html'
     show_in_menus_default = True
 
-    intro = CharField(blank=True, max_length=250, default='')
+    intro = TextField(max_length=250, blank=True, default='')
     color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue')
 
     content_panels = Page.content_panels + [
