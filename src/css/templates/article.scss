@@ -32,6 +32,15 @@
 .article-sidebar-cards {
   margin-bottom: 32px;
 
+  .card-link {
+    display: inline-block;
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   .card:not(:last-child) {
     margin-bottom: 32px;
   }
