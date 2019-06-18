@@ -20,16 +20,18 @@ class GetStarted {
         el.classList.remove('displayed');
       }
     });
-    document.getElementById('get-started-nav').classList.remove('hidden');
+    if (document.querySelectorAll('.get-started-toggle').length > 1) {
+      document.getElementById('get-started-nav').classList.remove('hidden');
+    }
   }
 
   showContent(hash) {
     if (hash.length > 0) {
       document.querySelectorAll('.get-started-toggle').forEach((el) => {
         if (el.attributes.href.value === hash) {
-          el.classList.add('active');
+          el.className = 'get-started-toggle highlight2-inverse';
         } else {
-          el.classList.remove('active');
+          el.className = 'get-started-toggle highlight2';
         }
       });
 
