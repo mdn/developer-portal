@@ -10,6 +10,10 @@
     color: inherit;
   }
 
+  &:active {
+    background-color: $color-white;
+  }
+
   p {
     margin: 0;
   }
