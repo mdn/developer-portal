@@ -1,4 +1,4 @@
-from django.db.models import CASCADE, CharField, ForeignKey, SET_NULL, URLField
+from django.db.models import CASCADE, CharField, ForeignKey, SET_NULL, URLField, TextField
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -11,6 +11,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey
 
@@ -31,10 +32,17 @@ class HomePage(Page):
     template = 'home.html'
 
     # Fields
-    subtitle = CharField(max_length=140, default='')
-    intro = RichTextField(default='')
+    subtitle = TextField(max_length=250, blank=True, default='')
+    intro = TextField(max_length=250, blank=True, default='')
     button_text = CharField(max_length=30, default='')
     button_url = URLField(max_length=140, default='')
+    header_image = ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name='+'
+    )
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
@@ -46,7 +54,8 @@ class HomePage(Page):
             FieldPanel('button_url'),
           ],
           heading="Primary CTA",
-        )
+        ),
+        ImageChooserPanel('header_image'),
     ]
 
     featured_panels = [
