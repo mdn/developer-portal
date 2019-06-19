@@ -6,12 +6,27 @@
 
 {% block content %}
   <main>
-    <ul>
-      {% for person in page.get_children.all %}
-        <li>
-          <a href="{% pageurl person %}">{{ person.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="base-grid">
+      <section>
+        <h2>Featured</h2>
+      </section>
+      <section class="section-full">
+        <section class="topic-links-section">
+          <div class="topic-links-section-pattern topic-links-section-pattern-before">
+            {% include "atoms/pattern.html" with name="topic-link-before" %}
+          </div>
+          <div class="topic-links-section-background">
+            <div class="container">
+              <div class="section-header">
+                <h2>All people</h2>
+              </div>
+            </div>
+          </div>
+          <div class="topic-links-section-pattern topic-links-section-pattern-after">
+            {% include "atoms/pattern.html" with name="topic-link-after" %}
+          </div>
+        </section>
+      </section>
+    </div>
   </main>
 {% endblock content %}
