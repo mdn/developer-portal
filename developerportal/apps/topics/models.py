@@ -1,4 +1,4 @@
-from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField
+from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, FileField
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
@@ -44,6 +44,7 @@ class Topic(Page):
     show_in_menus_default = True
 
     intro = TextField(max_length=250, blank=True, default='')
+    icon = FileField(upload_to='topics/icons', blank=True, default='')
     color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue')
     get_started = StreamField(
         StreamBlock([
@@ -53,6 +54,7 @@ class Topic(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
+        FieldPanel('icon'),
         FieldPanel('color'),
         StreamFieldPanel('get_started'),
         MultiFieldPanel([
