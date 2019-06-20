@@ -1,5 +1,5 @@
-from django.forms import CheckboxSelectMultiple
 from django.db.models import BooleanField, CASCADE, CharField, ForeignKey, SET_NULL
+from django.forms import CheckboxSelectMultiple
 from django.utils.text import slugify
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -16,10 +16,21 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from ..topics.models import Topic
+
 
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['topics'] = Topic.objects.all()
+        return context
+
+    @property
+    def mozillians(self):
+        return Person.objects.filter(is_mozillian=True).public().live()
 
 
 class PersonTopic(Orderable):
@@ -84,6 +95,9 @@ class Person(Page):
             InlinePanel('topics'),
         ], heading='Topics interested in'),
     ]
+
+    class Meta:
+        ordering = ['title']
 
     def clean(self):
         super().clean()
