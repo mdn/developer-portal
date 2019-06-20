@@ -1,17 +1,46 @@
 {% extends "base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}people{% endblock %}
 
 {% block content %}
-  <main>
-    <ul>
-      {% for person in page.get_children.all %}
-        <li>
-          <a href="{% pageurl person %}">{{ person.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </main>
+<main>
+  <div class="container">
+    <filter-form>
+      <fieldset>
+        <legend> Topics </legend>
+        {% for topic in topics %}
+          <label>
+            {{ topic.title }}
+            <input type="checkbox" name="topic" value="{{ topic.slug }}">
+          </label>
+        {% endfor %}
+      </fieldset>
+    </filter-form>
+    {% with mozillians=page.mozillians %}
+      {% if mozillians %}
+        <ul>
+          {% for person in page.mozillians %}
+            <li
+              class="filter-target"
+              {% if person.is_mozillian %}data-is-mozillian{% endif %}
+              data-first-name="{{ person.first_name }}"
+              data-last-name="{{ person.last_name }}"
+              data-job-title="{{ person.job_title }}"
+              data-topics="{% for topic in person.topics.all %}{{ topic.topic.slug }} {% endfor %}"
+            >
+              <a href="{% pageurl person %}">
+                {% image person.profile_picture width-200 %}
+                <div><strong>{{ person.title }}</strong></div>
+                <div>{{ person.job_title }}</div>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </div>
+</main>
 {% endblock content %}
