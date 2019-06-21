@@ -14,6 +14,15 @@
 .article-body {
   grid-column: body;
   overflow-x: auto;
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(.no-underline) {
+      background: none;
+    }
+  }
 }
 
 .article-sidebar {
@@ -22,6 +31,15 @@
 
 .article-sidebar-cards {
   margin-bottom: 32px;
+
+  .card-link {
+    display: inline-block;
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 
   .card:not(:last-child) {
     margin-bottom: 32px;

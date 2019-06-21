@@ -3,7 +3,7 @@
 {% if type == "person" %}
   {% image resource.profile_picture width-480 as header_image %}
 {% else %}
-  {% image resource.header_image width-480 as header_image %}
+  {% image resource.header_image width-1024 as header_image %}
 {% endif %}
 
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
