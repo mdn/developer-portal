@@ -1,6 +1,10 @@
 /* eslint-disable class-methods-use-this */
-class GetStarted {
-  init() {
+export default class {
+  static init() {
+    return new this();
+  }
+
+  constructor() {
     if (document.getElementById('get-started')) {
       this.setInitialState();
 
@@ -45,5 +49,3 @@ class GetStarted {
     }
   }
 }
-
-export default GetStarted;

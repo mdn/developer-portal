@@ -8,20 +8,20 @@
 {% block content %}
 <main>
   <div class="container">
-    <filter-form>
+    <form class="js-filter-form" data-controls="people-cards">
       <fieldset>
         <legend> Topics </legend>
         {% for topic in topics %}
           <label>
             {{ topic.title }}
-            <input type="checkbox" name="topic" value="{{ topic.slug }}">
+            <input type="checkbox" name="topics" value="{{ topic.slug }}">
           </label>
         {% endfor %}
       </fieldset>
-    </filter-form>
+    </form>
     {% with mozillians=page.mozillians %}
       {% if mozillians %}
-        <ul>
+        <ul id="people-cards">
           {% for person in page.mozillians %}
             <li
               class="filter-target"
