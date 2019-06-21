@@ -32,7 +32,7 @@
     <div class="get-started-content-wrapper">
       {% for block in page.get_started %}
         {% image block.value.image width-190 as i %}
-        <div class="get-started-content-bg displayed" data-hash="{{ block.value.title|lower }}">
+        <div class="get-started-content-bg displayed" data-hash="{{ block.value.title|slugify }}">
           <div class="get-started-content">
             <img
               src="{{ i.url }}"
@@ -49,7 +49,7 @@
     </div>
     <nav class="get-started-nav hidden" id="get-started-nav">
       {% for block in page.get_started %}
-        <a href="#{{ block.value.title|lower }}" class="get-started-toggle {% if forloop.first %}highlight2-inverse{% else %}highlight2{% endif %}">
+        <a href="#{{ block.value.title|slugify }}" class="get-started-toggle {% if forloop.first %}highlight2-inverse{% else %}highlight2{% endif %}">
           <span>{{ block.value.title }}</span>
         </a>
       {% endfor %}
