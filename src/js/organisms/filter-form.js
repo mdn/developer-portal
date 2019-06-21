@@ -59,15 +59,12 @@ export default class {
       and: AND_FILTERS.map(key => ({ key, values: formData.getAll(key) })),
       or: OR_FILTERS.map(key => ({ key, values: formData.getAll(key) })),
     }).toString();
-
-    if (selector) {
-      this.targets.forEach((target) => {
-        target.setAttribute('hidden', !target.matches(selector));
-      });
-    } else {
-      this.targets.forEach((target) => {
-        target.setAttribute('hidden', false);
-      });
-    }
+    this.targets.forEach((target) => {
+      if (selector && !target.matches(selector)) {
+        target.setAttribute('hidden', '');
+      } else {
+        target.removeAttribute('hidden');
+      }
+    });
   }
 }
