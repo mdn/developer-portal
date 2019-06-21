@@ -1,35 +1,63 @@
-
 .card-featured-primary {
   background-color: $color-black;
   display: flex;
-  justify-content: end;
+  flex-direction: column;
   margin-bottom: 16px;
   position: relative;
 
+  @media #{$mq-md} {
+    flex-direction: row-reverse;
+    min-height: 360px;
+  }
+
+  .card-featured-image {
+    background-position: center;
+    background-size: cover;
+    padding-top: 75%;
+    position: relative;
+
+    @media #{$mq-md} {
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  .card-featured-primary-body {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    position: relative;
+
+    @media #{$mq-md} {
+      width: 50%;
+    }
+  }
+
   .card-featured-image-wrapper {
+    position: relative;
     width: 100%;
+
     @media #{$mq-md} {
       background-color: $color-black;
-      clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);  
+      clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);
       width: 50%;
     }
   }
 
   .card-featured-find-out-more {
     display: none;
+
     @media #{$mq-md} {
-      background-color: $color-white;
-      bottom: 32px;
-      color: $color-black;
+      color: $color-white;
       display: block;
-      left: 32px;
       padding: 2px;
-      position: absolute;
+      position: relative;
     }
   }
 
   .card-featured-find-out-more span {
-    border-bottom: 2px solid $color-black;
+    border-bottom: 2px solid $color-white;
     display: inline-block;
     line-height: 1;
   }
@@ -38,41 +66,37 @@
 .card-featured-image {
   background-position: center;
   background-size: cover;
-  padding-top: 75%;
-  position: relative;
+  height: 100%;
+  position: absolute;
+  width: 100%;
 }
 
 .card-featured-primary-content {
-  bottom: 16px;
-  left: 16px;
-  max-width: 340px;
-  position: absolute;
-  
-  @media #{$mq-md} {
-    left: 32px;
-    max-width: 400px;
-    top: 32px;
-  }
+  flex-grow: 1;
 
   .featured {
     margin-bottom: 16px;
   }
 
-  h4 {
-    margin-bottom: 0;
-  }
-
   .featured,
   h4,
   p {
-    background-color: $color-white;
-    color: $color-black;
+    color: $color-white;
     display: inline-block;
+  }
+
+  p {
+    margin-bottom: 0;
+
+    @media #{$mq-md} {
+      margin-bottom: 16px;
+    }
   }
 }
 
 .card-featured {
   color: $color-white;
+  min-height: 240px;
   position: relative;
 
   @media #{$mq-md} {
@@ -106,7 +130,7 @@
     display: inline;
     font-size: 14px;
     left: 4px;
-    position: relative; 
+    position: relative;
   }
 
   .card-featured-find-out-more {
@@ -122,7 +146,7 @@
       position: absolute;
     }
   }
-  
+
   .card-featured-find-out-more span {
     border-bottom: 1px solid $color-white;
     line-height: 1;

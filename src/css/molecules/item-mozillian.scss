@@ -1,40 +1,14 @@
-.item-mozillian-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
 .item-mozillian {
-  position: relative;
-
-  @media #{$mq-md} {
-    width: 25%;
-  }
-
-  &:first-child {
-    @media #{$mq-md} {
-      width: 50%;
-    }
-  }
+  text-align: center;
 
   img {
     clip-path: circle(45%);
   }
 
-  h3,
   p,
   a {
     background-color: $color-black;
     color: $color-white;
-  }
-
-  h3 {
-    display: inline-block;
-    margin-bottom: 8px;
-
-    .item-mozillian:not(:first-child) & {
-      font-size: 22px;
-    }
   }
 
   p {
@@ -43,29 +17,12 @@
     display: inline;
     font-size: 14px;
     left: 4px;
-    position: relative; 
+    position: relative;
   }
 
   a {
     display: inline-block;
     margin-top: 8px;
     padding: 4px 12px 8px;
-  }
-}
-
-.item-mozillian-content {
-  left: 20%;
-  position: absolute;
-  top: 50%;
-  width: 80%;
-  z-index: 1;
-
-  @media #{$mq-md} {
-    width: 100%;
-
-    .item-mozillian:not(:first-child) & {
-      left: 20%;
-      width: 80%;
-    }
   }
 }

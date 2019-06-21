@@ -24,7 +24,7 @@
     <section>
       {% include "organisms/get-started.html" %}
     </section>
-    {% with subtopics=self.get_children.all %}
+    {% with subtopics=self.get_children.specific %}
       {% if subtopics %}
         <section class="section-full">
           {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
@@ -49,7 +49,7 @@
         <h2>Meet the Mozillians</h2>
         <a href="">See more</a>
       </div>
-      <div class="item-mozillian-container">
+      <div class="card-container">
         {% for person in page.people.all|slice:":3" %}
           {% include "molecules/item-mozillian.html" with person=person.person %}
         {% endfor %}
