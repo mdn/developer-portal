@@ -10,7 +10,7 @@
     width: 100%;
     @media #{$mq-md} {
       background-color: $color-black;
-      clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);  
+      clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);
       width: 50%;
     }
   }
@@ -42,12 +42,16 @@
   position: relative;
 }
 
+.card-featured-image-square {
+  padding-top: 100%;
+}
+
 .card-featured-primary-content {
   bottom: 16px;
   left: 16px;
   max-width: 340px;
   position: absolute;
-  
+
   @media #{$mq-md} {
     left: 32px;
     max-width: 400px;
@@ -93,20 +97,20 @@
     margin-bottom: 16px;
   }
 
-  span,
-  p,
-  a {
-    background-color: $color-black;
+  span {
     display: inline-block;
   }
 
-  p {
+  h4 {
     box-decoration-break: clone;
     box-shadow: 0 0 0 3px $color-black;
     display: inline;
-    font-size: 14px;
     left: 4px;
-    position: relative; 
+    position: relative;
+  }
+
+  p {
+    width: max-content;
   }
 
   .card-featured-find-out-more {
@@ -122,7 +126,7 @@
       position: absolute;
     }
   }
-  
+
   .card-featured-find-out-more span {
     border-bottom: 1px solid $color-white;
     line-height: 1;

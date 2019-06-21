@@ -1,10 +1,10 @@
 {% load app_filters %}
 
-<section class="topic-links-section">
-  <div class="topic-links-section-pattern topic-links-section-pattern-before">
+<section class="pattern-section">
+  <div class="pattern-section-pattern pattern-section-pattern-before">
     {% include "atoms/pattern.html" with name="topic-link-before" %}
   </div>
-  <div class="topic-links-section-background">
+  <div class="pattern-section-background">
     <div class="container">
       <div class="section-header">
         {% if pagetheme == 'home' %}
@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  <div class="topic-links-section-pattern topic-links-section-pattern-after">
+  <div class="pattern-section-pattern pattern-section-pattern-after">
     {% include "atoms/pattern.html" with name="topic-link-after" %}
   </div>
 </section>
