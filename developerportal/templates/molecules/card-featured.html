@@ -7,7 +7,7 @@
 {% endif %}
 
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
-  <div class="card-featured">
+  <div class="card-featured {% if type == 'person' and format == 'square' %}card-featured-square{% endif %}">
     <div class="card-featured-image {% if type == 'person' and format == 'square' %}card-featured-image-square{% endif %}" style="background-image: url('{{ header_image.url }}')"></div>
     <div class="card-featured-content">
       <span class="highlighted featured">Featured</span>

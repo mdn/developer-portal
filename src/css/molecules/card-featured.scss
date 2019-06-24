@@ -66,9 +66,8 @@
 .card-featured-image {
   background-position: center;
   background-size: cover;
-  height: 100%;
-  position: absolute;
-  width: 100%;
+  padding-top: 75%;
+  position: relative;
 }
 
 .card-featured-image-square {
@@ -80,7 +79,6 @@
   flex-grow: 1;
   left: 16px;
   max-width: 340px;
-  position: absolute;
 
   @media #{$mq-md} {
     left: 32px;
@@ -115,6 +113,10 @@
 
   @media #{$mq-md} {
     margin-bottom: 0;
+  }
+
+  .card-container & {
+    height: 100%;
   }
 
   .card-featured-content {
