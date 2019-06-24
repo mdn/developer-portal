@@ -4,7 +4,12 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
+.card-container-2 {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+
 .card {
+  background-color: $color-white;
   border: 1px solid $color-gray-30;
   display: flex;
   flex-direction: column;
@@ -62,4 +67,8 @@
   background-size: cover;
   position: relative;
   padding-top: 56.25%;
+}
+
+.card-image-square {
+  padding-top: 100%;
 }

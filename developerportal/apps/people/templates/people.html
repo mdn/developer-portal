@@ -6,12 +6,32 @@
 
 {% block content %}
   <main>
-    <ul>
-      {% for person in page.get_children.all %}
-        <li>
-          <a href="{% pageurl person %}">{{ person.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="base-grid">
+      <section>
+        <div class="section-header">
+          <h2>Featured</h2>
+        </div>
+        {% if page.featured_people.all.count == 1 %}
+          {% with page.featured_people.all.0.person as person %}
+            {% include "molecules/card-featured-primary.html" with resource=person type='person' %}
+          {% endwith %}
+        {% else %}
+          <div class="card-container {% if page.featured_people.all.count == 2 %}card-container-2{% endif %}">
+            {% for featured in page.featured_people.all %}
+              {% with featured.person as person %}
+                {% if page.featured_people.all.count == 2 %}
+                  {% include "molecules/card-featured.html" with resource=person type='person' %}
+                {% else %}
+                  {% include "molecules/card-featured.html" with resource=person type='person' format='square' %}
+                {% endif %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </section>
+      <section class="section-full">
+        {% include "organisms/filter-list.html" with type='People' %}
+      </section>
+    </div>
   </main>
 {% endblock content %}

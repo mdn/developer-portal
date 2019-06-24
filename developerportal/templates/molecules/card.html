@@ -1,10 +1,14 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% image resource.header_image width-636 as header_image %}
+{% if type == "person" %}
+  {% image resource.profile_picture width-636 as header_image %}
+{% else %}
+  {% image resource.header_image width-636 as header_image %}
+{% endif %}
 
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
   <div class="card">
-    <div class="card-image" style="background-image: url('{{ header_image.url }}')"></div>
+    <div class="card-image {% if type == 'person' %}card-image-square{% endif %}" style="background-image: url('{{ header_image.url }}')"></div>
     <div class="card-content">
       <div class="card-content-main">
         {% include "molecules/resource-meta.html" with resource=resource type=type %}

@@ -1,0 +1,81 @@
+<section class="pattern-section">
+  <div class="pattern-section-pattern pattern-section-pattern-before">
+    {% include "atoms/pattern.html" with name="cross-before" %}
+  </div>
+  <div class="pattern-section-background">
+    <div class="container">
+      <div class="section-header">
+        <h2>All {{ type }}</h2>
+      </div>
+
+      <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-left">
+        <aside class="mzp-l-sidebar">
+          <div class="filter">
+            <div class="filter-header">
+              <a href="#" class="filter-section-clear">Clear all</a>
+            </div>
+            <div class="filter-section">
+              <div class="filter-section-header">
+                <h5 class="no-underline">Initials</h5>
+                <a href="#" class="filter-section-clear">Clear</a>
+              </div>
+              <label>
+                <input type="checkbox" value="A"> A - C
+              </label>
+              <label>
+                <input type="checkbox" value="D"> D - F
+              </label>
+              <label>
+                <input type="checkbox" value="G"> G - I
+              </label>
+              <label>
+                <input type="checkbox" value="J"> J - L
+              </label>
+              <label>
+                <input type="checkbox" value="M"> M - O
+              </label>
+              <label>
+                <input type="checkbox" value="P"> P - S
+              </label>
+              <label>
+                <input type="checkbox" value="T"> T - V
+              </label>
+              <label>
+                <input type="checkbox" value="W"> W - Z
+              </label>
+            </div>
+
+            <div class="filter-section">
+              <div class="filter-section-header">
+                <h5 class="no-underline">Topic</h5>
+                <a href="#" class="filter-section-clear">Clear</a>
+              </div>
+              {% for topic in page.topics.all %}
+                <label>
+                  <input type="checkbox" value="{{ topic }}"> {{ topic }}
+                </label>
+              {% endfor %}
+            </div>
+          </div>
+        </aside>
+
+        <div class="mzp-l-main">
+          <div class="card-container">
+            {% for featured in page.featured_people.all %}
+              {% with featured.person as person %}
+                {% include "molecules/card.html" with resource=person type="person" %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+          <div class="filter-list-actions">
+            <a href="#" class="mzp-c-button">See more</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="pattern-section-pattern pattern-section-pattern-after">
+    {% include "atoms/pattern.html" with name="cross-after" %}
+  </div>
+</section>
