@@ -71,8 +71,21 @@
   width: 100%;
 }
 
+.card-featured-image-square {
+  padding-top: 100%;
+}
+
 .card-featured-primary-content {
+  bottom: 16px;
   flex-grow: 1;
+  left: 16px;
+  max-width: 340px;
+
+  @media #{$mq-md} {
+    left: 32px;
+    max-width: 400px;
+    top: 32px;
+  }
 
   .featured {
     margin-bottom: 16px;
@@ -103,6 +116,10 @@
     margin-bottom: 0;
   }
 
+  .card-container & {
+    height: 100%;
+  }
+
   .card-featured-content {
     bottom: 0;
     padding: 24px 16px;
@@ -117,20 +134,20 @@
     margin-bottom: 16px;
   }
 
-  span,
-  p,
-  a {
-    background-color: $color-black;
+  span {
     display: inline-block;
   }
 
-  p {
+  h4 {
     box-decoration-break: clone;
     box-shadow: 0 0 0 3px $color-black;
     display: inline;
-    font-size: 14px;
     left: 4px;
     position: relative;
+  }
+
+  p {
+    width: max-content;
   }
 
   .card-featured-find-out-more {

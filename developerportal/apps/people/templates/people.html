@@ -6,41 +6,29 @@
 {% block body_class %}people{% endblock %}
 
 {% block content %}
-<main>
-  <div class="container">
-    <form class="js-filter-form" data-controls="people-cards">
-      <fieldset>
-        <legend> Topics </legend>
-        {% for topic in topics %}
-          <label>
-            {{ topic.title }}
-            <input type="checkbox" name="topics" value="{{ topic.slug }}">
-          </label>
+  <main>
+    <div class="base-grid">
+      <section>
+        <div class="section-header">
+          <h2>Featured</h2>
+        </div>
+        {% for person in page.featured_people.all %}
+          {% if forloop.first and forloop.last %}
+            {% include "molecules/card-featured-primary.html" with resource=person type="person" %}
+          {% elif forloop.counter == 2 %}
+            <div class="card-container card-container-2">
+              {% include "molecules/card-featured.html" with resource=person.person type="person" %}
+            </div>
+          {% else %}
+            <div class="card-container">
+              {% include "molecules/card-featured.html" with resource=person.person type="person" format="square" %}
+            </div>
+          {% endif %}
         {% endfor %}
-      </fieldset>
-    </form>
-    {% with mozillians=page.mozillians %}
-      {% if mozillians %}
-        <ul id="people-cards">
-          {% for person in page.mozillians %}
-            <li
-              class="filter-target"
-              {% if person.is_mozillian %}data-is-mozillian{% endif %}
-              data-first-name="{{ person.first_name }}"
-              data-last-name="{{ person.last_name }}"
-              data-job-title="{{ person.job_title }}"
-              data-topics="{% for topic in person.topics.all %}{{ topic.topic.slug }} {% endfor %}"
-            >
-              <a href="{% pageurl person %}">
-                {% image person.profile_picture width-200 %}
-                <div><strong>{{ person.title }}</strong></div>
-                <div>{{ person.job_title }}</div>
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-  </div>
-</main>
+      </section>
+      <section class="section-full">
+        {% include "organisms/filter-list.html" with type="People" %}
+      </section>
+    </div>
+  </main>
 {% endblock content %}

@@ -17,6 +17,10 @@
 @import '~@mozilla-protocol/core/protocol/css/components/menu';
 @import '~@mozilla-protocol/core/protocol/css/components/menu-item';
 @import '~@mozilla-protocol/core/protocol/css/components/navigation';
+@import '~@mozilla-protocol/core/protocol/css/components/sidebar-menu';
+
+// Protocol templates.
+@import '~@mozilla-protocol/core/protocol/css/templates/main-with-sidebar';
 
 // Global.
 @import 'global/base';
@@ -47,12 +51,13 @@
 
 // Organisms.
 @import 'organisms/article-header';
+@import 'organisms/filter-list';
 @import 'organisms/get-started';
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
+@import 'organisms/pattern-section';
 @import 'organisms/person-header';
 @import 'organisms/topic-header';
-@import 'organisms/topic-links';
 
 // Templates.
 @import 'templates/article';

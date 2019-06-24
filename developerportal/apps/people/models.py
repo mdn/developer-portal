@@ -17,13 +17,24 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-
 from ..topics.models import Topic
 
 
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
+
+    # Fields
+
+    # Editor panel configuration
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            InlinePanel('featured_people', min_num=1, max_num=3)
+        ],
+        heading='Featured People',
+        help_text=('These people will be featured at the top of the page. '
+                    'Please choose between 1 and 3 people.'))
+    ]
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -33,6 +44,19 @@ class People(Page):
     @property
     def mozillians(self):
         return Person.objects.filter(is_mozillian=True).public().live()
+
+    @property
+    def topics(self):
+        return Topic.objects.live().public().order_by('title')
+
+
+class FeaturedPerson(Orderable):
+    page = ParentalKey('People', related_name='featured_people')
+    person = ForeignKey('people.Person', on_delete=CASCADE, related_name='+')
+
+    panels = [
+        PageChooserPanel('person')
+    ]
 
 
 class PersonTopic(Orderable):
