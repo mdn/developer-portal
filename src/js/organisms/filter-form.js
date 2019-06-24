@@ -3,12 +3,12 @@ const AND_FILTERS = [
 ];
 
 const OR_FILTERS = [
-  'initials',
+  'initial-group',
 ];
 
 class Selector {
   static attr(key, value, append = '') {
-    return `[data-${key}="${value}"]${append}`;
+    return `[data-${key}~="${value}"]${append}`;
   }
 
   static map(array, join, append) {
@@ -47,7 +47,7 @@ export default class {
   constructor(form) {
     this.form = form;
     const control = document.getElementById(this.form.dataset.controls);
-    this.targets = control.querySelectorAll('.filter-target');
+    this.targets = control.querySelectorAll('.js-filter-target');
     this.form.addEventListener('input', () => this.filter());
     this.form.dispatchEvent(new Event('input'));
   }
@@ -59,6 +59,7 @@ export default class {
       and: AND_FILTERS.map(key => ({ key, values: formData.getAll(key) })),
       or: OR_FILTERS.map(key => ({ key, values: formData.getAll(key) })),
     }).toString();
+
     this.targets.forEach((target) => {
       if (selector && !target.matches(selector)) {
         target.setAttribute('hidden', '');

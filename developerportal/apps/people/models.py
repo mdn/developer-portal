@@ -20,6 +20,24 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..topics.models import Topic
 
 
+GROUP_BY_INITIAL = (
+    ('A', 'C'),
+    ('D', 'F'),
+    ('G', 'I'),
+    ('J', 'L'),
+    ('M', 'O'),
+    ('P', 'S'),
+    ('T', 'V'),
+    ('W', 'Z'),
+)
+
+
+def chr_range(start='A', stop='Z'):
+    """Yield a range of uppercase letters."""
+    for ord_ in range(ord(start.upper()), ord(stop.upper()) + 1):
+        yield chr(ord_)
+
+
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
@@ -38,16 +56,18 @@ class People(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['topics'] = Topic.objects.all()
+        context['filters'] = self.get_filters()
         return context
 
     @property
     def mozillians(self):
         return Person.objects.filter(is_mozillian=True).public().live()
 
-    @property
-    def topics(self):
-        return Topic.objects.live().public().order_by('title')
+    def get_filters(self):
+        return {
+            'people': self.mozillians,
+            'topics': Topic.objects.live().public().order_by('title'),
+        }
 
 
 class FeaturedPerson(Orderable):
@@ -130,3 +150,11 @@ class Person(Page):
         derived_title = '{} {}'.format(self.first_name, self.last_name)
         self.title = derived_title
         self.slug = slugify(derived_title)
+
+    @property
+    def initial_group(self):
+        initial = self.title[0].upper()
+        for start, end in GROUP_BY_INITIAL:
+            if initial in chr_range(start, end):
+                return {'start': start, 'end': end}
+        raise IndexError

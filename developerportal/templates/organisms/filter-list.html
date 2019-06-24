@@ -5,66 +5,20 @@
   <div class="pattern-section-background">
     <div class="container">
       <div class="section-header">
-        <h2>All {{ type }}</h2>
+        <h2>All {{ title }}</h2>
       </div>
 
       <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-left">
         <aside class="mzp-l-sidebar">
-          <div class="filter">
-            <div class="filter-header">
-              <a href="#" class="filter-section-clear">Clear all</a>
-            </div>
-            <div class="filter-section">
-              <div class="filter-section-header">
-                <h5 class="no-underline">Initials</h5>
-                <a href="#" class="filter-section-clear">Clear</a>
-              </div>
-              <label>
-                <input type="checkbox" value="A"> A - C
-              </label>
-              <label>
-                <input type="checkbox" value="D"> D - F
-              </label>
-              <label>
-                <input type="checkbox" value="G"> G - I
-              </label>
-              <label>
-                <input type="checkbox" value="J"> J - L
-              </label>
-              <label>
-                <input type="checkbox" value="M"> M - O
-              </label>
-              <label>
-                <input type="checkbox" value="P"> P - S
-              </label>
-              <label>
-                <input type="checkbox" value="T"> T - V
-              </label>
-              <label>
-                <input type="checkbox" value="W"> W - Z
-              </label>
-            </div>
-
-            <div class="filter-section">
-              <div class="filter-section-header">
-                <h5 class="no-underline">Topic</h5>
-                <a href="#" class="filter-section-clear">Clear</a>
-              </div>
-              {% for topic in page.topics.all %}
-                <label>
-                  <input type="checkbox" value="{{ topic }}"> {{ topic }}
-                </label>
-              {% endfor %}
-            </div>
-          </div>
+          {% include "molecules/filter-form.html" with filters=filters %}
         </aside>
 
         <div class="mzp-l-main">
-          <div class="card-container">
-            {% for featured in page.featured_people.all %}
-              {% with featured.person as person %}
-                {% include "molecules/card.html" with resource=person type="person" %}
-              {% endwith %}
+          <div class="card-container" id="{{ type }}-cards">
+            {% for resource in resources %}
+              {% if type == "person" %}
+                {% include "molecules/card.html" with resource=resource.person type=type filter_target=True %}
+              {% endif %}
             {% endfor %}
           </div>
           <div class="filter-list-actions">
