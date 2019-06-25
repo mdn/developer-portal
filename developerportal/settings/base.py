@@ -182,20 +182,18 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = 'developerportal'
-
-codepen = {
-    'endpoint': 'http://codepen.io/api/oembed',
-    'urls': [
-        '^http(?:s)?://codepen\\.io/.+/pen/.+$',
-    ],
-}
+WAGTAIL_SITE_NAME = 'Mozilla Developer Portal'
 
 # Add support for CodePen oEmbed
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',
-        'providers': [codepen],
+        'providers': [{
+            'endpoint': 'http://codepen.io/api/oembed',
+            'urls': [
+                '^http(?:s)?://codepen\\.io/.+/pen/.+$',
+            ],
+        }],
     }
 ]
 
