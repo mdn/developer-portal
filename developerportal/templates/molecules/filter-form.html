@@ -1,0 +1,38 @@
+<form class="filter js-filter-form" data-controls="{{ type }}-cards">
+  <header class="filter-header">
+    {# <a href="#" class="filter-section-clear">Clear all</a> #}
+  </header>
+
+  {% if filters.people %}
+    <fieldset class="filter-section">
+      <header class="filter-section-header">
+        <h5 class="no-underline">Initials</h5>
+        {# <a href="#" class="filter-section-clear">Clear</a> #}
+      </header>
+      {% regroup filters.people by person.initial_group as groups %}
+      {% for group in groups %}
+        {% with start=group.grouper.start end=group.grouper.end %}
+          <label>
+            <input type="checkbox" name="initial-group" value="{{ start }}">
+            {{ start }} – {{ end }}
+          </label>
+        {% endwith %}
+      {% endfor %}
+    </fieldset>
+  {% endif %}
+
+  {% if filters.topics %}
+    <fieldset class="filter-section">
+      <header class="filter-section-header">
+        <h5 class="no-underline">Topic</h5>
+        {# <a href="#" class="filter-section-clear">Clear</a> #}
+      </header>
+      {% for topic in filters.topics %}
+        <label>
+          <input type="checkbox" name="topics" value="{{ topic.slug }}">
+          {{ topic.title }}
+        </label>
+      {% endfor %}
+    </fieldset>
+  {% endif %}
+</form>

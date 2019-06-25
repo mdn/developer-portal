@@ -1,49 +1,52 @@
-/* eslint-disable class-methods-use-this */
-class GetStarted {
-  init() {
-    if (document.getElementById('get-started')) {
-      this.setInitialState();
+export default class {
+  static init() {
+    const elements = document.querySelectorAll('.js-get-started');
+    return Array.from(elements).map(element => new this(element));
+  }
 
-      if (window.location.hash.length > 0) {
-        this.showContent(window.location.hash);
-      }
+  constructor(element) {
+    this.backgrounds = Array.from(element.querySelectorAll('.get-started-content-bg'));
+    this.toggles = Array.from(element.querySelectorAll('.get-started-toggle'));
+    this.nav = element.querySelector('.get-started-nav');
 
-      window.addEventListener('hashchange', () => {
-        this.showContent(window.location.hash);
-      }, false);
+    this.setInitialState();
+
+    window.addEventListener('hashchange', this.showContent.bind(this));
+
+    if (window.location.hash) {
+      this.showContent();
     }
   }
 
   setInitialState() {
-    document.querySelectorAll('.get-started-content-bg').forEach((el, idx) => {
-      if (idx !== 0) {
-        el.classList.remove('displayed');
+    this.backgrounds.forEach((background, index) => {
+      if (index) background.classList.remove('displayed');
+    });
+    if (this.toggles.length > 1) {
+      this.nav.classList.remove('hidden');
+    }
+  }
+
+  showContent() {
+    const { hash } = window.location;
+    if (!hash) return;
+
+    this.toggles.forEach((toggle) => {
+      if (toggle.href === hash) {
+        toggle.classList.add('highlight2-inverse');
+        toggle.classList.remove('highlight2');
+      } else {
+        toggle.classList.add('highlight2');
+        toggle.classList.remove('highlight2-inverse');
       }
     });
-    if (document.querySelectorAll('.get-started-toggle').length > 1) {
-      document.getElementById('get-started-nav').classList.remove('hidden');
-    }
-  }
 
-  showContent(hash) {
-    if (hash.length > 0) {
-      document.querySelectorAll('.get-started-toggle').forEach((el) => {
-        if (el.attributes.href.value === hash) {
-          el.className = 'get-started-toggle highlight2-inverse';
-        } else {
-          el.className = 'get-started-toggle highlight2';
-        }
-      });
-
-      document.querySelectorAll('.get-started-content-bg').forEach((el) => {
-        if (`#${el.attributes['data-hash'].value}` === hash) {
-          el.classList.add('displayed');
-        } else {
-          el.classList.remove('displayed');
-        }
-      });
-    }
+    this.backgrounds.forEach((background) => {
+      if (`#${background.dataset.hash}` === hash) {
+        background.classList.add('displayed');
+      } else {
+        background.classList.remove('displayed');
+      }
+    });
   }
 }
-
-export default GetStarted;
