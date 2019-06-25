@@ -48,6 +48,7 @@ export default class {
     this.form = form;
     const control = document.getElementById(this.form.dataset.controls);
     this.targets = control.querySelectorAll('.js-filter-target');
+
     this.form.addEventListener('input', () => this.filter());
     this.form.dispatchEvent(new Event('input'));
   }
@@ -60,7 +61,7 @@ export default class {
       or: OR_FILTERS.map(key => ({ key, values: formData.getAll(key) })),
     }).toString();
 
-    this.targets.forEach((target) => {
+    Array.from(this.targets).forEach((target) => {
       if (selector && !target.matches(selector)) {
         target.setAttribute('hidden', '');
       } else {
