@@ -4,8 +4,6 @@ def get_commit_tag() {
 }
 
 node {
-	println "${env}"
-
 	stage('Prep') {
 		checkout scm
 		tag = get_commit_tag()
