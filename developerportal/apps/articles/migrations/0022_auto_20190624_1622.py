@@ -7,6 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('mozimages', '0001_initial'),
         ('articles', '0021_auto_20190618_0840'),
     ]
 
