@@ -37,7 +37,7 @@ class HomePage(Page):
     button_text = CharField(max_length=30, default='')
     button_url = URLField(max_length=140, default='')
     header_image = ForeignKey(
-        'wagtailimages.Image',
+        'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,

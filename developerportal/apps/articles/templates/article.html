@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
 
 {% block body_class %}article-detail{% endblock %}
 
@@ -12,12 +14,17 @@
 {% block content %}
   <main class="has-header">
     <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title intro=page.intro date=page.date header_image=page.header_image authors=page.authors.all %}
+      {% include "organisms/article-header.html" with title=page.title intro=page.intro date=page.date i=page.i authors=page.authors.all %}
       <section class="article-content">
         <article class="article-body">
           {% include "molecules/resource-share.html" with resource=page type="article" read_time=read_time %}
           {% for block in page.body %}
-            {{ block }}
+            {% if block.block_type == 'image' %}
+              {% image block.value width-672 as rendition %}
+              {% include "atoms/image.html" with image=block.value rendition=rendition %}
+            {% else %}
+              {{ block }}
+            {% endif %}
           {% endfor %}
         </article>
         <aside class="article-sidebar">
