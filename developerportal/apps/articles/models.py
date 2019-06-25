@@ -102,10 +102,8 @@ class Article(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
-        try:
-            return self.topics.all()[:1].get().topic
-        except ObjectDoesNotExist:
-            return None
+        article_topic = self.topics.first()
+        return article_topic.topic if article_topic else None
 
     @property
     def read_time(self):
