@@ -1,6 +1,6 @@
 
 def get_commit_tag() {
-  return sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+  return sh(returnStdout: true, script: "git rev-parse --short=7 HEAD").trim()
 }
 
 node {
@@ -16,10 +16,10 @@ node {
 
   stage('Push Image') {
     printlin("Pushing images")
-    python_app.push()
+    python_app.push("${tag}")
     python_app.push("latest")
 
-    node_app.push()
+    node_app.push("${tag}")
     node_app.push("latest")
   }
 
