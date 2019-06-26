@@ -1,0 +1,20 @@
+<header class="pattern-bg-header">
+  <div class="pattern-bg-header-container">
+    <div class="pattern-bg-header-icon">
+      {% if icon == 'mozillian' %}
+      {% include "atoms/person-icon.html" %}
+      {% else %}
+      {% include "atoms/topic-icon.html" with icon=icon %}
+      {% endif %}
+    </div>
+    <div class="pattern-bg-header-details">
+      <h1>{{ title }}</h1>
+      <div>
+        <p class="pattern-bg-header-subtitle highlighted-inline">
+          <span>{{ intro }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  {% include "atoms/pattern.html" with name="pattern-bg-header" %}
+</header>
