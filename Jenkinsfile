@@ -15,7 +15,7 @@ node {
   }
 
   stage('Push Image') {
-    printlin("Pushing images")
+    println("Pushing images")
     python_app.push("${tag}")
     python_app.push("latest")
 
