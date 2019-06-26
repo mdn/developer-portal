@@ -91,6 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'developerportal.context_processors.google_analytics'
             ],
             'libraries': {
                 'app_filters': 'developerportal.templatetags.app_filters',
@@ -207,3 +208,6 @@ BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
+
+# GOOGLE_ANALYTICS
+GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')
