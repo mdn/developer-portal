@@ -77,4 +77,4 @@ class HomePage(Page):
     @property
     def primary_topics(self):
         """The site’s primary topics, i.e. of class Topic but not SubTopic."""
-        return Topics.objects.first().get_children().order_by('title')
+        return Topics.objects.first().get_children().live().public().order_by('title')
