@@ -15,7 +15,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey
 
-from ..topics.models import Topic
+from ..topics.models import Topics
 
 
 class HomePageFeaturedArticle(Orderable):
@@ -75,5 +75,6 @@ class HomePage(Page):
     ])
 
     @property
-    def topics(self):
-        return Topic.objects.live().public().order_by('title')
+    def primary_topics(self):
+        """The site’s primary topics, i.e. of class Topic but not SubTopic."""
+        return Topics.objects.first().get_children().order_by('title')
