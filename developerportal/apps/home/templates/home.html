@@ -14,7 +14,7 @@
         {% include "organisms/featured.html" with featured=page.featured_articles.all %}
       </section>
       <section class="section-full">
-        {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme='home' %}
+        {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
       <section>
         {% include "organisms/newsletter-signup.html" %}
