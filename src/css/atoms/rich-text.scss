@@ -1,0 +1,46 @@
+// revert the Protocol styling reset
+.rich-text {
+  ul,
+  ol {
+    list-style: revert;
+  }
+
+  li {
+    margin-left: 1.5em;
+    padding-left: 4px;
+  }
+}
+
+.external-link {
+  color: $color-blue-50;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    color: $color-blue-50;
+    text-decoration: underline;
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, .05);
+  }
+}
+
+.external-link:visited {
+  color: $color-blue-50;
+
+  &:hover {
+    color: $color-blue-50;
+  }
+}
+
+.external-link[target="_blank"]:after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-size: 12px 12px;
+  background-image: url($image-path + '/icons/ui/external-link.svg');
+  background-repeat: no-repeat;
+  margin: 0 2px
+}
