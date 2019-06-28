@@ -17,7 +17,7 @@
   white-space: nowrap;
 
   &:hover {
-    color: $color-blue-50;
+    color: $color-blue-60;
     text-decoration: underline;
   }
 
@@ -26,21 +26,11 @@
   }
 }
 
-.external-link:visited {
-  color: $color-blue-50;
+// TODO
+// .external-link:visited {
+//   color: $color-blue-40;
 
-  &:hover {
-    color: $color-blue-50;
-  }
-}
-
-.external-link[target="_blank"]:after {
-  content: "";
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background-size: 12px 12px;
-  background-image: url($image-path + '/icons/ui/external-link.svg');
-  background-repeat: no-repeat;
-  margin: 0 2px
-}
+//   &:hover {
+//     color: $color-blue-40;
+//   }
+// }
