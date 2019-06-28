@@ -13,29 +13,7 @@
         {% include "organisms/homepage-header.html" %}
       </section>
       <section>
-        <hr>
-        {% for featured in page.featured %}
-          {% with featured as block %}
-            {% if block.block_type == 'article' %}
-              {% with block.value as article %}
-                {{ article.title }}<br>
-                {{ article.intro }}<br>
-                {% pageurl article %}<br>
-              {% endwith %}
-            {% endif %}
-
-            {% if block.block_type == 'external_page' %}
-              {% with block.value as external_page %}
-                {{ external_page.title }}<br>
-                {{ external_page.intro }}<br>
-                {{ external_page.url }}<br>
-              {% endwith %}
-            {% endif %}
-          {% endwith %}
-          <hr>
-        {% endfor %}
-        <hr>
-        {% include "organisms/featured.html" with featured=page.featured_articles.all %}
+        {% include "organisms/featured.html" with featured=page.featured %}
       </section>
       <section class="section-full">
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}

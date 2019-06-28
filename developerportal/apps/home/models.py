@@ -45,12 +45,6 @@ class HomePage(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
-    # featured = StreamField([
-    #     StreamBlock([
-    #         ('article', PageChooserBlock(required=False, target_model='article')),
-    #         ('external', FeaturedExternalBlock())
-    #     ], min_num=1, max_num=4)
-    # ])
     featured = StreamField(
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model='articles.article')),
@@ -75,18 +69,8 @@ class HomePage(Page):
         StreamFieldPanel('featured'),
     ]
 
-    featured_panels = [
-        MultiFieldPanel([
-            InlinePanel('featured_articles', max_num=4),
-        ], heading='Featured Articles', help_text=(
-            'These articles will appear at the top of the homepage. Please '
-            'choose four articles.'
-        )),
-    ]
-
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading='Content'),
-        ObjectList(featured_panels, heading='Featured'),
         ObjectList(Page.promote_panels, heading='SEO'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
