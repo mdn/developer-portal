@@ -26,6 +26,8 @@ class GetStartedBlock(blocks.StructBlock):
 
 class FeaturedExternalBlock(blocks.StructBlock):
     """Content for link to an external page displayed as featured card"""
-    title = blocks.CharBlock()
-    description = blocks.TextBlock()
     url = blocks.URLBlock()
+    title = blocks.CharBlock()
+    intro = blocks.TextBlock(required=False)
+    image = ImageChooserBlock()
+
