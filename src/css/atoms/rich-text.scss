@@ -12,12 +12,12 @@
 }
 
 .external-link {
-  color: $color-blue-50;
+  color: $color-ext-link;
   text-decoration: none;
   white-space: nowrap;
 
   &:hover {
-    color: $color-blue-60;
+    color: $color-ext-link-hover;
     text-decoration: underline;
   }
 
@@ -26,11 +26,10 @@
   }
 }
 
-// TODO
-// .external-link:visited {
-//   color: $color-blue-40;
+.external-link:visited {
+  color: $color-ext-link-visited;
 
-//   &:hover {
-//     color: $color-blue-40;
-//   }
-// }
+  &:hover {
+    color: $color-ext-link-visited;
+  }
+}
