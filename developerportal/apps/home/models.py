@@ -9,13 +9,15 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
+from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey
 
-from ..topics.models import Topics
+from ..topics.models import Topics, Topic
+from ..common.blocks import FeaturedExternalBlock
 
 
 class HomePageFeaturedArticle(Orderable):
@@ -43,6 +45,20 @@ class HomePage(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
+    # featured = StreamField([
+    #     StreamBlock([
+    #         ('article', PageChooserBlock(required=False, target_model='article')),
+    #         ('external', FeaturedExternalBlock())
+    #     ], min_num=1, max_num=4)
+    # ])
+    featured = StreamField(
+        StreamBlock([
+            ('article', PageChooserBlock(required=False, target_model='articles.article')),
+            ('external_page', FeaturedExternalBlock()),
+        ], max_num=4),
+        null=True,
+        blank=True,
+    )
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
@@ -56,6 +72,7 @@ class HomePage(Page):
           heading="Primary CTA",
         ),
         ImageChooserPanel('header_image'),
+        StreamFieldPanel('featured'),
     ]
 
     featured_panels = [
