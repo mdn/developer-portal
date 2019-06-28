@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'developerportal.apps.articles',
     'developerportal.apps.events',
     'developerportal.apps.home',
+    'developerportal.apps.mozimages',
     'developerportal.apps.people',
     'developerportal.apps.search',
     'developerportal.apps.topics',
@@ -197,6 +198,8 @@ WAGTAILEMBEDS_FINDERS = [
         'providers': [codepen],
     }
 ]
+
+WAGTAILIMAGES_IMAGE_MODEL = 'mozimages.MozImage'
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

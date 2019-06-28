@@ -15,7 +15,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey
 
-from ..topics.models import Topic
+from ..topics.models import Topics
 
 
 class HomePageFeaturedArticle(Orderable):
@@ -37,7 +37,7 @@ class HomePage(Page):
     button_text = CharField(max_length=30, default='')
     button_url = URLField(max_length=140, default='')
     header_image = ForeignKey(
-        'wagtailimages.Image',
+        'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
@@ -75,5 +75,6 @@ class HomePage(Page):
     ])
 
     @property
-    def topics(self):
-        return Topic.objects.live().public().order_by('title')
+    def primary_topics(self):
+        """The site’s primary topics, i.e. of class Topic but not SubTopic."""
+        return Topics.objects.first().get_children().live().public().order_by('title')

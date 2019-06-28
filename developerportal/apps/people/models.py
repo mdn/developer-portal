@@ -99,7 +99,7 @@ class Person(Page):
     job_title = CharField(max_length=250)
     is_mozillian = BooleanField(default=True)
     profile_picture = ForeignKey(
-        'wagtailimages.Image',
+        'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
@@ -107,7 +107,7 @@ class Person(Page):
     )
     intro = RichTextField(default='')
     intro_image = ForeignKey(
-        'wagtailimages.Image',
+        'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,

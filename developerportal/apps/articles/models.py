@@ -56,7 +56,7 @@ class Article(Page):
     intro = TextField(max_length=250, blank=True, default='')
     date = DateField('Article date', default=datetime.date.today)
     header_image = ForeignKey(
-        'wagtailimages.Image',
+        'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
