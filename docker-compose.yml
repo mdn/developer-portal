@@ -14,7 +14,7 @@ services:
   app:
     build:
       context: .
-      target: app
+      dockerfile: ./dockerfiles/Dockerfile.app
     depends_on:
       - db
     env_file: .env
@@ -34,7 +34,7 @@ services:
     image: mdnwebdocs/developer-portal-static:latest
     build:
       context: .
-      target: static
+      dockerfile: ./dockerfiles/Dockerfile.static
     command: npm run watch
     restart: always
     tty: true
