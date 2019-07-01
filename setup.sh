@@ -62,10 +62,8 @@ POSTGRES_PASSWORD="$(openssl rand -base64 64 | tr -d '+/\n=')"
 POSTGRES_USER=admin
 EOT
 
-
-log 'Building Docker services.'
-docker-compose up --build --detach
-
+log 'Pulling docker images'
+docker-compose pull
 
 log 'Running migrations.'
 docker-compose run --rm app python manage.py migrate
