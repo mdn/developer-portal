@@ -23,3 +23,10 @@ class GetStartedBlock(blocks.StructBlock):
     description = blocks.TextBlock()
     button_text = blocks.CharBlock()
     button_destination = blocks.PageChooserBlock()
+
+class AgendaItemBlock(blocks.StructBlock):
+    """Content for an event agenda item"""
+    start_time = blocks.TimeBlock()
+    end_time = blocks.TimeBlock()
+    title = blocks.CharBlock()
+    speaker = blocks.PageChooserBlock(required=False)

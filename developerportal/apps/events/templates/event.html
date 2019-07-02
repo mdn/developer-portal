@@ -4,5 +4,48 @@
 {% block body_class %}event-detail{% endblock %}
 
 {% block content %}
-  <h1>{{ self.title }}</h1>
+  <main class="has-header">
+    <div class="base-grid">
+      {% include "organisms/article-header.html" with title=page.title intro=page.intro date=page.date i=page.i authors=page.authors.all %}
+      <section>
+
+      </section>
+      <section class="article-content">
+        <article class="article-body">
+          {% include "molecules/resource-share.html" with resource=page type="event" %}
+          {% for block in page.body %}
+            {% if block.block_type == 'image' %}
+              {% image block.value width-672 as rendition %}
+              {% include "atoms/image.html" with image=block.value rendition=rendition %}
+            {% else %}
+              {{ block }}
+            {% endif %}
+          {% endfor %}
+
+          <h3>Venue</h3>
+
+          <h3>Agenda</h3>
+
+        </article>
+        <aside class="article-sidebar">
+          {% if page.related_articles %}
+            <h4>Read more</h4>
+            <div class="article-sidebar-cards">
+              {% for resource in page.related_articles.all|slice:":3" %}
+                {% include "molecules/card.html" with resource=resource type="article" %}
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if page.primary_topic %}
+            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+          {% endif %}
+        </aside>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>Speakers </h2>
+        </div>
+      </section>
+    </div>
+  </main>
 {% endblock content %}
