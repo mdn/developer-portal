@@ -40,7 +40,23 @@
   }
 }
 
+.get-started-full {
+  background-color: $color-gray-10;
+  @media #{$mq-md} {
+    padding: 40px 0 80px;
+  }
+}
+
 .get-started {
+  padding: 0 16px;
+
+  @media #{$mq-md} {
+    flex-direction: row;
+    margin: 0 auto;
+    max-width: 1084px;
+    padding: 0 32px;
+  }
+
   .displayed {
     display: block;
   }
@@ -95,10 +111,10 @@
 }
 
 .get-started-toggle {
-  border-bottom: 1px solid $color-gray-20;
-  border-top: 1px solid $color-gray-20;
+  box-shadow: 0 1px $color-black;
   display: block;
   height: 124px;
+  margin-bottom: 1px;
   text-align: center;
 
   span {
