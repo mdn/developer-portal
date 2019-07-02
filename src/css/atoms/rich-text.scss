@@ -24,12 +24,12 @@
   &:active {
     background-color: rgba(0, 0, 0, .05);
   }
-}
 
-.external-link:visited {
-  color: $color-ext-link-visited;
-
-  &:hover {
+  &:visited {
     color: $color-ext-link-visited;
+
+    &:hover {
+      color: $color-ext-link-visited;
+    }
   }
 }
