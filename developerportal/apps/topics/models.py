@@ -49,7 +49,7 @@ class Topic(Page):
     get_started = StreamField(
         StreamBlock([
             ('panel', GetStartedBlock())
-        ], min_num=1, max_num=3)
+        ], max_num=3)
     )
 
     content_panels = Page.content_panels + [

@@ -1,15 +1,17 @@
-<div class="section-header">
-  <h2>Featured</h2>
-</div>
-{% with featured.0.article as article %}
-  {% include "molecules/card-featured-primary.html" with resource=article type='article' %}
-{% endwith%}
-<div class="card-container">
-  {% for item in featured %}
-    {% with item.article as article %}
-      {% if not forloop.first %}
-        {% include "molecules/card-featured.html" with resource=article type='article' %}
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
-</div>
+{% if featured %}
+  <div class="section-header">
+    <h2>Featured</h2>
+  </div>
+  {% with featured.0.article as article %}
+    {% include "molecules/card-featured-primary.html" with resource=article type='article' %}
+  {% endwith%}
+  <div class="card-container">
+    {% for item in featured %}
+      {% with item.article as article %}
+        {% if not forloop.first %}
+          {% include "molecules/card-featured.html" with resource=article type='article' %}
+        {% endif %}
+      {% endwith %}
+    {% endfor %}
+  </div>
+{% endif %}

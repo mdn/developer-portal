@@ -78,7 +78,7 @@ class Article(Page):
 
     topic_panels = [
         MultiFieldPanel([
-            InlinePanel('topics', min_num=1),
+            InlinePanel('topics'),
         ], heading='Topics', help_text=(
             'These are the topic pages the article will appear on. The first '
             'topic in the list will be treated as the primary topic.'
@@ -102,10 +102,8 @@ class Article(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
-        try:
-            return self.topics.all()[:1].get().topic
-        except ObjectDoesNotExist:
-            return None
+        article_topic = self.topics.first()
+        return article_topic.topic if article_topic else None
 
     @property
     def read_time(self):
