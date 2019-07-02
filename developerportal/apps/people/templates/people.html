@@ -14,14 +14,14 @@
         </div>
         {% for person in page.featured_people.all %}
           {% if forloop.first and forloop.last %}
-            {% include "molecules/card-featured-primary.html" with resource=person type="person" %}
+            {% include "molecules/card-featured-primary.html" with resource=person %}
           {% elif forloop.counter == 2 %}
             <div class="card-container card-container-2">
-              {% include "molecules/card-featured.html" with resource=person.person type="person" %}
+              {% include "molecules/card-featured.html" with resource=person.person %}
             </div>
           {% else %}
             <div class="card-container">
-              {% include "molecules/card-featured.html" with resource=person.person type="person" format="square" %}
+              {% include "molecules/card-featured.html" with resource=person.person format="square" %}
             </div>
           {% endif %}
         {% endfor %}

@@ -17,7 +17,7 @@
       {% include "organisms/article-header.html" with title=page.title intro=page.intro date=page.date i=page.i authors=page.authors.all %}
       <section class="article-content">
         <article class="article-body">
-          {% include "molecules/resource-share.html" with resource=page type="article" read_time=read_time %}
+          {% include "molecules/resource-share.html" with resource=page read_time=read_time %}
           {% for block in page.body %}
             {% if block.block_type == 'image' %}
               {% image block.value width-672 as rendition %}
@@ -32,7 +32,7 @@
             <h4>Read more</h4>
             <div class="article-sidebar-cards">
               {% for resource in page.related_articles.all|slice:":3" %}
-                {% include "molecules/card.html" with resource=resource type="article" %}
+                {% include "molecules/cards/card.html" with resource=resource %}
               {% endfor %}
             </div>
           {% endif %}
