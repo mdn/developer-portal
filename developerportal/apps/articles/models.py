@@ -78,7 +78,7 @@ class Article(Page):
 
     topic_panels = [
         MultiFieldPanel([
-            InlinePanel('topics', min_num=1),
+            InlinePanel('topics'),
         ], heading='Topics', help_text=(
             'These are the topic pages the article will appear on. The first '
             'topic in the list will be treated as the primary topic.'
