@@ -20,17 +20,23 @@
             height="{{ i.height }}"
             alt="{{ i.alt }}" />
           <p>{{ block.value.description }}</p>
-          <a href="{% pageurl block.value.button_destination %}" class="mzp-c-button mzp-t-small">
-            {{ block.value.button_text }}
-          </a>
+          {% if block.value.page_link %}
+            <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
+              {{ block.value.button_text }}
+            </a>
+          {% else %}
+            <a href="{{ block.value.external_link }}" class="mzp-c-button mzp-t-small" target="_blank" rel="nofollow noopener">
+              {{ block.value.button_text }}
+            </a>
+          {% endif %}
         </div>
       </details>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
 
-  <div class="get-started-desktop">
-    <div class="get-started-content-wrapper">
-      {% for block in page.get_started %}
+    <div class="get-started-desktop">
+      <div class="get-started-content-wrapper">
+        {% for block in page.get_started %}
         {% image block.value.image width-190 as i %}
         <div class="get-started-content-bg displayed" data-hash="{{ block.value.title|slugify }}">
           <div class="get-started-content">
@@ -40,9 +46,15 @@
               height="{{ i.height }}"
               alt="{{ i.alt }}" />
             <p>{{ block.value.description }}</p>
-            <a href="{% pageurl block.value.button_destination %}" class="mzp-c-button mzp-t-small">
+            {% if block.value.page_link %}
+              <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
                 {{ block.value.button_text }}
-            </a>
+              </a>
+            {% else %}
+              <a href="{{ block.value.external_link }}" class="mzp-c-button mzp-t-small" target="_blank" rel="nofollow noopener">
+                {{ block.value.button_text }}
+              </a>
+            {% endif %}
           </div>
         </div>
       {% endfor %}
