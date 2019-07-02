@@ -1,5 +1,6 @@
 {% load wagtailcore_tags %}
 
+{% if featured %}
 <div class="section-header">
   <h2>Featured</h2>
 </div>
@@ -33,3 +34,4 @@
     {% endwith %}
   {% endfor %}
 </div>
+{% endif %}

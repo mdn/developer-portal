@@ -36,8 +36,8 @@ class HomePage(Page):
     # Fields
     subtitle = TextField(max_length=250, blank=True, default='')
     intro = TextField(max_length=250, blank=True, default='')
-    button_text = CharField(max_length=30, default='')
-    button_url = URLField(max_length=140, default='')
+    button_text = CharField(max_length=30, blank=True, default='')
+    button_url = URLField(max_length=140, blank=True, default='')
     header_image = ForeignKey(
         'mozimages.MozImage',
         null=True,
