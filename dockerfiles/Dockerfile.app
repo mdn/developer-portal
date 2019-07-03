@@ -21,6 +21,6 @@ RUN pip install -r requirements.txt --no-cache-dir
 
 RUN apk --purge del .build-deps
 
-COPY .env manage.py requirements.txt /app/
+COPY manage.py requirements.txt /app/
 COPY developerportal/ /app/developerportal/
 CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
