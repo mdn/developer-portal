@@ -1,10 +1,16 @@
 <span class="resource-meta">
   <span class="icon">
-    {% include "atoms/icons/reading-time.svg" %}
+    {% if type == "person" %}
+      {% include "atoms/icons/mozilla.svg" %}
+    {% else %}
+      {% include "atoms/icons/reading-time.svg" %}
+    {% endif %}
   </span>
   <span class="resource-meta-body">
     {% if type == "article" %}
-      {{ read_time }}
+      {{ resource.read_time }}
+    {% elif type == "person" %}
+      {{ resource.job_title }}
     {% elif type == "event" %}
       September 10, 2019
     {% endif %}

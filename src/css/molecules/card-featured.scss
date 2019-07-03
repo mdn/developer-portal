@@ -1,32 +1,170 @@
+.card-featured-primary {
+  background-color: $color-black;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  position: relative;
+
+  @media #{$mq-md} {
+    flex-direction: row-reverse;
+    min-height: 360px;
+  }
+
+  .card-featured-image {
+    background-position: center;
+    background-size: cover;
+    padding-top: 75%;
+    position: relative;
+
+    @media #{$mq-md} {
+      height: 100%;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  .card-featured-primary-body {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    position: relative;
+
+    @media #{$mq-md} {
+      width: 50%;
+    }
+  }
+
+  .card-featured-image-wrapper {
+    position: relative;
+    width: 100%;
+
+    @media #{$mq-md} {
+      background-color: $color-black;
+      clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);
+      width: 50%;
+    }
+  }
+
+  .card-featured-find-out-more {
+    display: none;
+
+    @media #{$mq-md} {
+      color: $color-white;
+      display: block;
+      padding: 2px;
+      position: relative;
+    }
+  }
+
+  .card-featured-find-out-more span {
+    border-bottom: 2px solid $color-white;
+    display: inline-block;
+    line-height: 1;
+  }
+}
+
+.card-featured-image {
+  background-position: center;
+  background-size: cover;
+  padding-top: 75%;
+  position: relative;
+}
+
+.card-featured-image-square {
+  padding-top: 100%;
+}
+
+.card-featured-primary-content {
+  bottom: 16px;
+  flex-grow: 1;
+  left: 16px;
+  max-width: 340px;
+
+  @media #{$mq-md} {
+    left: 32px;
+    max-width: 400px;
+    top: 32px;
+  }
+
+  .featured {
+    margin-bottom: 16px;
+  }
+
+  .featured,
+  h4,
+  p {
+    color: $color-white;
+    display: inline-block;
+  }
+
+  p {
+    margin-bottom: 0;
+
+    @media #{$mq-md} {
+      margin-bottom: 16px;
+    }
+  }
+}
+
 .card-featured {
-  background-color: $color-gray-20;
   color: $color-white;
-  margin-bottom: 8px;
-  padding: 48px 24px;
+  min-height: 240px;
+  position: relative;
 
   @media #{$mq-md} {
     margin-bottom: 0;
   }
 
-  h3,
-  p,
-  a {
-    background-color: $color-black;
+  .card-container & {
+    height: 100%;
+  }
+
+  .card-featured-content {
+    bottom: 0;
+    padding: 24px 16px;
+    position: absolute;
+
+    @media #{$mq-md} {
+      top: 0;
+    }
+  }
+
+  .featured {
+    margin-bottom: 16px;
+  }
+
+  span {
     display: inline-block;
   }
 
-  p {
-    display: inline;
+  h4 {
     box-decoration-break: clone;
     box-shadow: 0 0 0 3px $color-black;
-    font-size: 14px;
-    position: relative; 
+    display: inline;
     left: 4px;
+    position: relative;
   }
 
-  a {
-    color: $color-white;
-    margin-top: 8px;
-    padding: 4px 12px 8px;
+  p {
+    width: max-content;
+  }
+
+  .card-featured-find-out-more {
+    display: none;
+
+    @media #{$mq-md} {
+      background-color: $color-black;
+      bottom: 16px;
+      color: $color-white;
+      display: block;
+      left: 16px;
+      padding: 2px;
+      position: absolute;
+    }
+  }
+
+  .card-featured-find-out-more span {
+    border-bottom: 1px solid $color-white;
+    line-height: 1;
   }
 }

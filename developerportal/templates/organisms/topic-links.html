@@ -1,27 +1,32 @@
 {% load app_filters %}
 
-<section class="topic-links-section">
-  <div class="topic-links-section-pattern topic-links-section-pattern-before">
-    {% include "atoms/pattern.html" with name="topic-link-before" %}
-  </div>
-  <div class="topic-links-section-background">
-    <div class="topic-links-section-container">
-      <div class="section-header">
-        {% if pagetheme == 'home' %}
-          <h2>Browse by topic</h2>
-        {% endif %}
-        {% if pagetheme == 'topic' %}
-          <h2>Continue exploring</h2>
-        {% endif %}
-      </div>
-      <div class="card-container">
-        {% for topic in topics %}
-          {% include "molecules/item-topic-link.html" with topic=topic %}
-        {% endfor %}
+{% if topics %}
+  <section class="pattern-section">
+    <div class="pattern-section-pattern pattern-section-pattern-before">
+      {% include "atoms/pattern.html" with name="topic-link-before" %}
+    </div>
+    <div class="pattern-section-background">
+      <div class="container">
+        <div class="section-header">
+          {% if pagetheme == 'home' %}
+            <h2>Browse by topic</h2>
+          {% endif %}
+          {% if pagetheme == 'topic' %}
+            <h2>Continue exploring</h2>
+          {% endif %}
+          {% if pagetheme == 'person' %}
+            <h2>Topics I'm interested in</h2>
+          {% endif %}
+        </div>
+        <div class="card-container">
+          {% for topic in topics %}
+            {% include "molecules/item-topic-link.html" with topic=topic.topic %}
+          {% endfor %}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="topic-links-section-pattern topic-links-section-pattern-after">
-    {% include "atoms/pattern.html" with name="topic-link-after" %}
-  </div>
-</section>
+    <div class="pattern-section-pattern pattern-section-pattern-after">
+      {% include "atoms/pattern.html" with name="topic-link-after" %}
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,12 @@
+<figure>
+  <img
+    src="{{ rendition.url }}"
+    width="{{ rendition.width }}"
+    height="{{ rendition.height }}"
+    alt="{{ rendition.alt }}" />
+  {% if image.caption %}
+  <figcaption>
+    {{ image.caption }}
+  </figcaption>
+  {% endif %}
+</figure>

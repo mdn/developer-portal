@@ -1,0 +1,46 @@
+.person-overview {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+
+  @media #{$mq-md} {
+    flex-direction: row;
+  }
+
+  .person-share-buttons {
+    justify-content: flex-start;
+  }
+}
+
+.person-overview-details {
+  width: 100%;
+
+  @media #{$mq-md} {
+    width: 58%;
+  }
+}
+
+.person-overview-image-container {
+  position: relative;
+  text-align: center;
+  top: -32px;
+}
+
+.person-overview-image {
+  display: inline-block;
+  margin: 32px 0;
+  position: relative;
+
+  @media #{$mq-md} {
+    margin: 0 32px;
+  }
+}
+
+.person-overview-image img {
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}

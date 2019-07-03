@@ -5,42 +5,36 @@
 
 {% block body_class %}person{% endblock %}
 
+{% block header %}
+  {% include "header.html" %}
+  {% include "utils/accent-color.html" with color='#ffd567' %}
+{% endblock %}
+
 {% block content %}
-  <main>
-    <div class="person-grid">
-      <header class="person-header">
-        <div class="person-header-container">
-          <h1>{{ page.title }}</h1>
-          <p>{{ page.job_title }}</p>
-          {% image page.profile_picture width-200 %}
+  <main class="has-header">
+    <div class="base-grid">
+      <section class="section-full">
+        {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.job_title icon="mozillian" %}
+      </section>
+      <section>
+        {% include "organisms/person-overview.html" with resource=page %}
+      </section>
+      <section class="section-full">
+        {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}
+      </section>
+      {% if page.articles.all %}
+      <section>
+        <div class="section-header">
+          <h2>My latest articles</h2>
+          <a href="">See more</a>
         </div>
-      </header>
-      <div class="person-content">
-        <section>
-          <h2>Overview</h2>
-          {{ page.intro|richtext }}
-        </section>
-        <section>
-          <h2>Topics I'm interested in</h2>
-          {% for label in page.topics.specific.all %}
-            <a href="">
-              {{ label.title }}
-            </a>
+        <div class="card-container">
+          {% for article_author in page.articles.all|slice:":3" %}
+            {% include "molecules/card.html" with resource=article_author.article type="article" show_author=False %}
           {% endfor %}
-        </section>
-        <section>
-          <div class="section-header">
-            <h2>My latest articles</h2>
-            <a href="">See more</a>
-          </div>
-        </section>
-        <section>
-          <div class="section-header">
-            <h2>Upcoming events</h2>
-            <a href="">See more</a>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
+      {% endif %}
     </div>
   </main>
 {% endblock content %}

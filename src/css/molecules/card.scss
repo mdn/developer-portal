@@ -4,8 +4,15 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
+.card-container-2 {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+
 .card {
+  background-color: $color-white;
   border: 1px solid $color-gray-30;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 24px;
   width: 100%;
 
@@ -15,6 +22,10 @@
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  .card-container & {
+    height: 100%;
   }
 
   h4 {
@@ -28,12 +39,27 @@
 }
 
 .card-link {
-  color: $color-black;
+  color: inherit;
   text-decoration: none;
+
+  &:hover {
+    color: inherit;
+  }
+
+  &:active {
+    background: none;
+  }
 }
 
 .card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   padding: 24px;
+}
+
+.card-content-main {
+  flex-grow: 1;
 }
 
 .card-image {
@@ -41,4 +67,8 @@
   background-size: cover;
   position: relative;
   padding-top: 56.25%;
+}
+
+.card-image-square {
+  padding-top: 100%;
 }

@@ -4,6 +4,33 @@
   @media #{$mq-md} {
     display: none;
   }
+
+  details {
+    background-color: $color-gray-20;
+  }
+
+  summary {
+    background-color: $color-black;
+    margin-bottom: 1px;
+    padding: 10px 0 1px 10px;
+
+    &:before {
+      background: $url-image-expand-white top left no-repeat;
+    }
+  }
+
+  h3 {
+    background-color: $color-white;
+    display: inline-block;
+    font-family: $highlight-font-family;
+    font-size: $highlight2-font-size-mobile;
+    font-weight: 700;
+    line-height: 18px;
+
+    @media #{$mq-md} {
+      font-size: $highlight2-font-size;
+    }
+  }
 }
 
 .get-started-desktop {
@@ -13,18 +40,23 @@
   }
 }
 
-.get-started {
-  summary {
-    background-color: $color-black;
-    color: $color-white;
-    margin-bottom: 1px; 
-    padding: 10px 0 1px 10px;
-  
-    &:before {
-      background: $url-image-expand-white top left no-repeat;
-    }
+.get-started-full {
+  background-color: $color-gray-10;
+  @media #{$mq-md} {
+    padding: 40px 0 80px;
   }
-  
+}
+
+.get-started {
+  padding: 0 16px;
+
+  @media #{$mq-md} {
+    flex-direction: row;
+    margin: 0 auto;
+    max-width: 1084px;
+    padding: 0 32px;
+  }
+
   .displayed {
     display: block;
   }
@@ -45,44 +77,48 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  margin: 0;
+  padding: 32px 0;
 
   @media #{$mq-md} {
+    margin: 20px 0;
     padding: 40px 0;
     position: relative;
     top: -64px;
+    height: 380px;
   }
 
   img {
     margin-bottom: 24px;
   }
+
+  p {
+    flex-grow: 1;
+    max-width: 360px;
+    text-align: center;
+  }
 }
 
 .get-started-nav {
   width: 320px;
-  border-top: 1px solid $color-gray-20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.get-started-nav.hidden {
+  display: none;
 }
 
 .get-started-toggle {
-  border-bottom: 1px solid $color-gray-20;
+  box-shadow: 0 1px $color-black;
   display: block;
-  font-size: 24px;
   height: 124px;
+  margin-bottom: 1px;
   text-align: center;
-  
+
   span {
-    background-color: $color-black;
-    color: $color-white;
     display: inline-block;
     margin: 48px 0;
-  }
-}
-
-.get-started-toggle.active {
-  background-color: $color-black;
-
-  span {
-    background-color: $color-white;
-    color: $color-black;
   }
 }

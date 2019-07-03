@@ -1,11 +1,33 @@
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% if type == "person" %}
+  {% image resource.profile_picture width-636 as header_image %}
+{% else %}
+  {% image resource.header_image width-636 as header_image %}
+{% endif %}
 
-<a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
+<a href="{% pageurl resource %}" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ type }}"
+  {% if filter_target and type == 'person' %}
+    {% if resource.is_mozillian %}data-is-mozillian{% endif %}
+    data-first-name="{{ resource.first_name }}"
+    data-last-name="{{ resource.last_name }}"
+    data-initial-group="{{ resource.initial_group.start }}"
+    data-job-title="{{ resource.job_title }}"
+    data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
+  {% endif %}
+>
   <div class="card">
-    <div class="card-image" style="background-image: url('https://via.placeholder.com/320x200')"></div>
+    <div class="card-image {% if type == 'person' %}card-image-square{% endif %}" style="background-image: url('{{ header_image.url }}')"></div>
     <div class="card-content">
-      {% include "molecules/resource-meta.html" with resource=resource type=type %}
-      <h4>{{ resource.title }}</h4>
+      <div class="card-content-main">
+        {% include "molecules/resource-meta.html" with resource=resource type=type %}
+        <h4 class="no-underline">{{ resource.title }}</h4>
+      </div>
+      {% if show_author %}
+        {% for author in resource.authors.all %}
+          {% include "molecules/article-details.html" with date=resource.date author=author.author %}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </a>

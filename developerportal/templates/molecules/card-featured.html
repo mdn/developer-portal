@@ -1,11 +1,25 @@
-<div class="card-featured">
-  <div>
-    <h3>{{ title }}</h3>
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% if type == "person" %}
+  {% image resource.profile_picture width-480 as header_image %}
+{% else %}
+  {% image resource.header_image width-480 as header_image %}
+{% endif %}
+
+<a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
+  <div class="card-featured {% if type == 'person' and format == 'square' %}card-featured-square{% endif %}">
+    <div class="card-featured-image {% if type == 'person' and format == 'square' %}card-featured-image-square{% endif %}" style="background-image: url('{{ header_image.url }}')"></div>
+    <div class="card-featured-content">
+      <span class="highlighted featured">Featured</span>
+      <div>
+        <h4 class="highlighted no-underline">{{ resource.title }}</h4>
+        {% if type == "person" %}
+        <p class="highlighted">{{ resource.job_title }}</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card-featured-find-out-more">
+      <span>Find out more</span>
+    </div>
   </div>
-  <p>
-    <span>{{ description }}</span>
-  </p>
-  <div>
-    <a href="{{ url }}">Find out more</a>
-  </div>
-</div>
+</a>

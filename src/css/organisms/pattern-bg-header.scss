@@ -1,0 +1,54 @@
+.pattern-bg-header {
+  background-color: $color-black;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  padding: 64px $grid-gap-mobile 80px;
+  position: relative;
+
+  @media #{$mq-md} {
+    padding: 60px $grid-gap 70px;
+  }
+
+  h1,
+  p {
+    color: $color-white;
+  }
+
+  h1 {
+    background-color: $color-black;
+    display: inline-block;
+  }
+
+  .pattern {
+    z-index: -1;
+  }
+}
+
+.pattern-bg-header-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  @media #{$mq-md} {
+    flex-direction: row;
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+}
+
+.pattern-bg-header-icon {
+  margin-bottom: 32px;
+  @media #{$mq-md} {
+    display: block;
+    margin: 0 48px 0;
+  }
+}
+
+.pattern-bg-header-subtitle {
+  font-family: 'Zilla Slab';
+  font-size: 18px;
+}
+
+.pattern-bg-header-details {
+  flex-grow: 1;
+  max-width: 550px;
+}

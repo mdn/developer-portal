@@ -1,90 +1,72 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 {% load app_filters %}
 
-<section id="get-started" class="get-started">
-  <div class="section-header">
-    <h2>Get started</h2>
-  </div>
-
-  <div class="get-started-mobile">
-    <details>
-      <summary>
-        <h3>Create</h3>
-      </summary>
-      <div class="get-started-content">
-        <img src="https://via.placeholder.com/180x200"/>
-        <p>Build your first stylesheet and learn the basics of</p>
-        <button class="mzp-c-button mzp-t-small">
-          Learn more
-        </button>
-      </div>
-    </details>
-    <details>
-      <summary>
-        <h3>Explore</h3>
-      </summary>
-      <div class="get-started-content">
-        <img src="https://via.placeholder.com/180x200"/>
-        <p>Explore</p>
-        <p>Some exploring to do...</p>
-        <button class="mzp-c-button mzp-t-small">
-          Learn more
-        </button>
-      </div>
-    </details>
-    <details>
-      <summary>
-        <h3>Collaborate</h3>
-      </summary>
-      <div class="get-started-content">
-        <img src="https://via.placeholder.com/180x200"/>
-        <p>Collaborate</p>
-        <button class="mzp-c-button mzp-t-small">
-          Learn more
-        </button>
-      </div>
-    </details>
-  </div>
-
-  <div class="get-started-desktop">
-    <div class="get-started-content-wrapper">
-      <div class="get-started-content-bg displayed" data-hash="create">
-        <div class="get-started-content">
-          <img src="https://via.placeholder.com/180x200"/>
-          <p>Build your first stylesheet and learn the basics of</p>
-          <button class="mzp-c-button mzp-t-small">
-            Learn more
-          </button>
-        </div>
-      </div>
-      <div class="get-started-content-bg displayed" data-hash="explore">
-        <div class="get-started-content">
-          <img src="https://via.placeholder.com/180x200"/>
-          <p>Explore</p>
-          <button class="mzp-c-button mzp-t-small">
-            Learn more
-          </button>
-        </div>
-      </div>
-      <div class="get-started-content-bg displayed" data-hash="collaborate">
-        <div class="get-started-content">
-          <img src="https://via.placeholder.com/180x200"/>
-          <p>Collaborate</p>
-          <button class="mzp-c-button mzp-t-small">
-            Learn more
-          </button>
-        </div>
-      </div>
+{% if page.get_started %}
+  <div id="get-started" class="get-started js-get-started">
+    <div class="section-header">
+      <h2>Get started</h2>
     </div>
-    <nav class="get-started-nav hidden" id="get-started-nav">
-      <a href="#create" class="get-started-toggle active">
-        <span>Create</span>
-      </a>
-      <a href="#explore" class="get-started-toggle">
-        <span>Explore</span>
-      </a>
-      <a href="#collaborate" class="get-started-toggle">
-        <span>Collaborate</span>
-      </a>
-    </nav>
+    <div class="get-started-mobile">
+      {% for block in page.get_started %}
+        {% image block.value.image width-190 as i %}
+        <details {% if forloop.first %}open=""{% endif %}>
+          <summary>
+            <h3 class="no-underline">{{ block.value.title }}</h3>
+          </summary>
+          <div class="get-started-content">
+            <img
+              src="{{ i.url }}"
+              width="{{ i.width }}"
+              height="{{ i.height }}"
+              alt="{{ i.alt }}" />
+            <p>{{ block.value.description }}</p>
+            {% if block.value.page_link %}
+              <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
+                {{ block.value.button_text }}
+              </a>
+            {% else %}
+              <a href="{{ block.value.external_link }}" class="mzp-c-button mzp-t-small" target="_blank" rel="nofollow noopener">
+                {{ block.value.button_text }}
+              </a>
+            {% endif %}
+          </div>
+        </details>
+      {% endfor %}
+    </div>
+
+    <div class="get-started-desktop">
+      <div class="get-started-content-wrapper">
+        {% for block in page.get_started %}
+          {% image block.value.image width-190 as i %}
+          <div class="get-started-content-bg displayed" data-hash="{{ block.value.title|slugify }}">
+            <div class="get-started-content">
+              <img
+                src="{{ i.url }}"
+                width="{{ i.width }}"
+                height="{{ i.height }}"
+                alt="{{ i.alt }}" />
+              <p>{{ block.value.description }}</p>
+              {% if block.value.page_link %}
+                <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
+                  {{ block.value.button_text }}
+                </a>
+              {% else %}
+                <a href="{{ block.value.external_link }}" class="mzp-c-button mzp-t-small" target="_blank" rel="nofollow noopener">
+                  {{ block.value.button_text }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <nav class="get-started-nav hidden" id="get-started-nav">
+        {% for block in page.get_started %}
+          <a href="#{{ block.value.title|slugify }}" class="get-started-toggle {% if forloop.first %}highlight2-inverse{% else %}highlight2{% endif %}">
+            <span>{{ block.value.title }}</span>
+          </a>
+        {% endfor %}
+      </nav>
+    </div>
   </div>
-</section>
+{% endif %}

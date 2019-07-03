@@ -1,0 +1,35 @@
+<section class="pattern-section">
+  <div class="pattern-section-pattern pattern-section-pattern-before">
+    {% include "atoms/pattern.html" with name="cross-before" %}
+  </div>
+  <div class="pattern-section-background">
+    <div class="container">
+      <div class="section-header">
+        <h2>All {{ title }}</h2>
+      </div>
+
+      <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-left">
+        <aside class="mzp-l-sidebar">
+          {% include "molecules/filter-form.html" with filters=filters %}
+        </aside>
+
+        <div class="mzp-l-main">
+          <div class="card-container" id="{{ type }}-cards">
+            {% for resource in resources %}
+              {% if type == "person" %}
+                {% include "molecules/card.html" with resource=resource.person type=type filter_target=True %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="filter-list-actions">
+            {# <a href="#" class="mzp-c-button">See more</a> #}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="pattern-section-pattern pattern-section-pattern-after">
+    {% include "atoms/pattern.html" with name="cross-after" %}
+  </div>
+</section>

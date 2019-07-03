@@ -17,15 +17,23 @@
 @import '~@mozilla-protocol/core/protocol/css/components/menu';
 @import '~@mozilla-protocol/core/protocol/css/components/menu-item';
 @import '~@mozilla-protocol/core/protocol/css/components/navigation';
+@import '~@mozilla-protocol/core/protocol/css/components/sidebar-menu';
+
+// Protocol templates.
+@import '~@mozilla-protocol/core/protocol/css/templates/main-with-sidebar';
 
 // Global.
 @import 'global/base';
+@import 'global/layout';
 
 // Atoms.
 @import 'atoms/code';
+@import 'atoms/embed';
 @import 'atoms/icon';
 @import 'atoms/image';
 @import 'atoms/pattern';
+@import 'atoms/quote';
+@import 'atoms/rich-text';
 @import 'atoms/topic-icon';
 @import 'atoms/typography';
 
@@ -44,15 +52,14 @@
 
 // Organisms.
 @import 'organisms/article-header';
+@import 'organisms/filter-list';
 @import 'organisms/get-started';
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
+@import 'organisms/pattern-bg-header';
+@import 'organisms/pattern-section';
 @import 'organisms/person-header';
-@import 'organisms/topic-header';
-@import 'organisms/topic-links';
+@import 'organisms/person-overview';
 
 // Templates.
 @import 'templates/article';
-@import 'templates/home';
-@import 'templates/person';
-@import 'templates/topic';

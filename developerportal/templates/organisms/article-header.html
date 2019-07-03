@@ -1,13 +1,13 @@
 {% load wagtailimages_tags %}
-{% image header_image width-464 as header_image %}
+{% image page.header_image width-464 as header_image %}
 
 <header class="article-header">
   <div class="article-header-container">
     <div class="article-header-image">
-      <img 
-        src="{{ header_image.url }}" 
+      <img
+        src="{{ header_image.url }}"
         width="{{ header_image.width }}"
-        height="{{ header_image.height }}" 
+        height="{{ header_image.height }}"
         alt="{{ header_image.alt }}" />
       <div class="article-header-pattern">
         {% include "atoms/pattern.html" with name="article-header" %}
@@ -17,11 +17,15 @@
       <div class="article-header-highlight">
         <span class="highlight">Featured</span>
       </div>
-      <h2>{{ title }}</h2>
+      <h2 class="no-underline">{{ title }}</h2>
       <div class="article-header-subtitle">
-        {{ intro }}
+        {% if intro %}
+        <p>{{ intro }}</p>
+        {% endif %}
       </div>
-      {% include "molecules/article-details.html" with date=date author=author %}
+      {% for author in authors %}
+        {% include "molecules/article-details.html" with date=date author=author.author enable_link=True %}
+      {% endfor %}
     </div>
   </div>
 </header>

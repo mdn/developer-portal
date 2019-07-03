@@ -1,10 +1,9 @@
-# pylint: disable=no-member
-
 import datetime
 import readtime
 
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL, TextField
 from django.forms import CheckboxSelectMultiple
-from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -32,10 +31,19 @@ class ArticleTag(TaggedItemBase):
 
 class ArticleTopic(Orderable):
     article = ParentalKey('Article', related_name='topics')
-    topic = ForeignKey('topics.Topic', null=True, blank=False, on_delete=CASCADE)
+    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='+')
 
     panels = [
         PageChooserPanel('topic'),
+    ]
+
+
+class ArticleAuthor(Orderable):
+    article = ParentalKey('Article', related_name='authors')
+    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='articles')
+
+    panels = [
+        PageChooserPanel('author')
     ]
 
 
@@ -45,17 +53,10 @@ class Article(Page):
     template = 'article.html'
 
     # Fields
-    intro = RichTextField(default='')
-    author = ForeignKey(
-      'wagtailcore.Page',
-      null=True,
-      blank=True,
-      on_delete=SET_NULL,
-      related_name='+',
-    )
+    intro = TextField(max_length=250, blank=True, default='')
     date = DateField('Article date', default=datetime.date.today)
     header_image = ForeignKey(
-        'wagtailimages.Image',
+        'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
@@ -67,7 +68,9 @@ class Article(Page):
     # Editor panel configuration
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
-        PageChooserPanel('author', 'people.person'),
+        MultiFieldPanel([
+            InlinePanel('authors'),
+        ], heading='Authors'),
         FieldPanel('date'),
         ImageChooserPanel('header_image'),
         StreamFieldPanel('body'),
@@ -75,7 +78,7 @@ class Article(Page):
 
     topic_panels = [
         MultiFieldPanel([
-            InlinePanel('topics', min_num=1)
+            InlinePanel('topics'),
         ], heading='Topics', help_text=(
             'These are the topic pages the article will appear on. The first '
             'topic in the list will be treated as the primary topic.'
@@ -93,45 +96,40 @@ class Article(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['related_articles'] = self.get_related(limit=3)
-        context['article_topic'] = self.get_article_topic()
-        context['read_time'] = str(readtime.of_html(str(self.body)))
-        return context
+    class Meta:
+        ordering = ['-date']
 
-    def get_related(self, limit=12):
+    @property
+    def primary_topic(self):
+        """Return the first (primary) topic specified for the article."""
+        article_topic = self.topics.first()
+        return article_topic.topic if article_topic else None
+
+    @property
+    def read_time(self):
+        return str(readtime.of_html(str(self.body)))
+
+    @property
+    def related_articles(self):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
-        topic_ids = [topic.id for topic in self.topics.get_object_list()]
+        topic_pks = self.topics.values_list('topic')
         return (
             Article
             .objects
-            .all()
+            .filter(topics__topic__pk__in=topic_pks)
+            .not_page(self)
+            .distinct()
             .live()
             .public()
-            .not_page(self)
-            .order_by('-date')
-            .filter(topics__in=topic_ids)[:limit]
         )
 
-    def get_article_topic(self):
-        """Return the first (primary) topic specified for the article if there is one"""
-        article_topics = self.topics.get_object_list()
-        if len(article_topics) > 0:
-            return article_topics[0].topic 
-        else:
-            return None
 
 class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
 
-    def get_context(self, request):
-        context = super().get_context(request)
-        context['articles'] = self.get_articles(limit=10)
-        return context
-
-    def get_articles(self, limit=10):
+    @property
+    def articles(self):
         """Returns live (i.e. not draft), public pages, ordered by most recent."""
-        return Article.objects.live().public().order_by('-date')[:limit]
+        return Article.objects.live().public()

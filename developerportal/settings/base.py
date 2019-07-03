@@ -33,8 +33,8 @@ INSTALLED_APPS = [
     'developerportal.apps.events',
     'developerportal.apps.health',
     'developerportal.apps.home',
+    'developerportal.apps.mozimages',
     'developerportal.apps.people',
-    'developerportal.apps.search',
     'developerportal.apps.topics',
 
     'wagtail.contrib.forms',
@@ -93,10 +93,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'developerportal.context_processors.google_analytics'
             ],
             'libraries': {
                 'app_filters': 'developerportal.templatetags.app_filters',
-                'page_queries': 'developerportal.templatetags.page_queries',
+                'app_tags': 'developerportal.templatetags.app_tags',
             }
         },
     },
@@ -182,7 +183,22 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = 'developerportal'
+WAGTAIL_SITE_NAME = 'Mozilla Developer Portal'
+
+# Add support for CodePen oEmbed
+WAGTAILEMBEDS_FINDERS = [
+    {
+        'class': 'wagtail.embeds.finders.oembed',
+        'providers': [{
+            'endpoint': 'http://codepen.io/api/oembed',
+            'urls': [
+                '^http(?:s)?://codepen\\.io/.+/pen/.+$',
+            ],
+        }],
+    }
+]
+
+WAGTAILIMAGES_IMAGE_MODEL = 'mozimages.MozImage'
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
@@ -194,3 +210,6 @@ BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
+
+# GOOGLE_ANALYTICS
+GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')

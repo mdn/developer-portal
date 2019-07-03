@@ -7,8 +7,38 @@
 }
 
 .share-buttons {
-  color: $color-gray-60;
+  color: #697276;
+  display: flex;
+  flex-direction: row;
   font-size: 12px;
   flex-grow: 1;
+  justify-content: flex-end;
   text-align: right;
+
+  a {
+    color: inherit;
+    padding: 0 4px;
+    text-decoration: none;
+    width: 24px;
+
+    &:hover {
+      color: $color-gray-70;
+    }
+
+    &:active {
+      background: none;
+    }
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    svg {
+      width: 16px;
+    }
+  }
 }

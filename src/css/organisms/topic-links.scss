@@ -1,9 +1,8 @@
 .topic-links-section {
-  grid-column: full;
   position: relative;
 
   @media screen and (min-width: 1024px) {
-    margin: 150px 0;
+    margin: 75px 0;
   }
 }
 
@@ -22,11 +21,6 @@
   }
 }
 
-.topic-links-section-container {
-  margin: 0 auto;
-  max-width: $container-max-width;
-}
-
 .topic-links-section-pattern {
   display: none;
   height: 300px;
@@ -39,7 +33,7 @@
   }
 
   .pattern {
-    fill: $color-gray-60;
+    fill: #697276;
   }
 }
 

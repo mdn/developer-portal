@@ -6,15 +6,19 @@
 
 {% block content %}
   <main>
-    <div class="home-grid">
-      <div class="home-content">
+    <div class="base-grid">
+      <section>
         {% include "organisms/homepage-header.html" %}
-        {% include "organisms/featured.html" with count=3 %}
-      </div>
-      {% include "organisms/topic-links.html" with topics=topics pagetheme='home' %}
-      <div class="home-content">
+      </section>
+      <section>
+        {% include "organisms/featured.html" with featured=page.featured_articles.all %}
+      </section>
+      <section class="section-full">
+        {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
+      </section>
+      <section>
         {% include "organisms/newsletter-signup.html" %}
-      </div>
+      </section>
     </div>
   </main>
 {% endblock content %}

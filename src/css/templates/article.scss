@@ -1,17 +1,6 @@
-.article-grid {
-  display: grid;
-  grid-column-gap: $grid-gap-mobile;
-  grid-template-columns: [full-start] 1fr [main-start] minmax(0, 1024px) [main-end] 1fr [full-end];
-
-  @media #{$mq-md} {
-    grid-column-gap: $grid-gap;
-  }
-}
-
 .article-content {
   display: grid;
   column-gap: $grid-gap-mobile;
-  grid-column: main;
   grid-template-columns: [body-start sidebar-start] 1fr [sidebar-end body-end];
   padding: $grid-gap-mobile 0;
 
@@ -24,8 +13,35 @@
 
 .article-body {
   grid-column: body;
+  overflow-x: auto;
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(.no-underline) {
+      background: none;
+    }
+  }
 }
 
 .article-sidebar {
   grid-column: sidebar;
+}
+
+.article-sidebar-cards {
+  margin-bottom: 32px;
+
+  .card-link {
+    display: inline-block;
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .card:not(:last-child) {
+    margin-bottom: 32px;
+  }
 }
