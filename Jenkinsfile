@@ -9,8 +9,7 @@ node {
   }
 
   stage ('Buld Image'){
-    python_app = docker.build('mdnwebdocs/developer-portal-app', '-f ./dockerfiles/Dockerfile.app .')
-    node_app = docker.build('mdnwebdocs/developer-portal-static', '-f ./dockerfiles/Dockerfile.static .')
+    python_app = docker.build('mdnwebdocs/developer-portal', '.')
   }
 
   stage('Push Image') {
@@ -28,4 +27,3 @@ node {
     )
   }
 }
-
