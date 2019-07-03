@@ -22,4 +22,5 @@ class GetStartedBlock(blocks.StructBlock):
     image = ImageChooserBlock()
     description = blocks.TextBlock()
     button_text = blocks.CharBlock()
-    button_destination = blocks.PageChooserBlock()
+    page_link = blocks.PageChooserBlock(required=False)
+    external_link = blocks.URLBlock(required=False)

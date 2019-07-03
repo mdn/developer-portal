@@ -47,7 +47,7 @@ class People(Page):
     # Editor panel configuration
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            InlinePanel('featured_people', min_num=1, max_num=3)
+            InlinePanel('featured_people', max_num=3)
         ],
         heading='Featured People',
         help_text=('These people will be featured at the top of the page. '
@@ -106,7 +106,7 @@ class Person(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
-    intro = RichTextField(default='')
+    intro = RichTextField(default='', blank=True)
     intro_image = ForeignKey(
         'mozimages.MozImage',
         null=True,

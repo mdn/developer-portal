@@ -1,4 +1,5 @@
-FROM python:3.7-alpine AS app
+FROM python:3.7-alpine
+
 EXPOSE 8000
 WORKDIR /app/
 
@@ -23,16 +24,3 @@ RUN apk --purge del .build-deps
 COPY .env manage.py requirements.txt /app/
 COPY developerportal/ /app/developerportal/
 CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
-
-
-FROM node:12.2-alpine AS static
-WORKDIR /app/
-
-COPY package.json package-lock.json /app/
-RUN npm ci
-RUN rm -rf dist
-
-COPY .eslintignore webpack.config.js /app/
-COPY src/ /app/src/
-
-CMD npm run build

@@ -8,27 +8,33 @@
 {% block content %}
   <main>
     <div class="base-grid">
-      <section>
-        <div class="section-header">
-          <h2>Featured</h2>
-        </div>
-        {% for person in page.featured_people.all %}
-          {% if forloop.first and forloop.last %}
-            {% include "molecules/card-featured-primary.html" with resource=person %}
-          {% elif forloop.counter == 2 %}
-            <div class="card-container card-container-2">
-              {% include "molecules/card-featured.html" with resource=person.person %}
+      {% with featured_people=page.featured_people.all %}
+        {% if featured_people %}
+          <section>
+            <div class="section-header">
+              <h2>Featured</h2>
             </div>
-          {% else %}
-            <div class="card-container">
-              {% include "molecules/card-featured.html" with resource=person.person format="square" %}
-            </div>
-          {% endif %}
-        {% endfor %}
-      </section>
-      <section class="section-full">
-        {% include "organisms/filter-list.html" with title="People" type="person" resources=page.mozillians %}
-      </section>
+            {% for person in featured_people %}
+              {% if forloop.first and forloop.last %}
+                {% include "molecules/card-featured-primary.html" with resource=person %}
+              {% elif forloop.counter == 2 %}
+                <div class="card-container card-container-2">
+                  {% include "molecules/card-featured.html" with resource=person.person %}
+                </div>
+              {% else %}
+                <div class="card-container">
+                  {% include "molecules/card-featured.html" with resource=person.person format="square" %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+      {% if page.mozillians %}
+        <section class="section-full">
+          {% include "organisms/filter-list.html" with title="People" type="person" resources=page.mozillians %}
+        </section>
+      {% endif %}
     </div>
   </main>
 {% endblock content %}
