@@ -1,4 +1,18 @@
-FROM python:3.7-alpine
+FROM node:12.2-alpine AS static
+
+WORKDIR /app/
+
+COPY package.json package-lock.json /app/
+RUN npm ci
+RUN rm -rf dist
+
+COPY .eslintignore webpack.config.js /app/
+COPY src/ /app/src/
+
+RUN npm run build
+
+
+FROM python:3.7-alpine AS app
 
 EXPOSE 8000
 WORKDIR /app/
@@ -23,4 +37,10 @@ RUN apk --purge del .build-deps
 
 COPY manage.py requirements.txt /app/
 COPY developerportal/ /app/developerportal/
+COPY src/ /app/src/
+COPY --from=static /app/dist /app/dist/
+
+# Collect all of the static files into the static folder
+RUN python manage.py collectstatic
+
 CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
