@@ -9,6 +9,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from developerportal.apps.search import views as search_views
 
+
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
 
@@ -16,6 +17,11 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
+
+# GitHub Oauth
+    # url(r'^login/$', auth_views.login, name='login'),
+    # url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
 
 

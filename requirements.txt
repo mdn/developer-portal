@@ -6,3 +6,4 @@ Pygments===2.4.2
 readtime===1.1.1
 wagtail==2.5.1
 wagtail-bakery==0.3.0
+social-auth-app-django==3.1.0
