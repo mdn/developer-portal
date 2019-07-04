@@ -1,18 +1,30 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}event-detail{% endblock %}
+
+{% block header %}
+  {% include "header.html" %}
+  {% include "utils/accent-color.html" with color='#88FFD1' %}
+{% endblock %}
 
 {% block content %}
   <main class="has-header">
     <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title intro=page.intro date=page.date i=page.i authors=page.authors.all %}
+      {% include "organisms/article-header.html" with title=page.title intro=page.description type="event" %}
       <section>
-
+          <p>{{ page.start_date }}</p>
+          <address>{{ page.venue }}</address>
+          <a href="#" class="mzp-c-button">
+            Register now
+          </a>
       </section>
       <section class="article-content">
         <article class="article-body">
           {% include "molecules/resource-share.html" with resource=page type="event" %}
+
           {% for block in page.body %}
             {% if block.block_type == 'image' %}
               {% image block.value width-672 as rendition %}
@@ -22,20 +34,16 @@
             {% endif %}
           {% endfor %}
 
-          <h3>Venue</h3>
+          <a href="#" class="mzp-c-button">
+            Register now
+          </a>
 
-          <h3>Agenda</h3>
+          <h2>Venue</h2>
+
+          <h2>Agenda</h2>
 
         </article>
         <aside class="article-sidebar">
-          {% if page.related_articles %}
-            <h4>Read more</h4>
-            <div class="article-sidebar-cards">
-              {% for resource in page.related_articles.all|slice:":3" %}
-                {% include "molecules/card.html" with resource=resource type="article" %}
-              {% endfor %}
-            </div>
-          {% endif %}
           {% if page.primary_topic %}
             {% include "molecules/card-topic.html" with topic=page.primary_topic %}
           {% endif %}

@@ -27,6 +27,16 @@ class GetStartedBlock(blocks.StructBlock):
 class AgendaItemBlock(blocks.StructBlock):
     """Content for an event agenda item"""
     start_time = blocks.TimeBlock()
-    end_time = blocks.TimeBlock()
+    end_time = blocks.TimeBlock(required=False)
     title = blocks.CharBlock()
-    speaker = blocks.PageChooserBlock(required=False)
+    speaker = blocks.PageChooserBlock(required=False, page_type='people.Person')
+    external_speaker = blocks.StructBlock([
+        ('name', blocks.CharBlock(required=False)),
+        ('url', blocks.URLBlock(label='URL', required=False)),
+    ])
+
+class ExternalSpeakerBlock(blocks.StructBlock):
+    """Content for an external speaker, displayed on event page"""
+    name = blocks.CharBlock()
+    job_title = blocks.CharBlock()
+    profile_picture = ImageChooserBlock()
