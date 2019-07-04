@@ -6,7 +6,11 @@
   {% image resource.header_image width-480 as header_image %}
 {% endif %}
 
+{% if type == "external_page" %}
+<a href="{{ resource.url }}" class="card-link" data-type="{{ type }}">
+{% else %}
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ type }}">
+{% endif %}
   <div class="card-featured {% if type == 'person' and format == 'square' %}card-featured-square{% endif %}">
     <div class="card-featured-image {% if type == 'person' and format == 'square' %}card-featured-image-square{% endif %}" style="background-image: url('{{ header_image.url }}')"></div>
     <div class="card-featured-content">

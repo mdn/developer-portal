@@ -14,19 +14,23 @@
             <div class="section-header">
               <h2>Featured</h2>
             </div>
-            {% for person in featured_people %}
-              {% if forloop.first and forloop.last %}
-                {% include "molecules/card-featured-primary.html" with resource=person type="person" %}
-              {% elif forloop.counter == 2 %}
-                <div class="card-container card-container-2">
-                  {% include "molecules/card-featured.html" with resource=person.person type="person" %}
-                </div>
-              {% else %}
-                <div class="card-container">
-                  {% include "molecules/card-featured.html" with resource=person.person type="person" format="square" %}
-                </div>
-              {% endif %}
-            {% endfor %}
+            {% if featured_people.count == 1 %}
+              {% with featured_people.0.person as person %}
+                {% include "molecules/card-featured-primary.html" with resource=person type='person' %}
+              {% endwith %}
+            {% else %}
+              <div class="card-container {% if page.featured_people.all.count == 2 %}card-container-2{% endif %}">
+                {% for featured in featured_people %}
+                  {% with featured.person as person %}
+                    {% if featured_people.count == 2 %}
+                      {% include "molecules/card-featured.html" with resource=person type='person' %}
+                    {% else %}
+                      {% include "molecules/card-featured.html" with resource=person type='person' format='square' %}
+                    {% endif %}
+                  {% endwith %}
+                {% endfor %}
+              </div>
+            {% endif %}
           </section>
         {% endif %}
       {% endwith %}
