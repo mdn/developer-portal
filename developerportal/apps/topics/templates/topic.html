@@ -18,7 +18,7 @@
     </section>
     {% if page.featured_articles.all %}
       <section>
-        {% include "organisms/featured.html" with featured=page.featured_articles.all %}
+        {% include "organisms/featured.html" with featured=page.featured %}
       </section>
     {% endif %}
     <section class="section-full get-started-full">

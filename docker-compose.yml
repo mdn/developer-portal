@@ -14,36 +14,34 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./dockerfiles/Dockerfile.app
+      target: app
     depends_on:
       - db
     env_file: .env
-    image: mdnwebdocs/developer-portal-app:latest
     ports:
       - "8000:8000"
       - "8080:8080"
     restart: always
     tty: true
     volumes:
-      - dist:/app/dist
+      # - dist:/app/dist
       - ./media:/app/media
       - ./developerportal:/app/developerportal
       - ./src:/app/src
 
   static:
-    image: mdnwebdocs/developer-portal-static:latest
     build:
       context: .
-      dockerfile: ./dockerfiles/Dockerfile.static
+      target: static
     command: npm run watch
     restart: always
     tty: true
     volumes:
-      - dist:/app/dist
+      # - dist:/app/dist
       - ./src:/app/src
 
 volumes:
   build:
   database:
-  dist:
+  # dist:
   media:

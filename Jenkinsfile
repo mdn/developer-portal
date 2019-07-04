@@ -9,17 +9,14 @@ node {
   }
 
   stage ('Buld Image'){
-    python_app = docker.build('mdnwebdocs/developer-portal-app', '-f ./dockerfiles/Dockerfile.app .')
-    node_app = docker.build('mdnwebdocs/developer-portal-static', '-f ./dockerfiles/Dockerfile.static .')
+    image = 'mdnwebdocs/developer-portal'
+    sh "docker build -t ${image}:latest -t ${image}:${tag} ."
   }
 
   stage('Push Image') {
     println("Pushing images")
-    python_app.push("latest")
-    python_app.push("${tag}")
-
-    node_app.push("latest")
-    node_app.push("${tag}")
+    sh "docker push ${image}:latest"
+    sh "docker push ${image}:${tag}"
   }
 
   stage('Cleanup') {
@@ -28,4 +25,3 @@ node {
     )
   }
 }
-
