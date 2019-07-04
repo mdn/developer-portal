@@ -10,14 +10,15 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
     StreamFieldPanel,
 )
+from wagtail.core.fields import StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
+from wagtail.core.blocks import PageChooserBlock
 
 from modelcluster.fields import ParentalKey
-from wagtail.core.fields import StreamField, StreamBlock
 
 from ..articles.models import Article
 from ..common.constants import COLOR_CHOICES, COLOR_VALUES
-from ..common.blocks import GetStartedBlock
+from ..common.blocks import FeaturedExternalBlock, GetStartedBlock
 
 class TopicFeaturedArticle(Orderable):
     topic = ParentalKey('Topic', related_name='featured_articles')
@@ -38,6 +39,7 @@ class TopicPerson(Orderable):
 
 
 class Topic(Page):
+    resource_type = 'topic'
     parent_page_types = ['Topics']
     subpage_types = ['SubTopic']
     template = 'topic.html'
@@ -46,6 +48,14 @@ class Topic(Page):
     intro = TextField(max_length=250, blank=True, default='')
     icon = FileField(upload_to='topics/icons', blank=True, default='')
     color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue')
+    featured = StreamField(
+        StreamBlock([
+            ('article', PageChooserBlock(required=False, target_model='articles.article')),
+            ('external_page', FeaturedExternalBlock()),
+        ], max_num=4),
+        null=True,
+        blank=True,
+    )
     get_started = StreamField(
         StreamBlock([
             ('panel', GetStartedBlock())
@@ -56,24 +66,15 @@ class Topic(Page):
         FieldPanel('intro'),
         FieldPanel('icon'),
         FieldPanel('color'),
+        StreamFieldPanel('featured'),
         StreamFieldPanel('get_started'),
         MultiFieldPanel([
             InlinePanel('people'),
         ], heading='Meet the Mozillians'),
     ]
 
-    featured_panels = [
-        MultiFieldPanel([
-            InlinePanel('featured_articles', max_num=4),
-        ], heading='Featured Articles', help_text=(
-            'These articles will appear at the top of the topic page. Please '
-            'choose four articles.'
-        )),
-    ]
-
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading='Content'),
-        ObjectList(featured_panels, heading='Featured'),
         ObjectList(Page.promote_panels, heading='SEO'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])

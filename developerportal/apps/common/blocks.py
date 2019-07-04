@@ -22,7 +22,8 @@ class GetStartedBlock(blocks.StructBlock):
     image = ImageChooserBlock()
     description = blocks.TextBlock()
     button_text = blocks.CharBlock()
-    button_destination = blocks.PageChooserBlock()
+    page_link = blocks.PageChooserBlock(required=False)
+    external_link = blocks.URLBlock(required=False, help_text='External URL to link to instead of a page.')
 
 class AgendaItemBlock(blocks.StructBlock):
     """Content for an event agenda item"""
@@ -40,3 +41,10 @@ class ExternalSpeakerBlock(blocks.StructBlock):
     name = blocks.CharBlock()
     job_title = blocks.CharBlock()
     profile_picture = ImageChooserBlock()
+
+class FeaturedExternalBlock(blocks.StructBlock):
+    """Content for a link to an external page displayed as featured card"""
+    url = blocks.URLBlock()
+    title = blocks.CharBlock()
+    intro = blocks.TextBlock(required=False)
+    header_image = ImageChooserBlock(label='Image')

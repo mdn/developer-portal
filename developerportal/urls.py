@@ -9,6 +9,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 
 urlpatterns = [
+    url('', include('developerportal.apps.health.urls')),
+
     url(r'^django-admin/', admin.site.urls),
 
     url(r'^admin/', include(wagtailadmin_urls)),

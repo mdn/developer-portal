@@ -89,6 +89,7 @@ class PersonTopic(Orderable):
 
 
 class Person(Page):
+    resource_type = 'person'
     parent_page_types = ['People']
     subpage_types = []
     template = 'person.html'

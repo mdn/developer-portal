@@ -9,11 +9,12 @@ https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 
 import os
 
-import dotenv
 from django.core.wsgi import get_wsgi_application
 
-dotenv.read_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "developerportal.settings.dev")
+# Load dev settings by default. To override this, set either:
+# - DJANGO_ENV to e.g. production, or;
+# - DJANGO_SETTINGS_MODULE to e.g. developerportal.settings.production (takes precedence).
+env = os.environ.setdefault("DJANGO_ENV", "dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", f"developerportal.settings.{env}")
 
 application = get_wsgi_application()

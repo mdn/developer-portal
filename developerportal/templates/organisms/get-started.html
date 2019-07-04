@@ -21,9 +21,15 @@
               height="{{ i.height }}"
               alt="{{ i.alt }}" />
             <p>{{ block.value.description }}</p>
-            <a href="{% pageurl block.value.button_destination %}" class="mzp-c-button mzp-t-small">
-              {{ block.value.button_text }}
-            </a>
+            {% if block.value.page_link %}
+              <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
+                {{ block.value.button_text }}
+              </a>
+            {% else %}
+              <a href="{{ block.value.external_link }}" class="mzp-c-button mzp-t-small" target="_blank" rel="nofollow noopener">
+                {{ block.value.button_text }}
+              </a>
+            {% endif %}
           </div>
         </details>
       {% endfor %}
@@ -41,9 +47,15 @@
                 height="{{ i.height }}"
                 alt="{{ i.alt }}" />
               <p>{{ block.value.description }}</p>
-              <a href="{% pageurl block.value.button_destination %}" class="mzp-c-button mzp-t-small">
-                {{ block.value.button_text }}
-              </a>
+              {% if block.value.page_link %}
+                <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
+                  {{ block.value.button_text }}
+                </a>
+              {% else %}
+                <a href="{{ block.value.external_link }}" class="mzp-c-button mzp-t-small" target="_blank" rel="nofollow noopener">
+                  {{ block.value.button_text }}
+                </a>
+              {% endif %}
             </div>
           </div>
         {% endfor %}

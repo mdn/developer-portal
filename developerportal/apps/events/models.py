@@ -32,6 +32,7 @@ class EventSpeaker(Orderable):
 
 
 class Event(Page):
+    resource_type = 'event'
     parent_page_types = ['events.Events']
     subpage_types = []
     template = 'event.html'

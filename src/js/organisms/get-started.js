@@ -32,7 +32,7 @@ export default class {
     if (!hash) return;
 
     this.toggles.forEach((toggle) => {
-      if (toggle.href === hash) {
+      if (toggle.attributes.getNamedItem('href').value === hash) {
         toggle.classList.add('highlight2-inverse');
         toggle.classList.remove('highlight2');
       } else {

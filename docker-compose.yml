@@ -24,7 +24,7 @@ services:
     restart: always
     tty: true
     volumes:
-      - dist:/app/dist
+      # - dist:/app/dist
       - ./media:/app/media
       - ./developerportal:/app/developerportal
       - ./src:/app/src
@@ -37,11 +37,11 @@ services:
     restart: always
     tty: true
     volumes:
-      - dist:/app/dist
+      # - dist:/app/dist
       - ./src:/app/src
 
 volumes:
   build:
   database:
-  dist:
+  # dist:
   media:

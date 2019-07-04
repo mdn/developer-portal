@@ -1,0 +1,7 @@
+{% if resource.resource_type == "article" %}
+  {% include "molecules/cards/card-article.html" with resource=resource filter_target=filter_target show_author=show_author %}
+{% elif type == "event" %} {# TODO change to resource.resource_type when events are implemented #}
+  {% include "molecules/cards/card-event.html" with resource=resource filter_target=filter_target %}
+{% elif resource.resource_type == "person" %}
+  {% include "molecules/cards/card-person.html" with resource=resource filter_target=filter_target %}
+{% endif %}
