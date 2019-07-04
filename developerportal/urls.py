@@ -8,7 +8,6 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 
-
 urlpatterns = [
     url('', include('developerportal.apps.health.urls')),
 
@@ -17,9 +16,6 @@ urlpatterns = [
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
-    # GitHub Oauth
-    # url(r'^login/$', auth_views.login, name='login'),
-    # url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
 

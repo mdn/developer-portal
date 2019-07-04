@@ -101,7 +101,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
-                'developerportal.context_processors.google_analytics'
+                'developerportal.context_processors.google_analytics',
             ],
             'libraries': {
                 'app_filters': 'developerportal.templatetags.app_filters',
@@ -113,9 +113,6 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
-    # 'social_core.backends.twitter.TwitterOAuth',
-    # 'social_core.backends.facebook.FacebookOAuth2',
-
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -233,28 +230,26 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.social_user',
+    'developerportal.pipeline.github_user_allowed',
     'social_core.pipeline.user.get_username',
     'social_core.pipeline.mail.mail_validation',
     'social_core.pipeline.user.create_user',
-    'developerportal.pipeline.user_as_editor',
     'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.debug.debug',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
-    'social_core.pipeline.debug.debug',
+    'developerportal.pipeline.success_message',
 )
 
 # GitHub scope to check emails and correct domains
 SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
-SOCIAL_AUTH_GITHUB_WHITELISTED_DOMAINS = ['']
-SOCIAL_AUTH_GITHUB_WHITELISTED_EMAILS = ['']
-
 
 # GitHub social auth access keys
-SOCIAL_AUTH_GITHUB_KEY = ''
-SOCIAL_AUTH_GITHUB_SECRET = ''
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get('GITHUB_CLIENT_ID')
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('GITHUB_CLIENT_SECRET')
 
-LOGIN_REDIRECT_URL = 'http://localhost:8000/admin/'
+LOGIN_ERROR_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/admin/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/admin/login/'
 
 # GOOGLE_ANALYTICS
 GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')

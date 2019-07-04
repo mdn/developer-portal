@@ -1,8 +1,10 @@
-
 {% extends "wagtailadmin/login.html" %}
+{% load i18n %}
 
-{% block above_login %}
-  <a href="{% url 'social:begin' 'github' %}"><strong>Login with GitHub</strong></a><br>
+{% block submit_buttons %}
+  {{ block.super }}
+  <span style="display: inline-block; margin-left: 1em; margin-right: 1em"> or </span>
+  <a href="{% url 'social:begin' 'github' %}" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Login with GitHub' %}</em></a>
 {% endblock %}
 
 {% block branding_login %}Sign in{% endblock %}
