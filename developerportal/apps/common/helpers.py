@@ -22,7 +22,6 @@ class ViewPageButtonHelper(PageButtonHelper):
         }
 
     def get_buttons_for_obj(self, obj, **kwargs):
-        pk = getattr(obj, self.opts.pk.attname)
         btns = [
             self.view_button(obj),
         ]

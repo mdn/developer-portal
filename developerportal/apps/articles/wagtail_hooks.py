@@ -8,7 +8,7 @@ class ArticleAdmin(ViewModelAdmin):
     model = Article
     menu_icon = 'doc-full'
     menu_order = 200
-    list_display = ('title', 'authors','date')
+    list_display = ('title', 'authors', 'date')
     list_filter = ('date',)
     list_sort = ('title', 'date')
 
