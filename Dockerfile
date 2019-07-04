@@ -41,6 +41,6 @@ COPY src/ /app/src/
 COPY --from=static /app/dist /app/dist/
 
 # Collect all of the static files into the static folder
-RUN python manage.py collectstatic
+RUN DJANGO_ENV=production python manage.py collectstatic
 
 CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
