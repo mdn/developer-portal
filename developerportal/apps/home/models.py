@@ -9,13 +9,15 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
+from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey
 
-from ..topics.models import Topic
+from ..topics.models import Topics, Topic
+from ..common.blocks import FeaturedExternalBlock
 
 
 class HomePageFeaturedArticle(Orderable):
@@ -34,14 +36,22 @@ class HomePage(Page):
     # Fields
     subtitle = TextField(max_length=250, blank=True, default='')
     intro = TextField(max_length=250, blank=True, default='')
-    button_text = CharField(max_length=30, default='')
-    button_url = URLField(max_length=140, default='')
+    button_text = CharField(max_length=30, blank=True, default='')
+    button_url = URLField(max_length=140, blank=True, default='')
     header_image = ForeignKey(
-        'wagtailimages.Image',
+        'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
         related_name='+'
+    )
+    featured = StreamField(
+        StreamBlock([
+            ('article', PageChooserBlock(required=False, target_model='articles.article')),
+            ('external_page', FeaturedExternalBlock()),
+        ], max_num=4),
+        null=True,
+        blank=True,
     )
 
     # Editor panel configuration
@@ -56,24 +66,16 @@ class HomePage(Page):
           heading="Primary CTA",
         ),
         ImageChooserPanel('header_image'),
-    ]
-
-    featured_panels = [
-        MultiFieldPanel([
-            InlinePanel('featured_articles', max_num=4),
-        ], heading='Featured Articles', help_text=(
-            'These articles will appear at the top of the homepage. Please '
-            'choose four articles.'
-        )),
+        StreamFieldPanel('featured'),
     ]
 
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading='Content'),
-        ObjectList(featured_panels, heading='Featured'),
         ObjectList(Page.promote_panels, heading='SEO'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
     @property
-    def topics(self):
-        return Topic.objects.live().public().order_by('title')
+    def primary_topics(self):
+        """The site’s primary topics, i.e. of class Topic but not SubTopic."""
+        return Topics.objects.first().get_children().live().public().order_by('title')

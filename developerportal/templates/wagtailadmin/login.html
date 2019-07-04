@@ -1,5 +1,8 @@
+
 {% extends "wagtailadmin/login.html" %}
 
 {% block above_login %}
-    <a href="{% url 'social:begin' 'github' %}"><strong>Login with GitHub</strong></a><br>
+  <a href="{% url 'social:begin' 'github' %}"><strong>Login with GitHub</strong></a><br>
 {% endblock %}
+
+{% block branding_login %}Sign in{% endblock %}

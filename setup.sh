@@ -60,12 +60,11 @@ POSTGRES_DB=developerportal
 POSTGRES_HOST=db
 POSTGRES_PASSWORD=$(openssl rand -base64 64 | tr -d '+/\n=')
 POSTGRES_USER=admin
+GOOGLE_ANALYTICS=UA-142036048-1
 EOT
-
 
 log 'Building Docker services.'
 docker-compose up --build --detach
-
 
 log 'Running migrations.'
 docker-compose exec -T app python manage.py migrate

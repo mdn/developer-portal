@@ -16,6 +16,7 @@
     <meta name="description" content="Mozilla Developer Portal" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}">
   </head>
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
@@ -28,12 +29,12 @@
     {% endblock %}
     <script>window.Mzp = {}</script>
     <script src="{% static 'js/bundle.js' %}"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-142036048-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'UA-142036048-1');
+      gtag('config', '{{ GOOGLE_ANALYTICS }}');
     </script>
   </body>
 </html>

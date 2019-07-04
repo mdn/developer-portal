@@ -1,0 +1,17 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load app_tags %}
+
+<h2>Overview</h2>
+<div class="person-overview">
+  <div class="person-overview-details">
+    {{ resource.intro|richtext }}
+    {% include "molecules/person-contact.html" with resource=resource %}
+  </div>
+  <div class="person-overview-image-container">
+    <div class="person-overview-image">
+      {% image resource.profile_picture width-284 %}
+      {% person_profile_picture_overlay %}
+    </div>
+  </div>
+</div>

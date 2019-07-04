@@ -13,12 +13,15 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from django.core.management.utils import get_random_secret_key
+
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,9 +34,10 @@ INSTALLED_APPS = [
     'developerportal.apps.common',
     'developerportal.apps.articles',
     'developerportal.apps.events',
+    'developerportal.apps.health',
     'developerportal.apps.home',
+    'developerportal.apps.mozimages',
     'developerportal.apps.people',
-    'developerportal.apps.search',
     'developerportal.apps.topics',
 
     'wagtail.contrib.forms',
@@ -72,6 +76,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
 
     'wagtail.core.middleware.SiteMiddleware',
@@ -95,6 +101,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'developerportal.context_processors.google_analytics'
             ],
             'libraries': {
                 'app_filters': 'developerportal.templatetags.app_filters',
@@ -181,7 +188,7 @@ STATICFILES_DIRS = [
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # Javascript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/2.1/ref/contrib/staticfiles/#manifeststaticfilesstorage
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
@@ -192,22 +199,22 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = 'developerportal'
-
-codepen = {
-    'endpoint': 'http://codepen.io/api/oembed',
-    'urls': [
-        '^http(?:s)?://codepen\\.io/.+/pen/.+$',
-    ],
-}
+WAGTAIL_SITE_NAME = 'Mozilla Developer Portal'
 
 # Add support for CodePen oEmbed
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',
-        'providers': [codepen],
+        'providers': [{
+            'endpoint': 'http://codepen.io/api/oembed',
+            'urls': [
+                '^http(?:s)?://codepen\\.io/.+/pen/.+$',
+            ],
+        }],
     }
 ]
+
+WAGTAILIMAGES_IMAGE_MODEL = 'mozimages.MozImage'
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
@@ -230,12 +237,11 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.mail.mail_validation',
     'social_core.pipeline.user.create_user',
     'developerportal.pipeline.user_as_editor',
-    'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.debug.debug',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
-    'social_core.pipeline.debug.debug'
+    'social_core.pipeline.debug.debug',
 )
 
 # GitHub scope to check emails and correct domains
@@ -249,3 +255,6 @@ SOCIAL_AUTH_GITHUB_KEY = ''
 SOCIAL_AUTH_GITHUB_SECRET = ''
 
 LOGIN_REDIRECT_URL = 'http://localhost:8000/admin/'
+
+# GOOGLE_ANALYTICS
+GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')

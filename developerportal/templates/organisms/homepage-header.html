@@ -1,25 +1,33 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% image page.header_image width-352 as header_image %}
 
 <section class="homepage-header">
   <div class="homepage-header-content">
     <h1>{{ page.title }}</h1>
-    <h2 class="no-underline">{{ page.subtitle }}</h2>
-    <p>{{ page.intro }}</p>
-    <a href="{{ page.button_url }}" class="mzp-c-button">{{ page.button_text }}</a>
+    {% if page.subtitle %}
+      <h2 class="no-underline">{{ page.subtitle }}</h2>
+    {% endif %}
+    {% if page.intro %}
+      <p>{{ page.intro }}</p>
+    {% endif %}
+    {% if page.button_url and page.button_text %}
+      <a href="{{ page.button_url }}" class="mzp-c-button">{{ page.button_text }}</a>
+    {% endif %}
   </div>
-  <div class="homepage-hero-img">
-    <div class="homepage-hero-pattern homepage-hero-before">
-      {% include "atoms/pattern.html" with name="homepage-hero-before" %}
+  {% if page.header_image %}
+    {% image page.header_image width-352 as header_image %}
+    <div class="homepage-hero-img">
+      <div class="homepage-hero-pattern homepage-hero-before">
+        {% include "atoms/pattern.html" with name="homepage-hero-before" %}
+      </div>
+      <img
+        src="{{ header_image.url }}"
+        width="{{ header_image.width }}"
+        height="{{ header_image.height }}"
+        alt="{{ header_image.alt }}" />
+      <div class="homepage-hero-pattern homepage-hero-after">
+        {% include "atoms/pattern.html" with name="homepage-hero-after" %}
+      </div>
     </div>
-    <img
-      src="{{ header_image.url }}"
-      width="{{ header_image.width }}"
-      height="{{ header_image.height }}"
-      alt="{{ header_image.alt }}" />
-    <div class="homepage-hero-pattern homepage-hero-after">
-      {% include "atoms/pattern.html" with name="homepage-hero-after" %}
-    </div>
-  </div>
+  {% endif %}
 </section>

@@ -14,14 +14,14 @@
 <main class="has-header">
   <div class="base-grid">
     <section class="section-full">
-      {% include "organisms/topic-header.html" with title=page.title intro=page.intro date=page.date %}
+      {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon="mixed-reality" %}
     </section>
     {% if page.featured_articles.all %}
       <section>
-        {% include "organisms/featured.html" with featured=page.featured_articles.all %}
+        {% include "organisms/featured.html" with featured=page.featured %}
       </section>
     {% endif %}
-    <section>
+    <section class="section-full get-started-full">
       {% include "organisms/get-started.html" %}
     </section>
     {% with subtopics=self.get_children.specific %}
@@ -39,7 +39,7 @@
         </div>
         <div class="card-container">
           {% for article in page.articles.all|slice:":3" %}
-            {% include "molecules/card.html" with resource=article type="article" show_author=True %}
+            {% include "molecules/cards/card.html" with resource=article show_author=True %}
           {% endfor %}
         </div>
       </section>
@@ -60,9 +60,9 @@
         <h2>Upcoming events</h2>
         <a href="">See more</a>
       </div>
-      <div class="card-event-container">
-        {% for i in 5|times %}
-          {% include "molecules/card-event.html" %}
+      <div class="card-container">
+        {% for i in 3|times %}
+          {% include "molecules/cards/card.html" with type="event" %}
         {% endfor %}
       </div>
     </section>
