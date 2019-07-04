@@ -1,37 +1,37 @@
 {% load wagtailcore_tags %}
 
 {% if featured %}
-<div class="section-header">
-  <h2>Featured</h2>
-</div>
+  <div class="section-header">
+    <h2>Featured</h2>
+  </div>
 
-{% with featured.0 as block %}
-  {% if block.block_type == 'article' %}
-    {% with block.value as article %}
-      {% include "molecules/card-featured-primary.html" with resource=article type="article" %}
-    {% endwith %}
-  {% elif block.block_type == 'external_page' %}
-    {% with block.value as external_page %}
-      {% include "molecules/card-featured-primary.html" with resource=external_page type="external_page" %}
-    {% endwith %}
-  {% endif %}
-{% endwith %}
+  {% with featured.0 as block %}
+    {% if block.block_type == 'article' %}
+      {% with block.value as article %}
+        {% include "molecules/card-featured-primary.html" with resource=article %}
+      {% endwith %}
+    {% elif block.block_type == 'external_page' %}
+      {% with block.value as external_page %}
+        {% include "molecules/card-featured-primary.html" with resource=external_page external_page=True %}
+      {% endwith %}
+    {% endif %}
+  {% endwith %}
 
-<div class="card-container">
-  {% for featured_item in featured %}
-    {% with featured_item as block %}
-      {% if not forloop.first %}
-        {% if block.block_type == 'article' %}
-          {% with block.value as article %}
-            {% include "molecules/card-featured.html" with resource=article type="article" %}
-          {% endwith %}
-        {% elif block.block_type == 'external_page' %}
-          {% with block.value as external_page %}
-            {% include "molecules/card-featured.html" with resource=external_page type="external_page" %}
-          {% endwith %}
+  <div class="card-container">
+    {% for featured_item in featured %}
+      {% with featured_item as block %}
+        {% if not forloop.first %}
+          {% if block.block_type == 'article' %}
+            {% with block.value as article %}
+              {% include "molecules/card-featured.html" with resource=article %}
+            {% endwith %}
+          {% elif block.block_type == 'external_page' %}
+            {% with block.value as external_page %}
+              {% include "molecules/card-featured.html" with resource=external_page external_page=True %}
+            {% endwith %}
+          {% endif %}
         {% endif %}
-      {% endif %}
-    {% endwith %}
-  {% endfor %}
-</div>
+      {% endwith %}
+    {% endfor %}
+  </div>
 {% endif %}

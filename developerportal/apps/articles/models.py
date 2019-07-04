@@ -48,6 +48,7 @@ class ArticleAuthor(Orderable):
 
 
 class Article(Page):
+    resource_type = 'article'
     parent_page_types = ['Articles']
     subpage_types = []
     template = 'article.html'

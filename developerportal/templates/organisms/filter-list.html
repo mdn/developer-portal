@@ -17,7 +17,7 @@
           <div class="card-container" id="{{ type }}-cards">
             {% for resource in resources %}
               {% if type == "person" %}
-                {% include "molecules/card.html" with resource=resource.person type=type filter_target=True %}
+                {% include "molecules/cards/card.html" with resource=resource.person filter_target=True %}
               {% endif %}
             {% endfor %}
           </div>

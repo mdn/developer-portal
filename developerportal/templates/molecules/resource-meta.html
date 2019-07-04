@@ -1,17 +1,17 @@
 <span class="resource-meta">
   <span class="icon">
-    {% if type == "person" %}
+    {% if resource.resource_type == "person" %}
       {% include "atoms/icons/mozilla.svg" %}
     {% else %}
       {% include "atoms/icons/reading-time.svg" %}
     {% endif %}
   </span>
   <span class="resource-meta-body">
-    {% if type == "article" %}
+    {% if resource.resource_type == "article" %}
       {{ resource.read_time }}
-    {% elif type == "person" %}
+    {% elif resource.resource_type == "person" %}
       {{ resource.job_title }}
-    {% elif type == "event" %}
+    {% elif resource.resource_type == "event" %}
       September 10, 2019
     {% endif %}
   </span>
