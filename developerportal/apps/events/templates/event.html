@@ -33,15 +33,11 @@
               {{ block }}
             {% endif %}
           {% endfor %}
-
           <a href="#" class="mzp-c-button">
             Register now
           </a>
-
           <h2>Venue</h2>
-
-          <h2>Agenda</h2>
-
+          {% include "organisms/event-agenda.html" with resource=page %}
         </article>
         <aside class="article-sidebar">
           {% if page.primary_topic %}
