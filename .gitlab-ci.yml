@@ -22,7 +22,7 @@ build:
   artifacts:
     untracked: true
   script:
-    - ./setup.sh --non-interactive --prune --detach
+    - ./setup.sh --prune --detach
 
 test_app:
   stage: test

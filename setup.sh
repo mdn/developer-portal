@@ -10,11 +10,10 @@ log() {
 }
 
 show_help() {
-  echo 'Usage: setup.sh [ --help | --prune | --detach | --non-interactive ]'
+  echo 'Usage: setup.sh [ --help | --prune | --detach ]'
   echo '  --help   - Show this help text.'
   echo '  --prune  - Prune images, containers and volumes before building.'
   echo '  --detach - Keep services running in the background when finished.'
-  echo '  --non-interactive - Skip steps that require user input.'
   exit 0
 }
 
@@ -25,8 +24,6 @@ do
     --help) show_help
       ;;
     --detach) ARG_DETACH=1
-      ;;
-    --non-interactive) ARG_NON_INTERACTIVE=1
       ;;
     --prune) ARG_PRUNE=1
       ;;
@@ -63,8 +60,10 @@ POSTGRES_USER=admin
 GOOGLE_ANALYTICS=UA-142036048-1
 EOT
 
+
 log 'Building Docker services.'
 docker-compose up --build --detach
+
 
 log 'Running migrations.'
 docker-compose exec -T app python manage.py migrate
@@ -72,12 +71,6 @@ docker-compose exec -T app python manage.py migrate
 
 log 'Loading data.'
 docker-compose exec -T app python manage.py loaddata developerportal/apps/**/fixtures/*.json
-
-
-if [ -z "$ARG_NON_INTERACTIVE" ]; then
-  log 'Creating super user.'
-  docker-compose exec app python manage.py createsuperuser
-fi
 
 
 if [ -n "$ARG_DETACH" ]; then
