@@ -1,0 +1,52 @@
+.event-details {
+  color: $color-nevada;
+  display: flex;
+  flex-direction: column;
+  padding-top: 64px;
+  width: 100%;
+
+  @media #{$mq-md} {
+    flex-direction: row;
+  }
+}
+
+.event-details-data {
+  flex-grow: 1;
+}
+
+.event-details-date,
+.event-details-venue,
+.event-details-register {
+  border: 1px solid $color-gray-30;
+  padding: 16px;
+
+  .icon {
+    margin-right: 16px;
+    position: relative;
+    top: -2px;
+  }
+}
+
+.event-details-venue {
+  display: flex;
+  margin-top: -1px;
+
+  address {
+    display: inline-block;
+    font-style: normal;
+  }
+}
+
+.event-details-register {
+  display: flex;
+  justify-content: center;
+  margin: -1px 0 0 0;
+  padding: 32px 0;
+
+  @media #{$mq-md} {
+    align-items: center;
+    display: flex;
+    margin: 0 0 0 -1px;
+    padding: 0 40px;
+  }
+}

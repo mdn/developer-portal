@@ -1,0 +1,26 @@
+<div class="event-details">
+  <div class="event-details-data">
+    <div class="event-details-date">
+      <span class="icon">
+        {% include "atoms/icons/date.svg" %}
+      </span>
+      <span>{{ resource.start_date }}</span>
+      {% if resource.end_date %}
+      &ndash; <span>{{ resource.end_date }}</span>
+      {% endif %}
+    </div>
+    <div class="event-details-venue">
+      <span class="icon">
+        {% include "atoms/icons/location.svg" %}
+      </span>
+      <address>{{ resource.venue }}</address>
+    </div>
+  </div>
+  {% if resource.register_url %}
+  <div class="event-details-register">
+      <a href="{{ resource.register_url }}" class="mzp-c-button">
+      Register now
+    </a>
+  </div>
+  {% endif %}
+</div>
