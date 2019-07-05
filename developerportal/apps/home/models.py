@@ -22,10 +22,10 @@ from ..common.blocks import FeaturedExternalBlock
 
 class HomePageFeaturedArticle(Orderable):
     page = ParentalKey('HomePage', related_name='featured_articles')
-    article = ForeignKey('articles.Article', on_delete=CASCADE, related_name='+')
+    article = ForeignKey('wagtailcore.Page', on_delete=CASCADE, related_name='+')
 
     panels = [
-        PageChooserPanel('article'),
+        PageChooserPanel('article', ['articles.Article', 'externalcontent.ExternalArticle']),
     ]
 
 
@@ -78,4 +78,5 @@ class HomePage(Page):
     @property
     def primary_topics(self):
         """The site’s primary topics, i.e. of class Topic but not SubTopic."""
-        return Topics.objects.first().get_children().live().public().order_by('title')
+        topic = Topics.objects.first()
+        return topic.get_children().live().public().order_by('title') if topic else None
