@@ -36,6 +36,16 @@ docker-compose exec app python manage.py makemigrations
 docker-compose exec app python manage.py migrate
 ```
 
+### Users
+
+GitHub OAuth is supported for admin login. When running in production, the auth pipeline checks to see if the GitHub user is a member of the __mdn__ organization. Additional organizations can be added via the `GITHUB_ORGS` env variable.
+
+When running in debug any GitHub user is allowed to log in and is automatically given superuser status. It is possible to log in without using GitHub by creating a Django superuser as normal:
+
+```shell
+docker-compse exec app python manage.py createsuperuser
+```
+
 ### Updating
 
 After pulling master you may need to install new dependencies…:
@@ -62,13 +72,13 @@ A static file version of the site is generated using [Wagtail Bakery](https://gi
 
 ### Usage
 
-Build the site out as flat files to the /build folder (specified in settings/base.py):  
+Build the site out as flat files to the /build folder (specified in settings/base.py):
 
 ```shell
 docker-compose exec app python manage.py build
 ```
 
-Check the built static site:  
+Check the built static site:
 
 ```shell
 docker-compose exec app python manage.py buildserver 0.0.0.0:8080
