@@ -1,8 +1,11 @@
 <div class="share">
+  {% if type == 'article' %}
   <div class="share-meta">
     {% include "molecules/resource-meta.html" with resource=resource read_time=read_time %}
   </div>
+  {% endif %}
   <div class="share-buttons">
+    <span class="share-buttons-label">Share:</span>
     {% with url=request.build_absolute_uri|urlencode %}
       <a href="http://twitter.com/share?url={{ url }}" target="_blank">
         <span class="icon">

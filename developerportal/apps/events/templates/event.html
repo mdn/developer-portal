@@ -1,8 +1,59 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}event-detail{% endblock %}
 
+{% block header %}
+  {% include "header.html" %}
+  {% include "utils/accent-color.html" with color='#88FFD1' %}
+{% endblock %}
+
 {% block content %}
-  <h1>{{ self.title }}</h1>
+  <main class="has-header">
+    <div class="base-grid">
+      {% include "organisms/article-header.html" with title=page.title intro=page.description type="event" %}
+      <section>
+          <p>{{ page.start_date }}</p>
+          <address>{{ page.venue }}</address>
+          <a href="#" class="mzp-c-button">
+            Register now
+          </a>
+      </section>
+      <section class="article-content">
+        <article class="article-body">
+          {% include "molecules/resource-share.html" with resource=page type="event" %}
+
+          {% for block in page.body %}
+            {% if block.block_type == 'image' %}
+              {% image block.value width-672 as rendition %}
+              {% include "atoms/image.html" with image=block.value rendition=rendition %}
+            {% else %}
+              {{ block }}
+            {% endif %}
+          {% endfor %}
+
+          <a href="#" class="mzp-c-button">
+            Register now
+          </a>
+
+          <h2>Venue</h2>
+
+          <h2>Agenda</h2>
+
+        </article>
+        <aside class="article-sidebar">
+          {% if page.primary_topic %}
+            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+          {% endif %}
+        </aside>
+      </section>
+      <section>
+        <div class="section-header">
+          <h2>Speakers </h2>
+        </div>
+      </section>
+    </div>
+  </main>
 {% endblock content %}

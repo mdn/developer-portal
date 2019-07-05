@@ -15,7 +15,11 @@
     </div>
     <div class="article-header-details">
       <div class="article-header-highlight">
+        {% if type == 'event' %}
+        <span class="highlight">Upcoming event</span>
+        {% else %}
         <span class="highlight">Featured</span>
+        {% endif %}
       </div>
       <h2 class="no-underline">{{ title }}</h2>
       <div class="article-header-subtitle">
