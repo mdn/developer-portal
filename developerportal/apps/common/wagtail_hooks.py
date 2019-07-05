@@ -1,6 +1,9 @@
 from django.utils.html import escape
+from django.core.management import call_command
+
 from wagtail.core import hooks
 from wagtail.core.rich_text import LinkHandler
+from wagtail.core.signals import page_published, page_unpublished
 
 
 class NewWindowExternalLinkHandler(LinkHandler):
@@ -19,3 +22,10 @@ class NewWindowExternalLinkHandler(LinkHandler):
 @hooks.register('register_rich_text_features')
 def register_external_link(features):
     features.register_link_type(NewWindowExternalLinkHandler)
+
+
+def build_static(*args, **kwargs):
+    call_command('build')
+
+page_published.connect(build_static)
+page_unpublished.connect(build_static)
