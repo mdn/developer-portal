@@ -46,12 +46,12 @@
     {% endif %}
     <section>
       <div class="section-header">
-        <h2>Meet the Mozillians</h2>
+        <h2>People</h2>
         <a href="">See more</a>
       </div>
-      <div class="card-container">
+      <div class="card-container card-container-people">
         {% for person in page.people.all|slice:":3" %}
-          {% include "molecules/item-mozillian.html" with person=person.person %}
+          {% include "molecules/item-person.html" with person=person.person type="mozillian" %}
         {% endfor %}
       </div>
     </section>

@@ -6,18 +6,10 @@
   <div class="section-header">
     <h2>Speakers</h2>
   </div>
-  <div class="card-container card-container-speakers">
+  <div class="card-container card-container-people">
     {% for block in resource.speakers %}
-      {% with block.value as speaker %}
-        <div class="speaker">
-          {% image speaker.profile_picture width-284 %}
-          <div class="speaker-details">
-            <div class="highlight1">
-              {{ speaker.title }}
-            </div>
-            <span class="heading5">{{ speaker.job_title }}</span>
-          </div>
-        </div>
+      {% with block.value as speaker   %}
+        {% include "molecules/item-person.html" with person=speaker type=block.block_type %}
       {% endwith %}
     {% endfor %}
   </div>

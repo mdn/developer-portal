@@ -41,6 +41,7 @@ class ExternalSpeakerBlock(blocks.StructBlock):
     title = blocks.CharBlock(label='Name')
     job_title = blocks.CharBlock()
     profile_picture = ImageChooserBlock()
+    url = blocks.URLBlock(label='URL', required=False)
 
 class FeaturedExternalBlock(blocks.StructBlock):
     """Content for a link to an external page displayed as featured card"""
