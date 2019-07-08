@@ -15,11 +15,7 @@
     <div class="base-grid">
       {% include "organisms/article-header.html" with title=page.title intro=page.description type="event" %}
       <section>
-          <p>{{ page.start_date }}</p>
-          <address>{{ page.venue }}</address>
-          <a href="#" class="mzp-c-button">
-            Register now
-          </a>
+        {% include "molecules/event-details.html" with resource=page %}
       </section>
       <section class="article-content">
         <article class="article-body">
