@@ -29,7 +29,7 @@
         </article>
         <aside class="article-sidebar">
           {% if page.related_articles %}
-            <h4>Read more</h4>
+            <h4>Read more on this topic</h4>
             <div class="article-sidebar-cards">
               {% for resource in page.related_articles.all|slice:":3" %}
                 {% include "molecules/cards/card.html" with resource=resource %}
