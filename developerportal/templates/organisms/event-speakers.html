@@ -1,0 +1,25 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% if resource.speakers %}
+<div class="speakers-container">
+  <div class="section-header">
+    <h2>Speakers</h2>
+  </div>
+  <div class="card-container card-container-speakers">
+    {% for block in resource.speakers %}
+      {% with block.value as speaker %}
+        <div class="speaker">
+          {% image speaker.profile_picture width-284 %}
+          <div class="speaker-details">
+            <div class="highlight1">
+              {{ speaker.title }}
+            </div>
+            <span class="heading5">{{ speaker.job_title }}</span>
+          </div>
+        </div>
+      {% endwith %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}

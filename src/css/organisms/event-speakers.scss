@@ -1,0 +1,34 @@
+
+.speakers-container {
+  margin: 24px auto;
+  max-width: 1084px;
+  padding: 0 16px;
+  @media #{$mq-md} {
+    padding: 0 32px;
+  }
+}
+
+.card-container-speakers {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  @media #{$mq-md} {
+    display: grid;
+  }
+}
+
+.speaker {
+  display: inline-block;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  @media #{$mq-md} {
+    margin-bottom: 56px;
+  }
+  img {
+    border-radius: 50%;
+  }
+}
+
+.speaker-details {
+  text-align: center;
+}
