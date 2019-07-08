@@ -20,15 +20,6 @@ from ..topics.models import Topics, Topic
 from ..common.blocks import FeaturedExternalBlock
 
 
-class HomePageFeaturedArticle(Orderable):
-    page = ParentalKey('HomePage', related_name='featured_articles')
-    article = ForeignKey('wagtailcore.Page', on_delete=CASCADE, related_name='+')
-
-    panels = [
-        PageChooserPanel('article', ['articles.Article', 'externalcontent.ExternalArticle']),
-    ]
-
-
 class HomePage(Page):
     subpage_types = []
     template = 'home.html'
@@ -47,7 +38,10 @@ class HomePage(Page):
     )
     featured = StreamField(
         StreamBlock([
-            ('article', PageChooserBlock(required=False, target_model='articles.article')),
+            ('article', PageChooserBlock(required=False, target_model=(
+                'articles.Article',
+                'externalgcontent.ExternalArticle',
+            ))),
             ('external_page', FeaturedExternalBlock()),
         ], max_num=4),
         null=True,
