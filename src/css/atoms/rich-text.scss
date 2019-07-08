@@ -1,16 +1,22 @@
 // revert the Protocol styling reset
 .rich-text {
+  p {
+    color: $color-nevada;
+  }
+
   ul,
   ol {
     list-style: revert;
   }
 
   li {
+    color: $color-nevada;
     margin-left: 1.5em;
     padding-left: 4px;
   }
 }
 
+.page-link,
 .external-link {
   color: $color-ext-link;
   text-decoration: none;
