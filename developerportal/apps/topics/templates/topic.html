@@ -16,7 +16,7 @@
     <section class="section-full">
       {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon="mixed-reality" %}
     </section>
-    {% if page.featured_articles.all %}
+    {% if page.featured.all %}
       <section>
         {% include "organisms/featured.html" with featured=page.featured %}
       </section>
