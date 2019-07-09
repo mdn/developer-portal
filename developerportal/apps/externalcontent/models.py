@@ -44,7 +44,7 @@ class ExternalContent(Page):
 
 
 class ExternalArticle(ExternalContent):
-    read_time = CharField(max_length=30, blank=True, default='0 min read')
+    read_time = CharField(max_length=30, blank=True)
 
     content_panels = ExternalContent.content_panels + [
         FieldPanel('read_time'),
