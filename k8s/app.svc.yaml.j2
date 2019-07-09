@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ APP_SERVICE_NAME }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "{{ APP_SERVICE_CERT_ARN }}"
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "{{ APP_SERVICE_IDLE_TIMEOUT }}"
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "Stack={{ AWS_RESOURCE_STACK }}"
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ APP_NAME }}
+  ports:
+    - port: 443
+      targetPort: {{ APP_PORT }}
+      protocol: TCP
