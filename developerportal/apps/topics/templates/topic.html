@@ -14,7 +14,7 @@
 <main class="has-header">
   <div class="base-grid">
     <section class="section-full">
-      {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon="mixed-reality" %}
+      {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon=page.icon %}
     </section>
     {% if page.featured.all %}
       <section>
