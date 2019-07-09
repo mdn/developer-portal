@@ -1,15 +1,25 @@
-from django.db.models import CharField, URLField
+from django.db.models import CharField, ForeignKey, SET_NULL, URLField
 
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.core.models import Page
+from wagtail.images.edit_handlers import ImageChooserPanel
+
 
 class ExternalContent(Page):
     subpage_types = []
 
     external_url = URLField(max_length=2048, blank=True, default='')
+    header_image = ForeignKey(
+        'mozimages.MozImage',
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name='+'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('external_url'),
+        ImageChooserPanel('header_image'),
     ]
 
     edit_handler = TabbedInterface([
@@ -32,12 +42,16 @@ class ExternalContent(Page):
 
 
 class ExternalArticle(ExternalContent):
-    readtime = CharField(max_length=30, blank=True, default='0 min read')
+    read_time = CharField(max_length=30, blank=True, default='0 min read')
 
-    content_panels = Page.content_panels + [
-        FieldPanel('external_url'),
-        FieldPanel('readtime'),
+    content_panels = ExternalContent.content_panels + [
+        FieldPanel('read_time'),
     ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+    ])
 
 
 class ExternalEvent(ExternalContent):
@@ -47,7 +61,11 @@ class ExternalEvent(ExternalContent):
 class ExternalVideo(ExternalContent):
     video_duration = CharField(max_length=30, blank=True, default='0:00')
 
-    content_panels = Page.content_panels + [
-        FieldPanel('external_url'),
+    content_panels = ExternalContent.content_panels + [
         FieldPanel('video_duration'),
     ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+    ])
