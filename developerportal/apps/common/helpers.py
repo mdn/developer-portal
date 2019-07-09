@@ -9,7 +9,7 @@ from wagtail.contrib.modeladmin.options import ModelAdmin
 class ExplorerRedirectAdminURLHelper(AdminURLHelper):
     def _get_action_url_pattern(self, action):
         if action == 'index' and self.model.objects:
-            try:g
+            try:
                 page = self.model.objects.first()
                 if page:
                     return r'^pages/%s/$' % (page.pk)
