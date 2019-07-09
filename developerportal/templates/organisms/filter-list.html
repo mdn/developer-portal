@@ -4,29 +4,39 @@
   </div>
   <div class="pattern-section-background">
     <div class="container">
-      <div class="section-header">
-        <h2>All {{ title }}</h2>
-      </div>
-
-      <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-left">
-        <aside class="mzp-l-sidebar">
-          {% include "molecules/filter-form.html" with filters=filters %}
+      <div class="filter-list-content">
+        <aside class="filter-list-sidebar">
+          <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
+            <summary>Filter</summary>
+            {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+          </details>
+          <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
+            {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+          </div>
         </aside>
-
-        <div class="mzp-l-main">
+        <div class="filter-list-items">
+          <div class="filter-list-no-results" id="js-filter-list-no-results" hidden>
+            <p>No results found with these filters.</p>
+            <button class="mzp-c-button js-filter-clear" type="button">
+              Clear filters
+            </button>
+          </div>
           <div class="card-container" id="{{ type }}-cards">
             {% for resource in resources %}
-              {% if type == "person" %}
+              {% if type == "article" %}
+                {% include "molecules/cards/card.html" with resource=resource.article filter_target=True %}
+              {% elif type == "person" %}
                 {% include "molecules/cards/card.html" with resource=resource.person filter_target=True %}
+              {% elif type == "event" %}
+                {% include "molecules/cards/card.html" with resource=resource.event filter_target=True %}
               {% endif %}
             {% endfor %}
           </div>
-          <div class="filter-list-actions">
-            {# <a href="#" class="mzp-c-button">See more</a> #}
+          <div class="filter-list-actions" id="js-filter-list-actions">
+            <button class="mzp-c-button" id="js-filter-list-action-see-more" type="button">See more</button>
           </div>
         </div>
       </div>
-
     </div>
   </div>
   <div class="pattern-section-pattern pattern-section-pattern-after">

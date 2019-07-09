@@ -13,6 +13,7 @@ from modelcluster.fields import ParentalKey
 from ..common.fields import CustomStreamField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
 from ..articles.models import Article
+from ..topics.models import Topic
 
 
 class EventTopic(Orderable):
@@ -29,6 +30,29 @@ class EventSpeaker(Orderable):
     panels = [
         PageChooserPanel('speaker')
     ]
+
+
+class Events(Page):
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['events.Event']
+    template = 'events.html'
+
+    # Fields
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['filters'] = self.get_filters()
+        return context
+
+    @property
+    def events(self):
+        return Event.objects.all().public().live().order_by('-start_date')
+
+    def get_filters(self):
+        return {
+            'months': True,
+            'topics': Topic.objects.live().public().order_by('title'),
+        }
 
 
 class Event(Page):
@@ -90,22 +114,12 @@ class Event(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
-    class Meta:
-        ordering = ['-start_date']
-
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the event."""
         article_topic = self.topics.first()
         return article_topic.topic if article_topic else None
 
-
-class Events(Page):
-    parent_page_types = ['home.HomePage']
-    subpage_types = ['events.Event']
-    template = 'events.html'
-
     @property
-    def events(self):
-        """Return live public event pages, most recent first. """
-        return Event.objects.live().public()
+    def month_group(self):
+        return self.start_date.replace(day=1)
