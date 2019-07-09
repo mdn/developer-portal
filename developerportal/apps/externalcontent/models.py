@@ -1,6 +1,8 @@
-from django.db.models import CharField, ForeignKey, SET_NULL, URLField
+import datetime
 
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from django.db.models import CharField, DateField, ForeignKey, SET_NULL, TextField, URLField
+
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, ObjectList, TabbedInterface
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -55,7 +57,22 @@ class ExternalArticle(ExternalContent):
 
 
 class ExternalEvent(ExternalContent):
-    pass
+    start_date = DateField(default=datetime.date.today)
+    end_date = DateField(blank=True, null=True)
+    venue = TextField(max_length=250, blank=True, default='')
+
+    content_panels = ExternalContent.content_panels + [
+        MultiFieldPanel([
+            FieldPanel('start_date'),
+            FieldPanel('end_date'),
+            FieldPanel('venue'),
+        ], heading='Event details'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+    ])
 
 
 class ExternalVideo(ExternalContent):
