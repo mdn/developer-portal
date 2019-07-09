@@ -54,6 +54,9 @@ class People(Page):
                     'Please choose between 1 and 3 people.'))
     ]
 
+    class Meta:
+        verbose_name_plural = 'People'
+
     def get_context(self, request):
         context = super().get_context(request)
         context['filters'] = self.get_filters()

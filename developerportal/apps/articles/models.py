@@ -130,6 +130,9 @@ class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
 
+    class Meta:
+        verbose_name_plural = 'Articles'
+
     @property
     def articles(self):
         """Returns live (i.e. not draft), public pages, ordered by most recent."""

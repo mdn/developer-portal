@@ -40,7 +40,7 @@ class HomePage(Page):
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model=(
                 'articles.Article',
-                'externalgcontent.ExternalArticle',
+                'externalcontent.ExternalArticle',
             ))),
             ('external_page', FeaturedExternalBlock()),
         ], max_num=4),

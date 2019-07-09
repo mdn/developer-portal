@@ -75,7 +75,7 @@ class ExternalVideoAdmin(ModelAdmin):
 class ExternalContentAdminGroup(ModelAdminGroup):
     menu_label = 'External content'
     menu_icon = 'folder-open-inverse'
-    menu_order = 300
+    menu_order = 240
     items = (
         ExternalContentAdmin,
         ExternalArticleAdmin,

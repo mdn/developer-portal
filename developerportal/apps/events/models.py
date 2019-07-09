@@ -96,7 +96,7 @@ class Event(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the event."""
-        article_topic = self.topics.first()
+        article_topic = self.topics.first()  # pylint: disable=no-member
         return article_topic.topic if article_topic else None
 
 
@@ -104,6 +104,9 @@ class Events(Page):
     parent_page_types = ['home.HomePage']
     subpage_types = ['events.Event']
     template = 'events.html'
+
+    class Meta:
+        verbose_name_plural = 'Events'
 
     @property
     def events(self):
