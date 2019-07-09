@@ -1,3 +1,4 @@
+from django.db.utils import ProgrammingError
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.contrib.modeladmin.helpers import PageButtonHelper
@@ -7,11 +8,14 @@ from wagtail.contrib.modeladmin.options import ModelAdmin
 
 class ExplorerRedirectAdminURLHelper(AdminURLHelper):
     def _get_action_url_pattern(self, action):
-        if action == 'index':
-            page = self.model.objects.first()
-            if page:
-                return r'^pages/%s/$' % (page.pk)
-            action = 'add'
+        if action == 'index' and self.model.objects:
+            try:g
+                page = self.model.objects.first()
+                if page:
+                    return r'^pages/%s/$' % (page.pk)
+                action = 'add'
+            except ProgrammingError:
+                pass
         super()._get_action_url_pattern(action)
 
 
