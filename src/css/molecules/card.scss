@@ -61,6 +61,10 @@
   &:active {
     background: none;
   }
+
+  &[data-type='person'] .card-image {
+    filter: grayscale(1);
+  }
 }
 
 .card-content {
