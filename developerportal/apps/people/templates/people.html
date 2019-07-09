@@ -34,9 +34,12 @@
           </section>
         {% endif %}
       {% endwith %}
-      {% if page.mozillians %}
+      {% if page.people %}
+        <section>
+          <h2>People</h2>
+        </section>
         <section class="section-full">
-          {% include "organisms/filter-list.html" with title="People" type="person" resources=page.mozillians %}
+          {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
         </section>
       {% endif %}
     </div>

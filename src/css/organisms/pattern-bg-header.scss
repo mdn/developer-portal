@@ -37,9 +37,10 @@
 
 .pattern-bg-header-icon {
   margin-bottom: 32px;
+
   @media #{$mq-md} {
     display: block;
-    margin: 0 48px 0;
+    margin: 0 48px 0 0;
   }
 }
 

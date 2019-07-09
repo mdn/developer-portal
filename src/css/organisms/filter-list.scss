@@ -1,71 +1,80 @@
-.mzp-l-content {
-  padding: 0;
+.filter-list-content {
+  display: grid;
+  column-gap: $grid-gap-mobile;
+  grid-template-columns: [items-start sidebar-start] 1fr [sidebar-end items-end];
+
+  @media #{$mq-md} {
+    column-gap: $grid-gap;
+    grid-template-columns: [sidebar-start] repeat(4, 1fr) [sidebar-end items-start] repeat(8, 1fr) [items-end];
+
+    html.no-js & {
+      grid-template-columns: [items-start] 1fr [items-end];
+    }
+  }
 }
 
-.filter {
+.filter-list-sidebar {
+  grid-column: sidebar;
+  margin-bottom: $grid-gap-mobile;
+
+  html.no-js & {
+    display: none;
+  }
+
+  @media #{$mq-md} {
+    margin-bottom: 0;
+  }
+}
+
+.filter-list-sidebar-content {
   background-color: $color-white;
-  border: 1px solid $color-gray-30;
-  margin-bottom: 32px;
-  padding: 24px;
+  border: 2px solid $color-gray-20;
+  border-radius: 2px;
+  padding: 16px;
 
-  label {
-    font-weight: normal;
+  @media #{$mq-md} {
+    margin-bottom: 0;
+    padding: 24px;
+    position: sticky;
+    top: 32px;
   }
 }
 
-.filter-section-clear {
-  color: $color-nevada;
-  font-size: 12px;
-
-  &:before {
-    background: url($image-path + '/icons/ui/close-black.svg') top left no-repeat;
-    content: '';
-    filter: invert(44%) sepia(13%) saturate(260%) hue-rotate(153deg) brightness(95%) contrast(83%);
-    height: 100%;
-    position: absolute;
-    width: 24px;
-  }
-
-  &:hover {
-    color: $color-nevada;
+.filter-list-sidebar-content-mobile {
+  @media #{$mq-md} {
+    display: none;
   }
 }
 
-.filter-header {
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
+.filter-list-sidebar-content-desktop {
+  display: none;
 
-  .filter-section-clear:before {
-    right: 40px;
-    top: 4px;
+  @media #{$mq-md} {
+    display: block;
   }
 }
 
-.filter-section {
-  border-top: 1px solid $color-gray-30;
-  margin-top: 1.5em;
+.filter-list-items {
+  grid-column: items;
+
+  .card-link {
+    html.no-js &[hidden] {
+      display: block !important;
+    }
+  }
 }
 
-.filter-section-header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.4em;
-  position: relative;
-
-  h5 {
-    margin-top: 0.5em;
-  }
-
-  .filter-section-clear:before {
-    right: 25px;
-    top: 16px;
-  }
+.filter-list-no-results {
+  padding: 140px 0;
+  text-align: center;
 }
 
 .filter-list-actions {
   display: flex;
   justify-content: center;
   margin: 64px 0 16px;
+
+  html.no-js & {
+    display: none;
+  }
 }
