@@ -1,0 +1,59 @@
+.filter-form {
+  margin-top: 16px;
+
+  @media #{$mq-md} {
+    margin-top: 0;
+  }
+
+  label {
+    font-weight: normal;
+  }
+}
+
+.filter-form-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.filter-form-clear {
+  color: $color-nevada;
+  font-size: 12px;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-nevada;
+  }
+
+  .icon {
+    bottom: 1px;
+    margin-right: 3px;
+    position: relative;
+  }
+}
+
+.filter-form-section {
+  border-top: 1px solid $color-gray-30;
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  label:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.filter-form-section-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0 12px;
+  position: relative;
+
+  h5 {
+    margin: 0;
+  }
+}

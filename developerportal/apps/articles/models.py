@@ -1,6 +1,7 @@
 import datetime
 import readtime
 
+from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL, TextField
 from django.forms import CheckboxSelectMultiple
@@ -23,6 +24,27 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
+
+
+class Articles(Page):
+    subpage_types = ['Article']
+    template = 'articles.html'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['filters'] = self.get_filters()
+        return context
+
+    @property
+    def articles(self):
+        return Article.objects.all().public().live().order_by('-date')
+
+    def get_filters(self):
+        from ..topics.models import Topic
+        return {
+            'months': True,
+            'topics': Topic.objects.live().public().order_by('title'),
+        }
 
 
 class ArticleTag(TaggedItemBase):
@@ -97,9 +119,6 @@ class Article(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
-    class Meta:
-        ordering = ['-date']
-
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
@@ -125,12 +144,6 @@ class Article(Page):
             .public()
         )
 
-
-class Articles(Page):
-    subpage_types = ['Article']
-    template = 'articles.html'
-
     @property
-    def articles(self):
-        """Returns live (i.e. not draft), public pages, ordered by most recent."""
-        return Article.objects.live().public()
+    def month_group(self):
+        return self.date.replace(day=1)

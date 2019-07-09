@@ -83,7 +83,14 @@ class Topic(Page):
 
     @property
     def articles(self):
-        return Article.objects.filter(topics__topic__pk=self.pk).live().public()
+        return (
+            Article
+                .objects
+                .filter(topics__topic__pk=self.pk)
+                .live()
+                .public()
+                .order_by('-date')
+        )
 
     @property
     def events(self):

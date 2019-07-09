@@ -18,7 +18,7 @@
     {% image page.header_image width-352 as header_image %}
     <div class="homepage-hero-img">
       <div class="homepage-hero-pattern homepage-hero-before">
-        {% include "atoms/pattern.html" with name="homepage-hero-before" %}
+        {% include "atoms/pattern.html" %}
       </div>
       <img
         src="{{ header_image.url }}"
@@ -26,7 +26,7 @@
         height="{{ header_image.height }}"
         alt="{{ header_image.alt }}" />
       <div class="homepage-hero-pattern homepage-hero-after">
-        {% include "atoms/pattern.html" with name="homepage-hero-after" %}
+        {% include "atoms/pattern.html" %}
       </div>
     </div>
   {% endif %}
