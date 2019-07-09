@@ -8,6 +8,7 @@ import '@mozilla-protocol/core/protocol/js/protocol-navigation';
 import '@mozilla-protocol/core/protocol/js/protocol-details';
 import FilterForm from './organisms/filter-form';
 import GetStarted from './organisms/get-started';
+import Map from './atoms/map';
 
 window.addEventListener('DOMContentLoaded', () => {
   Mzp.Navigation.init();
@@ -15,4 +16,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
   FilterForm.init();
   GetStarted.init();
+  Map.init();
 });
