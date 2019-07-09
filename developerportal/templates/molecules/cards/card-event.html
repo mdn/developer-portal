@@ -2,7 +2,8 @@
 
 <a href="#" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
   {% if filter_target %}
-    data-date=""
+    data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
+    data-month="{{ resource.month_group|date:'Y-m' }}"
   {% endif %}
 >
   <div class="card">
