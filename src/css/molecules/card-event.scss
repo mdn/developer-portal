@@ -1,0 +1,23 @@
+.card-event:last-child {
+  margin-bottom: 32px;
+}
+
+.card-event-image {
+  padding-top: 66.66%;
+  @media #{$mq-md} {
+    padding-top: 25%;
+  }
+}
+
+.card-event-content {
+  p,
+  span {
+    color: $color-nevada;
+  }
+
+  address {
+    color: $color-nevada;
+    display: inline-block;
+    font-style: normal;
+  }
+}
