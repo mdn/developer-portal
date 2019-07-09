@@ -1,13 +1,13 @@
 from wagtail.contrib.modeladmin.options import modeladmin_register, ModelAdmin
 
-from .models import Articles
+from .models import Topics
 from ..common.helpers import ExplorerRedirectAdminURLHelper
 
 
-class ArticlesAdmin(ModelAdmin):
-    model = Articles
-    menu_icon = 'doc-full-inverse'
-    menu_order = 210
+class TopicsAdmin(ModelAdmin):
+    model = Topics
+    menu_icon = 'tag'
+    menu_order = 200
     url_helper_class = ExplorerRedirectAdminURLHelper
 
-modeladmin_register(ArticlesAdmin)
+modeladmin_register(TopicsAdmin)

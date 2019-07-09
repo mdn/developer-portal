@@ -126,6 +126,9 @@ class Topics(Page):
     subpage_types = ['Topic']
     template = 'topics.html'
 
+    class Meta:
+        verbose_name_plural = 'Topics'
+
     @property
     def topics(self):
         return Topic.objects.live().public().order_by('title')
