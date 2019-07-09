@@ -14,15 +14,19 @@
     <div class="card-content card-event-content">
       <h4 class="no-underline">{{ resource.title }}</h4>
       <p>{{ resource.description }}</p>
-      <div class="">
+      <div>
         <span class="icon">
           {% include "atoms/icons/date.svg" %}
         </span>
-        <span>{{ resource.start_date }}</span>
+        <span>
+          {{ resource.start_date }}
+        </span>
         <span class="icon">
           {% include "atoms/icons/location.svg" %}
         </span>
-        <address>{{ resource.venue }}</address>
+        <address>
+          {{ resource.venue }}
+        </address>
       </div>
     </div>
   </div>
