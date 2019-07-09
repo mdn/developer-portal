@@ -4,9 +4,12 @@
     color: $color-nevada;
   }
 
-  ul,
+  ul {
+    list-style: disc;
+  }
+
   ol {
-    list-style: revert;
+    list-style: decimal;
   }
 
   li {
