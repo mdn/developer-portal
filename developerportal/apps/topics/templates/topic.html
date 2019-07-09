@@ -55,17 +55,19 @@
         {% endfor %}
       </div>
     </section>
+    {% if page.events.all %}
     <section>
       <div class="section-header">
         <h2>Upcoming events</h2>
         <a href="">See more</a>
       </div>
-      <div class="card-container">
-        {% for i in 3|times %}
-          {% include "molecules/cards/card.html" with type="event" %}
+      <div>
+        {% for event in page.events.all|slice:":3" %}
+          {% include "molecules/cards/card.html" with resource=event index=forloop.counter %}
         {% endfor %}
       </div>
     </section>
+    {% endif %}
     <section>
       {% include "organisms/newsletter-signup.html" %}
     </section>
