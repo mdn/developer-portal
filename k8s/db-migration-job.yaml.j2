@@ -1,0 +1,28 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: db-migration
+spec:
+  template:
+    metadata:
+      name: db-migration
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: db-migration
+          image: {{ APP_IMAGE }}:{{ APP_IMAGE_TAG }}
+          imagePullPolicy: {{ APP_IMAGE_PULL_POLICY }}
+          command:
+            - python
+          args:
+            - manage.py
+            - migrate
+            - "--noinput"
+          resources:
+            requests:
+              cpu: {{ APP_CPU_REQUEST }}
+              memory: {{ APP_MEMORY_REQUEST }}
+            limits:
+              cpu: {{ APP_CPU_LIMIT }}
+              memory: {{ APP_MEMORY_LIMIT }}
+{% include 'app.env.yaml.j2' %}

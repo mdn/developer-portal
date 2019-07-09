@@ -1,0 +1,59 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ APP_NAME }}
+spec:
+  replicas: {{ APP_REPLICAS }}
+  selector:
+    matchLabels:
+      app: {{ APP_NAME }}
+  template:
+    metadata:
+      labels:
+        app: {{ APP_NAME }}
+    spec:
+      containers:
+        - name: {{ APP_NAME }}
+          image: "{{ APP_IMAGE }}:{{ APP_IMAGE_TAG }}"
+          imagePullPolicy: {{ APP_IMAGE_PULL_POLICY }}
+          command:
+            - "gunicorn"
+          args:
+            - "--workers={{ APP_GUNICORN_WORKERS }}"
+            - "--worker-class=meinheld.gmeinheld.MeinheldWorker"
+            - "--bind=0.0.0.0:{{ APP_PORT }}"
+            - "--access-logfile=-"
+            - "--timeout={{ APP_GUNICORN_TIMEOUT }}"
+            - "developerportal.wsgi:application"
+          ports:
+            - containerPort: {{ APP_PORT }}
+          resources:
+            requests:
+              cpu: {{ APP_CPU_REQUEST }}
+              memory: {{ APP_MEMORY_REQUEST }}
+            limits:
+              cpu: {{ APP_CPU_LIMIT }}
+              memory: {{ APP_MEMORY_LIMIT }}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: {{ APP_PORT }}
+              httpHeaders:
+                - name: Host
+                  value: "{{ APP_HOST }}"
+            initialDelaySeconds: 20
+            periodSeconds: 12
+            timeoutSeconds: 10
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: {{ APP_PORT }}
+              httpHeaders:
+                - name: Host
+                  value: "{{ APP_HOST }}"
+            initialDelaySeconds: 10
+            periodSeconds: 6
+            timeoutSeconds: 5
+            failureThreshold: 3
+{% include 'app.env.yaml.j2' %}
