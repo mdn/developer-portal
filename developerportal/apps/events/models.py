@@ -13,7 +13,6 @@ from modelcluster.fields import ParentalKey
 from ..common.fields import CustomStreamField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
 from ..articles.models import Article
-from ..topics.models import Topic
 
 
 class EventTopic(Orderable):
@@ -49,6 +48,7 @@ class Events(Page):
         return Event.objects.all().public().live().order_by('-start_date')
 
     def get_filters(self):
+        from ..topics.models import Topic
         return {
             'months': True,
             'topics': Topic.objects.live().public().order_by('title'),

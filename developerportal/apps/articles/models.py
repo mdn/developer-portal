@@ -40,9 +40,10 @@ class Articles(Page):
         return Article.objects.all().public().live().order_by('-date')
 
     def get_filters(self):
+        from ..topics.models import Topic
         return {
             'months': True,
-            'topics': apps.get_model('topics', 'Topic').objects.live().public().order_by('title'),
+            'topics': Topic.objects.live().public().order_by('title'),
         }
 
 

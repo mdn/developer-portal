@@ -17,10 +17,6 @@ from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from ..topics.models import Topic
-
-
-
 
 class People(Page):
     subpage_types = ['Person']
@@ -48,6 +44,7 @@ class People(Page):
         return Person.objects.all().public().live().order_by('title')
 
     def get_filters(self):
+        from ..topics.models import Topic
         return {
             'topics': Topic.objects.live().public().order_by('title'),
         }
