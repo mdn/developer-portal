@@ -63,6 +63,12 @@ k8s-db-migration-job: k8s-delete-db-migration-job
 k8s-delete-db-migration-job:
 	${KC} delete --ignore-not-found job db-migration
 
+k8s-jenkins-create-rbac:
+	kubectl apply -f jenkins-rbac.yaml
+
+k8s-jenkins-delete-rbac:
+	kubectl delete -f jenkins-rbac.yaml
+
 ### end core tasks
 ###############################
 
