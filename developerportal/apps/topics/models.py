@@ -49,7 +49,7 @@ class Topic(Page):
 
     intro = TextField(max_length=250, blank=True, default='')
     icon = FileField(upload_to='topics/icons', blank=True, default='')
-    color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue')
+    color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue-40')
     featured = StreamField(
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model='articles.article')),
