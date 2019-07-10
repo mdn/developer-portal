@@ -101,6 +101,7 @@ h6 {
   &:not(.no-underline) {
     background: repeating-linear-gradient(to bottom,transparent 0,transparent .8em,$color-yellow-30 .8em,$color-yellow-30 1.1em);
     display: inline;
+    margin-bottom: 0;
 
     &:before {
       content: '';
