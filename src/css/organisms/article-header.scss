@@ -1,16 +1,19 @@
 .article-header {
   background: $color-gray-10;
   grid-column: full;
-  padding: $grid-gap-mobile;
+  margin-bottom: 80px;
+  padding: $grid-gap-mobile $grid-gap-mobile 0;
 
   @media #{$mq-md} {
-    padding: 0 $grid-gap;
+    padding: 0 $grid-gap-mobile 0;
   }
 }
 
 .article-header-container {
+  display: flex;
+  flex-direction: column-reverse;
+
   @media #{$mq-md} {
-    display: flex;
     flex-direction: row-reverse;
     max-width: 1024px;
     margin: 0 auto;
@@ -35,8 +38,14 @@
 }
 
 .article-header-image {
-  margin: 96px 0 32px;
-  padding-right: 16px;
+  padding: 28px 16px;
+  position: relative;
+  margin: 32px 0 0;
+
+  @media #{$mq-md} {
+    margin: 96px 0 32px;
+    position: static;
+  }
 
   img {
     max-width: 100%;
@@ -56,14 +65,13 @@
 
 .article-header-pattern {
   background-color: $color-black;
-  display: none;
   height: 100%;
   position: absolute;
   right: 0;
   top: 0;
-  width: 320px;
+  width: 50%;
 
   @media #{$mq-md} {
-    display: block;
+    width: 320px;
   }
 }
