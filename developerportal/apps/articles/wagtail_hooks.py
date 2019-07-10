@@ -1,19 +1,13 @@
-from wagtail.contrib.modeladmin.options import modeladmin_register
+from wagtail.contrib.modeladmin.options import modeladmin_register, ModelAdmin
 
-from .models import Article
-from ..common.helpers import ViewModelAdmin
+from .models import Articles
+from ..common.helpers import ExplorerRedirectAdminURLHelper
 
 
-class ArticleAdmin(ViewModelAdmin):
-    model = Article
-    menu_icon = 'doc-full'
-    menu_order = 200
-    list_display = ('title', 'authors','date')
-    list_filter = ('date',)
-    list_sort = ('title', 'date')
+class ArticlesAdmin(ModelAdmin):
+    model = Articles
+    menu_icon = 'doc-full-inverse'
+    menu_order = 210
+    url_helper_class = ExplorerRedirectAdminURLHelper
 
-    def authors(self, obj):
-        article_authors = obj.authors.all()
-        return [author.author for author in article_authors]
-
-modeladmin_register(ArticleAdmin)
+modeladmin_register(ArticlesAdmin)

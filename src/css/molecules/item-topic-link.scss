@@ -1,13 +1,19 @@
 .item-topic-link {
   background-color: $color-white;
+  border: 2px solid $color-gray-20;
+  border-radius: 2px;
   color: inherit;
   display: flex;
-  padding: 20px;
+  padding: 18px; // 18px to offset border applied above.
   text-decoration: none;
+  transition: box-shadow 100ms, transform 100ms;
   width: 100%;
 
   &:hover {
+    border-color: $color-black;
+    box-shadow: 4px 4px 0 0 $color-black;
     color: inherit;
+    transform: translate(-2px, -2px);
   }
 
   &:active {

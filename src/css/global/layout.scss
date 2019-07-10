@@ -56,6 +56,21 @@ main {
   }
 }
 
+.section-full-bg {
+  background-color: $color-gray-10;
+}
+
+.section-full-container {
+  padding: 16px;
+
+  @media #{$mq-md} {
+    margin: 0 auto;
+    max-width: 1084px;
+    padding: 32px;
+    position: relative;
+  }
+}
+
 .section-header {
   align-items: center;
   display: flex;

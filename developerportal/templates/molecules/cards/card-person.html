@@ -5,11 +5,9 @@
 <a href="{% pageurl resource %}" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
   {% if filter_target %}
     {% if resource.is_mozillian %}data-is-mozillian{% endif %}
-    data-first-name="{{ resource.first_name }}"
-    data-last-name="{{ resource.last_name }}"
-    data-initial-group="{{ resource.initial_group.start }}"
     data-job-title="{{ resource.job_title }}"
     data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
+    hidden
   {% endif %}
 >
   <div class="card">

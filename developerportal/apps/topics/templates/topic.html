@@ -3,7 +3,7 @@
 {% load app_filters %}
 {% load wagtailcore_tags %}
 
-{% block body_class %}topic-detail{% endblock %}
+{% block body_class %}topic{% endblock %}
 
 {% block header %}
   {% include "header.html" %}
@@ -14,9 +14,9 @@
 <main class="has-header">
   <div class="base-grid">
     <section class="section-full">
-      {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon="mixed-reality" %}
+      {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon=page.icon %}
     </section>
-    {% if page.featured_articles.all %}
+    {% if page.featured.all %}
       <section>
         {% include "organisms/featured.html" with featured=page.featured %}
       </section>
@@ -55,17 +55,21 @@
         {% endfor %}
       </div>
     </section>
-    <section>
-      <div class="section-header">
-        <h2>Upcoming events</h2>
-        <a href="">See more</a>
-      </div>
-      <div class="card-container">
-        {% for i in 3|times %}
-          {% include "molecules/cards/card.html" with type="event" %}
-        {% endfor %}
+    {% if page.events.all %}
+    <section class="section-full section-full-bg">
+      <div class="section-full-container">
+        <div class="section-header">
+          <h2>Upcoming events</h2>
+          <a href="/events">See more</a>
+        </div>
+        <div>
+          {% for event in page.events.all|slice:":3" %}
+          {% include "molecules/cards/card.html" with resource=event index=forloop.counter %}
+          {% endfor %}
+        </div>
       </div>
     </section>
+    {% endif %}
     <section>
       {% include "organisms/newsletter-signup.html" %}
     </section>

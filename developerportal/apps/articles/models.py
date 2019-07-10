@@ -1,6 +1,7 @@
 import datetime
 import readtime
 
+from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL, TextField
 from django.forms import CheckboxSelectMultiple
@@ -23,6 +24,30 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
+
+
+class Articles(Page):
+    subpage_types = ['Article']
+    template = 'articles.html'
+
+    class Meta:
+        verbose_name_plural = 'Articles'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['filters'] = self.get_filters()
+        return context
+
+    @property
+    def articles(self):
+        return Article.objects.all().public().live().order_by('-date')
+
+    def get_filters(self):
+        from ..topics.models import Topic
+        return {
+            'months': True,
+            'topics': Topic.objects.live().public().order_by('title'),
+        }
 
 
 class ArticleTag(TaggedItemBase):
@@ -97,13 +122,10 @@ class Article(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
-    class Meta:
-        ordering = ['-date']
-
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
-        article_topic = self.topics.first()
+        article_topic = self.topics.first()  # pylint: disable=no-member
         return article_topic.topic if article_topic else None
 
     @property
@@ -114,7 +136,7 @@ class Article(Page):
     def related_articles(self):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
-        topic_pks = self.topics.values_list('topic')
+        topic_pks = self.topics.values_list('topic')  # pylint: disable=no-member
         return (
             Article
             .objects
@@ -125,12 +147,6 @@ class Article(Page):
             .public()
         )
 
-
-class Articles(Page):
-    subpage_types = ['Article']
-    template = 'articles.html'
-
     @property
-    def articles(self):
-        """Returns live (i.e. not draft), public pages, ordered by most recent."""
-        return Article.objects.live().public()
+    def month_group(self):
+        return self.date.replace(day=1)

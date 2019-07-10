@@ -31,14 +31,8 @@ class TopicTests(TopicsFixturesMixin, WagtailPageTests):
     def test_topic_page_articles(self):
         """A topic page should have article pages."""
         topic_page = Topic.objects.all()[0]
-        topic_page_article = topic_page.articles.all()[0].article
+        topic_page_article = topic_page.articles.all().order_by('pk')[0].article
         self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', topic_page_article.title)
-
-    def test_topic_page_featured_articles(self):
-        """A topic page should have featured article pages."""
-        topic_page = Topic.objects.all()[0]
-        featured_article_pages = topic_page.featured_articles.all()
-        self.assertCountEqual([], featured_article_pages)
 
 
 class SubTopicTests(WagtailPageTests):
