@@ -44,6 +44,7 @@
         </div>
       </section>
     {% endif %}
+    {% if page.people.all %}
     <section>
       <div class="section-header">
         <h2>People</h2>
@@ -51,10 +52,11 @@
       </div>
       <div class="card-container card-container-people">
         {% for person in page.people.all|slice:":3" %}
-          {% include "molecules/item-person.html" with person=person.person type="mozillian" %}
+          {% include "molecules/item-person.html" with person=person.person type="person" %}
         {% endfor %}
       </div>
     </section>
+    {% endif %}
     {% if page.events.all %}
     <section class="section-full section-full-bg">
       <div class="section-full-container">

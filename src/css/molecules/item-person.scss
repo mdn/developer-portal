@@ -1,18 +1,19 @@
+.card-person {
+  text-align: center;
+}
+
 .item-person {
   color: $color-black;
   display: inline-block;
-  margin-bottom: 32px;
+  margin: 32px 0;
   text-align: center;
 
   img {
     border-radius: 50%;
+    filter: grayscale(1);
   }
 
   .highlight1 {
     background-color: unset;
-  }
-
-  @media #{$mq-md} {
-    margin-bottom: 56px
   }
 }

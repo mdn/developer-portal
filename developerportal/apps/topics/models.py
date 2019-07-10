@@ -72,7 +72,7 @@ class Topic(Page):
         StreamFieldPanel('get_started'),
         MultiFieldPanel([
             InlinePanel('people'),
-        ], heading='Meet the Mozillians'),
+        ], heading='People'),
     ]
 
     edit_handler = TabbedInterface([

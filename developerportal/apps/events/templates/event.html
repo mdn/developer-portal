@@ -41,9 +41,11 @@
           {% endif %}
         </aside>
       </section>
+      {% if page.speakers.all %}
       <section class="section-full section-full-bg">
-        {% include "organisms/event-speakers.html" with resource=page %}
+        {% include "organisms/event-speakers.html" with speakers=page.speakers %}
       </section>
+      {% endif %}
     </div>
   </main>
 {% endblock content %}

@@ -1,17 +1,15 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% if resource.speakers %}
 <div class="speakers-container">
   <div class="section-header">
     <h2>Speakers</h2>
   </div>
   <div class="card-container card-container-people">
-    {% for block in resource.speakers %}
-      {% with block.value as speaker   %}
+    {% for block in speakers %}
+      {% with block.value as speaker %}
         {% include "molecules/item-person.html" with person=speaker type=block.block_type %}
       {% endwith %}
     {% endfor %}
   </div>
 </div>
-{% endif %}
