@@ -20,15 +20,6 @@ from ..topics.models import Topics, Topic
 from ..common.blocks import FeaturedExternalBlock
 
 
-class HomePageFeaturedArticle(Orderable):
-    page = ParentalKey('HomePage', related_name='featured_articles')
-    article = ForeignKey('articles.Article', on_delete=CASCADE, related_name='+')
-
-    panels = [
-        PageChooserPanel('article'),
-    ]
-
-
 class HomePage(Page):
     subpage_types = []
     template = 'home.html'
@@ -36,10 +27,13 @@ class HomePage(Page):
     # Fields
     subtitle = TextField(max_length=250, blank=True, default='')
     button_text = CharField(max_length=30, blank=True, default='')
-    button_url = URLField(max_length=140, blank=True, default='')
+    button_url = URLField(max_length=2048, blank=True, default='')
     featured = StreamField(
         StreamBlock([
-            ('article', PageChooserBlock(required=False, target_model='articles.article')),
+            ('article', PageChooserBlock(required=False, target_model=(
+                'articles.Article',
+                'externalcontent.ExternalArticle',
+            ))),
             ('external_page', FeaturedExternalBlock()),
         ], max_num=4),
         null=True,
@@ -81,4 +75,5 @@ class HomePage(Page):
     @property
     def primary_topics(self):
         """The site’s primary topics, i.e. of class Topic but not SubTopic."""
-        return Topics.objects.first().get_children().live().public().order_by('title')
+        topic = Topics.objects.first()
+        return topic.get_children().live().public().order_by('title') if topic else None

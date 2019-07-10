@@ -36,7 +36,8 @@ class Events(Page):
     subpage_types = ['events.Event']
     template = 'events.html'
 
-    # Fields
+    class Meta:
+        verbose_name_plural = 'Events'
 
     def get_context(self, request):
         context = super().get_context(request)
@@ -117,7 +118,7 @@ class Event(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the event."""
-        article_topic = self.topics.first()
+        article_topic = self.topics.first()  # pylint: disable=no-member
         return article_topic.topic if article_topic else None
 
     @property

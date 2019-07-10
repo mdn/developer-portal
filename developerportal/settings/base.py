@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'developerportal.apps.common',
     'developerportal.apps.articles',
     'developerportal.apps.events',
+    'developerportal.apps.externalcontent',
     'developerportal.apps.health',
     'developerportal.apps.home',
     'developerportal.apps.mozimages',

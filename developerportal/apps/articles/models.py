@@ -30,6 +30,9 @@ class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
 
+    class Meta:
+        verbose_name_plural = 'Articles'
+
     def get_context(self, request):
         context = super().get_context(request)
         context['filters'] = self.get_filters()
@@ -122,7 +125,7 @@ class Article(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
-        article_topic = self.topics.first()
+        article_topic = self.topics.first()  # pylint: disable=no-member
         return article_topic.topic if article_topic else None
 
     @property
@@ -133,7 +136,7 @@ class Article(Page):
     def related_articles(self):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
-        topic_pks = self.topics.values_list('topic')
+        topic_pks = self.topics.values_list('topic')  # pylint: disable=no-member
         return (
             Article
             .objects
