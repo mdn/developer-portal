@@ -35,16 +35,8 @@ class HomePage(Page):
 
     # Fields
     subtitle = TextField(max_length=250, blank=True, default='')
-    intro = TextField(max_length=250, blank=True, default='')
     button_text = CharField(max_length=30, blank=True, default='')
     button_url = URLField(max_length=140, blank=True, default='')
-    header_image = ForeignKey(
-        'mozimages.MozImage',
-        null=True,
-        blank=True,
-        on_delete=SET_NULL,
-        related_name='+'
-    )
     featured = StreamField(
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model='articles.article')),
@@ -53,20 +45,31 @@ class HomePage(Page):
         null=True,
         blank=True,
     )
+    about_title = TextField(max_length=250, blank=True, default='')
+    about_subtitle = TextField(max_length=250, blank=True, default='')
+    about_button_text = CharField(max_length=30, blank=True, default='')
+    about_button_url = URLField(max_length=140, blank=True, default='')
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('intro'),
         MultiFieldPanel(
-          [
-            FieldPanel('button_text'),
-            FieldPanel('button_url'),
-          ],
-          heading="Primary CTA",
+            [
+                FieldPanel('subtitle'),
+                FieldPanel('button_text'),
+                FieldPanel('button_url'),
+            ],
+            heading="Header section",
         ),
-        ImageChooserPanel('header_image'),
         StreamFieldPanel('featured'),
+        MultiFieldPanel(
+            [
+                FieldPanel('about_title'),
+                FieldPanel('about_subtitle'),
+                FieldPanel('about_button_text'),
+                FieldPanel('about_button_url'),
+            ],
+            heading="About section",
+        )
     ]
 
     edit_handler = TabbedInterface([
