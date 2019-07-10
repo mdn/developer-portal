@@ -3,13 +3,16 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
+{% block head %}
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.css' rel='stylesheet' />
+{% endblock %}
+
 {% block body_class %}event-detail{% endblock %}
 
 {% block header %}
   {% include "header.html" %}
   {% include "utils/accent-color.html" with color='#88FFD1' %}
-  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.css' rel='stylesheet' />
 {% endblock %}
 
 {% block content %}

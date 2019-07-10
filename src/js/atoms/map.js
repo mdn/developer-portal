@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* globals mapboxgl */
 export default class {
   static init() {
     this.maps = Array.from(document.querySelectorAll('.map'));
