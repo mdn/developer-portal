@@ -44,23 +44,6 @@
       width: 50%;
     }
   }
-
-  .card-featured-find-out-more {
-    display: none;
-
-    @media #{$mq-md} {
-      color: $color-white;
-      display: block;
-      padding: 2px;
-      position: relative;
-    }
-  }
-
-  .card-featured-find-out-more span {
-    border-bottom: 2px solid $color-white;
-    display: inline-block;
-    line-height: 1;
-  }
 }
 
 .card-featured-image {
@@ -147,24 +130,5 @@
 
   p {
     width: max-content;
-  }
-
-  .card-featured-find-out-more {
-    display: none;
-
-    @media #{$mq-md} {
-      background-color: $color-black;
-      bottom: 16px;
-      color: $color-white;
-      display: block;
-      left: 16px;
-      padding: 2px;
-      position: absolute;
-    }
-  }
-
-  .card-featured-find-out-more span {
-    border-bottom: 1px solid $color-white;
-    line-height: 1;
   }
 }

@@ -31,6 +31,31 @@ class EventSpeaker(Orderable):
     ]
 
 
+class Events(Page):
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['events.Event']
+    template = 'events.html'
+
+    class Meta:
+        verbose_name_plural = 'Events'
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['filters'] = self.get_filters()
+        return context
+
+    @property
+    def events(self):
+        return Event.objects.all().public().live().order_by('-start_date')
+
+    def get_filters(self):
+        from ..topics.models import Topic
+        return {
+            'months': True,
+            'topics': Topic.objects.live().public().order_by('title'),
+        }
+
+
 class Event(Page):
     resource_type = 'event'
     parent_page_types = ['events.Events']
@@ -94,22 +119,12 @@ class Event(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
-    class Meta:
-        ordering = ['-start_date']
-
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the event."""
-        article_topic = self.topics.first()
+        article_topic = self.topics.first()  # pylint: disable=no-member
         return article_topic.topic if article_topic else None
 
-
-class Events(Page):
-    parent_page_types = ['home.HomePage']
-    subpage_types = ['events.Event']
-    template = 'events.html'
-
     @property
-    def events(self):
-        """Return live public event pages, most recent first. """
-        return Event.objects.live().public()
+    def month_group(self):
+        return self.start_date.replace(day=1)

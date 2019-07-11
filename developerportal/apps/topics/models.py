@@ -1,3 +1,4 @@
+import datetime
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, FileField
 from django.utils.translation import ugettext_lazy as _
 
@@ -17,6 +18,7 @@ from wagtail.core.blocks import PageChooserBlock
 from modelcluster.fields import ParentalKey
 
 from ..articles.models import Article
+from ..events.models import Event
 from ..common.constants import COLOR_CHOICES, COLOR_VALUES
 from ..common.blocks import FeaturedExternalBlock, GetStartedBlock
 
@@ -47,7 +49,7 @@ class Topic(Page):
 
     intro = TextField(max_length=250, blank=True, default='')
     icon = FileField(upload_to='topics/icons', blank=True, default='')
-    color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue')
+    color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue-40')
     featured = StreamField(
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model='articles.article')),
@@ -81,7 +83,28 @@ class Topic(Page):
 
     @property
     def articles(self):
-        return Article.objects.filter(topics__topic__pk=self.pk).live().public()
+        return (
+            Article
+                .objects
+                .filter(topics__topic__pk=self.pk)
+                .live()
+                .public()
+                .order_by('-date')
+        )
+
+    @property
+    def events(self):
+        """Return upcoming events for this topic,
+        ignoring events in the past, ordered by start date"""
+        return (
+            Event
+                .objects
+                .filter(topics__topic__pk=self.pk)
+                .filter(start_date__gte=datetime.datetime.now())
+                .order_by('start_date')
+                .live()
+                .public()
+        )
 
     @property
     def color_value(self):
@@ -102,6 +125,9 @@ class SubTopic(Topic):
 class Topics(Page):
     subpage_types = ['Topic']
     template = 'topics.html'
+
+    class Meta:
+        verbose_name_plural = 'Topics'
 
     @property
     def topics(self):

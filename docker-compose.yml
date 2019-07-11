@@ -15,6 +15,7 @@ services:
     build:
       context: .
       target: app
+    command: gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
     depends_on:
       - db
     env_file: .env
