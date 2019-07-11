@@ -39,12 +39,14 @@ node {
         sh "docker build --tag ${image}:latest --tag ${image}:${tag} ."
       }
       stage ('Test') {
-        sh "docker-compose -f docker-compose.test.yml up --detach"
-        try {
-            sh "docker-compose exec -T app ./manage.py migrate"
-            sh "docker-compose exec -T app ./manage.py test"
-        } finally {
-            sh "docker-compose down --volumes --remove-orphans"
+        withEnv(["COMPOSE_FILE=docker-compose.test.yml"]) {
+          sh "docker-compose up --detach"
+          try {
+              sh "docker-compose exec -T app ./manage.py migrate"
+              sh "docker-compose exec -T app ./manage.py test"
+          } finally {
+              sh "docker-compose down --volumes --remove-orphans"
+          }
         }
       }
       stage('Push Images') {
