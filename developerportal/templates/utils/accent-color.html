@@ -1,4 +1,6 @@
+{% load app_filters %}
 <style>
+  ::selection { background: {{ color | hex_to_rgb:'rgba({r}, {g}, {b}, 0.2)' }}; }
   .color-accent { color: {{ color }}; }
   .background-accent { background: {{ color }}; }
   .pattern-bg-header .pattern { fill: {{ color }}; }
