@@ -94,7 +94,6 @@ class Event(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
-    header_image = ForeignKey('mozimages.MozImage', blank=True, null=True, on_delete=SET_NULL, related_name='+')
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
     venue = TextField(max_length=250, blank=True, default='')
