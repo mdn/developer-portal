@@ -3,6 +3,11 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
+{% block head %}
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.css' rel='stylesheet' />
+{% endblock %}
+
 {% block body_class %}event{% endblock %}
 
 {% block header %}
@@ -32,7 +37,7 @@
           <a href="#" class="mzp-c-button">
             Register now
           </a>
-          <h2>Venue</h2>
+          {% include "organisms/event-map.html" with resource=page %}
           {% include "organisms/event-agenda.html" with resource=page %}
         </article>
         <aside class="article-sidebar">

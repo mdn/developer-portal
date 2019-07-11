@@ -1,6 +1,6 @@
 import datetime
 
-from django.db.models import TextField, DateField, URLField, ForeignKey, CASCADE, SET_NULL
+from django.db.models import TextField, DateField, URLField, ForeignKey, CASCADE, SET_NULL, FloatField
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField, StreamBlock
@@ -68,6 +68,8 @@ class Event(Page):
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
     venue = TextField(max_length=250, blank=True, default='')
+    latitude = FloatField(blank=True, null=True)
+    longitude = FloatField(blank=True, null=True)
     register_url = URLField('Register URL', blank=True, null=True)
     body = CustomStreamField(blank=True, null=True)
     agenda = StreamField(
@@ -92,6 +94,8 @@ class Event(Page):
             FieldPanel('start_date'),
             FieldPanel('end_date'),
             FieldPanel('venue'),
+            FieldPanel('latitude'),
+            FieldPanel('longitude'),
             FieldPanel('register_url'),
         ], heading='Event details'),
         StreamFieldPanel('body'),
