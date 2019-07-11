@@ -10,8 +10,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 class ExternalContent(Page):
     subpage_types = []
 
-    external_url = URLField(max_length=2048, blank=True, default='')
-    header_image = ForeignKey(
+    external_url = URLField('URL', max_length=2048, blank=True, default='')
+    image = ForeignKey(
         'mozimages.MozImage',
         null=True,
         blank=True,
@@ -21,7 +21,7 @@ class ExternalContent(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('external_url'),
-        ImageChooserPanel('header_image'),
+        ImageChooserPanel('image'),
     ]
 
     edit_handler = TabbedInterface([
