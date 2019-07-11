@@ -4,6 +4,7 @@ from django.db.models import (
     CASCADE,
     CharField,
     DateField,
+    FloatField,
     ForeignKey,
     SET_NULL,
     TextField,
@@ -93,6 +94,13 @@ class Event(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
+    header_image = ForeignKey('mozimages.MozImage', blank=True, null=True, on_delete=SET_NULL, related_name='+')
+    start_date = DateField(default=datetime.date.today)
+    end_date = DateField(blank=True, null=True)
+    venue = TextField(max_length=250, blank=True, default='')
+    latitude = FloatField(blank=True, null=True)
+    longitude = FloatField(blank=True, null=True)
+    register_url = URLField('Register URL', blank=True, null=True)
     body = CustomStreamField(blank=True, null=True)
     agenda = StreamField(
         StreamBlock([
@@ -149,6 +157,8 @@ class Event(Page):
             FieldPanel('start_date'),
             FieldPanel('end_date'),
             FieldPanel('venue'),
+            FieldPanel('latitude'),
+            FieldPanel('longitude'),
             FieldPanel('register_url'),
         ], heading='Event details'),
         MultiFieldPanel([

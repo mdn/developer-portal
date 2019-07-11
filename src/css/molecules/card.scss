@@ -12,6 +12,16 @@
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
 
+
+.card-container-people {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  @media #{$mq-md} {
+    display: grid;
+  }
+}
+
 .card {
   background-color: $color-white;
   border: 2px solid $color-gray-20;
