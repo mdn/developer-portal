@@ -38,13 +38,14 @@ class AgendaItemBlock(blocks.StructBlock):
 
 class ExternalSpeakerBlock(blocks.StructBlock):
     """Content for an external speaker, displayed on event page"""
-    name = blocks.CharBlock()
+    title = blocks.CharBlock(label='Name')
     job_title = blocks.CharBlock()
     profile_picture = ImageChooserBlock()
+    url = blocks.URLBlock(label='URL', required=False)
 
 class FeaturedExternalBlock(blocks.StructBlock):
     """Content for a link to an external page displayed as featured card"""
     url = blocks.URLBlock()
     title = blocks.CharBlock()
-    intro = blocks.TextBlock(required=False)
-    header_image = ImageChooserBlock(label='Image')
+    description = blocks.TextBlock(required=False)
+    image = ImageChooserBlock()

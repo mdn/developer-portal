@@ -18,7 +18,7 @@
 {% block content %}
   <main class="has-header">
     <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title intro=page.description type="event" %}
+      {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
       <section>
         {% include "molecules/event-details.html" with resource=page %}
       </section>
@@ -46,11 +46,11 @@
           {% endif %}
         </aside>
       </section>
-      <section>
-        <div class="section-header">
-          <h2>Speakers </h2>
-        </div>
+      {% if page.speakers.all %}
+      <section class="section-full section-full-bg">
+        {% include "organisms/event-speakers.html" with speakers=page.speakers %}
       </section>
+      {% endif %}
     </div>
   </main>
 {% endblock content %}

@@ -4,7 +4,7 @@
   "pk": 34,
   "fields": {
     "description": "Mozilla Developer Roadshow is excited to join developers and web creators at Silbury, Nuremberg!",
-    "header_image": null,
+    "image": null,
     "start_date": "2019-08-26",
     "end_date": null,
     "venue": "Silbury, Fichtenstra\u00dfe 20, 90763 F\u00fcrth, Germany",
@@ -19,7 +19,7 @@
   "pk": 35,
   "fields": {
     "description": "This is a two day event with the first day covering concepts on RUST for newbies and the following by a 24 hour hackathon on RUST and also other interesting projects by Mozilla.",
-    "header_image": null,
+    "image": null,
     "start_date": "2019-07-27",
     "end_date": "2019-07-28",
     "venue": "Yamoussoukro, Region des Lacs, Ivory Coast",
@@ -34,7 +34,7 @@
   "pk": 36,
   "fields": {
     "description": "Mozilla Developer Roadshow is excited to join developers and web creators at the Microsoft space in Munich!",
-    "header_image": null,
+    "image": null,
     "start_date": "2019-08-27",
     "end_date": null,
     "venue": "Microsoft, Walter-Gropius-Stra\u00dfe 5, 80807 M\u00fcnchen, Germany",
