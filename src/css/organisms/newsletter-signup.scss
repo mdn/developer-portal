@@ -1,20 +1,43 @@
 .newsletter-signup {
-  align-items: center;
-  background-color: $color-violet-90;
-  display: flex;
-  flex-direction: column;
+  background: top center no-repeat url('/static/img/newsletter-background.svg') $color-black;
+  color: $color-white;
+  margin-top: -32px;
+  padding: 140px 0 100px;
+  text-align: center;
 
   @media #{$mq-md} {
-    flex-direction: row;
+    margin-top: -64px;
   }
-}
 
-.newsletter-signup-form {
-  color: $color-white;
-  padding: 64px;
+  .container {
+    @media #{$mq-md} {
+      max-width: 400px;
+    }
+  }
 
-  input,
-  button {
+  input[type=email] {
     width: 100%;
+
+    @media screen and (min-width: 480px) {
+      width: 300px;
+    }
+  }
+
+  select {
+    width: 100%;
+
+    @media screen and (min-width: 480px) {
+      width: 200px;
+    }
+  }
+
+  [hidden] {
+    .no-js & {
+      display: block !important;
+    }
+  }
+
+  p:last-child {
+    margin-bottom: 0;
   }
 }

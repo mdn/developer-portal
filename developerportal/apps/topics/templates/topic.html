@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="has-header">
+<main class="has-header has-footer">
   <div class="base-grid">
     <section class="section-full">
       {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon=page.icon %}
@@ -70,7 +70,7 @@
       </div>
     </section>
     {% endif %}
-    <section>
+    <section class="section-full">
       {% include "organisms/newsletter-signup.html" %}
     </section>
   </div>
