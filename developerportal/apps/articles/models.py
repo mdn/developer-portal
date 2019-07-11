@@ -3,7 +3,7 @@ import readtime
 
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import CASCADE, DateField, ForeignKey, SET_NULL, TextField
+from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField
 from django.forms import CheckboxSelectMultiple
 
 from wagtail.admin.edit_handlers import (
@@ -78,10 +78,9 @@ class Article(Page):
     subpage_types = []
     template = 'article.html'
 
-    # Fields
-    intro = TextField(max_length=250, blank=True, default='')
-    date = DateField('Article date', default=datetime.date.today)
-    header_image = ForeignKey(
+    # Content fields
+    description = TextField(max_length=250, blank=True, default='')
+    image = ForeignKey(
         'mozimages.MozImage',
         null=True,
         blank=True,
@@ -89,37 +88,68 @@ class Article(Page):
         related_name='+'
     )
     body = CustomStreamField()
-    tags = ClusterTaggableManager(through=ArticleTag, blank=True)
 
-    # Editor panel configuration
+    # Card fields
+    card_title = CharField('Title', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_image = ForeignKey(
+        'mozimages.MozImage',
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name='+',
+        verbose_name='Image',
+    )
+
+    # Meta fields
+    date = DateField('Article date', default=datetime.date.today)
+    keywords = ClusterTaggableManager(through=ArticleTag, blank=True)
+
+    # Content panels
     content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-        MultiFieldPanel([
-            InlinePanel('authors'),
-        ], heading='Authors'),
-        FieldPanel('date'),
-        ImageChooserPanel('header_image'),
+        FieldPanel('description'),
+        ImageChooserPanel('image'),
         StreamFieldPanel('body'),
     ]
 
-    topic_panels = [
+    # Card panels
+    card_panels = [
+        FieldPanel('card_title'),
+        FieldPanel('card_description'),
+        ImageChooserPanel('card_image'),
+    ]
+
+    # Meta panels
+    meta_panels = [
+        FieldPanel('date'),
+        MultiFieldPanel([
+            InlinePanel('authors'),
+        ], heading='Authors'),
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
             'These are the topic pages the article will appear on. The first '
             'topic in the list will be treated as the primary topic.'
         )),
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
     ]
 
-    promote_panels = Page.promote_panels + [
-        FieldPanel('tags'),
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+        FieldPanel('show_in_menus'),
     ]
 
+    # Tabs
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading='Content'),
-        ObjectList(topic_panels, heading='Topics'),
-        ObjectList(promote_panels, heading='SEO'),
-        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+        ObjectList(card_panels, heading='Card'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
 
     @property

@@ -18,7 +18,7 @@
 {% block content %}
   <main class="has-header">
     <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title intro=page.description type="event" %}
+      {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
       <section>
         {% include "molecules/event-details.html" with resource=page %}
       </section>

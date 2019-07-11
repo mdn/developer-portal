@@ -7,24 +7,24 @@
     {% if page.subtitle %}
       <h2 class="no-underline">{{ page.subtitle }}</h2>
     {% endif %}
-    {% if page.intro %}
-      <p>{{ page.intro }}</p>
+    {% if page.description %}
+      <p>{{ page.description }}</p>
     {% endif %}
     {% if page.button_url and page.button_text %}
       <a href="{{ page.button_url }}" class="mzp-c-button">{{ page.button_text }}</a>
     {% endif %}
   </div>
-  {% if page.header_image %}
-    {% image page.header_image width-352 as header_image %}
+  {% if page.image %}
+    {% image page.image width-352 as image %}
     <div class="homepage-hero-img">
       <div class="homepage-hero-pattern homepage-hero-before">
         {% include "atoms/pattern.html" %}
       </div>
       <img
-        src="{{ header_image.url }}"
-        width="{{ header_image.width }}"
-        height="{{ header_image.height }}"
-        alt="{{ header_image.alt }}" />
+        src="{{ image.url }}"
+        width="{{ image.width }}"
+        height="{{ image.height }}"
+        alt="{{ image.alt }}" />
       <div class="homepage-hero-pattern homepage-hero-after">
         {% include "atoms/pattern.html" %}
       </div>
