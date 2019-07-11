@@ -21,7 +21,7 @@
         {% include "organisms/featured.html" with featured=page.featured %}
       </section>
     {% endif %}
-    <section class="section-full get-started-full">
+    <section class="section-full section-full-bg">
       {% include "organisms/get-started.html" %}
     </section>
     {% with subtopics=self.get_children.specific %}
@@ -44,17 +44,19 @@
         </div>
       </section>
     {% endif %}
+    {% if page.people.all %}
     <section>
       <div class="section-header">
-        <h2>Meet the Mozillians</h2>
+        <h2>People</h2>
         <a href="">See more</a>
       </div>
-      <div class="card-container">
+      <div class="card-container card-container-people">
         {% for person in page.people.all|slice:":3" %}
-          {% include "molecules/item-mozillian.html" with person=person.person %}
+          {% include "molecules/item-person.html" with person=person.person type="person" %}
         {% endfor %}
       </div>
     </section>
+    {% endif %}
     {% if page.events.all %}
     <section class="section-full section-full-bg">
       <div class="section-full-container">
