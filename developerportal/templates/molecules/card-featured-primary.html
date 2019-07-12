@@ -1,11 +1,6 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-
-{% if resource.resource_type == "person" %}
-  {% image resource.profile_picture width-480 as image %}
-{% else %}
-  {% image resource.image width-1024 as image %}
-{% endif %}
+{% image resource.image width-1024 as image %}
 
 {% if external_page %}
 <a href="{{ resource.url }}" class="card-link" data-type="external_page">

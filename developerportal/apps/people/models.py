@@ -32,16 +32,6 @@ class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
 
-    # Content panels
-    content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            InlinePanel('featured_people', max_num=3)
-        ],
-        heading='Featured People',
-        help_text=('These people will be featured at the top of the page. '
-                    'Please choose between 1 and 3 people.'))
-    ]
-
     class Meta:
         verbose_name_plural = 'People'
 
@@ -59,15 +49,6 @@ class People(Page):
         return {
             'topics': Topic.objects.live().public().order_by('title'),
         }
-
-
-class FeaturedPerson(Orderable):
-    page = ParentalKey('People', related_name='featured_people')
-    person = ForeignKey('people.Person', on_delete=CASCADE, related_name='+')
-
-    panels = [
-        PageChooserPanel('person')
-    ]
 
 
 class PersonTag(TaggedItemBase):
