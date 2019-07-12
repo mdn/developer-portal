@@ -1,3 +1,5 @@
+import logging
+
 from django.utils.html import escape
 from django.core.management import call_command
 
@@ -25,7 +27,10 @@ def register_external_link(features):
 
 
 def build_static(*args, **kwargs):
+    logging.info('Building site')
     call_command('build')
+    logging.info('Uploading site')
+    call_command('aws_static')
 
 page_published.connect(build_static)
 page_unpublished.connect(build_static)
