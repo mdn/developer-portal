@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: {{ APP_NAME }}
+      annotations:
+        iam.amazonaws.com/role: {{ APP_BUCKET_ROLE_ARN }}
     spec:
       containers:
         - name: {{ APP_NAME }}

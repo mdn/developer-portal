@@ -11,6 +11,7 @@ export K8S_NAMESPACE=dev-portal-${TARGET_ENVIRONMENT}
 alias kc="kubectl -n ${K8S_NAMESPACE}"
 
 export APP_SERVICE_CERT_ARN=arn:aws:acm:us-west-2:178589013767:certificate/ccc148ae-2a73-4551-84d4-f785f0d5e67e
+export APP_BUCKET_ROLE_ARN=arn:aws:iam::178589013767:role/developer-portal-stage-us-west-2-role
 
 export APP_REPLICAS=2
 export APP_CPU_LIMIT=2
