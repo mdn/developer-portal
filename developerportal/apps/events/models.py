@@ -1,18 +1,41 @@
 import datetime
 
-from django.db.models import TextField, DateField, URLField, ForeignKey, CASCADE, SET_NULL
+from django.db.models import (
+    CASCADE,
+    CharField,
+    DateField,
+    FloatField,
+    ForeignKey,
+    SET_NULL,
+    TextField,
+    URLField,
+)
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, PageChooserPanel, MultiFieldPanel, InlinePanel, TabbedInterface, ObjectList
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    ObjectList,
+    PageChooserPanel,
+    TabbedInterface,
+    StreamFieldPanel,
+)
 
 from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
 from ..articles.models import Article
+
+
+class EventTag(TaggedItemBase):
+    content_object = ParentalKey('Event', on_delete=CASCADE, related_name='tagged_items')
 
 
 class EventTopic(Orderable):
@@ -62,12 +85,20 @@ class Event(Page):
     subpage_types = []
     template = 'event.html'
 
-    # Fields
+    # Content fields
     description = TextField(max_length=250, blank=True, default='')
-    header_image = ForeignKey('mozimages.MozImage', blank=True, null=True, on_delete=SET_NULL, related_name='+')
+    image = ForeignKey(
+        'mozimages.MozImage',
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name='+'
+    )
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
     venue = TextField(max_length=250, blank=True, default='')
+    latitude = FloatField(blank=True, null=True)
+    longitude = FloatField(blank=True, null=True)
     register_url = URLField('Register URL', blank=True, null=True)
     body = CustomStreamField(blank=True, null=True)
     agenda = StreamField(
@@ -84,35 +115,75 @@ class Event(Page):
         blank=True, null=True
     )
 
-    # Editor panel configuration
+    # Card fields
+    card_title = CharField('Title', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_image = ForeignKey(
+        'mozimages.MozImage',
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name='+',
+        verbose_name='Image',
+    )
+
+    # Meta fields
+    start_date = DateField(default=datetime.date.today)
+    end_date = DateField(blank=True, null=True)
+    venue = TextField(max_length=250, blank=True, default='')
+    register_url = URLField('Register URL', blank=True, null=True)
+    keywords = ClusterTaggableManager(through=EventTag, blank=True)
+
+    # Content panels
     content_panels = Page.content_panels + [
         FieldPanel('description'),
-        ImageChooserPanel('header_image'),
-        MultiFieldPanel([
-            FieldPanel('start_date'),
-            FieldPanel('end_date'),
-            FieldPanel('venue'),
-            FieldPanel('register_url'),
-        ], heading='Event details'),
+        ImageChooserPanel('image'),
         StreamFieldPanel('body'),
         StreamFieldPanel('agenda'),
         StreamFieldPanel('speakers'),
     ]
 
-    topic_panels = [
+    # Card panels
+    card_panels = [
+        FieldPanel('card_title'),
+        FieldPanel('card_description'),
+        ImageChooserPanel('card_image'),
+    ]
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('start_date'),
+            FieldPanel('end_date'),
+            FieldPanel('venue'),
+            FieldPanel('latitude'),
+            FieldPanel('longitude'),
+            FieldPanel('register_url'),
+        ], heading='Event details'),
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
-            'These are the topic pages the event will appear on. The first '
+            'These are the topic pages the article will appear on. The first '
             'topic in the list will be treated as the primary topic.'
         )),
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+        FieldPanel('show_in_menus'),
     ]
 
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading='Content'),
-        ObjectList(topic_panels, heading='Topics'),
-        ObjectList(Page.promote_panels, heading='SEO'),
-        ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
+        ObjectList(card_panels, heading='Card'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
 
     @property

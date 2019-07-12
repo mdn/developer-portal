@@ -45,6 +45,13 @@ main {
   grid-column: full;
 }
 
+.section-full-bg {
+  background-color: $color-gray-10;
+  @media #{$mq-md} {
+    padding: 40px 0 80px;
+  }
+}
+
 .container {
   padding: 0 $grid-gap-mobile;
 

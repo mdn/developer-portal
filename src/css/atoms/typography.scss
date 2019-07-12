@@ -45,6 +45,15 @@
 
 @font-face {
   font-display: 'fallback';
+  font-family: 'Zilla Slab SemiBold';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/static/fonts/ZillaSlab-SemiBold.woff2') format('woff2'),
+       url('/static/fonts/ZillaSlab-SemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-display: 'fallback';
   font-family: 'Zilla Slab';
   font-style: bold;
   font-weight: 700;
@@ -86,11 +95,23 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $heading-font-family;
   font-weight: 700;
   margin-bottom: 0.5em;
   margin-top: 0;
   position: relative;
+}
+
+h1,
+h2,
+h3 {
+  font-family: $heading-font-family;
+}
+
+h4,
+.heading4,
+h5,
+.heading5 {
+  font-family: $heading-font-family-small;
 }
 
 h2,
@@ -150,7 +171,8 @@ h3 {
   }
 }
 
-h4 {
+h4,
+.heading4 {
   font-size: $h4-font-size-mobile;
   line-height: heading-line-height($h4-font-size-mobile);
 
@@ -160,9 +182,15 @@ h4 {
   }
 }
 
-h5 {
-  font-size: $h5-font-size;
-  line-height: heading-line-height($h5-font-size);
+h5,
+.heading5 {
+  font-size: $h5-font-size-mobile;
+  line-height: heading-line-height($h5-font-size-mobile);
+
+  @media #{$mq-md} {
+    font-size: $h5-font-size;
+    line-height: heading-line-height($h5-font-size);
+  }
 }
 
 h6 {

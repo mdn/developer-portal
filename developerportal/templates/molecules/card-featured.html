@@ -1,9 +1,9 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% if resource.resource_type == "person" %}
-  {% image resource.profile_picture width-480 as header_image %}
+  {% image resource.profile_picture width-480 as image %}
 {% else %}
-  {% image resource.header_image width-480 as header_image %}
+  {% image resource.image width-480 as image %}
 {% endif %}
 
 {% if external_page %}
@@ -12,7 +12,7 @@
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
 {% endif %}
   <div class="card-featured {% if type == 'person' and format == 'square' %}card-featured-square{% endif %}">
-    <div class="card-featured-image {% if type == 'person' and format == 'square' %}card-featured-image-square{% endif %}" style="background-image: url('{{ header_image.url }}')"></div>
+    <div class="card-featured-image {% if type == 'person' and format == 'square' %}card-featured-image-square{% endif %}" style="background-image: url('{{ image.url }}')"></div>
     <div class="card-featured-content">
       <span class="highlighted featured">Featured</span>
       <div>

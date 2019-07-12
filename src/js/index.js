@@ -8,6 +8,7 @@ import '@mozilla-protocol/core/protocol/js/protocol-navigation';
 import '@mozilla-protocol/core/protocol/js/protocol-details';
 import FilterForm from './organisms/filter-form';
 import GetStarted from './organisms/get-started';
+import MapEmbed from './atoms/map';
 import NewsletterSignup from './organisms/newsletter-signup';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -16,5 +17,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   FilterForm.init();
   GetStarted.init();
+  MapEmbed.init();
   NewsletterSignup.init();
 });
