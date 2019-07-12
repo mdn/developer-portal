@@ -41,10 +41,20 @@ main {
   grid-column: full;
 }
 
+.section-full-bg {
+  background-color: $color-gray-10;
+  @media #{$mq-md} {
+    padding: 40px 0 80px;
+  }
+}
+
 .container {
+  padding: 0 $grid-gap-mobile;
+
   @media #{$mq-md} {
     margin: 0 auto;
-    max-width: $container-max-width;
+    max-width: ($container-max-width + $grid-gap * 2);
+    padding: 0 $grid-gap;
     position: relative;
   }
 }
@@ -68,7 +78,7 @@ main {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 
   h1,
   h2,
@@ -76,7 +86,9 @@ main {
   h4,
   h5,
   h6 {
-    margin-bottom: 0;
+    &:not(.no-underline)::after {
+      margin-bottom: 0;
+    }
   }
 }
 

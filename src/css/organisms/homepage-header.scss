@@ -1,71 +1,30 @@
 .homepage-header {
-  display: flex;
-  flex-direction: column-reverse;
-  margin-bottom: 64px;
+  background: $color-gray-20;
+  margin-top: -1px; // Overlap the navigation border.
 
-  h2 {
-    font-size: 24px;
-    line-height: calc(29 / 24);
+  @media screen and (min-width: 1024px) {
+    background: right / contain no-repeat url('/static/img/homepage-header-pattern.svg') $color-gray-20;
   }
 
-  @media #{$mq-md} {
-    flex-direction: row;
-    margin-bottom: 84px;
+  @media screen and (min-width: #{$container-max-width * 1.5}) { // 1088px width derived from the container's max width and its padding.
+    background-position: calc(50% + 522px);
   }
 }
 
 .homepage-header-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-right: 0;
-  width: 100%;
+  padding-bottom: 64px;
+  padding-top: 64px;
 
-  @media #{$mq-md} {
-    padding-right: 64px;
-    width: 50%;
+  @media screen and (min-width: 1024px) {
+    padding-bottom: 100px;
+    padding-top: 220px;
   }
 
-  a {
-    width: max-content;
+  h1 {
+    margin-bottom: 0.2em;
   }
 }
 
-.homepage-hero-img {
-  margin-bottom: 64px;
-  position: relative;
-  text-align: center;
-  width: 100%;
-
-  @media #{$mq-md} {
-    margin-bottom: 0;
-    width: 50%;
-  }
-}
-
-.homepage-hero-pattern {
-  height: 345px;
-  position: absolute;
-  width: 345px;
-  z-index: -1;
-}
-
-.homepage-hero-before {
-  left: 0;
-  top: -45px;
-
-  @media #{$mq-md} {
-    left: 0;
-    top: -65px;
-  }
-}
-
-.homepage-hero-after {
-  bottom: -35px;
-  right: -10px;
-
-  @media #{$mq-md} {
-    bottom: -60px;
-    right: 0;
-  }
+.homepage-header-actions {
+  margin-top: 24px;
 }

@@ -1,30 +1,38 @@
-from django.db.models import BooleanField, CASCADE, CharField, ForeignKey, SET_NULL
+from django.db.models import (
+    BooleanField,
+    CASCADE,
+    CharField,
+    ForeignKey,
+    SET_NULL,
+    TextField,
+)
 from django.forms import CheckboxSelectMultiple
 from django.utils.text import slugify
-
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
     MultiFieldPanel,
+    ObjectList,
     PageChooserPanel,
+    TabbedInterface,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
+
 
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
 
-    # Fields
-
-    # Editor panel configuration
+    # Content panels
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             InlinePanel('featured_people', max_num=3)
@@ -62,6 +70,10 @@ class FeaturedPerson(Orderable):
     ]
 
 
+class PersonTag(TaggedItemBase):
+    content_object = ParentalKey('Person', on_delete=CASCADE, related_name='tagged_items')
+
+
 class PersonTopic(Orderable):
     person = ParentalKey('Person', related_name='topics')
     topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='+')
@@ -77,43 +89,62 @@ class Person(Page):
     subpage_types = []
     template = 'person.html'
 
-    # Fields
-    first_name = CharField(max_length=250)
-    last_name = CharField(max_length=250)
+    # Content fields
     job_title = CharField(max_length=250)
-    is_mozillian = BooleanField(default=True)
-    profile_picture = ForeignKey(
+    description = RichTextField(default='', blank=True)
+    image = ForeignKey(
         'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
         related_name='+'
     )
-    intro = RichTextField(default='', blank=True)
-    intro_image = ForeignKey(
+    is_mozillian = BooleanField('Is Mozillian', default=True)
+
+    # Card fields
+    card_title = CharField('Title', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_image = ForeignKey(
         'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
-        related_name='+'
+        related_name='+',
+        verbose_name='Image',
     )
+
+    # Meta
     twitter = CharField(max_length=250, blank=True, default='')
     facebook = CharField(max_length=250, blank=True, default='')
     linkedin = CharField(max_length=250, blank=True, default='')
     github = CharField(max_length=250, blank=True, default='')
     email = CharField(max_length=250, blank=True, default='')
+    keywords = ClusterTaggableManager(through=PersonTag, blank=True)
 
-    # Editor panel configuration
+     # Content panels
     content_panels = [
-        FieldRowPanel([
-            FieldPanel('first_name'),
-            FieldPanel('last_name'),
-          ]),
-        FieldPanel('job_title'),
-        FieldPanel('is_mozillian'),
-        ImageChooserPanel('profile_picture'),
-        FieldPanel('intro'),
-        ImageChooserPanel('intro_image'),
+        MultiFieldPanel([
+            # TODO change label to 'Full name'
+            FieldPanel('title'),
+            FieldPanel('job_title'),
+            FieldPanel('is_mozillian'),
+        ], heading='About'),
+        FieldPanel('description'),
+        ImageChooserPanel('image'),
+    ]
+
+    # Card panels
+    card_panels = [
+        FieldPanel('card_title'),
+        FieldPanel('card_description'),
+        ImageChooserPanel('card_image'),
+    ]
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            InlinePanel('topics'),
+        ], heading='Topics interested in'),
         MultiFieldPanel([
             FieldPanel('twitter'),
             FieldPanel('facebook'),
@@ -122,12 +153,22 @@ class Person(Page):
             FieldPanel('email'),
         ], heading='Profiles'),
         MultiFieldPanel([
-            InlinePanel('topics'),
-        ], heading='Topics interested in'),
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
     ]
 
-    def clean(self):
-        super().clean()
-        derived_title = '{} {}'.format(self.first_name, self.last_name)
-        self.title = derived_title
-        self.slug = slugify(derived_title)
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+        FieldPanel('show_in_menus'),
+    ]
+
+    # Tabs
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(card_panels, heading='Card'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])

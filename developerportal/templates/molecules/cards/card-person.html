@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% image resource.profile_picture width-636 as header_image %}
+{% image resource.profile_picture width-636 as image %}
 
 <a href="{% pageurl resource %}" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
   {% if filter_target %}
@@ -11,7 +11,7 @@
   {% endif %}
 >
   <div class="card">
-    <div class="card-image card-image-square" style="background-image: url('{{ header_image.url }}')"></div>
+    <div class="card-image card-image-square" style="background-image: url('{{ image.url }}')"></div>
     <div class="card-content">
       <div class="card-content-main">
         {% include "molecules/resource-meta.html" with resource=resource %}
