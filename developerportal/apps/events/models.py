@@ -77,7 +77,15 @@ class Events(Page):
 
     @property
     def events(self):
-        return Event.objects.all().public().live().order_by('-start_date')
+        """Return events in chronological order"""
+        return (
+            Event
+                .objects
+                .all()
+                .public()
+                .live()
+                .order_by('start_date')
+        )
 
     def get_filters(self):
         from ..topics.models import Topic
@@ -102,13 +110,6 @@ class Event(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
-    start_date = DateField(default=datetime.date.today)
-    end_date = DateField(blank=True, null=True)
-    venue = TextField(max_length=250, blank=True, default='', help_text='Full address of the event venue, displayed on the event detail page')
-    card_venue = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
-    latitude = FloatField(blank=True, null=True)
-    longitude = FloatField(blank=True, null=True)
-    register_url = URLField('Register URL', blank=True, null=True)
     body = CustomStreamField(blank=True, null=True)
     agenda = StreamField(
         StreamBlock([
@@ -139,7 +140,10 @@ class Event(Page):
     # Meta fields
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    venue = TextField(max_length=250, blank=True, default='')
+    venue = TextField(max_length=250, blank=True, default='', help_text='Full address of the event venue, displayed on the event detail page')
+    location = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
+    latitude = FloatField(blank=True, null=True)
+    longitude = FloatField(blank=True, null=True)
     register_url = URLField('Register URL', blank=True, null=True)
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
 
@@ -165,7 +169,7 @@ class Event(Page):
             FieldPanel('start_date'),
             FieldPanel('end_date'),
             FieldPanel('venue'),
-            FieldPanel('card_venue'),
+            FieldPanel('location'),
             FieldPanel('latitude'),
             FieldPanel('longitude'),
             FieldPanel('register_url'),

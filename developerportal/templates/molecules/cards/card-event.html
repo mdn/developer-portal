@@ -15,7 +15,7 @@
       </div>
     </div>
     {% if featured %}
-    <div class="card-image card-event-image" style="background-image: url('{{ header_image.url }}')"></div>
+    <div class="card-image card-event-image" style="background-image: url('{{ image.url }}')"></div>
     {% endif %}
     <div class="card-event-content {% if featured %}card-event-featured{% endif %}">
       <div class="card-event-title">
@@ -31,7 +31,7 @@
         </div>
         <div class="card-event-location">
           <span class="icon">{% include "atoms/icons/location.svg" %}</span>
-          <address>{{ resource.card_venue }}</address>
+          <address>{{ resource.location }}</address>
         </div>
       </div>
     </div>
