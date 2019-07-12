@@ -21,7 +21,7 @@
               Clear filters
             </button>
           </div>
-          <div class="card-container" id="{{ type }}-cards">
+          <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
             {% for resource in resources %}
               {% if type == "article" %}
                 {% include "molecules/cards/card.html" with resource=resource.article filter_target=True %}

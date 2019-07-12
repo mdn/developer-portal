@@ -63,9 +63,13 @@
           <a href="/events">See more</a>
         </div>
         <div>
-          {% for event in page.events.all|slice:":3" %}
-          {% include "molecules/cards/card.html" with resource=event index=forloop.counter %}
-          {% endfor %}
+        {% for event in page.events.all|slice:":3" %}
+          {% if forloop.counter == 1 %}
+            {% include "molecules/cards/card.html" with resource=event featured=True %}
+          {% else %}
+            {% include "molecules/cards/card.html" with resource=event %}
+          {% endif %}
+        {% endfor %}
         </div>
       </div>
     </section>

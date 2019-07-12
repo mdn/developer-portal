@@ -2,12 +2,22 @@
 
 {% block body_class %}events{% endblock %}
 
+{% block header %}
+  {% include "header.html" %}
+  {% include "utils/accent-color.html" with color='#ffd567' %}
+{% endblock %}
+
 {% block content %}
   <main>
     <div class="base-grid">
       {% if page.events %}
         <section>
           <h2>Events</h2>
+          {% with event=page.featured_event %}
+            {% if event %}
+              {% include "molecules/cards/card.html" with resource=event featured=True %}
+            {% endif %}
+          {% endwith %}
         </section>
         <section class="section-full">
           {% include "organisms/filter-list.html" with type="event" resources=page.events initial_resources=6 resources_per_page=4 %}
