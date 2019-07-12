@@ -1,7 +1,7 @@
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import SubTopic, Topic, Topics
+from ..models import Topic, Topics
 
 
 class TopicsFixturesMixin():
@@ -25,26 +25,14 @@ class TopicTests(TopicsFixturesMixin, WagtailPageTests):
         self.assertAllowedParentPageTypes(Topic, {Topics})
 
     def test_topic_page_subpages(self):
-        """A topic page should only have sub-topic child pages."""
-        self.assertAllowedSubpageTypes(Topic, {SubTopic})
+        """A topic page should not have child pages."""
+        self.assertAllowedSubpageTypes(Topic, {})
 
     def test_topic_page_articles(self):
         """A topic page should have article pages."""
         topic_page = Topic.objects.all()[0]
         topic_page_article = topic_page.articles.all().order_by('pk')[0].article
         self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', topic_page_article.title)
-
-
-class SubTopicTests(WagtailPageTests):
-    """Tests for the Topic page model."""
-
-    def test_subtopic_page_parent_pages(self):
-        """A sub-topic page should only exist under a topic page."""
-        self.assertAllowedParentPageTypes(SubTopic, {Topic})
-
-    def test_subtopic_page_subpages(self):
-        """A sub-topic page should not have child pages."""
-        self.assertAllowedSubpageTypes(SubTopic, {})
 
 
 class TopicsTests(TopicsFixturesMixin, WagtailPageTests):

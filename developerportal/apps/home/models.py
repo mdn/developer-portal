@@ -18,7 +18,6 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from ..topics.models import Topics, Topic
 from ..common.blocks import FeaturedExternalBlock
 
 
@@ -115,6 +114,6 @@ class HomePage(Page):
 
     @property
     def primary_topics(self):
-        """The site’s primary topics, i.e. of class Topic but not SubTopic."""
-        topic = Topics.objects.first()
-        return topic.get_children().live().public().order_by('title') if topic else None
+        """The site’s top-level topics, i.e. topics without a parent topic."""
+        from ..topics.models import Topic
+        return Topic.objects.filter(parent_topics__isnull=True).live().public().order_by('title')
