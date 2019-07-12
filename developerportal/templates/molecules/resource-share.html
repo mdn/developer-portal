@@ -1,5 +1,5 @@
 <div class="share">
-  {% if type == 'article' %}
+  {% if resource.resource_type == 'article' %}
   <div class="share-meta">
     {% include "molecules/resource-meta.html" with resource=resource read_time=read_time %}
   </div>
