@@ -33,7 +33,7 @@
   padding-top: $grid-gap-mobile;
 
   @media #{$mq-md} {
-    padding: 64px $grid-gap 64px 0;
+    padding: 96px $grid-gap 64px 0;
   }
 }
 
@@ -73,5 +73,9 @@
 
   @media #{$mq-md} {
     width: 320px;
+  }
+
+  .pattern::before {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
   }
 }

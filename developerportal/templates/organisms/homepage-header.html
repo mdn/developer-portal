@@ -1,33 +1,16 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-<section class="homepage-header">
-  <div class="homepage-header-content">
+<header class="homepage-header">
+  <div class="homepage-header-content container">
     <h1>{{ page.title }}</h1>
     {% if page.subtitle %}
-      <h2 class="no-underline">{{ page.subtitle }}</h2>
+      <h5 class="no-underline">{{ page.subtitle }}</h5>
     {% endif %}
-    {% if page.description %}
-      <p>{{ page.description }}</p>
-    {% endif %}
-    {% if page.button_url and page.button_text %}
-      <a href="{{ page.button_url }}" class="mzp-c-button">{{ page.button_text }}</a>
+    {% if page.button_text and page.button_url %}
+      <div class="homepage-header-actions">
+        <a href="{{ page.button_url }}" class="mzp-c-button">{{ page.button_text }}</a>
+      </div>
     {% endif %}
   </div>
-  {% if page.image %}
-    {% image page.image width-352 as image %}
-    <div class="homepage-hero-img">
-      <div class="homepage-hero-pattern homepage-hero-before">
-        {% include "atoms/pattern.html" %}
-      </div>
-      <img
-        src="{{ image.url }}"
-        width="{{ image.width }}"
-        height="{{ image.height }}"
-        alt="{{ image.alt }}" />
-      <div class="homepage-hero-pattern homepage-hero-after">
-        {% include "atoms/pattern.html" %}
-      </div>
-    </div>
-  {% endif %}
-</section>
+</header>

@@ -32,7 +32,6 @@ class HomePage(Page):
 
     # Content fields
     subtitle = TextField(max_length=250, blank=True, default='')
-    description = TextField(max_length=250, blank=True, default='')
     button_text = CharField(max_length=30, blank=True, default='')
     button_url = URLField(max_length=2048, blank=True, default='')
     image = ForeignKey(
@@ -53,6 +52,10 @@ class HomePage(Page):
         null=True,
         blank=True,
     )
+    about_title = TextField(max_length=250, blank=True, default='')
+    about_subtitle = TextField(max_length=250, blank=True, default='')
+    about_button_text = CharField(max_length=30, blank=True, default='')
+    about_button_url = URLField(max_length=140, blank=True, default='')
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
@@ -71,17 +74,25 @@ class HomePage(Page):
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('description'),
         MultiFieldPanel(
-          [
-            FieldPanel('button_text'),
-            FieldPanel('button_url'),
-          ],
-          heading='Primary CTA',
+            [
+                FieldPanel('subtitle'),
+                FieldPanel('button_text'),
+                FieldPanel('button_url'),
+            ],
+            heading="Header section",
         ),
         ImageChooserPanel('image'),
         StreamFieldPanel('featured'),
+        MultiFieldPanel(
+            [
+                FieldPanel('about_title'),
+                FieldPanel('about_subtitle'),
+                FieldPanel('about_button_text'),
+                FieldPanel('about_button_url'),
+            ],
+            heading="About section",
+        )
     ]
 
     # Card panels

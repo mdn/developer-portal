@@ -1,6 +1,10 @@
 .card-topic {
   background: $color-black;
   position: relative;
+
+  .pattern::before {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  }
 }
 
 .card-topic-content {

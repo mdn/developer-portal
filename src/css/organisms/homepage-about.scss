@@ -1,0 +1,23 @@
+.homepage-about {
+  text-align: center;
+  padding: 32px 0;
+
+  @media #{$mq-md} {
+    padding: 100px 0;
+  }
+
+  h2 {
+    font-size: 24px;
+    line-height: calc(29 / 24);
+  }
+
+  .container {
+    @media #{$mq-md} {
+      max-width: 600px;
+    }
+  }
+}
+
+.homepage-about-actions {
+  margin-top: 24px;
+}
