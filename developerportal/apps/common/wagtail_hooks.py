@@ -1,4 +1,5 @@
 import logging
+from multiprocessing import Process
 import os
 
 from django.conf import settings
@@ -32,7 +33,9 @@ def register_external_link(features):
     features.register_link_type(NewWindowExternalLinkHandler)
 
 
-def static_build(pipeline=settings.STATIC_BUILD_PIPELINE, **kwargs):
+def _static_build_async(pipeline=settings.STATIC_BUILD_PIPELINE):
+    """Calls each command in the static build pipeline in turn."""
+    log_prefix = 'Static build task'
     for name, command in pipeline:
         if settings.DEBUG:
             logger.info(f'{log_prefix} ‘{name}’ skipped.')
@@ -40,6 +43,13 @@ def static_build(pipeline=settings.STATIC_BUILD_PIPELINE, **kwargs):
             logger.info(f'{log_prefix} ‘{name}’ startedg.')
             call_command(command)
             logger.info(f'{log_prefix} ‘{name}’ finished.')
+
+
+def static_build(**kwargs):
+    """Callback for Wagtail publish and unpublish signals."""
+    # Spawn a process to do the actual build.
+    process = Process(target=_static_build_async)
+    process.start()
 
 
 page_published.connect(static_build)
