@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 def upload_file():
     s3_client = boto3.client('s3')
-    bucket = 'mozilla-developer-portal-potato'
+    bucket = os.environ.get('AWS_BUCKET')
 
     for root, dirs, files in os.walk('build'):
         for name in files:
@@ -21,7 +21,7 @@ def upload_file():
             if not mimetype:
                 mimetype = 'binary/octet-stream'
             try:
-                response = s3_client.upload_file(file_name, bucket, file_name, { "ContentType": mimetype })
+                response = s3_client.upload_file(file_name, bucket, file_name, { 'ContentType': mimetype })
                 logging.info(f'Uploaded to aws - {file_name}')
             except S3UploadFailedError as e:
                 logging.error(e)

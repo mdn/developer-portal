@@ -27,10 +27,14 @@ def register_external_link(features):
 
 
 def build_static(*args, **kwargs):
-    logging.info('Building site')
-    call_command('build')
-    logging.info('Uploading site')
-    call_command('aws_static')
+    if production.DEBUG:
+        logging.info('Building site')
+        call_command('build')
+        logging.info('Uploading site')
+        call_command('aws_static')
+    else:
+        logging.info('Sorry we’re not building because of DEBUG.')
+
 
 page_published.connect(build_static)
 page_unpublished.connect(build_static)
