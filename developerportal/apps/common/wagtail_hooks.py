@@ -40,7 +40,7 @@ def _static_build_async(pipeline=settings.STATIC_BUILD_PIPELINE):
         if settings.DEBUG:
             logger.info(f'{log_prefix} ‘{name}’ skipped.')
         else:
-            logger.info(f'{log_prefix} ‘{name}’ startedg.')
+            logger.info(f'{log_prefix} ‘{name}’ started.')
             call_command(command)
             logger.info(f'{log_prefix} ‘{name}’ finished.')
 

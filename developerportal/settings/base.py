@@ -223,7 +223,7 @@ BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
 
-# Static build management commands called in orderg
+# Static build management commands called in order
 STATIC_BUILD_PIPELINE = (
     ('Build', 'build'),
     ('S3 upload', 's3upload'),
