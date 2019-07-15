@@ -48,6 +48,16 @@ class TopicPerson(Orderable):
     ]
 
 
+class ParentTopic(Orderable):
+    child = ParentalKey('Topic', related_name='parent_topics')
+    parent = ParentalKey('Topic', on_delete=CASCADE, related_name='child_topics')
+
+    panels = [
+        PageChooserPanel('child'),
+        PageChooserPanel('parent'),
+    ]
+
+
 class Topic(Page):
     resource_type = 'topic'
     parent_page_types = ['Topics']
@@ -85,7 +95,6 @@ class Topic(Page):
     )
 
     # Meta
-    parent_topics = ParentalManyToManyField('Topic', blank=True, related_name='child_topics')
     icon = FileField(upload_to='topics/icons', blank=True, default='')
     color = CharField(max_length=14, choices=COLOR_CHOICES, default='blue-40')
     keywords = ClusterTaggableManager(through=TopicTag, blank=True)
@@ -109,7 +118,19 @@ class Topic(Page):
 
     # Meta panels
     meta_panels = [
-        FieldPanel('parent_topics'),
+        MultiFieldPanel(
+            [
+                InlinePanel('parent_topics', label='Parent topic(s)'),
+                InlinePanel('child_topics', label='Child topic(s)'),
+            ],
+            heading='Parent/child topic(s)',
+            classname='collapsible collapsed',
+            help_text=(
+                'Topics with no parent (i.e. top-level topics) will be listed '
+                'on the home page. Child topics are listed on the parent '
+                'topic’s page.'
+            )
+        ),
         MultiFieldPanel([
             FieldPanel('icon'),
             FieldPanel('color'),
@@ -163,6 +184,10 @@ class Topic(Page):
     @property
     def color_value(self):
         return dict(COLOR_VALUES)[self.color]
+
+    @property
+    def subtopics(self):
+        return [topic.child for topic in self.child_topics.all()]
 
 
 class Topics(Page):
