@@ -27,7 +27,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
-from .edit_handlers import FullNameFieldPanel
+from .edit_handlers import CustomLabelFieldPanel
 
 
 class People(Page):
@@ -126,7 +126,7 @@ class Person(Page):
      # Content panels
     content_panels = [
         MultiFieldPanel([
-            FullNameFieldPanel('title'),
+            CustomLabelFieldPanel('title', label='Full name'),
             FieldPanel('job_title'),
             FieldPanel('is_mozillian'),
         ], heading='About'),
