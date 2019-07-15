@@ -24,7 +24,7 @@
       </section>
       <section class="article-content">
         <article class="article-body">
-          {% include "molecules/resource-share.html" with resource=page type="event" %}
+          {% include "molecules/resource-share.html" with resource=page %}
 
           {% for block in page.body %}
             {% if block.block_type == 'image' %}
