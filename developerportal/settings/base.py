@@ -118,7 +118,6 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = 'developerportal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -223,6 +222,16 @@ BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
+
+# Static build management commands called in orderg
+STATIC_BUILD_PIPELINE = (
+    ('Build', 'build'),
+    ('S3 upload', 's3upload'),
+)
+
+# Amazon S3 config
+S3_BUCKET = os.environ.get('S3_BUCKET')
+
 
 # Social Auth pipelines
 SOCIAL_AUTH_PIPELINE = (

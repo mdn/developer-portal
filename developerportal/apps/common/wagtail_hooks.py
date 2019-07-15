@@ -1,11 +1,17 @@
 import logging
+import os
 
-from django.utils.html import escape
+from django.conf import settings
 from django.core.management import call_command
+from django.utils.html import escape
 
 from wagtail.core import hooks
 from wagtail.core.rich_text import LinkHandler
 from wagtail.core.signals import page_published, page_unpublished
+
+
+logging.basicConfig(level=os.environ.get('LOGLEVEL', logging.INFO))
+logger = logging.getLogger(__name__)
 
 
 class NewWindowExternalLinkHandler(LinkHandler):
@@ -26,15 +32,15 @@ def register_external_link(features):
     features.register_link_type(NewWindowExternalLinkHandler)
 
 
-def build_static(*args, **kwargs):
-    if production.DEBUG:
-        logging.info('Building site')
-        call_command('build')
-        logging.info('Uploading site')
-        call_command('aws_static')
-    else:
-        logging.info('Sorry we’re not building because of DEBUG.')
+def static_build(pipeline=settings.STATIC_BUILD_PIPELINE, **kwargs):
+    for name, command in pipeline:
+        if settings.DEBUG:
+            logger.info(f'{log_prefix} ‘{name}’ skipped.')
+        else:
+            logger.info(f'{log_prefix} ‘{name}’ startedg.')
+            call_command(command)
+            logger.info(f'{log_prefix} ‘{name}’ finished.')
 
 
-page_published.connect(build_static)
-page_unpublished.connect(build_static)
+page_published.connect(static_build)
+page_unpublished.connect(static_build)
