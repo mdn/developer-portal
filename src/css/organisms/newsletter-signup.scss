@@ -1,13 +1,8 @@
 .newsletter-signup {
   background: top center no-repeat url('/static/img/newsletter-background.svg') $color-black;
   color: $color-white;
-  margin-top: -32px;
   padding: 140px 0 100px;
   text-align: center;
-
-  @media #{$mq-md} {
-    margin-top: -64px;
-  }
 
   .container {
     @media #{$mq-md} {
