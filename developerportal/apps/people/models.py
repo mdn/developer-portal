@@ -44,6 +44,26 @@ class People(Page):
                     'Please choose between 1 and 3 people.'))
     ]
 
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
+
     class Meta:
         verbose_name_plural = 'People'
 
@@ -163,7 +183,6 @@ class Person(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
-        FieldPanel('show_in_menus'),
     ]
 
     # Tabs

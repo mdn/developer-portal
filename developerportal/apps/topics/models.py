@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 import datetime
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, FileField
 from django.utils.translation import ugettext_lazy as _
@@ -193,6 +194,26 @@ class Topic(Page):
 class Topics(Page):
     subpage_types = ['Topic']
     template = 'topics.html'
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
 
     class Meta:
         verbose_name_plural = 'Topics'

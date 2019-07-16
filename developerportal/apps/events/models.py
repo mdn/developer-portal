@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 import datetime
 
 from django.db.models import (
@@ -59,13 +60,33 @@ class Events(Page):
     subpage_types = ['events.Event']
     template = 'events.html'
 
-    # Fields
+    # Content fields
     featured_event = ForeignKey('events.Event', blank=True, null=True, on_delete=SET_NULL, related_name='+')
 
-    # Editor panel configuration
+    # Content panels
     content_panels = Page.content_panels + [
         PageChooserPanel('featured_event')
     ]
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
 
     class Meta:
         verbose_name_plural = 'Events'
@@ -190,7 +211,6 @@ class Event(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
-        FieldPanel('show_in_menus'),
     ]
 
     edit_handler = TabbedInterface([
@@ -203,7 +223,7 @@ class Event(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the event."""
-        article_topic = self.topics.first()  # pylint: disable=no-member
+        article_topic = self.topics.first()
         return article_topic.topic if article_topic else None
 
     @property
