@@ -32,7 +32,6 @@ from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
-from ..articles.models import Article
 
 
 class EventsTag(TaggedItemBase):
