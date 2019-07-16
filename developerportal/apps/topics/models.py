@@ -27,6 +27,10 @@ from ..common.constants import COLOR_CHOICES, COLOR_VALUES
 from ..common.blocks import FeaturedExternalBlock, GetStartedBlock
 
 
+class TopicsTag(TaggedItemBase):
+    content_object = ParentalKey('Topics', on_delete=CASCADE, related_name='tagged_items')
+
+
 class TopicTag(TaggedItemBase):
     content_object = ParentalKey('Topic', on_delete=CASCADE, related_name='tagged_items')
 
@@ -194,6 +198,9 @@ class Topic(Page):
 class Topics(Page):
     subpage_types = ['Topic']
     template = 'topics.html'
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=TopicsTag, blank=True)
 
     # Meta panels
     meta_panels = [

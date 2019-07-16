@@ -30,9 +30,16 @@ from taggit.models import TaggedItemBase
 from .edit_handlers import CustomLabelFieldPanel
 
 
+class PeopleTag(TaggedItemBase):
+    content_object = ParentalKey('People', on_delete=CASCADE, related_name='tagged_items')
+
+
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [

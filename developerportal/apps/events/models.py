@@ -35,6 +35,10 @@ from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
 from ..articles.models import Article
 
 
+class EventsTag(TaggedItemBase):
+    content_object = ParentalKey('Events', on_delete=CASCADE, related_name='tagged_items')
+
+
 class EventTag(TaggedItemBase):
     content_object = ParentalKey('Event', on_delete=CASCADE, related_name='tagged_items')
 
@@ -62,6 +66,9 @@ class Events(Page):
 
     # Content fields
     featured_event = ForeignKey('events.Event', blank=True, null=True, on_delete=SET_NULL, related_name='+')
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=EventsTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [

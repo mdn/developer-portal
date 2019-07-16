@@ -27,6 +27,10 @@ from taggit.models import TaggedItemBase
 from ..common.fields import CustomStreamField
 
 
+class ArticlesTag(TaggedItemBase):
+    content_object = ParentalKey('Articles', on_delete=CASCADE, related_name='tagged_items')
+
+
 class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
@@ -39,6 +43,9 @@ class Articles(Page):
             FieldPanel('keywords'),
         ], heading='SEO'),
     ]
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
 
     # Settings panels
     settings_panels = [
