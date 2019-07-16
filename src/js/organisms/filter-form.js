@@ -1,8 +1,8 @@
 const AND_FILTERS = [
-  'topics',
 ];
 
 const OR_FILTERS = [
+  'topics',
   'initial-group',
   'month',
 ];
