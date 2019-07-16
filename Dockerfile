@@ -17,6 +17,7 @@ FROM python:3.7-alpine AS app
 EXPOSE 8000
 WORKDIR /app/
 
+RUN crontab -l | { cat; echo '0 * * * * /usr/local/bin/python /app/manage.py build && /usr/local/bin/python /app/manage.py s3upload'; } | crontab -
 RUN apk add --no-cache --virtual .build-deps \
   gcc \
   musl-dev \
