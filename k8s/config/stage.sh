@@ -20,3 +20,4 @@ export APP_MEMORY_LIMIT=4Gi
 export APP_MEMORY_REQUEST=2Gi
 export APP_GUNICORN_WORKERS=2
 export APP_HOST=developer-portal-stage.mdn.mozit.cloud
+export APP_AWS_BUCKET_NAME=developer-portal-stage-178589013767
