@@ -213,6 +213,7 @@ BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
+AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
 
 # GOOGLE_ANALYTICS
 GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')
