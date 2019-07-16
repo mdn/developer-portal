@@ -8,7 +8,7 @@
   {% with featured.0 as block %}
     {% if block.block_type == 'article' %}
       {% with block.value as article %}
-        {% include "molecules/card-featured-primary.html" with resource=article %}
+        {% include "molecules/card-featured-primary.html" with resource=article.specific %}
       {% endwith %}
     {% elif block.block_type == 'external_page' %}
       {% with block.value as external_page %}
@@ -23,7 +23,7 @@
         {% if not forloop.first %}
           {% if block.block_type == 'article' %}
             {% with block.value as article %}
-              {% include "molecules/card-featured.html" with resource=article %}
+              {% include "molecules/card-featured.html" with resource=article.specific %}
             {% endwith %}
           {% elif block.block_type == 'external_page' %}
             {% with block.value as external_page %}

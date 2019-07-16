@@ -1,0 +1,15 @@
+{% if resource.latitude and resource.longitude %}
+<div class="event-map">
+  <h2>Venue</h2>
+  <div class="map"
+    id="map1"
+    data-map-id="map1"
+    data-lat="{{ resource.latitude }}"
+    data-lng="{{ resource.longitude }}"
+    data-venue="{{ resource.venue }}">
+  </div>
+</div>
+<script>
+mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}';
+</script>
+{% endif %}

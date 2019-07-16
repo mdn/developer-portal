@@ -29,6 +29,11 @@ body {
   }
 }
 
+[hidden],
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+::selection {
+  background: rgba(255, 213, 103, 0.4);
 }

@@ -7,9 +7,9 @@
 {% block body_class %}home{% endblock %}
 
 {% block content %}
-  <main>
+  <main class="has-header has-footer">
     <div class="base-grid">
-      <section>
+      <section class="section-full">
         {% include "organisms/homepage-header.html" %}
       </section>
       <section>
@@ -18,7 +18,10 @@
       <section class="section-full">
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
-      <section>
+      <section class="section-full section-full-bg">
+        {% include "organisms/homepage-about.html" %}
+      </section>
+      <section class="section-full">
         {% include "organisms/newsletter-signup.html" %}
       </section>
     </div>

@@ -1,0 +1,9 @@
+
+.speakers-container {
+  margin: 24px auto;
+  max-width: 1084px;
+  padding: 0 16px;
+  @media #{$mq-md} {
+    padding: 0 32px;
+  }
+}

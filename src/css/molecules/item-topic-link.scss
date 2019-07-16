@@ -1,13 +1,24 @@
 .item-topic-link {
+  align-items: center;
   background-color: $color-white;
+  border: 2px solid $color-gray-20;
+  border-radius: 2px;
   color: inherit;
   display: flex;
-  padding: 20px;
+  padding: 18px; // 18px to offset border applied above.
   text-decoration: none;
+  transition: box-shadow 100ms, transform 100ms;
   width: 100%;
 
+  @media #{$mq-md} {
+    align-items: unset;
+  }
+
   &:hover {
+    border-color: $color-black;
+    box-shadow: 4px 4px 0 0 $color-black;
     color: inherit;
+    transform: translate(-2px, -2px);
   }
 
   &:active {
@@ -21,6 +32,7 @@
 
 .item-topic-link-icon {
   flex-shrink: 0;
+  font-size: 0; // Prevent spacing below icon.
   margin-right: 16px;
   padding-top: 4px;
 
@@ -30,5 +42,19 @@
 }
 
 .item-topic-link-content {
-  flex-grow: 1;
+  @media #{$mq-md} {
+    flex-grow: 1;
+  }
+
+  h4 {
+    margin-bottom: 0;
+  }
+
+  .rich-text {
+    display: none;
+
+    @media #{$mq-md} {
+      display: block;
+    }
+  }
 }

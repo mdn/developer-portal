@@ -1,12 +1,22 @@
-<section>
-  <div class="newsletter-signup">
-    <img src="https://via.placeholder.com/657x458/2B1D87">
-    <div class="newsletter-signup-form">
-      <h3 class="no-underline">Love the Web?</h3>
-      <p>Get the Mozilla newsletter and help us keep it open and free.</p>
-      <input type="email" placeholder="yourname@example.com">
-      <button>Sign up now</button>
-      <p class="small">We will only send you Mozilla-related information.</p>
-    </div>
+<div class="newsletter-signup">
+  <div class="container">
+    <h2 class="no-underline">Learn the best of web development</h2>
+    <p>Sign up for the Mozilla Developer Newsletter:</p>
+    <form action="https://www.mozilla.org/en-US/newsletter/" method="post" target="_blank">
+      <input type="hidden" name="newsletters" value="app-dev">
+      <input type="hidden" name="fmt" value="H">
+      <p>
+        <input type="email" name="email" id="newsletter-email" placeholder="you@example.com" required aria-required="true">
+      </p>
+      <p>
+        <label for="newsletter-privacy" class="mzp-u-inline">
+          <input type="checkbox" name="privacy" id="newsletter-privacy" required aria-required="true">
+          I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/en-US/privacy/websites/" target="_blank" rel="noopener noreferrer">Privacy Notice</a>.
+        </label>
+      </p>
+      <p>
+        <button type="submit" class="mzp-c-button mzp-t-small mzp-t-dark">Sign up now</button>
+      </p>
+    </form>
   </div>
-</section>
+</div>

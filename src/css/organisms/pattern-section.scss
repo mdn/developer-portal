@@ -1,4 +1,5 @@
 .pattern-section {
+  margin: 64px 0;
   position: relative;
 
   @media screen and (min-width: 1024px) {
@@ -7,42 +8,50 @@
 }
 
 .pattern-section-background {
-  background: $color-gray-20;
+  background: $color-gray-10;
   margin: 0 auto;
   max-width: 1190px;
-  padding: $grid-gap-mobile;
-
-  @media #{$mq-md} {
-    padding: $grid-gap;
-  }
+  padding: $grid-gap 0;
 
   @media screen and (min-width: 1024px) {
-    padding: 80px $grid-gap;
+    padding: 80px 0;
   }
 }
 
 .pattern-section-pattern {
-  display: none;
-  height: 300px;
+  height: 40px;
   position: absolute;
-  width: calc(100% - 1024px - 150px);
+  width: calc(100% - 50px);
   z-index: -1;
+
+  @media screen and (min-width: 1024px) {
+    height: 300px;
+    width: calc(100% - 1024px - 150px);
+  }
 
   @media screen and (min-width: (1024px + 150px)) {
     display: block;
   }
 
   .pattern {
-    fill: $color-gray-60;
+    fill: #b1b1bc;
   }
 }
 
 .pattern-section-pattern-before {
   left: 0;
-  top: -75px;
+  top: -40px;
+
+  @media screen and (min-width: 1024px) {
+    top: -75px;
+  }
 }
 
 .pattern-section-pattern-after {
-  bottom: -75px;
+  bottom: -40px;
   right: 0;
+
+  @media screen and (min-width: 1024px) {
+    bottom: -75px;
+  }
 }

@@ -1,0 +1,26 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% image person.profile_picture width-284 as image %}
+
+{% if type == 'speaker' or type == 'person' %}
+  <a href="{% pageurl person %}">
+{% endif %}
+{% if type == 'external_speaker' and person.url %}
+  <a href="{{ person.url }}" target="_blank" rel="nofollow noopener">
+{% endif %}
+    <div class="card-person">
+      <div class="item-person">
+        {{ person.name }}
+        <img src="{{ image.url }}">
+        <div class="">
+          <div class="highlight1">
+            {{ person.title }}
+          </div>
+          <span class="heading5">{{ person.job_title }}</span>
+        </div>
+      </div>
+    </div>
+{% if person.url %}
+  </a>
+{% endif %}
+

@@ -4,7 +4,7 @@
 {% load wagtailimages_tags %}
 
 
-{% block body_class %}article-detail{% endblock %}
+{% block body_class %}article{% endblock %}
 
 {% block header %}
   {% include "header.html" %}
@@ -14,7 +14,7 @@
 {% block content %}
   <main class="has-header">
     <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title intro=page.intro date=page.date i=page.i authors=page.authors.all %}
+      {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors.all %}
       <section class="article-content">
         <article class="article-body">
           {% include "molecules/resource-share.html" with resource=page read_time=read_time %}
@@ -29,7 +29,7 @@
         </article>
         <aside class="article-sidebar">
           {% if page.related_articles %}
-            <h4>Read more</h4>
+            <h4>Read more on this topic</h4>
             <div class="article-sidebar-cards">
               {% for resource in page.related_articles.all|slice:":3" %}
                 {% include "molecules/cards/card.html" with resource=resource %}

@@ -1,17 +1,38 @@
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% image resource.image width-1024 as image %}
 
-<a href="#" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
+<a href="{% pageurl resource %}" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
   {% if filter_target %}
-    data-date=""
+    data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
+    data-month="{{ resource.month_group|date:'Y-m' }}"
   {% endif %}
 >
-  <div class="card">
-    <div class="card-image" style="background-image: url('https://via.placeholder.com/246')"></div>
-    <div class="card-content">
-      <div class="card-content-main">
-        <!-- {% include "molecules/resource-meta.html" with resource=resource %} -->
-        <h4 class="no-underline">Event title</h4>
-        <span>June 11, 2019 | Event location</span>
+  <div class="card card-event">
+    <div class="card-event-ribbon-container">
+      <div class="card-event-ribbon background-accent">
+        <span class="highlight2">{{ resource.event_dates|safe }}</span>
+      </div>
+    </div>
+    {% if featured %}
+    <div class="card-image card-event-image" style="background-image: url('{{ image.url }}')"></div>
+    {% endif %}
+    <div class="card-event-content {% if featured %}card-event-featured{% endif %}">
+      <div class="card-event-title">
+        <h4 class="no-underline">{{ resource.title }}</h4>
+        {% if featured %}
+        <p>{{ resource.description }}</p>
+        {% endif %}
+      </div>
+      <div class="card-event-details">
+        <div class="card-event-date">
+          <span class="icon">{% include "atoms/icons/date.svg" %}</span>
+          <span>{{ resource.event_dates_full|safe }}</span>
+        </div>
+        <div class="card-event-location">
+          <span class="icon">{% include "atoms/icons/location.svg" %}</span>
+          <address>{{ resource.location }}</address>
+        </div>
       </div>
     </div>
   </div>

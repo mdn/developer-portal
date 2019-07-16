@@ -1,12 +1,12 @@
-$code-border-radius: 2px;
+$code-border-radius: 0.2em;
 
 code {
   background-color: $color-gray-20;
   border-radius: $code-border-radius;
   font-family: $monospace-font-family;
-  font-size: 14px;
+  font-size: 80%;
   margin: 0;
-  padding: 0.2em 0.5em;
+  padding: 0.1em 0.2em;
 }
 
 .syntax-highlight[data-lang] {

@@ -1,19 +1,18 @@
 {% extends "base.html" %}
-{% load static %}
-{% load wagtailcore_tags %}
 
 {% block body_class %}articles{% endblock %}
 
 {% block content %}
   <main>
-    <ul>
-      {% for article in page.articles.all %}
-        <li>
-          <a href="{% pageurl article %}">
-            {{ article.title }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="base-grid">
+      {% if page.articles %}
+        <section>
+          <h2>Articles</h2>
+        </section>
+        <section class="section-full">
+          {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 %}
+        </section>
+      {% endif %}
+    </div>
   </main>
 {% endblock content %}

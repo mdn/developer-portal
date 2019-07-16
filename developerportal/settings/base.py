@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'developerportal.apps.common',
     'developerportal.apps.articles',
     'developerportal.apps.events',
+    'developerportal.apps.externalcontent',
     'developerportal.apps.health',
     'developerportal.apps.home',
     'developerportal.apps.mozimages',
@@ -103,6 +104,7 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
                 'developerportal.context_processors.google_analytics',
+                'developerportal.context_processors.mapbox_access_token',
             ],
             'libraries': {
                 'app_filters': 'developerportal.templatetags.app_filters',
@@ -263,3 +265,6 @@ SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/admin/login/'
 
 # GOOGLE_ANALYTICS
 GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')
+
+# Mapbox
+MAPBOX_ACCESS_TOKEN = os.environ.get('MAPBOX_ACCESS_TOKEN')

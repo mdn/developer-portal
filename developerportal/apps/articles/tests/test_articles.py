@@ -17,7 +17,7 @@ class ArticleTests(ArticlesFixturesMixin, WagtailPageTests):
 
     def test_article_page(self):
         """Get the first article."""
-        article_page = Article.objects.all()[0]
+        article_page = Article.objects.all().order_by('pk')[0]
         self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', article_page.title)
 
     def test_article_page_topics(self):
