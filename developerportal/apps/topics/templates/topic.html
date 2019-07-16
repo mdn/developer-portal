@@ -24,7 +24,7 @@
     <section class="section-full section-full-bg">
       {% include "organisms/get-started.html" %}
     </section>
-    {% with subtopics=self.get_children.specific %}
+    {% with subtopics=self.subtopics %}
       {% if subtopics %}
         <section class="section-full">
           {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}

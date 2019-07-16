@@ -16,7 +16,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
@@ -48,10 +48,20 @@ class TopicPerson(Orderable):
     ]
 
 
+class ParentTopic(Orderable):
+    child = ParentalKey('Topic', related_name='parent_topics')
+    parent = ParentalKey('Topic', on_delete=CASCADE, related_name='child_topics')
+
+    panels = [
+        PageChooserPanel('child'),
+        PageChooserPanel('parent'),
+    ]
+
+
 class Topic(Page):
     resource_type = 'topic'
     parent_page_types = ['Topics']
-    subpage_types = ['SubTopic']
+    subpage_types = ['Topic']
     template = 'topic.html'
 
     # Content fields
@@ -60,14 +70,16 @@ class Topic(Page):
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model='articles.article')),
             ('external_page', FeaturedExternalBlock()),
-        ], max_num=4),
+        ], max_num=4, required=False),
         null=True,
         blank=True,
     )
     get_started = StreamField(
         StreamBlock([
             ('panel', GetStartedBlock())
-        ], max_num=3)
+        ], max_num=3, required=False),
+        null=True,
+        blank=True,
     )
 
     # Card fields
@@ -106,6 +118,19 @@ class Topic(Page):
 
     # Meta panels
     meta_panels = [
+        MultiFieldPanel(
+            [
+                InlinePanel('parent_topics', label='Parent topic(s)'),
+                InlinePanel('child_topics', label='Child topic(s)'),
+            ],
+            heading='Parent/child topic(s)',
+            classname='collapsible collapsed',
+            help_text=(
+                'Topics with no parent (i.e. top-level topics) will be listed '
+                'on the home page. Child topics are listed on the parent '
+                'topic’s page.'
+            )
+        ),
         MultiFieldPanel([
             FieldPanel('icon'),
             FieldPanel('color'),
@@ -160,15 +185,9 @@ class Topic(Page):
     def color_value(self):
         return dict(COLOR_VALUES)[self.color]
 
-
-class SubTopic(Topic):
-    parent_page_types = ['Topic']
-    subpage_types = []
-    template = 'topic.html'
-
-    class Meta:
-        verbose_name = _('Sub-topic')
-        verbose_name_plural = _('Sub-topics')
+    @property
+    def subtopics(self):
+        return [topic.child for topic in self.child_topics.all()]
 
 
 class Topics(Page):
