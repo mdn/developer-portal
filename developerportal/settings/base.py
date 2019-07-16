@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'developerportal.apps.home',
     'developerportal.apps.mozimages',
     'developerportal.apps.people',
+    'developerportal.apps.staticbuild',
     'developerportal.apps.topics',
 
     'wagtail.contrib.forms',

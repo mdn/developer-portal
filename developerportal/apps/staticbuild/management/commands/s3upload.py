@@ -1,7 +1,14 @@
+import logging
+import os
+
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
-from developerportal.utils import S3Uploader
+from developerportal.apps.staticbuild.utils import S3Uploader
+
+
+logging.basicConfig(level=os.environ.get('LOGLEVEL', logging.INFO))
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -25,5 +32,12 @@ class Command(BaseCommand):
         )
 
     def handle(self, bucket=None, build_dir=None, **options):
+        logger.info('S3 upload started')
+
+        if not bucket:
+            logger.info('S3 upload aborted, no bucket specified')
+            return
+
         uploader = S3Uploader(bucket=bucket)
         uploader.upload_directory(build_dir)
+        logger.info('S3 upload finished')
