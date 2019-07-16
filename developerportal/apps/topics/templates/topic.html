@@ -16,7 +16,7 @@
     <section class="section-full">
       {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
     </section>
-    {% if page.featured.all %}
+    {% if page.featured %}
       <section>
         {% include "organisms/featured.html" with featured=page.featured %}
       </section>
@@ -34,7 +34,7 @@
     {% if page.articles.all %}
       <section>
         <div class="section-header">
-          <h2>Latest news</h2>
+          <h2>Latest articles</h2>
           <a href="">See more</a>
         </div>
         <div class="card-container">

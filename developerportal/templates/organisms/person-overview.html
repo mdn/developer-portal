@@ -10,8 +10,14 @@
   </div>
   <div class="person-overview-image-container">
     <div class="person-overview-image">
-      {% image resource.profile_picture width-284 %}
-      {% person_profile_picture_overlay %}
+
+
+      {% image resource.image width-320 as image %}
+      <img src="{{ image.url }}">
+      <div class="highlight1">
+        {{ resource.title }}
+      </div>
+      <span class="heading5">{{ resource.job_title }}</span>
     </div>
   </div>
 </div>
