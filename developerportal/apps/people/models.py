@@ -27,6 +27,12 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
+from .edit_handlers import CustomLabelFieldPanel
+
+
+class PeopleTag(TaggedItemBase):
+    content_object = ParentalKey('People', on_delete=CASCADE, related_name='tagged_items')
+
 
 class People(Page):
     subpage_types = ['Person']
@@ -105,8 +111,7 @@ class Person(Page):
      # Content panels
     content_panels = [
         MultiFieldPanel([
-            # TODO change label to 'Full name'
-            FieldPanel('title'),
+            CustomLabelFieldPanel('title', label='Full name'),
             FieldPanel('job_title'),
             FieldPanel('is_mozillian'),
         ], heading='About'),
@@ -143,7 +148,6 @@ class Person(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
-        FieldPanel('show_in_menus'),
     ]
 
     # Tabs

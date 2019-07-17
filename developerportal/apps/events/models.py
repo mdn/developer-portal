@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 import datetime
 
 from django.db.models import (
@@ -31,7 +32,10 @@ from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
-from ..articles.models import Article
+
+
+class EventsTag(TaggedItemBase):
+    content_object = ParentalKey('Events', on_delete=CASCADE, related_name='tagged_items')
 
 
 class EventTag(TaggedItemBase):
@@ -59,6 +63,37 @@ class Events(Page):
     subpage_types = ['events.Event']
     template = 'events.html'
 
+    # Content fields
+    featured_event = ForeignKey('events.Event', blank=True, null=True, on_delete=SET_NULL, related_name='+')
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=EventsTag, blank=True)
+
+    # Content panels
+    content_panels = Page.content_panels + [
+        PageChooserPanel('featured_event')
+    ]
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
+
     class Meta:
         verbose_name_plural = 'Events'
 
@@ -69,7 +104,15 @@ class Events(Page):
 
     @property
     def events(self):
-        return Event.objects.all().public().live().order_by('-start_date')
+        """Return events in chronological order"""
+        return (
+            Event
+                .objects
+                .all()
+                .public()
+                .live()
+                .order_by('start_date')
+        )
 
     def get_filters(self):
         from ..topics.models import Topic
@@ -94,12 +137,6 @@ class Event(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
-    start_date = DateField(default=datetime.date.today)
-    end_date = DateField(blank=True, null=True)
-    venue = TextField(max_length=250, blank=True, default='')
-    latitude = FloatField(blank=True, null=True)
-    longitude = FloatField(blank=True, null=True)
-    register_url = URLField('Register URL', blank=True, null=True)
     body = CustomStreamField(blank=True, null=True)
     agenda = StreamField(
         StreamBlock([
@@ -130,7 +167,10 @@ class Event(Page):
     # Meta fields
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    venue = TextField(max_length=250, blank=True, default='')
+    venue = TextField(max_length=250, blank=True, default='', help_text='Full address of the event venue, displayed on the event detail page')
+    location = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
+    latitude = FloatField(blank=True, null=True)
+    longitude = FloatField(blank=True, null=True)
     register_url = URLField('Register URL', blank=True, null=True)
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
 
@@ -156,6 +196,7 @@ class Event(Page):
             FieldPanel('start_date'),
             FieldPanel('end_date'),
             FieldPanel('venue'),
+            FieldPanel('location'),
             FieldPanel('latitude'),
             FieldPanel('longitude'),
             FieldPanel('register_url'),
@@ -176,7 +217,6 @@ class Event(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
-        FieldPanel('show_in_menus'),
     ]
 
     edit_handler = TabbedInterface([
@@ -189,9 +229,27 @@ class Event(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the event."""
-        article_topic = self.topics.first()  # pylint: disable=no-member
+        article_topic = self.topics.first()
         return article_topic.topic if article_topic else None
 
     @property
     def month_group(self):
         return self.start_date.replace(day=1)
+
+    @property
+    def event_dates(self):
+        """Return a formatted string of the event start and end dates"""
+        event_dates = self.start_date.strftime("%b %-d")
+        if self.end_date:
+            event_dates += " &ndash; "
+            start_month = self.start_date.strftime("%m")
+            if self.end_date.strftime("%m") == start_month:
+                event_dates += self.end_date.strftime("%-d")
+            else:
+                event_dates += self.end_date.strftime("%b %-d")
+        return event_dates
+
+    @property
+    def event_dates_full(self):
+        """Return a formatted string of the event start and end dates, including the year"""
+        return self.event_dates + self.start_date.strftime(", %Y")

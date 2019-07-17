@@ -8,6 +8,10 @@ main {
   &.has-header {
     padding-top: 0;
   }
+
+  &.has-footer {
+    padding-bottom: 0;
+  }
 }
 
 .base-grid {

@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="has-header">
+<main class="has-header has-footer">
   <div class="base-grid">
     <section class="section-full">
       {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
@@ -24,7 +24,7 @@
     <section class="section-full section-full-bg">
       {% include "organisms/get-started.html" %}
     </section>
-    {% with subtopics=self.get_children.specific %}
+    {% with subtopics=self.subtopics %}
       {% if subtopics %}
         <section class="section-full">
           {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
@@ -65,14 +65,18 @@
           <a href="/events">See more</a>
         </div>
         <div>
-          {% for event in page.events.all|slice:":3" %}
-          {% include "molecules/cards/card.html" with resource=event index=forloop.counter %}
-          {% endfor %}
+        {% for event in page.events.all|slice:":3" %}
+          {% if forloop.counter == 1 %}
+            {% include "molecules/cards/card.html" with resource=event featured=True %}
+          {% else %}
+            {% include "molecules/cards/card.html" with resource=event %}
+          {% endif %}
+        {% endfor %}
         </div>
       </div>
     </section>
     {% endif %}
-    <section>
+    <section class="section-full">
       {% include "organisms/newsletter-signup.html" %}
     </section>
   </div>

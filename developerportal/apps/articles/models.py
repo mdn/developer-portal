@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 import datetime
 import readtime
 
@@ -26,9 +27,36 @@ from taggit.models import TaggedItemBase
 from ..common.fields import CustomStreamField
 
 
+class ArticlesTag(TaggedItemBase):
+    content_object = ParentalKey('Articles', on_delete=CASCADE, related_name='tagged_items')
+
+
 class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
 
     class Meta:
         verbose_name_plural = 'Articles'
@@ -141,7 +169,6 @@ class Article(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
-        FieldPanel('show_in_menus'),
     ]
 
     # Tabs
@@ -155,7 +182,7 @@ class Article(Page):
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
-        article_topic = self.topics.first()  # pylint: disable=no-member
+        article_topic = self.topics.first()
         return article_topic.topic if article_topic else None
 
     @property
@@ -166,7 +193,7 @@ class Article(Page):
     def related_articles(self):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
-        topic_pks = self.topics.values_list('topic')  # pylint: disable=no-member
+        topic_pks = self.topics.values_list('topic')
         return (
             Article
             .objects

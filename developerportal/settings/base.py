@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'developerportal.apps.home',
     'developerportal.apps.mozimages',
     'developerportal.apps.people',
+    'developerportal.apps.staticbuild',
     'developerportal.apps.topics',
 
     'wagtail.contrib.forms',
@@ -119,7 +120,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 WSGI_APPLICATION = 'developerportal.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -225,6 +225,16 @@ BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
+
+# Static build management commands called in order
+STATIC_BUILD_PIPELINE = (
+    ('Build', 'build'),
+    ('S3 upload', 's3upload'),
+)
+
+# Amazon S3 config
+S3_BUCKET = os.environ.get('S3_BUCKET')
+
 
 # Social Auth pipelines
 SOCIAL_AUTH_PIPELINE = (

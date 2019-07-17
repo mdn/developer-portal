@@ -10,14 +10,114 @@
 }
 
 .card-event-content {
+  display: flex;
+  flex-direction: column;
+  @media #{$mq-md} {
+    flex-direction: row;
+  }
+
   p,
   span {
     color: $color-nevada;
+  }
+
+  p {
+    margin-bottom: 0;
   }
 
   address {
     color: $color-nevada;
     display: inline-block;
     font-style: normal;
+  }
+}
+
+.card-event-title {
+  flex-grow: 1;
+  padding: 100px 24px 24px;
+  width: 100%;
+  @media #{$mq-md} {
+    width: 65%;
+  }
+}
+
+.card-event-details {
+  border-left: none;
+  border-top: 2px solid $color-gray-20;
+  padding: 24px;
+  width: 100%;
+  @media #{$mq-md} {
+    border-left: 2px solid $color-gray-20;
+    border-top: none;
+    padding: 100px 24px 24px;
+    width: 35%;
+  }
+}
+
+.card-event-date {
+  .icon {
+    position: relative;
+    top: -2px;
+    margin-right: 4px;
+  }
+}
+
+.card-event-location {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: row;
+
+  .icon {
+    position: relative;
+    right: -2px;
+    margin-right: 6px;
+  }
+}
+
+.card-event-featured .card-event-title,
+.card-event-featured .card-event-details {
+  padding-top: 24px;
+}
+
+.card-event-ribbon-container {
+  left: -14px;
+  position: relative;
+  top: 16px;
+  z-index: 1;
+  @media #{$mq-md} {
+    left: -24px;
+  }
+}
+
+.card-event-ribbon {
+  height: 60px;
+  margin: 0 auto;
+  padding: 16px 40px;
+  position: absolute;
+
+  .highlight2 {
+    background-color: inherit;
+  }
+
+  &:before {
+    border: 14px solid $color-black;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;bottom: -14px;
+    left: -14px;
+    @media #{$mq-md} {
+      border: 24px solid $color-black;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-top-color: transparent;
+      bottom: -24px;
+      left:-24px;
+    }
+    content: "";
+    display: block;
+    height: 0px;
+    position: absolute;
+    width: 0px;
+    z-index: -1;
   }
 }
