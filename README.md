@@ -83,16 +83,3 @@ Check the built static site:
 ```shell
 docker-compose exec app python manage.py buildserver 0.0.0.0:8080
 ```
-
-Get the container ID for developer-portal_app:
-
-```shell
-docker ps
-```
-
-Copy the built site from the container to a local folder:
-
-```shell
-docker cp <container id>:/app/build ~/path/to/local/build
-```
-
