@@ -30,9 +30,16 @@ from taggit.models import TaggedItemBase
 from .edit_handlers import CustomLabelFieldPanel
 
 
+class PeopleTag(TaggedItemBase):
+    content_object = ParentalKey('People', on_delete=CASCADE, related_name='tagged_items')
+
+
 class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [
@@ -43,6 +50,26 @@ class People(Page):
         help_text=('These people will be featured at the top of the page. '
                     'Please choose between 1 and 3 people.'))
     ]
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
 
     class Meta:
         verbose_name_plural = 'People'
@@ -163,7 +190,6 @@ class Person(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
-        FieldPanel('show_in_menus'),
     ]
 
     # Tabs

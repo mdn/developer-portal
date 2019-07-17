@@ -1,4 +1,6 @@
+# pylint: disable=no-member
 import datetime
+
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, FileField
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,10 +22,12 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from ..articles.models import Article
-from ..events.models import Event
 from ..common.constants import COLOR_CHOICES, COLOR_VALUES
 from ..common.blocks import FeaturedExternalBlock, GetStartedBlock
+
+
+class TopicsTag(TaggedItemBase):
+    content_object = ParentalKey('Topics', on_delete=CASCADE, related_name='tagged_items')
 
 
 class TopicTag(TaggedItemBase):
@@ -158,6 +162,7 @@ class Topic(Page):
 
     @property
     def articles(self):
+        from ..articles.models import Article
         return (
             Article
                 .objects
@@ -171,6 +176,7 @@ class Topic(Page):
     def events(self):
         """Return upcoming events for this topic,
         ignoring events in the past, ordered by start date"""
+        from ..events.models import Event
         return (
             Event
                 .objects
@@ -193,6 +199,29 @@ class Topic(Page):
 class Topics(Page):
     subpage_types = ['Topic']
     template = 'topics.html'
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=TopicsTag, blank=True)
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
 
     class Meta:
         verbose_name_plural = 'Topics'
