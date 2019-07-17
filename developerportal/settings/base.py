@@ -33,6 +33,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 INSTALLED_APPS = [
     'developerportal.apps.common',
     'developerportal.apps.articles',
+    'developerportal.apps.content',
     'developerportal.apps.events',
     'developerportal.apps.externalcontent',
     'developerportal.apps.health',

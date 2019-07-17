@@ -26,7 +26,7 @@ class HomePageTag(TaggedItemBase):
 
 
 class HomePage(Page):
-    subpage_types = []
+    subpage_types = ['content.ContentPage']
     template = 'home.html'
 
     # Content fields
