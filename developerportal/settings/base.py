@@ -220,7 +220,7 @@ WAGTAILIMAGES_IMAGE_MODEL = 'mozimages.MozImage'
 BASE_URL = os.environ.get('BASE_URL')
 
 # Wagtail Bakery Settings
-BUILD_DIR = os.path.join(BASE_DIR, 'build')
+BUILD_DIR = os.path.join(BASE_DIR, 'build', 'build')
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
