@@ -60,6 +60,31 @@
   }
 }
 
+.card-full {
+  @media #{$mq-md} {
+    flex-direction: row;
+
+    .card-image {
+      padding-top: 40%;
+      width: 50%;
+    }
+
+    .card-content {
+      width: 50%;
+    }
+  }
+
+  .card-content {
+    h4 {
+      margin-bottom: 16px;
+    }
+
+    p {
+      color: $color-nevada;
+    }
+  }
+}
+
 .card-link {
   color: inherit;
   text-decoration: none;

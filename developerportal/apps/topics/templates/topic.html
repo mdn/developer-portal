@@ -34,14 +34,24 @@
     {% if page.articles.all %}
       <section>
         <div class="section-header">
-          <h2>Latest news</h2>
+          <h2>Latest articles</h2>
           <a href="">See more</a>
         </div>
-        <div class="card-container">
-          {% for article in page.articles.all|slice:":3" %}
-            {% include "molecules/cards/card.html" with resource=article show_author=True %}
-          {% endfor %}
-        </div>
+        {% if page.articles.count == 1 %}
+          {# a single article is rendered full width #}
+          <div>
+            {% with page.articles.all.0 as article %}
+              {% include "molecules/cards/card.html" with resource=article show_author=True full_width=True %}
+            {% endwith %}
+          </div>
+        {% else %}
+          {# 2 or 3 are rendered side-by-side #}
+          <div class="card-container {% if page.articles.count == 2 %}card-container-2-wide{% endif %}">
+            {% for article in page.articles.all|slice:":3" %}
+              {% include "molecules/cards/card.html" with resource=article show_author=True %}
+            {% endfor %}
+          </div>
+        {% endif %}
       </section>
     {% endif %}
     {% if page.people.all %}
