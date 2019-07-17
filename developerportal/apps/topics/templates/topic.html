@@ -16,9 +16,9 @@
     <section class="section-full">
       {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
     </section>
-    {% if page.featured.all %}
+    {% if page.featured %}
       <section>
-        {% include "organisms/featured.html" with featured=page.featured %}
+        {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured_count %}
       </section>
     {% endif %}
     <section class="section-full section-full-bg">
