@@ -10,12 +10,13 @@
     }
   }
 
-  input[type=email] {
-    width: 100%;
+  label[for='newsletter-email'] {
+    display: inline-block;
+    margin-right: 4px;
+  }
 
-    @media screen and (min-width: 480px) {
-      width: 300px;
-    }
+  input[type=email] {
+    display: inline-block;
   }
 
   select {
