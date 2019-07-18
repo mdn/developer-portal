@@ -29,10 +29,12 @@
           <span class="icon">{% include "atoms/icons/date.svg" %}</span>
           <span>{{ resource.event_dates_full|safe }}</span>
         </div>
-        <div class="card-event-location">
-          <span class="icon">{% include "atoms/icons/location.svg" %}</span>
-          <address>{{ resource.location }}</address>
-        </div>
+        {% if resource.location %}
+          <div class="card-event-location">
+            <span class="icon">{% include "atoms/icons/location.svg" %}</span>
+            <address>{{ resource.location }}</address>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@ class ArticleAdmin(ModelAdmin):
 modeladmin_register(ArticleAdmin)
 
 
-def _static_build_async(force=False, pipeline=settings.STATIC_BUILD_PIPELINE):
+def _static_build_async(force=False, pipeline=settings.STATIC_BUILD_PIPELINE, **kwargs):
     """Calls each command in the static build pipeline in turn."""
     log_prefix = 'Static build task'
     for name, command in pipeline:

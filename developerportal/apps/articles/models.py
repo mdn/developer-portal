@@ -147,7 +147,7 @@ class Article(Page):
     meta_panels = [
         FieldPanel('date'),
         MultiFieldPanel([
-            InlinePanel('authors'),
+            InlinePanel('authors', min_num=1),
         ], heading='Authors'),
         MultiFieldPanel([
             InlinePanel('topics'),

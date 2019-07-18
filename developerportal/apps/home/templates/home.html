@@ -3,25 +3,30 @@
 {% load app_filters %}
 {% load wagtailcore_tags %}
 
-
 {% block body_class %}home{% endblock %}
 
 {% block content %}
   <main class="has-header has-footer">
     <div class="base-grid">
-      <section class="section-full">
+      <section class="section-full section-background">
         {% include "organisms/homepage-header.html" %}
       </section>
-      <section>
-        {% include "organisms/featured.html" with featured=page.featured %}
-      </section>
-      <section class="section-full">
-        {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
-      </section>
-      <section class="section-full section-full-bg">
-        {% include "organisms/homepage-about.html" %}
-      </section>
-      <section class="section-full">
+      {% if page.featured %}
+        <section id="featured">
+          {% include "organisms/featured.html" with featured=page.featured %}
+        </section>
+      {% endif %}
+      {% if page.primary_topics.all %}
+        <section id="topics" class="section-full">
+          {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
+        </section>
+      {% endif %}
+      {% if page.about_title %}
+        <section id="about" class="section-full section-background section-full-bg">
+          {% include "organisms/homepage-about.html" with title=page.about_title subtitle=page.about_subtitle button_url=page.about_button_url button_text=page.about_button_text %}
+        </section>
+      {% endif %}
+      <section id="newsletter" class="section-full section-background">
         {% include "organisms/newsletter-signup.html" %}
       </section>
     </div>

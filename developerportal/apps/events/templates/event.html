@@ -34,9 +34,11 @@
               {{ block }}
             {% endif %}
           {% endfor %}
-          <a href="#" class="mzp-c-button">
-            Register now
-          </a>
+          {% if page.register_url %}
+            <a href="{{ page.register_url }}" class="mzp-c-button">
+              Register now
+            </a>
+          {% endif %}
           {% include "organisms/event-map.html" with resource=page %}
           {% include "organisms/event-agenda.html" with resource=page %}
         </article>

@@ -68,18 +68,14 @@ If things get messed up, you could (as a last resort) prune ALL Docker images, c
 
 ## Static site generation
 
-A static file version of the site is generated using [Wagtail Bakery](https://github.com/wagtail/wagtail-bakery) which is built on top of [Django Bakery](https://github.com/datadesk/django-bakery)
+A static version of this site can be generated. This is automatically run in production when resources are published/unpublished from the Wagtail admin.
 
 ### Usage
 
-Build the site out as flat files to the /build folder (specified in settings/base.py):
+To manually build the static site, run:
 
 ```shell
-docker-compose exec app python manage.py build
+docker-compose exec app python manage.py build --settings=developerportal.settings.production
 ```
 
-Check the built static site:
-
-```shell
-docker-compose exec app python manage.py buildserver 0.0.0.0:8080
-```
+The result of this will be output to the /build directory.
