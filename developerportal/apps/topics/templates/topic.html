@@ -22,8 +22,9 @@
       </section>
     {% endif %}
     {% if page.get_started %}
-      {% include "organisms/get-started.html" %}
-    </section>
+      <section class="section-full section-background section-full-bg">
+        {% include "organisms/get-started.html" %}
+      </section>
     {% endif %}
     {% with subtopics=self.subtopics %}
       {% if subtopics %}

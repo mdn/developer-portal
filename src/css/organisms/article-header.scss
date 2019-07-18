@@ -1,7 +1,6 @@
 .article-header {
   background: $color-gray-10;
   grid-column: full;
-  margin-bottom: 80px;
   padding: $grid-gap-mobile $grid-gap-mobile 0;
 
   @media #{$mq-md} {
