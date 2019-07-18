@@ -9,6 +9,7 @@
 
   .person-share-buttons {
     justify-content: flex-start;
+    margin-top: 32px;
   }
 }
 
@@ -23,7 +24,10 @@
 .person-overview-image-container {
   position: relative;
   text-align: center;
-  top: -32px;
+  top: 0;
+  @media #{$mq-md} {
+    top: -64px;
+  }
 }
 
 .person-overview-image {
@@ -38,9 +42,4 @@
 
 .person-overview-image img {
   border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
 }

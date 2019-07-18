@@ -19,13 +19,10 @@
       <section>
         {% include "organisms/person-overview.html" with resource=page %}
       </section>
-      <section class="section-full">
-        {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}
-      </section>
       {% if page.articles.all %}
       <section>
         <div class="section-header">
-          <h2>My latest articles</h2>
+          <h2>Latest articles</h2>
           <a href="">See more</a>
         </div>
         <div class="card-container">
@@ -35,6 +32,9 @@
         </div>
       </section>
       {% endif %}
+      <section class="section-full">
+        {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}
+      </section>
     </div>
   </main>
 {% endblock content %}
