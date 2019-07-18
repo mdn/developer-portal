@@ -13,8 +13,10 @@
       {% if page.events %}
         <section>
           <h2>Events</h2>
-          {% for event in page.featured %}
-            {% include "molecules/cards/card.html" with resource=event featured=True %}
+          {% for featured_item in page.featured %}
+            {% with featured_item.value.specific as event %}
+              {% include "molecules/cards/card.html" with resource=event featured=True %}
+            {% endwith %}
           {% endfor %}
         </section>
         <section class="section-full">
