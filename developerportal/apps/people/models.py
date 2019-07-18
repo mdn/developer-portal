@@ -90,15 +90,6 @@ class People(Page):
         }
 
 
-class FeaturedPerson(Orderable):
-    page = ParentalKey('People', related_name='featured_people')
-    person = ForeignKey('people.Person', on_delete=CASCADE, related_name='+')
-
-    panels = [
-        PageChooserPanel('person')
-    ]
-
-
 class PersonTag(TaggedItemBase):
     content_object = ParentalKey('Person', on_delete=CASCADE, related_name='tagged_items')
 
