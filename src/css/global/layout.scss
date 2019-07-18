@@ -84,6 +84,14 @@ main {
   justify-content: space-between;
   margin-bottom: 32px;
 
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   h1,
   h2,
   h3,
