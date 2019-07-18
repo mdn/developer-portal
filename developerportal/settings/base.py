@@ -230,7 +230,7 @@ BAKERY_VIEWS = (
 # Static build management commands called in order
 STATIC_BUILD_PIPELINE = (
     ('Build', 'build'),
-    ('S3 upload', 's3upload'),
+    ('Publish', 'publish'),
 )
 
 # Amazon S3 config
