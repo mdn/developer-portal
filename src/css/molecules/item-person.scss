@@ -16,4 +16,13 @@
   .highlight1 {
     background-color: unset;
   }
+
+  &:hover {
+    opacity: 0.8;
+    transition: transform 100ms;
+
+    &:hover {
+      transform: translate(-2px, -2px);
+    }
+  }
 }
