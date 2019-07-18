@@ -13,9 +13,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='events',
-            name='featured_event',
-            field=wagtail.core.fields.StreamField([('event', wagtail.core.blocks.PageChooserBlock(page_type=['events.Event', 'externalcontent.ExternalEvent'], required=False)), ('external_page', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('description', wagtail.core.blocks.TextBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock())]))], blank=True, null=True),
-        ),
     ]
