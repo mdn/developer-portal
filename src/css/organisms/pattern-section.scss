@@ -1,9 +1,14 @@
 .pattern-section {
-  margin: 64px 0;
+  padding: 32px 0;
+  overflow: hidden;
   position: relative;
 
+  @media #{$mq-md} {
+    padding: 64px 0;
+  }
+
   @media screen and (min-width: 1024px) {
-    margin: 75px 0;
+    padding: 75px 0;
   }
 }
 
@@ -12,6 +17,7 @@
   margin: 0 auto;
   max-width: 1190px;
   padding: $grid-gap 0;
+  position: relative;
 
   @media screen and (min-width: 1024px) {
     padding: 80px 0;
@@ -19,18 +25,14 @@
 }
 
 .pattern-section-pattern {
-  height: 40px;
+  display: block;
+  height: 250px;
   position: absolute;
-  width: calc(100% - 50px);
+  width: 70%;
   z-index: -1;
 
-  @media screen and (min-width: 1024px) {
-    height: 300px;
-    width: calc(100% - 1024px - 150px);
-  }
-
-  @media screen and (min-width: (1024px + 150px)) {
-    display: block;
+  @media #{$mq-md} {
+    width: 300px;
   }
 
   .pattern {
@@ -40,18 +42,28 @@
 
 .pattern-section-pattern-before {
   left: 0;
-  top: -40px;
+  top: -32px;
 
-  @media screen and (min-width: 1024px) {
+  @media #{$mq-md} {
+    top: -64px;
+  }
+
+  @media screen and (min-width: 1190px) {
+    left: -210px;
     top: -75px;
   }
 }
 
 .pattern-section-pattern-after {
-  bottom: -40px;
+  bottom: -32px;
   right: 0;
 
-  @media screen and (min-width: 1024px) {
+  @media #{$mq-md} {
+    bottom: -64px;
+  }
+
+  @media screen and (min-width: 1190px) {
     bottom: -75px;
+    right: -210px;
   }
 }
