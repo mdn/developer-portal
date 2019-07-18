@@ -34,15 +34,6 @@ class TopicTag(TaggedItemBase):
     content_object = ParentalKey('Topic', on_delete=CASCADE, related_name='tagged_items')
 
 
-class TopicFeaturedArticle(Orderable):
-    topic = ParentalKey('Topic', related_name='featured_articles')
-    article = ForeignKey('articles.Article', on_delete=CASCADE, related_name='+')
-
-    panels = [
-        PageChooserPanel('article'),
-    ]
-
-
 class TopicPerson(Orderable):
     topic = ParentalKey('Topic', related_name='people')
     person = ForeignKey('people.Person', on_delete=CASCADE, related_name='+')
@@ -72,7 +63,10 @@ class Topic(Page):
     description = TextField(max_length=250, blank=True, default='')
     featured = StreamField(
         StreamBlock([
-            ('article', PageChooserBlock(required=False, target_model='articles.article')),
+            ('article', PageChooserBlock(required=False, target_model=[
+                'articles.Article',
+                'externalcontent.ExternalArticle',
+            ], )),
             ('external_page', FeaturedExternalBlock()),
         ], max_num=4, required=False),
         null=True,

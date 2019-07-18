@@ -8,6 +8,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class ExternalContent(Page):
+    is_external = True
     subpage_types = []
 
     external_url = URLField('URL', max_length=2048, blank=True, default='')

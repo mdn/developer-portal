@@ -13,11 +13,9 @@
       {% if page.events %}
         <section>
           <h2>Events</h2>
-          {% with event=page.featured_event %}
-            {% if event %}
-              {% include "molecules/cards/card.html" with resource=event featured=True %}
-            {% endif %}
-          {% endwith %}
+          {% for event in page.featured %}
+            {% include "molecules/cards/card.html" with resource=event featured=True %}
+          {% endfor %}
         </section>
         <section class="section-full">
           {% include "organisms/filter-list.html" with type="event" resources=page.events initial_resources=6 resources_per_page=4 %}

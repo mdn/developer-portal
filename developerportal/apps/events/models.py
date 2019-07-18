@@ -31,7 +31,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
-from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
+from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 
 
 class EventsTag(TaggedItemBase):
@@ -64,14 +64,24 @@ class Events(Page):
     template = 'events.html'
 
     # Content fields
-    featured_event = ForeignKey('events.Event', blank=True, null=True, on_delete=SET_NULL, related_name='+')
+    featured = StreamField(
+        StreamBlock([
+            ('event', PageChooserBlock(required=False, target_model=[
+                'events.Event',
+                'externalcontent.ExternalEvent',
+            ], )),
+            ('external_page', FeaturedExternalBlock()),
+        ], max_num=1, required=False),
+        null=True,
+        blank=True,
+    )
 
     # Meta fields
     keywords = ClusterTaggableManager(through=EventsTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [
-        PageChooserPanel('featured_event')
+        StreamFieldPanel('featured')
     ]
 
     # Meta panels
