@@ -18,8 +18,7 @@
       <section class="section-full">
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
-      <section class="section-full section-full-bg">
-        {% include "organisms/homepage-about.html" %}
+          {% include "organisms/homepage-about.html" with title=page.about_title subtitle=page.about_subtitle button_url=page.about_button_url button_text=page.about_button_text %}
       </section>
       <section class="section-full">
         {% include "organisms/newsletter-signup.html" %}
