@@ -68,14 +68,14 @@ class Topic(Page):
                 'externalcontent.ExternalArticle',
             ], )),
             ('external_page', FeaturedExternalBlock()),
-        ], max_num=4, required=False),
+        ], min_num=0, max_num=4, required=False),
         null=True,
         blank=True,
     )
     get_started = StreamField(
         StreamBlock([
             ('panel', GetStartedBlock())
-        ], max_num=3, required=False),
+        ], min_num=0, max_num=3, required=False),
         null=True,
         blank=True,
     )

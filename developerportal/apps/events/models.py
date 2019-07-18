@@ -71,7 +71,7 @@ class Events(Page):
                 'externalcontent.ExternalEvent',
             ], )),
             ('external_page', FeaturedExternalBlock()),
-        ], max_num=1, required=False),
+        ], min_num=0, max_num=1, required=False),
         null=True,
         blank=True,
     )

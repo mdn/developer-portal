@@ -44,7 +44,7 @@ class People(Page):
     # Content panels
     content_panels = Page.content_panels + [
         MultiFieldPanel([
-            InlinePanel('featured_people', max_num=3)
+            InlinePanel('featured_people', min_num=0, max_num=3)
         ],
         heading='Featured People',
         help_text=('These people will be featured at the top of the page. '
