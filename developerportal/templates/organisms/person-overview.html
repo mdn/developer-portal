@@ -11,7 +11,7 @@
   <div class="person-overview-image-container">
     <div class="person-overview-image">
       {% image resource.image width-320 as image %}
-      <img src="{{ image.url }}">
+      <img src="{{ image.url }}" alt="{{ image.alt }}">
       <div class="highlight1">
         {{ resource.title }}
       </div>

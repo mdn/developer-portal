@@ -1,9 +1,17 @@
 <div class="share">
   <div class="share-buttons person-share-buttons">
+    <span class="share-buttons-label">Follow:</span>
     {% if resource.twitter %}
       <a href="http://twitter.com/{{ resource.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's Twitter page">
         <span class="icon">
           {% include "atoms/icons/twitter.svg" %}
+        </span>
+      </a>
+    {% endif %}
+    {% if resource.github %}
+      <a href="http://github.com/{{ resource.github }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's Github page">
+        <span class="icon">
+          {% include "atoms/icons/github.svg" %}
         </span>
       </a>
     {% endif %}
