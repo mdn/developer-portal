@@ -21,9 +21,10 @@
         {% include "organisms/featured.html" with featured=page.featured %}
       </section>
     {% endif %}
-    <section class="section-full section-full-bg">
+    {% if page.get_started %}
       {% include "organisms/get-started.html" %}
     </section>
+    {% endif %}
     {% with subtopics=self.subtopics %}
       {% if subtopics %}
         <section class="section-full">

@@ -10,16 +10,15 @@
 {% endif %}
     <div class="card-person">
       <div class="item-person">
-        <img src="{{ image.url }}" alt="{{ image.alt }}">
-        <div class="">
-          <div class="highlight1">
-            {{ person.title }}
-          </div>
-          <span class="heading5">{{ person.job_title }}</span>
+        {% if image %}
+          <img src="{{ image.url }}" alt="">
+        {% endif %}
+        <div class="highlight1">
+          {{ person.title }}
         </div>
+        <span class="heading5">{{ person.job_title }}</span>
       </div>
     </div>
 {% if person.url %}
   </a>
 {% endif %}
-
