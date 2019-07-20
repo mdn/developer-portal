@@ -1,0 +1,28 @@
+.card-person {
+  text-align: center;
+}
+
+.item-person {
+  color: $color-black;
+  display: inline-block;
+  margin: 32px 0;
+  text-align: center;
+
+  img {
+    border-radius: 50%;
+    filter: grayscale(1);
+  }
+
+  .highlight1 {
+    background-color: unset;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    transition: transform 100ms;
+
+    &:hover {
+      transform: translate(-2px, -2px);
+    }
+  }
+}

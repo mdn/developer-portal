@@ -1,7 +1,7 @@
 .article-header {
   background: $color-gray-10;
   grid-column: full;
-  padding: $grid-gap-mobile;
+  padding: $grid-gap-mobile $grid-gap-mobile 0;
 
   @media #{$mq-md} {
     padding: 0 $grid-gap;
@@ -9,8 +9,10 @@
 }
 
 .article-header-container {
+  display: flex;
+  flex-direction: column-reverse;
+
   @media #{$mq-md} {
-    display: flex;
     flex-direction: row-reverse;
     max-width: 1024px;
     margin: 0 auto;
@@ -30,12 +32,19 @@
   padding-top: $grid-gap-mobile;
 
   @media #{$mq-md} {
-    padding: 64px $grid-gap 64px 0;
+    padding: 96px $grid-gap 64px 0;
   }
 }
 
 .article-header-image {
-  padding-right: 16px;
+  padding: 28px 16px;
+  position: relative;
+  margin: 32px 0 0;
+
+  @media #{$mq-md} {
+    margin: 96px 0 32px;
+    position: static;
+  }
 
   img {
     max-width: 100%;
@@ -55,14 +64,17 @@
 
 .article-header-pattern {
   background-color: $color-black;
-  display: none;
   height: 100%;
   position: absolute;
   right: 0;
   top: 0;
-  width: 320px;
+  width: 50%;
 
   @media #{$mq-md} {
-    display: block;
+    width: 320px;
+  }
+
+  .pattern::before {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
   }
 }

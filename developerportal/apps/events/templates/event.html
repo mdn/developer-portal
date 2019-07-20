@@ -1,8 +1,58 @@
 {% extends "base.html" %}
 {% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
-{% block body_class %}event-detail{% endblock %}
+{% block head %}
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.css' rel='stylesheet' />
+{% endblock %}
+
+{% block body_class %}event{% endblock %}
+
+{% block header %}
+  {% include "header.html" %}
+  {% include "utils/accent-color.html" with color='#88FFD1' %}
+{% endblock %}
 
 {% block content %}
-  <h1>{{ self.title }}</h1>
+  <main class="has-header">
+    <div class="base-grid">
+      {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
+      <section>
+        {% include "molecules/event-details.html" with resource=page %}
+      </section>
+      <section class="article-content">
+        <article class="article-body">
+          {% include "molecules/resource-share.html" with resource=page %}
+
+          {% for block in page.body %}
+            {% if block.block_type == 'image' %}
+              {% image block.value width-672 as rendition %}
+              {% include "atoms/image.html" with image=block.value rendition=rendition %}
+            {% else %}
+              {{ block }}
+            {% endif %}
+          {% endfor %}
+          {% if page.register_url %}
+            <a href="{{ page.register_url }}" class="mzp-c-button">
+              Register now
+            </a>
+          {% endif %}
+          {% include "organisms/event-map.html" with resource=page %}
+          {% include "organisms/event-agenda.html" with resource=page %}
+        </article>
+        <aside class="article-sidebar">
+          {% if page.primary_topic %}
+            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+          {% endif %}
+        </aside>
+      </section>
+      {% if page.speakers %}
+      <section class="section-full section-full-bg">
+        {% include "organisms/event-speakers.html" with speakers=page.speakers %}
+      </section>
+      {% endif %}
+    </div>
+  </main>
 {% endblock content %}

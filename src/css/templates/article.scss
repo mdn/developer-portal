@@ -23,6 +23,10 @@
       background: none;
     }
   }
+
+  .mzp-c-button {
+    margin-left: 2px;
+  }
 }
 
 .article-sidebar {
@@ -33,7 +37,7 @@
   margin-bottom: 32px;
 
   .card-link {
-    display: inline-block;
+    display: block;
     margin-bottom: 32px;
 
     &:last-child {

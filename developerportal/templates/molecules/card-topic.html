@@ -2,14 +2,13 @@
 
 <a href="{% pageurl topic %}" class="card-link">
   <div class="card-topic">
-    {% include "atoms/pattern.html" with name="card-topic" %}
+    {% include "atoms/pattern.html" %}
     <div class="card-topic-content">
-      {% include "atoms/topic-icon.html" with icon="mixed-reality" %}
+      {% include "atoms/topic-icon.html" with icon=topic.icon %}
       <h4 class="highlighted no-underline">{{ topic.title }}</h4>
       <button class="mzp-c-button mzp-t-small mzp-t-dark">
         See more
       </button>
     </div>
-    <div class="card-topic-pattern"></div>
   </div>
 </a>

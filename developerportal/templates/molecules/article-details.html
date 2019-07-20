@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% image author.profile_picture width-60 as author_pic %}
+{% image author.image width-60 as author_pic %}
 {% if enable_link %}<a href="{{ author.url }}" class="article-details-link">{% endif %}
   <div class="article-details">
     {% if author_pic %}

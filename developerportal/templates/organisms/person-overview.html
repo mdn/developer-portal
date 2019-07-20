@@ -5,13 +5,17 @@
 <h2>Overview</h2>
 <div class="person-overview">
   <div class="person-overview-details">
-    {{ resource.intro|richtext }}
+    {{ resource.description|richtext }}
     {% include "molecules/person-contact.html" with resource=resource %}
   </div>
   <div class="person-overview-image-container">
     <div class="person-overview-image">
-      {% image resource.profile_picture width-284 %}
-      {% person_profile_picture_overlay %}
+      {% image resource.image width-320 as image %}
+      <img src="{{ image.url }}" alt="{{ image.alt }}">
+      <div class="highlight1">
+        {{ resource.title }}
+      </div>
+      <span class="heading5">{{ resource.job_title }}</span>
     </div>
   </div>
 </div>

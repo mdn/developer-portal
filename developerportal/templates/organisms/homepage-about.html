@@ -1,0 +1,16 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<section class="homepage-about">
+  <div class="container">
+    <h1>{{ title }}</h1>
+    {% if subtitle %}
+      <h5 class="no-underline">{{ subtitle }}</h5>
+    {% endif %}
+    {% if button_url and button_text %}
+      <div class="homepage-header-actions">
+        <a href="{{ button_url }}" class="mzp-c-button">{{ button_text }}</a>
+      </div>
+    {% endif %}
+  </div>
+</section>

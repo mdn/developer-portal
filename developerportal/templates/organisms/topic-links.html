@@ -2,10 +2,10 @@
 
 {% if topics %}
   <section class="pattern-section">
-    <div class="pattern-section-pattern pattern-section-pattern-before">
-      {% include "atoms/pattern.html" with name="topic-link-before" %}
-    </div>
     <div class="pattern-section-background">
+      <div class="pattern-section-pattern pattern-section-pattern-before">
+        {% include "atoms/pattern.html" %}
+      </div>
       <div class="container">
         <div class="section-header">
           {% if pagetheme == 'home' %}
@@ -24,9 +24,9 @@
           {% endfor %}
         </div>
       </div>
-    </div>
-    <div class="pattern-section-pattern pattern-section-pattern-after">
-      {% include "atoms/pattern.html" with name="topic-link-after" %}
+      <div class="pattern-section-pattern pattern-section-pattern-after">
+        {% include "atoms/pattern.html" %}
+      </div>
     </div>
   </section>
 {% endif %}

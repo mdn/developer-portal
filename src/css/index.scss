@@ -31,6 +31,7 @@
 @import 'atoms/embed';
 @import 'atoms/icon';
 @import 'atoms/image';
+@import 'atoms/map';
 @import 'atoms/pattern';
 @import 'atoms/quote';
 @import 'atoms/rich-text';
@@ -43,17 +44,22 @@
 @import 'molecules/card-event';
 @import 'molecules/card-featured';
 @import 'molecules/card-topic';
+@import 'molecules/event-details';
 @import 'molecules/header';
 @import 'molecules/item-get-started';
-@import 'molecules/item-mozillian';
+@import 'molecules/item-person';
 @import 'molecules/item-topic-link';
 @import 'molecules/resource-meta';
 @import 'molecules/resource-share';
 
 // Organisms.
 @import 'organisms/article-header';
+@import 'organisms/event-speakers';
+@import 'organisms/event-agenda';
+@import 'organisms/filter-form';
 @import 'organisms/filter-list';
 @import 'organisms/get-started';
+@import 'organisms/homepage-about';
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
 @import 'organisms/pattern-bg-header';

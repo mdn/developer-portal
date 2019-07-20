@@ -1,0 +1,1106 @@
+[
+{
+  "model": "events.event",
+  "pk": 34,
+  "fields": {
+    "description": "Mozilla Developer Roadshow is excited to join developers and web creators at Silbury, Nuremberg!",
+    "image": null,
+    "start_date": "2019-08-26",
+    "end_date": null,
+    "venue": "Silbury, Fichtenstra\u00dfe 20, 90763 F\u00fcrth, Germany",
+    "register_url": null,
+    "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Hear  from our Mozillians and friends on some of the best practices on the web  platform including privacy and security guidance on building an  immersive web browser, common tooling to build for virtual and augmented  reality, using Firefox DevTools to learn modern CSS layouts, how  WebAssembly is reshaping everything on the web</p><p>Doors open at 5.30pm with Talks kicking off at 6pm, and Social Hour starting at 8.30pm. </p><p>See Agenda details below.</p><p>All events are free, but please RSVP and confirm attendance since we  will be providing food and beverages throughout the sessions.</p><p>Many thanks to our community sponsors </p><p><i>CoderDojo, tollwerk, N\\u00fcrnberg Digital Festival (former N\\u00fcrnberg Web Week), and our DevRoadshow EU partner </i><a href=\\\"https://beyondtellerrand.com/\\\"><i>beyond tellerrand</i></a></p>\", \"id\": \"7797ce68-84fd-4093-9a38-6de596d8a701\"}]",
+    "agenda": "[{\"type\": \"agenda_item\", \"value\": {\"start_time\": \"17:30:00\", \"end_time\": null, \"title\": \"Doors Open for Check In (please have your ticket ready)\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"6c2029e9-3ba7-44d5-bd78-9ff2981a9be1\"}, {\"type\": \"agenda_item\", \"value\": {\"start_time\": \"18:00:00\", \"end_time\": null, \"title\": \"Presentations starts with Introduction\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"368772fc-1547-4d24-82c2-43f4b4a86c2f\"}]",
+    "speakers": "[]"
+  }
+},
+{
+  "model": "events.event",
+  "pk": 35,
+  "fields": {
+    "description": "This is a two day event with the first day covering concepts on RUST for newbies and the following by a 24 hour hackathon on RUST and also other interesting projects by Mozilla.",
+    "image": null,
+    "start_date": "2019-07-27",
+    "end_date": "2019-07-28",
+    "venue": "Yamoussoukro, Region des Lacs, Ivory Coast",
+    "register_url": null,
+    "body": "[]",
+    "agenda": "[]",
+    "speakers": "[]"
+  }
+},
+{
+  "model": "events.event",
+  "pk": 36,
+  "fields": {
+    "description": "Mozilla Developer Roadshow is excited to join developers and web creators at the Microsoft space in Munich!",
+    "image": null,
+    "start_date": "2019-08-27",
+    "end_date": null,
+    "venue": "Microsoft, Walter-Gropius-Stra\u00dfe 5, 80807 M\u00fcnchen, Germany",
+    "register_url": null,
+    "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Hear from our Mozillians and friends on some of the best practices on the web platform including privacy and security guidance on building an immersive web browser, common tooling to build for virtual and augmented reality, using Firefox DevTools to learn modern CSS layouts, how WebAssembly is reshaping everything on the web</p><p>Doors open at 5.30pm with Talks kicking off at 6pm, and Social Hour starting at 8.30pm.</p><p>See Agenda details below.</p><p>All events are free, but please RSVP and confirm attendance since we will be providing food and beverages throughout the sessions.</p><p>Many thanks to our community sponsors</p><p><i>Munich Frontend Meetup, Refresh Munich, and our DevRoadshow EU partner</i> <a href=\\\"https://beyondtellerrand.com/\\\"><i>beyond tellerrand</i></a></p>\", \"id\": \"d4a4d6a7-e7ac-4232-81dc-2921f244ccb3\"}]",
+    "agenda": "[{\"type\": \"agenda_item\", \"value\": {\"start_time\": \"17:30:00\", \"end_time\": null, \"title\": \"Doors open\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"00a53e1c-d054-46d3-bdc6-c6c861ec25be\"}]",
+    "speakers": "[]"
+  }
+},
+{
+  "model": "events.events",
+  "pk": 33,
+  "fields": {}
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 1,
+  "fields": {
+    "path": "0001",
+    "depth": 1,
+    "numchild": 1,
+    "title": "Root",
+    "draft_title": "Root",
+    "slug": "root",
+    "content_type": [
+      "wagtailcore",
+      "page"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 3,
+  "fields": {
+    "path": "00010001",
+    "depth": 2,
+    "numchild": 3,
+    "title": "Home",
+    "draft_title": "Home",
+    "slug": "home",
+    "content_type": [
+      "home",
+      "homepage"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 4,
+  "fields": {
+    "path": "000100010001",
+    "depth": 3,
+    "numchild": 22,
+    "title": "Articles",
+    "draft_title": "Articles",
+    "slug": "articles",
+    "content_type": [
+      "articles",
+      "articles"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 5,
+  "fields": {
+    "path": "000100010002",
+    "depth": 3,
+    "numchild": 2,
+    "title": "Topics",
+    "draft_title": "Topics",
+    "slug": "topic",
+    "content_type": [
+      "topics",
+      "topics"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/topic/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 6,
+  "fields": {
+    "path": "0001000100020001",
+    "depth": 4,
+    "numchild": 0,
+    "title": "CSS",
+    "draft_title": "CSS",
+    "slug": "css",
+    "content_type": [
+      "topics",
+      "topic"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/topic/css/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 7,
+  "fields": {
+    "path": "0001000100020002",
+    "depth": 4,
+    "numchild": 0,
+    "title": "JavaScript",
+    "draft_title": "JavaScript",
+    "slug": "javascript",
+    "content_type": [
+      "topics",
+      "topic"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/topic/javascript/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": true,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 8,
+  "fields": {
+    "path": "0001000100010001",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Faster smarter JavaScript debugging in Firefox DevTools",
+    "draft_title": "Faster smarter JavaScript debugging in Firefox DevTools",
+    "slug": "faster-smarter-javascript-debugging-in-firefox",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/faster-smarter-javascript-debugging-in-firefox/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 9,
+  "fields": {
+    "path": "000100010003",
+    "depth": 3,
+    "numchild": 1,
+    "title": "People",
+    "draft_title": "People",
+    "slug": "people",
+    "content_type": [
+      "people",
+      "people"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/people/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 11,
+  "fields": {
+    "path": "0001000100030001",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Josh Marinacci",
+    "draft_title": "Josh Marinacci",
+    "slug": "josh-marinacci",
+    "content_type": [
+      "people",
+      "person"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/people/josh-marinacci/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 12,
+  "fields": {
+    "path": "0001000100010002",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Developer Roadshow 2019 returns with VR, IoT and all things web",
+    "draft_title": "Developer Roadshow 2019 returns with VR, IoT and all things web",
+    "slug": "developer-roadshow-2019-returns-vr-iot-and-all-things-web",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/developer-roadshow-2019-returns-vr-iot-and-all-things-web/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 13,
+  "fields": {
+    "path": "0001000100010003",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Standardizing WASI: A system interface to run WebAssembly outside the web",
+    "draft_title": "Standardizing WASI: A system interface to run WebAssembly outside the web",
+    "slug": "standardizing-wasi-system-interface-run-webassembly-outside-web",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/standardizing-wasi-system-interface-run-webassembly-outside-web/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 14,
+  "fields": {
+    "path": "0001000100010004",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Firefox 66: The Sound of Silence",
+    "draft_title": "Firefox 66: The Sound of Silence",
+    "slug": "firefox-66-sound-silence",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/firefox-66-sound-silence/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 15,
+  "fields": {
+    "path": "0001000100010005",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Fearless Security: Thread Safety",
+    "draft_title": "Fearless Security: Thread Safety",
+    "slug": "fearless-security-thread-safety",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/fearless-security-thread-safety/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 16,
+  "fields": {
+    "path": "0001000100010006",
+    "depth": 4,
+    "numchild": 0,
+    "title": "How to make VR with the web, a new video series",
+    "draft_title": "How to make VR with the web, a new video series",
+    "slug": "how-make-vr-web-new-video-series",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/how-make-vr-web-new-video-series/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 17,
+  "fields": {
+    "path": "0001000100010007",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Firefox 67: Dark Mode CSS, WebRender, and more",
+    "draft_title": "Firefox 67: Dark Mode CSS, WebRender, and more",
+    "slug": "firefox-67-dark-mode-css-webrender-and-more",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/firefox-67-dark-mode-css-webrender-and-more/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 18,
+  "fields": {
+    "path": "0001000100010008",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Web Design Survey Findings and Next Steps",
+    "draft_title": "Web Design Survey Findings and Next Steps",
+    "slug": "web-design-survey-findings-and-next-steps",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/web-design-survey-findings-and-next-steps/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 19,
+  "fields": {
+    "path": "0001000100010009",
+    "depth": 4,
+    "numchild": 0,
+    "title": "9 Biggest Mistakes with CSS Grid",
+    "draft_title": "9 Biggest Mistakes with CSS Grid",
+    "slug": "9-biggest-mistakes-css-grid",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/9-biggest-mistakes-css-grid/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 20,
+  "fields": {
+    "path": "000100010001000A",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Technical Details on the Recent Firefox Add-on Outage",
+    "draft_title": "Technical Details on the Recent Firefox Add-on Outage",
+    "slug": "technical-details-recent-firefox-add-outage",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/technical-details-recent-firefox-add-outage/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 21,
+  "fields": {
+    "path": "000100010001000B",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Scroll Anchoring in Firefox 66",
+    "draft_title": "Scroll Anchoring in Firefox 66",
+    "slug": "scroll-anchoring-firefox-66",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/scroll-anchoring-firefox-66/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 22,
+  "fields": {
+    "path": "000100010001000C",
+    "depth": 4,
+    "numchild": 0,
+    "title": "JavaScript and evidence-based language design",
+    "draft_title": "JavaScript and evidence-based language design",
+    "slug": "javascript-and-evidence-based-language-design",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/javascript-and-evidence-based-language-design/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 23,
+  "fields": {
+    "path": "000100010001000D",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Calls between JavaScript and WebAssembly are finally fast",
+    "draft_title": "Calls between JavaScript and WebAssembly are finally fast",
+    "slug": "calls-between-javascript-and-webassembly-are-finally-fast",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/calls-between-javascript-and-webassembly-are-finally-fast/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 24,
+  "fields": {
+    "path": "000100010001000E",
+    "depth": 4,
+    "numchild": 0,
+    "title": "ES6 In Depth: Iterators and the for-of loop",
+    "draft_title": "ES6 In Depth: Iterators and the for-of loop",
+    "slug": "es6-depth-iterators-and-loop",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/es6-depth-iterators-and-loop/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 25,
+  "fields": {
+    "path": "000100010001000F",
+    "depth": 4,
+    "numchild": 0,
+    "title": "ES6 In Depth: Destructuring",
+    "draft_title": "ES6 In Depth: Destructuring",
+    "slug": "es6-depth-destructuring",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/es6-depth-destructuring/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 26,
+  "fields": {
+    "path": "000100010001000G",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Indicating focus to improve accessibility",
+    "draft_title": "Indicating focus to improve accessibility",
+    "slug": "indicating-focus-improve-accessibility",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/indicating-focus-improve-accessibility/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 27,
+  "fields": {
+    "path": "000100010001000H",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Fluent 1.0: a localization system for natural-sounding translations",
+    "draft_title": "Fluent 1.0: a localization system for natural-sounding translations",
+    "slug": "fluent-10-localization-system-natural-sounding-translations",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/fluent-10-localization-system-natural-sounding-translations/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 28,
+  "fields": {
+    "path": "000100010001000I",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Overscripted! Digging into JavaScript execution at scale",
+    "draft_title": "Overscripted! Digging into JavaScript execution at scale",
+    "slug": "overscripted-digging-javascript-execution-scale",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/overscripted-digging-javascript-execution-scale/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 29,
+  "fields": {
+    "path": "000100010001000J",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Firefox brings you smooth video playback with the world\u2019s fastest AV1 decoder",
+    "draft_title": "Firefox brings you smooth video playback with the world\u2019s fastest AV1 decoder",
+    "slug": "firefox-brings-you-smooth-video-playback-with-the-worlds-fastest-av1-decoder",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/firefox-brings-you-smooth-video-playback-with-the-worlds-fastest-av1-decoder/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 30,
+  "fields": {
+    "path": "000100010001000K",
+    "depth": 4,
+    "numchild": 0,
+    "title": "Into the Depths: The Technical Details Behind AV1",
+    "draft_title": "Into the Depths: The Technical Details Behind AV1",
+    "slug": "depths-technical-details-behind-av1",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/depths-technical-details-behind-av1/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 31,
+  "fields": {
+    "path": "000100010001000L",
+    "depth": 4,
+    "numchild": 0,
+    "title": "New in Firefox DevTools 65",
+    "draft_title": "New in Firefox DevTools 65",
+    "slug": "new-firefox-devtools-65",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/new-firefox-devtools-65/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 32,
+  "fields": {
+    "path": "000100010001000M",
+    "depth": 4,
+    "numchild": 0,
+    "title": "CSS Grid Level 2 \u2013 subgrid is coming to Firefox",
+    "draft_title": "CSS Grid Level 2 \u2013 subgrid is coming to Firefox",
+    "slug": "css-grid-level-2-subgrid-is-coming-to-firefox",
+    "content_type": [
+      "articles",
+      "article"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/articles/css-grid-level-2-subgrid-is-coming-to-firefox/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 33,
+  "fields": {
+    "path": "000100010004",
+    "depth": 3,
+    "numchild": 3,
+    "title": "Events",
+    "draft_title": "Events",
+    "slug": "events",
+    "content_type": [
+      "events",
+      "events"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/events/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 34,
+  "fields": {
+    "path": "0001000100040001",
+    "depth": 4,
+    "numchild": 0,
+    "title": "2019 Developer Roadshow EU: Nuremberg",
+    "draft_title": "2019 Developer Roadshow EU: Nuremberg",
+    "slug": "2019-developer-roadshow-eu-nuremberg",
+    "content_type": [
+      "events",
+      "event"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/events/2019-developer-roadshow-eu-nuremberg/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 35,
+  "fields": {
+    "path": "0001000100040002",
+    "depth": 4,
+    "numchild": 0,
+    "title": "RUST Workshop and Hackathon @ Yakro",
+    "draft_title": "RUST Workshop and Hackathon @ Yakro",
+    "slug": "rust-workshop-and-hackathon-yakro",
+    "content_type": [
+      "events",
+      "event"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/events/rust-workshop-and-hackathon-yakro/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+},
+{
+  "model": "wagtailcore.page",
+  "pk": 36,
+  "fields": {
+    "path": "0001000100040003",
+    "depth": 4,
+    "numchild": 0,
+    "title": "2019 Developer Roadshow EU: Munich",
+    "draft_title": "2019 Developer Roadshow EU: Munich",
+    "slug": "2019-developer-roadshow-eu-munich",
+    "content_type": [
+      "events",
+      "event"
+    ],
+    "live": true,
+    "has_unpublished_changes": false,
+    "url_path": "/home/events/2019-developer-roadshow-eu-munich/",
+    "owner": null,
+    "seo_title": "",
+    "show_in_menus": false,
+    "search_description": "",
+    "go_live_at": null,
+    "expire_at": null,
+    "expired": false,
+    "locked": false,
+    "first_published_at": null,
+    "last_published_at": null,
+    "latest_revision_created_at": null,
+    "live_revision": null
+  }
+}
+]

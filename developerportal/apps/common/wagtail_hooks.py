@@ -1,4 +1,5 @@
 from django.utils.html import escape
+
 from wagtail.core import hooks
 from wagtail.core.rich_text import LinkHandler
 

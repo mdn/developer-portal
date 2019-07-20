@@ -3,7 +3,7 @@
 {% load app_filters %}
 {% load wagtailcore_tags %}
 
-{% block body_class %}topic-detail{% endblock %}
+{% block body_class %}topic{% endblock %}
 
 {% block header %}
   {% include "header.html" %}
@@ -11,20 +11,22 @@
 {% endblock %}
 
 {% block content %}
-<main class="has-header">
+<main class="has-header has-footer">
   <div class="base-grid">
     <section class="section-full">
-      {% include "organisms/pattern-bg-header.html" with title=page.title intro=page.intro icon="mixed-reality" %}
+      {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
     </section>
-    {% if page.featured_articles.all %}
+    {% if page.featured %}
       <section>
-        {% include "organisms/featured.html" with featured=page.featured_articles.all %}
+        {% include "organisms/featured.html" with featured=page.featured %}
       </section>
     {% endif %}
-    <section class="section-full get-started-full">
-      {% include "organisms/get-started.html" %}
-    </section>
-    {% with subtopics=self.get_children.specific %}
+    {% if page.get_started %}
+      <section class="section-full section-background section-full-bg">
+        {% include "organisms/get-started.html" %}
+      </section>
+    {% endif %}
+    {% with subtopics=self.subtopics %}
       {% if subtopics %}
         <section class="section-full">
           {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
@@ -34,39 +36,49 @@
     {% if page.articles.all %}
       <section>
         <div class="section-header">
-          <h2>Latest news</h2>
+          <h2>Latest articles</h2>
           <a href="">See more</a>
         </div>
         <div class="card-container">
           {% for article in page.articles.all|slice:":3" %}
-            {% include "molecules/card.html" with resource=article type="article" show_author=True %}
+            {% include "molecules/cards/card.html" with resource=article show_author=True %}
           {% endfor %}
         </div>
       </section>
     {% endif %}
+    {% if page.people.all %}
     <section>
       <div class="section-header">
-        <h2>Meet the Mozillians</h2>
+        <h2>People</h2>
         <a href="">See more</a>
       </div>
-      <div class="card-container">
+      <div class="card-container card-container-people">
         {% for person in page.people.all|slice:":3" %}
-          {% include "molecules/item-mozillian.html" with person=person.person %}
+          {% include "molecules/item-person.html" with person=person.person type="person" %}
         {% endfor %}
       </div>
     </section>
-    <section>
-      <div class="section-header">
-        <h2>Upcoming events</h2>
-        <a href="">See more</a>
-      </div>
-      <div class="card-event-container">
-        {% for i in 5|times %}
-          {% include "molecules/card-event.html" %}
+    {% endif %}
+    {% if page.events.all %}
+    <section class="section-full section-full-bg">
+      <div class="section-full-container">
+        <div class="section-header">
+          <h2>Upcoming events</h2>
+          <a href="/events">See more</a>
+        </div>
+        <div>
+        {% for event in page.events.all|slice:":3" %}
+          {% if forloop.counter == 1 %}
+            {% include "molecules/cards/card.html" with resource=event featured=True %}
+          {% else %}
+            {% include "molecules/cards/card.html" with resource=event %}
+          {% endif %}
         {% endfor %}
+        </div>
       </div>
     </section>
-    <section>
+    {% endif %}
+    <section class="section-full">
       {% include "organisms/newsletter-signup.html" %}
     </section>
   </div>

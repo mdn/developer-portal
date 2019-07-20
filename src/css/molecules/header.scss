@@ -1,6 +1,37 @@
 .header {
+  border-bottom: 1px solid $color-gray-20;
+
   // FIX required for mzp
-  box-sizing: unset;
+  .mzp-c-navigation-menu {
+    box-sizing: unset;
+  }
+
+  .mzp-c-navigation .mzp-c-navigation-l-content {
+    padding: 24px 0;
+
+    @media #{$mq-md} {
+      padding: 0;
+    }
+  }
+
+  .mzp-c-navigation .mzp-c-navigation-l-content > .mzp-c-navigation-container,
+  .mzp-c-menu-panel-container {
+    padding: 0 $grid-gap-mobile;
+
+    @media #{$mq-md} {
+      margin: 0 auto;
+      max-width: ($container-max-width + $grid-gap * 2);
+      padding: 0 $grid-gap;
+    }
+  }
+
+  .mzp-c-navigation-logo {
+    margin-right: 32px;
+
+    @media screen and (min-width: 1056px) {
+      margin-right: 64px;
+    }
+  }
 }
 
 .header-container {

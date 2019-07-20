@@ -8,31 +8,12 @@
 {% block content %}
   <main>
     <div class="base-grid">
-      {% with featured_people=page.featured_people.all %}
-        {% if featured_people %}
-          <section>
-            <div class="section-header">
-              <h2>Featured</h2>
-            </div>
-            {% for person in featured_people %}
-              {% if forloop.first and forloop.last %}
-                {% include "molecules/card-featured-primary.html" with resource=person type="person" %}
-              {% elif forloop.counter == 2 %}
-                <div class="card-container card-container-2">
-                  {% include "molecules/card-featured.html" with resource=person.person type="person" %}
-                </div>
-              {% else %}
-                <div class="card-container">
-                  {% include "molecules/card-featured.html" with resource=person.person type="person" format="square" %}
-                </div>
-              {% endif %}
-            {% endfor %}
-          </section>
-        {% endif %}
-      {% endwith %}
-      {% if page.mozillians %}
+      {% if page.people %}
+        <section>
+          <h2>People</h2>
+        </section>
         <section class="section-full">
-          {% include "organisms/filter-list.html" with title="People" type="person" resources=page.mozillians %}
+          {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
         </section>
       {% endif %}
     </div>

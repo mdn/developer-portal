@@ -1,6 +1,17 @@
 .card-topic {
   background: $color-black;
+  border-radius: 2px;
+  transition: box-shadow 100ms, transform 100ms;
   position: relative;
+
+  &:hover {
+    box-shadow: 4px 4px 0 0 $color-black;
+    transform: translate(-2px, -2px);
+  }
+
+  .pattern::before {
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  }
 }
 
 .card-topic-content {
