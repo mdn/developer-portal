@@ -33,6 +33,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', get_random_secret_key())
 INSTALLED_APPS = [
     'developerportal.apps.common',
     'developerportal.apps.articles',
+    'developerportal.apps.content',
     'developerportal.apps.events',
     'developerportal.apps.externalcontent',
     'developerportal.apps.health',
@@ -220,16 +221,55 @@ WAGTAILIMAGES_IMAGE_MODEL = 'mozimages.MozImage'
 BASE_URL = os.environ.get('BASE_URL')
 
 # Wagtail Bakery Settings
-BUILD_DIR = os.path.join(BASE_DIR, 'build')
+BUILD_DIR = os.path.join(BASE_DIR, 'build', 'build')
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
+AWS_REGION = os.environ.get('AWS_REGION')
+AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
 
 # Static build management commands called in order
 STATIC_BUILD_PIPELINE = (
     ('Build', 'build'),
-    ('S3 upload', 's3upload'),
+    ('Publish', 'publish'),
+)
+
+# Amazon S3 config
+S3_BUCKET = os.environ.get('S3_BUCKET')
+
+
+# Social Auth pipelines
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'developerportal.pipeline.github_user_allowed',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.mail.mail_validation',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'developerportal.pipeline.success_message',
+)
+
+# GitHub scope to check emails and correct domains
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+
+# GitHub social auth access keys
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get('GITHUB_CLIENT_ID')
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('GITHUB_CLIENT_SECRET')
+
+LOGIN_ERROR_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/admin/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/admin/login/'
+
+# Static build management commands called in order
+STATIC_BUILD_PIPELINE = (
+    ('Build', 'build'),
+    ('Publish', 'publish'),
 )
 
 # Amazon S3 config

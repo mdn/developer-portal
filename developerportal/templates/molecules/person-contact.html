@@ -1,32 +1,42 @@
-<div class="share">
-  <div class="share-buttons person-share-buttons">
-    {% if resource.twitter %}
-      <a href="http://twitter.com/{{ resource.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's Twitter page">
-        <span class="icon">
-          {% include "atoms/icons/twitter.svg" %}
-        </span>
-      </a>
-    {% endif %}
-    {% if resource.facebook %}
-      <a href="https://www.facebook.com/{{ resource.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's Facebook page">
-        <span class="icon">
-          {% include "atoms/icons/facebook.svg" %}
-        </span>
-      </a>
-    {% endif %}
-    {% if resource.linkedin %}
-      <a href="https://www.linkedin.com/in/{{ resource.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's LinkedIn page">
-        <span class="icon">
-          {% include "atoms/icons/linkedin.svg" %}
-        </span>
-      </a>
-    {% endif %}
-    {% if resource.email %}
-      <a href="mailto:{{ resource.email }}">
-        <span class="icon">
-          {% include "atoms/icons/email.svg" %}
-        </span>
-      </a>
-    {% endif %}
+{% if resource.twitter or resource.github or resource.facebook or resource.linkedin or resource.email %}
+  <div class="share">
+    <div class="share-buttons person-share-buttons">
+      <span class="share-buttons-label">Follow:</span>
+      {% if resource.twitter %}
+        <a href="http://twitter.com/{{ resource.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's Twitter page">
+          <span class="icon">
+            {% include "atoms/icons/twitter.svg" %}
+          </span>
+        </a>
+      {% endif %}
+      {% if resource.github %}
+        <a href="http://github.com/{{ resource.github }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's GitHub page">
+          <span class="icon">
+            {% include "atoms/icons/github.svg" %}
+          </span>
+        </a>
+      {% endif %}
+      {% if resource.facebook %}
+        <a href="https://www.facebook.com/{{ resource.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's Facebook page">
+          <span class="icon">
+            {% include "atoms/icons/facebook.svg" %}
+          </span>
+        </a>
+      {% endif %}
+      {% if resource.linkedin %}
+        <a href="https://www.linkedin.com/in/{{ resource.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's LinkedIn page">
+          <span class="icon">
+            {% include "atoms/icons/linkedin.svg" %}
+          </span>
+        </a>
+      {% endif %}
+      {% if resource.email %}
+        <a href="mailto:{{ resource.email }}">
+          <span class="icon">
+            {% include "atoms/icons/email.svg" %}
+          </span>
+        </a>
+      {% endif %}
+    </div>
   </div>
-</div>
+{% endif %}

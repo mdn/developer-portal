@@ -3,13 +3,13 @@ from wagtail.images.blocks import ImageChooserBlock
 
 class CodeSnippetBlock(blocks.StructBlock):
     language = blocks.ChoiceBlock(choices=[
-      ('css', 'CSS'),
-      ('go', 'Go'),
-      ('html', 'HTML'),
-      ('js', 'JavaScript'),
-      ('python', 'Python'),
-      ('rust', 'Rust'),
-      ('ts', 'TypeScript'),
+        ('css', 'CSS'),
+        ('go', 'Go'),
+        ('html', 'HTML'),
+        ('js', 'JavaScript'),
+        ('python', 'Python'),
+        ('rust', 'Rust'),
+        ('ts', 'TypeScript'),
     ])
     code = blocks.TextBlock()
 

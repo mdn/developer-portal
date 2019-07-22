@@ -2,10 +2,7 @@
 import datetime
 import readtime
 
-from django.apps import apps
-from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField
-from django.forms import CheckboxSelectMultiple
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -16,7 +13,6 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
     TabbedInterface,
 )
-from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -151,7 +147,7 @@ class Article(Page):
     meta_panels = [
         FieldPanel('date'),
         MultiFieldPanel([
-            InlinePanel('authors'),
+            InlinePanel('authors', min_num=1),
         ], heading='Authors'),
         MultiFieldPanel([
             InlinePanel('topics'),

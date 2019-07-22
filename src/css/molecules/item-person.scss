@@ -66,4 +66,13 @@
   @media #{$mq-md} {
     line-height: 34px;
   }
+
+  &:hover {
+    opacity: 0.8;
+    transition: transform 100ms;
+
+    &:hover {
+      transform: translate(-2px, -2px);
+    }
+  }
 }

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}content{% endblock %}
+
+{% block content %}
+  <main>
+    <div class="base-grid">
+      <section>
+        {% for block in page.body %}
+          {% if block.block_type == 'image' %}
+            {% image block.value width-672 as rendition %}
+            {% include "atoms/image.html" with image=block.value rendition=rendition %}
+          {% else %}
+            {{ block }}
+          {% endif %}
+        {% endfor %}
+      </section>
+    </div>
+  </main>
+{% endblock content %}

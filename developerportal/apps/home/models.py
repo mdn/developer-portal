@@ -26,13 +26,13 @@ class HomePageTag(TaggedItemBase):
 
 
 class HomePage(Page):
-    subpage_types = []
+    subpage_types = ['content.ContentPage']
     template = 'home.html'
 
     # Content fields
     subtitle = TextField(max_length=250, blank=True, default='')
     button_text = CharField(max_length=30, blank=True, default='')
-    button_url = URLField(max_length=2048, blank=True, default='')
+    button_url = CharField(max_length=2048, blank=True, default='')
     image = ForeignKey(
         'mozimages.MozImage',
         null=True,

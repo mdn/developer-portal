@@ -34,9 +34,11 @@
               {{ block }}
             {% endif %}
           {% endfor %}
-          <a href="#" class="mzp-c-button">
-            Register now
-          </a>
+          {% if page.register_url %}
+            <a href="{{ page.register_url }}" class="mzp-c-button">
+              Register now
+            </a>
+          {% endif %}
           {% include "organisms/event-map.html" with resource=page %}
           {% include "organisms/event-agenda.html" with resource=page %}
         </article>
@@ -46,7 +48,7 @@
           {% endif %}
         </aside>
       </section>
-      {% if page.speakers.all %}
+      {% if page.speakers %}
       <section class="section-full section-full-bg">
         {% include "organisms/event-speakers.html" with speakers=page.speakers %}
       </section>

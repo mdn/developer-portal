@@ -2,6 +2,7 @@ from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
 from ..models import HomePage
+from ...content.models import ContentPage
 
 
 class HomePageTests(WagtailPageTests):
@@ -11,4 +12,4 @@ class HomePageTests(WagtailPageTests):
         self.assertAllowedParentPageTypes(HomePage, {Page})
 
     def test_home_page_subpages(self):
-        self.assertAllowedSubpageTypes(HomePage, {})
+        self.assertAllowedSubpageTypes(HomePage, {ContentPage})
