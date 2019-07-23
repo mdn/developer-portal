@@ -1,5 +1,7 @@
 # pylint: disable=no-member
 import datetime
+from itertools import chain
+from operator import attrgetter
 
 from django.db.models import (
     CASCADE,
@@ -30,8 +32,9 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from ..common.fields import CustomStreamField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
+from ..common.fields import CustomStreamField
+from ..common.utils import get_combined_events
 
 
 class EventsTag(TaggedItemBase):
@@ -115,14 +118,7 @@ class Events(Page):
     @property
     def events(self):
         """Return events in chronological order"""
-        return (
-            Event
-                .objects
-                .all()
-                .public()
-                .live()
-                .order_by('start_date')
-        )
+        return get_combined_events(self)
 
     def get_filters(self):
         from ..topics.models import Topic

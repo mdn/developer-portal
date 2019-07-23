@@ -22,8 +22,9 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from ..common.constants import COLOR_CHOICES, COLOR_VALUES
 from ..common.blocks import FeaturedExternalBlock, GetStartedBlock
+from ..common.constants import COLOR_CHOICES, COLOR_VALUES
+from ..common.utils import get_combined_articles, get_combined_events
 
 
 class TopicsTag(TaggedItemBase):
@@ -156,30 +157,13 @@ class Topic(Page):
 
     @property
     def articles(self):
-        from ..articles.models import Article
-        return (
-            Article
-                .objects
-                .filter(topics__topic__pk=self.pk)
-                .live()
-                .public()
-                .order_by('-date')
-        )
+        return get_combined_articles(self, topics__topic__pk=self.pk)
 
     @property
     def events(self):
         """Return upcoming events for this topic,
         ignoring events in the past, ordered by start date"""
-        from ..events.models import Event
-        return (
-            Event
-                .objects
-                .filter(topics__topic__pk=self.pk)
-                .filter(start_date__gte=datetime.datetime.now())
-                .order_by('start_date')
-                .live()
-                .public()
-        )
+        return get_combined_events(self, topics__topic__pk=self.pk, start_date__gte=datetime.datetime.now())
 
     @property
     def color_value(self):
