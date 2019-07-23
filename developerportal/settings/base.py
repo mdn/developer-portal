@@ -226,11 +226,13 @@ BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
 )
+AWS_REGION = os.environ.get('AWS_REGION')
+AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
 
 # Static build management commands called in order
 STATIC_BUILD_PIPELINE = (
     ('Build', 'build'),
-    ('S3 upload', 's3upload'),
+    ('Publish', 'publish'),
 )
 
 # Amazon S3 config
