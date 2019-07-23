@@ -8,7 +8,6 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0018_people_keywords'),
         ('externalcontent', '0008_externalcontent_description'),
     ]
 

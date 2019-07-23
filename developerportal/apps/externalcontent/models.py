@@ -79,31 +79,48 @@ class ExternalArticleTopic(Orderable):
 
 
 class ExternalArticle(ExternalContent):
+    date = DateField('Article date', default=datetime.date.today)
     read_time = CharField(max_length=30, blank=True, help_text=(
         'Optional, approximate read-time for this article, e.g. “2 mins”. This '
         'is shown as a small hint when the article is displayed as a card.'
     ))
 
-    card_panels = ExternalContent.card_panels + [
-    ]
-
     meta_panels = [
+        FieldPanel('date'),
         InlinePanel('authors', heading='Authors', min_num=1),
         InlinePanel('topics', heading='Topics'),
         FieldPanel('read_time'),
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(card_panels, heading='Card'),
+        ObjectList(ExternalContent.card_panels, heading='Card'),
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
 
+class ExternalEventTopic(Orderable):
+    event = ParentalKey('ExternalEvent', on_delete=CASCADE, related_name='topics')
+    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='external_events')
+
+    panels = [
+        PageChooserPanel('topic')
+    ]
+
+
+class ExternalEventSpeaker(Orderable):
+    article = ParentalKey('ExternalEvent', on_delete=CASCADE, related_name='speakers')
+    speaker = ForeignKey('people.Person', on_delete=CASCADE, related_name='external_events')
+
+    panels = [
+        PageChooserPanel('speaker')
+    ]
+
+
 class ExternalEvent(ExternalContent):
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    venue = TextField(max_length=250, blank=True, default='')
+    location = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
 
     card_panels = ExternalContent.card_panels + [
     ]
@@ -112,8 +129,10 @@ class ExternalEvent(ExternalContent):
         MultiFieldPanel([
             FieldPanel('start_date'),
             FieldPanel('end_date'),
-            FieldPanel('venue'),
+            FieldPanel('location'),
         ], heading='Event details'),
+        InlinePanel('topics', heading='Topics'),
+        InlinePanel('speakers', heading='Speakers'),
     ]
 
     edit_handler = TabbedInterface([
