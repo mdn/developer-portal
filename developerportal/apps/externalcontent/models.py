@@ -5,7 +5,17 @@ from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, ObjectList, TabbedInterface
+from wagtail.admin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+    ObjectList,
+    PageChooserPanel,
+    StreamFieldPanel,
+    TabbedInterface,
+)
+from wagtail.core.blocks import PageChooserBlock
+from wagtail.core.fields import StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -27,8 +37,8 @@ class ExternalContent(Page):
 
     card_panels = Page.content_panels + [
         FieldPanel('description'),
-        FieldPanel('external_url'),
         ImageChooserPanel('image'),
+        FieldPanel('external_url'),
     ]
 
     edit_handler = TabbedInterface([
@@ -50,13 +60,36 @@ class ExternalContent(Page):
         return self.external_url
 
 
+class ExternalArticleAuthor(Orderable):
+    article = ParentalKey('ExternalArticle', on_delete=CASCADE, related_name='authors')
+    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='external_articles')
+
+    panels = [
+        PageChooserPanel('author')
+    ]
+
+
+class ExternalArticleTopic(Orderable):
+    article = ParentalKey('ExternalArticle', on_delete=CASCADE, related_name='topics')
+    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='external_articles')
+
+    panels = [
+        PageChooserPanel('topic')
+    ]
+
+
 class ExternalArticle(ExternalContent):
-    read_time = CharField(max_length=30, blank=True)
+    read_time = CharField(max_length=30, blank=True, help_text=(
+        'Optional, approximate read-time for this article, e.g. “2 mins”. This '
+        'is shown as a small hint when the article is displayed as a card.'
+    ))
 
     card_panels = ExternalContent.card_panels + [
     ]
 
     meta_panels = [
+        InlinePanel('authors', heading='Authors', min_num=1),
+        InlinePanel('topics', heading='Topics'),
         FieldPanel('read_time'),
     ]
 
