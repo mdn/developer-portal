@@ -60,23 +60,7 @@
     </section>
     {% endif %}
     {% if page.events.all %}
-    <section class="section-full section-full-bg">
-      <div class="section-full-container">
-        <div class="section-header">
-          <h2>Upcoming events</h2>
-          <a href="/events">See more</a>
-        </div>
-        <div>
-        {% for event in page.events.all|slice:":3" %}
-          {% if forloop.counter == 1 %}
-            {% include "molecules/cards/card.html" with resource=event featured=True %}
-          {% else %}
-            {% include "molecules/cards/card.html" with resource=event %}
-          {% endif %}
-        {% endfor %}
-        </div>
-      </div>
-    </section>
+      {% include "organisms/upcoming-events.html" with events=page.events.all %}
     {% endif %}
     <section class="section-full">
       {% include "organisms/newsletter-signup.html" %}
