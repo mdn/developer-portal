@@ -120,10 +120,9 @@ class ExternalEventSpeaker(Orderable):
 class ExternalEvent(ExternalContent):
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    location = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
-
-    card_panels = ExternalContent.card_panels + [
-    ]
+    location = CharField(max_length=100, blank=True, default='', help_text=(
+        'Location details (city and country), displayed on event cards'
+    ))
 
     meta_panels = [
         MultiFieldPanel([
@@ -136,24 +135,48 @@ class ExternalEvent(ExternalContent):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(card_panels, heading='Card'),
+        ObjectList(ExternalContent.card_panels, heading='Card'),
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
 
-class ExternalVideo(ExternalContent):
-    video_duration = CharField(max_length=30, blank=True, default='0:00')
+class ExternalVideoTopic(Orderable):
+    video = ParentalKey('ExternalVideo', on_delete=CASCADE, related_name='topics')
+    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='external_videos')
 
-    card_panels = ExternalContent.card_panels + [
+    panels = [
+        PageChooserPanel('topic')
     ]
 
+
+class ExternalVideoPerson(Orderable):
+    article = ParentalKey('ExternalVideo', on_delete=CASCADE, related_name='people')
+    person = ForeignKey('people.Person', on_delete=CASCADE, related_name='external_videos')
+
+    panels = [
+        PageChooserPanel('person')
+    ]
+
+
+class ExternalVideo(ExternalContent):
+    date = DateField('Video date', default=datetime.date.today)
+    video_duration = CharField(max_length=30, blank=True, null=True, help_text=(
+        'Optional, duration for this video in MM:SS format e.g. “12:34”. This '
+        'is shown as a small hint when the video is displayed as a card.'
+    ))
+
     meta_panels = [
+        FieldPanel('date'),
+        InlinePanel('topics', heading='Topics'),
+        InlinePanel('people', heading='People', help_text=(
+            'Optional, people associated with this video.'
+        )),
         FieldPanel('video_duration'),
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(card_panels, heading='Card'),
+        ObjectList(ExternalContent.card_panels, heading='Card'),
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
