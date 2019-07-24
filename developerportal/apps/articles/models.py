@@ -174,6 +174,7 @@ class Article(Page):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
+
     # Rss feed
     def get_absolute_url(self):
         return self.full_url

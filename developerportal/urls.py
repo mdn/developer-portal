@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
-    url(r'article-feed/$', RssFeeds()),
+    url(r'^article-feed/', RssFeeds()),
 
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
