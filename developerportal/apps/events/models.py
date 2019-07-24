@@ -1,5 +1,7 @@
 # pylint: disable=no-member
 import datetime
+from itertools import chain
+from operator import attrgetter
 
 from django.db.models import (
     CASCADE,
@@ -30,8 +32,9 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.fields import CustomStreamField
-from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock
+from ..common.utils import get_combined_events
 
 
 class EventsTag(TaggedItemBase):
@@ -64,14 +67,24 @@ class Events(Page):
     template = 'events.html'
 
     # Content fields
-    featured_event = ForeignKey('events.Event', blank=True, null=True, on_delete=SET_NULL, related_name='+')
+    featured = StreamField(
+        StreamBlock([
+            ('event', PageChooserBlock(required=False, target_model=[
+                'events.Event',
+                'externalcontent.ExternalEvent',
+            ], )),
+            ('external_page', FeaturedExternalBlock()),
+        ], min_num=0, max_num=1, required=False),
+        null=True,
+        blank=True,
+    )
 
     # Meta fields
     keywords = ClusterTaggableManager(through=EventsTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [
-        PageChooserPanel('featured_event')
+        StreamFieldPanel('featured')
     ]
 
     # Meta panels
@@ -105,14 +118,7 @@ class Events(Page):
     @property
     def events(self):
         """Return events in chronological order"""
-        return (
-            Event
-                .objects
-                .all()
-                .public()
-                .live()
-                .order_by('start_date')
-        )
+        return get_combined_events(self)
 
     def get_filters(self):
         from ..topics.models import Topic

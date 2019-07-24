@@ -33,14 +33,14 @@
         </section>
       {% endif %}
     {% endwith %}
-    {% if page.articles.all %}
+    {% if page.articles %}
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
           <a href="">See more</a>
         </div>
         <div class="card-container">
-          {% for article in page.articles.all|slice:":3" %}
+          {% for article in page.articles|slice:":3" %}
             {% include "molecules/cards/card.html" with resource=article show_author=True %}
           {% endfor %}
         </div>
@@ -59,7 +59,7 @@
       </div>
     </section>
     {% endif %}
-    {% if page.events.all %}
+    {% if page.events %}
     <section class="section-full section-full-bg">
       <div class="section-full-container">
         <div class="section-header">
@@ -67,7 +67,7 @@
           <a href="/events">See more</a>
         </div>
         <div>
-        {% for event in page.events.all|slice:":3" %}
+        {% for event in page.events|slice:":3" %}
           {% if forloop.counter == 1 %}
             {% include "molecules/cards/card.html" with resource=event featured=True %}
           {% else %}
