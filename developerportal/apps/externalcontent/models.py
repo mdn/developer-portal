@@ -46,6 +46,9 @@ class ExternalContent(Page):
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
 
+    class Meta:
+        verbose_name_plural = 'External Content'
+
     def get_full_url(self, request=None):
         return self.external_url
 
@@ -79,6 +82,8 @@ class ExternalArticleTopic(Orderable):
 
 
 class ExternalArticle(ExternalContent):
+    resource_type = 'article'
+
     date = DateField('Article date', default=datetime.date.today)
     read_time = CharField(max_length=30, blank=True, help_text=(
         'Optional, approximate read-time for this article, e.g. “2 mins”. This '
@@ -97,6 +102,10 @@ class ExternalArticle(ExternalContent):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @property
+    def article(self):
+        return self
 
 
 class ExternalEventTopic(Orderable):
@@ -118,6 +127,8 @@ class ExternalEventSpeaker(Orderable):
 
 
 class ExternalEvent(ExternalContent):
+    resource_type = 'event'
+
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
     location = CharField(max_length=100, blank=True, default='', help_text=(
@@ -139,6 +150,10 @@ class ExternalEvent(ExternalContent):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @property
+    def event(self):
+        return self
 
 
 class ExternalVideoTopic(Orderable):
@@ -180,3 +195,7 @@ class ExternalVideo(ExternalContent):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(Page.settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @property
+    def video(self):
+        return self
