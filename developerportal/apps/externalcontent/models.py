@@ -131,14 +131,14 @@ class ExternalEvent(ExternalContent):
 
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    location = CharField(max_length=100, blank=True, default='', help_text=(
-        'Location details (city and country), displayed on event cards'
-    ))
+    venue = TextField(max_length=250, blank=True, default='', help_text='Full address of the event venue, displayed on the event detail page')
+    location = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
 
     meta_panels = [
         MultiFieldPanel([
             FieldPanel('start_date'),
             FieldPanel('end_date'),
+            FieldPanel('venue'),
             FieldPanel('location'),
         ], heading='Event details'),
         InlinePanel('topics', heading='Topics'),
