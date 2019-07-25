@@ -1,5 +1,7 @@
 # pylint: disable=no-member
 import datetime
+from itertools import chain
+from operator import attrgetter
 import readtime
 
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField
@@ -21,6 +23,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
+from ..common.utils import get_combined_articles
 
 
 class ArticlesTag(TaggedItemBase):
@@ -64,7 +67,7 @@ class Articles(Page):
 
     @property
     def articles(self):
-        return Article.objects.all().public().live().order_by('-date')
+        return get_combined_articles(self)
 
     def get_filters(self):
         from ..topics.models import Topic
@@ -175,6 +178,10 @@ class Article(Page):
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
 
+    # Rss feed
+    def get_absolute_url(self):
+        return self.full_url
+
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
@@ -190,15 +197,7 @@ class Article(Page):
         """Returns articles that are related to the current article, i.e. live, public articles which have the same
         topic, but are not the current article."""
         topic_pks = self.topics.values_list('topic')
-        return (
-            Article
-            .objects
-            .filter(topics__topic__pk__in=topic_pks)
-            .not_page(self)
-            .distinct()
-            .live()
-            .public()
-        )
+        return get_combined_articles(self, topics__topic__pk__in=topic_pks)
 
     @property
     def month_group(self):

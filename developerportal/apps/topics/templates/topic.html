@@ -33,13 +33,13 @@
         </section>
       {% endif %}
     {% endwith %}
-    {% if page.articles.all %}
+    {% if page.articles %}
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
           <a href="">See more</a>
         </div>
-        {% if page.articles.count == 1 %}
+        {% if page.articles|length == 1 %}
           {# a single article is rendered full width #}
           <div>
             {% with page.articles.all.0 as article %}
@@ -48,8 +48,8 @@
           </div>
         {% else %}
           {# 2 or 3 are rendered side-by-side #}
-          <div class="card-container {% if page.articles.count == 2 %}card-container-2-wide{% endif %}">
-            {% for article in page.articles.all|slice:":3" %}
+          <div class="card-container {% if page.articles|length == 2 %}card-container-2-wide{% endif %}">
+            {% for article in page.articles|slice:":3" %}
               {% include "molecules/cards/card.html" with resource=article show_author=True %}
             {% endfor %}
           </div>
@@ -80,7 +80,7 @@
       {% endif %}
     </section>
     {% endif %}
-    {% if page.events.all %}
+    {% if page.events %}
     <section class="section-full section-full-bg">
       <div class="section-full-container">
         <div class="section-header">
@@ -88,7 +88,7 @@
           <a href="/events">See more</a>
         </div>
         <div>
-        {% for event in page.events.all|slice:":3" %}
+        {% for event in page.events|slice:":3" %}
           {% if forloop.counter == 1 %}
             {% include "molecules/cards/card.html" with resource=event featured=True %}
           {% else %}
