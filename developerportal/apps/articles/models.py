@@ -178,6 +178,10 @@ class Article(Page):
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
 
+    # Rss feed
+    def get_absolute_url(self):
+        return self.full_url
+
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the article."""
