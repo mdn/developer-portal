@@ -202,10 +202,12 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = 'Mozilla Developer Portal'
 
 # Add support for CodePen oEmbed
+from wagtail.embeds.oembed_providers import all_providers
+
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',
-        'providers': [{
+        'providers': all_providers + [{
             'endpoint': 'http://codepen.io/api/oembed',
             'urls': [
                 '^http(?:s)?://codepen\\.io/.+/pen/.+$',

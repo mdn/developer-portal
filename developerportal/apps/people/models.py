@@ -40,6 +40,29 @@ class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
 
+    # Meta fields
+    keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
+
+    # Meta panels
+    meta_panels = [
+        MultiFieldPanel([
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+            FieldPanel('keywords'),
+        ], heading='SEO'),
+    ]
+
+    # Settings panels
+    settings_panels = [
+        FieldPanel('slug'),
+    ]
+
+    edit_handler = TabbedInterface([
+        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(meta_panels, heading='Meta'),
+        ObjectList(settings_panels, heading='Settings', classname='settings'),
+    ])
+
     class Meta:
         verbose_name_plural = 'People'
 
@@ -178,8 +201,7 @@ class Person(Page):
 
         for event in upcoming_events.all():
             # add the event to the list if the current person is a speaker
-            for speaker in event.speakers:
-                if (speaker.block_type=='speaker' and str(speaker.value)==str(self.title)):
-                    speaker_events = speaker_events | Event.objects.page(event)
+            if event.has_speaker(self):
+                speaker_events = speaker_events | Event.objects.page(event)
 
         return speaker_events

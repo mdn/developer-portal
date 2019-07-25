@@ -31,8 +31,8 @@ class TopicTests(TopicsFixturesMixin, WagtailPageTests):
     def test_topic_page_articles(self):
         """A topic page should have article pages."""
         topic_page = Topic.objects.all()[0]
-        topic_page_article = topic_page.articles.all().order_by('pk')[0].article
-        self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', topic_page_article.title)
+        topic_page_article = topic_page.articles[0].article
+        self.assertEqual('Developer Roadshow 2019 returns with VR, IoT and all things web', topic_page_article.title)
 
 
 class TopicsTests(TopicsFixturesMixin, WagtailPageTests):

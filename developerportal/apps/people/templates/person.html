@@ -19,18 +19,18 @@
       <section>
         {% include "organisms/person-overview.html" with resource=page %}
       </section>
-      {% if page.articles.all %}
-        <section>
-          <div class="section-header">
-            <h2>Latest articles</h2>
-            <a href="">See more</a>
-          </div>
-          <div class="card-container">
-            {% for article_author in page.articles.all|slice:":3" %}
-              {% include "molecules/cards/card.html" with resource=article_author.article show_author=False %}
-            {% endfor %}
-          </div>
-        </section>
+      {% if page.articles %}
+      <section>
+        <div class="section-header">
+          <h2>Latest articles</h2>
+          <a href="">See more</a>
+        </div>
+        <div class="card-container">
+          {% for article_author in page.articles.all|slice:":3" %}
+            {% include "molecules/cards/card.html" with resource=article_author.article show_author=False %}
+          {% endfor %}
+        </div>
+      </section>
       {% endif %}
       {% if page.events.all %}
         {% include "organisms/upcoming-events.html" with events=page.events.all %}

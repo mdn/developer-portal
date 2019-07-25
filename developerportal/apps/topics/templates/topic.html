@@ -33,14 +33,14 @@
         </section>
       {% endif %}
     {% endwith %}
-    {% if page.articles.all %}
+    {% if page.articles %}
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
           <a href="">See more</a>
         </div>
         <div class="card-container">
-          {% for article in page.articles.all|slice:":3" %}
+          {% for article in page.articles|slice:":3" %}
             {% include "molecules/cards/card.html" with resource=article show_author=True %}
           {% endfor %}
         </div>
