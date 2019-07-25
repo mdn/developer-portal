@@ -124,16 +124,6 @@ class HomePage(Page):
     ])
 
     @property
-    def featured_count(self):
-        """Return a count of the number of featured articles so that
-        layout can be adjusted accordingly"""
-        count = 0
-        #pylint: disable=unused-variable
-        for block in self.featured:
-            count += 1
-        return count
-
-    @property
     def primary_topics(self):
         """The site’s top-level topics, i.e. topics without a parent topic."""
         from ..topics.models import Topic

@@ -18,7 +18,7 @@
     </section>
     {% if page.featured %}
       <section>
-        {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured_count %}
+        {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
       </section>
     {% endif %}
     {% if page.get_started %}

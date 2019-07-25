@@ -156,16 +156,6 @@ class Topic(Page):
     ])
 
     @property
-    def featured_count(self):
-        """Return a count of the number of featured articles so that
-        layout can be adjusted accordingly"""
-        count = 0
-        #pylint: disable=unused-variable
-        for block in self.featured:
-            count += 1
-        return count
-
-    @property
     def articles(self):
         return get_combined_articles(self, topics__topic__pk=self.pk)
 
