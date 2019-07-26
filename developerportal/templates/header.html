@@ -1,4 +1,5 @@
 {% load app_tags %}
+{% load wagtailcore_tags %}
 
 <header class="header">
   <div class="mzp-c-navigation">
@@ -6,7 +7,7 @@
       <div class="mzp-c-navigation-container">
         <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
         <div class="mzp-c-navigation-logo">
-          <a href="/">
+          <a href="{{ request.site.root_url }}">
             <span class="logo"></span>
             <span class="logo-prefix">Mozilla</span><span class="heading5 logo-text">Developers</span>
           </a>
