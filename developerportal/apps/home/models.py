@@ -47,7 +47,7 @@ class HomePage(Page):
                 'externalcontent.ExternalArticle',
             ))),
             ('external_page', FeaturedExternalBlock()),
-        ], min_num=0, max_num=4),
+        ], min_num=0, max_num=4, required=False),
         null=True,
         blank=True,
     )
