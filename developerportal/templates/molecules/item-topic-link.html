@@ -2,7 +2,7 @@
 {% load app_tags %}
 {% load staticfiles %}
 
-<a href="{{ topic.url }}" class="item-topic-link">
+<a href="{{ topic.url }}" class="item-topic-link {% if full_width %}item-topic-link-full{% endif %}">
   <div class="item-topic-link-icon">
     {% if topic.icon %}
       {% render_svg topic.icon %}

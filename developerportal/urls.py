@@ -7,6 +7,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from .apps.common.feed import RssFeeds
 
 urlpatterns = [
     url('', include('developerportal.apps.health.urls')),
@@ -15,6 +16,8 @@ urlpatterns = [
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
+
+    url(r'^article-feed/', RssFeeds()),
 
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 ]
