@@ -2,7 +2,14 @@
 {% load wagtailimages_tags %}
 {% image resource.image width-1024 as image %}
 
-<a href="{% pageurl resource %}" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
+<a
+  href="{% pageurl resource %}"
+  class="card-link {% if filter_target %}js-filter-target{% endif %}"
+  {% if resource.is_external %}
+    target="_blank"
+    rel="noopener noreferrer"
+  {% endif %}
+  data-type="{{ resource.resource_type }}"
   {% if filter_target %}
     data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
     data-month="{{ resource.month_group|date:'Y-m' }}"
@@ -19,7 +26,9 @@
     {% endif %}
     <div class="card-event-content {% if featured %}card-event-featured{% endif %}">
       <div class="card-event-title">
-        <h4 class="no-underline">{{ resource.title }}</h4>
+        <h4 class="no-underline">
+          {{ resource.title }}{% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
+        </h4>
         {% if featured %}
         <p>{{ resource.description }}</p>
         {% endif %}

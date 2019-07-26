@@ -38,3 +38,7 @@ body {
 ::selection {
   background: rgba(255, 213, 103, 0.4);
 }
+
+.no-wrap {
+  white-space: nowrap;
+}
