@@ -5,7 +5,7 @@
   border-radius: 2px;
   color: inherit;
   display: flex;
-  padding: 18px; // 18px to offset border applied above.
+  padding: 24px;
   text-decoration: none;
   transition: box-shadow 100ms, transform 100ms;
   width: 100%;
@@ -42,12 +42,14 @@
 }
 
 .item-topic-link-content {
+  max-width: 672px;
+
   @media #{$mq-md} {
     flex-grow: 1;
   }
 
   h4 {
-    margin-bottom: 0;
+    margin: 8px 0;
   }
 
   .rich-text {
@@ -57,4 +59,9 @@
       display: block;
     }
   }
+}
+
+.item-topic-link-full {
+  flex-direction: column;
+  padding-left: 96px;
 }
