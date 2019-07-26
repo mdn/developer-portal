@@ -69,10 +69,10 @@ class Events(Page):
     # Content fields
     featured = StreamField(
         StreamBlock([
-            ('event', PageChooserBlock(required=False, target_model=[
+            ('event', PageChooserBlock(required=False, target_model=(
                 'events.Event',
                 'externalcontent.ExternalEvent',
-            ], )),
+            ))),
             ('external_page', FeaturedExternalBlock()),
         ], min_num=0, max_num=1, required=False),
         null=True,
