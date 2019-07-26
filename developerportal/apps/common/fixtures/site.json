@@ -337,8 +337,8 @@
     "pk": 1,
     "fields": {
       "sort_order": 0,
-      "event": 53,
-      "topic": 38
+      "event": 54,
+      "topic": 6
     }
   },
   {
@@ -346,8 +346,8 @@
     "pk": 2,
     "fields": {
       "sort_order": 0,
-      "event": 36,
-      "topic": 38
+      "event": 55,
+      "topic": 6
     }
   },
   {
@@ -1191,6 +1191,54 @@
     }
   },
   {
+    "model": "mozimages.rendition",
+    "pk": 71,
+    "fields": {
+      "filter_spec": "max-165x165",
+      "file": "images/IMG_20190616_125913_nrdwKuL.max-165x165.jpg",
+      "width": 165,
+      "height": 123,
+      "focal_point_key": "",
+      "image": 20
+    }
+  },
+  {
+    "model": "mozimages.rendition",
+    "pk": 72,
+    "fields": {
+      "filter_spec": "width-464",
+      "file": "images/IMG_20190616_125913_nrdwKuL.width-464.jpg",
+      "width": 464,
+      "height": 348,
+      "focal_point_key": "",
+      "image": 20
+    }
+  },
+  {
+    "model": "mozimages.rendition",
+    "pk": 73,
+    "fields": {
+      "filter_spec": "width-1024",
+      "file": "images/IMG_20190616_125913_nrdwKuL.width-1024.jpg",
+      "width": 1024,
+      "height": 768,
+      "focal_point_key": "",
+      "image": 20
+    }
+  },
+  {
+    "model": "mozimages.rendition",
+    "pk": 74,
+    "fields": {
+      "filter_spec": "width-1024",
+      "file": "images/IMG_20180519_150944_ev51pDu.width-1024.jpg",
+      "width": 1024,
+      "height": 768,
+      "focal_point_key": "",
+      "image": 19
+    }
+  },
+  {
     "model": "people.persontopic",
     "pk": 1,
     "fields": {
@@ -1475,7 +1523,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$150000$9HVAGpsS6jA7$tsU3Nj4Si9K1aXY+3RAr6kAM2ah/4leGAgCxAtK3Gyg=",
-      "last_login": "2019-07-15T09:26:45.152Z",
+      "last_login": "2019-07-25T17:09:19.011Z",
       "is_superuser": true,
       "username": "root",
       "first_name": "",
@@ -1494,6 +1542,14 @@
     "fields": {
       "session_data": "Zjc3YTlmYWIxN2E4ZDA5MjUwNGZmZGU0ZjM5MTY5MjU0MzA1NGI4OTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI0NTdiZWU4MjY1MWY1YzQxNTJlMjg3YzkxM2M1MTFmMGFjY2NmZjgzIn0=",
       "expire_date": "2019-07-29T09:26:45.155Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "tcibtbzodwo61wj7jvsf0jqfrabsrn88",
+    "fields": {
+      "session_data": "MDNmNmFjMzdlMjBmNTkyYjJhMWVhYmMzYWU0M2VjMDdlZTZlMWFmOTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI2Y2Q0MTY0NjM0MWQ3NWZkMjU0NGE2NmRlZDBlOWExNmE3Y2NiYjc4In0=",
+      "expire_date": "2019-08-08T17:09:19.014Z"
     }
   },
   {
@@ -3728,48 +3784,6 @@
   },
   {
     "model": "wagtailcore.pagerevision",
-    "pk": 147,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-15T16:02:15.701Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[]\", \"agenda\": \"[]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"\", \"location\": \"\", \"latitude\": null, \"longitude\": null, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 148,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-15T16:04:16.402Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-15T16:02:15.729Z\", \"latest_revision_created_at\": \"2019-07-15T16:02:15.701Z\", \"live_revision\": 147, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[]\", \"agenda\": \"[]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"1000 SE 11th Ave, Portland, Oregon\", \"location\": \"Portland, Oregon\", \"latitude\": 45.5219231, \"longitude\": -122.6952723, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 149,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-15T16:05:43.997Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-15T16:04:16.431Z\", \"latest_revision_created_at\": \"2019-07-15T16:04:16.402Z\", \"live_revision\": 148, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[]\", \"agenda\": \"[]\", \"speakers\": \"[{\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 11, \\\"id\\\": \\\"16d2b40c-2c4c-4def-9de5-331d4d8a621a\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 43, \\\"id\\\": \\\"93cb926a-b078-482e-bf28-1d2cfb17e3e9\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 44, \\\"id\\\": \\\"153fd9ed-997e-45cb-9aea-670802f68f69\\\"}]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"1000 SE 11th Ave, Portland, Oregon\", \"location\": \"Portland, Oregon\", \"latitude\": 45.5219231, \"longitude\": -122.6952723, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
     "pk": 150,
     "fields": {
       "page": 33,
@@ -3779,90 +3793,6 @@
         "root"
       ],
       "content_json": "{\"pk\": 33, \"path\": \"000100010004\", \"depth\": 3, \"numchild\": 4, \"title\": \"Events\", \"draft_title\": \"Events\", \"slug\": \"events\", \"content_type\": 12, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/\", \"owner\": null, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"featured\": 53}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 151,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-15T16:10:11.859Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-15T16:05:44.033Z\", \"latest_revision_created_at\": \"2019-07-15T16:05:43.997Z\", \"live_revision\": 149, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"08:30:00\\\", \\\"end_time\\\": \\\"09:00:00\\\", \\\"title\\\": \\\"Registration\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"689ce973-d88a-4cdb-bc99-270c655582bd\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"09:00:00\\\", \\\"end_time\\\": \\\"12:00:00\\\", \\\"title\\\": \\\"Talks\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"0f560422-0cb8-4e4f-8c63-3d4772d7ede1\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"12:00:00\\\", \\\"end_time\\\": \\\"13:00:00\\\", \\\"title\\\": \\\"Lunch\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"b2ecc48f-c83c-43ab-94b7-9db694875b90\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"13:00:00\\\", \\\"end_time\\\": \\\"17:00:00\\\", \\\"title\\\": \\\"Workshops\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"1fe37ebf-84ae-43d7-8927-7f9b29f813e3\\\"}]\", \"speakers\": \"[{\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 11, \\\"id\\\": \\\"16d2b40c-2c4c-4def-9de5-331d4d8a621a\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 43, \\\"id\\\": \\\"93cb926a-b078-482e-bf28-1d2cfb17e3e9\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 44, \\\"id\\\": \\\"153fd9ed-997e-45cb-9aea-670802f68f69\\\"}]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"1000 SE 11th Ave, Portland, Oregon\", \"location\": \"Portland, Oregon\", \"latitude\": 45.5219231, \"longitude\": -122.6952723, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 152,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-15T16:22:27.885Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-15T16:10:11.893Z\", \"latest_revision_created_at\": \"2019-07-15T16:10:11.859Z\", \"live_revision\": 151, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"08:30:00\\\", \\\"end_time\\\": \\\"09:00:00\\\", \\\"title\\\": \\\"Registration\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"689ce973-d88a-4cdb-bc99-270c655582bd\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"09:00:00\\\", \\\"end_time\\\": \\\"12:00:00\\\", \\\"title\\\": \\\"Talks\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"0f560422-0cb8-4e4f-8c63-3d4772d7ede1\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"12:00:00\\\", \\\"end_time\\\": \\\"13:00:00\\\", \\\"title\\\": \\\"Lunch\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"b2ecc48f-c83c-43ab-94b7-9db694875b90\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"13:00:00\\\", \\\"end_time\\\": \\\"17:00:00\\\", \\\"title\\\": \\\"Workshops\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"1fe37ebf-84ae-43d7-8927-7f9b29f813e3\\\"}]\", \"speakers\": \"[{\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 11, \\\"id\\\": \\\"16d2b40c-2c4c-4def-9de5-331d4d8a621a\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 43, \\\"id\\\": \\\"93cb926a-b078-482e-bf28-1d2cfb17e3e9\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 44, \\\"id\\\": \\\"153fd9ed-997e-45cb-9aea-670802f68f69\\\"}]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"Mozilla San Francisco 2 Harrison Street, Suite 175, San Francisco, CA 94105\", \"location\": \"San Francisco, CA\", \"latitude\": 37.7894748, \"longitude\": -122.3914821, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 153,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-15T16:23:06.846Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-15T16:22:27.923Z\", \"latest_revision_created_at\": \"2019-07-15T16:22:27.885Z\", \"live_revision\": 152, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>The Mozilla Security Research summit will be hosted in San  Francisco as part of Mozilla&#x27;s Security Engineering University  Relationship Framework (SURF) initiative. This initiative aims to  increase collaboration between Mozilla and the academic community, so as  to leverage academic talent to help explore Mozilla-specific security  and privacy engineering research problems, and to strengthen Mozilla&#x27;s  ties to the academic community.</p><p>The summit audience will  consist of a mix of Mozilla engineers, academics, and PhD students. Our  intention is for Mozilla engineers to &quot;pitch&quot; research problems to the  academic community, so as to spark potential collaboration. Our  engineers and researchers plan to deliver talks covering areas such as  tracking protection, language-based security, cryptography, web  measurement and machine learning. The day will also include some  high-caliber talks from security and privacy academics, as well as some  fast-paced PhD lightning talks. The event will include ample time for  discussion throughout the day and will conclude with a panel discussion.<br/></p><p>Please join us to help improve the open web!</p>\\\", \\\"id\\\": \\\"6098aa5a-d6aa-458f-a97e-7d705c88c750\\\"}]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"08:30:00\\\", \\\"end_time\\\": \\\"09:00:00\\\", \\\"title\\\": \\\"Registration\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"689ce973-d88a-4cdb-bc99-270c655582bd\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"09:00:00\\\", \\\"end_time\\\": \\\"12:00:00\\\", \\\"title\\\": \\\"Talks\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"0f560422-0cb8-4e4f-8c63-3d4772d7ede1\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"12:00:00\\\", \\\"end_time\\\": \\\"13:00:00\\\", \\\"title\\\": \\\"Lunch\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"b2ecc48f-c83c-43ab-94b7-9db694875b90\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"13:00:00\\\", \\\"end_time\\\": \\\"17:00:00\\\", \\\"title\\\": \\\"Workshops\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"1fe37ebf-84ae-43d7-8927-7f9b29f813e3\\\"}]\", \"speakers\": \"[{\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 11, \\\"id\\\": \\\"16d2b40c-2c4c-4def-9de5-331d4d8a621a\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 43, \\\"id\\\": \\\"93cb926a-b078-482e-bf28-1d2cfb17e3e9\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 44, \\\"id\\\": \\\"153fd9ed-997e-45cb-9aea-670802f68f69\\\"}]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"Mozilla San Francisco 2 Harrison Street, Suite 175, San Francisco, CA 94105\", \"location\": \"San Francisco, CA\", \"latitude\": 37.7894748, \"longitude\": -122.3914821, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 154,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-15T16:24:39.927Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-15T16:23:06.880Z\", \"latest_revision_created_at\": \"2019-07-15T16:23:06.846Z\", \"live_revision\": 153, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>The Mozilla Security Research summit will be hosted in San Francisco as part of Mozilla&#x27;s Security Engineering University Relationship Framework (SURF) initiative. This initiative aims to increase collaboration between Mozilla and the academic community, so as to leverage academic talent to help explore Mozilla-specific security and privacy engineering research problems, and to strengthen Mozilla&#x27;s ties to the academic community.</p><p>The summit audience will consist of a mix of Mozilla engineers, academics, and PhD students. Our intention is for Mozilla engineers to &quot;pitch&quot; research problems to the academic community, so as to spark potential collaboration. Our engineers and researchers plan to deliver talks covering areas such as tracking protection, language-based security, cryptography, web measurement and machine learning. The day will also include some high-caliber talks from security and privacy academics, as well as some fast-paced PhD lightning talks. The event will include ample time for discussion throughout the day and will conclude with a panel discussion.<br/></p><p>Please join us to help improve the open web!</p>\\\", \\\"id\\\": \\\"6098aa5a-d6aa-458f-a97e-7d705c88c750\\\"}]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"08:30:00\\\", \\\"end_time\\\": \\\"09:00:00\\\", \\\"title\\\": \\\"Registration\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"689ce973-d88a-4cdb-bc99-270c655582bd\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"09:00:00\\\", \\\"end_time\\\": \\\"12:00:00\\\", \\\"title\\\": \\\"Talks\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"0f560422-0cb8-4e4f-8c63-3d4772d7ede1\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"12:00:00\\\", \\\"end_time\\\": \\\"13:00:00\\\", \\\"title\\\": \\\"Lunch\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"b2ecc48f-c83c-43ab-94b7-9db694875b90\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"13:00:00\\\", \\\"end_time\\\": \\\"17:00:00\\\", \\\"title\\\": \\\"Workshops\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"1fe37ebf-84ae-43d7-8927-7f9b29f813e3\\\"}]\", \"speakers\": \"[{\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 11, \\\"id\\\": \\\"16d2b40c-2c4c-4def-9de5-331d4d8a621a\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 43, \\\"id\\\": \\\"93cb926a-b078-482e-bf28-1d2cfb17e3e9\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 44, \\\"id\\\": \\\"153fd9ed-997e-45cb-9aea-670802f68f69\\\"}]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"Mozilla San Francisco 2 Harrison Street, Suite 175, San Francisco, CA 94105\", \"location\": \"San Francisco, CA\", \"latitude\": 37.7894748, \"longitude\": -122.3914821, \"register_url\": \"https://events.mozilla.org/moz2019securityresearchsummit\", \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 155,
-    "fields": {
-      "page": 34,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-16T08:50:21.545Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 34, \"path\": \"0001000100040001\", \"depth\": 4, \"numchild\": 0, \"title\": \"2019 Developer Roadshow EU: Nuremberg\", \"draft_title\": \"2019 Developer Roadshow EU: Nuremberg\", \"slug\": \"2019-developer-roadshow-eu-nuremberg\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/2019-developer-roadshow-eu-nuremberg/\", \"owner\": null, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"description\": \"Mozilla Developer Roadshow is excited to join developers and web creators at Silbury, Nuremberg!\", \"image\": null, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>Hear from our Mozillians and friends on some of the best practices on the web platform including privacy and security guidance on building an immersive web browser, common tooling to build for virtual and augmented reality, using Firefox DevTools to learn modern CSS layouts, how WebAssembly is reshaping everything on the web</p><p>Doors open at 5.30pm with Talks kicking off at 6pm, and Social Hour starting at 8.30pm.</p><p>See Agenda details below.</p><p>All events are free, but please RSVP and confirm attendance since we will be providing food and beverages throughout the sessions.</p><p>Many thanks to our community sponsors</p><p><i>CoderDojo, tollwerk, N\\\\u00fcrnberg Digital Festival (former N\\\\u00fcrnberg Web Week), and our DevRoadshow EU partner</i> <a href=\\\\\\\"https://beyondtellerrand.com/\\\\\\\"><i>beyond tellerrand</i></a></p>\\\", \\\"id\\\": \\\"7797ce68-84fd-4093-9a38-6de596d8a701\\\"}]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"17:30:00\\\", \\\"end_time\\\": null, \\\"title\\\": \\\"Doors Open for Check In (please have your ticket ready)\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"6c2029e9-3ba7-44d5-bd78-9ff2981a9be1\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"18:00:00\\\", \\\"end_time\\\": null, \\\"title\\\": \\\"Presentations starts with Introduction\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"368772fc-1547-4d24-82c2-43f4b4a86c2f\\\"}]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-08-26\", \"end_date\": null, \"venue\": \"Silbury, Fichtenstra\\u00dfe 20, 90763 F\\u00fcrth, Germany\", \"location\": \"F\\u00fcrth, Germany\", \"latitude\": null, \"longitude\": null, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 156,
-    "fields": {
-      "page": 36,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-16T08:50:51.773Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 36, \"path\": \"0001000100040003\", \"depth\": 4, \"numchild\": 0, \"title\": \"2019 Developer Roadshow EU: Munich\", \"draft_title\": \"2019 Developer Roadshow EU: Munich\", \"slug\": \"2019-developer-roadshow-eu-munich\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/2019-developer-roadshow-eu-munich/\", \"owner\": null, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"description\": \"Mozilla Developer Roadshow is excited to join developers and web creators at the Microsoft space in Munich!\", \"image\": null, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>Hear from our Mozillians and friends on some of the best practices on the web platform including privacy and security guidance on building an immersive web browser, common tooling to build for virtual and augmented reality, using Firefox DevTools to learn modern CSS layouts, how WebAssembly is reshaping everything on the web</p><p>Doors open at 5.30pm with Talks kicking off at 6pm, and Social Hour starting at 8.30pm.</p><p>See Agenda details below.</p><p>All events are free, but please RSVP and confirm attendance since we will be providing food and beverages throughout the sessions.</p><p>Many thanks to our community sponsors</p><p><i>Munich Frontend Meetup, Refresh Munich, and our DevRoadshow EU partner</i> <a href=\\\\\\\"https://beyondtellerrand.com/\\\\\\\"><i>beyond tellerrand</i></a></p>\\\", \\\"id\\\": \\\"d4a4d6a7-e7ac-4232-81dc-2921f244ccb3\\\"}]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"17:30:00\\\", \\\"end_time\\\": null, \\\"title\\\": \\\"Doors open\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"00a53e1c-d054-46d3-bdc6-c6c861ec25be\\\"}]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-08-27\", \"end_date\": null, \"venue\": \"Microsoft, Walter-Gropius-Stra\\u00dfe 5, 80807 M\\u00fcnchen, Germany\", \"location\": \"M\\u00fcnchen, Germany\", \"latitude\": null, \"longitude\": null, \"register_url\": null, \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
       "approved_go_live_at": null
     }
   },
@@ -4064,48 +3994,6 @@
   },
   {
     "model": "wagtailcore.pagerevision",
-    "pk": 171,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-16T09:23:26.839Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-15T16:24:39.967Z\", \"latest_revision_created_at\": \"2019-07-15T16:24:39.927Z\", \"live_revision\": 154, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>The Mozilla Security Research summit will be hosted in San Francisco as part of Mozilla&#x27;s Security Engineering University Relationship Framework (SURF) initiative. This initiative aims to increase collaboration between Mozilla and the academic community, so as to leverage academic talent to help explore Mozilla-specific security and privacy engineering research problems, and to strengthen Mozilla&#x27;s ties to the academic community.</p><p>The summit audience will consist of a mix of Mozilla engineers, academics, and PhD students. Our intention is for Mozilla engineers to &quot;pitch&quot; research problems to the academic community, so as to spark potential collaboration. Our engineers and researchers plan to deliver talks covering areas such as tracking protection, language-based security, cryptography, web measurement and machine learning. The day will also include some high-caliber talks from security and privacy academics, as well as some fast-paced PhD lightning talks. The event will include ample time for discussion throughout the day and will conclude with a panel discussion.<br/></p><p>Please join us to help improve the open web!</p>\\\", \\\"id\\\": \\\"6098aa5a-d6aa-458f-a97e-7d705c88c750\\\"}]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"08:30:00\\\", \\\"end_time\\\": \\\"09:00:00\\\", \\\"title\\\": \\\"Registration\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"689ce973-d88a-4cdb-bc99-270c655582bd\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"09:00:00\\\", \\\"end_time\\\": \\\"12:00:00\\\", \\\"title\\\": \\\"Talks\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"0f560422-0cb8-4e4f-8c63-3d4772d7ede1\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"12:00:00\\\", \\\"end_time\\\": \\\"13:00:00\\\", \\\"title\\\": \\\"Lunch\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"b2ecc48f-c83c-43ab-94b7-9db694875b90\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"13:00:00\\\", \\\"end_time\\\": \\\"17:00:00\\\", \\\"title\\\": \\\"Workshops\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"1fe37ebf-84ae-43d7-8927-7f9b29f813e3\\\"}]\", \"speakers\": \"[{\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 48, \\\"id\\\": \\\"16d2b40c-2c4c-4def-9de5-331d4d8a621a\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 43, \\\"id\\\": \\\"93cb926a-b078-482e-bf28-1d2cfb17e3e9\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 44, \\\"id\\\": \\\"153fd9ed-997e-45cb-9aea-670802f68f69\\\"}]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"Mozilla San Francisco 2 Harrison Street, Suite 175, San Francisco, CA 94105\", \"location\": \"San Francisco, CA\", \"latitude\": 37.7894748, \"longitude\": -122.3914821, \"register_url\": \"https://events.mozilla.org/moz2019securityresearchsummit\", \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 172,
-    "fields": {
-      "page": 53,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-16T09:29:00.542Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 53, \"path\": \"0001000100040004\", \"depth\": 4, \"numchild\": 0, \"title\": \"Mozilla Security Research Summit 2019\", \"draft_title\": \"Mozilla Security Research Summit 2019\", \"slug\": \"mozilla-security-research-summit-2019\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/mozilla-security-research-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-15T16:02:15.729Z\", \"last_published_at\": \"2019-07-16T09:23:26.873Z\", \"latest_revision_created_at\": \"2019-07-16T09:23:26.839Z\", \"live_revision\": 171, \"description\": \"Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.\", \"image\": 18, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>The Mozilla Security Research summit will be hosted in San Francisco as part of Mozilla&#x27;s Security Engineering University Relationship Framework (SURF) initiative. This initiative aims to increase collaboration between Mozilla and the academic community, so as to leverage academic talent to help explore Mozilla-specific security and privacy engineering research problems, and to strengthen Mozilla&#x27;s ties to the academic community.</p><p>The summit audience will consist of a mix of Mozilla engineers, academics, and PhD students. Our intention is for Mozilla engineers to &quot;pitch&quot; research problems to the academic community, so as to spark potential collaboration. Our engineers and researchers plan to deliver talks covering areas such as tracking protection, language-based security, cryptography, web measurement and machine learning. The day will also include some high-caliber talks from security and privacy academics, as well as some fast-paced PhD lightning talks. The event will include ample time for discussion throughout the day and will conclude with a panel discussion.<br/></p><p>Please join us to help improve the open web!</p>\\\", \\\"id\\\": \\\"6098aa5a-d6aa-458f-a97e-7d705c88c750\\\"}]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"08:30:00\\\", \\\"end_time\\\": \\\"09:00:00\\\", \\\"title\\\": \\\"Registration\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"689ce973-d88a-4cdb-bc99-270c655582bd\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"09:00:00\\\", \\\"end_time\\\": \\\"12:00:00\\\", \\\"title\\\": \\\"Talks\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"0f560422-0cb8-4e4f-8c63-3d4772d7ede1\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"12:00:00\\\", \\\"end_time\\\": \\\"13:00:00\\\", \\\"title\\\": \\\"Lunch\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"b2ecc48f-c83c-43ab-94b7-9db694875b90\\\"}, {\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"13:00:00\\\", \\\"end_time\\\": \\\"17:00:00\\\", \\\"title\\\": \\\"Workshops\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"1fe37ebf-84ae-43d7-8927-7f9b29f813e3\\\"}]\", \"speakers\": \"[{\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 48, \\\"id\\\": \\\"16d2b40c-2c4c-4def-9de5-331d4d8a621a\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 43, \\\"id\\\": \\\"93cb926a-b078-482e-bf28-1d2cfb17e3e9\\\"}, {\\\"type\\\": \\\"speaker\\\", \\\"value\\\": 44, \\\"id\\\": \\\"153fd9ed-997e-45cb-9aea-670802f68f69\\\"}]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-31\", \"end_date\": null, \"venue\": \"Mozilla San Francisco 2 Harrison Street, Suite 175, San Francisco, CA 94105\", \"location\": \"San Francisco, CA\", \"latitude\": 37.7894748, \"longitude\": -122.3914821, \"register_url\": \"https://events.mozilla.org/moz2019securityresearchsummit\", \"tagged_items\": [], \"topics\": [{\"pk\": null, \"sort_order\": 0, \"event\": 53, \"topic\": 38}], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
-    "pk": 173,
-    "fields": {
-      "page": 36,
-      "submitted_for_moderation": false,
-      "created_at": "2019-07-16T09:29:32.235Z",
-      "user": [
-        "root"
-      ],
-      "content_json": "{\"pk\": 36, \"path\": \"0001000100040003\", \"depth\": 4, \"numchild\": 0, \"title\": \"2019 Developer Roadshow EU: Munich\", \"draft_title\": \"2019 Developer Roadshow EU: Munich\", \"slug\": \"2019-developer-roadshow-eu-munich\", \"content_type\": 11, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/2019-developer-roadshow-eu-munich/\", \"owner\": null, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-16T08:50:51.795Z\", \"last_published_at\": \"2019-07-16T08:50:51.795Z\", \"latest_revision_created_at\": \"2019-07-16T08:50:51.773Z\", \"live_revision\": 156, \"description\": \"Mozilla Developer Roadshow is excited to join developers and web creators at the Microsoft space in Munich!\", \"image\": null, \"body\": \"[{\\\"type\\\": \\\"paragraph\\\", \\\"value\\\": \\\"<p>Hear from our Mozillians and friends on some of the best practices on the web platform including privacy and security guidance on building an immersive web browser, common tooling to build for virtual and augmented reality, using Firefox DevTools to learn modern CSS layouts, how WebAssembly is reshaping everything on the web</p><p>Doors open at 5.30pm with Talks kicking off at 6pm, and Social Hour starting at 8.30pm.</p><p>See Agenda details below.</p><p>All events are free, but please RSVP and confirm attendance since we will be providing food and beverages throughout the sessions.</p><p>Many thanks to our community sponsors</p><p><i>Munich Frontend Meetup, Refresh Munich, and our DevRoadshow EU partner</i> <a href=\\\\\\\"https://beyondtellerrand.com/\\\\\\\"><i>beyond tellerrand</i></a></p>\\\", \\\"id\\\": \\\"d4a4d6a7-e7ac-4232-81dc-2921f244ccb3\\\"}]\", \"agenda\": \"[{\\\"type\\\": \\\"agenda_item\\\", \\\"value\\\": {\\\"start_time\\\": \\\"17:30:00\\\", \\\"end_time\\\": null, \\\"title\\\": \\\"Doors open\\\", \\\"speaker\\\": null, \\\"external_speaker\\\": {\\\"name\\\": \\\"\\\", \\\"url\\\": \\\"\\\"}}, \\\"id\\\": \\\"00a53e1c-d054-46d3-bdc6-c6c861ec25be\\\"}]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-08-27\", \"end_date\": null, \"venue\": \"Microsoft, Walter-Gropius-Stra\\u00dfe 5, 80807 M\\u00fcnchen, Germany\", \"location\": \"M\\u00fcnchen, Germany\", \"latitude\": null, \"longitude\": null, \"register_url\": null, \"tagged_items\": [], \"topics\": [{\"pk\": null, \"sort_order\": 0, \"event\": 36, \"topic\": 38}], \"speaker\": []}",
-      "approved_go_live_at": null
-    }
-  },
-  {
-    "model": "wagtailcore.pagerevision",
     "pk": 174,
     "fields": {
       "page": 48,
@@ -4245,6 +4133,48 @@
     }
   },
   {
+    "model": "wagtailcore.pagerevision",
+    "pk": 185,
+    "fields": {
+      "page": 54,
+      "submitted_for_moderation": false,
+      "created_at": "2019-07-25T17:17:22.502Z",
+      "user": [
+        "root"
+      ],
+      "content_json": "{\"pk\": 54, \"path\": \"0001000100040001\", \"depth\": 4, \"numchild\": 0, \"title\": \"e1\", \"draft_title\": \"e1\", \"slug\": \"e1\", \"content_type\": 14, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/e1/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"description\": \"\", \"image\": null, \"body\": \"[]\", \"agenda\": \"[]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-07-25\", \"end_date\": null, \"latitude\": null, \"longitude\": null, \"register_url\": null, \"venue_name\": \"\", \"venue_url\": \"\", \"address_line_1\": \"\", \"address_line_2\": \"\", \"address_line_3\": \"\", \"city\": \"\", \"state\": \"\", \"zip_code\": \"\", \"country\": \"\", \"tagged_items\": [], \"topics\": [], \"speaker\": []}",
+      "approved_go_live_at": null
+    }
+  },
+  {
+    "model": "wagtailcore.pagerevision",
+    "pk": 186,
+    "fields": {
+      "page": 54,
+      "submitted_for_moderation": false,
+      "created_at": "2019-07-26T09:18:00.595Z",
+      "user": [
+        "root"
+      ],
+      "content_json": "{\"pk\": 54, \"path\": \"0001000100040001\", \"depth\": 4, \"numchild\": 0, \"title\": \"View Source Conference\", \"draft_title\": \"e1\", \"slug\": \"e1\", \"content_type\": 14, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/e1/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": \"2019-07-25T17:17:22.525Z\", \"last_published_at\": \"2019-07-25T17:17:22.525Z\", \"latest_revision_created_at\": \"2019-07-25T17:17:22.502Z\", \"live_revision\": 185, \"description\": \"This year, we are expanding View Source to bring you a deeper dive into how browser vendors, and others, create and support web standards, as well as best practices for building for the web.\", \"image\": 20, \"body\": \"[]\", \"agenda\": \"[]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-09-30\", \"end_date\": \"2019-10-01\", \"latitude\": 52.3970384, \"longitude\": 4.8754485, \"register_url\": null, \"venue_name\": \"Theater Amsterdam\", \"venue_url\": \"https://theateramsterdam.nl/en/your-visit\", \"address_line_1\": \"Danzigerkade 5\", \"address_line_2\": \"\", \"address_line_3\": \"\", \"city\": \"Amsterdam\", \"state\": \"\", \"zip_code\": \"1013 AP\", \"country\": \"NL\", \"tagged_items\": [], \"topics\": [{\"pk\": null, \"sort_order\": 0, \"event\": 54, \"topic\": 6}], \"speaker\": []}",
+      "approved_go_live_at": null
+    }
+  },
+  {
+    "model": "wagtailcore.pagerevision",
+    "pk": 187,
+    "fields": {
+      "page": 55,
+      "submitted_for_moderation": false,
+      "created_at": "2019-07-26T09:26:36.745Z",
+      "user": [
+        "root"
+      ],
+      "content_json": "{\"pk\": 55, \"path\": \"0001000100040002\", \"depth\": 4, \"numchild\": 0, \"title\": \"Paris Open Source Summit 2019\", \"draft_title\": \"Paris Open Source Summit 2019\", \"slug\": \"paris-open-source-summit-2019\", \"content_type\": 14, \"live\": true, \"has_unpublished_changes\": false, \"url_path\": \"/home/events/paris-open-source-summit-2019/\", \"owner\": 1, \"seo_title\": \"\", \"show_in_menus\": false, \"search_description\": \"\", \"go_live_at\": null, \"expire_at\": null, \"expired\": false, \"locked\": false, \"first_published_at\": null, \"last_published_at\": null, \"latest_revision_created_at\": null, \"live_revision\": null, \"description\": \"Covers the major issues of open source, the program will be divided into three main themes: business, technological and societal.\", \"image\": 19, \"body\": \"[]\", \"agenda\": \"[]\", \"speakers\": \"[]\", \"card_title\": \"\", \"card_description\": \"\", \"card_image\": null, \"start_date\": \"2019-12-10\", \"end_date\": \"2019-12-11\", \"latitude\": 48.8912077629, \"longitude\": 2.47119158506, \"register_url\": null, \"venue_name\": \"Les docs de Paris\", \"venue_url\": \"\", \"address_line_1\": \"\", \"address_line_2\": \"\", \"address_line_3\": \"\", \"city\": \"Paris\", \"state\": \"\", \"zip_code\": \"\", \"country\": \"FR\", \"tagged_items\": [], \"topics\": [{\"pk\": 2, \"sort_order\": 0, \"event\": 55, \"topic\": 6}], \"speaker\": []}",
+      "approved_go_live_at": null
+    }
+  },
+  {
     "model": "wagtailcore.page",
     "pk": 1,
     "fields": {
@@ -4281,9 +4211,9 @@
     "fields": {
       "path": "00010001",
       "depth": 2,
-      "numchild": 2,
-      "title": "Mozilla Developer Portal",
-      "draft_title": "Mozilla Developer Portal",
+      "numchild": 4,
+      "title": "Home",
+      "draft_title": "Home",
       "slug": "home",
       "content_type": [
         "home",
@@ -4300,10 +4230,10 @@
       "expire_at": null,
       "expired": false,
       "locked": false,
-      "first_published_at": "2019-07-15T10:10:17.413Z",
-      "last_published_at": "2019-07-16T09:20:17.112Z",
-      "latest_revision_created_at": "2019-07-16T09:20:17.087Z",
-      "live_revision": 169
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
     }
   },
   {
@@ -4393,10 +4323,10 @@
       "expire_at": null,
       "expired": false,
       "locked": false,
-      "first_published_at": "2019-07-15T12:38:16.302Z",
-      "last_published_at": "2019-07-15T14:25:02.724Z",
-      "latest_revision_created_at": "2019-07-15T14:25:02.698Z",
-      "live_revision": 72
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
     }
   },
   {
@@ -4424,10 +4354,10 @@
       "expire_at": null,
       "expired": false,
       "locked": false,
-      "first_published_at": "2019-07-15T12:33:09.736Z",
-      "last_published_at": "2019-07-15T14:27:52.108Z",
-      "latest_revision_created_at": "2019-07-15T14:27:52.074Z",
-      "live_revision": 74
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
     }
   },
   {
@@ -4517,10 +4447,10 @@
       "expire_at": null,
       "expired": false,
       "locked": false,
-      "first_published_at": "2019-07-15T09:59:20.287Z",
-      "last_published_at": "2019-07-15T13:47:07.297Z",
-      "latest_revision_created_at": "2019-07-15T13:47:07.269Z",
-      "live_revision": 46
+      "first_published_at": null,
+      "last_published_at": null,
+      "latest_revision_created_at": null,
+      "live_revision": null
     }
   },
   {
@@ -5180,7 +5110,7 @@
     "fields": {
       "path": "000100010004",
       "depth": 3,
-      "numchild": 4,
+      "numchild": 2,
       "title": "Events",
       "draft_title": "Events",
       "slug": "events",
@@ -5203,99 +5133,6 @@
       "last_published_at": "2019-07-15T16:06:03.891Z",
       "latest_revision_created_at": "2019-07-15T16:06:03.854Z",
       "live_revision": 150
-    }
-  },
-  {
-    "model": "wagtailcore.page",
-    "pk": 34,
-    "fields": {
-      "path": "0001000100040001",
-      "depth": 4,
-      "numchild": 0,
-      "title": "2019 Developer Roadshow EU: Nuremberg",
-      "draft_title": "2019 Developer Roadshow EU: Nuremberg",
-      "slug": "2019-developer-roadshow-eu-nuremberg",
-      "content_type": [
-        "events",
-        "event"
-      ],
-      "live": true,
-      "has_unpublished_changes": false,
-      "url_path": "/home/events/2019-developer-roadshow-eu-nuremberg/",
-      "owner": null,
-      "seo_title": "",
-      "show_in_menus": false,
-      "search_description": "",
-      "go_live_at": null,
-      "expire_at": null,
-      "expired": false,
-      "locked": false,
-      "first_published_at": "2019-07-16T08:50:21.574Z",
-      "last_published_at": "2019-07-16T08:50:21.574Z",
-      "latest_revision_created_at": "2019-07-16T08:50:21.545Z",
-      "live_revision": 155
-    }
-  },
-  {
-    "model": "wagtailcore.page",
-    "pk": 35,
-    "fields": {
-      "path": "0001000100040002",
-      "depth": 4,
-      "numchild": 0,
-      "title": "RUST Workshop and Hackathon @ Yakro",
-      "draft_title": "RUST Workshop and Hackathon @ Yakro",
-      "slug": "rust-workshop-and-hackathon-yakro",
-      "content_type": [
-        "events",
-        "event"
-      ],
-      "live": true,
-      "has_unpublished_changes": false,
-      "url_path": "/home/events/rust-workshop-and-hackathon-yakro/",
-      "owner": null,
-      "seo_title": "",
-      "show_in_menus": false,
-      "search_description": "",
-      "go_live_at": null,
-      "expire_at": null,
-      "expired": false,
-      "locked": false,
-      "first_published_at": null,
-      "last_published_at": null,
-      "latest_revision_created_at": null,
-      "live_revision": null
-    }
-  },
-  {
-    "model": "wagtailcore.page",
-    "pk": 36,
-    "fields": {
-      "path": "0001000100040003",
-      "depth": 4,
-      "numchild": 0,
-      "title": "2019 Developer Roadshow EU: Munich",
-      "draft_title": "2019 Developer Roadshow EU: Munich",
-      "slug": "2019-developer-roadshow-eu-munich",
-      "content_type": [
-        "events",
-        "event"
-      ],
-      "live": true,
-      "has_unpublished_changes": false,
-      "url_path": "/home/events/2019-developer-roadshow-eu-munich/",
-      "owner": null,
-      "seo_title": "",
-      "show_in_menus": false,
-      "search_description": "",
-      "go_live_at": null,
-      "expire_at": null,
-      "expired": false,
-      "locked": false,
-      "first_published_at": "2019-07-16T08:50:51.795Z",
-      "last_published_at": "2019-07-16T09:29:32.265Z",
-      "latest_revision_created_at": "2019-07-16T09:29:32.235Z",
-      "live_revision": 173
     }
   },
   {
@@ -5828,21 +5665,21 @@
   },
   {
     "model": "wagtailcore.page",
-    "pk": 53,
+    "pk": 54,
     "fields": {
-      "path": "0001000100040004",
+      "path": "0001000100040001",
       "depth": 4,
       "numchild": 0,
-      "title": "Mozilla Security Research Summit 2019",
-      "draft_title": "Mozilla Security Research Summit 2019",
-      "slug": "mozilla-security-research-summit-2019",
+      "title": "View Source Conference",
+      "draft_title": "View Source Conference",
+      "slug": "e1",
       "content_type": [
         "events",
         "event"
       ],
       "live": true,
       "has_unpublished_changes": false,
-      "url_path": "/home/events/mozilla-security-research-summit-2019/",
+      "url_path": "/home/events/e1/",
       "owner": [
         "root"
       ],
@@ -5853,10 +5690,43 @@
       "expire_at": null,
       "expired": false,
       "locked": false,
-      "first_published_at": "2019-07-15T16:02:15.729Z",
-      "last_published_at": "2019-07-16T09:29:00.580Z",
-      "latest_revision_created_at": "2019-07-16T09:29:00.542Z",
-      "live_revision": 172
+      "first_published_at": "2019-07-25T17:17:22.525Z",
+      "last_published_at": "2019-07-26T09:18:00.627Z",
+      "latest_revision_created_at": "2019-07-26T09:18:00.595Z",
+      "live_revision": 186
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 55,
+    "fields": {
+      "path": "0001000100040002",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Paris Open Source Summit 2019",
+      "draft_title": "Paris Open Source Summit 2019",
+      "slug": "paris-open-source-summit-2019",
+      "content_type": [
+        "events",
+        "event"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/events/paris-open-source-summit-2019/",
+      "owner": [
+        "root"
+      ],
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "first_published_at": "2019-07-26T09:26:36.780Z",
+      "last_published_at": "2019-07-26T09:26:36.780Z",
+      "latest_revision_created_at": "2019-07-26T09:26:36.745Z",
+      "live_revision": 187
     }
   },
   {
@@ -5868,27 +5738,27 @@
     "model": "topics.topic",
     "pk": 6,
     "fields": {
-      "description": "A stylesheet language used to describe the presentation of a document written in HTML or XML.",
-      "featured": "[{\"type\": \"article\", \"value\": 19, \"id\": \"50d74b2b-ee69-48db-a8f5-da0b8e6660d0\"}]",
-      "get_started": "[{\"type\": \"panel\", \"value\": {\"title\": \"Create\", \"image\": 3, \"description\": \"Create\", \"button_text\": \"Learn more\", \"page_link\": null, \"external_link\": \"\"}, \"id\": \"724b981a-fdf9-4e74-b920-3d6e85531c37\"}, {\"type\": \"panel\", \"value\": {\"title\": \"Explore\", \"image\": 4, \"description\": \"Explore\", \"button_text\": \"Learn more\", \"page_link\": null, \"external_link\": \"\"}, \"id\": \"68fe8f1f-1ba4-4b85-9be1-4d0e42aa704b\"}, {\"type\": \"panel\", \"value\": {\"title\": \"Collaborate\", \"image\": 5, \"description\": \"Collaborate\", \"button_text\": \"Learn more\", \"page_link\": null, \"external_link\": \"\"}, \"id\": \"40de3693-23d1-48b6-a675-c0e3384e1e2f\"}]",
+      "description": "",
+      "featured": "[]",
+      "get_started": "[]",
       "card_title": "",
       "card_description": "",
       "card_image": null,
-      "icon": "topics/icons/CSS_JMUiGI1.svg",
-      "color": "red-40"
+      "icon": "",
+      "color": "blue-40"
     }
   },
   {
     "model": "topics.topic",
     "pk": 7,
     "fields": {
-      "description": "JavaScript is the Programming Language for the Web.",
-      "featured": "[{\"type\": \"article\", \"value\": 8, \"id\": \"d6427bb9-a6d3-4c39-85f5-a3309ba5c060\"}]",
-      "get_started": "[{\"type\": \"panel\", \"value\": {\"title\": \"a\", \"image\": 3, \"description\": \"a\", \"button_text\": \"a\", \"page_link\": null, \"external_link\": \"\"}, \"id\": \"bb53c33b-b186-4151-801c-93b7c9741de9\"}]",
+      "description": "",
+      "featured": "[]",
+      "get_started": "[]",
       "card_title": "",
       "card_description": "",
       "card_image": null,
-      "icon": "topics/icons/JavaScript_UqTqF4P.svg",
+      "icon": "",
       "color": "blue-40"
     }
   },
@@ -5996,7 +5866,7 @@
     "fields": {
       "job_title": "Developer advocate",
       "description": "<p>I am Josh Marinacci: developer advocate, software engineer, researcher, usability expert, and general miscreant. I have a passion for great user experiences. I live in Oregon with my wife and kiddo. I&#x27;m currently helping to keep the Web open and free at Mozilla.</p><p>I speak professionally at conferences world wide and have written many technical articles for publications like Java.net, the Java Magazine, and the Palm Developer Blog, and Embedded Computing. I have also published three books: Swing Hacks, Building Mobile Applications in Java, and HTML Canvas: A Travelogue. See more on my writings page.</p>",
-      "image": 11,
+      "image": null,
       "is_mozillian": true,
       "card_title": "",
       "card_description": "",
@@ -6522,18 +6392,40 @@
     }
   },
   {
+    "model": "mozimages.mozimage",
+    "pk": 20,
+    "fields": {
+      "collection": 1,
+      "title": "IMG_20190616_125913.jpg",
+      "file": "original_images/IMG_20190616_125913_nrdwKuL.jpg",
+      "width": 4048,
+      "height": 3036,
+      "created_at": "2019-07-26T09:15:32.370Z",
+      "uploaded_by_user": [
+        "root"
+      ],
+      "focal_point_x": null,
+      "focal_point_y": null,
+      "focal_point_width": null,
+      "focal_point_height": null,
+      "file_size": 5177351,
+      "file_hash": "36c522cf378f7936bb13da7dbd6c59ec06446b59",
+      "caption": ""
+    }
+  },
+  {
     "model": "home.homepage",
     "pk": 3,
     "fields": {
-      "subtitle": "Made for developers, by developers.",
-      "button_text": "Get Started",
-      "button_url": "http://0.0.0.0:8000/",
+      "subtitle": "",
+      "button_text": "",
+      "button_url": "",
       "image": null,
-      "featured": "[{\"type\": \"article\", \"value\": 8, \"id\": \"f56e6ff6-2ed9-4e74-a2ab-14313087dc70\"}, {\"type\": \"article\", \"value\": 39, \"id\": \"31b82f91-28d0-47fb-88cb-8ecf4072b164\"}, {\"type\": \"article\", \"value\": 14, \"id\": \"d59a33b9-6871-4180-8580-d229d3ede900\"}, {\"type\": \"external_page\", \"value\": {\"url\": \"https://talks.jensimmons.com/jugbbe/everything-you-know-about-web-design-just-changed\", \"title\": \"Everything You Know About Web Design Just Changed\", \"description\": \"\", \"image\": 16}, \"id\": \"9bf53dfa-618f-4ae9-ae25-9999de6a9e24\"}]",
-      "about_title": "We are Mozilla",
-      "about_subtitle": "Mozilla makes browsers, apps, code and tools that put people before profit",
-      "about_button_text": "Read our mission",
-      "about_button_url": "http://0.0.0.0:8000/",
+      "featured": "[]",
+      "about_title": "",
+      "about_subtitle": "",
+      "about_button_text": "",
+      "about_button_url": "",
       "card_title": "",
       "card_description": "",
       "card_image": null
@@ -6541,93 +6433,65 @@
   },
   {
     "model": "events.event",
-    "pk": 34,
+    "pk": 54,
     "fields": {
-      "description": "Mozilla Developer Roadshow is excited to join developers and web creators at Silbury, Nuremberg!",
-      "image": null,
-      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Hear from our Mozillians and friends on some of the best practices on the web platform including privacy and security guidance on building an immersive web browser, common tooling to build for virtual and augmented reality, using Firefox DevTools to learn modern CSS layouts, how WebAssembly is reshaping everything on the web</p><p>Doors open at 5.30pm with Talks kicking off at 6pm, and Social Hour starting at 8.30pm.</p><p>See Agenda details below.</p><p>All events are free, but please RSVP and confirm attendance since we will be providing food and beverages throughout the sessions.</p><p>Many thanks to our community sponsors</p><p><i>CoderDojo, tollwerk, N\\u00fcrnberg Digital Festival (former N\\u00fcrnberg Web Week), and our DevRoadshow EU partner</i> <a href=\\\"https://beyondtellerrand.com/\\\"><i>beyond tellerrand</i></a></p>\", \"id\": \"7797ce68-84fd-4093-9a38-6de596d8a701\"}]",
-      "agenda": "[{\"type\": \"agenda_item\", \"value\": {\"start_time\": \"17:30:00\", \"end_time\": null, \"title\": \"Doors Open for Check In (please have your ticket ready)\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"6c2029e9-3ba7-44d5-bd78-9ff2981a9be1\"}, {\"type\": \"agenda_item\", \"value\": {\"start_time\": \"18:00:00\", \"end_time\": null, \"title\": \"Presentations starts with Introduction\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"368772fc-1547-4d24-82c2-43f4b4a86c2f\"}]",
-      "speakers": "[]",
-      "card_title": "",
-      "card_description": "",
-      "card_image": null,
-      "start_date": "2019-08-26",
-      "end_date": null,
-      "venue": "Silbury, Fichtenstra\u00dfe 20, 90763 F\u00fcrth, Germany",
-      "location": "F\u00fcrth, Germany",
-      "latitude": null,
-      "longitude": null,
-      "register_url": null
-    }
-  },
-  {
-    "model": "events.event",
-    "pk": 35,
-    "fields": {
-      "description": "This is a two day event with the first day covering concepts on RUST for newbies and the following by a 24 hour hackathon on RUST and also other interesting projects by Mozilla.",
-      "image": null,
+      "description": "This year, we are expanding View Source to bring you a deeper dive into how browser vendors, and others, create and support web standards, as well as best practices for building for the web.",
+      "image": 20,
       "body": "[]",
       "agenda": "[]",
       "speakers": "[]",
       "card_title": "",
       "card_description": "",
       "card_image": null,
-      "start_date": "2019-07-27",
-      "end_date": "2019-07-28",
-      "venue": "Yamoussoukro, Region des Lacs, Ivory Coast",
-      "location": "",
-      "latitude": null,
-      "longitude": null,
-      "register_url": null
+      "start_date": "2019-09-30",
+      "end_date": "2019-10-01",
+      "latitude": 52.3970384,
+      "longitude": 4.8754485,
+      "register_url": null,
+      "venue_name": "Theater Amsterdam",
+      "venue_url": "https://theateramsterdam.nl/en/your-visit",
+      "address_line_1": "Danzigerkade 5",
+      "address_line_2": "",
+      "address_line_3": "",
+      "city": "Amsterdam",
+      "state": "",
+      "zip_code": "1013 AP",
+      "country": "NL"
     }
   },
   {
     "model": "events.event",
-    "pk": 36,
+    "pk": 55,
     "fields": {
-      "description": "Mozilla Developer Roadshow is excited to join developers and web creators at the Microsoft space in Munich!",
-      "image": null,
-      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Hear from our Mozillians and friends on some of the best practices on the web platform including privacy and security guidance on building an immersive web browser, common tooling to build for virtual and augmented reality, using Firefox DevTools to learn modern CSS layouts, how WebAssembly is reshaping everything on the web</p><p>Doors open at 5.30pm with Talks kicking off at 6pm, and Social Hour starting at 8.30pm.</p><p>See Agenda details below.</p><p>All events are free, but please RSVP and confirm attendance since we will be providing food and beverages throughout the sessions.</p><p>Many thanks to our community sponsors</p><p><i>Munich Frontend Meetup, Refresh Munich, and our DevRoadshow EU partner</i> <a href=\\\"https://beyondtellerrand.com/\\\"><i>beyond tellerrand</i></a></p>\", \"id\": \"d4a4d6a7-e7ac-4232-81dc-2921f244ccb3\"}]",
-      "agenda": "[{\"type\": \"agenda_item\", \"value\": {\"start_time\": \"17:30:00\", \"end_time\": null, \"title\": \"Doors open\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"00a53e1c-d054-46d3-bdc6-c6c861ec25be\"}]",
+      "description": "Covers the major issues of open source, the program will be divided into three main themes: business, technological and societal.",
+      "image": 19,
+      "body": "[]",
+      "agenda": "[]",
       "speakers": "[]",
       "card_title": "",
       "card_description": "",
       "card_image": null,
-      "start_date": "2019-08-27",
-      "end_date": null,
-      "venue": "Microsoft, Walter-Gropius-Stra\u00dfe 5, 80807 M\u00fcnchen, Germany",
-      "location": "M\u00fcnchen, Germany",
-      "latitude": null,
-      "longitude": null,
-      "register_url": null
-    }
-  },
-  {
-    "model": "events.event",
-    "pk": 53,
-    "fields": {
-      "description": "Our engineers and researchers plan to deliver talks covering tracking protection, language-based security, cryptography, web measurement and machine learning.",
-      "image": 18,
-      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>The Mozilla Security Research summit will be hosted in San Francisco as part of Mozilla&#x27;s Security Engineering University Relationship Framework (SURF) initiative. This initiative aims to increase collaboration between Mozilla and the academic community, so as to leverage academic talent to help explore Mozilla-specific security and privacy engineering research problems, and to strengthen Mozilla&#x27;s ties to the academic community.</p><p>The summit audience will consist of a mix of Mozilla engineers, academics, and PhD students. Our intention is for Mozilla engineers to &quot;pitch&quot; research problems to the academic community, so as to spark potential collaboration. Our engineers and researchers plan to deliver talks covering areas such as tracking protection, language-based security, cryptography, web measurement and machine learning. The day will also include some high-caliber talks from security and privacy academics, as well as some fast-paced PhD lightning talks. The event will include ample time for discussion throughout the day and will conclude with a panel discussion.<br/></p><p>Please join us to help improve the open web!</p>\", \"id\": \"6098aa5a-d6aa-458f-a97e-7d705c88c750\"}]",
-      "agenda": "[{\"type\": \"agenda_item\", \"value\": {\"start_time\": \"08:30:00\", \"end_time\": \"09:00:00\", \"title\": \"Registration\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"689ce973-d88a-4cdb-bc99-270c655582bd\"}, {\"type\": \"agenda_item\", \"value\": {\"start_time\": \"09:00:00\", \"end_time\": \"12:00:00\", \"title\": \"Talks\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"0f560422-0cb8-4e4f-8c63-3d4772d7ede1\"}, {\"type\": \"agenda_item\", \"value\": {\"start_time\": \"12:00:00\", \"end_time\": \"13:00:00\", \"title\": \"Lunch\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"b2ecc48f-c83c-43ab-94b7-9db694875b90\"}, {\"type\": \"agenda_item\", \"value\": {\"start_time\": \"13:00:00\", \"end_time\": \"17:00:00\", \"title\": \"Workshops\", \"speaker\": null, \"external_speaker\": {\"name\": \"\", \"url\": \"\"}}, \"id\": \"1fe37ebf-84ae-43d7-8927-7f9b29f813e3\"}]",
-      "speakers": "[{\"type\": \"speaker\", \"value\": 48, \"id\": \"16d2b40c-2c4c-4def-9de5-331d4d8a621a\"}, {\"type\": \"speaker\", \"value\": 43, \"id\": \"93cb926a-b078-482e-bf28-1d2cfb17e3e9\"}, {\"type\": \"speaker\", \"value\": 44, \"id\": \"153fd9ed-997e-45cb-9aea-670802f68f69\"}]",
-      "card_title": "",
-      "card_description": "",
-      "card_image": null,
-      "start_date": "2019-07-31",
-      "end_date": null,
-      "venue": "Mozilla San Francisco 2 Harrison Street, Suite 175, San Francisco, CA 94105",
-      "location": "San Francisco, CA",
-      "latitude": 37.7894748,
-      "longitude": -122.3914821,
-      "register_url": "https://events.mozilla.org/moz2019securityresearchsummit"
+      "start_date": "2019-12-10",
+      "end_date": "2019-12-11",
+      "latitude": 48.8912077629,
+      "longitude": 2.47119158506,
+      "register_url": null,
+      "venue_name": "Les docs de Paris",
+      "venue_url": "",
+      "address_line_1": "",
+      "address_line_2": "",
+      "address_line_3": "",
+      "city": "Paris",
+      "state": "",
+      "zip_code": "",
+      "country": "FR"
     }
   },
   {
     "model": "events.events",
     "pk": 33,
     "fields": {
-      "featured": null
+      "featured": "[]"
     }
   },
   {
