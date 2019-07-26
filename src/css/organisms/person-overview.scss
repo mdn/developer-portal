@@ -22,12 +22,7 @@
 }
 
 .person-overview-image-container {
-  position: relative;
   text-align: center;
-  top: 0;
-  @media #{$mq-md} {
-    top: -64px;
-  }
 }
 
 .person-overview-image {
