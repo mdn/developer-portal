@@ -8,12 +8,11 @@
 .homepage-header-content {
   padding-bottom: 64px;
   padding-top: 64px;
-  width: 60%;
+  margin-right: 40%;
 
   @media screen and (min-width: 1024px) {
     padding-bottom: 100px;
     padding-top: 220px;
-    width: 100%;
   }
 
   h1 {
