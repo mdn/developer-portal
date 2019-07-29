@@ -43,7 +43,7 @@ GitHub OAuth is supported for admin login. When running in production, the auth 
 When running in debug any GitHub user is allowed to log in and is automatically given superuser status. It is possible to log in without using GitHub by creating a Django superuser as normal:
 
 ```shell
-docker-compse exec app python manage.py createsuperuser
+docker-compose exec app python manage.py createsuperuser
 ```
 
 ### Updating

@@ -254,6 +254,11 @@ class Event(Page):
     ])
 
     @property
+    def is_upcoming(self):
+        """Returns whether an event is in the future."""
+        return self.start_date > datetime.date.today()
+
+    @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the event."""
         article_topic = self.topics.first()
