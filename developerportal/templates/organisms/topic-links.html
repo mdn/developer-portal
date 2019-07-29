@@ -18,11 +18,17 @@
             <h2>Topics I'm interested in</h2>
           {% endif %}
         </div>
-        <div class="card-container">
+        {% if topics.count == 1 %}
+        <div>
+          {% include "molecules/item-topic-link.html" with topic=topics.0.topic full_width=True %}
+        </div>
+        {% else %}
+        <div class="card-container {% if topics.count == 2 %}card-container-2-wide{% endif %}">
           {% for topic in topics %}
             {% include "molecules/item-topic-link.html" with topic=topic.topic %}
           {% endfor %}
         </div>
+        {% endif %}
       </div>
       <div class="pattern-section-pattern pattern-section-pattern-after">
         {% include "atoms/pattern.html" %}

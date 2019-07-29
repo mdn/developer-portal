@@ -23,11 +23,11 @@
       </div>
     </div>
     <div class="article-header-details">
-      <div class="article-header-highlight">
-        {% if type == 'event' %}
-        <span class="highlight">Upcoming event</span>
-        {% endif %}
-      </div>
+      {% if type == 'event' and page.is_upcoming %}
+        <div class="article-header-highlight">
+          <span class="highlight">Upcoming event</span>
+        </div>
+      {% endif %}
       <h2 class="no-underline">{{ title }}</h2>
       <div class="article-header-subtitle">
         {% if description %}

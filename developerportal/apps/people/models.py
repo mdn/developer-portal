@@ -1,3 +1,5 @@
+import datetime
+
 from django.db.models import (
     BooleanField,
     CASCADE,
@@ -180,3 +182,26 @@ class Person(Page):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @property
+    def events(self):
+        """Return upcoming events where this person is a speaker,
+        ordered by start date"""
+        from ..events.models import Event
+
+        upcoming_events = (Event
+                .objects
+                .filter(start_date__gte=datetime.datetime.now())
+                .order_by('start_date')
+                .live()
+                .public()
+        )
+
+        speaker_events = Event.objects.none()
+
+        for event in upcoming_events.all():
+            # add the event to the list if the current person is a speaker
+            if event.has_speaker(self):
+                speaker_events = speaker_events | Event.objects.page(event)
+
+        return speaker_events

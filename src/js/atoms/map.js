@@ -10,6 +10,8 @@ export default class {
         zoom: 16,
       });
 
+      map.addControl(new mapboxgl.NavigationControl());
+
       const geojson = {
         type: 'FeatureCollection',
         features: [{

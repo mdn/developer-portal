@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'social_django',
+    'django_countries',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -202,10 +203,12 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = 'Mozilla Developer Portal'
 
 # Add support for CodePen oEmbed
+from wagtail.embeds.oembed_providers import all_providers
+
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',
-        'providers': [{
+        'providers': all_providers + [{
             'endpoint': 'http://codepen.io/api/oembed',
             'urls': [
                 '^http(?:s)?://codepen\\.io/.+/pen/.+$',
@@ -221,7 +224,7 @@ WAGTAILIMAGES_IMAGE_MODEL = 'mozimages.MozImage'
 BASE_URL = os.environ.get('BASE_URL')
 
 # Wagtail Bakery Settings
-BUILD_DIR = os.path.join(BASE_DIR, 'build', 'build')
+BUILD_DIR = os.path.join(BASE_DIR, 'build')
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
@@ -231,7 +234,7 @@ AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
 
 # Static build management commands called in order
 STATIC_BUILD_PIPELINE = (
-    ('Build', 'build'),
+    ('Build', 'build-portal'),
     ('Publish', 'publish'),
 )
 
@@ -271,3 +274,9 @@ GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')
 
 # Mapbox
 MAPBOX_ACCESS_TOKEN = os.environ.get('MAPBOX_ACCESS_TOKEN')
+
+COUNTRIES_FIRST = [
+    'US', 'GB'
+]
+
+

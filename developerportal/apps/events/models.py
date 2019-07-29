@@ -13,6 +13,7 @@ from django.db.models import (
     TextField,
     URLField,
 )
+from django_countries.fields import CountryField
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField, StreamBlock
@@ -69,10 +70,10 @@ class Events(Page):
     # Content fields
     featured = StreamField(
         StreamBlock([
-            ('event', PageChooserBlock(required=False, target_model=[
+            ('event', PageChooserBlock(required=False, target_model=(
                 'events.Event',
                 'externalcontent.ExternalEvent',
-            ], )),
+            ))),
             ('external_page', FeaturedExternalBlock()),
         ], min_num=0, max_num=1, required=False),
         null=True,
@@ -173,11 +174,18 @@ class Event(Page):
     # Meta fields
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    venue = TextField(max_length=250, blank=True, default='', help_text='Full address of the event venue, displayed on the event detail page')
-    location = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
     latitude = FloatField(blank=True, null=True)
     longitude = FloatField(blank=True, null=True)
     register_url = URLField('Register URL', blank=True, null=True)
+    venue_name = CharField(max_length=100, blank=True, default='', help_text='')
+    venue_url = URLField('Venue URL', max_length=100, blank=True, default='', help_text='')
+    address_line_1 = CharField(max_length=100, blank=True, default='', help_text='')
+    address_line_2 = CharField(max_length=100, blank=True, default='', help_text='')
+    address_line_3 = CharField(max_length=100, blank=True, default='', help_text='')
+    city = CharField(max_length=100, blank=True, default='', help_text='')
+    state = CharField('State/Province/Region', max_length=100, blank=True, default='', help_text='')
+    zip_code = CharField('Zip/Postal code', max_length=100, blank=True, default='', help_text='')
+    country = CountryField(blank=True, default='', help_text='')
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
 
     # Content panels
@@ -201,12 +209,25 @@ class Event(Page):
         MultiFieldPanel([
             FieldPanel('start_date'),
             FieldPanel('end_date'),
-            FieldPanel('venue'),
-            FieldPanel('location'),
             FieldPanel('latitude'),
             FieldPanel('longitude'),
             FieldPanel('register_url'),
-        ], heading='Event details'),
+        ],  heading='Event details',
+            classname='collapsible',
+        ),
+        MultiFieldPanel([
+            FieldPanel('venue_name'),
+            FieldPanel('venue_url'),
+            FieldPanel('address_line_1'),
+            FieldPanel('address_line_2'),
+            FieldPanel('address_line_3'),
+            FieldPanel('city'),
+            FieldPanel('state'),
+            FieldPanel('zip_code'),
+            FieldPanel('country'),
+        ],  heading='Event address',
+            classname='collapsible',
+        ),
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
@@ -231,6 +252,11 @@ class Event(Page):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @property
+    def is_upcoming(self):
+        """Returns whether an event is in the future."""
+        return self.start_date > datetime.date.today()
 
     @property
     def primary_topic(self):
@@ -259,3 +285,9 @@ class Event(Page):
     def event_dates_full(self):
         """Return a formatted string of the event start and end dates, including the year"""
         return self.event_dates + self.start_date.strftime(", %Y")
+
+    def has_speaker(self, person):
+        for speaker in self.speakers:
+            if (speaker.block_type=='speaker' and str(speaker.value)==str(person.title)):
+                return True
+        return False
