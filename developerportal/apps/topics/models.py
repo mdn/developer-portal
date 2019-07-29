@@ -64,10 +64,10 @@ class Topic(Page):
     description = TextField(max_length=250, blank=True, default='')
     featured = StreamField(
         StreamBlock([
-            ('article', PageChooserBlock(required=False, target_model=[
+            ('article', PageChooserBlock(required=False, target_model=(
                 'articles.Article',
                 'externalcontent.ExternalArticle',
-            ], )),
+            ))),
             ('external_page', FeaturedExternalBlock()),
         ], min_num=0, max_num=4, required=False),
         null=True,
