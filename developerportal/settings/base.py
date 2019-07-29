@@ -223,7 +223,7 @@ WAGTAILIMAGES_IMAGE_MODEL = 'mozimages.MozImage'
 BASE_URL = os.environ.get('BASE_URL')
 
 # Wagtail Bakery Settings
-BUILD_DIR = os.path.join(BASE_DIR, 'build', 'build')
+BUILD_DIR = os.path.join(BASE_DIR, 'build')
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
 	'wagtailbakery.views.AllPublishedPagesView',
@@ -233,7 +233,7 @@ AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
 
 # Static build management commands called in order
 STATIC_BUILD_PIPELINE = (
-    ('Build', 'build'),
+    ('Build', 'build-portal'),
     ('Publish', 'publish'),
 )
 

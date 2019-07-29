@@ -11,6 +11,17 @@
       <section class="section-full section-background">
         {% include "organisms/homepage-header.html" %}
       </section>
+      {% if page.external_promos %}
+      <section>
+        <div class="card-container card-container-2-wide">
+          {% for external_promo in page.external_promos %}
+            {% with external_promo.value as promo %}
+              {% include "molecules/external-promo.html" with resource=promo %}
+            {% endwith %}
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
       {% if page.featured %}
         <section id="featured">
           {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
