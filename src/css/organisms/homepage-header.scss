@@ -3,7 +3,7 @@
   margin-top: -1px; // Overlap the navigation border.
 
   @media screen and (min-width: 1024px) {
-    background: right / contain no-repeat url('/static/img/homepage-header-pattern.svg') $color-gray-20;
+    background: right / contain no-repeat url('../img/homepage-header-pattern.svg') $color-gray-20;
   }
 
   @media screen and (min-width: #{$container-max-width * 1.5}) { // 1088px width derived from the container's max width and its padding.
