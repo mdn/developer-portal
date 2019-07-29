@@ -42,6 +42,9 @@
         {% endif %}
       </section>
       {% endif %}
+      {% if page.events.all %}
+        {% include "organisms/upcoming-events.html" with events=page.events.all %}
+      {% endif %}
       {% if page.topics.all %}
         <section class="section-full">
           {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}

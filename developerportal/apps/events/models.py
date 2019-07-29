@@ -264,3 +264,9 @@ class Event(Page):
     def event_dates_full(self):
         """Return a formatted string of the event start and end dates, including the year"""
         return self.event_dates + self.start_date.strftime(", %Y")
+
+    def has_speaker(self, person):
+        for speaker in self.speakers:
+            if (speaker.block_type=='speaker' and str(speaker.value)==str(person.title)):
+                return True
+        return False
