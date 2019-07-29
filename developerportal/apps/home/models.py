@@ -40,6 +40,13 @@ class HomePage(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
+    external_promos = StreamField(
+        StreamBlock([
+            ('external_promo', FeaturedExternalBlock()),
+        ], min_num=0, max_num=2, required=False),
+        null=True,
+        blank=True,
+    )
     featured = StreamField(
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model=(
@@ -82,6 +89,7 @@ class HomePage(Page):
             heading="Header section",
         ),
         ImageChooserPanel('image'),
+        StreamFieldPanel('external_promos'),
         StreamFieldPanel('featured'),
         MultiFieldPanel(
             [
