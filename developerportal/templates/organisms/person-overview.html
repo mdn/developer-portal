@@ -2,19 +2,18 @@
 {% load wagtailimages_tags %}
 {% load app_tags %}
 {% image resource.image width-320 as image %}
-{% image resource.card_image width-320 as card_image %}
 
 <h2>Overview</h2>
 <div class="person-overview">
   <div class="person-overview-details">
-    {% filter richtext %}{% firstof resource.description resource.card_description %}{% endfilter %}
+    {% filter richtext %}{{ resource.description }}{% endfilter %}
     {% include "molecules/person-contact.html" with resource=resource %}
   </div>
   <div class="person-overview-image-container">
     <div class="person-overview-image">
-      <img src="{% firstof image.url card_image.url %}" alt="{% firstof image.alt card_image.alt %}">
+      <img src="{{ image.url }}" alt="{{ image.alt }}">
       <div class="highlight1">
-        {% firstof resource.title resource.card_title %}
+        {{ resource.title }}
       </div>
       <span class="heading5">{{ resource.job_title }}</span>
     </div>
