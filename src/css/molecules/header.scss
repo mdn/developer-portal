@@ -27,9 +27,42 @@
 
   .mzp-c-navigation-logo {
     margin-right: 32px;
+    position: relative;
+    top: -10px;
 
     @media screen and (min-width: 1056px) {
       margin-right: 64px;
+      top: -6px;
+    }
+
+    a {
+      background: none;
+      color: inherit;
+      overflow: initial;
+      text-decoration: none;
+    }
+
+    .logo {
+      background-image: url('#{$image-path}/logos/mozilla/black.svg');
+      background-size: 84px, 24px;
+      background-repeat: no-repeat;
+      display: block;
+      height: 24px;
+      margin: 0 auto;
+      width: 84px;
+      @media #{$mq-md} {
+        width: auto;
+      }
+    }
+
+    .logo-prefix {
+      display: inline-block;
+      text-indent: -10000px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      letter-spacing: -0.2px;
     }
   }
 }

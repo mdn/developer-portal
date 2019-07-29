@@ -9,12 +9,15 @@
     hidden
   {% endif %}
 >
-  <div class="card">
+  <div class="card {% if full_width %}card-full{% endif %}">
     <div class="card-image" style="background-image: url('{{ image.url }}')"></div>
     <div class="card-content">
       <div class="card-content-main">
         {% include "molecules/resource-meta.html" with resource=resource %}
         <h4 class="no-underline">{{ resource.title }}</h4>
+        {% if full_width %}
+        <p>{{ resource.description }}</p>
+        {% endif %}
       </div>
       {% if show_author %}
         {% for author in resource.authors.all %}
