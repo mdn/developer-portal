@@ -1,23 +1,19 @@
 .homepage-header {
-  background: $color-gray-20;
   margin-top: -1px; // Overlap the navigation border.
-
-  @media screen and (min-width: 1024px) {
-    background: right / contain no-repeat url('/static/img/homepage-header-pattern.svg') $color-gray-20;
-  }
-
-  @media screen and (min-width: #{$container-max-width * 1.5}) { // 1088px width derived from the container's max width and its padding.
-    background-position: calc(50% + 522px);
-  }
+  background: url('/static/img/homepage-header-pattern.svg'), url('/static/img/homepage-header-pattern.svg') $color-gray-20;
+  background-repeat: no-repeat, no-repeat;
+  background-position: calc(50% + 220px), calc(50% + 520px);
 }
 
 .homepage-header-content {
   padding-bottom: 64px;
   padding-top: 64px;
+  width: 60%;
 
   @media screen and (min-width: 1024px) {
     padding-bottom: 100px;
     padding-top: 220px;
+    width: 100%;
   }
 
   h1 {
