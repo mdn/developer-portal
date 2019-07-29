@@ -17,7 +17,6 @@ FROM python:3.7-alpine AS app
 EXPOSE 8000
 WORKDIR /app/
 
-RUN crontab -l | { cat; echo '0 * * * * /usr/local/bin/python /app/manage.py build && /usr/local/bin/python /app/manage.py publish'; } | crontab -
 RUN apk add --no-cache --virtual .build-deps \
   gcc \
   musl-dev \
@@ -42,5 +41,4 @@ COPY --from=static /app/dist /app/dist/
 
 # Collect all of the static files into the static folder
 RUN DJANGO_ENV=production python manage.py collectstatic
-CMD crond -d 8 -L /var/log/cron.log && \
-    exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3

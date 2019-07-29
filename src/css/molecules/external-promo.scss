@@ -1,0 +1,31 @@
+.external-promo {
+  flex-direction: row;
+  position: relative;
+
+  .card-image {
+    min-width: 140px;
+    padding-top: 75px;
+    @media #{$mq-md} {
+      min-width: 200px;
+    }
+  }
+
+  .highlight2 {
+    background-color: inherit;
+    line-height: 20px;
+    margin-bottom: 8px;
+    @media #{$mq-md} {
+      line-height: 27px;
+    }
+  }
+
+  svg {
+    position: absolute;
+    right: 16px;
+    top: 24px;
+  }
+}
+
+.external-promo-content {
+  padding: 24px 64px 24px 24px;
+}
