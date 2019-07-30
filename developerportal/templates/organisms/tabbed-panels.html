@@ -37,7 +37,7 @@
   </div>
 
   <div class="tabbed-panels-desktop">
-    <div class="tabbed-panels-content-wrapper">
+    <div class="{% if resources|length > 1 %}tabbed-panels-content-wrapper{% endif %}">
       {% for block in resources %}
         {% image block.value.image width-190 as i %}
         <div class="tabbed-panels-content-bg displayed" data-hash="{{ block.value.title|slugify }}">
