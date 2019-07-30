@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+    name: {{ APP_PVC_NAME }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: {{ APP_PVC_SIZE }}
+  volumeName: {{ APP_PV_NAME }}
+  storageClassName: {{ APP_PV_STORAGE_CLASS_NAME }}
