@@ -1,5 +1,5 @@
 
-.get-started-mobile {
+.tabbed-panels-mobile {
   display: block;
   @media #{$mq-md} {
     display: none;
@@ -33,14 +33,14 @@
   }
 }
 
-.get-started-desktop {
+.tabbed-panels-desktop {
   display: none;
   @media #{$mq-md} {
     display: flex;
   }
 }
 
-.get-started {
+.tabbed-panels {
   padding: 0 16px;
 
   @media #{$mq-md} {
@@ -55,18 +55,18 @@
   }
 }
 
-.get-started-content-wrapper {
+.tabbed-panels-content-wrapper {
   width: 100%;
 }
 
-.get-started-content-bg {
+.tabbed-panels-content-bg {
   display: none;
   background-color: $color-gray-20;
   height: 316px;
   margin-top: 32px
 }
 
-.get-started-content {
+.tabbed-panels-content {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -92,23 +92,28 @@
   }
 }
 
-.get-started-nav {
+.tabbed-panels-nav {
   width: 320px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.get-started-nav.hidden {
+.tabbed-panels-nav.hidden {
   display: none;
 }
 
-.get-started-toggle {
+.tabbed-panels-toggle {
   box-shadow: 0 1px $color-black;
   display: block;
   height: 124px;
-  margin-bottom: 1px;
+  margin-bottom: 2px;
   text-align: center;
+
+  &:hover {
+    color: $color-black;
+    background-color: $color-white;
+  }
 
   span {
     display: inline-block;
