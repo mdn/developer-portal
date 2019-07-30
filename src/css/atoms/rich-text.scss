@@ -18,28 +18,3 @@
     padding-left: 4px;
   }
 }
-
-.rich-text a,
-.page-link,
-.external-link {
-  color: $color-ext-link;
-  text-decoration: none;
-  white-space: nowrap;
-
-  &:hover {
-    color: $color-ext-link-hover;
-    text-decoration: underline;
-  }
-
-  &:active {
-    background-color: rgba(0, 0, 0, .05);
-  }
-
-  &:visited {
-    color: $color-ext-link-visited;
-
-    &:hover {
-      color: $color-ext-link-visited;
-    }
-  }
-}
