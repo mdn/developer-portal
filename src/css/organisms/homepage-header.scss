@@ -1,8 +1,9 @@
 .homepage-header {
-  margin-top: -1px; // Overlap the navigation border.
   background: url('/static/img/homepage-header-pattern.svg'), url('/static/img/homepage-header-pattern.svg') $color-gray-20;
+  background-position:  calc(50% + 250px), // Offset half image width
+                        calc(50% + 564px); // Offset image width + spacing
   background-repeat: no-repeat, no-repeat;
-  background-position: calc(50% + 220px), calc(50% + 520px);
+  margin-top: -1px; // Overlap the navigation border.
 }
 
 .homepage-header-content {
