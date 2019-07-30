@@ -19,11 +19,11 @@
                 <ul class="mzp-c-menu-category-list">
                   {% for page in home_page.get_children.in_menu %}
                     {% with child_pages=page.get_children.in_menu %}
-                      {% if child_pages %}
-                        <li class="mzp-c-menu-category mzp-has-drop-down mzp-js-expandable">
-                          <div class="mzp-c-menu-title" aria-haspopup="true" aria-controls="mzp-c-menu-panel-{{ page.slug }}">
-                            {{ page.title }}
-                          </div>
+                      <li class="mzp-c-menu-category{% if child_pages %} mzp-has-drop-down mzp-js-expandable{% endif %}">
+                        <a class="mzp-c-menu-title" href="{{ base_url }}{% pageurl page %}" {% if child_pages %}aria-haspopup="true" aria-controls="mzp-c-menu-panel-{{ page.slug }}"{% endif %}>
+                          {{ page.title }}
+                        </a>
+                        {% if child_pages %}
                           <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-{{ page.slug }}">
                             <div class="mzp-c-menu-panel-container">
                               <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-{{ page.slug }}">
@@ -44,14 +44,8 @@
                               </div>
                             </div>
                           </div>
-                        </li>
-                      {% else %}
-                        <li class="mzp-c-menu-category">
-                          <a class="mzp-c-menu-title" href="{{ base_url }}{% pageurl page %}">
-                            {{ page.title }}
-                          </a>
-                        </li>
-                      {% endif %}
+                        {% endif %}
+                      </li>
                     {% endwith %}
                   {% endfor %}
                 </ul>
