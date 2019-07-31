@@ -50,6 +50,9 @@
           {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}
         </section>
       {% endif %}
+      <section id="newsletter" class="section-full section-background">
+        {% include "organisms/newsletter-signup.html" %}
+      </section>
     </div>
   </main>
 {% endblock content %}

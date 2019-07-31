@@ -13,6 +13,9 @@
           {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 %}
         </section>
       {% endif %}
+      <section id="newsletter" class="section-full section-background">
+        {% include "organisms/newsletter-signup.html" %}
+      </section>
     </div>
   </main>
 {% endblock content %}
