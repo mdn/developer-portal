@@ -1,52 +1,59 @@
 {% load app_tags %}
 {% load wagtailcore_tags %}
 
-<header class="header">
-  <div class="mzp-c-navigation">
-    <div class="mzp-c-navigation-l-content">
-      <div class="mzp-c-navigation-container">
-        <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
-        <div class="mzp-c-navigation-logo">
-          <a href="{{ request.site.root_url }}">
-            <span class="logo"></span>
-            <span class="logo-prefix">Mozilla</span><span class="heading5 logo-text">Developers</span>
-          </a>
-        </div>
-        <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
-        <div class="mzp-c-navigation-menu">
-          <nav class="mzp-c-menu mzp-is-basic">
-            <ul class="mzp-c-menu-category-list">
-              <li class="mzp-c-menu-category mzp-has-drop-down mzp-js-expandable">
-                <a class="mzp-c-menu-title" href="#" aria-haspopup="true" aria-controls="mzp-c-menu-panel-example">Topics</a>
-                <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-example">
-                  <div class="mzp-c-menu-panel-container">
-                    <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-example">Close Topics menu</button>
-                    <div class="mzp-c-menu-panel-content">
-                      <ul>
-                        <li>
-                          <section class="mzp-c-menu-item">
-                            {% render_nav %}
-                          </section>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="mzp-c-menu-category">
-                <a class="mzp-c-menu-title" href="/articles" aria-haspopup="true" aria-controls="mzp-c-menu-panel-example">Articles</a>
-              </li>
-              <li class="mzp-c-menu-category">
-                <a class="mzp-c-menu-title" href="/events" aria-haspopup="true" aria-controls="mzp-c-menu-panel-example">Events</a>
-              </li>
-              <li class="mzp-c-menu-category">
-                <a class="mzp-c-menu-title" href="/people" aria-haspopup="true" aria-controls="mzp-c-menu-panel-example">People</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+{% with base_url=request.site.root_url home_page=request.site.root_page %}
+  <header class="header">
+    <div class="mzp-c-navigation">
+      <div class="mzp-c-navigation-l-content">
+        <div class="mzp-c-navigation-container">
+          <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
+          <div class="mzp-c-navigation-logo">
+            <a href="{{ base_url }}">
+              <span class="logo"></span>
+              <span class="logo-prefix">Mozilla</span><span class="heading5 logo-text">Developers</span>
+            </a>
+          </div>
+          <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
+            <div class="mzp-c-navigation-menu">
+              <nav class="mzp-c-menu mzp-is-basic">
+                <ul class="mzp-c-menu-category-list">
+                  {% for page in home_page.get_children.in_menu %}
+                    {% with child_pages=page.get_children.in_menu %}
+                      <li class="mzp-c-menu-category{% if child_pages %} mzp-has-drop-down mzp-js-expandable{% endif %}">
+                        <a class="mzp-c-menu-title" href="{{ base_url }}{% pageurl page %}" {% if child_pages %}aria-haspopup="true" aria-controls="mzp-c-menu-panel-{{ page.slug }}"{% endif %}>
+                          {{ page.title }}
+                        </a>
+                        {% if child_pages %}
+                          <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-{{ page.slug }}">
+                            <div class="mzp-c-menu-panel-container">
+                              <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-{{ page.slug }}">
+                                Close {{ page.title }} menu
+                              </button>
+                              <div class="mzp-c-menu-panel-content">
+                                <ul>
+                                  {% for page in child_pages.in_menu.specific %}
+                                    <li>
+                                      <section class="mzp-c-menu-item">
+                                        <a class="mzp-c-menu-item-link" href="{{ base_url }}{% pageurl page %}">
+                                          <p class="mzp-c-menu-item-title">{{ page.title }}</p>
+                                        </a>
+                                      </section>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </li>
+                    {% endwith %}
+                  {% endfor %}
+                </ul>
+              </nav>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
+{% endwith %}
