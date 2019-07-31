@@ -1,6 +1,7 @@
 .article-content {
   display: grid;
-  column-gap: $grid-gap-mobile;
+  grid-column-gap: $grid-gap-mobile;
+  grid-row-gap: 24px;
   grid-template-columns: [body-start sidebar-start] 1fr [sidebar-end body-end];
 
   @media #{$mq-md} {
@@ -32,11 +33,11 @@
 }
 
 .article-sidebar-cards {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 
   .card-link {
     display: block;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 
     &:last-child {
       margin-bottom: 0;
@@ -44,6 +45,6 @@
   }
 
   .card:not(:last-child) {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 }
