@@ -190,14 +190,15 @@ class Person(Page):
 
     @property
     def events(self):
-        """Return upcoming events where this person is a speaker,
-        ordered by start date"""
+        '''
+        Return upcoming events where this person is a speaker,
+        ordered by start date
+        '''
         from ..events.models import Event
 
         upcoming_events = (Event
                 .objects
                 .filter(start_date__gte=datetime.datetime.now())
-                .order_by('start_date')
                 .live()
                 .public()
         )

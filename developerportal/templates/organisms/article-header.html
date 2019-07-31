@@ -35,8 +35,14 @@
           <p>{{ description }}</p>
           {% endif %}
         </div>
-        {% for author in authors %}
-          {% include "molecules/article-details.html" with date=date author=author.author enable_link=True %}
+        {% for block in page.authors %}
+          {% with block.value as author %}
+            {% if author.url %}
+              {% include "molecules/article-details.html" with date=date author=author enable_link=True %}
+            {% else %}
+              {% include "molecules/article-details.html" with date=date author=author enable_link=False %}
+            {% endif %}
+          {% endwith %}
         {% endfor %}
       </div>
     </div>
