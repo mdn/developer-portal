@@ -133,6 +133,15 @@ module.exports = class FilterForm {
     }
   }
 
+  /** Shows the next page of items. */
+  nextPage(e) {
+    e.preventDefault();
+    if (this.matches.length >= this.resourcesOnPage) {
+      this.resourcesOnPage += this.resourcesPerPage;
+      this.render();
+    }
+  }
+
   /** Filters the items by applying the selected filters. */
   filter() {
     this.matches = [];
