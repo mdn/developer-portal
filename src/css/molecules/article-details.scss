@@ -1,6 +1,10 @@
 .article-details-link {
   color: inherit;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .article-details {
