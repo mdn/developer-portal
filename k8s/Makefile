@@ -24,6 +24,7 @@ export APP_MEMORY_REQUEST ?= 2Gi
 export APP_GUNICORN_WORKERS ?= 3
 export APP_GUNICORN_TIMEOUT ?= 118
 export APP_BASE_URL ?= https://${APP_HOST}
+export APP_MOUNT_PATH ?= /app/media
 
 
 ###############################
@@ -62,6 +63,18 @@ k8s-db-migration-job: k8s-delete-db-migration-job
 
 k8s-delete-db-migration-job:
 	${KC} delete --ignore-not-found job db-migration
+
+k8s-pv:
+	j2 app.pv.yaml.j2 | ${KC} apply -f -
+
+k8s-pvc:
+	j2 app.pvc.yaml.j2 | ${KC} apply -f -
+
+k8s-delete-pv:
+	${KC} delete --ignore-not-found ${APP_PV_NAME}
+
+k8s-delete-pvc:
+	${KC} delete --ignore-not-found ${APP_PVC_NAME}
 
 k8s-jenkins-create-rbac:
 	kubectl apply -f jenkins-rbac.yaml

@@ -22,3 +22,14 @@ export APP_GUNICORN_WORKERS=2
 export APP_HOST=developer-portal-stage.mdn.mozit.cloud
 export APP_AWS_BUCKET_NAME=developer-portal-stage-178589013767
 export APP_AWS_BUCKET_REGION=us-west-2
+export APP_MOUNT_PATH=/app/media
+
+export APP_PVC_NAME=developer-portal-stage
+export APP_PVC_SIZE=100Gi
+export APP_PV_NAME=developer-portal-stage
+export APP_PV_STORAGE_CLASS_NAME=efs
+
+export APP_PV_SIZE=100Gi
+export APP_PV_RECLAIM_POLICY=Retain
+export APP_PV_MOUNT_PATH=/
+export APP_PV_ARN=fs-0baec5a0.efs.us-west-2.amazonaws.com
