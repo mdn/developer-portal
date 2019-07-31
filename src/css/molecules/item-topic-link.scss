@@ -5,14 +5,14 @@
   border-radius: 2px;
   color: inherit;
   display: flex;
-  padding: 16px;
+  padding: 12px;
   text-decoration: none;
   transition: box-shadow 100ms, transform 100ms;
   width: 100%;
 
   @media #{$mq-md} {
     align-items: unset;
-    padding: 24px;
+    padding: 16px;
   }
 
   &:hover {
