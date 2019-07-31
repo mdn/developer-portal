@@ -5,7 +5,7 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "lint": "eslint --ext .js .",
-    "prettier": "prettier --write \"src/**/*.js\"",
+    "prettier": "prettier --write \"**/*.js\"",
     "test": "npm run lint && jest --passWithNoTests",
     "watch": "NODE_ENV=development webpack -w"
   },
