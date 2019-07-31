@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="has-header has-footer">
+<main class="has-header">
   <div class="base-grid">
     <section class="section-full">
       {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
@@ -83,7 +83,7 @@
     {% if page.events.all %}
       {% include "organisms/upcoming-events.html" with events=page.events.all topic=page.slug %}
     {% endif %}
-    <section class="section-full">
+    <section id="newsletter" class="section-full section-background">
       {% include "organisms/newsletter-signup.html" %}
     </section>
   </div>
