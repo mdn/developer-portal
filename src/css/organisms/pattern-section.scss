@@ -4,29 +4,29 @@
   position: relative;
 
   @media #{$mq-md} {
-    padding: 64px 0;
+    padding: $grid-gap 0;
   }
 
   @media screen and (min-width: 1024px) {
-    padding: 75px 0;
+    padding: 40px 0;
   }
 }
 
 .pattern-section-background {
   background: $color-gray-10;
   margin: 0 auto;
-  max-width: 1190px;
+  max-width: 1104px;
   padding: $grid-gap 0;
   position: relative;
 
   @media screen and (min-width: 1024px) {
-    padding: 80px 0;
+    padding: 40px 0;
   }
 }
 
 .pattern-section-pattern {
   display: block;
-  height: 250px;
+  height: 220px;
   position: absolute;
   width: 70%;
   z-index: -1;
@@ -45,12 +45,12 @@
   top: -32px;
 
   @media #{$mq-md} {
-    top: -64px;
+    top: -$grid-gap;
   }
 
   @media screen and (min-width: 1190px) {
     left: -210px;
-    top: -75px;
+    top: -40px;
   }
 }
 
@@ -59,11 +59,11 @@
   right: 0;
 
   @media #{$mq-md} {
-    bottom: -64px;
+    bottom: -$grid-gap;
   }
 
   @media screen and (min-width: 1190px) {
-    bottom: -75px;
+    bottom: -40px;
     right: -210px;
   }
 }
