@@ -1,8 +1,8 @@
 main {
-  padding: 24px 0;
+  padding-top: 24px;
 
   @media #{$mq-md} {
-    padding: 40px 0;
+    padding-top: 40px;
   }
 
   &.has-header {
