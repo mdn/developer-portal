@@ -1,35 +1,44 @@
 {% load wagtailimages_tags %}
 {% image page.image width-464 as image %}
+{% image page.card_image width-464 as card_image %}
 
 <header class="article-header">
   <div class="article-header-container">
-    <div class="article-header-image">
-      {% if image %}
-        <img
-          src="{{ image.url }}"
-          width="{{ image.width }}"
-          height="{{ image.height }}"
-          alt="{{ image.alt }}" />
-      {% endif %}
-      <div class="article-header-pattern">
-        {% include "atoms/pattern.html" %}
-      </div>
+    <div class="article-header-pattern">
+      {% include "atoms/pattern.html" %}
     </div>
-    <div class="article-header-details">
-      {% if type == 'event' and page.is_upcoming %}
-        <div class="article-header-highlight">
-          <span class="highlight">Upcoming event</span>
-        </div>
-      {% endif %}
-      <h2 class="no-underline">{{ title }}</h2>
-      <div class="article-header-subtitle">
-        {% if description %}
-        <p>{{ description }}</p>
+    <div class="article-header-expand">
+      <div class="article-header-image">
+        {% if image %}
+          <img
+            src="{{ image.url }}"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+            alt="{{ image.alt }}" />
+        {% elif card_image %}
+          <img
+            src="{{ card_image.url }}"
+            width="{{ card_image.width }}"
+            height="{{ card_image.height }}"
+            alt="{{ card_image.alt }}" />
         {% endif %}
       </div>
-      {% for author in authors %}
-        {% include "molecules/article-details.html" with date=date author=author.author enable_link=True %}
-      {% endfor %}
+      <div class="article-header-details">
+        {% if type == 'event' and page.is_upcoming %}
+          <div class="article-header-highlight">
+            <span class="highlight">Upcoming event</span>
+          </div>
+        {% endif %}
+        <h2 class="no-underline">{{ title }}</h2>
+        <div class="article-header-subtitle">
+          {% if description %}
+          <p>{{ description }}</p>
+          {% endif %}
+        </div>
+        {% for author in authors %}
+          {% include "molecules/article-details.html" with date=date author=author.author enable_link=True %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </header>

@@ -23,7 +23,7 @@ urlpatterns = [
 ]
 
 
-if settings.DEBUG:
+if True: # TODO Add support for S3 media uploads.
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 

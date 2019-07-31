@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     'social_django',
+    'django_countries',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -199,7 +200,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = 'Mozilla Developer Portal'
+WAGTAIL_SITE_NAME = 'Mozilla Developers'
 
 # Add support for CodePen oEmbed
 from wagtail.embeds.oembed_providers import all_providers
@@ -273,3 +274,9 @@ GOOGLE_ANALYTICS = os.environ.get('GOOGLE_ANALYTICS')
 
 # Mapbox
 MAPBOX_ACCESS_TOKEN = os.environ.get('MAPBOX_ACCESS_TOKEN')
+
+COUNTRIES_FIRST = [
+    'US', 'GB'
+]
+
+

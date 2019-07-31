@@ -1,0 +1,4 @@
+{% load app_tags %}
+
+{% random_hash as hash %}
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M8 10A5 5 0 1 1 8 0a5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM1.97 19.243a1 1 0 0 1-1.94-.486C1.137 14.33 3.855 12 8 12c4.146 0 6.863 2.33 7.97 6.757a1 1 0 0 1-1.94.486C13.137 15.67 11.188 14 8 14s-5.137 1.67-6.03 5.243z" id="{{ hash }}-a"/></defs><g transform="translate(4 2)" fill="none" fill-rule="evenodd"><mask id="{{ hash }}-b" fill="#fff"><use xlink:href="#{{ hash }}-a"/></mask><use fill="currentColor" fill-rule="nonzero" xlink:href="#{{ hash }}-a"/><path fill="currentColor" mask="url(#{{ hash }}-b)" d="M-4-2h24v24H-4z"/></g></svg>

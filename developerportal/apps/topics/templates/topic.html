@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<main class="has-header has-footer">
+<main class="has-header">
   <div class="base-grid">
     <section class="section-full">
       {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
@@ -21,9 +21,9 @@
         {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
       </section>
     {% endif %}
-    {% if page.get_started %}
+    {% if page.tabbed_panels %}
       <section class="section-full section-background section-full-bg">
-        {% include "organisms/get-started.html" %}
+        {% include "organisms/tabbed-panels.html" with title=page.tabbed_panels_title resources=page.tabbed_panels %}
       </section>
     {% endif %}
     {% with subtopics=self.subtopics %}
@@ -37,7 +37,7 @@
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
-          <a href="">See more</a>
+          <a href="/articles?topics={{ page.slug }}">See more</a>
         </div>
         {% if page.articles|length == 1 %}
           {# a single article is rendered full width #}
@@ -60,7 +60,7 @@
     <section>
       <div class="section-header">
         <h2>People</h2>
-        <a href="">See more</a>
+        <a href="/people?topics={{ page.slug }}">See more</a>
       </div>
       {% if page.people.count == 1 %}
         {# a single person is rendered full width #}
@@ -73,33 +73,17 @@
         {# 2 or 3 are rendered side-by-side #}
         <div class="card-container {% if page.people.count == 2 %}card-container-2-wide{% endif %}">
           {% for person in page.people.all|slice:":3" %}
-            {% include "molecules/item-person.html" with person=person.person type="person"  full_width=False%}
+            {% include "molecules/item-person.html" with person=person.person type="person" full_width=False%}
           {% endfor %}
         </div>
         </div>
       {% endif %}
     </section>
     {% endif %}
-    {% if page.events %}
-    <section class="section-full section-full-bg">
-      <div class="section-full-container">
-        <div class="section-header">
-          <h2>Upcoming events</h2>
-          <a href="/events">See more</a>
-        </div>
-        <div>
-        {% for event in page.events|slice:":3" %}
-          {% if forloop.counter == 1 %}
-            {% include "molecules/cards/card.html" with resource=event featured=True %}
-          {% else %}
-            {% include "molecules/cards/card.html" with resource=event %}
-          {% endif %}
-        {% endfor %}
-        </div>
-      </div>
-    </section>
+    {% if page.events.all %}
+      {% include "organisms/upcoming-events.html" with events=page.events.all topic=page.slug %}
     {% endif %}
-    <section class="section-full">
+    <section id="newsletter" class="section-full section-background">
       {% include "organisms/newsletter-signup.html" %}
     </section>
   </div>

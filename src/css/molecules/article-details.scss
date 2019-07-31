@@ -1,9 +1,14 @@
 .article-details-link {
   color: inherit;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .article-details {
+  color: $color-nevada;
   display: flex;
   font-size: 12px;
   margin-top: 24px;

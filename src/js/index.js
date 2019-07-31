@@ -1,20 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import '../css/index.scss';
-import '@mozilla-protocol/core/protocol/js/protocol-base';
-import '@mozilla-protocol/core/protocol/js/protocol-utils';
-import '@mozilla-protocol/core/protocol/js/protocol-supports';
-import '@mozilla-protocol/core/protocol/js/protocol-menu';
-import '@mozilla-protocol/core/protocol/js/protocol-navigation';
-import '@mozilla-protocol/core/protocol/js/protocol-details';
-import FilterForm from './organisms/filter-form';
-import GetStarted from './organisms/get-started';
-import MapEmbed from './atoms/map';
+const FilterForm = require('./organisms/filter-form');
+const MapEmbed = require('./atoms/map-embed');
+const TabbedPanels = require('./organisms/tabbed-panels');
+
+require('@mozilla-protocol/core/protocol/js/protocol-base');
+require('@mozilla-protocol/core/protocol/js/protocol-utils');
+require('@mozilla-protocol/core/protocol/js/protocol-supports');
+require('@mozilla-protocol/core/protocol/js/protocol-menu');
+require('@mozilla-protocol/core/protocol/js/protocol-navigation');
+require('@mozilla-protocol/core/protocol/js/protocol-details');
+
+require('../css/index.scss');
 
 window.addEventListener('DOMContentLoaded', () => {
   Mzp.Navigation.init();
   Mzp.Menu.init();
-
   FilterForm.init();
-  GetStarted.init();
   MapEmbed.init();
+  TabbedPanels.init();
 });

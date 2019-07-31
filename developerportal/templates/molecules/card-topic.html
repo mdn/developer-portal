@@ -5,7 +5,7 @@
     {% include "atoms/pattern.html" %}
     <div class="card-topic-content">
       {% include "atoms/topic-icon.html" with icon=topic.icon %}
-      <h4 class="highlighted no-underline">{{ topic.title }}</h4>
+      <h4 class="highlighted no-underline">{% firstof topic.card_title topic.title %}</h4>
       <button class="mzp-c-button mzp-t-small mzp-t-dark">
         See more
       </button>

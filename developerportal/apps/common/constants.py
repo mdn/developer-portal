@@ -35,3 +35,10 @@ COLOR_VALUES = (
     ('violet-20', '#cb9eff'),
     ('purple-20', '#f68fff'),
 )
+
+ROLE_CHOICES = (
+    ('staff', 'Staff'),
+    ('tech-speaker', 'Tech Speaker'),
+    ('guest', 'Guest'),
+    ('contributor', 'Contributor'),
+)

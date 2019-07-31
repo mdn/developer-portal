@@ -5,13 +5,13 @@
   border-radius: 2px;
   color: inherit;
   display: flex;
-  padding: 24px;
-  text-decoration: none;
+  padding: 12px;
   transition: box-shadow 100ms, transform 100ms;
   width: 100%;
 
   @media #{$mq-md} {
     align-items: unset;
+    padding: 16px;
   }
 
   &:hover {
@@ -19,6 +19,7 @@
     box-shadow: 4px 4px 0 0 $color-black;
     color: inherit;
     transform: translate(-2px, -2px);
+    text-decoration: none;
   }
 
   &:active {

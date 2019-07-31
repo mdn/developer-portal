@@ -38,3 +38,29 @@ body {
 ::selection {
   background: rgba(255, 213, 103, 0.4);
 }
+
+:link {
+  color: $color-moz-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-moz-link-hover;
+    text-decoration: underline;
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, .05);
+  }
+}
+
+:visited {
+  color: $color-moz-link-visited;
+
+  &:hover {
+    color: $color-moz-link-visited;
+  }
+}
+
+.no-wrap {
+  white-space: nowrap;
+}

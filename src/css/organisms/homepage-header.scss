@@ -1,23 +1,20 @@
 .homepage-header {
-  background: $color-gray-20;
+  background: url('/static/img/homepage-header-pattern.svg'), url('/static/img/homepage-header-pattern.svg') $color-gray-20;
+  background-position:  calc(50% + 250px), // Offset half image width
+                        calc(50% + 564px); // Offset image width + spacing
+  background-repeat: no-repeat, no-repeat;
   margin-top: -1px; // Overlap the navigation border.
-
-  @media screen and (min-width: 1024px) {
-    background: right / contain no-repeat url('/static/img/homepage-header-pattern.svg') $color-gray-20;
-  }
-
-  @media screen and (min-width: #{$container-max-width * 1.5}) { // 1088px width derived from the container's max width and its padding.
-    background-position: calc(50% + 522px);
-  }
 }
 
 .homepage-header-content {
   padding-bottom: 64px;
   padding-top: 64px;
+  margin-right: 40%;
 
   @media screen and (min-width: 1024px) {
     padding-bottom: 100px;
     padding-top: 220px;
+    margin: 0 auto;
   }
 
   h1 {

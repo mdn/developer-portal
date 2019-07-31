@@ -6,7 +6,7 @@ COPY package.json package-lock.json /app/
 RUN npm ci
 RUN rm -rf dist
 
-COPY .eslintignore webpack.config.js /app/
+COPY .eslintignore .prettierignore webpack.config.js /app/
 COPY src/ /app/src/
 
 RUN npm run build

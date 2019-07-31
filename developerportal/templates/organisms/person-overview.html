@@ -1,6 +1,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load app_tags %}
+{% image resource.image fill-320x320 as image %}
 
 <div class="person-overview">
   <div class="person-overview-details">
@@ -10,7 +11,6 @@
   </div>
   <div class="person-overview-image-container">
     <div class="person-overview-image">
-      {% image resource.image width-320 as image %}
       <img src="{{ image.url }}" alt="{{ image.alt }}">
       <div class="highlight1">
         {{ resource.title }}

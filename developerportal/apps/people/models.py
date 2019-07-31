@@ -1,3 +1,5 @@
+import datetime
+
 from django.db.models import (
     BooleanField,
     CASCADE,
@@ -28,6 +30,8 @@ from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
 from .edit_handlers import CustomLabelFieldPanel
+
+from ..common.constants import ROLE_CHOICES
 
 
 class PeopleTag(TaggedItemBase):
@@ -76,6 +80,7 @@ class People(Page):
     def get_filters(self):
         from ..topics.models import Topic
         return {
+            'roles': True,
             'topics': Topic.objects.live().public().order_by('title'),
         }
 
@@ -101,6 +106,7 @@ class Person(Page):
 
     # Content fields
     job_title = CharField(max_length=250)
+    role = CharField(max_length=250, choices=ROLE_CHOICES, default='staff')
     description = RichTextField(default='', blank=True)
     image = ForeignKey(
         'mozimages.MozImage',
@@ -109,7 +115,6 @@ class Person(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
-    is_mozillian = BooleanField('Is Mozillian', default=True)
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
@@ -136,7 +141,7 @@ class Person(Page):
         MultiFieldPanel([
             CustomLabelFieldPanel('title', label='Full name'),
             FieldPanel('job_title'),
-            FieldPanel('is_mozillian'),
+            FieldPanel('role'),
         ], heading='About'),
         FieldPanel('description'),
         ImageChooserPanel('image'),
@@ -180,3 +185,33 @@ class Person(Page):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @property
+    def events(self):
+        """Return upcoming events where this person is a speaker,
+        ordered by start date"""
+        from ..events.models import Event
+
+        upcoming_events = (Event
+                .objects
+                .filter(start_date__gte=datetime.datetime.now())
+                .order_by('start_date')
+                .live()
+                .public()
+        )
+
+        speaker_events = Event.objects.none()
+
+        for event in upcoming_events.all():
+            # add the event to the list if the current person is a speaker
+            if event.has_speaker(self):
+                speaker_events = speaker_events | Event.objects.page(event)
+
+        return speaker_events
+
+    @property
+    def role_group(self):
+        return {
+            'slug': self.role,
+            'title': dict(ROLE_CHOICES).get(self.role, ''),
+        }

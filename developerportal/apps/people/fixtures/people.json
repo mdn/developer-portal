@@ -9,9 +9,9 @@
     "pk": 11,
     "fields": {
       "job_title": "Developer advocate",
-      "is_mozillian": true,
       "description": "<p>I am Josh Marinacci: developer advocate, software engineer, researcher, usability expert, and general miscreant. I have a passion for great user experiences. I live in Oregon with my wife and kiddo. I&#x27;m currently helping to keep the Web open and free at Mozilla.</p><p>I speak professionally at conferences world wide and have written many technical articles for publications like Java.net, the Java Magazine, and the Palm Developer Blog, and Embedded Computing. I have also published three books: Swing Hacks, Building Mobile Applications in Java, and HTML Canvas: A Travelogue. See more on my writings page.</p>",
       "image": null,
+      "role": "staff",
       "twitter": "",
       "facebook": "",
       "linkedin": "",

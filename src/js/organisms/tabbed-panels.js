@@ -1,13 +1,17 @@
-export default class {
+module.exports = class TabbedPanels {
   static init() {
-    const elements = document.querySelectorAll('.js-get-started');
+    const elements = document.querySelectorAll('.js-tabbed-panels');
     return Array.from(elements).map(element => new this(element));
   }
 
   constructor(element) {
-    this.backgrounds = Array.from(element.querySelectorAll('.get-started-content-bg'));
-    this.toggles = Array.from(element.querySelectorAll('.get-started-toggle'));
-    this.nav = element.querySelector('.get-started-nav');
+    this.backgrounds = Array.from(
+      element.querySelectorAll('.tabbed-panels-content-bg'),
+    );
+    this.toggles = Array.from(
+      element.querySelectorAll('.tabbed-panels-toggle'),
+    );
+    this.nav = element.querySelector('.tabbed-panels-nav');
 
     this.setInitialState();
 
@@ -31,17 +35,17 @@ export default class {
     const { hash } = window.location;
     if (!hash) return;
 
-    this.toggles.forEach((toggle) => {
+    this.toggles.forEach(toggle => {
       if (toggle.attributes.getNamedItem('href').value === hash) {
-        toggle.classList.add('highlight2-inverse');
-        toggle.classList.remove('highlight2');
-      } else {
         toggle.classList.add('highlight2');
         toggle.classList.remove('highlight2-inverse');
+      } else {
+        toggle.classList.add('highlight2-inverse');
+        toggle.classList.remove('highlight2');
       }
     });
 
-    this.backgrounds.forEach((background) => {
+    this.backgrounds.forEach(background => {
       if (`#${background.dataset.hash}` === hash) {
         background.classList.add('displayed');
       } else {
@@ -49,4 +53,4 @@ export default class {
       }
     });
   }
-}
+};

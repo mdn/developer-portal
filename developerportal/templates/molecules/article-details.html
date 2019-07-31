@@ -1,7 +1,6 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-
-{% image author.image width-60 as author_pic %}
+{% image author.image fill-60x60 as author_pic %}
 {% if enable_link %}<a href="{{ author.url }}" class="article-details-link">{% endif %}
   <div class="article-details">
     {% if author_pic %}
@@ -14,7 +13,7 @@
       <img src="https://via.placeholder.com/60"/>
     {% endif %}
     <div class="article-details-meta">
-      <p>{{ author.title }}</p>
+      <p><strong>{{ author.title }}</strong></p>
       <p>{{ date }}</p>
     </div>
   </div>
