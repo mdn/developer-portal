@@ -1,11 +1,12 @@
 .resource-meta {
+  align-items: center;
   color: #697276;
-  display: inline-block;
+  display: flex;
   font-size: 12px;
 }
 
 .resource-meta-body {
   display: inline-block;
-  margin-left: 4px;
+  margin-left: 10px;
   vertical-align: middle;
 }

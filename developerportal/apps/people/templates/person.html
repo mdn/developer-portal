@@ -14,7 +14,7 @@
   <main class="has-header">
     <div class="base-grid">
       <section class="section-full">
-        {% include "organisms/pattern-bg-header.html" with title=page.title description=page.job_title icon="mozillian" %}
+        {% include "organisms/pattern-bg-header.html" with title=page.title description=page.job_title type=page.resource_type role=page.role %}
       </section>
       <section>
         {% include "organisms/person-overview.html" with resource=page %}
@@ -23,7 +23,7 @@
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
-          <a href="">See more</a>
+          <a href="/articles">See more</a>
         </div>
         {% if page.articles.count == 1 %}
           {# a single article is rendered full width #}

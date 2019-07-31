@@ -4,7 +4,7 @@
   {% if initial_resources %}data-initial-resources="{{ initial_resources }}"{% endif %}
   {% if resources_per_page %}data-resources-per-page="{{ resources_per_page }}"{% endif %}
 >
-  <header class="filter-form-header">
+  <header class="filter-form-section js-filter-form-clear-section">
     <a href="#" class="filter-form-clear js-filter-clear">
       <span class="icon">
         {% include "atoms/icons/close.svg" %}
@@ -29,6 +29,27 @@
         <label>
           <input type="checkbox" name="month" value="{{ group.grouper|date:'Y-m' }}">
           {{ group.grouper|date:'F Y' }}
+        </label>
+      {% endfor %}
+    </fieldset>
+  {% endif %}
+
+  {% if filters.roles %}
+    <fieldset class="filter-form-section">
+      <header class="filter-form-section-header">
+        <h5 class="no-underline">Role</h5>
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="role">
+          <span class="icon">
+            {% include "atoms/icons/close.svg" %}
+          </span>
+          Clear
+        </a>
+      </header>
+      {% regroup resources|dictsort:"role_group.slug" by role_group as groups %}
+      {% for group in groups %}
+        <label>
+          <input type="checkbox" name="role" value="{{ group.grouper.slug }}">
+          {{ group.grouper.title }}
         </label>
       {% endfor %}
     </fieldset>

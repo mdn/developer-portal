@@ -37,7 +37,7 @@
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
-          <a href="">See more</a>
+          <a href="/articles?topics={{ page.slug }}">See more</a>
         </div>
         {% if page.articles|length == 1 %}
           {# a single article is rendered full width #}
@@ -60,7 +60,7 @@
     <section>
       <div class="section-header">
         <h2>People</h2>
-        <a href="">See more</a>
+        <a href="/people?topics={{ page.slug }}">See more</a>
       </div>
       {% if page.people.count == 1 %}
         {# a single person is rendered full width #}
@@ -73,7 +73,7 @@
         {# 2 or 3 are rendered side-by-side #}
         <div class="card-container {% if page.people.count == 2 %}card-container-2-wide{% endif %}">
           {% for person in page.people.all|slice:":3" %}
-            {% include "molecules/item-person.html" with person=person.person type="person"  full_width=False%}
+            {% include "molecules/item-person.html" with person=person.person type="person" full_width=False%}
           {% endfor %}
         </div>
         </div>
@@ -81,7 +81,7 @@
     </section>
     {% endif %}
     {% if page.events.all %}
-      {% include "organisms/upcoming-events.html" with events=page.events.all %}
+      {% include "organisms/upcoming-events.html" with events=page.events.all topic=page.slug %}
     {% endif %}
     <section class="section-full">
       {% include "organisms/newsletter-signup.html" %}

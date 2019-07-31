@@ -45,9 +45,9 @@
 
 @font-face {
   font-display: 'fallback';
-  font-family: 'Zilla Slab SemiBold';
+  font-family: 'Zilla Slab';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   src: url('../fonts/ZillaSlab-SemiBold.woff2') format('woff2'),
        url('../fonts/ZillaSlab-SemiBold.woff') format('woff');
 }
@@ -90,28 +90,29 @@ body {
 }
 
 h1,
+.heading1,
 h2,
+.heading2,
 h3,
+.heading3,
 h4,
+.heading4,
 h5,
-h6 {
+.heading5,
+h6,
+.heading6 {
+  font-family: $heading-font-family;
   font-weight: 700;
   margin-bottom: 0.5em;
   margin-top: 0;
   position: relative;
 }
 
-h1,
-h2,
-h3 {
-  font-family: $heading-font-family;
-}
-
 h4,
 .heading4,
 h5,
 .heading5 {
-  font-family: $heading-font-family-small;
+  font-weight: 600;
 }
 
 h2,

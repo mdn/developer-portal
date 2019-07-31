@@ -1,7 +1,13 @@
 <span class="resource-meta">
   <span class="icon">
     {% if resource.resource_type == "person" %}
-      {% include "atoms/icons/mozilla.svg" %}
+      {% if resource.role == "staff" %}
+        {% include "atoms/icons/mozilla.svg" %}
+      {% elif resource.role == "tech-speaker" %}
+        {% include "atoms/icons/tech-speaker.svg" %}
+      {% elif resource.role == "guest" or resource.role == "contributor" %}
+        {% include "atoms/icons/person.svg" %}
+      {% endif %}
     {% else %}
       {% include "atoms/icons/reading-time.svg" %}
     {% endif %}
@@ -11,8 +17,6 @@
       {{ resource.read_time }}
     {% elif resource.resource_type == "person" %}
       {{ resource.job_title }}
-    {% elif resource.resource_type == "event" %}
-      September 10, 2019
     {% endif %}
   </span>
 </span>

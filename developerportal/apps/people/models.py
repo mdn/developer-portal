@@ -31,6 +31,8 @@ from taggit.models import TaggedItemBase
 
 from .edit_handlers import CustomLabelFieldPanel
 
+from ..common.constants import ROLE_CHOICES
+
 
 class PeopleTag(TaggedItemBase):
     content_object = ParentalKey('People', on_delete=CASCADE, related_name='tagged_items')
@@ -78,6 +80,7 @@ class People(Page):
     def get_filters(self):
         from ..topics.models import Topic
         return {
+            'roles': True,
             'topics': Topic.objects.live().public().order_by('title'),
         }
 
@@ -103,6 +106,7 @@ class Person(Page):
 
     # Content fields
     job_title = CharField(max_length=250)
+    role = CharField(max_length=250, choices=ROLE_CHOICES, default='staff')
     description = RichTextField(default='', blank=True)
     image = ForeignKey(
         'mozimages.MozImage',
@@ -111,7 +115,6 @@ class Person(Page):
         on_delete=SET_NULL,
         related_name='+'
     )
-    is_mozillian = BooleanField('Is Mozillian', default=True)
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
@@ -138,7 +141,7 @@ class Person(Page):
         MultiFieldPanel([
             CustomLabelFieldPanel('title', label='Full name'),
             FieldPanel('job_title'),
-            FieldPanel('is_mozillian'),
+            FieldPanel('role'),
         ], heading='About'),
         FieldPanel('description'),
         ImageChooserPanel('image'),
@@ -205,3 +208,10 @@ class Person(Page):
                 speaker_events = speaker_events | Event.objects.page(event)
 
         return speaker_events
+
+    @property
+    def role_group(self):
+        return {
+            'slug': self.role,
+            'title': dict(ROLE_CHOICES).get(self.role, ''),
+        }

@@ -1,8 +1,8 @@
 <header class="pattern-bg-header">
   <div class="pattern-bg-header-container">
     <div class="pattern-bg-header-icon">
-      {% if icon == 'mozillian' %}
-        {% include "atoms/person-icon.html" %}
+      {% if type == 'person' %}
+        {% include "atoms/person-icon.html" with role=role %}
       {% else %}
         {% include "atoms/topic-icon.html" with icon=icon %}
       {% endif %}
