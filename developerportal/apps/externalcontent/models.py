@@ -107,6 +107,10 @@ class ExternalArticle(ExternalContent):
     def article(self):
         return self
 
+    @property
+    def month_group(self):
+        return self.date.replace(day=1)
+
 
 class ExternalEventTopic(Orderable):
     event = ParentalKey('ExternalEvent', on_delete=CASCADE, related_name='topics')
@@ -154,6 +158,10 @@ class ExternalEvent(ExternalContent):
     @property
     def event(self):
         return self
+
+    @property
+    def month_group(self):
+        return self.date.replace(day=1)
 
 
 class ExternalVideoTopic(Orderable):

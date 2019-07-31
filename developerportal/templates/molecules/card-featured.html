@@ -1,6 +1,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% image resource.image width-480 as image %}
+{% image resource.card_image width-480 as card_image %}
 
 {% if external_page %}
 <a href="{{ resource.url }}" class="card-link" data-type="external_page">
@@ -8,11 +9,11 @@
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
 {% endif %}
   <div class="card-featured">
-    <div class="card-featured-image" style="background-image: url('{{ image.url }}')"></div>
+    <div class="card-featured-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
     <div class="card-featured-content">
       <span class="highlighted featured">Featured</span>
       <div>
-        <h4 class="highlighted no-underline">{{ resource.title }}</h4>
+        <h4 class="highlighted no-underline">{% firstof resource.card_title resource.title %}</h4>
       </div>
     </div>
   </div>

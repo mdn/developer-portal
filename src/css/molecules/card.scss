@@ -107,6 +107,12 @@
   flex-direction: column;
   flex-grow: 1;
   padding: 24px;
+
+  .icon-external {
+    position: relative;
+    margin-left: 10px;
+    top: -2px;
+  }
 }
 
 .card-content-main {

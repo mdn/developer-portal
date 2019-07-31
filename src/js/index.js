@@ -7,7 +7,7 @@ import '@mozilla-protocol/core/protocol/js/protocol-menu';
 import '@mozilla-protocol/core/protocol/js/protocol-navigation';
 import '@mozilla-protocol/core/protocol/js/protocol-details';
 import FilterForm from './organisms/filter-form';
-import GetStarted from './organisms/get-started';
+import TabbedPanels from './organisms/tabbed-panels';
 import MapEmbed from './atoms/map';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -15,6 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
   Mzp.Menu.init();
 
   FilterForm.init();
-  GetStarted.init();
+  TabbedPanels.init();
   MapEmbed.init();
 });

@@ -16,8 +16,8 @@ class CodeSnippetBlock(blocks.StructBlock):
     class Meta:
         template = 'code_snippet_block.html'
 
-class GetStartedBlock(blocks.StructBlock):
-    """Panel of content displayed on Topics Get Started organism, 1 to 3"""
+class TabbedPanelBlock(blocks.StructBlock):
+    """Panel of content displayed on Topics Tabbed Panel organism, 1 to 3"""
     title = blocks.CharBlock()
     image = ImageChooserBlock()
     description = blocks.TextBlock()
