@@ -10,13 +10,6 @@
   }
 }
 
-.filter-form-header {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 24px;
-  position: relative;
-}
-
 .filter-form-clear {
   color: $color-nevada;
   font-size: 12px;
@@ -34,11 +27,15 @@
 }
 
 .filter-form-section {
-  border-top: 1px solid $color-gray-30;
-  margin-bottom: 24px;
+  border-bottom: 1px solid $color-gray-30;
+  padding: 16px 0;
+
+  @media #{$mq-md} {
+    padding: 24px 0;
+  }
 
   &:last-child {
-    margin-bottom: 0;
+    border-bottom: 0;
   }
 
   label:last-child {
@@ -50,7 +47,7 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin: 24px 0 12px;
+  margin-bottom: 12px;
   position: relative;
 
   h5 {

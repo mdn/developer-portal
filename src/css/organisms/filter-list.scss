@@ -30,11 +30,11 @@
   background-color: $color-white;
   border: 2px solid $color-gray-20;
   border-radius: 2px;
-  padding: 16px;
+  padding: 0 16px;
 
   @media #{$mq-md} {
     margin-bottom: 0;
-    padding: 24px;
+    padding: 0 24px;
     position: sticky;
     top: 32px;
   }

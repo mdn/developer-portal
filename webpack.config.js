@@ -1,7 +1,6 @@
 const { resolve } = require('path');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack');
 
 module.exports = {
   entry: './src/js/index.js',
@@ -13,7 +12,15 @@ module.exports = {
   mode: process.env.NODE_ENV,
   module: {
     rules: [
-      { test: /\.js$/, loader: 'buble-loader', exclude: /node_modules/, options: { objectAssign: 'Object.assign' } },
+      {
+        test: /\.js$/,
+        loader: 'buble-loader',
+        exclude: /node_modules/,
+        options: {
+          objectAssign: 'Object.assign',
+          transforms: { forOf: false },
+        },
+      },
       {
         test: /\.scss$/,
         use: [
