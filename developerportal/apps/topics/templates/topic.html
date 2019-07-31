@@ -21,9 +21,9 @@
         {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
       </section>
     {% endif %}
-    {% if page.get_started %}
+    {% if page.tabbed_panels %}
       <section class="section-full section-background section-full-bg">
-        {% include "organisms/get-started.html" %}
+        {% include "organisms/tabbed-panels.html" with title=page.tabbed_panels_title resources=page.tabbed_panels %}
       </section>
     {% endif %}
     {% with subtopics=self.subtopics %}

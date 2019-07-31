@@ -22,7 +22,7 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from ..common.blocks import FeaturedExternalBlock, GetStartedBlock
+from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
 from ..common.constants import COLOR_CHOICES, COLOR_VALUES
 from ..common.utils import get_combined_articles, get_combined_events
 
@@ -73,12 +73,14 @@ class Topic(Page):
         null=True,
         blank=True,
     )
-    get_started = StreamField(
+    tabbed_panels_title = CharField(max_length=250, blank=True, default='')
+    tabbed_panels = StreamField(
         StreamBlock([
-            ('panel', GetStartedBlock())
+            ('panel', TabbedPanelBlock())
         ], min_num=0, max_num=3, required=False),
         null=True,
         blank=True,
+        verbose_name='Tabbed panels',
     )
 
     # Card fields
@@ -102,7 +104,8 @@ class Topic(Page):
     content_panels = Page.content_panels + [
         FieldPanel('description'),
         StreamFieldPanel('featured'),
-        StreamFieldPanel('get_started'),
+        FieldPanel('tabbed_panels_title'),
+        StreamFieldPanel('tabbed_panels'),
         MultiFieldPanel([
             InlinePanel('people'),
         ], heading='People'),
