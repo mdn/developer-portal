@@ -1,8 +1,8 @@
 main {
-  padding: $grid-gap 0;
+  padding: 24px 0;
 
   @media #{$mq-md} {
-    padding: 64px 0;
+    padding: 40px 0;
   }
 
   &.has-header {
@@ -25,10 +25,10 @@ main {
 
   // TODO move to section.scss
   > section {
-    margin-top: 32px;
+    margin-top: 24px;
 
     @media #{$mq-md} {
-      margin-top: 64px;
+      margin-top: 40px;
     }
 
     &:first-child {
@@ -51,9 +51,6 @@ main {
 
 .section-full-bg {
   background-color: $color-gray-10;
-  @media #{$mq-md} {
-    padding: 40px 0 80px;
-  }
 }
 
 .container {
@@ -65,10 +62,6 @@ main {
     padding: 0 $grid-gap;
     position: relative;
   }
-}
-
-.section-full-bg {
-  background-color: $color-gray-10;
 }
 
 .section-full-container {
@@ -86,7 +79,7 @@ main {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 
   a {
     font-weight: bold;
