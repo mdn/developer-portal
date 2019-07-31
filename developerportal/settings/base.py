@@ -200,7 +200,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = 'Mozilla Developer Portal'
+WAGTAIL_SITE_NAME = 'Mozilla Developers'
 
 # Add support for CodePen oEmbed
 from wagtail.embeds.oembed_providers import all_providers
