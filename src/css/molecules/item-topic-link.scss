@@ -5,12 +5,13 @@
   border-radius: 2px;
   color: inherit;
   display: flex;
-  padding: 24px;
+  padding: 12px;
   transition: box-shadow 100ms, transform 100ms;
   width: 100%;
 
   @media #{$mq-md} {
     align-items: unset;
+    padding: 16px;
   }
 
   &:hover {
