@@ -1,0 +1,40 @@
+language: python
+
+python:
+  - "3.7"
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION="1.24.1"
+
+before_install:
+  - echo "Installing newer docker-compose"
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker version
+  - docker-compose version
+
+install:
+  - echo "Running build"
+  - docker-compose up --build --detach
+  - echo "Running migrate"
+  - docker-compose exec -T app python manage.py migrate
+  - echo "Loading data"
+  - docker-compose exec -T app python manage.py loaddata developerportal/apps/**/fixtures/*.json
+
+script:
+  - echo "Running tests"
+  - docker-compose exec -T app python manage.py test
+
+after_script:
+  - echo "Cleanup"
+  - docker-compose down --volumes --remove-orphans
