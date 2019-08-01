@@ -63,15 +63,6 @@ class ExternalContent(Page):
         return self.external_url
 
 
-class ExternalArticleAuthor(Orderable):
-    article = ParentalKey('ExternalArticle', on_delete=CASCADE, related_name='authors')
-    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='external_articles')
-
-    panels = [
-        PageChooserPanel('author')
-    ]
-
-
 class ExternalArticleTopic(Orderable):
     article = ParentalKey('ExternalArticle', on_delete=CASCADE, related_name='topics')
     topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='external_articles')
@@ -92,7 +83,7 @@ class ExternalArticle(ExternalContent):
 
     meta_panels = [
         FieldPanel('date'),
-        InlinePanel('authors', heading='Authors', min_num=1),
+        StreamFieldPanel('authors'),
         InlinePanel('topics', heading='Topics'),
         FieldPanel('read_time'),
     ]

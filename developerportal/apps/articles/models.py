@@ -90,15 +90,6 @@ class ArticleTopic(Orderable):
     ]
 
 
-class ArticleAuthor(Orderable):
-    article = ParentalKey('Article', related_name='authors')
-    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='articles')
-
-    panels = [
-        PageChooserPanel('author')
-    ]
-
-
 class Article(Page):
     resource_type = 'article'
     parent_page_types = ['Articles']
@@ -149,9 +140,7 @@ class Article(Page):
     # Meta panels
     meta_panels = [
         FieldPanel('date'),
-        MultiFieldPanel([
-            InlinePanel('authors', min_num=1),
-        ], heading='Authors'),
+        StreamFieldPanel('authors'),
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
