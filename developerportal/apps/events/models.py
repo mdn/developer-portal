@@ -112,6 +112,11 @@ class Events(Page):
     class Meta:
         verbose_name_plural = 'Events'
 
+    @classmethod
+    def can_create_at(cls, parent):
+        # Allow only one instance of this page type
+        return super().can_create_at(parent) and not cls.objects.exists()
+
     def get_context(self, request):
         context = super().get_context(request)
         context['filters'] = self.get_filters()

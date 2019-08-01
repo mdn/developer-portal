@@ -208,6 +208,11 @@ class Topics(Page):
     class Meta:
         verbose_name_plural = 'Topics'
 
+    @classmethod
+    def can_create_at(cls, parent):
+        # Allow only one instance of this page type
+        return super().can_create_at(parent) and not cls.objects.exists()
+
     @property
     def topics(self):
         return Topic.objects.live().public().order_by('title')
