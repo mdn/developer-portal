@@ -9,6 +9,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from .apps.common.feed import RssFeeds
 
+
 urlpatterns = [
     url('', include('developerportal.apps.health.urls')),
 
@@ -23,13 +24,20 @@ urlpatterns = [
 ]
 
 
-if True: # TODO Add support for S3 media uploads.
+if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    from django.views.static import serve
+
+    # Serve media files directly.
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]
 
 
 # For anything not caught by a more specific rule above, hand over to
