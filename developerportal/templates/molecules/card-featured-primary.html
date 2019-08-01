@@ -16,7 +16,7 @@
       <div class="card-featured-primary-content">
         <span class="featured">Featured</span>
         <div>
-          <h4 class="no-underline">{{ firstof resource.card_title resource.title %}</h4>
+          <h4 class="no-underline">{% firstof resource.card_title resource.title %}</h4>
           <p>{% firstof resource.card_description resource.description %}</p>
         </div>
       </div>
