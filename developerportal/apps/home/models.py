@@ -26,7 +26,13 @@ class HomePageTag(TaggedItemBase):
 
 
 class HomePage(Page):
-    subpage_types = ['content.ContentPage']
+    subpage_types = [
+        'articles.Articles',
+        'content.ContentPage',
+        'events.Events',
+        'people.People',
+        'topics.Topics',
+    ]
     template = 'home.html'
 
     # Content fields
@@ -130,6 +136,11 @@ class HomePage(Page):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @classmethod
+    def can_create_at(cls, parent):
+        # Allow only one instance of this page type
+        return super().can_create_at(parent) and not cls.objects.exists()
 
     @property
     def primary_topics(self):

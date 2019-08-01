@@ -57,6 +57,7 @@ class People(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
+        FieldPanel('show_in_menus'),
     ]
 
     edit_handler = TabbedInterface([
@@ -67,6 +68,11 @@ class People(Page):
 
     class Meta:
         verbose_name_plural = 'People'
+
+    @classmethod
+    def can_create_at(cls, parent):
+        # Allow only one instance of this page type
+        return super().can_create_at(parent) and not cls.objects.exists()
 
     def get_context(self, request):
         context = super().get_context(request)
