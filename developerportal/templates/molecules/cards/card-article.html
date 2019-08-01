@@ -5,7 +5,7 @@
 
 <a
   href="{% pageurl resource %}"
-  class="card-link {% if filter_target %}js-filter-target{% endif %}"
+  class="card-link {% if filter_target %}js-filter-target{% endif %} {% if card_number and card_number > 3 %}card-overflow{% endif %}"
   {% if resource.is_external %}
     target="_blank"
     rel="noopener noreferrer"

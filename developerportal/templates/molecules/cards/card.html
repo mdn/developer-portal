@@ -1,5 +1,5 @@
 {% if resource.resource_type == "article" %}
-  {% include "molecules/cards/card-article.html" with resource=resource filter_target=filter_target show_author=show_author %}
+  {% include "molecules/cards/card-article.html" with resource=resource filter_target=filter_target show_author=show_author card_number=card_number %}
 {% elif resource.resource_type == "event" %}
   {% include "molecules/cards/card-event.html" with resource=resource filter_target=filter_target %}
 {% elif resource.resource_type == "person" %}

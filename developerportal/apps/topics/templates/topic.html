@@ -49,9 +49,13 @@
         {% else %}
           {# 2 or 3 are rendered side-by-side #}
           <div class="card-container {% if page.articles|length == 2 %}card-container-2-wide{% endif %}">
-            {% for article in page.articles|slice:":3" %}
-              {% include "molecules/cards/card.html" with resource=article show_author=True %}
-            {% endfor %}
+            {% with article_count=page.latest_articles_count|stringformat:"s" %}
+              {% with article_slice=":"|add:article_count %}
+                {% for article in page.articles|slice:article_slice %}
+                  {% include "molecules/cards/card.html" with resource=article show_author=True card_number=forloop.counter %}
+                {% endfor %}
+              {% endwith %}
+            {% endwith %}
           </div>
         {% endif %}
       </section>

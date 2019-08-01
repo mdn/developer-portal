@@ -1,7 +1,7 @@
 # pylint: disable=no-member
 import datetime
 
-from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, FileField
+from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, FileField, IntegerField
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
@@ -82,6 +82,7 @@ class Topic(Page):
         blank=True,
         verbose_name='Tabbed panels',
     )
+    latest_articles_count = IntegerField(default=3, choices=((3, '3'), (6, '6'), (9, '9')), help_text='The number of articles to display for this topic.')
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
@@ -106,6 +107,7 @@ class Topic(Page):
         StreamFieldPanel('featured'),
         FieldPanel('tabbed_panels_title'),
         StreamFieldPanel('tabbed_panels'),
+        FieldPanel('latest_articles_count'),
         MultiFieldPanel([
             InlinePanel('people'),
         ], heading='People'),
