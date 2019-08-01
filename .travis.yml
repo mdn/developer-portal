@@ -10,6 +10,7 @@ branches:
 env:
   global:
     - DOCKER_COMPOSE_VERSION="1.24.1"
+    - COMPOSE_FILE=docker-compose.test.yml
 
 before_install:
   - echo "Installing newer docker-compose"
@@ -25,8 +26,6 @@ install:
   - docker-compose up --build --detach
   - echo "Running migrate"
   - docker-compose exec -T app python manage.py migrate
-  - echo "Loading data"
-  - docker-compose exec -T app python manage.py loaddata developerportal/apps/**/fixtures/*.json
 
 script:
   - echo "Running tests"
