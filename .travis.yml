@@ -10,7 +10,6 @@ branches:
 env:
   global:
     - DOCKER_COMPOSE_VERSION="1.24.1"
-    - COMPOSE_FILE=docker-compose.test.yml
 
 before_install:
   - echo "Installing newer docker-compose"
@@ -22,14 +21,10 @@ before_install:
   - docker-compose version
 
 install:
-  - echo "Running build"
-  - docker-compose up --build --detach
-  - echo "Running migrate"
-  - docker-compose exec -T app python manage.py migrate
+  - scripts/ci-setup
 
 script:
-  - echo "Running tests"
-  - docker-compose exec -T app python manage.py test
+  - scripts/ci-tests
 
 after_script:
   - echo "Cleanup"
