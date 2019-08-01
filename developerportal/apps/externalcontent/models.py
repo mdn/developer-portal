@@ -111,6 +111,11 @@ class ExternalArticle(ExternalContent):
     def month_group(self):
         return self.date.replace(day=1)
 
+    def has_author(self, person):
+        for author in self.authors:
+            if (author.block_type=='author' and str(author.value)==str(person.title)):
+                return True
+        return False
 
 class ExternalEventTopic(Orderable):
     event = ParentalKey('ExternalEvent', on_delete=CASCADE, related_name='topics')
