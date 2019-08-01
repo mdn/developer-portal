@@ -68,6 +68,7 @@ class ContentPage(Page):
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
+        FieldPanel('show_in_menus'),
     ]
 
     # Tabs
