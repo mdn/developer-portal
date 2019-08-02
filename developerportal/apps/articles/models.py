@@ -31,6 +31,7 @@ class ArticlesTag(TaggedItemBase):
 
 
 class Articles(Page):
+    parent_page_types = ['home.HomePage']
     subpage_types = ['Article']
     template = 'articles.html'
 

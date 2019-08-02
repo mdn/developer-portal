@@ -1,7 +1,7 @@
-from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
 from ..models import Article, Articles
+from ...home.models import HomePage
 
 
 class ArticlesFixturesMixin():
@@ -61,7 +61,7 @@ class ArticlesTests(ArticlesFixturesMixin, WagtailPageTests):
 
     def test_articles_page_parent_pages(self):
         """The Articles page can exist under another page."""
-        self.assertAllowedParentPageTypes(Articles, {Page})
+        self.assertAllowedParentPageTypes(Articles, {HomePage})
 
     def test_articles_page_subpages(self):
         """The Articles page should only have article child pages."""

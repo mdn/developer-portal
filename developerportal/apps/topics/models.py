@@ -178,6 +178,7 @@ class Topic(Page):
 
 
 class Topics(Page):
+    parent_page_types = ['home.HomePage']
     subpage_types = ['Topic']
     template = 'topics.html'
 
