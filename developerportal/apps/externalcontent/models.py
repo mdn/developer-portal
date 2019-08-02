@@ -19,6 +19,7 @@ from wagtail.core.fields import StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from ..common.blocks import ExternalAuthorBlock
 
 class ExternalContent(Page):
     is_external = True
@@ -63,15 +64,6 @@ class ExternalContent(Page):
         return self.external_url
 
 
-class ExternalArticleAuthor(Orderable):
-    article = ParentalKey('ExternalArticle', on_delete=CASCADE, related_name='authors')
-    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='external_articles')
-
-    panels = [
-        PageChooserPanel('author')
-    ]
-
-
 class ExternalArticleTopic(Orderable):
     article = ParentalKey('ExternalArticle', on_delete=CASCADE, related_name='topics')
     topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='external_articles')
@@ -85,6 +77,13 @@ class ExternalArticle(ExternalContent):
     resource_type = 'article'
 
     date = DateField('Article date', default=datetime.date.today)
+    authors = StreamField(
+        StreamBlock([
+            ('author', PageChooserBlock(target_model='people.Person')),
+            ('external_author', ExternalAuthorBlock()),
+        ]),
+        blank=True, null=True
+    )
     read_time = CharField(max_length=30, blank=True, help_text=(
         'Optional, approximate read-time for this article, e.g. “2 mins”. This '
         'is shown as a small hint when the article is displayed as a card.'
@@ -92,7 +91,7 @@ class ExternalArticle(ExternalContent):
 
     meta_panels = [
         FieldPanel('date'),
-        InlinePanel('authors', heading='Authors', min_num=1),
+        StreamFieldPanel('authors'),
         InlinePanel('topics', heading='Topics'),
         FieldPanel('read_time'),
     ]
@@ -111,6 +110,11 @@ class ExternalArticle(ExternalContent):
     def month_group(self):
         return self.date.replace(day=1)
 
+    def has_author(self, person):
+        for author in self.authors:
+            if (author.block_type=='author' and str(author.value)==str(person.title)):
+                return True
+        return False
 
 class ExternalEventTopic(Orderable):
     event = ParentalKey('ExternalEvent', on_delete=CASCADE, related_name='topics')

@@ -16,12 +16,15 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
 )
 from wagtail.core.models import Orderable, Page
+from wagtail.core.fields import StreamField, StreamBlock
+from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+from ..common.blocks import ExternalAuthorBlock
 from ..common.fields import CustomStreamField
 from ..common.utils import get_combined_articles
 
@@ -97,15 +100,6 @@ class ArticleTopic(Orderable):
     ]
 
 
-class ArticleAuthor(Orderable):
-    article = ParentalKey('Article', related_name='authors')
-    author = ForeignKey('people.Person', on_delete=CASCADE, related_name='articles')
-
-    panels = [
-        PageChooserPanel('author')
-    ]
-
-
 class Article(Page):
     resource_type = 'article'
     parent_page_types = ['Articles']
@@ -137,6 +131,13 @@ class Article(Page):
 
     # Meta fields
     date = DateField('Article date', default=datetime.date.today)
+    authors = StreamField(
+        StreamBlock([
+            ('author', PageChooserBlock(target_model='people.Person')),
+            ('external_author', ExternalAuthorBlock()),
+        ]),
+        blank=True, null=True
+    )
     keywords = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     # Content panels
@@ -156,9 +157,7 @@ class Article(Page):
     # Meta panels
     meta_panels = [
         FieldPanel('date'),
-        MultiFieldPanel([
-            InlinePanel('authors', min_num=1),
-        ], heading='Authors'),
+        StreamFieldPanel('authors'),
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
@@ -209,3 +208,9 @@ class Article(Page):
     @property
     def month_group(self):
         return self.date.replace(day=1)
+
+    def has_author(self, person):
+        for author in self.authors:
+            if (author.block_type=='author' and str(author.value)==str(person.title)):
+                return True
+        return False
