@@ -8,7 +8,9 @@
       {% if page.articles %}
         <section>
           <h2>Articles</h2>
+          {% if page.description %}
           <p class="page-description">{{ page.description }}</p>
+          {% endif %}
         </section>
         <section class="section-full">
           {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 %}
