@@ -42,8 +42,16 @@ class People(Page):
     subpage_types = ['Person']
     template = 'people.html'
 
+    # Content fields
+    description = TextField('Description', max_length=250, blank=True, default='')
+
     # Meta fields
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
+
+    # Content panels
+    content_panels = Page.content_panels + [
+        FieldPanel('description'),
+    ]
 
     # Meta panels
     meta_panels = [
@@ -61,7 +69,7 @@ class People(Page):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(content_panels, heading='Content'),
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])

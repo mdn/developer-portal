@@ -11,6 +11,9 @@
       {% if page.people %}
         <section>
           <h2>People</h2>
+          {% if page.description %}
+          <p class="page-description">{{ page.description }}</p>
+          {% endif %}
         </section>
         <section class="section-full">
           {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
