@@ -19,9 +19,10 @@ from wagtail.admin.edit_handlers import (
     ObjectList,
     PageChooserPanel,
     TabbedInterface,
+    StreamFieldPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -31,6 +32,7 @@ from taggit.models import TaggedItemBase
 
 from .edit_handlers import CustomLabelFieldPanel
 
+from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import ROLE_CHOICES
 
 
@@ -140,6 +142,13 @@ class Person(Page):
     linkedin = CharField(max_length=250, blank=True, default='')
     github = CharField(max_length=250, blank=True, default='')
     email = CharField(max_length=250, blank=True, default='')
+    websites = StreamField(
+        StreamBlock([
+            ('website', PersonalWebsiteBlock())
+        ], min_num=0, max_num=3, required=False),
+        null=True,
+        blank=True,
+    )
     keywords = ClusterTaggableManager(through=PersonTag, blank=True)
 
      # Content panels
@@ -172,6 +181,7 @@ class Person(Page):
             FieldPanel('github'),
             FieldPanel('email'),
         ], heading='Profiles'),
+        StreamFieldPanel('websites'),
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),

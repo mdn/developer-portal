@@ -49,3 +49,11 @@ class FeaturedExternalBlock(blocks.StructBlock):
     title = blocks.CharBlock()
     description = blocks.TextBlock(required=False)
     image = ImageChooserBlock()
+
+class PersonalWebsiteBlock(blocks.StructBlock):
+    url = blocks.URLBlock(label='URL')
+    title = blocks.CharBlock(required=False)
+    icon = ImageChooserBlock(required=False)
+
+    class Meta:
+        help_text = 'Details of any other personal website, to be displayed alongside social profiles.'
