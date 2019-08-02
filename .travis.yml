@@ -1,0 +1,31 @@
+language: python
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION="1.24.1"
+
+before_install:
+  - echo "Installing newer docker-compose"
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker version
+  - docker-compose version
+
+install:
+  - scripts/ci-setup
+
+script:
+  - scripts/ci-tests
+
+after_script:
+  - echo "Cleanup"
+  - docker-compose down --volumes --remove-orphans

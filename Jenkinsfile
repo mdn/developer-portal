@@ -58,6 +58,7 @@ node {
     case 'stage-push':
       stage('Deploy') {
         deploy('stage')
+        deploy('stage-oregon')
       }
       break
 

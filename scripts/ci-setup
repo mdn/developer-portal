@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -eo pipefail
+
+echo "Setting up environment"
+
+echo "Generating .env file"
+cat << EOF > .env
+PYTHONUNBUFFERED=1
+BASE_URL=http://localhost:8000
+DJANGO_ENV=dev
+DJANGO_SECRET_KEY=$(openssl rand -base64 64 | tr -d '+/\n=')
+POSTGRES_DB=developerportal
+POSTGRES_HOST=db
+POSTGRES_PASSWORD=$(openssl rand -base64 64 | tr -d '+/\n=')
+POSTGRES_USER=admin
+EOF
+
+echo "Running build"
+docker-compose up --build --detach
+
+echo "Running migrate"
+docker-compose exec -T app python manage.py migrate
