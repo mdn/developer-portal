@@ -7,6 +7,7 @@ from ...content.models import ContentPage
 from ...events.models import Events
 from ...topics.models import Topics
 from ...people.models import People
+from ...videos.models import Videos
 
 
 class HomePageTests(WagtailPageTests):
@@ -16,4 +17,11 @@ class HomePageTests(WagtailPageTests):
         self.assertAllowedParentPageTypes(HomePage, {Page})
 
     def test_home_page_subpages(self):
-        self.assertAllowedSubpageTypes(HomePage, {Articles, ContentPage, Events, Topics, People})
+        self.assertAllowedSubpageTypes(HomePage, {
+            Articles,
+            ContentPage,
+            Events,
+            Topics,
+            People,
+            Videos,
+        })
