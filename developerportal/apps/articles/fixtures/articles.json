@@ -207,15 +207,6 @@
     }
   },
   {
-    "model": "articles.articleauthor",
-    "pk": 1,
-    "fields": {
-      "sort_order": 0,
-      "article": 16,
-      "author": 11
-    }
-  },
-  {
     "model": "articles.article",
     "pk": 8,
     "fields": {

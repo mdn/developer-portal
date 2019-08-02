@@ -26,13 +26,13 @@
 
 .pattern-section-pattern {
   display: block;
-  height: 220px;
+  height: 320px;
   position: absolute;
   width: 70%;
   z-index: -1;
 
   @media #{$mq-md} {
-    width: 300px;
+    width: 320px;
   }
 
   .pattern {
@@ -49,7 +49,7 @@
   }
 
   @media screen and (min-width: 1190px) {
-    left: -210px;
+    left: -48px;
     top: -40px;
   }
 }
@@ -64,6 +64,6 @@
 
   @media screen and (min-width: 1190px) {
     bottom: -40px;
-    right: -210px;
+    right: -48px;
   }
 }

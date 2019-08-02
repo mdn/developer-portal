@@ -1,4 +1,6 @@
 import datetime
+from itertools import chain
+from operator import attrgetter
 
 from django.db.models import (
     BooleanField,
@@ -19,9 +21,10 @@ from wagtail.admin.edit_handlers import (
     ObjectList,
     PageChooserPanel,
     TabbedInterface,
+    StreamFieldPanel,
 )
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -31,6 +34,7 @@ from taggit.models import TaggedItemBase
 
 from .edit_handlers import CustomLabelFieldPanel
 
+from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import ROLE_CHOICES
 
 
@@ -149,6 +153,13 @@ class Person(Page):
     linkedin = CharField(max_length=250, blank=True, default='')
     github = CharField(max_length=250, blank=True, default='')
     email = CharField(max_length=250, blank=True, default='')
+    websites = StreamField(
+        StreamBlock([
+            ('website', PersonalWebsiteBlock())
+        ], min_num=0, max_num=3, required=False),
+        null=True,
+        blank=True,
+    )
     keywords = ClusterTaggableManager(through=PersonTag, blank=True)
 
      # Content panels
@@ -181,6 +192,7 @@ class Person(Page):
             FieldPanel('github'),
             FieldPanel('email'),
         ], heading='Profiles'),
+        StreamFieldPanel('websites'),
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
@@ -203,14 +215,15 @@ class Person(Page):
 
     @property
     def events(self):
-        """Return upcoming events where this person is a speaker,
-        ordered by start date"""
+        '''
+        Return upcoming events where this person is a speaker,
+        ordered by start date
+        '''
         from ..events.models import Event
 
         upcoming_events = (Event
                 .objects
                 .filter(start_date__gte=datetime.datetime.now())
-                .order_by('start_date')
                 .live()
                 .public()
         )
@@ -222,7 +235,32 @@ class Person(Page):
             if event.has_speaker(self):
                 speaker_events = speaker_events | Event.objects.page(event)
 
-        return speaker_events
+        return speaker_events.order_by('start_date')
+
+    @property
+    def articles(self):
+        '''
+        Return articles and external articles where this person is (one of) the authors,
+        ordered by article date, most recent first
+        '''
+        from ..articles.models import Article
+        from ..externalcontent.models import ExternalArticle
+
+        articles = Article.objects.none()
+        external_articles = ExternalArticle.objects.none()
+
+        all_articles = Article.objects.live().public().all()
+        all_external_articles = ExternalArticle.objects.live().public().all()
+
+        for article in all_articles:
+            if article.has_author(self):
+                articles = articles | Article.objects.page(article)
+
+        for external_article in all_external_articles:
+            if external_article.has_author(self):
+                external_articles = external_articles | ExternalArticle.objects.page(external_article)
+
+        return sorted(chain(articles, external_articles), key=attrgetter('date'), reverse=True)
 
     @property
     def role_group(self):

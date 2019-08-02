@@ -40,7 +40,13 @@ class ExternalSpeakerBlock(blocks.StructBlock):
     """Content for an external speaker, displayed on event page"""
     title = blocks.CharBlock(label='Name')
     job_title = blocks.CharBlock()
-    profile_picture = ImageChooserBlock()
+    image = ImageChooserBlock()
+    url = blocks.URLBlock(label='URL', required=False)
+
+class ExternalAuthorBlock(blocks.StructBlock):
+    """Content for an external author, for an internal or external article"""
+    title = blocks.CharBlock(label='Name')
+    image = ImageChooserBlock()
     url = blocks.URLBlock(label='URL', required=False)
 
 class FeaturedExternalBlock(blocks.StructBlock):
@@ -49,3 +55,11 @@ class FeaturedExternalBlock(blocks.StructBlock):
     title = blocks.CharBlock()
     description = blocks.TextBlock(required=False)
     image = ImageChooserBlock()
+
+class PersonalWebsiteBlock(blocks.StructBlock):
+    url = blocks.URLBlock(label='URL')
+    title = blocks.CharBlock(required=False)
+    icon = ImageChooserBlock(required=False)
+
+    class Meta:
+        help_text = 'Details of any other personal website, to be displayed alongside social profiles.'

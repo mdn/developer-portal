@@ -134,3 +134,10 @@
 .card-image-wide {
   padding-top: 25%;
 }
+
+.card-overflow {
+  display: none;
+  @media #{$mq-md} {
+    display: block;
+  }
+}

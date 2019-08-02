@@ -5,7 +5,7 @@
 
 <a
   href="{% pageurl resource %}"
-  class="card-link {% if filter_target %}js-filter-target{% endif %}"
+  class="card-link {% if filter_target %}js-filter-target{% endif %} {% if card_number and card_number > 3 %}card-overflow{% endif %}"
   {% if resource.is_external %}
     target="_blank"
     rel="noopener noreferrer"
@@ -30,8 +30,10 @@
         {% endif %}
       </div>
       {% if show_author %}
-        {% for author in resource.authors.all %}
-          {% include "molecules/article-details.html" with date=resource.date author=author.author %}
+        {% for block in resource.authors %}
+          {% with block.value as author %}
+            {% include "molecules/article-details.html" with date=resource.date author=author enable_link=False %}
+          {% endwith %}
         {% endfor %}
       {% endif %}
     </div>

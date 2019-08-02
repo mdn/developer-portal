@@ -39,7 +39,11 @@
         {% endwith %}
       {% endblock %}
     </title>
-    <meta name="description" content="Mozilla Developer Portal" />
+    {% with home=request.site.root_page.specific %}
+      {% if home.subtitle %}
+        <meta name="description" content="{{ home.subtitle }}" />
+      {% endif %}
+    {% endwith %}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
     <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}">
