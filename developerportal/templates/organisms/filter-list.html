@@ -24,7 +24,7 @@
           <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
             {% for resource in resources %}
               {% if type == "article" %}
-                {% include "molecules/cards/card.html" with resource=resource.article filter_target=True %}
+                {% include "molecules/cards/card.html" with resource=resource.article filter_target=True show_author=True %}
               {% elif type == "person" %}
                 {% include "molecules/cards/card.html" with resource=resource.person filter_target=True %}
               {% elif type == "event" %}

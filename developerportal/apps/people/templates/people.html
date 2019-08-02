@@ -16,9 +16,9 @@
           {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
         </section>
       {% endif %}
+      <section id="newsletter" class="section-full section-background">
+        {% include "organisms/newsletter-signup.html" %}
+      </section>
     </div>
-    <section id="newsletter" class="section-full section-background">
-      {% include "organisms/newsletter-signup.html" %}
-    </section>
   </main>
 {% endblock content %}
