@@ -32,6 +32,7 @@ class HomePage(Page):
         'events.Events',
         'people.People',
         'topics.Topics',
+        'videos.Videos',
     ]
     template = 'home.html'
 

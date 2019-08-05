@@ -24,7 +24,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from ..common.blocks import ExternalAuthorBlock
+from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.fields import CustomStreamField
 from ..common.utils import get_combined_articles
 
@@ -124,6 +124,14 @@ class Article(Page):
         related_name='+'
     )
     body = CustomStreamField()
+    related_links_mdn = StreamField(
+        StreamBlock([
+            ('link', ExternalLinkBlock())
+        ], required=False),
+        null=True,
+        blank=True,
+        verbose_name='Related MDN links',
+    )
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
@@ -153,6 +161,7 @@ class Article(Page):
         FieldPanel('description'),
         ImageChooserPanel('image'),
         StreamFieldPanel('body'),
+        StreamFieldPanel('related_links_mdn'),
     ]
 
     # Card panels

@@ -1,4 +1,4 @@
-# Mozilla Developer Portal
+# Mozilla Developer Portal [![Build Status](https://travis-ci.org/mdn/developer-portal.svg?branch=master)](https://travis-ci.org/mdn/developer-portal)
 
 ## Development workflow
 

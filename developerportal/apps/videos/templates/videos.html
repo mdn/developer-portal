@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block body_class %}videos{% endblock %}
+
+{% block content %}
+  <main>
+    <ul>
+      {% for video in page.videos.all %}
+        <li>
+          <a href="{% pageurl video %}">
+            {{ video.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </main>
+{% endblock content %}

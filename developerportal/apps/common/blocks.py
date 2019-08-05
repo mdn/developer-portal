@@ -36,6 +36,11 @@ class AgendaItemBlock(blocks.StructBlock):
         ('url', blocks.URLBlock(label='URL', required=False)),
     ])
 
+class ExternalLinkBlock(blocks.StructBlock):
+    """Content for a link to an external page without an image, e.g. MDN related links."""
+    title = blocks.CharBlock(label='Name')
+    url = blocks.URLBlock()
+
 class ExternalSpeakerBlock(blocks.StructBlock):
     """Content for an external speaker, displayed on event page"""
     title = blocks.CharBlock(label='Name')

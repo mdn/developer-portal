@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'developerportal.apps.people',
     'developerportal.apps.staticbuild',
     'developerportal.apps.topics',
+    'developerportal.apps.videos',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.modeladmin',
