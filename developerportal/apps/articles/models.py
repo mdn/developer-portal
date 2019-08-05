@@ -38,6 +38,17 @@ class Articles(Page):
     subpage_types = ['Article']
     template = 'articles.html'
 
+    # Content fields
+    description = TextField('Description', max_length=250, blank=True, default='')
+
+    # Meta fields
+    keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
+
+    # Content panels
+    content_panels = Page.content_panels + [
+        FieldPanel('description'),
+    ]
+
     # Meta panels
     meta_panels = [
         MultiFieldPanel([
@@ -47,9 +58,6 @@ class Articles(Page):
         ], heading='SEO'),
     ]
 
-    # Meta fields
-    keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
-
     # Settings panels
     settings_panels = [
         FieldPanel('slug'),
@@ -57,7 +65,7 @@ class Articles(Page):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(Page.content_panels, heading='Content'),
+        ObjectList(content_panels, heading='Content'),
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
