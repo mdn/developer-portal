@@ -1,0 +1,6 @@
+<header class="video-header{% if not description %} no-description{% endif %}">
+  <h1>{{ title }}</h1>
+  {% if description %}
+    <p>{{ description }}</p>
+  {% endif %}
+</header>
