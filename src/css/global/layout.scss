@@ -35,6 +35,10 @@ main {
       grid-column: main;
     }
   }
+
+  .page-description {
+    max-width: 672px;
+  }
 }
 
 .section-background + .section-background {
