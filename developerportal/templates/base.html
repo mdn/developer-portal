@@ -48,6 +48,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
     <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}">
     <link rel="alternate" type="application/rss+xml" href="/article-feed/" />
+    {% include "atoms/social-meta.html" %}
     {% block head %}
     {% endblock %}
   </head>
