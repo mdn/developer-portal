@@ -42,3 +42,15 @@ ROLE_CHOICES = (
     ('guest', 'Guest'),
     ('contributor', 'Contributor'),
 )
+
+VIDEO_TYPE = (
+    ('conference', 'Conference'),
+    ('tutorial', 'Tutorial'),
+    ('webinar', 'Webinar'),
+    ('presentation', 'Presentation'),
+    ('talk', 'Talk'),
+    ('demo', 'Demo'),
+    ('vlog', 'Vlog'),
+    ('live stream', 'Live stream'),
+    ('technical briefing', 'Technical briefing'),
+)
