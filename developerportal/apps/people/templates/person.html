@@ -5,14 +5,6 @@
 
 {% block body_class %}person{% endblock %}
 
-{% block head %}
-    <meta property="og:image" content="{% firstof  page.image "media/images/b25f681c12f0d1ab9636f19649f9260b_resize.png" %}" />
-    {% comment %} <meta property="og:image:secure_url" content="https://secure.example.com/ogp.jpg" /> {% endcomment %}
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="400" />
-    <meta property="og:image:height" content="300" />
-{% endblock %}
-
 {% block header %}
   {% include "header.html" %}
   {% include "utils/accent-color.html" with color='#ffd567' %}
