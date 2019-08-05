@@ -1,13 +1,13 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-<meta property="og:title" content="{% firstof page.card_title page.title %}">
+<meta property="og:title" content="{{ page.title }}">
 {% if page.card_description or page.description %}
   <meta property="og:description" content="{% firstof page.card_description page.description %}">
 {% endif %}
 {% with self.get_site.site_name as site_name %}
   {% if site_name %}
-    <meta property="og:site_name" content="{{ self.get_site.site_name }}">
+    <meta property="og:site_name" content="{{ site_name }}">
   {% endif %}
 {% endwith %}
 {% with request.site.root_url as base_url %}
