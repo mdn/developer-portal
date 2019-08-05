@@ -1,0 +1,24 @@
+{% load static %}
+
+<div class="related-links-mdn">
+  <header class="related-links-mdn-header">
+    <img src="{% static 'img/logos/mdn.svg' %}" alt="" width="40">
+    <h4 class="no-underline">Read more on MDN</h4>
+  </header>
+  <div class="related-links-mdn-links">
+    <ul>
+      {% for link in links %}
+        <li>
+          <a href="{{ link.value.url }}" target="_blank" rel="noopener noreferrer">
+            <span class="icon icon-external">
+              {% include "atoms/icons/external.svg" %}
+            </span>
+            <span class="related-links-mdn-link-text">
+              {{ link.value.title }}
+            </span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

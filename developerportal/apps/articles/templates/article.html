@@ -29,6 +29,9 @@
           {% endfor %}
         </article>
         <aside class="article-sidebar">
+          {% if page.related_links_mdn %}
+            {% include "molecules/related-links-mdn.html" with links=page.related_links_mdn %}
+          {% endif %}
           {% if page.related_articles %}
             <h4>Read more on this topic</h4>
             <div class="article-sidebar-cards">
