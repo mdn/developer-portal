@@ -43,7 +43,7 @@ class PeopleTag(TaggedItemBase):
 
 
 class People(Page):
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['home.HomePage', 'content.ContentPage']
     subpage_types = ['Person']
     template = 'people.html'
 
