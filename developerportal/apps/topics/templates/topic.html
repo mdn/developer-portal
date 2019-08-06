@@ -84,6 +84,14 @@
       {% endif %}
     </section>
     {% endif %}
+    {% if page.videos %}
+    <section>
+      <div class="section-header">
+        <h2>Latest videos</h2>
+      </div>
+      {% include "organisms/person-latest-cards.html" with cards=page.videos %}
+    </section>
+    {% endif %}
     {% if page.events.all %}
       {% include "organisms/upcoming-events.html" with events=page.events.all topic=page.slug %}
     {% endif %}
