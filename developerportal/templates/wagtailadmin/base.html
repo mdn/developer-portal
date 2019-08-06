@@ -4,3 +4,37 @@
 {% block branding_logo %}
   <img src="{% static 'img/logos/mozilla/black.svg' %}" alt="{{ site_name }}" width="80">
 {% endblock %}
+
+{% block furniture %}
+  <style>
+    .send-feedback {
+      color: #fff;
+      display: none;
+      font-weight: bold;
+      height: 1.9em;
+      left: 0;
+      line-height: 1.9em;
+      padding: 0 8px;
+      position: fixed;
+      text-align: center;
+      top: 0;
+      width: 184px;
+      z-index: 9999;
+    }
+
+    @media screen and (min-width: 800px) {
+      .send-feedback {
+        display: block;
+      }
+    }
+
+    .send-feedback:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSewHHZcV2K83STY9lAli9Z-4kdFy-w_WXXP_RFNCwTHM-BdUQ/viewform" class="send-feedback" target="_blank">
+    Send feedback
+  </a>
+  {{ block.super }}
+{% endblock %}
