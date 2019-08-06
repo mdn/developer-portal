@@ -72,7 +72,7 @@ Wagtail Bakery can build a static version of the site. In production this runs a
 
 ### Usage
 
-To manually build the static site, run:gs
+To manually build the static site, run:
 
 ```shell
 docker-compose exec app python manage.py build --settings=developerportal.settings.production
