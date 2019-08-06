@@ -6,7 +6,9 @@
 
 {% block header %}
   {% include "header.html" %}
-  {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
+  {% if page.primary_topic %}
+    {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
+  {% endif %}
 {% endblock %}
 
 {% block content %}
