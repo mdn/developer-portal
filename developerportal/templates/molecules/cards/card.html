@@ -4,4 +4,6 @@
   {% include "molecules/cards/card-event.html" with resource=resource filter_target=filter_target %}
 {% elif resource.resource_type == "person" %}
   {% include "molecules/cards/card-person.html" with resource=resource filter_target=filter_target %}
+{% elif resource.resource_type == "video" %}
+  {% include "molecules/cards/card-video.html" with resource=resource %}
 {% endif %}

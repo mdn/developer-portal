@@ -100,7 +100,9 @@ class Video(Page):
         related_name='+'
     )
     types = CharField(max_length=14, choices=VIDEO_TYPE, default='conference')
-    duration = CharField(max_length=30, blank=True, null=True)
+    duration = CharField(max_length=30, blank=True, null=True, help_text=(
+        'Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.'
+    ))
     transcript = RichTextField(default='', blank=True)
     video_url = StreamField(
         StreamBlock([
@@ -179,3 +181,9 @@ class Video(Page):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
+
+    def has_speaker(self, person):
+        for speaker in self.speakers:
+            if str(speaker.value)==str(person.title):
+                return True
+        return False
