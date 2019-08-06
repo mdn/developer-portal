@@ -187,19 +187,26 @@ class ExternalVideoPerson(Orderable):
 
 
 class ExternalVideo(ExternalContent):
+    resource_type = 'video'
+    is_external = True
+
+    # Meta fields
     date = DateField('Video date', default=datetime.date.today)
-    video_duration = CharField(max_length=30, blank=True, null=True, help_text=(
-        'Optional, duration for this video in MM:SS format e.g. “12:34”. This '
-        'is shown as a small hint when the video is displayed as a card.'
+    speakers = StreamField(
+        StreamBlock([
+            ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
+        ], required=False),
+        blank=True, null=True,
+    )
+    duration = CharField(max_length=30, blank=True, null=True, help_text=(
+        'Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.'
     ))
 
     meta_panels = [
         FieldPanel('date'),
+        StreamFieldPanel('speakers'),
         InlinePanel('topics', heading='Topics'),
-        InlinePanel('people', heading='People', help_text=(
-            'Optional, people associated with this video.'
-        )),
-        FieldPanel('video_duration'),
+        FieldPanel('duration'),
     ]
 
     edit_handler = TabbedInterface([
@@ -211,3 +218,9 @@ class ExternalVideo(ExternalContent):
     @property
     def video(self):
         return self
+
+    def has_speaker(self, person):
+        for speaker in self.speakers:
+            if str(speaker.value)==str(person.title):
+                return True
+        return False

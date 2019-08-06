@@ -8,6 +8,8 @@
       {% elif resource.role == "guest" or resource.role == "contributor" %}
         {% include "atoms/icons/person.svg" %}
       {% endif %}
+    {% elif resource.resource_type == "video" %}
+      {% include "atoms/icons/video.svg" %}
     {% else %}
       {% include "atoms/icons/reading-time.svg" %}
     {% endif %}
@@ -17,6 +19,8 @@
       {{ resource.read_time }}
     {% elif resource.resource_type == "person" %}
       {{ resource.job_title }}
+    {% elif resource.resource_type == "video" and resource.duration %}
+      {{ resource.duration }}
     {% endif %}
   </span>
 </span>

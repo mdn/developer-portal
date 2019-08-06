@@ -1,0 +1,15 @@
+{% if cards|length == 1 %}
+  {# a single card is rendered full width #}
+  <div>
+    {% with cards.0 as card %}
+      {% include "molecules/cards/card.html" with resource=card show_author=show_author full_width=True %}
+    {% endwith %}
+  </div>
+{% else %}
+  {# 2 or 3 are rendered side-by-side #}
+  <div class="card-container {% if page.videos|length == 2 %}card-container-2-wide{% endif %}">
+    {% for card in cards|slice:":3" %}
+      {% include "molecules/cards/card.html" with resource=card show_author=show_author %}
+    {% endfor %}
+  </div>
+{% endif %}

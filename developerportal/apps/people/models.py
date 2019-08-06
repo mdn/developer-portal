@@ -263,6 +263,31 @@ class Person(Page):
         return sorted(chain(articles, external_articles), key=attrgetter('date'), reverse=True)
 
     @property
+    def videos(self):
+        '''
+        Return the most recent videos and external videos where this person is (one of)
+        the speakers.
+        '''
+        from ..videos.models import Video
+        from ..externalcontent.models import ExternalVideo
+
+        videos = Video.objects.none()
+        external_videos = ExternalVideo.objects.none()
+
+        all_videos = Video.objects.live().public().all()
+        all_external_videos = ExternalVideo.objects.live().public().all()
+
+        for video in all_videos:
+            if video.has_speaker(self):
+                videos = videos | Video.objects.page(video)
+
+        for external_video in all_external_videos:
+            if external_video.has_speaker(self):
+                external_videos = external_videos | ExternalVideo.objects.page(external_video)
+
+        return sorted(chain(videos, external_videos), key=attrgetter('date'), reverse=True)
+
+    @property
     def role_group(self):
         return {
             'slug': self.role,
