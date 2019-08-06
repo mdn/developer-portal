@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 import datetime
 import readtime
 
@@ -18,12 +19,13 @@ from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.core.blocks import PageChooserBlock
 
-
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+from ..common.blocks import ExternalLinkBlock
 from ..common.constants import VIDEO_TYPE
+from ..common.utils import get_combined_articles
 
 
 class VideosTag(TaggedItemBase):
@@ -90,8 +92,16 @@ class Video(Page):
     template = 'video.html'
 
     # Content fields
-    body = RichTextField(default='', blank=True)
     description = CharField(default='', blank=True, max_length=250)
+    body = RichTextField(default='', blank=True)
+    related_links_mdn = StreamField(
+        StreamBlock([
+            ('link', ExternalLinkBlock())
+        ], required=False),
+        null=True,
+        blank=True,
+        verbose_name='Related MDN links',
+    )
     image = ForeignKey(
         'mozimages.MozImage',
         null=True,
@@ -140,6 +150,7 @@ class Video(Page):
         ImageChooserPanel('image'),
         StreamFieldPanel('video_url'),
         FieldPanel('body'),
+        StreamFieldPanel('related_links_mdn'),
         FieldPanel('transcript'),
     ]
 
@@ -181,6 +192,23 @@ class Video(Page):
         ObjectList(meta_panels, heading='Meta'),
         ObjectList(settings_panels, heading='Settings', classname='settings'),
     ])
+
+    @property
+    def primary_topic(self):
+        """Return the first (primary) topic specified for the video."""
+        video_topic = self.topics.first()
+        return video_topic.topic if video_topic else None
+
+    @property
+    def read_time(self):
+        return str(readtime.of_html(str(self.body)))
+
+    @property
+    def related_articles(self):
+        """Returns articles that are related to the current resource, i.e. live, public articles which have the same
+        topics."""
+        topic_pks = self.topics.values_list('topic')
+        return get_combined_articles(self, topics__topic__pk__in=topic_pks)
 
     def has_speaker(self, person):
         for speaker in self.speakers:

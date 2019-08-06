@@ -29,21 +29,13 @@
             <span class="highlight">Upcoming event</span>
           </div>
         {% endif %}
-        <h2 class="no-underline">{{ title }}</h2>
+        <h1>{{ title }}</h1>
         <div class="article-header-subtitle">
           {% if description %}
           <p>{{ description }}</p>
           {% endif %}
         </div>
-        {% for block in page.authors %}
-          {% with block.value as author %}
-            {% if author.url %}
-              {% include "molecules/article-details.html" with date=date author=author enable_link=True %}
-            {% else %}
-              {% include "molecules/article-details.html" with date=date author=author enable_link=False %}
-            {% endif %}
-          {% endwith %}
-        {% endfor %}
+        {% include "molecules/article-details.html" with date=date authors=authors %}
       </div>
     </div>
   </div>

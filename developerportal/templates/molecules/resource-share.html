@@ -1,11 +1,6 @@
-<div class="share">
-  {% if resource.resource_type == 'article' %}
-  <div class="share-meta">
-    {% include "molecules/resource-meta.html" with resource=resource read_time=read_time %}
-  </div>
-  {% endif %}
-  <div class="share-buttons">
-    <span class="share-buttons-label">Share:</span>
+<div class="resource-share">
+  <div class="resource-share-buttons">
+    <span class="resource-share-buttons-label">Share:</span>
     {% with url=request.site.root_url %}
       <a href="http://twitter.com/share?url={{ url }}" target="_blank" rel="noopener noreferrer" aria-label="Share this page on Twitter">
         <span class="icon">

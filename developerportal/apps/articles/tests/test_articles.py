@@ -6,9 +6,7 @@ from ...home.models import HomePage
 
 class ArticlesFixturesMixin():
     fixtures = [
-        'topics.json',
-        'articles.json',
-        'people.json',
+        'common.json',
     ]
 
 
