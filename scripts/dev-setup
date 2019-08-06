@@ -71,7 +71,7 @@ docker-compose exec -T app python manage.py migrate
 
 
 log 'Loading data.'
-docker-compose exec -T app python manage.py loaddata developerportal/apps/**/fixtures/*.json
+docker-compose exec -T app python manage.py loaddata developerportal/apps/common/fixtures/common.json
 
 
 if [ -n "$ARG_DETACH" ]; then
