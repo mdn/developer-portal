@@ -1,0 +1,19 @@
+.resource-toolbar {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+
+  .resource-share {
+    margin-top: 24px;
+  }
+
+  @media screen and (min-width: 600px) {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .resource-share {
+      margin-top: 0;
+    }
+  }
+}

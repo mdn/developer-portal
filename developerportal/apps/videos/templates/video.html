@@ -4,18 +4,56 @@
 
 {% block body_class %}video{% endblock %}
 
+{% block header %}
+  {% include "header.html" %}
+  {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
+{% endblock %}
+
 {% block content %}
-  <main class="has-header">
-    <h1>{{ page.title }}</h1>
-    {{ page.video_url }}
-    {% if page.body %}
-      {{ page.body|richtext }}
-    {% endif %}
-    {% if page.description %}
-      <p>{{ page.description }}</p>
-    {% endif %}
-    {% if page.transcript %}
-      {{ page.transcript|richtext }}
-    {% endif %}
+  <main>
+    <div class="base-grid">
+      <section>
+        {% include "organisms/video-header.html" with title=page.title description=page.description %}
+      </section>
+      <section>
+        {{ page.video_url }}
+      </section>
+      <section class="article-content">
+        <div class="article-body">
+          <div class="resource-toolbar">
+            {% include "molecules/article-details.html" with date=page.date authors=page.speakers %}
+            {% include "molecules/resource-share.html" %}
+          </div>
+        </div>
+        <article class="article-body">
+          {% if page.body %}
+            {{ page.body|richtext }}
+          {% endif %}
+          {% if page.transcript %}
+            <h2>Transcript</h2>
+            {{ page.transcript|richtext }}
+          {% endif %}
+        </article>
+        <aside class="article-sidebar">
+          {% if page.related_links_mdn %}
+            {% include "molecules/related-links-mdn.html" with links=page.related_links_mdn %}
+          {% endif %}
+          {% if page.related_articles %}
+            <h4>Read more on this topic</h4>
+            <div class="article-sidebar-cards">
+              {% for resource in page.related_articles|slice:":3" %}
+                {% include "molecules/cards/card.html" with resource=resource %}
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if page.primary_topic %}
+            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+          {% endif %}
+        </aside>
+      </section>
+      <section id="newsletter" class="section-full section-background">
+        {% include "organisms/newsletter-signup.html" %}
+      </section>
+    </div>
   </main>
 {% endblock content %}

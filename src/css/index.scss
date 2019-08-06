@@ -53,11 +53,12 @@
 @import 'molecules/related-links-mdn';
 @import 'molecules/resource-meta';
 @import 'molecules/resource-share';
+@import 'molecules/resource-toolbar';
 
 // Organisms.
 @import 'organisms/article-header';
-@import 'organisms/event-speakers';
 @import 'organisms/event-agenda';
+@import 'organisms/event-speakers';
 @import 'organisms/filter-form';
 @import 'organisms/filter-list';
 @import 'organisms/homepage-about';
@@ -68,6 +69,7 @@
 @import 'organisms/person-header';
 @import 'organisms/person-overview';
 @import 'organisms/tabbed-panels';
+@import 'organisms/video-header';
 
 // Templates.
 @import 'templates/article';

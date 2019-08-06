@@ -23,9 +23,12 @@
         {% include "molecules/event-details.html" with resource=page %}
       </section>
       <section class="article-content">
+        <div class="article-body">
+          <div class="resource-toolbar">
+            {% include "molecules/resource-share.html" %}
+          </div>
+        </div>
         <article class="article-body">
-          {% include "molecules/resource-share.html" with resource=page %}
-
           {% for block in page.body %}
             {% if block.block_type == 'image' %}
               {% image block.value width-672 as rendition %}

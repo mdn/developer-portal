@@ -30,11 +30,7 @@
         {% endif %}
       </div>
       {% if show_author %}
-        {% for block in resource.authors %}
-          {% with block.value as author %}
-            {% include "molecules/article-details.html" with date=resource.date author=author enable_link=False %}
-          {% endwith %}
-        {% endfor %}
+        {% include "molecules/article-details.html" with date=resource.date authors=resource.authors disable_author_links=True %}
       {% endif %}
     </div>
   </div>
