@@ -20,7 +20,8 @@
             src="{{ i.url }}"
             width="{{ i.width }}"
             height="{{ i.height }}"
-            alt="{{ i.alt }}" />
+            alt="{{ i.alt }}"
+          >
           <p>{{ block.value.description }}</p>
           {% if block.value.page_link %}
             <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
@@ -46,7 +47,8 @@
               src="{{ i.url }}"
               width="{{ i.width }}"
               height="{{ i.height }}"
-              alt="{{ i.alt }}" />
+              alt="{{ i.alt }}"
+            >
             <p>{{ block.value.description }}</p>
             {% if block.value.page_link %}
               <a href="{% pageurl block.value.page_link %}" class="mzp-c-button mzp-t-small">
