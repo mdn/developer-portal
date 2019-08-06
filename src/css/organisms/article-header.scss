@@ -29,6 +29,7 @@
   display: flex;
   flex-direction: column-reverse;
   padding: 24px;
+  width: 100%;
 
   @media #{$mq-md} {
     flex-direction: row-reverse;
@@ -73,7 +74,11 @@
 }
 
 .article-header-subtitle {
-  font-size: 18px;
+  font-size: 16px;
+
+  @media #{$mq-md} {
+    font-size: 18px;
+  }
 
   p {
     margin-bottom: 0;
