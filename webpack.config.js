@@ -1,8 +1,9 @@
 const { resolve } = require('path');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = {
+const config = {
   entry: './src/js/index.js',
   target: 'web',
   output: {
@@ -44,3 +45,12 @@ module.exports = {
     }),
   ],
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins = [
+    ...config.plugins,
+    new OptimizeCssAssetsPlugin()
+  ];
+}
+
+module.exports = config;
