@@ -4,19 +4,19 @@
 
 ### Setup
 
-Since this project uses [Docker](https://www.docker.com/), you'll need to install [Docker](https://hub.docker.com/search?q=&type=edition&offering=community) and [Docker Compose](https://docs.docker.com/compose/install/) to run this project locally.
+This project uses [Docker](https://www.docker.com/). The easiest way to get started is to install [Docker Desktop](https://hub.docker.com/search?q=Docker%20Desktop&type=edition&offering=community) which provides the `docker` and `docker-compose` commands.
 
-To get set up in one-command, run:
+After installing Docker, use the __dev-setup__ script to run the project locally:
 
 ```shell
-./setup.sh
+./scripts/dev-setup
 ```
 
-This command will create an .env file with unique keys, build docker images and containers, run database migrations, load fixture data, and prompt to create a superuser.
+This command will create an .env file with unique keys, build docker images and containers, run database migrations, and load fixture data.
 
-### Running
+### Run locally
 
-With Docker Desktop running in the background, bring up the services built by the setup script by running:
+With Docker Desktop running in the background, bring up the services by running:
 
 ```shell
 docker-compose up
@@ -36,7 +36,7 @@ docker-compose exec app python manage.py makemigrations
 docker-compose exec app python manage.py migrate
 ```
 
-### Users
+### User authentication
 
 GitHub OAuth is supported for admin login. When running in production, the auth pipeline checks to see if the GitHub user is a member of the __mdn__ organization. Additional organizations can be added via the `GITHUB_ORGS` env variable.
 
@@ -46,7 +46,7 @@ When running in debug any GitHub user is allowed to log in and is automatically 
 docker-compose exec app python manage.py createsuperuser
 ```
 
-### Updating
+### Update
 
 After pulling master you may need to install new dependencies…:
 
@@ -66,13 +66,13 @@ If things get messed up, you could (as a last resort) prune ALL Docker images, c
 ./setup.sh --prune
 ```
 
-## Static site generation
+## Building a static site
 
-A static version of this site can be generated. This is automatically run in production when resources are published/unpublished from the Wagtail admin.
+Wagtail Bakery can build a static version of the site. In production this runs automatically when pages are published or unpublished from the Wagtail admin.
 
 ### Usage
 
-To manually build the static site, run:
+To manually build the static site, run:gs
 
 ```shell
 docker-compose exec app python manage.py build --settings=developerportal.settings.production
