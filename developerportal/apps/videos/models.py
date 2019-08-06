@@ -193,9 +193,9 @@ class Video(Page):
 
     @property
     def primary_topic(self):
-        """Return the first (primary) topic specified for the article."""
-        article_topic = self.topics.first()
-        return article_topic.topic if article_topic else None
+        """Return the first (primary) topic specified for the video."""
+        video_topic = self.topics.first()
+        return video_topic.topic if video_topic else None
 
     @property
     def read_time(self):
@@ -203,7 +203,7 @@ class Video(Page):
 
     @property
     def related_articles(self):
-        """Returns articles that are related to the current article, i.e. live, public articles which have the same
-        topic, but are not the current article."""
+        """Returns articles that are related to the current resource, i.e. live, public articles which have the same
+        topics."""
         topic_pks = self.topics.values_list('topic')
         return get_combined_articles(self, topics__topic__pk__in=topic_pks)
