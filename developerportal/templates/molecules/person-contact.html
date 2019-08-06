@@ -1,9 +1,9 @@
 {% load static wagtailimages_tags %}
 
 {% if resource.twitter or resource.github or resource.facebook or resource.linkedin or resource.email or resource.websites %}
-  <div class="share">
-    <div class="share-buttons person-share-buttons">
-      <span class="share-buttons-label">Follow:</span>
+  <div class="resource-share">
+    <div class="resource-share-buttons person-share-buttons">
+      <span class="resource-share-buttons-label">Follow:</span>
       {% if resource.twitter %}
         <a href="http://twitter.com/{{ resource.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="View this person's Twitter page">
           <span class="icon">

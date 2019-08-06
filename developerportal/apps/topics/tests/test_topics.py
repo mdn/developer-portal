@@ -6,9 +6,7 @@ from ...home.models import HomePage
 
 class TopicsFixturesMixin():
     fixtures = [
-        'topics.json',
-        'articles.json',
-        'people.json',
+        'common.json',
     ]
 
 
@@ -32,7 +30,7 @@ class TopicTests(TopicsFixturesMixin, WagtailPageTests):
         """A topic page should have article pages."""
         topic_page = Topic.objects.all()[0]
         topic_page_article = topic_page.articles[0].article
-        self.assertEqual('Developer Roadshow 2019 returns with VR, IoT and all things web', topic_page_article.title)
+        self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', topic_page_article.title)
 
 
 class TopicsTests(TopicsFixturesMixin, WagtailPageTests):
