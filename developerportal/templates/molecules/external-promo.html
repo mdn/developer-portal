@@ -1,6 +1,6 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% image resource.image width-200 as image %}
+{% image resource.image width-400 as image %}
 
 <a href="{{ resource.url }}" class="card-link" target="_blank" rel="noopener noreferrer">
   <div class="card external-promo">
@@ -14,4 +14,3 @@
     {% include "atoms/icons/external.svg" %}
   </div>
 </a>
-
