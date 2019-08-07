@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <!--
                 _.-~-.
               7''  Q..\
@@ -41,13 +41,13 @@
     </title>
     {% with home=request.site.root_page.specific %}
       {% if home.subtitle %}
-        <meta name="description" content="{{ home.subtitle }}" />
+        <meta name="description" content="{{ home.subtitle }}">
       {% endif %}
     {% endwith %}
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
     <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}">
-    <link rel="alternate" type="application/rss+xml" href="/article-feed/" />
+    <link rel="alternate" type="application/rss+xml" href="/article-feed/">
     {% if page %}
       {% include "atoms/social-meta.html" %}
     {% endif %}
