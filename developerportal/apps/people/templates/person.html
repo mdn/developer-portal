@@ -25,7 +25,7 @@
           <h2>Latest articles</h2>
           <a href="/articles">See more</a>
         </div>
-        {% include "organisms/person-latest-cards.html" with cards=page.articles show_author=True%}
+        {% include "organisms/latest-cards.html" with cards=page.articles show_author=True%}
       </section>
       {% endif %}
       {% if page.videos %}
@@ -33,7 +33,7 @@
         <div class="section-header">
           <h2>Latest videos</h2>
         </div>
-        {% include "organisms/person-latest-cards.html" with cards=page.videos %}
+        {% include "organisms/latest-cards.html" with cards=page.videos %}
       </section>
       {% endif %}
       {% if page.events.all %}

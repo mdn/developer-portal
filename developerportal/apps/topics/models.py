@@ -24,7 +24,7 @@ from taggit.models import TaggedItemBase
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
 from ..common.constants import COLOR_CHOICES, COLOR_VALUES
-from ..common.utils import get_combined_articles, get_combined_events
+from ..common.utils import get_combined_articles, get_combined_events, get_combined_videos
 
 
 class TopicsTag(TaggedItemBase):
@@ -169,6 +169,11 @@ class Topic(Page):
         """Return upcoming events for this topic,
         ignoring events in the past, ordered by start date"""
         return get_combined_events(self, topics__topic__pk=self.pk, start_date__gte=datetime.datetime.now())
+
+    @property
+    def videos(self):
+        """Return the latest videos and external videos for this topic. """
+        return get_combined_videos(self, topics__topic__pk=self.pk)
 
     @property
     def color_value(self):
