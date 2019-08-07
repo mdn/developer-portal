@@ -26,7 +26,7 @@ from taggit.models import TaggedItemBase
 
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.fields import CustomStreamField
-from ..common.utils import get_combined_articles
+from ..common.utils import get_combined_articles, get_combined_articles_and_videos
 
 
 class ArticlesTag(TaggedItemBase):
@@ -216,11 +216,11 @@ class Article(Page):
         return str(readtime.of_html(str(self.body)))
 
     @property
-    def related_articles(self):
-        """Returns articles that are related to the current article, i.e. live, public articles which have the same
-        topic, but are not the current article."""
+    def related_resources(self):
+        """Returns resources that are related to the current resource, i.e. live, public articles and videos which
+        have the same topics."""
         topic_pks = self.topics.values_list('topic')
-        return get_combined_articles(self, topics__topic__pk__in=topic_pks)
+        return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 
     @property
     def month_group(self):

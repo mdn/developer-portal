@@ -42,12 +42,6 @@ class ArticleTests(ArticlesFixturesMixin, WagtailPageTests):
         article_page = Article.objects.all()[0]
         self.assertEqual('1 min read', article_page.primary_topic.read_time)
 
-    def test_article_page_related_articles(self):
-        """An article page should have related article pages."""
-        article_page = Article.objects.all()[0]
-        related_article_pages = article_page.related_articles
-        self.assertEqual(21, len(related_article_pages))
-
 
 class ArticlesTests(ArticlesFixturesMixin, WagtailPageTests):
     """Tests for the Articles page model."""
