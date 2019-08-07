@@ -25,7 +25,7 @@
     {% if featured %}
     <div class="card-image card-event-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
     {% endif %}
-    <div class="card-event-content {% if featured %}card-event-featured{% endif %}">
+    <div class="card-content card-event-content {% if featured %}card-event-featured{% endif %}">
       <div class="card-event-title">
         <h4 class="no-underline">
           {% firstof resource.card_title resource.title %}{% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}

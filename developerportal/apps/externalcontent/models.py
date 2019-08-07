@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 import datetime
 
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, URLField
@@ -165,7 +166,25 @@ class ExternalEvent(ExternalContent):
 
     @property
     def month_group(self):
-        return self.date.replace(day=1)
+        return self.start_date.replace(day=1)
+
+    @property
+    def event_dates(self):
+        """Return a formatted string of the event start and end dates"""
+        event_dates = self.start_date.strftime("%b %-d")
+        if self.end_date:
+            event_dates += " &ndash; "
+            start_month = self.start_date.strftime("%m")
+            if self.end_date.strftime("%m") == start_month:
+                event_dates += self.end_date.strftime("%-d")
+            else:
+                event_dates += self.end_date.strftime("%b %-d")
+        return event_dates
+
+    @property
+    def event_dates_full(self):
+        """Return a formatted string of the event start and end dates, including the year"""
+        return self.event_dates + self.start_date.strftime(", %Y")
 
 
 class ExternalVideoTopic(Orderable):
