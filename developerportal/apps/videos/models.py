@@ -25,7 +25,7 @@ from taggit.models import TaggedItemBase
 
 from ..common.blocks import ExternalLinkBlock
 from ..common.constants import VIDEO_TYPE
-from ..common.utils import get_combined_articles
+from ..common.utils import get_combined_articles_and_videos
 
 
 class VideosTag(TaggedItemBase):
@@ -204,11 +204,11 @@ class Video(Page):
         return str(readtime.of_html(str(self.body)))
 
     @property
-    def related_articles(self):
-        """Returns articles that are related to the current resource, i.e. live, public articles which have the same
-        topics."""
+    def related_resources(self):
+        """Returns resources that are related to the current resource, i.e. live, public articles and videos which
+        have the same topics."""
         topic_pks = self.topics.values_list('topic')
-        return get_combined_articles(self, topics__topic__pk__in=topic_pks)
+        return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 
     def has_speaker(self, person):
         for speaker in self.speakers:
