@@ -49,7 +49,7 @@ const config = {
 if (process.env.NODE_ENV === 'production') {
   config.plugins = [
     ...config.plugins,
-    new OptimizeCssAssetsPlugin()
+    new OptimizeCssAssetsPlugin(),
   ];
 }
 
