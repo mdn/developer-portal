@@ -25,21 +25,15 @@
           <h2>Latest articles</h2>
           <a href="/articles">See more</a>
         </div>
-        {% if page.articles|length == 1 %}
-          {# a single article is rendered full width #}
-          <div>
-            {% with page.articles.0 as article %}
-              {% include "molecules/cards/card.html" with resource=article show_author=True full_width=True %}
-            {% endwith %}
-          </div>
-        {% else %}
-          {# 2 or 3 are rendered side-by-side #}
-          <div class="card-container {% if page.articles|length == 2 %}card-container-2-wide{% endif %}">
-            {% for article in page.articles|slice:":3" %}
-              {% include "molecules/cards/card.html" with resource=article show_author=True %}
-            {% endfor %}
-          </div>
-        {% endif %}
+        {% include "organisms/latest-cards.html" with cards=page.articles show_author=True%}
+      </section>
+      {% endif %}
+      {% if page.videos %}
+      <section>
+        <div class="section-header">
+          <h2>Latest videos</h2>
+        </div>
+        {% include "organisms/latest-cards.html" with cards=page.videos %}
       </section>
       {% endif %}
       {% if page.events.all %}

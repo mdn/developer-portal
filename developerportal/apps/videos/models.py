@@ -92,7 +92,7 @@ class Video(Page):
     template = 'video.html'
 
     # Content fields
-    description = CharField(default='', blank=True, max_length=250)
+    description = TextField(default='', blank=True, max_length=250)
     body = RichTextField(default='', blank=True)
     related_links_mdn = StreamField(
         StreamBlock([
@@ -110,7 +110,9 @@ class Video(Page):
         related_name='+'
     )
     types = CharField(max_length=14, choices=VIDEO_TYPE, default='conference')
-    duration = CharField(max_length=30, blank=True, null=True)
+    duration = CharField(max_length=30, blank=True, null=True, help_text=(
+        'Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.'
+    ))
     transcript = RichTextField(default='', blank=True)
     video_url = StreamField(
         StreamBlock([
@@ -207,3 +209,9 @@ class Video(Page):
         topics."""
         topic_pks = self.topics.values_list('topic')
         return get_combined_articles(self, topics__topic__pk__in=topic_pks)
+
+    def has_speaker(self, person):
+        for speaker in self.speakers:
+            if str(speaker.value)==str(person.title):
+                return True
+        return False

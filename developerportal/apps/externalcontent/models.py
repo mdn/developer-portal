@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 import datetime
 
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, URLField
@@ -165,7 +166,25 @@ class ExternalEvent(ExternalContent):
 
     @property
     def month_group(self):
-        return self.date.replace(day=1)
+        return self.start_date.replace(day=1)
+
+    @property
+    def event_dates(self):
+        """Return a formatted string of the event start and end dates"""
+        event_dates = self.start_date.strftime("%b %-d")
+        if self.end_date:
+            event_dates += " &ndash; "
+            start_month = self.start_date.strftime("%m")
+            if self.end_date.strftime("%m") == start_month:
+                event_dates += self.end_date.strftime("%-d")
+            else:
+                event_dates += self.end_date.strftime("%b %-d")
+        return event_dates
+
+    @property
+    def event_dates_full(self):
+        """Return a formatted string of the event start and end dates, including the year"""
+        return self.event_dates + self.start_date.strftime(", %Y")
 
 
 class ExternalVideoTopic(Orderable):
@@ -187,19 +206,26 @@ class ExternalVideoPerson(Orderable):
 
 
 class ExternalVideo(ExternalContent):
+    resource_type = 'video'
+    is_external = True
+
+    # Meta fields
     date = DateField('Video date', default=datetime.date.today)
-    video_duration = CharField(max_length=30, blank=True, null=True, help_text=(
-        'Optional, duration for this video in MM:SS format e.g. “12:34”. This '
-        'is shown as a small hint when the video is displayed as a card.'
+    speakers = StreamField(
+        StreamBlock([
+            ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
+        ], required=False),
+        blank=True, null=True,
+    )
+    duration = CharField(max_length=30, blank=True, null=True, help_text=(
+        'Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.'
     ))
 
     meta_panels = [
         FieldPanel('date'),
+        StreamFieldPanel('speakers'),
         InlinePanel('topics', heading='Topics'),
-        InlinePanel('people', heading='People', help_text=(
-            'Optional, people associated with this video.'
-        )),
-        FieldPanel('video_duration'),
+        FieldPanel('duration'),
     ]
 
     edit_handler = TabbedInterface([
@@ -211,3 +237,9 @@ class ExternalVideo(ExternalContent):
     @property
     def video(self):
         return self
+
+    def has_speaker(self, person):
+        for speaker in self.speakers:
+            if str(speaker.value)==str(person.title):
+                return True
+        return False
