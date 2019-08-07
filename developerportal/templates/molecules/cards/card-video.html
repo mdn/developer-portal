@@ -4,7 +4,7 @@
 {% image resource.card_image width-636 as card_image %}
 
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
-  <div class="card">
+  <div class="card {% if full_width %}card-full{% endif %}">
     <div class="card-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
     <div class="card-content">
       <div class="card-content-main">
@@ -12,6 +12,9 @@
         <h4 class="no-underline">
           {% firstof resource.card_title resource.title %}{% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
         </h4>
+        {% if full_width %}
+          <p>{{ resource.description }}</p>
+        {% endif %}
       </div>
     </div>
   </div>

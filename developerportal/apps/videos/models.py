@@ -92,7 +92,7 @@ class Video(Page):
     template = 'video.html'
 
     # Content fields
-    description = CharField(default='', blank=True, max_length=250)
+    description = TextField(default='', blank=True, max_length=250)
     body = RichTextField(default='', blank=True)
     related_links_mdn = StreamField(
         StreamBlock([
