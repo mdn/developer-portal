@@ -23,7 +23,9 @@
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
-          <a href="/articles">See more</a>
+          {% if directory_pages.articles %}
+            <a href="{% pageurl directory_pages.articles %}">See more</a>
+          {% endif %}
         </div>
         {% include "organisms/latest-cards.html" with cards=page.articles show_author=True%}
       </section>

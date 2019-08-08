@@ -37,7 +37,9 @@
       <section>
         <div class="section-header">
           <h2>Latest articles</h2>
-          <a href="/articles?topics={{ page.slug }}">See more</a>
+          {% if directory_pages.articles %}
+            <a href="{% pageurl directory_pages.articles %}?topics={{ page.slug }}">See more</a>
+          {% endif %}
         </div>
         {% with card_count_string=page.latest_articles_count|stringformat:"s" %}
           {% with card_count=":"|add:card_count_string %}
@@ -50,7 +52,9 @@
     <section>
       <div class="section-header">
         <h2>People</h2>
-        <a href="/people?topics={{ page.slug }}">See more</a>
+        {% if directory_pages.people %}
+          <a href="{% pageurl directory_pages.people %}?topics={{ page.slug }}">See more</a>
+        {% endif %}
       </div>
       {% if page.people.count == 1 %}
         {# a single person is rendered full width #}
