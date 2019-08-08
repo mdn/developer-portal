@@ -106,6 +106,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'developerportal.context_processors.directory_pages',
                 'developerportal.context_processors.google_analytics',
                 'developerportal.context_processors.mapbox_access_token',
             ],

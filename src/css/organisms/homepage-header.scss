@@ -1,8 +1,7 @@
 .homepage-header {
-  background: url('/static/img/homepage-header-pattern.svg'), url('/static/img/homepage-header-pattern.svg') $color-gray-20;
-  background-position:  calc(50% + 250px), // Offset half image width
-                        calc(50% + 564px); // Offset image width + spacing
-  background-repeat: no-repeat, no-repeat;
+  background: url('/static/img/homepage-header-pattern.svg') $color-gray-20;
+  background-position: calc(50% + 400px);
+  background-repeat: no-repeat;
   margin-top: -1px; // Overlap the navigation border.
 }
 

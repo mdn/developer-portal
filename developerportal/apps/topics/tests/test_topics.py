@@ -4,14 +4,10 @@ from ..models import Topic, Topics
 from ...home.models import HomePage
 
 
-class TopicsFixturesMixin():
-    fixtures = [
-        'common.json',
-    ]
-
-
-class TopicTests(TopicsFixturesMixin, WagtailPageTests):
+class TopicTests(WagtailPageTests):
     """Tests for the Topic page model."""
+
+    fixtures = ['common.json']
 
     def test_topic_page(self):
         """Get the ‘CSS’ topic."""
@@ -33,8 +29,10 @@ class TopicTests(TopicsFixturesMixin, WagtailPageTests):
         self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', topic_page_article.title)
 
 
-class TopicsTests(TopicsFixturesMixin, WagtailPageTests):
+class TopicsTests(WagtailPageTests):
     """Tests for the Topics page model."""
+
+    fixtures = ['common.json']
 
     def test_topics__page_parent_pages(self):
         """The Topics page can exist under another page."""

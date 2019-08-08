@@ -37,10 +37,10 @@
           {% if page.related_links_mdn %}
             {% include "molecules/related-links-mdn.html" with links=page.related_links_mdn %}
           {% endif %}
-          {% if page.related_articles %}
+          {% if page.related_resources %}
             <h4>Read more on this topic</h4>
             <div class="article-sidebar-cards">
-              {% for resource in page.related_articles|slice:":3" %}
+              {% for resource in page.related_resources|slice:":3" %}
                 {% include "molecules/cards/card.html" with resource=resource %}
               {% endfor %}
             </div>
