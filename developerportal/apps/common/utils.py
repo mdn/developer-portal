@@ -27,7 +27,7 @@ def get_resources(page, models, filters=None, order_by=None, reverse=False):
     """
     callback = lambda model: model.objects.filter(**filters).public().live().not_page(page).specific()
     result = _combined_query(models, callback)
-    return sorted(result, key=attrgetter(order_by), reverse=reverse)
+    return sorted(set(result), key=attrgetter(order_by), reverse=reverse)
 
 
 def get_combined_articles(page, **filters):
