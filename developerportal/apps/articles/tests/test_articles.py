@@ -4,14 +4,10 @@ from ..models import Article, Articles
 from ...home.models import HomePage
 
 
-class ArticlesFixturesMixin():
-    fixtures = [
-        'common.json',
-    ]
-
-
-class ArticleTests(ArticlesFixturesMixin, WagtailPageTests):
+class ArticleTests(WagtailPageTests):
     """Tests for the Article page model."""
+
+    fixtures = ['common.json']
 
     def test_article_page(self):
         """Get the first article."""
@@ -43,8 +39,10 @@ class ArticleTests(ArticlesFixturesMixin, WagtailPageTests):
         self.assertEqual('1 min read', article_page.primary_topic.read_time)
 
 
-class ArticlesTests(ArticlesFixturesMixin, WagtailPageTests):
+class ArticlesTests(WagtailPageTests):
     """Tests for the Articles page model."""
+
+    fixtures = ['common.json']
 
     def test_articles_page(self):
         """Get the default ‘Articles’ page."""
