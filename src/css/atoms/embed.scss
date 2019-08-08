@@ -5,6 +5,10 @@
 
 .responsive-object {
   position: relative;
+
+  .article-body & {
+    margin-bottom: 24px;
+  }
 }
 
 .responsive-object iframe,
