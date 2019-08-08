@@ -4,7 +4,9 @@
   <div class="section-full-container">
     <div class="section-header">
       <h2>Upcoming events</h2>
-      <a href="/events?topics={{ topic }}">See more</a>
+      {% if directory_pages.events %}
+        <a href="{% pageurl directory_pages.events %}?topics={{ topic }}">See more</a>
+      {% endif %}
     </div>
     <div>
     {% for event in events|slice:":3" %}
