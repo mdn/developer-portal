@@ -12,43 +12,41 @@
 
 {% block content %}
   <main class="has-header">
-    <div class="base-grid">
-      <section class="section-full">
-        {% include "organisms/pattern-bg-header.html" with title=page.title description=page.job_title type=page.resource_type role=page.role %}
+    <section class="section section-full section-background">
+      {% include "organisms/pattern-bg-header.html" with title=page.title description=page.job_title type=page.resource_type role=page.role %}
+    </section>
+    <section class="section">
+      {% include "organisms/person-overview.html" with resource=page %}
+    </section>
+    {% if page.articles %}
+    <section class="section">
+      <div class="section-header">
+        <h2>Latest articles</h2>
+        {% if directory_pages.articles %}
+          <a href="{% pageurl directory_pages.articles %}">See more</a>
+        {% endif %}
+      </div>
+      {% include "organisms/latest-cards.html" with cards=page.articles show_author=True%}
+    </section>
+    {% endif %}
+    {% if page.videos %}
+    <section class="section">
+      <div class="section-header">
+        <h2>Latest videos</h2>
+      </div>
+      {% include "organisms/latest-cards.html" with cards=page.videos %}
+    </section>
+    {% endif %}
+    {% if page.events.all %}
+      {% include "organisms/upcoming-events.html" with events=page.events.all %}
+    {% endif %}
+    {% if page.topics.all %}
+      <section class="section section-full">
+        {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}
       </section>
-      <section>
-        {% include "organisms/person-overview.html" with resource=page %}
-      </section>
-      {% if page.articles %}
-      <section>
-        <div class="section-header">
-          <h2>Latest articles</h2>
-          {% if directory_pages.articles %}
-            <a href="{% pageurl directory_pages.articles %}">See more</a>
-          {% endif %}
-        </div>
-        {% include "organisms/latest-cards.html" with cards=page.articles show_author=True%}
-      </section>
-      {% endif %}
-      {% if page.videos %}
-      <section>
-        <div class="section-header">
-          <h2>Latest videos</h2>
-        </div>
-        {% include "organisms/latest-cards.html" with cards=page.videos %}
-      </section>
-      {% endif %}
-      {% if page.events.all %}
-        {% include "organisms/upcoming-events.html" with events=page.events.all %}
-      {% endif %}
-      {% if page.topics.all %}
-        <section class="section-full">
-          {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}
-        </section>
-      {% endif %}
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+    {% endif %}
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

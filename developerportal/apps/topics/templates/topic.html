@@ -12,82 +12,80 @@
 
 {% block content %}
 <main class="has-header">
-  <div class="base-grid">
-    <section class="section-full">
-      {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
+  <section class="section section-full section-background">
+    {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
+  </section>
+  {% if page.featured %}
+    <section class="section">
+      {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
     </section>
-    {% if page.featured %}
-      <section>
-        {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
+  {% endif %}
+  {% if page.tabbed_panels %}
+    <section class="section section-full section-background section-full-bg">
+      {% include "organisms/tabbed-panels.html" with title=page.tabbed_panels_title resources=page.tabbed_panels %}
+    </section>
+  {% endif %}
+  {% with subtopics=self.subtopics %}
+    {% if subtopics %}
+      <section class="section section-full">
+        {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
       </section>
     {% endif %}
-    {% if page.tabbed_panels %}
-      <section class="section-full section-background section-full-bg">
-        {% include "organisms/tabbed-panels.html" with title=page.tabbed_panels_title resources=page.tabbed_panels %}
-      </section>
-    {% endif %}
-    {% with subtopics=self.subtopics %}
-      {% if subtopics %}
-        <section class="section-full">
-          {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
-        </section>
-      {% endif %}
-    {% endwith %}
-    {% if page.articles %}
-      <section>
-        <div class="section-header">
-          <h2>Latest articles</h2>
-          {% if directory_pages.articles %}
-            <a href="{% pageurl directory_pages.articles %}?topics={{ page.slug }}">See more</a>
-          {% endif %}
-        </div>
-        {% with card_count_string=page.latest_articles_count|stringformat:"s" %}
-          {% with card_count=":"|add:card_count_string %}
-            {% include "organisms/latest-cards.html" with cards=page.articles card_count=card_count%}
-          {% endwith %}
-        {% endwith %}
-      </section>
-    {% endif %}
-    {% if page.people.all %}
-    <section>
+  {% endwith %}
+  {% if page.articles %}
+    <section class="section">
       <div class="section-header">
-        <h2>People</h2>
-        {% if directory_pages.people %}
-          <a href="{% pageurl directory_pages.people %}?topics={{ page.slug }}">See more</a>
+        <h2>Latest articles</h2>
+        {% if directory_pages.articles %}
+          <a href="{% pageurl directory_pages.articles %}?topics={{ page.slug }}">See more</a>
         {% endif %}
       </div>
-      {% if page.people.count == 1 %}
-        {# a single person is rendered full width #}
-        <div>
-          {% with page.people.all.0 as person %}
-            {% include "molecules/item-person.html" with person=person.person type="person" full_width=True%}
-          {% endwith %}
-        </div>
-      {% else %}
-        {# 2 or 3 are rendered side-by-side #}
-        <div class="card-container {% if page.people.count == 2 %}card-container-2-wide{% endif %}">
-          {% for person in page.people.all|slice:":3" %}
-            {% include "molecules/item-person.html" with person=person.person type="person" full_width=False%}
-          {% endfor %}
-        </div>
-        </div>
+      {% with card_count_string=page.latest_articles_count|stringformat:"s" %}
+        {% with card_count=":"|add:card_count_string %}
+          {% include "organisms/latest-cards.html" with cards=page.articles card_count=card_count%}
+        {% endwith %}
+      {% endwith %}
+    </section>
+  {% endif %}
+  {% if page.people.all %}
+  <section class="section">
+    <div class="section-header">
+      <h2>People</h2>
+      {% if directory_pages.people %}
+        <a href="{% pageurl directory_pages.people %}?topics={{ page.slug }}">See more</a>
       {% endif %}
-    </section>
-    {% endif %}
-    {% if page.videos %}
-    <section>
-      <div class="section-header">
-        <h2>Latest videos</h2>
+    </div>
+    {% if page.people.count == 1 %}
+      {# a single person is rendered full width #}
+      <div>
+        {% with page.people.all.0 as person %}
+          {% include "molecules/item-person.html" with person=person.person type="person" full_width=True%}
+        {% endwith %}
       </div>
-      {% include "organisms/latest-cards.html" with cards=page.videos %}
-    </section>
+    {% else %}
+      {# 2 or 3 are rendered side-by-side #}
+      <div class="card-container {% if page.people.count == 2 %}card-container-2-wide{% endif %}">
+        {% for person in page.people.all|slice:":3" %}
+          {% include "molecules/item-person.html" with person=person.person type="person" full_width=False%}
+        {% endfor %}
+      </div>
+      </div>
     {% endif %}
-    {% if page.events.all %}
-      {% include "organisms/upcoming-events.html" with events=page.events.all topic=page.slug %}
-    {% endif %}
-    <section id="newsletter" class="section-full section-background">
-      {% include "organisms/newsletter-signup.html" %}
-    </section>
-  </div>
+  </section>
+  {% endif %}
+  {% if page.videos %}
+  <section class="section">
+    <div class="section-header">
+      <h2>Latest videos</h2>
+    </div>
+    {% include "organisms/latest-cards.html" with cards=page.videos %}
+  </section>
+  {% endif %}
+  {% if page.events.all %}
+    {% include "organisms/upcoming-events.html" with events=page.events.all topic=page.slug %}
+  {% endif %}
+  <section id="newsletter" class="section section-full section-background">
+    {% include "organisms/newsletter-signup.html" %}
+  </section>
 </main>
 {% endblock content %}

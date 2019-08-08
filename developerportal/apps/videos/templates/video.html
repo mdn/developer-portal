@@ -13,49 +13,47 @@
 
 {% block content %}
   <main>
-    <div class="base-grid">
-      <section>
-        {% include "organisms/video-header.html" with title=page.title description=page.description %}
-      </section>
-      <section>
-        {{ page.video_url }}
-      </section>
-      <section class="article-content">
-        <div class="article-body">
-          <div class="resource-toolbar">
-            {% include "molecules/article-details.html" with date=page.date authors=page.speakers %}
-            {% include "molecules/resource-share.html" %}
-          </div>
+    <section class="section">
+      {% include "organisms/video-header.html" with title=page.title description=page.description %}
+    </section>
+    <section class="section">
+      {{ page.video_url }}
+    </section>
+    <section class="section article-content">
+      <div class="article-body">
+        <div class="resource-toolbar">
+          {% include "molecules/article-details.html" with date=page.date authors=page.speakers %}
+          {% include "molecules/resource-share.html" %}
         </div>
-        <article class="article-body">
-          {% if page.body %}
-            {{ page.body|richtext }}
-          {% endif %}
-          {% if page.transcript %}
-            <h2>Transcript</h2>
-            {{ page.transcript|richtext }}
-          {% endif %}
-        </article>
-        <aside class="article-sidebar">
-          {% if page.related_links_mdn %}
-            {% include "molecules/related-links-mdn.html" with links=page.related_links_mdn %}
-          {% endif %}
-          {% if page.related_resources %}
-            <h4>Read more on this topic</h4>
-            <div class="article-sidebar-cards">
-              {% for resource in page.related_resources|slice:":3" %}
-                {% include "molecules/cards/card.html" with resource=resource %}
-              {% endfor %}
-            </div>
-          {% endif %}
-          {% if page.primary_topic %}
-            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
-          {% endif %}
-        </aside>
-      </section>
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+      </div>
+      <article class="article-body">
+        {% if page.body %}
+          {{ page.body|richtext }}
+        {% endif %}
+        {% if page.transcript %}
+          <h2>Transcript</h2>
+          {{ page.transcript|richtext }}
+        {% endif %}
+      </article>
+      <aside class="article-sidebar">
+        {% if page.related_links_mdn %}
+          {% include "molecules/related-links-mdn.html" with links=page.related_links_mdn %}
+        {% endif %}
+        {% if page.related_resources %}
+          <h4>Read more on this topic</h4>
+          <div class="article-sidebar-cards">
+            {% for resource in page.related_resources|slice:":3" %}
+              {% include "molecules/cards/card.html" with resource=resource %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if page.primary_topic %}
+          {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+        {% endif %}
+      </aside>
+    </section>
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

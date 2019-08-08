@@ -14,45 +14,43 @@
 
 {% block content %}
   <main class="has-header">
-    <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors %}
-      <section class="article-content">
-        <div class="article-body">
-          <div class="resource-toolbar">
-            {% include "molecules/resource-meta.html" with resource=page read_time=read_time %}
-            {% include "molecules/resource-share.html" %}
-          </div>
+    {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors %}
+    <section class="section article-content">
+      <div class="article-body">
+        <div class="resource-toolbar">
+          {% include "molecules/resource-meta.html" with resource=page read_time=read_time %}
+          {% include "molecules/resource-share.html" %}
         </div>
-        <article class="article-body">
-          {% for block in page.body %}
-            {% if block.block_type == 'image' %}
-              {% image block.value width-672 as rendition %}
-              {% include "atoms/image.html" with image=block.value rendition=rendition %}
-            {% else %}
-              {{ block }}
-            {% endif %}
-          {% endfor %}
-        </article>
-        <aside class="article-sidebar">
-          {% if page.related_links_mdn %}
-            {% include "molecules/related-links-mdn.html" with links=page.related_links_mdn %}
+      </div>
+      <article class="article-body">
+        {% for block in page.body %}
+          {% if block.block_type == 'image' %}
+            {% image block.value width-672 as rendition %}
+            {% include "atoms/image.html" with image=block.value rendition=rendition %}
+          {% else %}
+            {{ block }}
           {% endif %}
-          {% if page.related_resources %}
-            <h4>Read more on this topic</h4>
-            <div class="article-sidebar-cards">
-              {% for resource in page.related_resources|slice:":3" %}
-                {% include "molecules/cards/card.html" with resource=resource %}
-              {% endfor %}
-            </div>
-          {% endif %}
-          {% if page.primary_topic %}
-            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
-          {% endif %}
-        </aside>
-      </section>
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+        {% endfor %}
+      </article>
+      <aside class="article-sidebar">
+        {% if page.related_links_mdn %}
+          {% include "molecules/related-links-mdn.html" with links=page.related_links_mdn %}
+        {% endif %}
+        {% if page.related_resources %}
+          <h4>Read more on this topic</h4>
+          <div class="article-sidebar-cards">
+            {% for resource in page.related_resources|slice:":3" %}
+              {% include "molecules/cards/card.html" with resource=resource %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if page.primary_topic %}
+          {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+        {% endif %}
+      </aside>
+    </section>
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

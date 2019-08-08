@@ -9,23 +9,21 @@
 
 {% block content %}
   <main>
-    <div class="base-grid">
-      {% if page.events %}
-        <section>
-          <h2>Events</h2>
-          {% for featured_item in page.featured %}
-            {% with featured_item.value.specific as event %}
-              {% include "molecules/cards/card.html" with resource=event featured=True %}
-            {% endwith %}
-          {% endfor %}
-        </section>
-        <section class="section-full">
-          {% include "organisms/filter-list.html" with type="event" resources=page.events initial_resources=6 resources_per_page=4 %}
-        </section>
-      {% endif %}
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
+    {% if page.events %}
+      <section class="section">
+        <h2>Events</h2>
+        {% for featured_item in page.featured %}
+          {% with featured_item.value.specific as event %}
+            {% include "molecules/cards/card.html" with resource=event featured=True %}
+          {% endwith %}
+        {% endfor %}
       </section>
-    </div>
+      <section class="section section-full">
+        {% include "organisms/filter-list.html" with type="event" resources=page.events initial_resources=6 resources_per_page=4 %}
+      </section>
+    {% endif %}
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

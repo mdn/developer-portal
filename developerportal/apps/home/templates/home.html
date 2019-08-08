@@ -7,39 +7,37 @@
 
 {% block content %}
   <main class="has-header">
-    <div class="base-grid">
-      <section class="section-full section-background">
-        {% include "organisms/homepage-header.html" %}
+    <section class="section section-full section-background">
+      {% include "organisms/homepage-header.html" %}
+    </section>
+    {% if page.external_promos %}
+    <section class="section">
+      <div class="card-container card-container-2-wide">
+        {% for external_promo in page.external_promos %}
+          {% with external_promo.value as promo %}
+            {% include "molecules/external-promo.html" with resource=promo %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+    {% if page.featured %}
+      <section id="featured" class="section">
+        {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
       </section>
-      {% if page.external_promos %}
-      <section>
-        <div class="card-container card-container-2-wide">
-          {% for external_promo in page.external_promos %}
-            {% with external_promo.value as promo %}
-              {% include "molecules/external-promo.html" with resource=promo %}
-            {% endwith %}
-          {% endfor %}
-        </div>
+    {% endif %}
+    {% if page.primary_topics.all %}
+      <section id="topics" class="section section-full">
+        {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
-      {% endif %}
-      {% if page.featured %}
-        <section id="featured">
-          {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
-        </section>
-      {% endif %}
-      {% if page.primary_topics.all %}
-        <section id="topics" class="section-full">
-          {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
-        </section>
-      {% endif %}
-      {% if page.about_title %}
-        <section id="about" class="section-full section-background section-full-bg">
-          {% include "organisms/homepage-about.html" with title=page.about_title subtitle=page.about_subtitle button_url=page.about_button_url button_text=page.about_button_text %}
-        </section>
-      {% endif %}
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
+    {% endif %}
+    {% if page.about_title %}
+      <section id="about" class="section section-full section-background section-full-bg">
+        {% include "organisms/homepage-about.html" with title=page.about_title subtitle=page.about_subtitle button_url=page.about_button_url button_text=page.about_button_text %}
       </section>
-    </div>
+    {% endif %}
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

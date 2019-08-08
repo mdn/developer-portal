@@ -7,21 +7,19 @@
 
 {% block content %}
   <main>
-    <div class="base-grid">
-      <section>
-        <h1>{{ page.title }}</h1>
-        {% for block in page.body %}
-          {% if block.block_type == 'image' %}
-            {% image block.value width-672 as rendition %}
-            {% include "atoms/image.html" with image=block.value rendition=rendition %}
-          {% else %}
-            {{ block }}
-          {% endif %}
-        {% endfor %}
-      </section>
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+    <section class="section">
+      <h1>{{ page.title }}</h1>
+      {% for block in page.body %}
+        {% if block.block_type == 'image' %}
+          {% image block.value width-672 as rendition %}
+          {% include "atoms/image.html" with image=block.value rendition=rendition %}
+        {% else %}
+          {{ block }}
+        {% endif %}
+      {% endfor %}
+    </section>
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

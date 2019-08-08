@@ -17,48 +17,46 @@
 
 {% block content %}
   <main class="has-header">
-    <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
-      <section>
-        {% include "molecules/event-details.html" with resource=page %}
-      </section>
-      <section class="article-content">
-        <div class="article-body">
-          <div class="resource-toolbar">
-            {% include "molecules/resource-share.html" %}
-          </div>
+    {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
+    <section class="section">
+      {% include "molecules/event-details.html" with resource=page %}
+    </section>
+    <section class="section article-content">
+      <div class="article-body">
+        <div class="resource-toolbar">
+          {% include "molecules/resource-share.html" %}
         </div>
-        <article class="article-body">
-          {% for block in page.body %}
-            {% if block.block_type == 'image' %}
-              {% image block.value width-672 as rendition %}
-              {% include "atoms/image.html" with image=block.value rendition=rendition %}
-            {% else %}
-              {{ block }}
-            {% endif %}
-          {% endfor %}
-          {% if page.register_url %}
-            <a href="{{ page.register_url }}" class="mzp-c-button">
-              Register now
-            </a>
+      </div>
+      <article class="article-body">
+        {% for block in page.body %}
+          {% if block.block_type == 'image' %}
+            {% image block.value width-672 as rendition %}
+            {% include "atoms/image.html" with image=block.value rendition=rendition %}
+          {% else %}
+            {{ block }}
           {% endif %}
-          {% include "organisms/event-map.html" with resource=page %}
-          {% include "organisms/event-agenda.html" with resource=page %}
-        </article>
-        <aside class="article-sidebar">
-          {% if page.primary_topic %}
-            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
-          {% endif %}
-        </aside>
-      </section>
-      {% if page.speakers %}
-      <section class="section-full section-full-bg">
-        {% include "organisms/event-speakers.html" with speakers=page.speakers %}
-      </section>
-      {% endif %}
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+        {% endfor %}
+        {% if page.register_url %}
+          <a href="{{ page.register_url }}" class="mzp-c-button">
+            Register now
+          </a>
+        {% endif %}
+        {% include "organisms/event-map.html" with resource=page %}
+        {% include "organisms/event-agenda.html" with resource=page %}
+      </article>
+      <aside class="article-sidebar">
+        {% if page.primary_topic %}
+          {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+        {% endif %}
+      </aside>
+    </section>
+    {% if page.speakers %}
+    <section class="section section-full section-background section-full-bg">
+      {% include "organisms/event-speakers.html" with speakers=page.speakers %}
+    </section>
+    {% endif %}
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

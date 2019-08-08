@@ -4,21 +4,19 @@
 
 {% block content %}
   <main>
-    <div class="base-grid">
-      {% if page.articles %}
-        <section>
-          <h2>Articles</h2>
-          {% if page.description %}
-          <p class="page-description">{{ page.description }}</p>
-          {% endif %}
-        </section>
-        <section class="section-full">
-          {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 %}
-        </section>
-      {% endif %}
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
+    {% if page.articles %}
+      <section class="section">
+        <h2>Articles</h2>
+        {% if page.description %}
+        <p class="page-description">{{ page.description }}</p>
+        {% endif %}
       </section>
-    </div>
+      <section class="section section-full">
+        {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 %}
+      </section>
+    {% endif %}
+    <section id="newsletter" class="section section-full section-background">
+      {% include "organisms/newsletter-signup.html" %}
+    </section>
   </main>
 {% endblock content %}

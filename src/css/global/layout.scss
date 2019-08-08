@@ -10,43 +10,22 @@ main {
   }
 }
 
-.base-grid {
-  display: grid;
-  grid-column-gap: $grid-gap-mobile;
-  grid-template-columns: [full-start] 1fr [main-start] minmax(0, 1024px) [main-end] 1fr [full-end];
-
-  @media #{$mq-md} {
-    grid-column-gap: $grid-gap;
-  }
-
-  // TODO move to section.scss
-  > section {
-    margin-top: 24px;
-
-    @media #{$mq-md} {
-      margin-top: 40px;
-    }
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:not(.section-full) {
-      grid-column: main;
-    }
-  }
-
-  .page-description {
-    max-width: 672px;
-  }
+.page-description {
+  max-width: 672px;
 }
 
-.section-background + .section-background {
-  margin-top: 0;
-}
+.section {
+  margin: 80px auto;
+  max-width: 1024px;
 
-.section-full {
-  grid-column: full;
+  &.section-full {
+    max-width: 100%;
+  }
+
+  &.section-background {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
 }
 
 .section-full-bg {
