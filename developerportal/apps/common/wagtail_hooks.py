@@ -32,4 +32,6 @@ def _custom_slug_help_text():
     return f'The name of the page as it will appear in URLs e.g. for an article: {base_url}/articles/slug/'
 
 # Apply the custom slug help text to all Page models
-Page._meta.get_field('slug').help_text = _custom_slug_help_text()
+slug_field = Page._meta.get_field('slug')
+slug_field.verbose_name = 'URL slug'
+slug_field.help_text = _custom_slug_help_text()
