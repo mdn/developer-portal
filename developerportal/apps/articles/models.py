@@ -219,7 +219,7 @@ class Article(Page):
     def related_resources(self):
         """Returns resources that are related to the current resource, i.e. live, public articles and videos which
         have the same topics."""
-        topic_pks = self.topics.values_list('topic')
+        topic_pks = [topic.topic.pk for topic in self.topics.all()]
         return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 
     @property
@@ -227,7 +227,7 @@ class Article(Page):
         return self.date.replace(day=1)
 
     def has_author(self, person):
-        for author in self.authors:
-            if (author.block_type=='author' and str(author.value)==str(person.title)):
+        for author in self.authors:  # pylint: disable=not-an-iterable
+            if (author.block_type=='author' and str(author.value) == str(person.title)):
                 return True
         return False
