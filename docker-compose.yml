@@ -6,7 +6,6 @@ services:
     expose:
       - 5432
     image: postgres:11.3-alpine
-    restart: always
     tty: true
     volumes:
       - database:/var/lib/postgresql/data
@@ -22,7 +21,6 @@ services:
     ports:
       - "8000:8000"
       - "8080:8080"
-    restart: always
     tty: true
     volumes:
       - dist:/app/dist
@@ -35,7 +33,6 @@ services:
       context: .
       target: static
     command: npm run watch
-    restart: always
     tty: true
     volumes:
       - dist:/app/dist
