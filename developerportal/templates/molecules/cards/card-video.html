@@ -1,11 +1,14 @@
+{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+
 {% image resource.image width-636 as image %}
 {% image resource.card_image width-636 as card_image %}
+{% static "img/placeholders/video.jpg" as fallback_image %}
 
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
   <div class="card {% if full_width %}card-full{% endif %}">
-    <div class="card-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
+    <div class="card-image" style="background-image: url('{% firstof card_image.url image.url fallback_image %}')"></div>
     <div class="card-content">
       <div class="card-content-main">
         {% include "molecules/resource-meta.html" with resource=resource %}
