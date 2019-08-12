@@ -1,7 +1,15 @@
+{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+
 {% image resource.image width-636 as image %}
 {% image resource.card_image width-636 as card_image %}
+
+{% if resource.role == "staff" %}
+  {% static "img/placeholders/mozillian.jpg" as fallback_image %}
+{% else %}
+  {% static "img/placeholders/person.jpg" as fallback_image %}
+{% endif %}
 
 <a href="{% pageurl resource %}" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
   {% if filter_target %}
@@ -12,7 +20,7 @@
   {% endif %}
 >
   <div class="card">
-    <div class="card-image card-image-square" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
+    <div class="card-image card-image-square" style="background-image: url('{% firstof card_image.url image.url fallback_image %}')"></div>
     <div class="card-content">
       <div class="card-content-main">
         {% include "molecules/resource-meta.html" with resource=resource %}

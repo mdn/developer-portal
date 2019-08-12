@@ -1,7 +1,15 @@
+{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load app_tags %}
-{% image resource.image fill-320x320 as image %}
+
+{% image resource.image fill-640x640 as image %}
+
+{% if resource.role == "staff" %}
+  {% static "img/placeholders/mozillian.jpg" as fallback_image %}
+{% else %}
+  {% static "img/placeholders/person.jpg" as fallback_image %}
+{% endif %}
 
 <div class="person-overview">
   <div class="person-overview-details">
@@ -11,7 +19,7 @@
   </div>
   <div class="person-overview-image-container">
     <div class="person-overview-image">
-      <img src="{{ image.url }}" alt="{{ image.alt }}">
+      <img src="{% firstof image.url fallback_image %}" alt="" width="320" height="320">
       <div class="highlight1">
         {{ resource.title }}
       </div>
