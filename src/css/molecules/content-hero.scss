@@ -3,7 +3,10 @@
 }
 
 .content-hero {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
+  @media #{$mq-md} {
+    margin-bottom: 32px;
+  }
   position: relative;
 }
 
