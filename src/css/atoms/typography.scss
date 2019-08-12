@@ -138,6 +138,23 @@ h6 {
   }
 }
 
+.underline {
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent .8em, transparentize($color-yellow-30, .5) .8em, transparentize($color-yellow-30, .5) 1.1em);
+  display: inline;
+
+  &:before {
+    content: '';
+    display: block;
+    margin-bottom: 0;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    margin-bottom: 0.5em;
+  }
+}
+
 @function heading-line-height($font-size) {
   @return $font-size + 8px;
 }

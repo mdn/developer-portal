@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.http import Http404
+from django.views.defaults import page_not_found, server_error
 from django.views.generic import TemplateView
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -25,6 +27,11 @@ urlpatterns = [
 
 
 if settings.DEBUG:
+    urlpatterns += [
+        url(r'^404/$', page_not_found, {'exception': Http404()}),
+        url(r'^500/$', server_error),
+    ]
+
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
