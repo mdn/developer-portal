@@ -4,10 +4,11 @@
 
 .content-hero {
   margin-bottom: 16px;
+  position: relative;
+
   @media #{$mq-md} {
     margin-bottom: 32px;
   }
-  position: relative;
 }
 
 .content-hero-image {
