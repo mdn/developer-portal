@@ -1,19 +1,16 @@
+{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
 <div class="article-details">
   {% if authors %}
-    {% image authors.0.value.image fill-60x60 as first_author_image %}
-    {% if first_author_image %}
-      <img
-        src="{{ first_author_image.url }}"
-        width="{{ first_author_image.width }}"
-        height="{{ first_author_image.height }}"
-        alt="{{ first_author_image.alt }}"
-      >
+    {% image authors.0.value.image fill-96x96 as first_author_image %}
+    {% if authors.0.value.role == "staff" %}
+      {% static "img/placeholders/mozillian.jpg" as fallback_image %}
     {% else %}
-      <img src="https://via.placeholder.com/60">
+      {% static "img/placeholders/person.jpg" as fallback_image %}
     {% endif %}
+    <img src="{% firstof first_author_image.url fallback_image %}" alt="">
   {% endif %}
   <div class="article-details-meta">
     {% if authors %}
