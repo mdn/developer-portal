@@ -1,7 +1,10 @@
+{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+
 {% image resource.image width-1024 as image %}
 {% image resource.card_image width-1024 as card_image %}
+{% static "img/placeholders/event.jpg" as fallback_image %}
 
 <a
   href="{% pageurl resource %}"
@@ -23,7 +26,7 @@
       </div>
     </div>
     {% if featured %}
-    <div class="card-image card-event-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
+    <div class="card-image card-event-image" style="background-image: url('{% firstof card_image.url image.url fallback_image %}')"></div>
     {% endif %}
     <div class="card-content card-event-content {% if featured %}card-event-featured{% endif %}">
       <div class="card-event-title">

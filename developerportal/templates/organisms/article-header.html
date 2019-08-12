@@ -1,6 +1,13 @@
+{% load static %}
 {% load wagtailimages_tags %}
+
 {% image page.image width-464 as image %}
 {% image page.card_image width-464 as card_image %}
+{% if type == "event" %}
+  {% static "img/placeholders/event.jpg" as fallback_image %}
+{% else %}
+  {% static "img/placeholders/article.jpg" as fallback_image %}
+{% endif %}
 
 <header class="article-header">
   <div class="article-header-container">
@@ -23,6 +30,8 @@
             height="{{ card_image.height }}"
             alt="{{ card_image.alt }}"
           >
+        {% else %}
+          <img src="{{ fallback_image }}" width="464" alt="">
         {% endif %}
       </div>
       <div class="article-header-details">
