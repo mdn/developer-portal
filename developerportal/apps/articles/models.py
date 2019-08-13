@@ -135,7 +135,7 @@ class Article(Page):
     )
     body = CustomStreamField(help_text=(
         'The main article content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
-    )),
+    ))
     related_links_mdn = StreamField(
         StreamBlock([
             ('link', ExternalLinkBlock())
