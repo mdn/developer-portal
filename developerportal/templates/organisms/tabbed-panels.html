@@ -3,11 +3,9 @@
 {% load app_filters %}
 
 <div id="tabbed-panels" class="tabbed-panels js-tabbed-panels">
-  {% if title %}
   <div class="section-header">
-    <h2>{{ title }}</h2>
+    <h2>{{ title|default:"Get started" }}</h2>
   </div>
-  {% endif %}
   <div class="tabbed-panels-mobile">
     {% for block in resources %}
       {% image block.value.image width-190 as i %}
