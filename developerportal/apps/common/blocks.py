@@ -1,6 +1,16 @@
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
+class ButtonBlock(blocks.StructBlock):
+    """Content for a button."""
+    text = blocks.CharBlock()
+    page_link = blocks.PageChooserBlock(required=False)
+    external_link = blocks.URLBlock(required=False, help_text='External URL to link to instead of a page.')
+
+    class Meta:
+        icon = 'link'
+        template = 'button_block.html'
+
 class CodeSnippetBlock(blocks.StructBlock):
     language = blocks.ChoiceBlock(choices=[
         ('css', 'CSS'),
@@ -14,6 +24,7 @@ class CodeSnippetBlock(blocks.StructBlock):
     code = blocks.TextBlock()
 
     class Meta:
+        icon = 'code'
         template = 'code_snippet_block.html'
 
 class TabbedPanelBlock(blocks.StructBlock):
