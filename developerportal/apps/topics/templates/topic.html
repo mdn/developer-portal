@@ -81,8 +81,8 @@
       {% include "organisms/latest-cards.html" with cards=page.videos %}
     </section>
     {% endif %}
-    {% if page.events.all %}
-      {% include "organisms/upcoming-events.html" with events=page.events.all topic=page.slug %}
+    {% if page.events %}
+      {% include "organisms/upcoming-events.html" with events=page.events topic=page.slug %}
     {% endif %}
     <section id="newsletter" class="section-full section-background">
       {% include "organisms/newsletter-signup.html" %}
