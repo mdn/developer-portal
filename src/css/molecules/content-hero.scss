@@ -1,21 +1,22 @@
-.content-has-hero {
-  padding-top: 0;
-}
-
 .content-hero {
-  margin-bottom: 16px;
+  height: 300px;
+  overflow: hidden;
   position: relative;
+  display: flex;
 
   @media #{$mq-md} {
-    margin-bottom: 32px;
+    height: 438px;
   }
 }
 
 .content-hero-image {
   background-position: center;
   background-size: cover;
-  padding-top: 42.8571%; // 21:9 aspect ratio
-  position: relative;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 
   &::after {
     background-color: $color-black;
@@ -29,14 +30,18 @@
   }
 }
 
-.content-hero-title {
-  position: absolute;
-  bottom: 0;
-  padding: 16px;
+.content-body {
+  margin: 0 auto;
+  max-width: 672px;
+}
+
+.content-title {
+  align-self: flex-end;
+  padding-bottom: 32px;
+  width: auto;
 
   @media #{$mq-md} {
-    max-width: calc(32px + 66%);
-    padding: 32px;
+    width: 736px;
   }
 
   h1 {

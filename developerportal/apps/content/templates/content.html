@@ -6,23 +6,24 @@
 {% block body_class %}content{% endblock %}
 
 {% block content %}
-  <main class="{% if page.hero_image %}content-has-hero{% endif %}">
+  <main class="{% if page.hero_image %}has-header{% endif %}">
     <div class="base-grid">
-      <section>
-        {% if page.hero_image %}
-          {% image page.hero_image width-1024 as hero %}
+      {% if page.hero_image %}
+        {% image page.hero_image width-1024 as hero %}
+        <section class="section-full">
           <div class="content-hero">
             <div class="content-hero-image" style="background-image: url('{{ hero.url }}')"></div>
-            <div class="content-hero-title">
+            <div class="container content-title">
               <h1 class="highlighted">{{ page.title }}</h1>
             </div>
           </div>
-        {% else %}
+        </section>
+      {% endif %}
+      <section>
+        <article class="content-body">
+          {% if not page.hero_image %}
           <h1>{{ page.title }}</h1>
-        {% endif %}
-      </section>
-      <section class="article-content">
-        <article class="article-body">
+          {% endif %}
           {% for block in page.body %}
             {% if block.block_type == 'image' %}
               {% image block.value width-672 as rendition %}
