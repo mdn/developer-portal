@@ -43,7 +43,7 @@
         </div>
         {% with card_count_string=page.latest_articles_count|stringformat:"s" %}
           {% with card_count=":"|add:card_count_string %}
-            {% include "organisms/latest-cards.html" with cards=page.articles card_count=card_count%}
+            {% include "organisms/latest-cards.html" with cards=page.articles card_count=card_count show_author=True %}
           {% endwith %}
         {% endwith %}
       </section>
