@@ -14,6 +14,7 @@ class CodeSnippetBlock(blocks.StructBlock):
     code = blocks.TextBlock()
 
     class Meta:
+        icon = 'code'
         template = 'code_snippet_block.html'
 
 class TabbedPanelBlock(blocks.StructBlock):
