@@ -74,7 +74,7 @@ class HomePage(Page):
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
-    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=400, blank=True, default='')
     card_image = ForeignKey(
         'mozimages.MozImage',
         null=True,

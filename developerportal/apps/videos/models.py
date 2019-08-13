@@ -95,8 +95,8 @@ class Video(Page):
     description = TextField(
         blank=True,
         default='',
-        help_text='Optional short text description, max. 250 characters',
-        max_length=250,
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
     )
     body = RichTextField(blank=True, default='', help_text=(
         'Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
@@ -143,7 +143,7 @@ class Video(Page):
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
-    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=400, blank=True, default='')
     card_image = ForeignKey(
         'mozimages.MozImage',
         null=True,

@@ -30,8 +30,8 @@ class ExternalContent(Page):
     description = TextField(
         blank=True,
         default='',
-        help_text='Optional short text description, max. 250 characters',
-        max_length=250,
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
     )
     external_url = URLField(
         'URL',

@@ -64,8 +64,8 @@ class Topic(Page):
     description = TextField(
         blank=True,
         default='',
-        help_text='Optional short text description, max. 250 characters',
-        max_length=250,
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
     )
     featured = StreamField(
         StreamBlock([
@@ -97,7 +97,7 @@ class Topic(Page):
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
-    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=400, blank=True, default='')
     card_image = ForeignKey(
         'mozimages.MozImage',
         null=True,
