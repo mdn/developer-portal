@@ -61,7 +61,7 @@ class Topic(Page):
     template = 'topic.html'
 
     # Content fields
-    description = TextField(max_length=250, blank=True, default='')
+    description = TextField(max_length=400, blank=True, default='')
     featured = StreamField(
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model=(
@@ -86,7 +86,7 @@ class Topic(Page):
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
-    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=400, blank=True, default='')
     card_image = ForeignKey(
         'mozimages.MozImage',
         null=True,

@@ -142,7 +142,7 @@ class Event(Page):
     template = 'event.html'
 
     # Content fields
-    description = TextField(max_length=250, blank=True, default='')
+    description = TextField(max_length=400, blank=True, default='')
     image = ForeignKey(
         'mozimages.MozImage',
         null=True,
@@ -167,7 +167,7 @@ class Event(Page):
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
-    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=400, blank=True, default='')
     card_image = ForeignKey(
         'mozimages.MozImage',
         null=True,
