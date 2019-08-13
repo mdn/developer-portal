@@ -60,9 +60,7 @@ class Articles(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO', help_text=(
-            'Optional fields to override the default title and description for SEO purposes'
-        )),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -135,7 +133,9 @@ class Article(Page):
         on_delete=SET_NULL,
         related_name='+',
     )
-    body = CustomStreamField()
+    body = CustomStreamField(help_text=(
+        'The main article content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
+    )),
     related_links_mdn = StreamField(
         StreamBlock([
             ('link', ExternalLinkBlock())
@@ -170,7 +170,7 @@ class Article(Page):
         help_text=(
             'Optional list of the article’s authors. Use ‘External author’ to add guest authors without creating a '
             'profile on the system'
-        )
+        ),
     )
     keywords = ClusterTaggableManager(through=ArticleTag, blank=True)
 
@@ -179,7 +179,10 @@ class Article(Page):
         FieldPanel('description'),
         MultiFieldPanel([
             ImageChooserPanel('image'),
-        ], heading='Image', help_text='Optional image shown when sharing this page through social media'),
+        ], heading='Image', help_text=(
+            'Optional header image. If not specified a fallback will be used. This image is also shown when sharing '
+            'this page via social media'
+        )),
         StreamFieldPanel('body'),
         StreamFieldPanel('related_links_mdn'),
     ]
@@ -198,16 +201,14 @@ class Article(Page):
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
-            'The topic pages this article will appear on. The first topic in the list will be treated as the primary '
-            'topic'
+            'The topic pages this article will appear on. The first topic in the list will be treated as the '
+            'primary topic and will be shown in the page’s related content.'
         )),
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO', help_text=(
-            'Optional fields to override the default title and description for SEO purposes'
-        )),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -250,6 +251,6 @@ class Article(Page):
 
     def has_author(self, person):
         for author in self.authors:  # pylint: disable=not-an-iterable
-            if (author.block_type=='author' and str(author.value) == str(person.title)):
+            if (author.block_type == 'author' and str(author.value) == str(person.title)):
                 return True
         return False

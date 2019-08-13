@@ -38,10 +38,9 @@ class CustomStreamField(StreamField):
             ('image', ImageChooserBlock()),
             ('button', ButtonBlock()),
             ('embed', EmbedBlock()),
-            ('embed_html', RawHTMLBlock(
-                help_text='''Warning: be careful what you paste here, since
-                          this field could introduce XSS (or similar) bugs.
-                          This field is meant solely for third-party embeds.'''
-            )),
+            ('embed_html', RawHTMLBlock(help_text=(
+                'Warning: be careful what you paste here, since this field could introduce XSS (or similar) bugs. '
+                'This field is meant solely for third-party embeds.'
+            ))),
             ('code_snippet', CodeSnippetBlock()),
         ], **kwargs)

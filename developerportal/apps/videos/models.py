@@ -54,7 +54,7 @@ class Videos(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     settings_panels = [
@@ -92,14 +92,22 @@ class Video(Page):
     template = 'video.html'
 
     # Content fields
-    description = TextField(default='', blank=True, max_length=250)
-    body = RichTextField(default='', blank=True)
+    description = TextField(
+        blank=True,
+        default='',
+        help_text='Optional short text description, max. 250 characters',
+        max_length=250,
+    )
+    body = RichTextField(blank=True, default='', help_text=(
+        'Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
+    ))
     related_links_mdn = StreamField(
         StreamBlock([
             ('link', ExternalLinkBlock())
         ], required=False),
         null=True,
         blank=True,
+        help_text='Optional links to MDN Web Docs for further reading',
         verbose_name='Related MDN links',
     )
     image = ForeignKey(
@@ -107,25 +115,30 @@ class Video(Page):
         null=True,
         blank=True,
         on_delete=SET_NULL,
-        related_name='+'
+        related_name='+',
     )
     types = CharField(max_length=14, choices=VIDEO_TYPE, default='conference')
     duration = CharField(max_length=30, blank=True, null=True, help_text=(
-        'Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.'
+        'Optional video duration in MM:SS format e.g. “12:34”. Shown when the video is displayed as a card'
     ))
-    transcript = RichTextField(default='', blank=True)
+    transcript = RichTextField(
+        blank=True,
+        default='',
+        help_text='Optional text transcript of the video, supports rich text',
+    )
     video_url = StreamField(
         StreamBlock([
             ('embed', EmbedBlock()),
-        ], max_num=1),
-        null=True,
-        blank=True,
+        ], min_num=1, max_num=1),
+        help_text='Embed URL for the video e.g. https://www.youtube.com/watch?v=kmk43_2dtn0',
     )
     speakers = StreamField(
         StreamBlock([
             ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
         ], required=False),
-        blank=True, null=True,
+        blank=True,
+        null=True,
+        help_text='Optional list of people associated with or starring in the video',
     )
 
     # Card fields
@@ -167,18 +180,20 @@ class Video(Page):
         StreamFieldPanel('speakers'),
         MultiFieldPanel([
             InlinePanel('topics'),
-        ], heading='Topics'),
+        ], heading='Topics', help_text=(
+            'These are the topic pages the video will appear on. The first topic in the list will be treated as the '
+            'primary topic and will be shown in the page’s related content.'
+        )),
         FieldPanel('duration'),
         MultiFieldPanel([
             FieldPanel('types'),
-        ], heading='Type.'),
-
+        ], heading='Type', help_text='Choose a video type to help people search for the video'),
 
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     settings_panels = [
@@ -211,7 +226,7 @@ class Video(Page):
         return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 
     def has_speaker(self, person):
-        for speaker in self.speakers:
-            if str(speaker.value)==str(person.title):
+        for speaker in self.speakers:  # pylint: disable=not-an-iterable
+            if str(speaker.value) == str(person.title):
                 return True
         return False

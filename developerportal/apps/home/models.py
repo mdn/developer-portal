@@ -124,9 +124,7 @@ class HomePage(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO', help_text=(
-            'Optional fields to override the default title and description for SEO purposes'
-        )),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels

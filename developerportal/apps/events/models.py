@@ -13,7 +13,7 @@ from django.db.models import (
     TextField,
     URLField,
 )
-from django_countries.fields import CountryField
+from django.utils.safestring import mark_safe
 
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField, StreamField, StreamBlock
@@ -29,6 +29,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
 )
 
+from django_countries.fields import CountryField
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
@@ -78,6 +79,7 @@ class Events(Page):
         ], min_num=0, max_num=1, required=False),
         null=True,
         blank=True,
+        help_text='Optional space to show a featured event',
     )
 
     # Meta fields
@@ -94,7 +96,7 @@ class Events(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -142,27 +144,34 @@ class Event(Page):
     template = 'event.html'
 
     # Content fields
-    description = TextField(max_length=250, blank=True, default='')
+    description = TextField(
+        blank=True,
+        default='',
+        help_text='Optional short text description, max. 250 characters',
+        max_length=250,
+    )
     image = ForeignKey(
         'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
-        related_name='+'
+        related_name='+',
     )
-    body = CustomStreamField(blank=True, null=True)
+    body = CustomStreamField(blank=True, null=True, help_text=(
+        'Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
+    ))
     agenda = StreamField(
         StreamBlock([
             ('agenda_item', AgendaItemBlock()),
         ], required=False),
-        blank=True, null=True
+        blank=True, null=True, help_text='Optional list of agenda items for this event'
     )
     speakers = StreamField(
         StreamBlock([
             ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
             ('external_speaker', ExternalSpeakerBlock(required=False)),
         ], required=False),
-        blank=True, null=True
+        blank=True, null=True, help_text='Optional list of speakers for this event'
     )
 
     # Card fields
@@ -183,21 +192,26 @@ class Event(Page):
     latitude = FloatField(blank=True, null=True)
     longitude = FloatField(blank=True, null=True)
     register_url = URLField('Register URL', blank=True, null=True)
-    venue_name = CharField(max_length=100, blank=True, default='', help_text='')
-    venue_url = URLField('Venue URL', max_length=100, blank=True, default='', help_text='')
-    address_line_1 = CharField(max_length=100, blank=True, default='', help_text='')
-    address_line_2 = CharField(max_length=100, blank=True, default='', help_text='')
-    address_line_3 = CharField(max_length=100, blank=True, default='', help_text='')
-    city = CharField(max_length=100, blank=True, default='', help_text='')
-    state = CharField('State/Province/Region', max_length=100, blank=True, default='', help_text='')
-    zip_code = CharField('Zip/Postal code', max_length=100, blank=True, default='', help_text='')
-    country = CountryField(blank=True, default='', help_text='')
+    venue_name = CharField(max_length=100, blank=True, default='')
+    venue_url = URLField('Venue URL', max_length=100, blank=True, default='')
+    address_line_1 = CharField(max_length=100, blank=True, default='')
+    address_line_2 = CharField(max_length=100, blank=True, default='')
+    address_line_3 = CharField(max_length=100, blank=True, default='')
+    city = CharField(max_length=100, blank=True, default='')
+    state = CharField('State/Province/Region', max_length=100, blank=True, default='')
+    zip_code = CharField('Zip/Postal code', max_length=100, blank=True, default='')
+    country = CountryField(blank=True, default='')
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [
         FieldPanel('description'),
-        ImageChooserPanel('image'),
+        MultiFieldPanel([
+            ImageChooserPanel('image'),
+        ], heading='Image', help_text=(
+            'Optional header image. If not specified a fallback will be used. This image is also shown when sharing '
+            'this page via social media'
+        )),
         StreamFieldPanel('body'),
         StreamFieldPanel('agenda'),
         StreamFieldPanel('speakers'),
@@ -220,6 +234,11 @@ class Event(Page):
             FieldPanel('register_url'),
         ],  heading='Event details',
             classname='collapsible',
+            help_text=mark_safe(
+                'Optional time and location information for this event. Latitude and longitude are used to show a map '
+                'of the event’s location. For more information on finding these values for a given location, '
+                '<a href="https://support.google.com/maps/answer/18539">see this article</a>'
+            )
         ),
         MultiFieldPanel([
             FieldPanel('venue_name'),
@@ -233,18 +252,19 @@ class Event(Page):
             FieldPanel('country'),
         ],  heading='Event address',
             classname='collapsible',
+            help_text='Optional address fields. The city and country are also shown on event cards'
         ),
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
-            'These are the topic pages the article will appear on. The first '
-            'topic in the list will be treated as the primary topic.'
+            'These are the topic pages the event will appear on. The first topic in the list will be treated as the '
+            'primary topic and will be shown in the page’s related content.'
         )),
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -293,7 +313,7 @@ class Event(Page):
         return self.event_dates + self.start_date.strftime(", %Y")
 
     def has_speaker(self, person):
-        for speaker in self.speakers:
-            if (speaker.block_type=='speaker' and str(speaker.value)==str(person.title)):
+        for speaker in self.speakers:  # pylint: disable=not-an-iterable
+            if (speaker.block_type == 'speaker' and str(speaker.value) == str(person.title)):
                 return True
         return False

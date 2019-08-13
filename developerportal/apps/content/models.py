@@ -27,7 +27,9 @@ class ContentPage(Page):
     template = 'content.html'
 
     # Content fields
-    body = CustomStreamField()
+    body = CustomStreamField(help_text=(
+        'Main page body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
+    ))
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
@@ -62,7 +64,7 @@ class ContentPage(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
