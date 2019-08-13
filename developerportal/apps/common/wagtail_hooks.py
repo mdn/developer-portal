@@ -1,4 +1,5 @@
 # pylint: disable=no-member
+from django.db.utils import ProgrammingError
 from django.utils.html import escape
 
 from wagtail.core import hooks
@@ -31,7 +32,12 @@ def _custom_slug_help_text():
     base_url = default_site.root_url if default_site else 'https://example.com'
     return f'The name of the page as it will appear in URLs e.g. for an article: {base_url}/articles/slug/'
 
-# Apply the custom slug help text to all Page models
-slug_field = Page._meta.get_field('slug')
-slug_field.verbose_name = 'URL slug'
-slug_field.help_text = _custom_slug_help_text()
+
+try:
+    # Apply the custom slug help text to all Page models
+    slug_field = Page._meta.get_field('slug')
+    slug_field.verbose_name = 'URL slug'
+    slug_field.help_text = _custom_slug_help_text()
+except ProgrammingError:
+    # This will fail if core migrations have not yet been run
+    pass
