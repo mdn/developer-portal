@@ -38,8 +38,8 @@
         {% include "organisms/latest-cards.html" with cards=page.videos %}
       </section>
       {% endif %}
-      {% if page.events.all %}
-        {% include "organisms/upcoming-events.html" with events=page.events.all %}
+      {% if page.events %}
+        {% include "organisms/upcoming-events.html" with events=page.events %}
       {% endif %}
       {% if page.topics.all %}
         <section class="section-full">
