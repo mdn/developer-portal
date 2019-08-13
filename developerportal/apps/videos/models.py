@@ -92,7 +92,7 @@ class Video(Page):
     template = 'video.html'
 
     # Content fields
-    description = TextField(default='', blank=True, max_length=250)
+    description = TextField(default='', blank=True, max_length=400)
     body = RichTextField(default='', blank=True)
     related_links_mdn = StreamField(
         StreamBlock([
@@ -130,7 +130,7 @@ class Video(Page):
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
-    card_description = TextField('Description', max_length=140, blank=True, default='')
+    card_description = TextField('Description', max_length=400, blank=True, default='')
     card_image = ForeignKey(
         'mozimages.MozImage',
         null=True,

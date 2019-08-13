@@ -27,7 +27,7 @@ class ExternalContent(Page):
     subpage_types = []
 
     # Card fields
-    description = TextField(max_length=250, blank=True, default='')
+    description = TextField(max_length=400, blank=True, default='')
     external_url = URLField('URL', max_length=2048, blank=True, default='')
     image = ForeignKey(
         'mozimages.MozImage',
