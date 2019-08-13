@@ -4,7 +4,7 @@ from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 
-from .blocks import CodeSnippetBlock
+from .blocks import ButtonBlock, CodeSnippetBlock
 
 RICH_TEXT_FEATURES = (
     # heading elements
@@ -36,6 +36,7 @@ class CustomStreamField(StreamField):
         super().__init__([
             ('paragraph', RichTextBlock(features=RICH_TEXT_FEATURES)),
             ('image', ImageChooserBlock()),
+            ('button', ButtonBlock()),
             ('embed', EmbedBlock()),
             ('embed_html', RawHTMLBlock(
                 help_text='''Warning: be careful what you paste here, since
