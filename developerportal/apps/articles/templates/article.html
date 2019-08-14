@@ -6,10 +6,8 @@
 {% block body_class %}article{% endblock %}
 
 {% block header %}
-  {% include "header.html" %}
-  {% if page.primary_topic %}
-    {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
-  {% endif %}
+  {% block.super %}
+  {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
 {% endblock %}
 
 {% block content %}

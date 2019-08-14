@@ -11,8 +11,8 @@
 {% block body_class %}event{% endblock %}
 
 {% block header %}
-  {% include "header.html" %}
-  {% include "utils/accent-color.html" with color='#88ffd1' %}
+  {% block.super %}
+  {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
 {% endblock %}
 
 {% block content %}
