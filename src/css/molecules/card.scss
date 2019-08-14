@@ -45,6 +45,7 @@
     display: grid;
     grid-gap: $grid-gap-mobile;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    max-width: unset;
 
     @media #{$mq-md} {
       grid-column-gap: $grid-gap;
