@@ -3,7 +3,7 @@
 {% block body_class %}events{% endblock %}
 
 {% block header %}
-  {% include "header.html" %}
+  {{ block.super }}
   {% include "utils/accent-color.html" with color='#ffd567' %}
 {% endblock %}
 
