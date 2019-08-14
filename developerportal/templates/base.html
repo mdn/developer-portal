@@ -29,17 +29,17 @@
     Visit https://www.mozilla.org/contribute for more ways to get involved and
     help support Mozilla.
     -->
-    <title>
-      {% block title %}
-        {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-      {% endblock %}
-      {% block title_suffix %}
-        {% with self.get_site.site_name as site_name %}
-          {% if site_name %}- {{ site_name }}{% endif %}
-        {% endwith %}
-      {% endblock %}
-    </title>
     {% with home=request.site.root_page.specific %}
+      <title>
+        {% block title %}
+          {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+          {% with self.get_site.site_name as site_name %}
+            {% if site_name and page and page is not home %} - {{ site_name }}{% endif %}
+          {% endwith %}
+        {% endblock %}
+      </title>
       {% if home.subtitle %}
         <meta name="description" content="{{ home.subtitle }}">
       {% endif %}
