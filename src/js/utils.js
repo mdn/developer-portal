@@ -17,12 +17,28 @@ exports.parseQueryParams = () => {
 /** Creates an object based on a form's current input values. */
 exports.parseForm = form => {
   const formData = new FormData(form);
-  return Array.from(formData.entries()).reduce((acc, [key, value]) => {
-    if (!acc[key]) {
-      acc[key] = [];
+  if (!formData.entries) {
+    // for IE
+    let filter = {};
+    const elements = document.getElementsByTagName("input");
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        if (element.type.toLowerCase() === "checkbox" && element.checked) {
+          if (!filter[element.name]) {
+            filter[element.name] = [];
+          }
+          filter[element.name].push(element.value);
+        }
     }
+    return filter;
+  } else {
+    return Array.from(formData.entries()).reduce((filter, [key, value]) => {
+      if (!filter[key]) {
+        filter[key] = [];
+      }
 
-    acc[key].push(value);
-    return acc;
-  }, {});
+      filter[key].push(value);
+      return filter;
+    }, {});
+  }
 };
