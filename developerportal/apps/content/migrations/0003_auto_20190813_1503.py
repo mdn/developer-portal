@@ -10,7 +10,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('content', '0001_initial'),
+        ('content', '0002_contentpage_hero_image'),
     ]
 
     operations = [
