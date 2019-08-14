@@ -1,8 +1,10 @@
 .card-featured-primary {
   background-color: $color-black;
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  overflow: hidden;
   position: relative;
 
   @media #{$mq-md} {
@@ -90,8 +92,12 @@
 }
 
 .card-featured {
+  border-radius: 2px;
   color: $color-white;
+  display: flex;
+  flex-direction: column;
   min-height: 240px;
+  overflow: hidden;
   position: relative;
 
   @media #{$mq-md} {
@@ -102,8 +108,11 @@
     height: 100%;
   }
 
+  .card-featured-image {
+    padding-top: 60%;
+  }
+
   .card-featured-content {
-    bottom: 0;
     padding: 24px 16px;
     position: absolute;
 
@@ -120,15 +129,18 @@
     display: inline-block;
   }
 
-  h4 {
-    box-decoration-break: clone;
-    box-shadow: 0 0 0 3px $color-black;
-    display: inline;
-    left: 4px;
-    position: relative;
-  }
-
   p {
     width: max-content;
+  }
+}
+
+.card-featured-caption {
+  background: $color-black;
+  color: $color-white;
+  flex-grow: 1;
+  padding: 16px;
+
+  h5 {
+    margin-bottom: 0;
   }
 }

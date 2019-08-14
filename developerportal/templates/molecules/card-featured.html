@@ -12,9 +12,9 @@
     <div class="card-featured-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
     <div class="card-featured-content">
       <span class="highlighted featured">Featured</span>
-      <div>
-        <h4 class="highlighted no-underline">{% firstof resource.card_title resource.title %}</h4>
-      </div>
+    </div>
+    <div class="card-featured-caption">
+      <h5 class="no-underline">{% firstof resource.card_title resource.title %}</h5>
     </div>
   </div>
 </a>
