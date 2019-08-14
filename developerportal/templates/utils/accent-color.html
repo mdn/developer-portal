@@ -1,5 +1,4 @@
 {% load app_filters %}
-{% firstof color '#88ffd1' as color %}{# Set fallback color #}
 <style>
   ::selection { background: {{ color | hex_to_rgb:'rgba({r}, {g}, {b}, 0.2)' }}; }
   .color-accent { color: {{ color }}; }

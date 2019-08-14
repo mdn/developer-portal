@@ -6,7 +6,8 @@
 
 {% block header %}
   {{ block.super }}
-  {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
+  {% firstof page.primary_topic.color_value '#ffd567' as color %}
+  {% include "utils/accent-color.html" with color=color %}
 {% endblock %}
 
 {% block content %}
