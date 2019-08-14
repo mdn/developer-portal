@@ -69,12 +69,12 @@ class Topic(Page):
     )
     featured = StreamField(
         StreamBlock([
-            ('article', PageChooserBlock(required=False, target_model=(
+            ('article', PageChooserBlock(target_model=(
                 'articles.Article',
                 'externalcontent.ExternalArticle',
             ))),
             ('external_page', FeaturedExternalBlock()),
-        ], min_num=0, max_num=4, required=False),
+        ], max_num=4),
         null=True,
         blank=True,
         help_text='Optional space for featured articles, max. 4',
@@ -83,7 +83,7 @@ class Topic(Page):
     tabbed_panels = StreamField(
         StreamBlock([
             ('panel', TabbedPanelBlock())
-        ], min_num=0, max_num=3, required=False),
+        ], max_num=3),
         null=True,
         blank=True,
         help_text='Optional tabbed panels for linking out to other resources, max. 3',
@@ -92,7 +92,7 @@ class Topic(Page):
     latest_articles_count = IntegerField(
         choices=RESOURCE_COUNT_CHOICES,
         default=3,
-        help_text='The number of articles to display for this topic.'
+        help_text='The number of articles to display for this topic.',
     )
 
     # Card fields

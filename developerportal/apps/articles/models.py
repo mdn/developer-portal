@@ -139,7 +139,7 @@ class Article(Page):
     related_links_mdn = StreamField(
         StreamBlock([
             ('link', ExternalLinkBlock())
-        ], required=False),
+        ]),
         blank=True,
         null=True,
         help_text='Optional links to MDN Web Docs for further reading',

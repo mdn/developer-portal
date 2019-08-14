@@ -245,8 +245,8 @@ class ExternalVideo(ExternalContent):
     date = DateField('Video date', default=datetime.date.today, help_text='The date the video was published')
     speakers = StreamField(
         StreamBlock([
-            ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
-        ], required=False),
+            ('speaker', PageChooserBlock(target_model='people.Person')),
+        ]),
         blank=True,
         null=True,
         help_text='Optional list of people associated with or starring in the video',

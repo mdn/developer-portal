@@ -166,10 +166,10 @@ class Person(Page):
     websites = StreamField(
         StreamBlock([
             ('website', PersonalWebsiteBlock())
-        ], min_num=0, max_num=3, required=False),
+        ], max_num=3),
         null=True,
         blank=True,
-        help_text='Optional links to any other personal websites'
+        help_text='Optional links to any other personal websites',
     )
     keywords = ClusterTaggableManager(through=PersonTag, blank=True)
 
