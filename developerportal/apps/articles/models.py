@@ -39,7 +39,12 @@ class Articles(Page):
     template = 'articles.html'
 
     # Content fields
-    description = TextField('Description', max_length=250, blank=True, default='')
+    description = TextField(
+        blank=True,
+        default='',
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
+    )
 
     # Meta fields
     keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
@@ -55,7 +60,7 @@ class Articles(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -115,21 +120,29 @@ class Article(Page):
     template = 'article.html'
 
     # Content fields
-    description = TextField(max_length=400, blank=True, default='')
+    description = TextField(
+        blank=True,
+        default='',
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
+    )
     image = ForeignKey(
         'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
-        related_name='+'
+        related_name='+',
     )
-    body = CustomStreamField()
+    body = CustomStreamField(help_text=(
+        'The main article content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
+    ))
     related_links_mdn = StreamField(
         StreamBlock([
             ('link', ExternalLinkBlock())
         ], required=False),
-        null=True,
         blank=True,
+        null=True,
+        help_text='Optional links to MDN Web Docs for further reading',
         verbose_name='Related MDN links',
     )
 
@@ -146,20 +159,30 @@ class Article(Page):
     )
 
     # Meta fields
-    date = DateField('Article date', default=datetime.date.today)
+    date = DateField('Article date', default=datetime.date.today, help_text='The date the article was published')
     authors = StreamField(
         StreamBlock([
             ('author', PageChooserBlock(target_model='people.Person')),
             ('external_author', ExternalAuthorBlock()),
         ]),
-        blank=True, null=True
+        blank=True,
+        null=True,
+        help_text=(
+            'Optional list of the article’s authors. Use ‘External author’ to add guest authors without creating a '
+            'profile on the system'
+        ),
     )
     keywords = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [
         FieldPanel('description'),
-        ImageChooserPanel('image'),
+        MultiFieldPanel([
+            ImageChooserPanel('image'),
+        ], heading='Image', help_text=(
+            'Optional header image. If not specified a fallback will be used. This image is also shown when sharing '
+            'this page via social media'
+        )),
         StreamFieldPanel('body'),
         StreamFieldPanel('related_links_mdn'),
     ]
@@ -178,14 +201,14 @@ class Article(Page):
         MultiFieldPanel([
             InlinePanel('topics'),
         ], heading='Topics', help_text=(
-            'These are the topic pages the article will appear on. The first '
-            'topic in the list will be treated as the primary topic.'
+            'The topic pages this article will appear on. The first topic in the list will be treated as the '
+            'primary topic and will be shown in the page’s related content.'
         )),
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -228,6 +251,6 @@ class Article(Page):
 
     def has_author(self, person):
         for author in self.authors:  # pylint: disable=not-an-iterable
-            if (author.block_type=='author' and str(author.value) == str(person.title)):
+            if (author.block_type == 'author' and str(author.value) == str(person.title)):
                 return True
         return False

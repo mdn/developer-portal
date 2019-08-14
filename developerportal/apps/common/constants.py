@@ -36,6 +36,12 @@ COLOR_VALUES = (
     ('purple-20', '#f68fff'),
 )
 
+RESOURCE_COUNT_CHOICES = (
+    (3, '3'),
+    (6, '6'),
+    (9, '9'),
+)
+
 ROLE_CHOICES = (
     ('staff', 'Staff'),
     ('tech-speaker', 'Tech Speaker'),

@@ -53,10 +53,11 @@ class HomePage(Page):
         ], min_num=0, max_num=2, required=False),
         null=True,
         blank=True,
+        help_text='Optional promo space under the header for linking to external sites, max. 2',
     )
     featured = StreamField(
         StreamBlock([
-            ('article', PageChooserBlock(required=False, target_model=(
+            ('article', PageChooserBlock(required=True, target_model=(
                 'articles.Article',
                 'externalcontent.ExternalArticle',
             ))),
@@ -64,6 +65,7 @@ class HomePage(Page):
         ], min_num=0, max_num=4, required=False),
         null=True,
         blank=True,
+        help_text='Optional space for featured articles, max. 4',
     )
     about_title = TextField(max_length=250, blank=True, default='')
     about_subtitle = TextField(max_length=250, blank=True, default='')
@@ -87,33 +89,33 @@ class HomePage(Page):
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel('subtitle'),
-                FieldPanel('button_text'),
-                FieldPanel('button_url'),
-            ],
-            heading="Header section",
-        ),
-        ImageChooserPanel('image'),
+        MultiFieldPanel([
+            FieldPanel('subtitle'),
+            FieldPanel('button_text'),
+            FieldPanel('button_url'),
+        ], heading='Header section', help_text='Optional fields for the header section'),
+        MultiFieldPanel([
+            ImageChooserPanel('image'),
+        ], heading='Image', help_text='Optional image shown when sharing this page through social media'),
         StreamFieldPanel('external_promos'),
         StreamFieldPanel('featured'),
-        MultiFieldPanel(
-            [
-                FieldPanel('about_title'),
-                FieldPanel('about_subtitle'),
-                FieldPanel('about_button_text'),
-                FieldPanel('about_button_url'),
-            ],
-            heading="About section",
-        )
+        MultiFieldPanel([
+            FieldPanel('about_title'),
+            FieldPanel('about_subtitle'),
+            FieldPanel('about_button_text'),
+            FieldPanel('about_button_url'),
+        ], heading='About section', help_text='Optional section to explain more about Mozilla'),
     ]
 
     # Card panels
     card_panels = [
-        FieldPanel('card_title'),
-        FieldPanel('card_description'),
-        ImageChooserPanel('card_image'),
+        MultiFieldPanel([
+            FieldPanel('card_title'),
+            FieldPanel('card_description'),
+            ImageChooserPanel('card_image'),
+        ], heading='Card overrides', help_text=(
+            'Optional fields to override the default title, description and image when this page is shown as a card'
+        )),
     ]
 
     # Meta panels
@@ -122,7 +124,7 @@ class HomePage(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels

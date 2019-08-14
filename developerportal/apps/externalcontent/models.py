@@ -27,8 +27,19 @@ class ExternalContent(Page):
     subpage_types = []
 
     # Card fields
-    description = TextField(max_length=400, blank=True, default='')
-    external_url = URLField('URL', max_length=2048, blank=True, default='')
+    description = TextField(
+        blank=True,
+        default='',
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
+    )
+    external_url = URLField(
+        'URL',
+        blank=True,
+        default='',
+        help_text='The URL that this content links to, max. 2048 characters for compatibility with older web browsers',
+        max_length=2048,
+    )
     image = ForeignKey(
         'mozimages.MozImage',
         null=True,
@@ -39,7 +50,12 @@ class ExternalContent(Page):
 
     card_panels = Page.content_panels + [
         FieldPanel('description'),
-        ImageChooserPanel('image'),
+        MultiFieldPanel([
+            ImageChooserPanel('image'),
+        ], heading='Image', help_text=(
+            'Optional header image. If not specified a fallback will be used. This image is also shown when sharing '
+            'this page via social media'
+        )),
         FieldPanel('external_url'),
     ]
 
@@ -77,13 +93,18 @@ class ExternalArticleTopic(Orderable):
 class ExternalArticle(ExternalContent):
     resource_type = 'article'
 
-    date = DateField('Article date', default=datetime.date.today)
+    date = DateField('Article date', default=datetime.date.today, help_text='The date the article was published')
     authors = StreamField(
         StreamBlock([
             ('author', PageChooserBlock(target_model='people.Person')),
             ('external_author', ExternalAuthorBlock()),
         ]),
-        blank=True, null=True
+        blank=True,
+        null=True,
+        help_text=(
+            'Optional list of the article’s authors. Use ‘External author’ to add guest authors without creating a '
+            'profile on the system'
+        ),
     )
     read_time = CharField(max_length=30, blank=True, help_text=(
         'Optional, approximate read-time for this article, e.g. “2 mins”. This '
@@ -93,7 +114,9 @@ class ExternalArticle(ExternalContent):
     meta_panels = [
         FieldPanel('date'),
         StreamFieldPanel('authors'),
-        InlinePanel('topics', heading='Topics'),
+        MultiFieldPanel([
+            InlinePanel('topics'),
+        ], heading='Topics', help_text='The topic pages this article will appear on'),
         FieldPanel('read_time'),
     ]
 
@@ -112,10 +135,11 @@ class ExternalArticle(ExternalContent):
         return self.date.replace(day=1)
 
     def has_author(self, person):
-        for author in self.authors:
-            if (author.block_type=='author' and str(author.value)==str(person.title)):
+        for author in self.authors:  # pylint: disable=not-an-iterable
+            if (author.block_type == 'author' and str(author.value) == str(person.title)):
                 return True
         return False
+
 
 class ExternalEventTopic(Orderable):
     event = ParentalKey('ExternalEvent', on_delete=CASCADE, related_name='topics')
@@ -138,10 +162,14 @@ class ExternalEventSpeaker(Orderable):
 class ExternalEvent(ExternalContent):
     resource_type = 'event'
 
-    start_date = DateField(default=datetime.date.today)
-    end_date = DateField(blank=True, null=True)
-    venue = TextField(max_length=250, blank=True, default='', help_text='Full address of the event venue, displayed on the event detail page')
-    location = CharField(max_length=100, blank=True, default='', help_text='Location details (city and country), displayed on event cards')
+    start_date = DateField(default=datetime.date.today, help_text='The date the event is scheduled to start')
+    end_date = DateField(blank=True, null=True, help_text='The date the event is scheduled to end')
+    venue = TextField(max_length=250, blank=True, default='', help_text=(
+        'Full address of the event venue, displayed on the event detail page'
+    ))
+    location = CharField(max_length=100, blank=True, default='', help_text=(
+        'Location details (city and country), displayed on event cards'
+    ))
 
     meta_panels = [
         MultiFieldPanel([
@@ -150,8 +178,12 @@ class ExternalEvent(ExternalContent):
             FieldPanel('venue'),
             FieldPanel('location'),
         ], heading='Event details'),
-        InlinePanel('topics', heading='Topics'),
-        InlinePanel('speakers', heading='Speakers'),
+        InlinePanel('topics', heading='Topics', help_text=(
+            'Optional topics this event is associated with. Adds the event to the list of events on those topic pages'
+        )),
+        InlinePanel('speakers', heading='Speakers', help_text=(
+            'Optional speakers associated with this event. Adds the event to the list of events on their profile pages'
+        )),
     ]
 
     edit_handler = TabbedInterface([
@@ -210,15 +242,17 @@ class ExternalVideo(ExternalContent):
     is_external = True
 
     # Meta fields
-    date = DateField('Video date', default=datetime.date.today)
+    date = DateField('Video date', default=datetime.date.today, help_text='The date the video was published')
     speakers = StreamField(
         StreamBlock([
             ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
         ], required=False),
-        blank=True, null=True,
+        blank=True,
+        null=True,
+        help_text='Optional list of people associated with or starring in the video',
     )
     duration = CharField(max_length=30, blank=True, null=True, help_text=(
-        'Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.'
+        'Optional video duration in MM:SS format e.g. “12:34”. Shown when the video is displayed as a card'
     ))
 
     meta_panels = [
@@ -239,7 +273,7 @@ class ExternalVideo(ExternalContent):
         return self
 
     def has_speaker(self, person):
-        for speaker in self.speakers:
-            if str(speaker.value)==str(person.title):
+        for speaker in self.speakers:  # pylint: disable=not-an-iterable
+            if str(speaker.value) == str(person.title):
                 return True
         return False

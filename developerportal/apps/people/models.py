@@ -48,7 +48,12 @@ class People(Page):
     template = 'people.html'
 
     # Content fields
-    description = TextField('Description', max_length=250, blank=True, default='')
+    description = TextField(
+        blank=True,
+        default='',
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
+    )
 
     # Meta fields
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
@@ -64,7 +69,7 @@ class People(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -126,13 +131,18 @@ class Person(Page):
     # Content fields
     job_title = CharField(max_length=250)
     role = CharField(max_length=250, choices=ROLE_CHOICES, default='staff')
-    description = RichTextField(default='', blank=True)
+    description = RichTextField(
+        'About',
+        blank=True,
+        default='',
+        help_text='Optional ‘About me’ section content, supports rich text',
+    )
     image = ForeignKey(
         'mozimages.MozImage',
         null=True,
         blank=True,
         on_delete=SET_NULL,
-        related_name='+'
+        related_name='+',
     )
 
     # Card fields
@@ -159,6 +169,7 @@ class Person(Page):
         ], min_num=0, max_num=3, required=False),
         null=True,
         blank=True,
+        help_text='Optional links to any other personal websites'
     )
     keywords = ClusterTaggableManager(through=PersonTag, blank=True)
 
@@ -168,9 +179,14 @@ class Person(Page):
             CustomLabelFieldPanel('title', label='Full name'),
             FieldPanel('job_title'),
             FieldPanel('role'),
-        ], heading='About'),
+        ], heading='Details'),
         FieldPanel('description'),
-        ImageChooserPanel('image'),
+        MultiFieldPanel([
+            ImageChooserPanel('image'),
+        ], heading='Image', help_text=(
+            'Optional header image. If not specified a fallback will be used. This image is also shown when sharing '
+            'this page via social media'
+        )),
     ]
 
     # Card panels
@@ -191,13 +207,13 @@ class Person(Page):
             FieldPanel('linkedin'),
             FieldPanel('github'),
             FieldPanel('email'),
-        ], heading='Profiles'),
+        ], heading='Profiles', help_text=''),
         StreamFieldPanel('websites'),
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels

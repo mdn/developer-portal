@@ -23,7 +23,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
-from ..common.constants import COLOR_CHOICES, COLOR_VALUES
+from ..common.constants import RESOURCE_COUNT_CHOICES, COLOR_CHOICES, COLOR_VALUES
 from ..common.utils import get_combined_articles, get_combined_events, get_combined_videos
 
 
@@ -61,7 +61,12 @@ class Topic(Page):
     template = 'topic.html'
 
     # Content fields
-    description = TextField(max_length=400, blank=True, default='')
+    description = TextField(
+        blank=True,
+        default='',
+        help_text='Optional short text description, max. 400 characters',
+        max_length=400,
+    )
     featured = StreamField(
         StreamBlock([
             ('article', PageChooserBlock(required=False, target_model=(
@@ -72,6 +77,7 @@ class Topic(Page):
         ], min_num=0, max_num=4, required=False),
         null=True,
         blank=True,
+        help_text='Optional space for featured articles, max. 4',
     )
     tabbed_panels_title = CharField(max_length=250, blank=True, default='')
     tabbed_panels = StreamField(
@@ -80,9 +86,14 @@ class Topic(Page):
         ], min_num=0, max_num=3, required=False),
         null=True,
         blank=True,
+        help_text='Optional tabbed panels for linking out to other resources, max. 3',
         verbose_name='Tabbed panels',
     )
-    latest_articles_count = IntegerField(default=3, choices=((3, '3'), (6, '6'), (9, '9')), help_text='The number of articles to display for this topic.')
+    latest_articles_count = IntegerField(
+        choices=RESOURCE_COUNT_CHOICES,
+        default=3,
+        help_text='The number of articles to display for this topic.'
+    )
 
     # Card fields
     card_title = CharField('Title', max_length=140, blank=True, default='')
@@ -110,7 +121,7 @@ class Topic(Page):
         FieldPanel('latest_articles_count'),
         MultiFieldPanel([
             InlinePanel('people'),
-        ], heading='People'),
+        ], heading='People', help_text='Optional list of people associated with this topic as experts'),
     ]
 
     # Card panels
@@ -122,28 +133,25 @@ class Topic(Page):
 
     # Meta panels
     meta_panels = [
-        MultiFieldPanel(
-            [
-                InlinePanel('parent_topics', label='Parent topic(s)'),
-                InlinePanel('child_topics', label='Child topic(s)'),
-            ],
-            heading='Parent/child topic(s)',
-            classname='collapsible collapsed',
-            help_text=(
-                'Topics with no parent (i.e. top-level topics) will be listed '
-                'on the home page. Child topics are listed on the parent '
-                'topic’s page.'
-            )
-        ),
+        MultiFieldPanel([
+            InlinePanel('parent_topics', label='Parent topic(s)'),
+            InlinePanel('child_topics', label='Child topic(s)'),
+        ], heading='Parent/child topic(s)', classname='collapsible collapsed', help_text=(
+            'Topics with no parent (i.e. top-level topics) will be listed on the home page. Child topics are listed '
+            'on the parent topic’s page.'
+        )),
         MultiFieldPanel([
             FieldPanel('icon'),
             FieldPanel('color'),
-        ], heading='Theme'),
+        ], heading='Theme', help_text=(
+            'Theme settings used on topic page and any tagged content. For example, an article tagged with this topic '
+            'will use the color specified here as its accent color.'
+        )),
         MultiFieldPanel([
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
@@ -198,7 +206,7 @@ class Topics(Page):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
             FieldPanel('keywords'),
-        ], heading='SEO'),
+        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
     ]
 
     # Settings panels
