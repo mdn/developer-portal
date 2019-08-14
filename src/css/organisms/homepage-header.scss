@@ -1,23 +1,26 @@
 .homepage-header {
-  background: url('/static/img/homepage-header-pattern.svg') $color-gray-20;
-  background-position: calc(50% + 400px);
-  background-repeat: no-repeat;
+  background: url('/static/img/homepage-header-pattern.svg') $color-black calc(50% + 400px) no-repeat;
+  color: $color-white;
   margin-top: -1px; // Overlap the navigation border.
 }
 
 .homepage-header-content {
+  margin-right: 40%;
   padding-bottom: 64px;
   padding-top: 64px;
-  margin-right: 40%;
 
   @media screen and (min-width: 1024px) {
-    padding-bottom: 80px;
-    padding-top: 168px;
     margin: 0 auto;
+    padding-bottom: 86px;
+    padding-top: 86px;
   }
 
   h1 {
     margin-bottom: 0.2em;
+  }
+
+  h5 {
+    margin-bottom: 0;
   }
 }
 

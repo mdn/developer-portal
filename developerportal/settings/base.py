@@ -236,7 +236,7 @@ AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')
 
 # Static build management commands called in order
 STATIC_BUILD_PIPELINE = (
-    ('Build', 'build-portal'),
+    ('Build', 'build'),
     ('Publish', 'publish'),
 )
 
@@ -280,5 +280,3 @@ MAPBOX_ACCESS_TOKEN = os.environ.get('MAPBOX_ACCESS_TOKEN')
 COUNTRIES_FIRST = [
     'US', 'GB'
 ]
-
-

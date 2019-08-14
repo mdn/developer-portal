@@ -27,6 +27,13 @@ class ContentPage(Page):
     template = 'content.html'
 
     # Content fields
+    hero_image = ForeignKey(
+        'mozimages.MozImage',
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name='+'
+    )
     body = CustomStreamField(help_text=(
         'Main page body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
     ))
@@ -48,6 +55,9 @@ class ContentPage(Page):
 
     # Editor panel configuration
     content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            ImageChooserPanel('hero_image')
+        ], heading='Hero image', help_text='Image should be at least 1024px x 438px (21:9 aspect ratio)'),
         StreamFieldPanel('body'),
     ]
 
