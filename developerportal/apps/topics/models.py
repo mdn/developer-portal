@@ -23,7 +23,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
-from ..common.constants import COUNT_CHOICES, COLOR_CHOICES, COLOR_VALUES
+from ..common.constants import RESOURCE_COUNT_CHOICES, COLOR_CHOICES, COLOR_VALUES
 from ..common.utils import get_combined_articles, get_combined_events, get_combined_videos
 
 
@@ -90,7 +90,7 @@ class Topic(Page):
         verbose_name='Tabbed panels',
     )
     latest_articles_count = IntegerField(
-        choices=COUNT_CHOICES,
+        choices=RESOURCE_COUNT_CHOICES,
         default=3,
         help_text='The number of articles to display for this topic.'
     )
