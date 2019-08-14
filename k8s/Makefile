@@ -26,6 +26,7 @@ export APP_GUNICORN_TIMEOUT ?= 118
 export APP_BASE_URL ?= https://${APP_HOST}
 export APP_MOUNT_PATH ?= /app/media
 
+export GOOGLE_ANALYTICS ?= 0
 
 ###############################
 ### core tasks

@@ -33,3 +33,5 @@ export APP_PV_SIZE=100Gi
 export APP_PV_RECLAIM_POLICY=Retain
 export APP_PV_MOUNT_PATH=/
 export APP_PV_ARN=fs-0baec5a0.efs.us-west-2.amazonaws.com
+
+export GOOGLE_ANALYTICS=UA-49796218-59
