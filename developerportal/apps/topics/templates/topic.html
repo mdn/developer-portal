@@ -6,7 +6,7 @@
 {% block body_class %}topic{% endblock %}
 
 {% block header %}
-  {% block.super %}
+  {{ block.super }}
   {% include "utils/accent-color.html" with color=page.color_value %}
 {% endblock %}
 

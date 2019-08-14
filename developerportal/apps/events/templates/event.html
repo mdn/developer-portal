@@ -11,7 +11,7 @@
 {% block body_class %}event{% endblock %}
 
 {% block header %}
-  {% block.super %}
+  {{ block.super }}
   {% include "utils/accent-color.html" with color=page.primary_topic.color_value %}
 {% endblock %}
 
