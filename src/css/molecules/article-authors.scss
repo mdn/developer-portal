@@ -1,0 +1,33 @@
+.article-authors {
+  border-top: 2px solid $color-gray-20;
+  margin-top: 24px;
+
+  @media #{$mq-lg} {
+    margin-top: 48px;
+  }
+}
+
+.article-author {
+  margin-top: 24px;
+
+  @media #{$mq-lg} {
+    display: flex;
+    margin-top: 48px;
+  }
+}
+
+.article-author-image {
+  border-radius: 50%;
+  height: 130px;
+  margin-bottom: 16px;
+  width: auto;
+
+  @media #{$mq-md} {
+    height: 144px;
+    margin-right: 32px;
+  }
+}
+
+.article-author-content {
+  flex: 1 1;
+}

@@ -1,0 +1,23 @@
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% image author.image fill-288x288 as author_image %}
+{% if author.role == "staff" %}
+  {% static "img/placeholders/mozillian.jpg" as fallback_image %}
+{% else %}
+  {% static "img/placeholders/person.jpg" as fallback_image %}
+{% endif %}
+
+<div class="article-author">
+  <img class="article-author-image" src="{% firstof image.url fallback_image %}" alt="">
+  <div class="article-author-content">
+    <h4 class="no-underline">{{ author.title }}</h4>
+    {% if author.card_description %}
+      <p>{{ author.card_description }}</p>
+    {% else %}
+      {{ author.description | richtext }}
+    {% endif %}
+    <p><a href="{% pageurl author %}">See more</a></p>
+  </div>
+</div>
