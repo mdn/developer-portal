@@ -164,7 +164,7 @@ class Article(Page):
         StreamBlock([
             ('author', PageChooserBlock(target_model='people.Person')),
             ('external_author', ExternalAuthorBlock()),
-        ]),
+        ], required=False),
         blank=True,
         null=True,
         help_text=(

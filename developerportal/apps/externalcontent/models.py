@@ -98,7 +98,7 @@ class ExternalArticle(ExternalContent):
         StreamBlock([
             ('author', PageChooserBlock(target_model='people.Person')),
             ('external_author', ExternalAuthorBlock()),
-        ]),
+        ], required=False),
         blank=True,
         null=True,
         help_text=(
@@ -245,7 +245,7 @@ class ExternalVideo(ExternalContent):
     date = DateField('Video date', default=datetime.date.today, help_text='The date the video was published')
     speakers = StreamField(
         StreamBlock([
-            ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
+            ('speaker', PageChooserBlock(target_model='people.Person')),
         ], required=False),
         blank=True,
         null=True,

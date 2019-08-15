@@ -129,12 +129,12 @@ class Video(Page):
     video_url = StreamField(
         StreamBlock([
             ('embed', EmbedBlock()),
-        ], min_num=1, max_num=1),
+        ], min_num=1, max_num=1, required=True),
         help_text='Embed URL for the video e.g. https://www.youtube.com/watch?v=kmk43_2dtn0',
     )
     speakers = StreamField(
         StreamBlock([
-            ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
+            ('speaker', PageChooserBlock(target_model='people.Person')),
         ], required=False),
         blank=True,
         null=True,

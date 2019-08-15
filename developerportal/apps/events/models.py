@@ -71,12 +71,12 @@ class Events(Page):
     # Content fields
     featured = StreamField(
         StreamBlock([
-            ('event', PageChooserBlock(required=False, target_model=(
+            ('event', PageChooserBlock(target_model=(
                 'events.Event',
                 'externalcontent.ExternalEvent',
             ))),
             ('external_page', FeaturedExternalBlock()),
-        ], min_num=0, max_num=1, required=False),
+        ], max_num=1, required=False),
         null=True,
         blank=True,
         help_text='Optional space to show a featured event',
@@ -164,14 +164,18 @@ class Event(Page):
         StreamBlock([
             ('agenda_item', AgendaItemBlock()),
         ], required=False),
-        blank=True, null=True, help_text='Optional list of agenda items for this event'
+        blank=True,
+        null=True,
+        help_text='Optional list of agenda items for this event',
     )
     speakers = StreamField(
         StreamBlock([
-            ('speaker', PageChooserBlock(required=False, target_model='people.Person')),
-            ('external_speaker', ExternalSpeakerBlock(required=False)),
+            ('speaker', PageChooserBlock(target_model='people.Person')),
+            ('external_speaker', ExternalSpeakerBlock()),
         ], required=False),
-        blank=True, null=True, help_text='Optional list of speakers for this event'
+        blank=True,
+        null=True,
+        help_text='Optional list of speakers for this event',
     )
 
     # Card fields
