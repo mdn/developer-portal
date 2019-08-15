@@ -31,6 +31,9 @@
               {{ block }}
             {% endif %}
           {% endfor %}
+          <div class="resource-toolbar">
+            {% include "molecules/resource-share.html" %}
+          </div>
           {% if page.authors %}
             <footer class="article-authors">
               {% for author in page.authors %}
