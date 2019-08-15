@@ -1,11 +1,15 @@
 .article-header {
   background: $color-gray-10;
   display: flex;
-  grid-column: full;
+  padding: 0;
 
   @media #{$mq-md} {
     min-height: 430px;
-    padding: 0 $grid-gap;
+  }
+
+  .container {
+    display: flex;
+    flex-grow: 1;
   }
 
   .article-details {
@@ -18,17 +22,12 @@
   display: flex;
   flex-grow: 1;
   position: relative;
-
-  @media #{$mq-md} {
-    max-width: 1024px;
-    margin: 0 auto;
-  }
 }
 
 .article-header-expand {
   display: flex;
   flex-direction: column-reverse;
-  padding: 24px;
+  padding: 24px 0;
   width: 100%;
 
   @media #{$mq-md} {

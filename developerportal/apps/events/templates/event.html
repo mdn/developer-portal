@@ -17,13 +17,15 @@
 {% endblock %}
 
 {% block content %}
-  <main class="has-header">
-    <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
-      <section>
+  <main>
+    {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
+    <section class="section">
+      <div class="container">
         {% include "molecules/event-details.html" with resource=page %}
-      </section>
-      <section class="article-content">
+      </div>
+    </section>
+    <section class="section">
+      <div class="container article-content">
         <div class="article-body">
           <div class="resource-toolbar">
             {% include "molecules/resource-share.html" %}
@@ -51,15 +53,13 @@
             {% include "molecules/card-topic.html" with topic=page.primary_topic %}
           {% endif %}
         </aside>
-      </section>
-      {% if page.speakers %}
-      <section class="section-full section-full-bg">
-        {% include "organisms/event-speakers.html" with speakers=page.speakers %}
-      </section>
-      {% endif %}
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+      </div>
+    </section>
+    {% if page.speakers %}
+    <section class="section section-background section-background-gray">
+      {% include "organisms/event-speakers.html" with speakers=page.speakers %}
+    </section>
+    {% endif %}
+    {% include "organisms/newsletter-signup.html" %}
   </main>
 {% endblock content %}

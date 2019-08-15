@@ -5,9 +5,9 @@
 {% block title_suffix %}- Mozilla Developers{% endblock %}
 {% block body_class %}full-height{% endblock %}
 {% block content %}
-  <main class="has-header">
-    <div class="base-grid">
-      <section>
+  <main>
+    <section class="section">
+      <div class="container">
         <div class="http-error-header">
           <h1 class="underline">Whoops, you shouldn't be here!</h1>
         </div>
@@ -23,7 +23,7 @@
             <img src="{% static 'img/http-error.png' %}" alt="page not found">
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 {% endblock %}

@@ -11,30 +11,32 @@
 {% endblock %}
 
 {% block content %}
-<main class="has-header">
-  <div class="base-grid">
-    <section class="section-full">
-      {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
-    </section>
-    {% if page.featured %}
-      <section>
+<main>
+  {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
+  {% if page.featured %}
+    <section class="section">
+      <div class="container">
         {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
-      </section>
-    {% endif %}
-    {% if page.tabbed_panels %}
-      <section class="section-full section-background section-full-bg">
+      </div>
+    </section>
+  {% endif %}
+  {% if page.tabbed_panels %}
+    <section class="section section-background section-background-gray">
+      <div class="container">
         {% include "organisms/tabbed-panels.html" with title=page.tabbed_panels_title resources=page.tabbed_panels %}
+      </div>
+    </section>
+  {% endif %}
+  {% with subtopics=self.subtopics %}
+    {% if subtopics %}
+      <section class="section">
+        {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
       </section>
     {% endif %}
-    {% with subtopics=self.subtopics %}
-      {% if subtopics %}
-        <section class="section-full">
-          {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
-        </section>
-      {% endif %}
-    {% endwith %}
-    {% if page.articles %}
-      <section>
+  {% endwith %}
+  {% if page.articles %}
+    <section class="section">
+      <div class="container">
         <div class="section-header">
           <h2>Latest articles</h2>
           {% if directory_pages.articles %}
@@ -46,10 +48,12 @@
             {% include "organisms/latest-cards.html" with cards=page.articles card_count=card_count show_author=True %}
           {% endwith %}
         {% endwith %}
-      </section>
-    {% endif %}
-    {% if page.people.all %}
-    <section>
+      </div>
+    </section>
+  {% endif %}
+  {% if page.people.all %}
+  <section class="section">
+    <div class="container">
       <div class="section-header">
         <h2>People</h2>
         {% if directory_pages.people %}
@@ -71,22 +75,22 @@
           {% endfor %}
         </div>
       {% endif %}
-    </section>
-    {% endif %}
-    {% if page.videos %}
-    <section>
+    </div>
+  </section>
+  {% endif %}
+  {% if page.videos %}
+  <section class="section">
+    <div class="container">
       <div class="section-header">
         <h2>Latest videos</h2>
       </div>
       {% include "organisms/latest-cards.html" with cards=page.videos %}
-    </section>
-    {% endif %}
-    {% if page.events %}
-      {% include "organisms/upcoming-events.html" with events=page.events topic=page.slug %}
-    {% endif %}
-    <section id="newsletter" class="section-full section-background">
-      {% include "organisms/newsletter-signup.html" %}
-    </section>
-  </div>
+    </div>
+  </section>
+  {% endif %}
+  {% if page.events %}
+    {% include "organisms/upcoming-events.html" with events=page.events topic=page.slug %}
+  {% endif %}
+  {% include "organisms/newsletter-signup.html" %}
 </main>
 {% endblock content %}

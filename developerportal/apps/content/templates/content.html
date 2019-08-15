@@ -6,37 +6,31 @@
 {% block body_class %}content{% endblock %}
 
 {% block content %}
-  <main class="{% if page.hero_image %}has-header{% endif %}">
-    <div class="base-grid">
-      {% if page.hero_image %}
-        {% image page.hero_image width-1024 as hero %}
-        <section class="section-full">
-          <div class="content-hero">
-            <div class="content-hero-image" style="background-image: url('{{ hero.url }}')"></div>
-            <div class="container content-title">
-              <h1 class="highlighted">{{ page.title }}</h1>
-            </div>
-          </div>
-        </section>
-      {% endif %}
-      <section>
-        <article class="content-body">
-          {% if not page.hero_image %}
-          <h1>{{ page.title }}</h1>
+  <main>
+    {% if page.hero_image %}
+      {% image page.hero_image width-1024 as hero %}
+      <section class="section section-background content-hero">
+        <div class="content-hero-image" style="background-image: url('{{ hero.url }}')"></div>
+        <div class="container content-title">
+          <h1 class="highlighted">{{ page.title }}</h1>
+        </div>
+      </section>
+    {% endif %}
+    <section class="section">
+      <article class="container content-body">
+        {% if not page.hero_image %}
+        <h1>{{ page.title }}</h1>
+        {% endif %}
+        {% for block in page.body %}
+          {% if block.block_type == 'image' %}
+            {% image block.value width-672 as rendition %}
+            {% include "atoms/image.html" with image=block.value rendition=rendition %}
+          {% else %}
+            {{ block }}
           {% endif %}
-          {% for block in page.body %}
-            {% if block.block_type == 'image' %}
-              {% image block.value width-672 as rendition %}
-              {% include "atoms/image.html" with image=block.value rendition=rendition %}
-            {% else %}
-              {{ block }}
-            {% endif %}
-          {% endfor %}
-        </article>
-      </section>
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+        {% endfor %}
+      </article>
+    </section>
+    {% include "organisms/newsletter-signup.html" %}
   </main>
 {% endblock content %}
