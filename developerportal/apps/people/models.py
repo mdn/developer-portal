@@ -166,7 +166,7 @@ class Person(Page):
     websites = StreamField(
         StreamBlock([
             ('website', PersonalWebsiteBlock())
-        ], max_num=3),
+        ], max_num=3, required=False),
         null=True,
         blank=True,
         help_text='Optional links to any other personal websites',

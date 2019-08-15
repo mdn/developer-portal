@@ -50,7 +50,7 @@ class HomePage(Page):
     external_promos = StreamField(
         StreamBlock([
             ('external_promo', FeaturedExternalBlock()),
-        ], max_num=2),
+        ], max_num=2, required=False),
         null=True,
         blank=True,
         help_text='Optional promo space under the header for linking to external sites, max. 2',
@@ -62,7 +62,7 @@ class HomePage(Page):
                 'externalcontent.ExternalArticle',
             ))),
             ('external_page', FeaturedExternalBlock()),
-        ], max_num=4),
+        ], max_num=4, required=False),
         null=True,
         blank=True,
         help_text='Optional space for featured articles, max. 4',

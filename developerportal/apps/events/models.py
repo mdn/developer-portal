@@ -76,7 +76,7 @@ class Events(Page):
                 'externalcontent.ExternalEvent',
             ))),
             ('external_page', FeaturedExternalBlock()),
-        ], max_num=1),
+        ], max_num=1, required=False),
         null=True,
         blank=True,
         help_text='Optional space to show a featured event',
@@ -163,7 +163,7 @@ class Event(Page):
     agenda = StreamField(
         StreamBlock([
             ('agenda_item', AgendaItemBlock()),
-        ]),
+        ], required=False),
         blank=True,
         null=True,
         help_text='Optional list of agenda items for this event',
@@ -172,7 +172,7 @@ class Event(Page):
         StreamBlock([
             ('speaker', PageChooserBlock(target_model='people.Person')),
             ('external_speaker', ExternalSpeakerBlock()),
-        ]),
+        ], required=False),
         blank=True,
         null=True,
         help_text='Optional list of speakers for this event',

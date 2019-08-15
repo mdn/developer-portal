@@ -98,7 +98,7 @@ class ExternalArticle(ExternalContent):
         StreamBlock([
             ('author', PageChooserBlock(target_model='people.Person')),
             ('external_author', ExternalAuthorBlock()),
-        ]),
+        ], required=False),
         blank=True,
         null=True,
         help_text=(
@@ -246,7 +246,7 @@ class ExternalVideo(ExternalContent):
     speakers = StreamField(
         StreamBlock([
             ('speaker', PageChooserBlock(target_model='people.Person')),
-        ]),
+        ], required=False),
         blank=True,
         null=True,
         help_text='Optional list of people associated with or starring in the video',

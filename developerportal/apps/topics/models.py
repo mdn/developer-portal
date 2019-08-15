@@ -74,7 +74,7 @@ class Topic(Page):
                 'externalcontent.ExternalArticle',
             ))),
             ('external_page', FeaturedExternalBlock()),
-        ], max_num=4),
+        ], max_num=4, required=False),
         null=True,
         blank=True,
         help_text='Optional space for featured articles, max. 4',
@@ -83,7 +83,7 @@ class Topic(Page):
     tabbed_panels = StreamField(
         StreamBlock([
             ('panel', TabbedPanelBlock())
-        ], max_num=3),
+        ], max_num=3, required=False),
         null=True,
         blank=True,
         help_text='Optional tabbed panels for linking out to other resources, max. 3',

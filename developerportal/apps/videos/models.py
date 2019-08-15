@@ -104,7 +104,7 @@ class Video(Page):
     related_links_mdn = StreamField(
         StreamBlock([
             ('link', ExternalLinkBlock())
-        ]),
+        ], required=False),
         null=True,
         blank=True,
         help_text='Optional links to MDN Web Docs for further reading',
@@ -129,13 +129,13 @@ class Video(Page):
     video_url = StreamField(
         StreamBlock([
             ('embed', EmbedBlock()),
-        ], min_num=1, max_num=1),
+        ], min_num=1, max_num=1, required=True),
         help_text='Embed URL for the video e.g. https://www.youtube.com/watch?v=kmk43_2dtn0',
     )
     speakers = StreamField(
         StreamBlock([
             ('speaker', PageChooserBlock(target_model='people.Person')),
-        ]),
+        ], required=False),
         blank=True,
         null=True,
         help_text='Optional list of people associated with or starring in the video',
