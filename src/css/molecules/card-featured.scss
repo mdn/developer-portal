@@ -1,11 +1,15 @@
 .card-featured-primary {
   background-color: $color-black;
   border-radius: 2px;
+  border: none;
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
   overflow: hidden;
   position: relative;
+
+  &:last-child {
+    margin-bottom: 32px;
+  }
 
   @media #{$mq-md} {
     flex-direction: row-reverse;
@@ -93,6 +97,7 @@
 
 .card-featured {
   border-radius: 2px;
+  border: none;
   color: $color-white;
   display: flex;
   flex-direction: column;
