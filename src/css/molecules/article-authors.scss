@@ -1,10 +1,6 @@
 .article-authors {
   border-top: 2px solid $color-gray-20;
   margin-top: 24px;
-
-  @media #{$mq-lg} {
-    margin-top: 48px;
-  }
 }
 
 .article-author {

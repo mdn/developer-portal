@@ -1,0 +1,24 @@
+.resource-topic-tags {
+  display: flex;
+  flex-flow: row wrap;
+  margin-right: 16px;
+}
+
+.resource-topic-tag a {
+  background-color: $color-tag-background;
+  border: 1px solid;
+  border-radius: .2em;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 16px;
+  margin-right: 16px;
+  padding: 4px 8px;
+  will-change: box-shadow, transform;
+}
+
+.resource-topic-tag a:hover {
+  box-shadow: 2px 2px 0 0;
+  text-decoration: none;
+  transform: translate(0, -1px);
+  transition: box-shadow 100ms, transform 100ms;
+}

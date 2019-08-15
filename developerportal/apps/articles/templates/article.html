@@ -31,7 +31,8 @@
               {{ block }}
             {% endif %}
           {% endfor %}
-          <div class="resource-toolbar">
+          <div class="resource-toolbar resource-toolbar-bottom">
+            {% include "molecules/resource-topic-tags.html" with topics=page.topics.all %}
             {% include "molecules/resource-share.html" %}
           </div>
           {% if page.authors %}
