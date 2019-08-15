@@ -1,6 +1,5 @@
 .person-header {
   background: $color-gray-10;
-  grid-column: full;
   padding: $grid-gap-mobile;
 
   @media #{$mq-md} {
