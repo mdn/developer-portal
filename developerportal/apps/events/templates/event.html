@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
 
 {% block head %}
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
@@ -34,8 +33,7 @@
         <article class="article-body">
           {% for block in page.body %}
             {% if block.block_type == 'image' %}
-              {% image block.value width-672 as rendition %}
-              {% include "atoms/image.html" with image=block.value rendition=rendition %}
+              {% include "molecules/image-block.html" with block=block %}
             {% else %}
               {{ block }}
             {% endif %}
