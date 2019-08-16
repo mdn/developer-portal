@@ -17,8 +17,8 @@
             <div class="mzp-c-navigation-menu">
               <nav class="mzp-c-menu mzp-is-basic">
                 <ul class="mzp-c-menu-category-list">
-                  {% for page in home_page.get_children.in_menu %}
-                    {% with child_pages=page.get_children.in_menu %}
+                  {% for page in home_page.get_children.public.live.in_menu %}
+                    {% with child_pages=page.get_children.public.live.in_menu %}
                       <li class="mzp-c-menu-category{% if child_pages %} mzp-has-drop-down mzp-js-expandable{% endif %}">
                         {% if child_pages %}
                         <span class="mzp-c-menu-title" aria-haspopup="true" aria-controls="mzp-c-menu-panel-{{ page.slug }}">{{ page.title }}</span>
@@ -35,7 +35,7 @@
                               </button>
                               <div class="mzp-c-menu-panel-content">
                                 <ul>
-                                  {% for page in child_pages.in_menu.specific %}
+                                  {% for page in child_pages.public.live.in_menu.specific %}
                                     <li>
                                       <section class="mzp-c-menu-item">
                                         <a class="mzp-c-menu-item-link" href="{{ base_url }}{% pageurl page %}">
