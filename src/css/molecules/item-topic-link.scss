@@ -6,6 +6,7 @@
   color: inherit;
   display: flex;
   padding: 12px;
+  transition: box-shadow 100ms, transform 100ms;
   width: 100%;
   will-change: box-shadow, transform;
 
@@ -19,7 +20,6 @@
     box-shadow: 4px 4px 0 0 $color-black;
     color: inherit;
     transform: translate(-2px, -2px);
-    transition: box-shadow 100ms, transform 100ms;
     text-decoration: none;
   }
 
