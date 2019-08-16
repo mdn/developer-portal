@@ -1,26 +1,11 @@
-.card-event:last-child {
-  margin-bottom: 32px;
-}
-
-.card-event-image {
-  padding-top: 66.66%;
-
-  @media #{$mq-md} {
-    padding-top: 25%;
-  }
-}
-
-.card-event-content {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
+.card-event {
+  margin-bottom: 24px;
 
   @media #{$mq-md} {
     flex-direction: row;
   }
 
-  p {
-    color: $color-nevada;
+  .card-link:last-child & {
     margin-bottom: 0;
   }
 
@@ -31,62 +16,10 @@
   }
 }
 
-.card-event-title {
-  flex-grow: 1;
-  padding: 100px 24px 24px;
-  width: 100%;
-
-  @media #{$mq-md} {
-    width: 65%;
-  }
-}
-
-.card-event-details {
-  border-left: none;
-  border-top: 2px solid $color-gray-20;
-  padding: 24px;
-  width: 100%;
-
-  @media #{$mq-md} {
-    border-left: 2px solid $color-gray-20;
-    border-top: none;
-    padding: 100px 24px 24px;
-    width: 35%;
-  }
-}
-
-.card-event-date {
-  color: $color-nevada;
-
-  .icon {
-    position: relative;
-    top: -2px;
-    margin-right: 4px;
-  }
-}
-
-.card-event-location {
-  color: $color-nevada;
-  display: flex;
-  flex-direction: row;
-  margin-top: 24px;
-
-  .icon {
-    margin-right: 6px;
-    position: relative;
-    right: -2px;
-  }
-}
-
-.card-event-featured .card-event-title,
-.card-event-featured .card-event-details {
-  padding-top: 24px;
-}
-
 .card-event-ribbon-container {
   left: -14px;
   position: relative;
-  top: 16px;
+  top: 14px;
   z-index: 1;
 
   @media #{$mq-md} {
@@ -95,10 +28,11 @@
 }
 
 .card-event-ribbon {
-  height: 60px;
   margin: 0 auto;
-  padding: 16px 40px;
+  padding: 11px 40px 8px;
   position: absolute;
+  white-space: nowrap;
+  border-radius: 2px 2px 2px 0;
 
   .highlight2 {
     background-color: inherit;
@@ -127,4 +61,72 @@
       left: -24px;
     }
   }
+}
+
+.card-event-title {
+  padding: 88px 24px 24px;
+  width: 100%;
+
+  .card-event-featured & {
+    padding: 0;
+  }
+
+  @media #{$mq-md} {
+    width: 50%;
+  }
+}
+
+.card-event-image {
+  min-height: 100%;
+  padding-top: 66.66%;
+}
+
+.card-event-details {
+  border-left: none;
+  border-top: 2px solid $color-gray-20;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px;
+  width: 100%;
+
+  @media #{$mq-md} {
+    border-left: 2px solid $color-gray-20;
+    border-top: none;
+    padding: 24px;
+    width: 50%;
+  }
+
+  .card-event-featured & {
+    justify-content: normal;
+    border-color: transparent;
+  }
+}
+
+.card-event-featured .card-event-meta {
+  margin-top: 16px;
+}
+
+.card-event-date {
+  color: $color-nevada;
+  display: flex;
+
+  .icon {
+    margin-right: 16px;
+  }
+}
+
+.card-event-location {
+  color: $color-nevada;
+  display: flex;
+  margin-top: 16px;
+
+  .icon {
+    margin-right: 16px;
+  }
+}
+
+.card-event-description {
+  color: $color-nevada;
+  margin: 16px 0 0;
 }

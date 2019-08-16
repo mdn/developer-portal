@@ -8,6 +8,7 @@
   padding: 12px;
   transition: box-shadow 100ms, transform 100ms;
   width: 100%;
+  will-change: box-shadow, transform;
 
   @media #{$mq-md} {
     align-items: unset;

@@ -32,6 +32,7 @@
   margin-bottom: 24px;
   transition: box-shadow 100ms, transform 100ms;
   width: 100%;
+  will-change: box-shadow, transform;
 
   @media #{$mq-md} {
     margin-bottom: 0;
@@ -41,10 +42,6 @@
     border-color: $color-black;
     box-shadow: 4px 4px 0 0 $color-black;
     transform: translate(-2px, -2px);
-  }
-
-  &:last-child {
-    margin-bottom: 0;
   }
 
   .card-container & {
@@ -100,6 +97,10 @@
 
   &:active {
     background: none;
+  }
+
+  &:last-child .card {
+    margin-bottom: 0;
   }
 
   &[data-type='person'] .card-image {
