@@ -23,10 +23,7 @@
         {% endif %}
         {% for block in page.body %}
           {% if block.block_type == 'image' %}
-            {% image block.value width-672 as rendition %}
-            {% include "atoms/image.html" with image=block.value rendition=rendition %}
-          {% else %}
-            {{ block }}
+            {% include "molecules/image-block.html" with block=block %}
           {% endif %}
         {% endfor %}
       </article>

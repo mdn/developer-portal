@@ -16,7 +16,7 @@ from django.db.models import (
 from django.utils.safestring import mark_safe
 
 from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField, StreamBlock
+from wagtail.core.fields import StreamField, StreamBlock
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.admin.edit_handlers import (

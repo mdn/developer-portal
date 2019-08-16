@@ -9,7 +9,7 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.fields import RichTextField, StreamField, StreamBlock
+from wagtail.core.fields import StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
