@@ -10,7 +10,7 @@
 {% endif %}
 
 <div class="article-author">
-  <img class="article-author-image" src="{% firstof image.url fallback_image %}" alt="">
+  <img class="article-author-image" src="{% firstof author_image.url fallback_image %}" alt="">
   <div class="article-author-content">
     <h4 class="no-underline">{{ author.title }}</h4>
     {% if author.card_description %}
