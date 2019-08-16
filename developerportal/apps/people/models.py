@@ -36,6 +36,7 @@ from .edit_handlers import CustomLabelFieldPanel
 
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import ROLE_CHOICES
+from ..common.fields import RICH_TEXT_FEATURES
 
 
 class PeopleTag(TaggedItemBase):
@@ -135,6 +136,7 @@ class Person(Page):
         'About',
         blank=True,
         default='',
+        features=RICH_TEXT_FEATURES,
         help_text='Optional ‘About me’ section content, supports rich text',
     )
     image = ForeignKey(

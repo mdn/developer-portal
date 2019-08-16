@@ -25,6 +25,7 @@ from taggit.models import TaggedItemBase
 
 from ..common.blocks import ExternalLinkBlock
 from ..common.constants import VIDEO_TYPE
+from ..common.fields import RICH_TEXT_FEATURES
 from ..common.utils import get_combined_articles_and_videos
 
 
@@ -98,7 +99,7 @@ class Video(Page):
         help_text='Optional short text description, max. 400 characters',
         max_length=400,
     )
-    body = RichTextField(blank=True, default='', help_text=(
+    body = RichTextField(blank=True, default='', features=RICH_TEXT_FEATURES, help_text=(
         'Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
     ))
     related_links_mdn = StreamField(
@@ -124,6 +125,7 @@ class Video(Page):
     transcript = RichTextField(
         blank=True,
         default='',
+        features=RICH_TEXT_FEATURES,
         help_text='Optional text transcript of the video, supports rich text',
     )
     video_url = StreamField(
