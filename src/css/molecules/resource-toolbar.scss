@@ -17,3 +17,16 @@
     }
   }
 }
+
+.resource-toolbar-bottom {
+  align-items: flex-start;
+  margin-top: 24px;
+
+  @media #{$mq-md} {
+    margin-top: 48px;
+  }
+
+  .resource-share {
+    margin-top: 0;
+  }
+}

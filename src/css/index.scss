@@ -39,6 +39,7 @@
 @import 'atoms/typography';
 
 // Molecules.
+@import 'molecules/article-authors';
 @import 'molecules/article-details';
 @import 'molecules/card';
 @import 'molecules/card-event';
@@ -55,6 +56,7 @@
 @import 'molecules/resource-meta';
 @import 'molecules/resource-share';
 @import 'molecules/resource-toolbar';
+@import 'molecules/resource-topic-tags';
 
 // Organisms.
 @import 'organisms/article-header';

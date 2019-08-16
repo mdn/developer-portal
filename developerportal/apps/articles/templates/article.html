@@ -31,6 +31,17 @@
               {{ block }}
             {% endif %}
           {% endfor %}
+          <div class="resource-toolbar resource-toolbar-bottom">
+            {% include "molecules/resource-topic-tags.html" with topics=page.topics.all %}
+            {% include "molecules/resource-share.html" %}
+          </div>
+          {% if page.authors %}
+            <footer class="article-authors">
+              {% for author in page.authors %}
+                {% include "molecules/article-author.html" with author=author.value %}
+              {% endfor %}
+            </footer>
+          {% endif %}
         </article>
         <aside class="article-sidebar">
           {% if page.related_links_mdn %}

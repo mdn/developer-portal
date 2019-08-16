@@ -4,13 +4,15 @@
 
 <div class="article-details">
   {% if authors %}
-    {% image authors.0.value.image fill-96x96 as first_author_image %}
-    {% if authors.0.value.role == "staff" %}
-      {% static "img/placeholders/mozillian.jpg" as fallback_image %}
-    {% else %}
-      {% static "img/placeholders/person.jpg" as fallback_image %}
-    {% endif %}
-    <img src="{% firstof first_author_image.url fallback_image %}" alt="">
+    {% with authors.0.value as author %}
+      {% image author.image fill-96x96 as author_image %}
+      {% if author.role == "staff" %}
+        {% static "img/placeholders/mozillian.jpg" as fallback_image %}
+      {% else %}
+        {% static "img/placeholders/person.jpg" as fallback_image %}
+      {% endif %}
+      <img src="{% firstof author_image.url fallback_image %}" alt="">
+    {% endwith %}
   {% endif %}
   <div class="article-details-meta">
     {% if authors %}
