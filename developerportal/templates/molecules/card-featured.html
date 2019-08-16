@@ -8,7 +8,7 @@
 {% else %}
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
 {% endif %}
-  <div class="card card-featured">
+  <div class="card-featured">
     <div class="card-featured-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
     <div class="card-featured-content">
       <span class="highlighted featured">Featured</span>
