@@ -1,3 +1,14 @@
+.card-featured,
+.card-featured-primary {
+  will-change: box-shadow, transform;
+
+  &:hover {
+    box-shadow: 4px 4px 0 0 $color-black;
+    transform: translate(-2px, -2px);
+    transition: box-shadow 100ms, transform 100ms;
+  }
+}
+
 .card-featured-primary {
   background-color: $color-black;
   border-radius: 2px;

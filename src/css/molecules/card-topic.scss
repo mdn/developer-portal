@@ -1,12 +1,13 @@
 .card-topic {
   background: $color-black;
   border-radius: 2px;
-  transition: box-shadow 100ms, transform 100ms;
   position: relative;
+  will-change: box-shadow, transform;
 
   &:hover {
     box-shadow: 4px 4px 0 0 $color-black;
     transform: translate(-2px, -2px);
+    transition: box-shadow 100ms, transform 100ms;
   }
 
   .pattern::before {
