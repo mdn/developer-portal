@@ -18,6 +18,6 @@
     {% else %}
       {{ author.description | richtext }}
     {% endif %}
-    <p><a href="{% pageurl author %}">See more</a></p>
+    <p><a href="{% if author.slug %}{% pageurl author %}{% else %}{{ author.url }}{% endif %}">See more</a></p>
   </div>
 </div>
