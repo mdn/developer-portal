@@ -7,10 +7,13 @@ from django.utils.safestring import mark_safe
 
 from mimetypes import guess_type
 
-from developerportal.apps.topics.models import Topic
-
 
 register = template.Library()
+
+
+@register.simple_tag
+def make_list(*items):
+    return [item for item in items if item]
 
 
 @register.simple_tag

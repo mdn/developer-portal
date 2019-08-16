@@ -1,3 +1,5 @@
+{% load app_tags %}
+
 <div class="event-details">
   <div class="event-details-data">
     <div class="event-details-date">
@@ -6,7 +8,7 @@
       </span>
       <span>{{ resource.start_date }}</span>
       {% if resource.end_date %}
-      &ndash; <span>{{ resource.end_date }}</span>
+        &ndash; <span>{{ resource.end_date }}</span>
       {% endif %}
     </div>
     <div class="event-details-venue">
@@ -14,10 +16,8 @@
         {% include "atoms/icons/location.svg" %}
       </span>
       <address>
-          {{ resource.address_line_1 }}{% if resource.address_line_2 %}, {{ resource.address_line_2 }}{% endif %}{% if resource.address_line_3 %}, {{ resource.address_line_3 }}{% endif %},
-          {{ resource.city }},
-          {% if resource.zip_code %}{{ resource.zip_code }},{% endif %}
-          {{ resource.country }}
+        {% make_list resource.address_line_1 resource.address_line_2 resource.address_line_3 resource.city resource.zip_code resource.country as address %}
+        {{ address | join:', ' }}
       </address>
     </div>
   </div>

@@ -1,6 +1,7 @@
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load app_tags %}
 
 {% image resource.image width-1024 as image %}
 {% image resource.card_image width-1024 as card_image %}
@@ -48,11 +49,16 @@
           <span class="icon">{% include "atoms/icons/date.svg" %}</span>
           <span>{{ resource.event_dates_full|safe }}</span>
         </div>
-        {% if resource.city %}
+        {% make_list resource.city resource.country as location %}
+        {% if location or resource.location %}
           <div class="card-event-location">
             <span class="icon">{% include "atoms/icons/location.svg" %}</span>
             <address>
-              {{ resource.city }}{% if resource.country %}, {{ resource.country }}{% endif %}
+            {% if resource.location %}
+              {{ resource.location }}
+            {% else %}
+              {{ location | join:', ' }}
+            {% endif %}
             </address>
           </div>
         {% endif %}
