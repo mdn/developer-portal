@@ -1,8 +1,8 @@
 .content-hero {
+  display: flex;
   height: 300px;
   overflow: hidden;
   position: relative;
-  display: flex;
 
   @media #{$mq-md} {
     height: 438px;
@@ -31,13 +31,11 @@
 }
 
 .content-body {
-  margin: 0 auto;
-  max-width: 672px;
+  max-width: 736px;
 }
 
 .content-title {
   align-self: flex-end;
-  padding-bottom: 32px;
   width: auto;
 
   @media #{$mq-md} {

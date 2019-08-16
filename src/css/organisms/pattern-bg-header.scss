@@ -2,11 +2,11 @@
   background-color: $color-black;
   color: $color-white;
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  padding: 64px $grid-gap-mobile 80px;
+  padding: 64px 0 80px;
   position: relative;
 
   @media #{$mq-md} {
-    padding: 60px $grid-gap 70px;
+    padding: 60px 0 70px;
   }
 
   .pattern {
@@ -28,8 +28,6 @@
 
   @media #{$mq-md} {
     flex-direction: row;
-    max-width: 1024px;
-    margin: 0 auto;
   }
 }
 

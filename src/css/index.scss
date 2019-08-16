@@ -25,6 +25,7 @@
 // Global.
 @import 'global/base';
 @import 'global/layout';
+@import 'global/section';
 
 // Atoms.
 @import 'atoms/code';
@@ -61,7 +62,6 @@
 // Organisms.
 @import 'organisms/article-header';
 @import 'organisms/event-agenda';
-@import 'organisms/event-speakers';
 @import 'organisms/filter-form';
 @import 'organisms/filter-list';
 @import 'organisms/homepage-about';
@@ -72,6 +72,7 @@
 @import 'organisms/person-header';
 @import 'organisms/person-overview';
 @import 'organisms/tabbed-panels';
+@import 'organisms/upcoming-events';
 @import 'organisms/video-header';
 
 // Templates.

@@ -12,10 +12,10 @@
 {% endblock %}
 
 {% block content %}
-  <main class="has-header">
-    <div class="base-grid">
-      {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors %}
-      <section class="article-content">
+  <main>
+    {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors %}
+    <section class="section">
+      <div class="container article-content">
         <div class="article-body">
           <div class="resource-toolbar">
             {% include "molecules/resource-meta.html" with resource=page read_time=read_time %}
@@ -59,10 +59,8 @@
             {% include "molecules/card-topic.html" with topic=page.primary_topic %}
           {% endif %}
         </aside>
-      </section>
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+      </div>
+    </section>
+    {% include "organisms/newsletter-signup.html" %}
   </main>
 {% endblock content %}

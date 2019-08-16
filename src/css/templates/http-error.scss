@@ -17,7 +17,6 @@
 .http-error {
   display: flex;
   flex-direction: column-reverse;
-  margin-bottom: 80px;
 
   p {
     color: $color-nevada;
@@ -53,10 +52,8 @@
 }
 
 .http-error-header {
-  margin-top: 40px;
   max-width: 100%;
   @media #{$mq-md} {
-    margin-top: 80px;
     max-width: 50%;
   }
 }

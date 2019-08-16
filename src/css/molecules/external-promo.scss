@@ -5,18 +5,14 @@
   .card-image {
     min-width: 140px;
     padding-top: 75px;
+
     @media #{$mq-md} {
       min-width: 200px;
     }
   }
 
-  .highlight2 {
-    background-color: inherit;
-    line-height: 20px;
+  h4 {
     margin-bottom: 8px;
-    @media #{$mq-md} {
-      line-height: 27px;
-    }
   }
 
   svg {

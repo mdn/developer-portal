@@ -12,14 +12,18 @@
 
 {% block content %}
   <main>
-    <div class="base-grid">
-      <section>
+    <section class="section">
+      <div class="container">
         {% include "organisms/video-header.html" with title=page.title description=page.description %}
-      </section>
-      <section>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
         {{ page.video_url }}
-      </section>
-      <section class="article-content">
+      </div>
+    </section>
+    <section class="section">
+      <div class="container article-content">
         <div class="article-body">
           <div class="resource-toolbar">
             {% include "molecules/article-details.html" with date=page.date authors=page.speakers %}
@@ -51,10 +55,8 @@
             {% include "molecules/card-topic.html" with topic=page.primary_topic %}
           {% endif %}
         </aside>
-      </section>
-      <section id="newsletter" class="section-full section-background">
-        {% include "organisms/newsletter-signup.html" %}
-      </section>
-    </div>
+      </div>
+    </section>
+    {% include "organisms/newsletter-signup.html" %}
   </main>
 {% endblock content %}

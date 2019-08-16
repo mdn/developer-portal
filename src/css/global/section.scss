@@ -1,0 +1,52 @@
+.section {
+  margin: 32px auto;
+
+  @media #{$mq-md} {
+    margin: 64px auto;
+  }
+}
+
+.section-background {
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 24px 0;
+
+  @media #{$mq-md} {
+    padding: 40px 0;
+  }
+}
+
+.section-background-gray {
+  background-color: $color-gray-10;
+}
+
+.section-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+
+  .section-pattern & {
+    margin-bottom: 40px;
+  }
+
+  a {
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:not(.no-underline)::after {
+      margin-bottom: 0;
+    }
+  }
+}

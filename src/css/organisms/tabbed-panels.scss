@@ -42,13 +42,8 @@
 }
 
 .tabbed-panels {
-  padding: 0 16px;
-
   @media #{$mq-md} {
     flex-direction: row;
-    margin: 0 auto;
-    max-width: 1084px;
-    padding: 0 32px;
   }
 
   .displayed {
