@@ -76,7 +76,13 @@
       display: grid;
       grid-gap: 24px;
       grid-template-columns: repeat(2, 1fr);
+      padding: 0 100px;
       width: 100%;
+    }
+
+    @media #{$mq-lg} {
+      padding-left: 160px;
+      padding-right: 0;
     }
   }
 
