@@ -26,6 +26,11 @@
   justify-content: space-between;
   margin-bottom: 24px;
 
+  .page-description {
+    margin: 16px 0 0;
+    max-width: 672px;
+  }
+
   .section-pattern & {
     margin-bottom: 40px;
   }

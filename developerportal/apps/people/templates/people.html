@@ -11,10 +11,12 @@
       <section class="section section-pattern">
         <div class="container">
           <div class="section-header">
-            <h2>People</h2>
-            {% if page.description %}
-              <p class="page-description">{{ page.description }}</p>
-            {% endif %}
+            <div>
+              <h2>People</h2>
+              {% if page.description %}
+                <p class="page-description">{{ page.description }}</p>
+              {% endif %}
+            </div>
           </div>
         </div>
         {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
