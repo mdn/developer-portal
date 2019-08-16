@@ -10,12 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
 from django.core.management.utils import get_random_secret_key
 
+from wagtail.embeds.oembed_providers import all_providers
 
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -205,8 +207,6 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = 'Mozilla Developers'
 
 # Add support for CodePen oEmbed
-from wagtail.embeds.oembed_providers import all_providers
-
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'wagtail.embeds.finders.oembed',
@@ -229,7 +229,7 @@ BASE_URL = os.environ.get('BASE_URL')
 BUILD_DIR = os.path.join(BASE_DIR, 'build')
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
-	'wagtailbakery.views.AllPublishedPagesView',
+    'wagtailbakery.views.AllPublishedPagesView',
 )
 AWS_REGION = os.environ.get('AWS_REGION')
 AWS_BUCKET_NAME = os.environ.get('AWS_BUCKET_NAME')

@@ -4,7 +4,6 @@ import datetime
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, URLField
 
 from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -21,6 +20,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import ExternalAuthorBlock
+
 
 class ExternalContent(Page):
     is_external = True

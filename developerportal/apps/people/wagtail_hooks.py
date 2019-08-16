@@ -10,4 +10,5 @@ class PeopleAdmin(ModelAdmin):
     menu_order = 230
     url_helper_class = ExplorerRedirectAdminURLHelper
 
+
 modeladmin_register(PeopleAdmin)

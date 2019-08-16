@@ -1,6 +1,5 @@
 from django import template
 from django.utils.safestring import mark_safe
-from django.template.defaultfilters import register
 
 import pygments
 from pygments import lexers
@@ -20,7 +19,6 @@ def hex_to_rgb(hex_color, alpha=1):
     alpha = float(alpha)
     a = alpha if 0 < alpha < 1 else 1
     return f'rgb({r}, {g}, {b})' if a == 1 else f'rgb({r}, {g}, {b}, {a})'
-
 
 
 @register.filter(name='syntax_highlight', is_safe=True)

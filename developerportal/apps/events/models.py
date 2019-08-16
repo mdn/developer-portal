@@ -1,7 +1,5 @@
 # pylint: disable=no-member
 import datetime
-from itertools import chain
-from operator import attrgetter
 
 from django.db.models import (
     CASCADE,
@@ -236,14 +234,13 @@ class Event(Page):
             FieldPanel('latitude'),
             FieldPanel('longitude'),
             FieldPanel('register_url'),
-        ],  heading='Event details',
+        ], heading='Event details',
             classname='collapsible',
             help_text=mark_safe(
                 'Optional time and location information for this event. Latitude and longitude are used to show a map '
                 'of the event’s location. For more information on finding these values for a given location, '
                 '<a href="https://support.google.com/maps/answer/18539">see this article</a>'
-            )
-        ),
+        )),
         MultiFieldPanel([
             FieldPanel('venue_name'),
             FieldPanel('venue_url'),
@@ -254,7 +251,7 @@ class Event(Page):
             FieldPanel('state'),
             FieldPanel('zip_code'),
             FieldPanel('country'),
-        ],  heading='Event address',
+        ], heading='Event address',
             classname='collapsible',
             help_text='Optional address fields. The city and country are also shown on event cards'
         ),

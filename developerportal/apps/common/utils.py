@@ -1,6 +1,5 @@
 from itertools import chain
 from operator import attrgetter
-from wagtail.core.models import Page
 
 from django.apps import apps
 
@@ -25,7 +24,9 @@ def get_resources(page, models, filters=None, order_by=None, reverse=False):
         order_by - key to order the combined set by, must be common to all models.
         reverse - whether to reverse the combined set, default false.
     """
-    callback = lambda model: model.objects.filter(**filters).public().live().not_page(page).specific()
+    def callback(model):
+        return model.objects.filter(**filters).public().live().not_page(page).specific()
+
     result = _combined_query(models, callback)
     return sorted(set(result), key=attrgetter(order_by), reverse=reverse)
 

@@ -3,19 +3,15 @@ from itertools import chain
 from operator import attrgetter
 
 from django.db.models import (
-    BooleanField,
     CASCADE,
     CharField,
     ForeignKey,
     SET_NULL,
     TextField,
 )
-from django.forms import CheckboxSelectMultiple
-from django.utils.text import slugify
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
-    FieldRowPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
@@ -23,7 +19,6 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
     StreamFieldPanel,
 )
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -175,7 +170,7 @@ class Person(Page):
     )
     keywords = ClusterTaggableManager(through=PersonTag, blank=True)
 
-     # Content panels
+    # Content panels
     content_panels = [
         MultiFieldPanel([
             CustomLabelFieldPanel('title', label='Full name'),
@@ -239,11 +234,11 @@ class Person(Page):
         '''
         from ..events.models import Event
 
-        upcoming_events = (Event
-                .objects
-                .filter(start_date__gte=datetime.datetime.now())
-                .live()
-                .public()
+        upcoming_events = (
+            Event.objects
+            .filter(start_date__gte=datetime.datetime.now())
+            .live()
+            .public()
         )
 
         speaker_events = Event.objects.none()

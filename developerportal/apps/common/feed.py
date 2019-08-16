@@ -1,9 +1,7 @@
-from django.db import models
 from django.contrib.syndication.views import Feed
-from wagtail.core.models import Page
-from django.urls import reverse
 
 from developerportal.apps.articles.models import Article
+
 
 class RssFeeds(Feed):
     title = "Mozilla Developers articles feed"

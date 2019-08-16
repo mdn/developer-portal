@@ -1,4 +1,3 @@
-from wagtail.admin.edit_handlers import StreamFieldPanel
 from wagtail.core.blocks import RichTextBlock, RawHTMLBlock
 from wagtail.core.fields import StreamField
 from wagtail.images.blocks import ImageChooserBlock

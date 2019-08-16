@@ -1,8 +1,15 @@
 # pylint: disable=no-member
 import datetime
 
-from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField, FileField, IntegerField
-from django.utils.translation import ugettext_lazy as _
+from django.db.models import (
+    CASCADE,
+    CharField,
+    ForeignKey,
+    SET_NULL,
+    TextField,
+    FileField,
+    IntegerField,
+)
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -18,7 +25,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 

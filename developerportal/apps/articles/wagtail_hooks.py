@@ -10,4 +10,5 @@ class ArticlesAdmin(ModelAdmin):
     menu_order = 210
     url_helper_class = ExplorerRedirectAdminURLHelper
 
+
 modeladmin_register(ArticlesAdmin)
