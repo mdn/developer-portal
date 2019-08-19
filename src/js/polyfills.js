@@ -1,3 +1,5 @@
+/* eslint-disable */
+// source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from#Polyfill
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 if (!Array.from) {
   Array.from = (function () {
@@ -77,6 +79,7 @@ if (!Array.from) {
   }());
 }
 
+// source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries#Polyfill
 if (!Object.entries) {
   Object.entries = function( obj ){
     var ownProps = Object.keys( obj ),
@@ -99,4 +102,25 @@ if (!Array.prototype.includes) {
         return newArr.length > 0;
       }
   });
+}
+
+// source: https://github.com/webcomponents/webcomponents-platform
+if (!window.Event || typeof window.Event !== 'function') {
+  var origEvent = window.Event;
+  /**
+   * @param {!string} inType
+   * @param {?(EventInit)=} params
+   */
+  window.Event = function(inType, params) {
+    params = params || {};
+    var e = document.createEvent('Event');
+    e.initEvent(inType, Boolean(params.bubbles), Boolean(params.cancelable));
+    return e;
+  };
+  if (origEvent) {
+    for (var i in origEvent) {
+      window.Event[i] = origEvent[i];
+    }
+    window.Event.prototype = origEvent.prototype;
+  }
 }

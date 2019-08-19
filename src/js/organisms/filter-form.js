@@ -89,14 +89,7 @@ module.exports = class FilterForm {
     });
 
     if (matchedCheckboxes.length) {
-      let event;
-      if (typeof(Event) === 'function') {
-        event = new Event('change');
-      } else {
-        // for IE
-        event = document.createEvent('Event');
-        event.initEvent('change', true, true);
-      }
+      const event = new Event('change');
       this.form.dispatchEvent(event);
     }
   }
