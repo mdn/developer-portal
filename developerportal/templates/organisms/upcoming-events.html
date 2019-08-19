@@ -5,7 +5,9 @@
     <div class="section-header">
       <h2>Upcoming events</h2>
       {% if directory_pages.events %}
-        <a href="{% pageurl directory_pages.events %}?topics={{ topic }}">See more</a>
+        {% if topic %}
+          <a href="{% pageurl directory_pages.events %}?topics={{ topic }}">See more</a>
+        {% endif %}
       {% endif %}
     </div>
     <div>
