@@ -1,8 +1,8 @@
 /* globals mapboxgl */
 module.exports = class MapEmbed {
   static init() {
-    this.maps = Array.from(document.querySelectorAll('.map'));
-    this.maps.forEach(mapEl => {
+    const maps = Array.from(document.querySelectorAll('.map'));
+    maps.forEach(mapEl => {
       const map = new mapboxgl.Map({
         container: mapEl.dataset.mapId,
         style: 'mapbox://styles/mapbox/light-v10',
