@@ -1,78 +1,110 @@
 .card-person {
+  align-items: center;
   display: flex;
   flex-direction: row;
+  text-align: left;
+  transition: transform 100ms;
+  will-change: transform;
+
   @media #{$mq-md} {
     flex-direction: column;
+    text-align: center;
   }
 
-  .card-content {
-    width: 100%;
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+    will-change: auto;
   }
 
-  .person-titles {
-    text-align: left;
-    @media #{$mq-md} {
-      text-align: center;
+  .card-link:hover & {
+    transform: translate(-2px, -2px);
+
+    @media (prefers-reduced-motion: reduce) {
+      transform: none;
     }
   }
+
+  .heading5 {
+    margin-bottom: 0;
+  }
+}
+
+.card-person-speaker {
+  flex-direction: row;
+  text-align: left;
 }
 
 .card-person.card-full {
   flex-direction: column;
   margin: 0;
+  text-align: left;
+
   @media #{$mq-md} {
     flex-direction: row;
     margin: 0 90px;
+  }
+
+  .heading5 {
+    margin-bottom: 0.5em;
   }
 
   .card-content {
     align-items: center;
     justify-content: center;
     width: 100%;
+
     .rich-text > p {
       display: none;
     }
+
     @media #{$mq-md} {
       align-items: flex-start;
       justify-content: center;
+
       .rich-text > p {
         display: initial;
         text-align: left;
       }
     }
   }
+}
 
-  .person-titles {
-    margin-bottom: 16px;
-    text-align: center;
-    @media #{$mq-md} {
-      text-align: left;
-    }
+.card-person-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+
+  .highlight {
+    font-size: 24px;
   }
 }
 
-.person-image {
-  border-radius: 50%;
-  filter: grayscale(1);
-  margin: 0 auto;
-  max-width: 284px;
+.card-person-image {
+  font-size: 0;
+  margin-right: 16px;
+  max-width: 80px;
   width: 100%;
-  display: block;
-}
 
-.person-title {
-  line-height: 24px;
-  margin-bottom: 8px;
   @media #{$mq-md} {
-    line-height: 34px;
+    margin-bottom: 16px;
+    margin-right: 0;
+    max-width: 284px;
   }
 
-  &:hover {
-    opacity: 0.8;
-    transition: transform 100ms;
+  .card-full & {
+    margin-bottom: 0;
+    margin-right: 24px;
+  }
 
-    &:hover {
-      transform: translate(-2px, -2px);
-    }
+  .card-person-speaker & {
+    margin-bottom: 0;
+    margin-right: 16px;
+    max-width: 80px;
+  }
+
+  img {
+    border-radius: 50%;
+    filter: grayscale(1);
   }
 }

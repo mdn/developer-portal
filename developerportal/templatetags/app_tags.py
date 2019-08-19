@@ -12,7 +12,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def make_list(*items):
+def make_list_from_args(*items):
     return [item for item in items if item]
 
 
