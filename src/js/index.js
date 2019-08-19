@@ -2,6 +2,7 @@
 const FilterForm = require('./organisms/filter-form');
 const MapEmbed = require('./atoms/map-embed');
 const TabbedPanels = require('./organisms/tabbed-panels');
+const Toggle = require('./atoms/toggle');
 
 require('@mozilla-protocol/core/protocol/js/protocol-base');
 require('@mozilla-protocol/core/protocol/js/protocol-utils');
@@ -18,4 +19,5 @@ window.addEventListener('DOMContentLoaded', () => {
   FilterForm.init();
   MapEmbed.init();
   TabbedPanels.init();
+  Toggle.init();
 });
