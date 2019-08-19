@@ -21,9 +21,7 @@
       <div class="card-person-content">
         <div>
           {% if type == 'speaker' or type == 'external_speaker' %}
-            <span class="highlight">
-              {{ person.title }}
-            </span>
+            <h4 class="no-underline">{{ person.title }}</h4>
           {% else %}
             <div class="person-title highlight1">
               {{ person.title }}
