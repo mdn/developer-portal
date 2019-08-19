@@ -6,10 +6,7 @@
       <span class="icon">
         {% include "atoms/icons/date.svg" %}
       </span>
-      <span>{{ resource.start_date }}</span>
-      {% if resource.end_date %}
-        &ndash; <span>{{ resource.end_date }}</span>
-      {% endif %}
+      <span>{{ resource.event_dates_full|safe }}</span>
     </div>
     <div class="event-details-venue">
       <span class="icon">
