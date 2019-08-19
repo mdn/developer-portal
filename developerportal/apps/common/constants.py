@@ -43,7 +43,7 @@ RESOURCE_COUNT_CHOICES = (
 )
 
 RICH_TEXT_FEATURES = (
-    'bold', 'blockquote', 'code', 'h2', 'h3', 'h4', 'hr', 'italic', 'link', 'ol', 'ul',
+    'bold', 'blockquote', 'code', 'h2', 'h3', 'h4', 'hr', 'image', 'italic', 'link', 'ol', 'ul',
 )
 
 RICH_TEXT_FEATURES_SIMPLE = ('bold', 'italic', 'code')
