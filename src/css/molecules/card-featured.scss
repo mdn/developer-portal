@@ -87,6 +87,7 @@
 
 .card-featured-primary-content {
   bottom: 16px;
+  color: $color-white;
   flex-grow: 1;
   left: 16px;
   max-width: 340px;
@@ -101,10 +102,7 @@
     margin-bottom: 16px;
   }
 
-  .featured,
-  h4,
-  p {
-    color: $color-white;
+  h4 {
     display: inline-block;
   }
 
