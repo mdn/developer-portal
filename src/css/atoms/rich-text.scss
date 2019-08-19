@@ -1,9 +1,5 @@
 // revert the Protocol styling reset
 .rich-text {
-  p {
-    color: $color-nevada;
-  }
-
   ul {
     list-style: disc;
   }
@@ -13,7 +9,6 @@
   }
 
   li {
-    color: $color-nevada;
     margin-left: 1.5em;
     padding-left: 4px;
   }
