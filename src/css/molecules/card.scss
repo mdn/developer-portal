@@ -40,7 +40,7 @@
   margin-bottom: 24px;
 }
 
-@supports (grid-gap: $grid-gap-mobile) {
+@supports (display: grid) {
   .card-container {
     display: grid;
     grid-gap: $grid-gap-mobile;

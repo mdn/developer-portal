@@ -16,17 +16,6 @@ exports.parseQueryParams = () => {
 
 /** Creates an object based on a form's current input values. */
 exports.parseForm = form => {
-  if (FormData && FormData.prototype.entries) {
-    const formData = new FormData(form);
-    return Array.from(formData.entries()).reduce((filter, [key, value]) => {
-      if (!filter[key]) {
-        filter[key] = []; // eslint-disable-line no-param-reassign
-      }
-      filter[key].push(value);
-      return filter;
-    }, {});
-  }
-
   const filter = {};
   const elements = document.querySelectorAll('input[type="checkbox"]:checked');
   Array.from(elements).forEach((element) => {
