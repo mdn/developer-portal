@@ -18,10 +18,13 @@
   svg {
     position: absolute;
     right: 16px;
-    top: 24px;
+    top: 16px;
   }
 }
 
 .external-promo-content {
-  padding: 24px 64px 24px 24px;
+  padding: 32px 24px 24px 24px;
+  @media #{$mq-md} {
+    padding: 24px;
+  }
 }

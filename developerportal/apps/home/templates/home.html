@@ -10,12 +10,14 @@
     {% include "organisms/homepage-header.html" %}
     {% if page.external_promos %}
     <section class="section">
-      <div class="container card-container card-container-2-wide">
-        {% for external_promo in page.external_promos %}
-          {% with external_promo.value as promo %}
-            {% include "molecules/external-promo.html" with resource=promo %}
-          {% endwith %}
-        {% endfor %}
+      <div class="container">
+        <div class="card-container card-container-2-wide">
+          {% for external_promo in page.external_promos %}
+            {% with external_promo.value as promo %}
+              {% include "molecules/external-promo.html" with resource=promo %}
+            {% endwith %}
+          {% endfor %}
+        </div>
       </div>
     </section>
     {% endif %}
