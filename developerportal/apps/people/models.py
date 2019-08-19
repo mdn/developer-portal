@@ -30,8 +30,7 @@ from taggit.models import TaggedItemBase
 from .edit_handlers import CustomLabelFieldPanel
 
 from ..common.blocks import PersonalWebsiteBlock
-from ..common.constants import ROLE_CHOICES
-from ..common.fields import RICH_TEXT_FEATURES
+from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
 
 
 class PeopleTag(TaggedItemBase):
@@ -44,9 +43,10 @@ class People(Page):
     template = 'people.html'
 
     # Content fields
-    description = TextField(
+    description = RichTextField(
         blank=True,
         default='',
+        features=RICH_TEXT_FEATURES_SIMPLE,
         help_text='Optional short text description, max. 400 characters',
         max_length=400,
     )
@@ -131,7 +131,7 @@ class Person(Page):
         'About',
         blank=True,
         default='',
-        features=RICH_TEXT_FEATURES,
+        features=RICH_TEXT_FEATURES_SIMPLE,
         help_text='Optional ‘About me’ section content, supports rich text',
     )
     image = ForeignKey(

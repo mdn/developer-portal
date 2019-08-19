@@ -1,3 +1,5 @@
+{% load wagtailcore_tags %}
+
 <header class="section section-background pattern-bg-header">
   <div class="container">
     <div class="pattern-bg-header-container">
@@ -10,9 +12,11 @@
       </div>
       <div class="pattern-bg-header-details">
         <h1>{{ title }}</h1>
-        <p class="pattern-bg-header-subtitle">
-          {{ description }}
-        </p>
+        {% if description %}
+          <div class="pattern-bg-header-subtitle">
+            {{ description | richtext }}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

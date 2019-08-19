@@ -12,6 +12,8 @@
   </div>
   <div class="item-topic-link-content">
     <h4 class="no-underline">{{ topic.title }}</h4>
-    <p>{{ topic.description|richtext }}</p>
+    {% if topic.description %}
+      {{ topic.description | richtext }}
+    {% endif %}
   </div>
 </a>

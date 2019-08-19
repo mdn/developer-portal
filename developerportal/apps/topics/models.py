@@ -20,7 +20,7 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
     StreamFieldPanel,
 )
-from wagtail.core.fields import StreamField, StreamBlock
+from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -30,7 +30,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
-from ..common.constants import RESOURCE_COUNT_CHOICES, COLOR_CHOICES, COLOR_VALUES
+from ..common.constants import COLOR_CHOICES, COLOR_VALUES, RESOURCE_COUNT_CHOICES, RICH_TEXT_FEATURES_SIMPLE
 from ..common.utils import get_combined_articles, get_combined_events, get_combined_videos
 
 
@@ -68,9 +68,10 @@ class Topic(Page):
     template = 'topic.html'
 
     # Content fields
-    description = TextField(
+    description = RichTextField(
         blank=True,
         default='',
+        features=RICH_TEXT_FEATURES_SIMPLE,
         help_text='Optional short text description, max. 400 characters',
         max_length=400,
     )

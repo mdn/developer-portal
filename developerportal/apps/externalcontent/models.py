@@ -15,11 +15,12 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
 )
 from wagtail.core.blocks import PageChooserBlock
-from wagtail.core.fields import StreamField, StreamBlock
+from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import ExternalAuthorBlock
+from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 
 
 class ExternalContent(Page):
@@ -27,9 +28,10 @@ class ExternalContent(Page):
     subpage_types = []
 
     # Card fields
-    description = TextField(
+    description = RichTextField(
         blank=True,
         default='',
+        features=RICH_TEXT_FEATURES_SIMPLE,
         help_text='Optional short text description, max. 400 characters',
         max_length=400,
     )
