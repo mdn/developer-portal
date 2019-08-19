@@ -11,6 +11,8 @@ code {
 
 .syntax-highlight[data-lang] {
   -webkit-overflow-scrolling: touch;
+  background: $color-gray-20;
+  clear: both;
   margin-bottom: $spacing-md;
   overflow-x: auto;
   padding: 38px 16px 16px;
@@ -31,10 +33,6 @@ code {
     text-transform: uppercase;
     top: 0;
   }
-}
-
-.syntax-highlight  {
-  background: $color-gray-20;
 
   pre {
     min-width: 0;
