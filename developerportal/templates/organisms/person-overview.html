@@ -14,7 +14,9 @@
 <div class="person-overview">
   <div class="person-overview-details">
     <h2>About me</h2>
-    {{ resource.description|richtext }}
+    {% if resource.description %}
+      {{ resource.description | richtext }}
+    {% endif %}
     {% include "molecules/person-contact.html" with resource=resource %}
   </div>
   <div class="person-overview-image-container">

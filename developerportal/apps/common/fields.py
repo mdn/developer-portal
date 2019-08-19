@@ -4,27 +4,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 
 from .blocks import ButtonBlock, CodeSnippetBlock
-
-RICH_TEXT_FEATURES = (
-    # heading elements
-    'h2',
-    'h3',
-    'h4',
-
-    # inline
-    'bold',
-    'italic',
-    'link',
-
-    # lists
-    'ol',
-    'ul',
-
-    # block
-    'blockquote',
-    'code',
-    'hr',
-)
+from .constants import RICH_TEXT_FEATURES
 
 
 class CustomStreamField(StreamField):

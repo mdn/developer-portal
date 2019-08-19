@@ -24,8 +24,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
 from ..common.blocks import ExternalLinkBlock
-from ..common.constants import VIDEO_TYPE
-from ..common.fields import RICH_TEXT_FEATURES
+from ..common.constants import RICH_TEXT_FEATURES, RICH_TEXT_FEATURES_SIMPLE, VIDEO_TYPE
 from ..common.utils import get_combined_articles_and_videos
 
 
@@ -93,9 +92,10 @@ class Video(Page):
     template = 'video.html'
 
     # Content fields
-    description = TextField(
+    description = RichTextField(
         blank=True,
         default='',
+        features=RICH_TEXT_FEATURES_SIMPLE,
         help_text='Optional short text description, max. 400 characters',
         max_length=400,
     )
