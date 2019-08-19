@@ -3,9 +3,20 @@
   transition: box-shadow 100ms, transform 100ms;
   will-change: box-shadow, transform;
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    will-change: auto;
+  }
+
   &:hover {
     box-shadow: 4px 4px 0 0 $color-black;
     transform: translate(-2px, -2px);
+
+    @media (prefers-reduced-motion: reduce) {
+      box-shadow: none;
+      opacity: 0.9;
+      transform: none;
+    }
   }
 }
 

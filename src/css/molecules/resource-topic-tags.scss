@@ -15,10 +15,21 @@
   padding: 4px 8px;
   transition: box-shadow 100ms, transform 100ms;
   will-change: box-shadow, transform;
-}
 
-.resource-topic-tag a:hover {
-  box-shadow: 2px 2px 0 0;
-  text-decoration: none;
-  transform: translate(0, -1px);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    will-change: auto;
+  }
+
+  &:hover {
+    box-shadow: 2px 2px 0 0;
+    text-decoration: none;
+    transform: translate(0, -1px);
+
+    @media (prefers-reduced-motion: reduce) {
+      box-shadow: none;
+      opacity: 0.8;
+      transform: none;
+    }
+  }
 }

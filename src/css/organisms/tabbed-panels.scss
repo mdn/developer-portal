@@ -114,6 +114,10 @@
   text-align: center;
   transition: background-position-x .1s ease-in;
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   span {
     display: inline-block;
     margin: 48px 0;
@@ -132,5 +136,9 @@
     background-image: url($image-path + '/icons/ui/arrow-left-black.svg');
     background-position-x: calc(24px - 6px);
     color: $color-black;
+
+    @media (prefers-reduced-motion: reduce) {
+      background-position-x: 24px;
+    }
   }
 }

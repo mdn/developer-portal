@@ -38,10 +38,20 @@
     margin-bottom: 0;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    will-change: auto;
+  }
+
   .card-link:hover & {
     border-color: $color-black;
     box-shadow: 4px 4px 0 0 $color-black;
     transform: translate(-2px, -2px);
+
+    @media (prefers-reduced-motion: reduce) {
+      box-shadow: none;
+      transform: none;
+    }
   }
 
   .card-container & {
