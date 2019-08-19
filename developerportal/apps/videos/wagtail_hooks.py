@@ -10,4 +10,5 @@ class VideosAdmin(ModelAdmin):
     menu_order = 240
     url_helper_class = ExplorerRedirectAdminURLHelper
 
+
 modeladmin_register(VideosAdmin)

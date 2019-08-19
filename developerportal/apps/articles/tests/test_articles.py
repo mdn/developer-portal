@@ -18,7 +18,7 @@ class ArticleTests(WagtailPageTests):
         """Get the first article’s ‘JavaScript’ and ‘CSS’ topics."""
         article_topic_pages = Article.objects.all()[0].topics.all()
         self.assertEqual('JavaScript', article_topic_pages[0].topic.title)
-        self.assertEqual('CSS',        article_topic_pages[1].topic.title)
+        self.assertEqual('CSS', article_topic_pages[1].topic.title)
 
     def test_article_page_parent_pages(self):
         """An article page should only exist under the articles page."""

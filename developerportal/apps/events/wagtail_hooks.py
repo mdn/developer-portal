@@ -10,4 +10,5 @@ class EventsAdmin(ModelAdmin):
     menu_order = 220
     url_helper_class = ExplorerRedirectAdminURLHelper
 
+
 modeladmin_register(EventsAdmin)

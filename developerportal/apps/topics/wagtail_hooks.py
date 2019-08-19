@@ -10,4 +10,5 @@ class TopicsAdmin(ModelAdmin):
     menu_order = 200
     url_helper_class = ExplorerRedirectAdminURLHelper
 
+
 modeladmin_register(TopicsAdmin)

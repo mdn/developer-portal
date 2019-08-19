@@ -3,7 +3,6 @@ import urllib3
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.models import Group
 
 from social_core.exceptions import AuthException
 
@@ -49,10 +48,10 @@ def github_user_allowed(backend, details=None, response=None, *args, **kwargs):
 def success_message(is_new=False, request=None, user=None, *args, **kwargs):
     """Adds newly created users to Wagtail’s ‘Moderators’ permission group."""
     if is_new:
-        if settings.DEBUG: # Grant user superuser access if running in debug
+        if settings.DEBUG:  # Grant user superuser access if running in debug
             user.is_superuser = True
             user.save()
-        else: # Otherwise inform the user they need to contact an admin
+        else:  # Otherwise inform the user they need to contact an admin
             messages.success(request, (
                 'Success! You have been registered. Please contact an '
                 'administrator to complete your registration.'

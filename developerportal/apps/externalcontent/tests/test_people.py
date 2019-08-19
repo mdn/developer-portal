@@ -2,7 +2,6 @@ from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
 from ..models import ExternalArticle, ExternalEvent, ExternalVideo
-from ...home.models import HomePage
 
 
 class ExternalArticleTests(WagtailPageTests):

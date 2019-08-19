@@ -2,15 +2,13 @@ from django.db.models import CASCADE, CharField, ForeignKey, SET_NULL, URLField,
 
 from wagtail.admin.edit_handlers import (
     FieldPanel,
-    InlinePanel,
     MultiFieldPanel,
     ObjectList,
-    PageChooserPanel,
     StreamFieldPanel,
     TabbedInterface,
 )
 from wagtail.core.fields import StreamField, StreamBlock
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Page
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 

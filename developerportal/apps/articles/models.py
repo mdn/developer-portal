@@ -1,7 +1,5 @@
 # pylint: disable=no-member
 import datetime
-from itertools import chain
-from operator import attrgetter
 import readtime
 
 from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField
