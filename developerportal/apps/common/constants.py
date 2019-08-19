@@ -42,6 +42,12 @@ RESOURCE_COUNT_CHOICES = (
     (9, '9'),
 )
 
+RICH_TEXT_FEATURES = (
+    'bold', 'blockquote', 'code', 'h2', 'h3', 'h4', 'hr', 'italic', 'link', 'ol', 'ul',
+)
+
+RICH_TEXT_FEATURES_SIMPLE = ('bold', 'italic', 'code')
+
 ROLE_CHOICES = (
     ('staff', 'Staff'),
     ('tech-speaker', 'Tech Speaker'),

@@ -14,7 +14,9 @@
             <div>
               <h2>People</h2>
               {% if page.description %}
-                <p class="page-description">{{ page.description }}</p>
+                <div class="page-description">
+                  {{ page.description | richtext }}
+                </div>
               {% endif %}
             </div>
           </div>

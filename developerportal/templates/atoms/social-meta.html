@@ -2,8 +2,9 @@
 {% load wagtailimages_tags %}
 
 <meta property="og:title" content="{{ page.title }}">
-{% if page.card_description or page.description %}
-  <meta property="og:description" content="{% firstof page.card_description page.description %}">
+{% if page.card_description %}
+  <meta name="description" content="{{ page.card_description }}">
+  <meta property="og:description" content="{{ page.card_description }}">
 {% endif %}
 {% with self.get_site.site_name as site_name %}
   {% if site_name %}

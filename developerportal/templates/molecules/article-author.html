@@ -15,7 +15,7 @@
     <h4 class="no-underline">{{ author.title }}</h4>
     {% if author.card_description %}
       <p>{{ author.card_description }}</p>
-    {% else %}
+    {% elif author.description %}
       {{ author.description | richtext }}
     {% endif %}
     <p><a href="{% if author.slug %}{% pageurl author %}{% else %}{{ author.url }}{% endif %}">See more</a></p>

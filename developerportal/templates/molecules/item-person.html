@@ -31,8 +31,8 @@
           {% endif %}
         </div>
         <span class="heading5">{{ person.job_title }}</span>
-        {% if full_width %}
-          {{ person.description|richtext }}
+        {% if full_width and person.description %}
+          {{ person.description | richtext }}
         {% endif %}
       </div>
     </div>
