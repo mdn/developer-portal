@@ -63,14 +63,16 @@
           </div>
         {% endif %}
       </div>
-      {% if resource.card_descrption %}
-        <div class="card-event-description">
-          <p>{{ resource.card_description }}</p>
-        </div>
-      {% elif resource.description %}
-        <div class="card-event-description">
-          {{ resource.description | richtext }}
-        </div>
+      {% if featured %}
+        {% if resource.card_description %}
+          <div class="card-event-description">
+            <p>{{ resource.card_description }}</p>
+          </div>
+        {% elif resource.description %}
+          <div class="card-event-description">
+            {{ resource.description | richtext }}
+          </div>
+        {% endif %}
       {% endif %}
     </div>
   </div>
