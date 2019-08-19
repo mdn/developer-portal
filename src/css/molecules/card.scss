@@ -18,6 +18,12 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+
+  .card-link,
+  > .card-person-speaker {
+    width: 100%;
+  }
+
   @media #{$mq-md} {
     display: grid;
   }
@@ -99,6 +105,7 @@
 
 .card-link {
   color: inherit;
+  height: 100%;
 
   &:hover {
     color: inherit;
