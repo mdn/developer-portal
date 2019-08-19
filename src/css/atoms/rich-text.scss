@@ -1,5 +1,7 @@
 // revert the Protocol styling reset
 .rich-text {
+  clear: both;
+
   p {
     color: $color-nevada;
   }

@@ -15,6 +15,7 @@ RICH_TEXT_FEATURES = (
     'bold',
     'italic',
     'link',
+    'image',
 
     # lists
     'ol',

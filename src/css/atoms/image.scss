@@ -8,3 +8,18 @@ figcaption {
   margin: 10px 0;
   text-align: center;
 }
+
+.format-left {
+  float: left;
+  margin: 0 24px 24px 0;
+}
+
+.format-center {
+  display: block;
+  margin: 0 auto 24px;
+}
+
+.format-right {
+  float: right;
+  margin: 0 0 24px 24px;
+}
