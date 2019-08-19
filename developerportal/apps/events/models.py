@@ -299,7 +299,7 @@ class Event(Page):
     def event_dates(self):
         """Return a formatted string of the event start and end dates"""
         event_dates = self.start_date.strftime("%b %-d")
-        if self.end_date:
+        if self.end_date and self.end_date != self.start_date:
             event_dates += " &ndash; "
             start_month = self.start_date.strftime("%m")
             if self.end_date.strftime("%m") == start_month:
