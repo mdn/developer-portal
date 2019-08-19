@@ -14,19 +14,25 @@
 {% if type == 'external_speaker' and person.url %}
   <a href="{{ person.url }}" class="card-link" target="_blank" rel="nofollow noopener">
 {% endif %}
-    <div class="card-person {% if full_width %}card-full{% endif %}">
-      <div>
-        <img class="person-image" src="{% firstof image.url fallback_image %}" alt="{{ image.alt }}">
+    <div class="card-person{% if full_width %} card-full{% endif %}{% if type == 'speaker' or type == 'external_speaker' %} card-person-speaker{% endif %}">
+      <div class="card-person-image">
+        <img src="{% firstof image.url fallback_image %}" alt="{{ image.alt }}">
       </div>
-      <div class="card-content">
-        <div class="person-titles">
-          <div class="person-title highlight1">
-            {{ person.title }}
-          </div>
-          <span class="heading5">{{ person.job_title }}</span>
+      <div class="card-person-content">
+        <div>
+          {% if type == 'speaker' or type == 'external_speaker' %}
+            <span class="highlight">
+              {{ person.title }}
+            </span>
+          {% else %}
+            <div class="person-title highlight1">
+              {{ person.title }}
+            </div>
+          {% endif %}
         </div>
+        <span class="heading5">{{ person.job_title }}</span>
         {% if full_width %}
-        {{ person.description|richtext }}
+          {{ person.description|richtext }}
         {% endif %}
       </div>
     </div>

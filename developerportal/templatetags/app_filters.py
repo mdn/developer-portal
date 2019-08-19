@@ -9,6 +9,11 @@ from pygments import formatters
 register = template.Library()
 
 
+@register.filter(name='list')
+def make_list(item):
+    return list(item if item else [])
+
+
 @register.filter(name='hex_to_rgb')
 def hex_to_rgb(hex_color, alpha=1):
     """Returns the RGB value of a hexadecimal color."""
