@@ -1,5 +1,5 @@
 .card-person {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: row;
   text-align: left;
@@ -41,6 +41,7 @@
 }
 
 .card-person.card-full {
+  align-items: flex-start;
   flex-direction: column;
   margin: 0;
   text-align: left;

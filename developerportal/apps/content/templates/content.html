@@ -24,6 +24,8 @@
         {% for block in page.body %}
           {% if block.block_type == 'image' %}
             {% include "molecules/image-block.html" with block=block %}
+          {% else %}
+            {{ block }}
           {% endif %}
         {% endfor %}
       </article>
