@@ -1,2 +1,6 @@
 dist
 *.scss
+*.py
+*.pyc
+*.html
+*.svg
