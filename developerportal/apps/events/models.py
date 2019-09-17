@@ -102,7 +102,10 @@ class Events(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default title and description "
+                "for SEO purposes"
+            ),
         )
     ]
 
@@ -169,7 +172,8 @@ class Event(Page):
         blank=True,
         null=True,
         help_text=(
-            "Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets"
+            "Optional body content. Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
         ),
     )
     agenda = StreamField(
@@ -227,8 +231,8 @@ class Event(Page):
             [ImageChooserPanel("image")],
             heading="Image",
             help_text=(
-                "Optional header image. If not specified a fallback will be used. This image is also shown when sharing "
-                "this page via social media"
+                "Optional header image. If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social media"
             ),
         ),
         StreamFieldPanel("body"),
@@ -256,9 +260,11 @@ class Event(Page):
             heading="Event details",
             classname="collapsible",
             help_text=mark_safe(
-                "Optional time and location information for this event. Latitude and longitude are used to show a map "
-                "of the event’s location. For more information on finding these values for a given location, "
-                '<a href="https://support.google.com/maps/answer/18539">see this article</a>'
+                "Optional time and location information for this event. Latitude and "
+                "longitude are used to show a map of the event’s location. For more "
+                "information on finding these values for a given location, "
+                "'<a href='https://support.google.com/maps/answer/18539'>"
+                "see this article</a>"
             ),
         ),
         MultiFieldPanel(
@@ -275,14 +281,18 @@ class Event(Page):
             ],
             heading="Event address",
             classname="collapsible",
-            help_text="Optional address fields. The city and country are also shown on event cards",
+            help_text=(
+                "Optional address fields. The city and country are also shown "
+                "on event cards"
+            ),
         ),
         MultiFieldPanel(
             [InlinePanel("topics")],
             heading="Topics",
             help_text=(
-                "These are the topic pages the event will appear on. The first topic in the list will be treated as the "
-                "primary topic and will be shown in the page’s related content."
+                "These are the topic pages the event will appear on. The first topic "
+                "in the list will be treated as the primary topic and will be shown "
+                "in the page’s related content."
             ),
         ),
         MultiFieldPanel(
@@ -292,7 +302,10 @@ class Event(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default title and description "
+                "for SEO purposes"
+            ),
         ),
     ]
 
@@ -338,7 +351,8 @@ class Event(Page):
 
     @property
     def event_dates_full(self):
-        """Return a formatted string of the event start and end dates, including the year"""
+        """Return a formatted string of the event start and end dates,
+        including the year"""
         return self.event_dates + self.start_date.strftime(", %Y")
 
     def has_speaker(self, person):

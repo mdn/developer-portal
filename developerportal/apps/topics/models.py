@@ -165,7 +165,8 @@ class Topic(Page):
             heading="Parent/child topic(s)",
             classname="collapsible collapsed",
             help_text=(
-                "Topics with no parent (i.e. top-level topics) will be listed on the home page. Child topics are listed "
+                "Topics with no parent (i.e. top-level topics) will be "
+                "listed on the home page. Child topics are listed "
                 "on the parent topic’s page."
             ),
         ),
@@ -173,7 +174,8 @@ class Topic(Page):
             [FieldPanel("icon"), FieldPanel("color")],
             heading="Theme",
             help_text=(
-                "Theme settings used on topic page and any tagged content. For example, an article tagged with this topic "
+                "Theme settings used on topic page and any tagged content. "
+                "For example, an article tagged with this topic "
                 "will use the color specified here as its accent color."
             ),
         ),
@@ -184,7 +186,10 @@ class Topic(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default "
+                "title and description for SEO purposes"
+            ),
         ),
     ]
 
@@ -244,7 +249,10 @@ class Topics(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default "
+                "title and description for SEO purposes"
+            ),
         )
     ]
 

@@ -64,7 +64,8 @@ class AgendaItemBlock(blocks.StructBlock):
 
 
 class ExternalLinkBlock(blocks.StructBlock):
-    """Content for a link to an external page without an image, e.g. MDN related links."""
+    """Content for a link to an external page without an image,
+    e.g. MDN related links."""
 
     title = blocks.CharBlock(label="Name")
     url = blocks.URLBlock()
@@ -102,4 +103,7 @@ class PersonalWebsiteBlock(blocks.StructBlock):
     icon = ImageChooserBlock(required=False)
 
     class Meta:
-        help_text = "Details of any other personal website, to be displayed alongside social profiles."
+        help_text = (
+            "Details of any other personal website, to be displayed alongside "
+            "social profiles."
+        )

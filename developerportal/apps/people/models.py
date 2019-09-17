@@ -60,7 +60,10 @@ class People(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default title and description "
+                "for SEO purposes"
+            ),
         )
     ]
 
@@ -179,8 +182,8 @@ class Person(Page):
             [ImageChooserPanel("image")],
             heading="Image",
             help_text=(
-                "Optional header image. If not specified a fallback will be used. This image is also shown when sharing "
-                "this page via social media"
+                "Optional header image. If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social media"
             ),
         ),
     ]
@@ -214,7 +217,10 @@ class Person(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default title and description "
+                "for SEO purposes"
+            ),
         ),
     ]
 

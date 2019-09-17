@@ -64,7 +64,10 @@ class Videos(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default title and description "
+                "for SEO purposes"
+            ),
         )
     ]
 
@@ -116,7 +119,8 @@ class Video(Page):
         default="",
         features=RICH_TEXT_FEATURES,
         help_text=(
-            "Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets"
+            "Optional body content. Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
         ),
     )
     related_links_mdn = StreamField(
@@ -139,7 +143,8 @@ class Video(Page):
         blank=True,
         null=True,
         help_text=(
-            "Optional video duration in MM:SS format e.g. “12:34”. Shown when the video is displayed as a card"
+            "Optional video duration in MM:SS format e.g. “12:34”. Shown when the "
+            "video is displayed as a card"
         ),
     )
     transcript = RichTextField(
@@ -150,7 +155,9 @@ class Video(Page):
     )
     video_url = StreamField(
         StreamBlock([("embed", EmbedBlock())], min_num=1, max_num=1, required=True),
-        help_text="Embed URL for the video e.g. https://www.youtube.com/watch?v=kmk43_2dtn0",
+        help_text=(
+            "Embed URL for the video e.g. https://www.youtube.com/watch?v=kmk43_2dtn0"
+        ),
     )
     speakers = StreamField(
         StreamBlock(
@@ -203,8 +210,9 @@ class Video(Page):
             [InlinePanel("topics")],
             heading="Topics",
             help_text=(
-                "These are the topic pages the video will appear on. The first topic in the list will be treated as the "
-                "primary topic and will be shown in the page’s related content."
+                "These are the topic pages the video will appear on. The first topic "
+                "in the list will be treated as the primary topic and will be shown "
+                "in the page’s related content."
             ),
         ),
         FieldPanel("duration"),
@@ -220,7 +228,10 @@ class Video(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default title and description "
+                "for SEO purposes"
+            ),
         ),
     ]
 
@@ -248,8 +259,8 @@ class Video(Page):
 
     @property
     def related_resources(self):
-        """Returns resources that are related to the current resource, i.e. live, public articles and videos which
-        have the same topics."""
+        """Returns resources that are related to the current resource, i.e. live,
+        public articles and videos which have the same topics."""
         topic_pks = self.topics.values_list("topic")
         return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 

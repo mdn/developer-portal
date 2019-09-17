@@ -18,8 +18,8 @@ class NewWindowExternalLinkHandler(LinkHandler):
         # Let's add the target attr, and also rel="noopener" + noreferrer fallback.
         # See https://github.com/whatwg/html/issues/4078.
         return (
-            '<a href="%s" class="external-link" target="_blank" rel="noopener noreferrer">'
-            % escape(href)
+            '<a href="%s" class="external-link" target="_blank" '
+            'rel="noopener noreferrer">' % escape(href)
         )
 
 
@@ -33,7 +33,10 @@ def _custom_slug_help_text():
     # back to example.com instead of the Wagtail default.
     default_site = Site.objects.filter(is_default_site=True).first()
     base_url = default_site.root_url if default_site else "https://example.com"
-    return f"The name of the page as it will appear in URLs e.g. for an article: {base_url}/articles/slug/"
+    return (
+        f"The name of the page as it will appear in URLs e.g. "
+        f"for an article: {base_url}/articles/slug/"
+    )
 
 
 try:

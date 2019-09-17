@@ -59,7 +59,10 @@ class HomePage(Page):
         ),
         null=True,
         blank=True,
-        help_text="Optional promo space under the header for linking to external sites, max. 2",
+        help_text=(
+            "Optional promo space under the header "
+            "for linking to external sites, max. 2"
+        ),
     )
     featured = StreamField(
         StreamBlock(
@@ -116,7 +119,9 @@ class HomePage(Page):
         MultiFieldPanel(
             [ImageChooserPanel("image")],
             heading="Image",
-            help_text="Optional image shown when sharing this page through social media",
+            help_text=(
+                "Optional image shown when sharing this page through social media"
+            ),
         ),
         StreamFieldPanel("external_promos"),
         StreamFieldPanel("featured"),
@@ -142,7 +147,10 @@ class HomePage(Page):
             ],
             heading="Card overrides",
             help_text=(
-                "Optional fields to override the default title, description and image when this page is shown as a card"
+                (
+                    "Optional fields to override the default title, "
+                    "description and image when this page is shown as a card"
+                )
             ),
         )
     ]
@@ -156,7 +164,10 @@ class HomePage(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default "
+                "title and description for SEO purposes"
+            ),
         )
     ]
 

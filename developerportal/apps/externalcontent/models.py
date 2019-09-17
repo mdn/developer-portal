@@ -46,7 +46,10 @@ class ExternalContent(Page):
         "URL",
         blank=True,
         default="",
-        help_text="The URL that this content links to, max. 2048 characters for compatibility with older web browsers",
+        help_text=(
+            "The URL that this content links to, max. 2048 characters "
+            "for compatibility with older web browsers"
+        ),
         max_length=2048,
     )
     image = ForeignKey(
@@ -63,8 +66,8 @@ class ExternalContent(Page):
             [ImageChooserPanel("image")],
             heading="Image",
             help_text=(
-                "Optional header image. If not specified a fallback will be used. This image is also shown when sharing "
-                "this page via social media"
+                "Optional header image. If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social media"
             ),
         ),
         FieldPanel("external_url"),
@@ -122,8 +125,8 @@ class ExternalArticle(ExternalContent):
         blank=True,
         null=True,
         help_text=(
-            "Optional list of the article’s authors. Use ‘External author’ to add guest authors without creating a "
-            "profile on the system"
+            "Optional list of the article’s authors. Use ‘External author’ to add "
+            "guest authors without creating a profile on the system"
         ),
     )
     read_time = CharField(
@@ -226,14 +229,16 @@ class ExternalEvent(ExternalContent):
             "topics",
             heading="Topics",
             help_text=(
-                "Optional topics this event is associated with. Adds the event to the list of events on those topic pages"
+                "Optional topics this event is associated with. "
+                "Adds the event to the list of events on those topic pages"
             ),
         ),
         InlinePanel(
             "speakers",
             heading="Speakers",
             help_text=(
-                "Optional speakers associated with this event. Adds the event to the list of events on their profile pages"
+                "Optional speakers associated with this event. "
+                "Adds the event to the list of events on their profile pages"
             ),
         ),
     ]
@@ -269,7 +274,8 @@ class ExternalEvent(ExternalContent):
 
     @property
     def event_dates_full(self):
-        """Return a formatted string of the event start and end dates, including the year"""
+        """Return a formatted string of the event start and end dates,
+        including the year"""
         return self.event_dates + self.start_date.strftime(", %Y")
 
 
@@ -315,7 +321,8 @@ class ExternalVideo(ExternalContent):
         blank=True,
         null=True,
         help_text=(
-            "Optional video duration in MM:SS format e.g. “12:34”. Shown when the video is displayed as a card"
+            "Optional video duration in MM:SS format e.g. “12:34”. "
+            "Shown when the video is displayed as a card"
         ),
     )
 

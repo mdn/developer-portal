@@ -22,7 +22,8 @@ class CustomStreamField(StreamField):
                     "embed_html",
                     RawHTMLBlock(
                         help_text=(
-                            "Warning: be careful what you paste here, since this field could introduce XSS (or similar) bugs. "
+                            "Warning: be careful what you paste here, since this "
+                            "field could introduce XSS (or similar) bugs. "
                             "This field is meant solely for third-party embeds."
                         )
                     ),

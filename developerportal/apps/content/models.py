@@ -37,7 +37,8 @@ class ContentPage(Page):
     )
     body = CustomStreamField(
         help_text=(
-            "Main page body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets"
+            "Main page body content. Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
         )
     )
 
@@ -82,7 +83,10 @@ class ContentPage(Page):
                 FieldPanel("keywords"),
             ],
             heading="SEO",
-            help_text="Optional fields to override the default title and description for SEO purposes",
+            help_text=(
+                "Optional fields to override the default title and "
+                "description for SEO purposes"
+            ),
         )
     ]
 
