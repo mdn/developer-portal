@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0012_auto_20190614_1319'),
-    ]
+    dependencies = [("topics", "0012_auto_20190614_1319")]
 
     operations = [
         migrations.AddField(
-            model_name='topic',
-            name='icon',
-            field=models.FileField(default='', upload_to='topics/icons'),
-        ),
+            model_name="topic",
+            name="icon",
+            field=models.FileField(default="", upload_to="topics/icons"),
+        )
     ]

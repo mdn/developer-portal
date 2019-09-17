@@ -9,51 +9,84 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0002_auto_20150616_2121'),
-        ('mozimages', '0001_initial'),
-        ('home', '0020_auto_20190708_1243'),
+        ("taggit", "0002_auto_20150616_2121"),
+        ("mozimages", "0001_initial"),
+        ("home", "0020_auto_20190708_1243"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='homepage',
-            old_name='intro',
-            new_name='description',
+            model_name="homepage", old_name="intro", new_name="description"
         ),
         migrations.RenameField(
-            model_name='homepage',
-            old_name='header_image',
-            new_name='image',
+            model_name="homepage", old_name="header_image", new_name="image"
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='card_description',
-            field=models.TextField(blank=True, default='', max_length=140, verbose_name='Description'),
+            model_name="homepage",
+            name="card_description",
+            field=models.TextField(
+                blank=True, default="", max_length=140, verbose_name="Description"
+            ),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='card_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage', verbose_name='Image'),
+            model_name="homepage",
+            name="card_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="mozimages.MozImage",
+                verbose_name="Image",
+            ),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='card_title',
-            field=models.CharField(blank=True, default='', max_length=140, verbose_name='Title'),
+            model_name="homepage",
+            name="card_title",
+            field=models.CharField(
+                blank=True, default="", max_length=140, verbose_name="Title"
+            ),
         ),
         migrations.CreateModel(
-            name='HomePageTag',
+            name="HomePageTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='home.HomePage')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='home_homepagetag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="home.HomePage",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="home_homepagetag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='keywords',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='A comma-separated list of tags.', through='home.HomePageTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="homepage",
+            name="keywords",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="home.HomePageTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

@@ -9,24 +9,35 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('articles', '0008_auto_20190521_0851'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("articles", "0008_auto_20190521_0851"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Articles',
+            name="Articles",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                )
             ],
-            options={
-                'abstract': False,
-            },
-            bases=(wagtail.contrib.routable_page.models.RoutablePageMixin, 'wagtailcore.page'),
+            options={"abstract": False},
+            bases=(
+                wagtail.contrib.routable_page.models.RoutablePageMixin,
+                "wagtailcore.page",
+            ),
         ),
         migrations.AlterField(
-            model_name='article',
-            name='intro',
-            field=wagtail.core.fields.RichTextField(default=''),
+            model_name="article",
+            name="intro",
+            field=wagtail.core.fields.RichTextField(default=""),
         ),
     ]

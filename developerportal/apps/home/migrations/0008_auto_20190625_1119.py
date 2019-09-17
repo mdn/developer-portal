@@ -6,14 +6,18 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0007_auto_20190625_1112'),
-    ]
+    dependencies = [("home", "0007_auto_20190625_1112")]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='header_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage'),
-        ),
+            model_name="homepage",
+            name="header_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="mozimages.MozImage",
+            ),
+        )
     ]

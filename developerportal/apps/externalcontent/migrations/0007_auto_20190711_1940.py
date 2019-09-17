@@ -5,24 +5,22 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0006_auto_20190709_1420'),
-    ]
+    dependencies = [("externalcontent", "0006_auto_20190709_1420")]
 
     operations = [
         migrations.RenameField(
-            model_name='externalcontent',
-            old_name='header_image',
-            new_name='image',
+            model_name="externalcontent", old_name="header_image", new_name="image"
         ),
         migrations.AlterField(
-            model_name='externalarticle',
-            name='read_time',
+            model_name="externalarticle",
+            name="read_time",
             field=models.CharField(blank=True, max_length=30),
         ),
         migrations.AlterField(
-            model_name='externalcontent',
-            name='external_url',
-            field=models.URLField(blank=True, default='', max_length=2048, verbose_name='URL'),
+            model_name="externalcontent",
+            name="external_url",
+            field=models.URLField(
+                blank=True, default="", max_length=2048, verbose_name="URL"
+            ),
         ),
     ]

@@ -6,7 +6,7 @@ from ..common.helpers import ExplorerRedirectAdminURLHelper
 
 class ArticlesAdmin(ModelAdmin):
     model = Articles
-    menu_icon = 'doc-full-inverse'
+    menu_icon = "doc-full-inverse"
     menu_order = 210
     url_helper_class = ExplorerRedirectAdminURLHelper
 

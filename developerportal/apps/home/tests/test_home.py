@@ -17,11 +17,6 @@ class HomePageTests(WagtailPageTests):
         self.assertAllowedParentPageTypes(HomePage, {Page})
 
     def test_home_page_subpages(self):
-        self.assertAllowedSubpageTypes(HomePage, {
-            Articles,
-            ContentPage,
-            Events,
-            Topics,
-            People,
-            Videos,
-        })
+        self.assertAllowedSubpageTypes(
+            HomePage, {Articles, ContentPage, Events, Topics, People, Videos}
+        )

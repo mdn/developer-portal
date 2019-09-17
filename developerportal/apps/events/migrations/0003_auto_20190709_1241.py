@@ -5,19 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('events', '0002_auto_20190704_1334'),
-    ]
+    dependencies = [("events", "0002_auto_20190704_1334")]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='latitude',
+            model_name="event",
+            name="latitude",
             field=models.FloatField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='event',
-            name='longitude',
+            model_name="event",
+            name="longitude",
             field=models.FloatField(blank=True, null=True),
         ),
     ]

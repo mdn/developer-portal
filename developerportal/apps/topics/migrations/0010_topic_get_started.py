@@ -8,14 +8,28 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0009_topic_color'),
-    ]
+    dependencies = [("topics", "0009_topic_color")]
 
     operations = [
         migrations.AddField(
-            model_name='topic',
-            name='get_started',
-            field=wagtail.core.fields.StreamField([('panel', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock()), ('image', wagtail.images.blocks.ImageChooserBlock()), ('description', wagtail.core.blocks.TextBlock()), ('buttonText', wagtail.core.blocks.CharBlock()), ('buttonUrl', wagtail.core.blocks.PageChooserBlock())]))], default=''),
-        ),
+            model_name="topic",
+            name="get_started",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "panel",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                ("description", wagtail.core.blocks.TextBlock()),
+                                ("buttonText", wagtail.core.blocks.CharBlock()),
+                                ("buttonUrl", wagtail.core.blocks.PageChooserBlock()),
+                            ]
+                        ),
+                    )
+                ],
+                default="",
+            ),
+        )
     ]

@@ -7,43 +7,45 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozimages', '0001_initial'),
-        ('articles', '0023_auto_20190709_0928'),
+        ("mozimages", "0001_initial"),
+        ("articles", "0023_auto_20190709_0928"),
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='article',
-            options={},
+        migrations.AlterModelOptions(name="article", options={}),
+        migrations.RenameField(
+            model_name="article", old_name="intro", new_name="description"
         ),
         migrations.RenameField(
-            model_name='article',
-            old_name='intro',
-            new_name='description',
+            model_name="article", old_name="header_image", new_name="image"
         ),
         migrations.RenameField(
-            model_name='article',
-            old_name='header_image',
-            new_name='image',
-        ),
-        migrations.RenameField(
-            model_name='article',
-            old_name='tags',
-            new_name='keywords',
+            model_name="article", old_name="tags", new_name="keywords"
         ),
         migrations.AddField(
-            model_name='article',
-            name='card_description',
-            field=models.TextField(blank=True, default='', max_length=140, verbose_name='Description'),
+            model_name="article",
+            name="card_description",
+            field=models.TextField(
+                blank=True, default="", max_length=140, verbose_name="Description"
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='card_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage', verbose_name='Image'),
+            model_name="article",
+            name="card_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="mozimages.MozImage",
+                verbose_name="Image",
+            ),
         ),
         migrations.AddField(
-            model_name='article',
-            name='card_title',
-            field=models.CharField(blank=True, default='', max_length=140, verbose_name='Title'),
+            model_name="article",
+            name="card_title",
+            field=models.CharField(
+                blank=True, default="", max_length=140, verbose_name="Title"
+            ),
         ),
     ]

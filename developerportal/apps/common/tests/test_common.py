@@ -11,7 +11,7 @@ from ..utils import (
 
 
 class UtilsTestCase(TestCase):
-    fixtures = ['common.json']
+    fixtures = ["common.json"]
 
     @classmethod
     def setUpTestData(cls):

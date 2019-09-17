@@ -6,24 +6,22 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0005_auto_20190709_1412'),
-    ]
+    dependencies = [("externalcontent", "0005_auto_20190709_1412")]
 
     operations = [
         migrations.AddField(
-            model_name='externalevent',
-            name='end_date',
+            model_name="externalevent",
+            name="end_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='externalevent',
-            name='start_date',
+            model_name="externalevent",
+            name="start_date",
             field=models.DateField(default=datetime.date.today),
         ),
         migrations.AddField(
-            model_name='externalevent',
-            name='venue',
-            field=models.TextField(blank=True, default='', max_length=250),
+            model_name="externalevent",
+            name="venue",
+            field=models.TextField(blank=True, default="", max_length=250),
         ),
     ]

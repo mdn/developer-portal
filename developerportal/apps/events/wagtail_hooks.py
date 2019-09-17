@@ -6,7 +6,7 @@ from ..common.helpers import ExplorerRedirectAdminURLHelper
 
 class EventsAdmin(ModelAdmin):
     model = Events
-    menu_icon = 'date'
+    menu_icon = "date"
     menu_order = 220
     url_helper_class = ExplorerRedirectAdminURLHelper
 

@@ -6,15 +6,17 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0001_initial'),
-        ('articles', '0009_auto_20190521_1048'),
-    ]
+    dependencies = [("topics", "0001_initial"), ("articles", "0009_auto_20190521_1048")]
 
     operations = [
         migrations.AddField(
-            model_name='article',
-            name='labels',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='topics.Topic'),
-        ),
+            model_name="article",
+            name="labels",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="topics.Topic",
+            ),
+        )
     ]

@@ -7,14 +7,27 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('videos', '0001_initial'),
-    ]
+    dependencies = [("videos", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='video',
-            name='related_links_mdn',
-            field=wagtail.core.fields.StreamField([('link', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(label='Name')), ('url', wagtail.core.blocks.URLBlock())]))], blank=True, null=True, verbose_name='Related MDN links'),
-        ),
+            model_name="video",
+            name="related_links_mdn",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "link",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock(label="Name")),
+                                ("url", wagtail.core.blocks.URLBlock()),
+                            ]
+                        ),
+                    )
+                ],
+                blank=True,
+                null=True,
+                verbose_name="Related MDN links",
+            ),
+        )
     ]

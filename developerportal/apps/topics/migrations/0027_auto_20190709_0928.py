@@ -5,13 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0026_merge_20190704_1459'),
-    ]
+    dependencies = [("topics", "0026_merge_20190704_1459")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='topics',
-            options={'verbose_name_plural': 'Topics'},
-        ),
+            name="topics", options={"verbose_name_plural": "Topics"}
+        )
     ]

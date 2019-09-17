@@ -5,14 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0001_initial'),
-    ]
+    dependencies = [("externalcontent", "0001_initial")]
 
     operations = [
         migrations.RenameField(
-            model_name='externalcontent',
-            old_name='url',
-            new_name='external_url',
-        ),
+            model_name="externalcontent", old_name="url", new_name="external_url"
+        )
     ]

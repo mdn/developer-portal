@@ -8,14 +8,32 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0002_article_body'),
-    ]
+    dependencies = [("articles", "0002_article_body")]
 
     operations = [
         migrations.AlterField(
-            model_name='article',
-            name='body',
-            field=developerportal.apps.common.fields.CustomStreamField([('paragraph', wagtail.core.blocks.RichTextBlock(features=('bold', 'italic', 'link', 'ol', 'ul', 'blockquote', 'code', 'hr'))), ('image', wagtail.images.blocks.ImageChooserBlock())], default=None),
-        ),
+            model_name="article",
+            name="body",
+            field=developerportal.apps.common.fields.CustomStreamField(
+                [
+                    (
+                        "paragraph",
+                        wagtail.core.blocks.RichTextBlock(
+                            features=(
+                                "bold",
+                                "italic",
+                                "link",
+                                "ol",
+                                "ul",
+                                "blockquote",
+                                "code",
+                                "hr",
+                            )
+                        ),
+                    ),
+                    ("image", wagtail.images.blocks.ImageChooserBlock()),
+                ],
+                default=None,
+            ),
+        )
     ]

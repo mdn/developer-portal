@@ -8,23 +8,41 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0002_auto_20150616_2121'),
-        ('people', '0016_auto_20190711_1915'),
+        ("taggit", "0002_auto_20150616_2121"),
+        ("people", "0016_auto_20190711_1915"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PeopleTag',
+            name="PeopleTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='people.People')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='people_peopletag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="people.People",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="people_peopletag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
-        migrations.DeleteModel(
-            name='FeaturedPerson',
-        ),
+        migrations.DeleteModel(name="FeaturedPerson"),
     ]

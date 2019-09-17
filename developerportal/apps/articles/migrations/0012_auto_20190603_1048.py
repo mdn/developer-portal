@@ -7,18 +7,17 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('topics', '0003_subtopic'),
-        ('articles', '0011_auto_20190522_1630'),
+        ("topics", "0003_subtopic"),
+        ("articles", "0011_auto_20190522_1630"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='article',
-            name='labels',
-        ),
+        migrations.RemoveField(model_name="article", name="labels"),
         migrations.AddField(
-            model_name='article',
-            name='topics',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='_article_topics_+', to='topics.Topic'),
+            model_name="article",
+            name="topics",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="_article_topics_+", to="topics.Topic"
+            ),
         ),
     ]

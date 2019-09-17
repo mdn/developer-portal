@@ -6,14 +6,12 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0008_auto_20190625_1119'),
-    ]
+    dependencies = [("home", "0008_auto_20190625_1119")]
 
     operations = [
         migrations.AddField(
-            model_name='homepage',
-            name='featured',
+            model_name="homepage",
+            name="featured",
             field=wagtail.core.fields.StreamField([], blank=True, null=True),
-        ),
+        )
     ]

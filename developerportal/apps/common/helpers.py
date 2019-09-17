@@ -8,19 +8,19 @@ from wagtail.contrib.modeladmin.options import ModelAdmin
 
 class ExplorerRedirectAdminURLHelper(AdminURLHelper):
     def _get_action_url_pattern(self, action):
-        if action == 'index' and self.model.objects:
+        if action == "index" and self.model.objects:
             try:
                 page = self.model.objects.first()
                 if page:
-                    return r'^pages/%s/$' % (page.pk)
-                action = 'add'
+                    return r"^pages/%s/$" % (page.pk)
+                action = "add"
             except ProgrammingError:
                 pass
         super()._get_action_url_pattern(action)
 
 
 class ViewPageButtonHelper(PageButtonHelper):
-    view_button_classnames = ['button-small']
+    view_button_classnames = ["button-small"]
 
     def view_button(self, obj, classnames_add=None, classnames_exclude=None):
         if classnames_add is None:
@@ -30,16 +30,14 @@ class ViewPageButtonHelper(PageButtonHelper):
         classnames = self.view_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         return {
-            'url': obj.url,
-            'label': _('View live'),
-            'classname': cn,
-            'title': _("View live version of '%s'") % self.verbose_name,
+            "url": obj.url,
+            "label": _("View live"),
+            "classname": cn,
+            "title": _("View live version of '%s'") % self.verbose_name,
         }
 
     def get_buttons_for_obj(self, obj, **kwargs):
-        btns = [
-            self.view_button(obj),
-        ]
+        btns = [self.view_button(obj)]
         btns += super().get_buttons_for_obj(obj, **kwargs)
         return btns
 

@@ -8,44 +8,91 @@ import wagtail.embeds.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('videos', '0004_auto_20190813_1302'),
-    ]
+    dependencies = [("videos", "0004_auto_20190813_1302")]
 
     operations = [
         migrations.AlterField(
-            model_name='video',
-            name='body',
-            field=wagtail.core.fields.RichTextField(blank=True, default='', help_text='Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'),
+            model_name="video",
+            name="body",
+            field=wagtail.core.fields.RichTextField(
+                blank=True,
+                default="",
+                help_text="Optional body content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets",
+            ),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='description',
-            field=models.TextField(blank=True, default='', help_text='Optional short text description, max. 400 characters', max_length=400),
+            model_name="video",
+            name="description",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="Optional short text description, max. 400 characters",
+                max_length=400,
+            ),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='duration',
-            field=models.CharField(blank=True, help_text='Optional video duration in MM:SS format e.g. “12:34”. Shown when the video is displayed as a card', max_length=30, null=True),
+            model_name="video",
+            name="duration",
+            field=models.CharField(
+                blank=True,
+                help_text="Optional video duration in MM:SS format e.g. “12:34”. Shown when the video is displayed as a card",
+                max_length=30,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='related_links_mdn',
-            field=wagtail.core.fields.StreamField([('link', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(label='Name')), ('url', wagtail.core.blocks.URLBlock())]))], blank=True, help_text='Optional links to MDN Web Docs for further reading', null=True, verbose_name='Related MDN links'),
+            model_name="video",
+            name="related_links_mdn",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "link",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock(label="Name")),
+                                ("url", wagtail.core.blocks.URLBlock()),
+                            ]
+                        ),
+                    )
+                ],
+                blank=True,
+                help_text="Optional links to MDN Web Docs for further reading",
+                null=True,
+                verbose_name="Related MDN links",
+            ),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='speakers',
-            field=wagtail.core.fields.StreamField([('speaker', wagtail.core.blocks.PageChooserBlock(page_type=['people.Person'], required=False))], blank=True, help_text='Optional list of people associated with or starring in the video', null=True),
+            model_name="video",
+            name="speakers",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "speaker",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["people.Person"], required=False
+                        ),
+                    )
+                ],
+                blank=True,
+                help_text="Optional list of people associated with or starring in the video",
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='transcript',
-            field=wagtail.core.fields.RichTextField(blank=True, default='', help_text='Optional text transcript of the video, supports rich text'),
+            model_name="video",
+            name="transcript",
+            field=wagtail.core.fields.RichTextField(
+                blank=True,
+                default="",
+                help_text="Optional text transcript of the video, supports rich text",
+            ),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='video_url',
-            field=wagtail.core.fields.StreamField([('embed', wagtail.embeds.blocks.EmbedBlock())], help_text='Embed URL for the video e.g. https://www.youtube.com/watch?v=kmk43_2dtn0'),
+            model_name="video",
+            name="video_url",
+            field=wagtail.core.fields.StreamField(
+                [("embed", wagtail.embeds.blocks.EmbedBlock())],
+                help_text="Embed URL for the video e.g. https://www.youtube.com/watch?v=kmk43_2dtn0",
+            ),
         ),
     ]

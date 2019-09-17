@@ -5,18 +5,22 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('people', '0020_people_keywords'),
-    ]
+    dependencies = [("people", "0020_people_keywords")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='person',
-            name='is_mozillian',
-        ),
+        migrations.RemoveField(model_name="person", name="is_mozillian"),
         migrations.AddField(
-            model_name='person',
-            name='role',
-            field=models.CharField(choices=[('staff', 'Staff'), ('tech-speaker', 'Tech Speaker'), ('guest', 'Guest'), ('contributor', 'Contributor')], default='staff', max_length=250),
+            model_name="person",
+            name="role",
+            field=models.CharField(
+                choices=[
+                    ("staff", "Staff"),
+                    ("tech-speaker", "Tech Speaker"),
+                    ("guest", "Guest"),
+                    ("contributor", "Contributor"),
+                ],
+                default="staff",
+                max_length=250,
+            ),
         ),
     ]

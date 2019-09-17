@@ -24,6 +24,7 @@ def get_resources(page, models, filters=None, order_by=None, reverse=False):
         order_by - key to order the combined set by, must be common to all models.
         reverse - whether to reverse the combined set, default false.
     """
+
     def callback(model):
         return model.objects.filter(**filters).public().live().not_page(page).specific()
 
@@ -33,33 +34,47 @@ def get_resources(page, models, filters=None, order_by=None, reverse=False):
 
 def get_combined_articles(page, **filters):
     """Get internal and external articles matching filters."""
-    return get_resources(page, [
-        'articles.Article',
-        'externalcontent.ExternalArticle',
-    ], filters=filters, order_by='date', reverse=True)
+    return get_resources(
+        page,
+        ["articles.Article", "externalcontent.ExternalArticle"],
+        filters=filters,
+        order_by="date",
+        reverse=True,
+    )
 
 
 def get_combined_articles_and_videos(page, **filters):
     """Get internal and external articles and videos matching filters."""
-    return get_resources(page, [
-        'articles.Article',
-        'videos.Video',
-        'externalcontent.ExternalArticle',
-        'externalcontent.ExternalVideo',
-    ], filters=filters, order_by='date', reverse=True)
+    return get_resources(
+        page,
+        [
+            "articles.Article",
+            "videos.Video",
+            "externalcontent.ExternalArticle",
+            "externalcontent.ExternalVideo",
+        ],
+        filters=filters,
+        order_by="date",
+        reverse=True,
+    )
 
 
 def get_combined_events(page, **filters):
     """Get internal and external events matching filters."""
-    return get_resources(page, [
-        'events.Event',
-        'externalcontent.ExternalEvent',
-    ], filters=filters, order_by='start_date')
+    return get_resources(
+        page,
+        ["events.Event", "externalcontent.ExternalEvent"],
+        filters=filters,
+        order_by="start_date",
+    )
 
 
 def get_combined_videos(page, **filters):
     """Get internal and external videos matching filters."""
-    return get_resources(page, [
-        'videos.Video',
-        'externalcontent.ExternalVideo',
-    ], filters=filters, order_by='date', reverse=True)
+    return get_resources(
+        page,
+        ["videos.Video", "externalcontent.ExternalVideo"],
+        filters=filters,
+        order_by="date",
+        reverse=True,
+    )

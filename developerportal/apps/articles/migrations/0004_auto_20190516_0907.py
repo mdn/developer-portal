@@ -6,14 +6,12 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0003_article_intro'),
-    ]
+    dependencies = [("articles", "0003_article_intro")]
 
     operations = [
         migrations.AlterField(
-            model_name='article',
-            name='intro',
-            field=wagtail.core.fields.RichTextField(default='', verbose_name='Intro'),
-        ),
+            model_name="article",
+            name="intro",
+            field=wagtail.core.fields.RichTextField(default="", verbose_name="Intro"),
+        )
     ]

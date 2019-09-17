@@ -5,13 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('people', '0018_people_keywords'),
-    ]
+    dependencies = [("people", "0018_people_keywords")]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='people',
-            name='keywords',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name="people", name="keywords")]

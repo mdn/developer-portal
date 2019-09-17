@@ -6,7 +6,7 @@ from ..common.helpers import ExplorerRedirectAdminURLHelper
 
 class TopicsAdmin(ModelAdmin):
     model = Topics
-    menu_icon = 'tag'
+    menu_icon = "tag"
     menu_order = 200
     url_helper_class = ExplorerRedirectAdminURLHelper
 

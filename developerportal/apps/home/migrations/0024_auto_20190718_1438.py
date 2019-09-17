@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0023_auto_20190712_1023'),
-    ]
+    dependencies = [("home", "0023_auto_20190712_1023")]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='button_url',
-            field=models.CharField(blank=True, default='', max_length=2048),
-        ),
+            model_name="homepage",
+            name="button_url",
+            field=models.CharField(blank=True, default="", max_length=2048),
+        )
     ]

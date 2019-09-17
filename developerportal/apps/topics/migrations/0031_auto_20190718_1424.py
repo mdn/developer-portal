@@ -12,57 +12,126 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('wagtailforms', '0003_capitalizeverbose'),
-        ('wagtailredirects', '0006_redirect_increase_max_length'),
-        ('taggit', '0002_auto_20150616_2121'),
-        ('topics', '0030_auto_20190711_1951'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("wagtailforms", "0003_capitalizeverbose"),
+        ("wagtailredirects", "0006_redirect_increase_max_length"),
+        ("taggit", "0002_auto_20150616_2121"),
+        ("topics", "0030_auto_20190711_1951"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ParentTopic',
+            name="ParentTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='TopicsTag',
+            name="TopicsTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='topics.Topics')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics_topicstag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="topics.Topics",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics_topicstag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AlterField(
-            model_name='topic',
-            name='get_started',
-            field=wagtail.core.fields.StreamField([('panel', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock()), ('image', wagtail.images.blocks.ImageChooserBlock()), ('description', wagtail.core.blocks.TextBlock()), ('button_text', wagtail.core.blocks.CharBlock()), ('page_link', wagtail.core.blocks.PageChooserBlock(required=False)), ('external_link', wagtail.core.blocks.URLBlock(help_text='External URL to link to instead of a page.', required=False))]))], blank=True, null=True),
+            model_name="topic",
+            name="get_started",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "panel",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                ("description", wagtail.core.blocks.TextBlock()),
+                                ("button_text", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "page_link",
+                                    wagtail.core.blocks.PageChooserBlock(
+                                        required=False
+                                    ),
+                                ),
+                                (
+                                    "external_link",
+                                    wagtail.core.blocks.URLBlock(
+                                        help_text="External URL to link to instead of a page.",
+                                        required=False,
+                                    ),
+                                ),
+                            ]
+                        ),
+                    )
+                ],
+                blank=True,
+                null=True,
+            ),
         ),
-        migrations.DeleteModel(
-            name='SubTopic',
+        migrations.DeleteModel(name="SubTopic"),
+        migrations.AddField(
+            model_name="parenttopic",
+            name="child",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="parent_topics",
+                to="topics.Topic",
+            ),
         ),
         migrations.AddField(
-            model_name='parenttopic',
-            name='child',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='parent_topics', to='topics.Topic'),
+            model_name="parenttopic",
+            name="parent",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="child_topics",
+                to="topics.Topic",
+            ),
         ),
         migrations.AddField(
-            model_name='parenttopic',
-            name='parent',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='child_topics', to='topics.Topic'),
-        ),
-        migrations.AddField(
-            model_name='topics',
-            name='keywords',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='A comma-separated list of tags.', through='topics.TopicsTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="topics",
+            name="keywords",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="topics.TopicsTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

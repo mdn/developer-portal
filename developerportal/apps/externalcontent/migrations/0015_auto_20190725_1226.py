@@ -9,127 +9,281 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('topics', '0036_auto_20190725_1226'),
-        ('people', '0019_remove_people_keywords'),
-        ('externalcontent', '0014_auto_20190725_1225'),
+        ("topics", "0036_auto_20190725_1226"),
+        ("people", "0019_remove_people_keywords"),
+        ("externalcontent", "0014_auto_20190725_1225"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='externalcontent',
-            options={'verbose_name_plural': 'External Content'},
+            name="externalcontent", options={"verbose_name_plural": "External Content"}
         ),
         migrations.AddField(
-            model_name='externalarticle',
-            name='date',
-            field=models.DateField(default=datetime.date.today, verbose_name='Article date'),
+            model_name="externalarticle",
+            name="date",
+            field=models.DateField(
+                default=datetime.date.today, verbose_name="Article date"
+            ),
         ),
         migrations.AddField(
-            model_name='externalcontent',
-            name='description',
-            field=models.TextField(blank=True, default='', max_length=250),
+            model_name="externalcontent",
+            name="description",
+            field=models.TextField(blank=True, default="", max_length=250),
         ),
         migrations.AddField(
-            model_name='externalevent',
-            name='location',
-            field=models.CharField(blank=True, default='', help_text='Location details (city and country), displayed on event cards', max_length=100),
+            model_name="externalevent",
+            name="location",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Location details (city and country), displayed on event cards",
+                max_length=100,
+            ),
         ),
         migrations.AddField(
-            model_name='externalvideo',
-            name='date',
-            field=models.DateField(default=datetime.date.today, verbose_name='Video date'),
+            model_name="externalvideo",
+            name="date",
+            field=models.DateField(
+                default=datetime.date.today, verbose_name="Video date"
+            ),
         ),
         migrations.AlterField(
-            model_name='externalarticle',
-            name='read_time',
-            field=models.CharField(blank=True, help_text='Optional, approximate read-time for this article, e.g. “2 mins”. This is shown as a small hint when the article is displayed as a card.', max_length=30),
+            model_name="externalarticle",
+            name="read_time",
+            field=models.CharField(
+                blank=True,
+                help_text="Optional, approximate read-time for this article, e.g. “2 mins”. This is shown as a small hint when the article is displayed as a card.",
+                max_length=30,
+            ),
         ),
         migrations.AlterField(
-            model_name='externalevent',
-            name='venue',
-            field=models.TextField(blank=True, default='', help_text='Full address of the event venue, displayed on the event detail page', max_length=250),
+            model_name="externalevent",
+            name="venue",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="Full address of the event venue, displayed on the event detail page",
+                max_length=250,
+            ),
         ),
         migrations.AlterField(
-            model_name='externalvideo',
-            name='video_duration',
-            field=models.CharField(blank=True, help_text='Optional, duration for this video in MM:SS format e.g. “12:34”. This is shown as a small hint when the video is displayed as a card.', max_length=30, null=True),
+            model_name="externalvideo",
+            name="video_duration",
+            field=models.CharField(
+                blank=True,
+                help_text="Optional, duration for this video in MM:SS format e.g. “12:34”. This is shown as a small hint when the video is displayed as a card.",
+                max_length=30,
+                null=True,
+            ),
         ),
         migrations.CreateModel(
-            name='ExternalVideoTopic',
+            name="ExternalVideoTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_videos', to='topics.Topic')),
-                ('video', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics', to='externalcontent.ExternalVideo')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_videos",
+                        to="topics.Topic",
+                    ),
+                ),
+                (
+                    "video",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics",
+                        to="externalcontent.ExternalVideo",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalVideoPerson',
+            name="ExternalVideoPerson",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='people', to='externalcontent.ExternalVideo')),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_videos', to='people.Person')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="people",
+                        to="externalcontent.ExternalVideo",
+                    ),
+                ),
+                (
+                    "person",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_videos",
+                        to="people.Person",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalEventTopic',
+            name="ExternalEventTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('event', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics', to='externalcontent.ExternalEvent')),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_events', to='topics.Topic')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "event",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics",
+                        to="externalcontent.ExternalEvent",
+                    ),
+                ),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_events",
+                        to="topics.Topic",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalEventSpeaker',
+            name="ExternalEventSpeaker",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='speakers', to='externalcontent.ExternalEvent')),
-                ('speaker', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_events', to='people.Person')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="speakers",
+                        to="externalcontent.ExternalEvent",
+                    ),
+                ),
+                (
+                    "speaker",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_events",
+                        to="people.Person",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalArticleTopic',
+            name="ExternalArticleTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics', to='externalcontent.ExternalArticle')),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_articles', to='topics.Topic')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics",
+                        to="externalcontent.ExternalArticle",
+                    ),
+                ),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_articles",
+                        to="topics.Topic",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalArticleAuthor',
+            name="ExternalArticleAuthor",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='authors', to='externalcontent.ExternalArticle')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_articles', to='people.Person')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="authors",
+                        to="externalcontent.ExternalArticle",
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_articles",
+                        to="people.Person",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
     ]

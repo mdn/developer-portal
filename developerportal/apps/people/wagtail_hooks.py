@@ -6,7 +6,7 @@ from ..common.helpers import ExplorerRedirectAdminURLHelper
 
 class PeopleAdmin(ModelAdmin):
     model = People
-    menu_icon = 'group'
+    menu_icon = "group"
     menu_order = 230
     url_helper_class = ExplorerRedirectAdminURLHelper
 

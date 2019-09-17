@@ -7,19 +7,23 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mozimages', '0001_initial'),
-        ('externalcontent', '0004_auto_20190705_1306'),
+        ("mozimages", "0001_initial"),
+        ("externalcontent", "0004_auto_20190705_1306"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='externalarticle',
-            old_name='readtime',
-            new_name='read_time',
+            model_name="externalarticle", old_name="readtime", new_name="read_time"
         ),
         migrations.AddField(
-            model_name='externalcontent',
-            name='header_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage'),
+            model_name="externalcontent",
+            name="header_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="mozimages.MozImage",
+            ),
         ),
     ]

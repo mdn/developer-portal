@@ -9,50 +9,82 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0002_auto_20150616_2121'),
-        ('mozimages', '0001_initial'),
-        ('events', '0003_auto_20190709_0928'),
+        ("taggit", "0002_auto_20150616_2121"),
+        ("mozimages", "0001_initial"),
+        ("events", "0003_auto_20190709_0928"),
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='event',
-            options={},
-        ),
+        migrations.AlterModelOptions(name="event", options={}),
         migrations.RenameField(
-            model_name='event',
-            old_name='header_image',
-            new_name='image',
+            model_name="event", old_name="header_image", new_name="image"
         ),
         migrations.AddField(
-            model_name='event',
-            name='card_description',
-            field=models.TextField(blank=True, default='', max_length=140, verbose_name='Description'),
+            model_name="event",
+            name="card_description",
+            field=models.TextField(
+                blank=True, default="", max_length=140, verbose_name="Description"
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='card_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage', verbose_name='Image'),
+            model_name="event",
+            name="card_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="mozimages.MozImage",
+                verbose_name="Image",
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='card_title',
-            field=models.CharField(blank=True, default='', max_length=140, verbose_name='Title'),
+            model_name="event",
+            name="card_title",
+            field=models.CharField(
+                blank=True, default="", max_length=140, verbose_name="Title"
+            ),
         ),
         migrations.CreateModel(
-            name='EventTag',
+            name="EventTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='events.Event')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='events_eventtag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="events.Event",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="events_eventtag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='event',
-            name='keywords',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='A comma-separated list of tags.', through='events.EventTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="event",
+            name="keywords",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="events.EventTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

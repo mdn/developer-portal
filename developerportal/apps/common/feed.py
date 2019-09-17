@@ -9,7 +9,7 @@ class RssFeeds(Feed):
     description = "Articles published"
 
     def items(self):
-        return Article.objects.all().public().live().order_by('-date')[:20]
+        return Article.objects.all().public().live().order_by("-date")[:20]
 
     def item_title(self, item):
         return item.title

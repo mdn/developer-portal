@@ -33,7 +33,7 @@ def readiness(request):
         # error.
         Article.objects.filter(pk=1).exists()
     except DatabaseError as e:
-        reason_tmpl = 'service unavailable due to database issue ({!s})'
+        reason_tmpl = "service unavailable due to database issue ({!s})"
         status, reason = 503, reason_tmpl.format(e)
     else:
         status, reason = 204, None

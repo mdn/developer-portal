@@ -5,14 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0017_auto_20190806_1041'),
-    ]
+    dependencies = [("externalcontent", "0017_auto_20190806_1041")]
 
     operations = [
         migrations.AlterField(
-            model_name='externalvideo',
-            name='duration',
-            field=models.CharField(blank=True, help_text='Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.', max_length=30, null=True),
-        ),
+            model_name="externalvideo",
+            name="duration",
+            field=models.CharField(
+                blank=True,
+                help_text="Optional. Video duration in MM:SS format e.g. “12:34”. Shown as a small hint when the video is displayed as a card.",
+                max_length=30,
+                null=True,
+            ),
+        )
     ]

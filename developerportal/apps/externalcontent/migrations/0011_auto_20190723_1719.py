@@ -9,46 +9,97 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('topics', '0034_auto_20190718_1504'),
-        ('people', '0018_people_keywords'),
-        ('externalcontent', '0010_auto_20190723_1659'),
+        ("topics", "0034_auto_20190718_1504"),
+        ("people", "0018_people_keywords"),
+        ("externalcontent", "0010_auto_20190723_1659"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='externalvideo',
-            name='date',
-            field=models.DateField(default=datetime.date.today, verbose_name='Video date'),
+            model_name="externalvideo",
+            name="date",
+            field=models.DateField(
+                default=datetime.date.today, verbose_name="Video date"
+            ),
         ),
         migrations.AlterField(
-            model_name='externalvideo',
-            name='video_duration',
-            field=models.CharField(blank=True, help_text='Optional, duration for this video in MM:SS format e.g. “12:34”. This is shown as a small hint when the video is displayed as a card.', max_length=30, null=True),
+            model_name="externalvideo",
+            name="video_duration",
+            field=models.CharField(
+                blank=True,
+                help_text="Optional, duration for this video in MM:SS format e.g. “12:34”. This is shown as a small hint when the video is displayed as a card.",
+                max_length=30,
+                null=True,
+            ),
         ),
         migrations.CreateModel(
-            name='ExternalVideoTopic',
+            name="ExternalVideoTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_videos', to='topics.Topic')),
-                ('video', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics', to='externalcontent.ExternalVideo')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_videos",
+                        to="topics.Topic",
+                    ),
+                ),
+                (
+                    "video",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics",
+                        to="externalcontent.ExternalVideo",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalVideoPerson',
+            name="ExternalVideoPerson",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='people', to='externalcontent.ExternalVideo')),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_videos', to='people.Person')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="people",
+                        to="externalcontent.ExternalVideo",
+                    ),
+                ),
+                (
+                    "person",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_videos",
+                        to="people.Person",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
     ]

@@ -8,26 +8,45 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0006_auto_20190604_1050'),
-        ('articles', '0017_auto_20190611_1344'),
+        ("people", "0006_auto_20190604_1050"),
+        ("articles", "0017_auto_20190611_1344"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='article',
-            name='author',
-        ),
+        migrations.RemoveField(model_name="article", name="author"),
         migrations.CreateModel(
-            name='ArticleAuthor',
+            name="ArticleAuthor",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='authors', to='articles.Article')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='people.Person')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="authors",
+                        to="articles.Article",
+                    ),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="articles",
+                        to="people.Person",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
     ]

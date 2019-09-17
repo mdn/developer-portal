@@ -7,14 +7,33 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0010_auto_20190627_1527'),
-    ]
+    dependencies = [("home", "0010_auto_20190627_1527")]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='featured',
-            field=wagtail.core.fields.StreamField([('article', wagtail.core.blocks.PageChooserBlock(page_type=['articles.Article'], required=False)), ('external', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock()), ('description', wagtail.core.blocks.TextBlock()), ('url', wagtail.core.blocks.URLBlock())]))], blank=True, null=True),
-        ),
+            model_name="homepage",
+            name="featured",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "article",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["articles.Article"], required=False
+                        ),
+                    ),
+                    (
+                        "external",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("description", wagtail.core.blocks.TextBlock()),
+                                ("url", wagtail.core.blocks.URLBlock()),
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+                null=True,
+            ),
+        )
     ]

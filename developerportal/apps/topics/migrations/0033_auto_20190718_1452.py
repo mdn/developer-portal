@@ -6,14 +6,16 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0031_auto_20190718_1424'),
-    ]
+    dependencies = [("topics", "0031_auto_20190718_1424")]
 
     operations = [
         migrations.AlterField(
-            model_name='topicfeaturedarticle',
-            name='article',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailcore.Page'),
-        ),
+            model_name="topicfeaturedarticle",
+            name="article",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to="wagtailcore.Page",
+            ),
+        )
     ]

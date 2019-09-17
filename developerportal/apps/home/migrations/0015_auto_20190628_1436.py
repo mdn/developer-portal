@@ -8,14 +8,44 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0014_auto_20190628_1338'),
-    ]
+    dependencies = [("home", "0014_auto_20190628_1338")]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='featured',
-            field=wagtail.core.fields.StreamField([('article', wagtail.core.blocks.PageChooserBlock(help_text='Details of an external page', page_type=['articles.Article'], required=False)), ('external_page', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('intro', wagtail.core.blocks.TextBlock(required=False)), ('header_image', wagtail.images.blocks.ImageChooserBlock(label='Image'))]))], blank=True, null=True),
-        ),
+            model_name="homepage",
+            name="featured",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "article",
+                        wagtail.core.blocks.PageChooserBlock(
+                            help_text="Details of an external page",
+                            page_type=["articles.Article"],
+                            required=False,
+                        ),
+                    ),
+                    (
+                        "external_page",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("url", wagtail.core.blocks.URLBlock()),
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "intro",
+                                    wagtail.core.blocks.TextBlock(required=False),
+                                ),
+                                (
+                                    "header_image",
+                                    wagtail.images.blocks.ImageChooserBlock(
+                                        label="Image"
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+                null=True,
+            ),
+        )
     ]

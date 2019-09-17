@@ -5,19 +5,19 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0028_merge_20190805_1426'),
-    ]
+    dependencies = [("articles", "0028_merge_20190805_1426")]
 
     operations = [
         migrations.AlterField(
-            model_name='article',
-            name='card_description',
-            field=models.TextField(blank=True, default='', max_length=400, verbose_name='Description'),
+            model_name="article",
+            name="card_description",
+            field=models.TextField(
+                blank=True, default="", max_length=400, verbose_name="Description"
+            ),
         ),
         migrations.AlterField(
-            model_name='article',
-            name='description',
-            field=models.TextField(blank=True, default='', max_length=400),
+            model_name="article",
+            name="description",
+            field=models.TextField(blank=True, default="", max_length=400),
         ),
     ]

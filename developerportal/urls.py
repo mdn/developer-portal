@@ -12,23 +12,19 @@ from .apps.common.feed import RssFeeds
 
 
 urlpatterns = [
-    url('', include('developerportal.apps.health.urls')),
-
-    url(r'^django-admin/', admin.site.urls),
-
-    url(r'^admin/', include(wagtailadmin_urls)),
-    url(r'^documents/', include(wagtaildocs_urls)),
-
-    url(r'^article-feed/', RssFeeds()),
-
-    url(r'^oauth/', include('social_django.urls', namespace='social')),
+    url("", include("developerportal.apps.health.urls")),
+    url(r"^django-admin/", admin.site.urls),
+    url(r"^admin/", include(wagtailadmin_urls)),
+    url(r"^documents/", include(wagtaildocs_urls)),
+    url(r"^article-feed/", RssFeeds()),
+    url(r"^oauth/", include("social_django.urls", namespace="social")),
 ]
 
 
 if settings.DEBUG:
     urlpatterns += [
-        url(r'^404/$', page_not_found, {'exception': Http404()}),
-        url(r'^500/$', server_error),
+        url(r"^404/$", page_not_found, {"exception": Http404()}),
+        url(r"^500/$", server_error),
     ]
 
     from django.conf.urls.static import static
@@ -42,11 +38,11 @@ else:
 
     # Serve media files directly.
     urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+        url(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT})
     ]
 
 
 # For anything not caught by a more specific rule above, hand over to
 # Wagtail's page serving mechanism. This should be the last pattern in
 # the list:
-urlpatterns += [url(r'', include(wagtail_urls))]
+urlpatterns += [url(r"", include(wagtail_urls))]
