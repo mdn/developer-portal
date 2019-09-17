@@ -1,5 +1,6 @@
 .homepage-header {
-  background: url('/static/img/homepage-header-pattern.svg') $color-black calc(50% + 400px) no-repeat;
+  background: url('/static/img/homepage-header-pattern.svg') $color-black
+    calc(50% + 400px) no-repeat;
   color: $color-white;
   margin-top: -1px; // Overlap the navigation border.
   padding: 0;

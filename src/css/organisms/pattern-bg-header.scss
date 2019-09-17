@@ -13,10 +13,18 @@
     z-index: -1;
 
     &::before {
-      background: linear-gradient(90deg, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 1) 50%,
+        rgba(0, 0, 0, 0) 100%
+      );
 
       @media #{$mq-md} {
-        background: linear-gradient(90deg, rgba(0, 0, 0, 1) calc(50% + #{$container-max-width / 4}), rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 1) calc(50% + #{$container-max-width / 4}),
+          rgba(0, 0, 0, 0) 100%
+        );
       }
     }
   }

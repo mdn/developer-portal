@@ -5,7 +5,9 @@
 
   @media #{$mq-md} {
     column-gap: $grid-gap;
-    grid-template-columns: [sidebar-start] repeat(4, 1fr) [sidebar-end items-start] repeat(8, 1fr) [items-end];
+    grid-template-columns:
+      [sidebar-start] repeat(4, 1fr) [sidebar-end items-start] repeat(8, 1fr)
+      [items-end];
 
     html.no-js & {
       grid-template-columns: [items-start] 1fr [items-end];
