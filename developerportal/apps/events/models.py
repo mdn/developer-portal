@@ -3,34 +3,34 @@ import datetime
 
 from django.db.models import (
     CASCADE,
+    SET_NULL,
     CharField,
     DateField,
     FloatField,
     ForeignKey,
-    SET_NULL,
     TextField,
     URLField,
 )
 from django.utils.safestring import mark_safe
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField, StreamField, StreamBlock
-from wagtail.core.blocks import PageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
     PageChooserPanel,
-    TabbedInterface,
     StreamFieldPanel,
+    TabbedInterface,
 )
+from wagtail.core.blocks import PageChooserBlock
+from wagtail.core.fields import RichTextField, StreamBlock, StreamField
+from wagtail.core.models import Orderable, Page
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from django_countries.fields import CountryField
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
 
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE

@@ -2,9 +2,7 @@ from django import template
 from django.utils.safestring import mark_safe
 
 import pygments
-from pygments import lexers
-from pygments import formatters
-
+from pygments import formatters, lexers
 
 register = template.Library()
 

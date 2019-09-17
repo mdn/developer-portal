@@ -1,7 +1,7 @@
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import Video, Videos
 from ...home.models import HomePage
+from ..models import Video, Videos
 
 
 class VideoTests(WagtailPageTests):

@@ -1,12 +1,15 @@
 from django.db.models import (
     CASCADE,
+    SET_NULL,
     CharField,
     ForeignKey,
-    SET_NULL,
-    URLField,
     TextField,
+    URLField,
 )
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
@@ -14,14 +17,10 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.fields import StreamField, StreamBlock
-from wagtail.core.models import Page
 from wagtail.core.blocks import PageChooserBlock
+from wagtail.core.fields import StreamBlock, StreamField
+from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
 
 from ..common.blocks import FeaturedExternalBlock
 

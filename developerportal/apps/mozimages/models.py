@@ -1,6 +1,6 @@
 from django.db import models
 
-from wagtail.images.models import Image, AbstractImage, AbstractRendition
+from wagtail.images.models import AbstractImage, AbstractRendition, Image
 
 
 class MozImage(AbstractImage):

@@ -1,12 +1,10 @@
 import binascii
 import os
+from mimetypes import guess_type
 
 from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
-
-from mimetypes import guess_type
-
 
 register = template.Library()
 

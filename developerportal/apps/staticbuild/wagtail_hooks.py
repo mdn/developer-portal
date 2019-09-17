@@ -1,6 +1,6 @@
 import logging
-from multiprocessing import Process
 import os
+from multiprocessing import Process
 
 from django.conf import settings
 from django.core.management import call_command
@@ -9,7 +9,6 @@ from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail.core.signals import page_published, page_unpublished
 
 from .models import StaticBuild
-
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", logging.INFO))
 logger = logging.getLogger(__name__)

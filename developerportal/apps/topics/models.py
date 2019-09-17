@@ -3,31 +3,30 @@ import datetime
 
 from django.db.models import (
     CASCADE,
-    CharField,
-    ForeignKey,
     SET_NULL,
-    TextField,
+    CharField,
     FileField,
+    ForeignKey,
     IntegerField,
+    TextField,
 )
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
     PageChooserPanel,
-    TabbedInterface,
     StreamFieldPanel,
+    TabbedInterface,
 )
-from wagtail.core.fields import RichTextField, StreamField, StreamBlock
-from wagtail.core.models import Orderable, Page
 from wagtail.core.blocks import PageChooserBlock
+from wagtail.core.fields import RichTextField, StreamBlock, StreamField
+from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
 from ..common.constants import (

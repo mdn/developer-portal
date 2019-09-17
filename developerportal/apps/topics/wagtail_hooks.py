@@ -1,7 +1,7 @@
-from wagtail.contrib.modeladmin.options import modeladmin_register, ModelAdmin
+from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 
-from .models import Topics
 from ..common.helpers import ExplorerRedirectAdminURLHelper
+from .models import Topics
 
 
 class TopicsAdmin(ModelAdmin):

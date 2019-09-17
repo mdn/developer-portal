@@ -1,5 +1,8 @@
-from django.db.models import CASCADE, CharField, ForeignKey, SET_NULL, TextField
+from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, TextField
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
@@ -9,10 +12,6 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
 
 from ..common.fields import CustomStreamField
 

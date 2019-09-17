@@ -1,7 +1,7 @@
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import Event, Events
 from ...home.models import HomePage
+from ..models import Event, Events
 
 
 class EventTests(WagtailPageTests):

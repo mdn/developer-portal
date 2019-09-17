@@ -1,8 +1,8 @@
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import ContentPage
 from ...home.models import HomePage
 from ...people.models import People
+from ..models import ContentPage
 
 
 class ContentPageTests(WagtailPageTests):

@@ -1,7 +1,7 @@
-from wagtail.core.blocks import RichTextBlock, RawHTMLBlock
+from wagtail.core.blocks import RawHTMLBlock, RichTextBlock
 from wagtail.core.fields import StreamField
-from wagtail.images.blocks import ImageChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
 
 from .blocks import ButtonBlock, CodeSnippetBlock
 from .constants import RICH_TEXT_FEATURES

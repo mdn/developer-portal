@@ -1,34 +1,34 @@
 # pylint: disable=no-member
 import datetime
-import readtime
 
 from django.db.models import (
     CASCADE,
+    SET_NULL,
     CharField,
     DateField,
     ForeignKey,
-    SET_NULL,
     TextField,
 )
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
-    StreamFieldPanel,
     PageChooserPanel,
+    StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.models import Orderable, Page
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.core.fields import RichTextField, StreamField, StreamBlock
-from wagtail.embeds.blocks import EmbedBlock
 from wagtail.core.blocks import PageChooserBlock
+from wagtail.core.fields import RichTextField, StreamBlock, StreamField
+from wagtail.core.models import Orderable, Page
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.edit_handlers import ImageChooserPanel
 
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
+import readtime
 
 from ..common.blocks import ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES, RICH_TEXT_FEATURES_SIMPLE, VIDEO_TYPE

@@ -1,13 +1,13 @@
 from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import HomePage
 from ...articles.models import Articles
 from ...content.models import ContentPage
 from ...events.models import Events
-from ...topics.models import Topics
 from ...people.models import People
+from ...topics.models import Topics
 from ...videos.models import Videos
+from ..models import HomePage
 
 
 class HomePageTests(WagtailPageTests):

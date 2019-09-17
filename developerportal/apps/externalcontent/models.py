@@ -3,16 +3,15 @@ import datetime
 
 from django.db.models import (
     CASCADE,
+    SET_NULL,
     CharField,
     DateField,
     ForeignKey,
-    SET_NULL,
     TextField,
     URLField,
 )
 
 from modelcluster.fields import ParentalKey
-
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
@@ -23,7 +22,7 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
 )
 from wagtail.core.blocks import PageChooserBlock
-from wagtail.core.fields import RichTextField, StreamField, StreamBlock
+from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 

@@ -1,7 +1,7 @@
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import Article, Articles
 from ...home.models import HomePage
+from ..models import Article, Articles
 
 
 class ArticleTests(WagtailPageTests):
