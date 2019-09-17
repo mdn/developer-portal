@@ -1,0 +1,42 @@
+actions:
+  # Python linting and formatting
+  isort:
+    run: isort --check {files}
+    fix: isort --apply {files}
+    include: '*.py'
+    exclude:
+      - 'node_modules'
+      - 'migrations'
+  flake8:
+    run: flake8 {files}
+    include: '*.py'
+    exclude:
+      - 'node_modules'
+      - 'migrations'
+  black:
+    run: black {files}
+    include: '*.py'
+    exclude:
+      - 'node_modules'
+      - 'migrations'
+      - '*.pyc'
+
+  # JS linting
+  eslint:
+    description: ESLint
+    run: $(npm bin)/eslint {files}
+    fix: $(npm bin)/eslint --fix {files}
+    exclude:
+      - '*.html'
+      - '*.md'
+      - '*.py'
+      - '*.pyc'
+      - '*.scss'
+      - '*.svg'
+      - 'developerportal/apps/common/fixtures/common.json'
+
+  # JS and SCSS autoformatting
+  prettier:
+    description: Prettier
+    run: $(npm bin)/prettier -c {files}
+    fix: $(npm bin)/prettier --write {files}
