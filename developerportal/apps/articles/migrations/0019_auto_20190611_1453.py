@@ -6,14 +6,16 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0018_auto_20190611_1403'),
-    ]
+    dependencies = [("articles", "0018_auto_20190611_1403")]
 
     operations = [
         migrations.AlterField(
-            model_name='articletopic',
-            name='topic',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='topics.Topic'),
-        ),
+            model_name="articletopic",
+            name="topic",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to="topics.Topic",
+            ),
+        )
     ]

@@ -8,14 +8,42 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0013_auto_20190628_1337'),
-    ]
+    dependencies = [("home", "0013_auto_20190628_1337")]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='featured',
-            field=wagtail.core.fields.StreamField([('article', wagtail.core.blocks.PageChooserBlock(page_type=['articles.Article'], required=False)), ('external_page', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('intro', wagtail.core.blocks.TextBlock(required=False)), ('header_image', wagtail.images.blocks.ImageChooserBlock(label='Image'))]))], blank=True, null=True),
-        ),
+            model_name="homepage",
+            name="featured",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "article",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["articles.Article"], required=False
+                        ),
+                    ),
+                    (
+                        "external_page",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("url", wagtail.core.blocks.URLBlock()),
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "intro",
+                                    wagtail.core.blocks.TextBlock(required=False),
+                                ),
+                                (
+                                    "header_image",
+                                    wagtail.images.blocks.ImageChooserBlock(
+                                        label="Image"
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+                null=True,
+            ),
+        )
     ]

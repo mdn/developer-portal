@@ -1,26 +1,33 @@
 # pylint: disable=no-member
 import datetime
-import readtime
 
-from django.db.models import CASCADE, CharField, DateField, ForeignKey, SET_NULL, TextField
+from django.db.models import (
+    CASCADE,
+    SET_NULL,
+    CharField,
+    DateField,
+    ForeignKey,
+    TextField,
+)
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
-    StreamFieldPanel,
     PageChooserPanel,
+    StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.models import Orderable, Page
-from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.core.blocks import PageChooserBlock
+from wagtail.core.fields import RichTextField, StreamBlock, StreamField
+from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from taggit.models import TaggedItemBase
+import readtime
 
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
@@ -29,20 +36,22 @@ from ..common.utils import get_combined_articles, get_combined_articles_and_vide
 
 
 class ArticlesTag(TaggedItemBase):
-    content_object = ParentalKey('Articles', on_delete=CASCADE, related_name='tagged_items')
+    content_object = ParentalKey(
+        "Articles", on_delete=CASCADE, related_name="tagged_items"
+    )
 
 
 class Articles(Page):
-    parent_page_types = ['home.HomePage']
-    subpage_types = ['Article']
-    template = 'articles.html'
+    parent_page_types = ["home.HomePage"]
+    subpage_types = ["Article"]
+    template = "articles.html"
 
     # Content fields
     description = RichTextField(
         blank=True,
-        default='',
+        default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text='Optional short text description, max. 400 characters',
+        help_text="Optional short text description, max. 400 characters",
         max_length=400,
     )
 
@@ -50,33 +59,37 @@ class Articles(Page):
     keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [
-        FieldPanel('description'),
-    ]
+    content_panels = Page.content_panels + [FieldPanel("description")]
 
     # Meta panels
     meta_panels = [
-        MultiFieldPanel([
-            FieldPanel('seo_title'),
-            FieldPanel('search_description'),
-            FieldPanel('keywords'),
-        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
+        MultiFieldPanel(
+            [
+                FieldPanel("seo_title"),
+                FieldPanel("search_description"),
+                FieldPanel("keywords"),
+            ],
+            heading="SEO",
+            help_text=(
+                "Optional fields to override the default title "
+                "and description for SEO purposes"
+            ),
+        )
     ]
 
     # Settings panels
-    settings_panels = [
-        FieldPanel('slug'),
-        FieldPanel('show_in_menus'),
-    ]
+    settings_panels = [FieldPanel("slug"), FieldPanel("show_in_menus")]
 
-    edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading='Content'),
-        ObjectList(meta_panels, heading='Meta'),
-        ObjectList(settings_panels, heading='Settings', classname='settings'),
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading="Content"),
+            ObjectList(meta_panels, heading="Meta"),
+            ObjectList(settings_panels, heading="Settings", classname="settings"),
+        ]
+    )
 
     class Meta:
-        verbose_name_plural = 'Articles'
+        verbose_name_plural = "Articles"
 
     @classmethod
     def can_create_at(cls, parent):
@@ -85,7 +98,7 @@ class Articles(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['filters'] = self.get_filters()
+        context["filters"] = self.get_filters()
         return context
 
     @property
@@ -94,136 +107,157 @@ class Articles(Page):
 
     def get_filters(self):
         from ..topics.models import Topic
+
         return {
-            'months': True,
-            'topics': Topic.objects.live().public().order_by('title'),
+            "months": True,
+            "topics": Topic.objects.live().public().order_by("title"),
         }
 
 
 class ArticleTag(TaggedItemBase):
-    content_object = ParentalKey('Article', on_delete=CASCADE, related_name='tagged_items')
+    content_object = ParentalKey(
+        "Article", on_delete=CASCADE, related_name="tagged_items"
+    )
 
 
 class ArticleTopic(Orderable):
-    article = ParentalKey('Article', related_name='topics')
-    topic = ForeignKey('topics.Topic', on_delete=CASCADE, related_name='+')
+    article = ParentalKey("Article", related_name="topics")
+    topic = ForeignKey("topics.Topic", on_delete=CASCADE, related_name="+")
 
-    panels = [
-        PageChooserPanel('topic'),
-    ]
+    panels = [PageChooserPanel("topic")]
 
 
 class Article(Page):
-    resource_type = 'article'
-    parent_page_types = ['Articles']
+    resource_type = "article"
+    parent_page_types = ["Articles"]
     subpage_types = []
-    template = 'article.html'
+    template = "article.html"
 
     # Content fields
     description = RichTextField(
         blank=True,
-        default='',
+        default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text='Optional short text description, max. 400 characters',
+        help_text="Optional short text description, max. 400 characters",
         max_length=400,
     )
     image = ForeignKey(
-        'mozimages.MozImage',
+        "mozimages.MozImage",
         null=True,
         blank=True,
         on_delete=SET_NULL,
-        related_name='+',
+        related_name="+",
     )
-    body = CustomStreamField(help_text=(
-        'The main article content. Supports rich text, images, embed via URL, embed via HTML, and inline code snippets'
-    ))
+    body = CustomStreamField(
+        help_text=(
+            "The main article content. Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
+        )
+    )
     related_links_mdn = StreamField(
-        StreamBlock([
-            ('link', ExternalLinkBlock())
-        ], required=False),
+        StreamBlock([("link", ExternalLinkBlock())], required=False),
         blank=True,
         null=True,
-        help_text='Optional links to MDN Web Docs for further reading',
-        verbose_name='Related MDN links',
+        help_text="Optional links to MDN Web Docs for further reading",
+        verbose_name="Related MDN links",
     )
 
     # Card fields
-    card_title = CharField('Title', max_length=140, blank=True, default='')
-    card_description = TextField('Description', max_length=400, blank=True, default='')
+    card_title = CharField("Title", max_length=140, blank=True, default="")
+    card_description = TextField("Description", max_length=400, blank=True, default="")
     card_image = ForeignKey(
-        'mozimages.MozImage',
+        "mozimages.MozImage",
         null=True,
         blank=True,
         on_delete=SET_NULL,
-        related_name='+',
-        verbose_name='Image',
+        related_name="+",
+        verbose_name="Image",
     )
 
     # Meta fields
-    date = DateField('Article date', default=datetime.date.today, help_text='The date the article was published')
+    date = DateField(
+        "Article date",
+        default=datetime.date.today,
+        help_text="The date the article was published",
+    )
     authors = StreamField(
-        StreamBlock([
-            ('author', PageChooserBlock(target_model='people.Person')),
-            ('external_author', ExternalAuthorBlock()),
-        ], required=False),
+        StreamBlock(
+            [
+                ("author", PageChooserBlock(target_model="people.Person")),
+                ("external_author", ExternalAuthorBlock()),
+            ],
+            required=False,
+        ),
         blank=True,
         null=True,
         help_text=(
-            'Optional list of the article’s authors. Use ‘External author’ to add guest authors without creating a '
-            'profile on the system'
+            "Optional list of the article’s authors. Use ‘External author’ to add "
+            "guest authors without creating a profile on the system"
         ),
     )
     keywords = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     # Content panels
     content_panels = Page.content_panels + [
-        FieldPanel('description'),
-        MultiFieldPanel([
-            ImageChooserPanel('image'),
-        ], heading='Image', help_text=(
-            'Optional header image. If not specified a fallback will be used. This image is also shown when sharing '
-            'this page via social media'
-        )),
-        StreamFieldPanel('body'),
-        StreamFieldPanel('related_links_mdn'),
+        FieldPanel("description"),
+        MultiFieldPanel(
+            [ImageChooserPanel("image")],
+            heading="Image",
+            help_text=(
+                "Optional header image. If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social media"
+            ),
+        ),
+        StreamFieldPanel("body"),
+        StreamFieldPanel("related_links_mdn"),
     ]
 
     # Card panels
     card_panels = [
-        FieldPanel('card_title'),
-        FieldPanel('card_description'),
-        ImageChooserPanel('card_image'),
+        FieldPanel("card_title"),
+        FieldPanel("card_description"),
+        ImageChooserPanel("card_image"),
     ]
 
     # Meta panels
     meta_panels = [
-        FieldPanel('date'),
-        StreamFieldPanel('authors'),
-        MultiFieldPanel([
-            InlinePanel('topics'),
-        ], heading='Topics', help_text=(
-            'The topic pages this article will appear on. The first topic in the list will be treated as the '
-            'primary topic and will be shown in the page’s related content.'
-        )),
-        MultiFieldPanel([
-            FieldPanel('seo_title'),
-            FieldPanel('search_description'),
-            FieldPanel('keywords'),
-        ], heading='SEO', help_text='Optional fields to override the default title and description for SEO purposes'),
+        FieldPanel("date"),
+        StreamFieldPanel("authors"),
+        MultiFieldPanel(
+            [InlinePanel("topics")],
+            heading="Topics",
+            help_text=(
+                "The topic pages this article will appear on. The first topic in the "
+                "list will be treated as the primary topic and will be shown in the "
+                "page’s related content."
+            ),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("seo_title"),
+                FieldPanel("search_description"),
+                FieldPanel("keywords"),
+            ],
+            heading="SEO",
+            help_text=(
+                "Optional fields to override the default title and description "
+                "for SEO purposes"
+            ),
+        ),
     ]
 
     # Settings panels
-    settings_panels = [
-        FieldPanel('slug'),
-    ]
+    settings_panels = [FieldPanel("slug")]
 
     # Tabs
-    edit_handler = TabbedInterface([
-        ObjectList(content_panels, heading='Content'),
-        ObjectList(card_panels, heading='Card'),
-        ObjectList(meta_panels, heading='Meta'),
-        ObjectList(settings_panels, heading='Settings', classname='settings'),
-    ])
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading="Content"),
+            ObjectList(card_panels, heading="Card"),
+            ObjectList(meta_panels, heading="Meta"),
+            ObjectList(settings_panels, heading="Settings", classname="settings"),
+        ]
+    )
 
     # Rss feed
     def get_absolute_url(self):
@@ -241,8 +275,8 @@ class Article(Page):
 
     @property
     def related_resources(self):
-        """Returns resources that are related to the current resource, i.e. live, public articles and videos which
-        have the same topics."""
+        """Returns resources that are related to the current resource, i.e.
+        live, public articles and videos which have the same topics."""
         topic_pks = [topic.topic.pk for topic in self.topics.all()]
         return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 
@@ -252,6 +286,6 @@ class Article(Page):
 
     def has_author(self, person):
         for author in self.authors:  # pylint: disable=not-an-iterable
-            if (author.block_type == 'author' and str(author.value) == str(person.title)):
+            if author.block_type == "author" and str(author.value) == str(person.title):
                 return True
         return False

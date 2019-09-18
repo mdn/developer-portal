@@ -5,14 +5,21 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0008_auto_20190612_1759'),
-    ]
+    dependencies = [("topics", "0008_auto_20190612_1759")]
 
     operations = [
         migrations.AddField(
-            model_name='topic',
-            name='color',
-            field=models.CharField(choices=[('blue', 'Blue'), ('orange', 'Orange'), ('green', 'Green'), ('red', 'Red')], default='blue', max_length=14),
-        ),
+            model_name="topic",
+            name="color",
+            field=models.CharField(
+                choices=[
+                    ("blue", "Blue"),
+                    ("orange", "Orange"),
+                    ("green", "Green"),
+                    ("red", "Red"),
+                ],
+                default="blue",
+                max_length=14,
+            ),
+        )
     ]

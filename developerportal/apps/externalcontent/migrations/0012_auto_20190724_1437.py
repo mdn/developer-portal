@@ -5,13 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0011_auto_20190723_1719'),
-    ]
+    dependencies = [("externalcontent", "0011_auto_20190723_1719")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='externalcontent',
-            options={'verbose_name_plural': 'External Content'},
-        ),
+            name="externalcontent", options={"verbose_name_plural": "External Content"}
+        )
     ]

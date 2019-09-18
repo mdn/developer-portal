@@ -15,40 +15,152 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('mozimages', '0001_initial'),
-        ('taggit', '0002_auto_20150616_2121'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("mozimages", "0001_initial"),
+        ("taggit", "0002_auto_20150616_2121"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ContentPage',
+            name="ContentPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', developerportal.apps.common.fields.CustomStreamField([('paragraph', wagtail.core.blocks.RichTextBlock(features=('h2', 'h3', 'h4', 'bold', 'italic', 'link', 'ol', 'ul', 'blockquote', 'code', 'hr'))), ('image', wagtail.images.blocks.ImageChooserBlock()), ('embed', wagtail.embeds.blocks.EmbedBlock()), ('embed_html', wagtail.core.blocks.RawHTMLBlock(help_text='Warning: be careful what you paste here, since\n                          this field could introduce XSS (or similar) bugs.\n                          This field is meant solely for third-party embeds.')), ('code_snippet', wagtail.core.blocks.StructBlock([('language', wagtail.core.blocks.ChoiceBlock(choices=[('css', 'CSS'), ('go', 'Go'), ('html', 'HTML'), ('js', 'JavaScript'), ('python', 'Python'), ('rust', 'Rust'), ('ts', 'TypeScript')])), ('code', wagtail.core.blocks.TextBlock())]))], default=None)),
-                ('card_title', models.CharField(blank=True, default='', max_length=140, verbose_name='Title')),
-                ('card_description', models.TextField(blank=True, default='', max_length=140, verbose_name='Description')),
-                ('card_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage', verbose_name='Image')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "body",
+                    developerportal.apps.common.fields.CustomStreamField(
+                        [
+                            (
+                                "paragraph",
+                                wagtail.core.blocks.RichTextBlock(
+                                    features=(
+                                        "h2",
+                                        "h3",
+                                        "h4",
+                                        "bold",
+                                        "italic",
+                                        "link",
+                                        "ol",
+                                        "ul",
+                                        "blockquote",
+                                        "code",
+                                        "hr",
+                                    )
+                                ),
+                            ),
+                            ("image", wagtail.images.blocks.ImageChooserBlock()),
+                            ("embed", wagtail.embeds.blocks.EmbedBlock()),
+                            (
+                                "embed_html",
+                                wagtail.core.blocks.RawHTMLBlock(
+                                    help_text="Warning: be careful what you paste here, since\n                          this field could introduce XSS (or similar) bugs.\n                          This field is meant solely for third-party embeds."
+                                ),
+                            ),
+                            (
+                                "code_snippet",
+                                wagtail.core.blocks.StructBlock(
+                                    [
+                                        (
+                                            "language",
+                                            wagtail.core.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("css", "CSS"),
+                                                    ("go", "Go"),
+                                                    ("html", "HTML"),
+                                                    ("js", "JavaScript"),
+                                                    ("python", "Python"),
+                                                    ("rust", "Rust"),
+                                                    ("ts", "TypeScript"),
+                                                ]
+                                            ),
+                                        ),
+                                        ("code", wagtail.core.blocks.TextBlock()),
+                                    ]
+                                ),
+                            ),
+                        ],
+                        default=None,
+                    ),
+                ),
+                (
+                    "card_title",
+                    models.CharField(
+                        blank=True, default="", max_length=140, verbose_name="Title"
+                    ),
+                ),
+                (
+                    "card_description",
+                    models.TextField(
+                        blank=True,
+                        default="",
+                        max_length=140,
+                        verbose_name="Description",
+                    ),
+                ),
+                (
+                    "card_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="mozimages.MozImage",
+                        verbose_name="Image",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='ContentPageTag',
+            name="ContentPageTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='content.ContentPage')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='content_contentpagetag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="content.ContentPage",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="content_contentpagetag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='contentpage',
-            name='keywords',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='A comma-separated list of tags.', through='content.ContentPageTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="contentpage",
+            name="keywords",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="content.ContentPageTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

@@ -8,14 +8,18 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0001_initial'),
-    ]
+    dependencies = [("articles", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='article',
-            name='body',
-            field=wagtail.core.fields.StreamField([('paragraph', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())], default=None),
-        ),
+            model_name="article",
+            name="body",
+            field=wagtail.core.fields.StreamField(
+                [
+                    ("paragraph", wagtail.core.blocks.RichTextBlock()),
+                    ("image", wagtail.images.blocks.ImageChooserBlock()),
+                ],
+                default=None,
+            ),
+        )
     ]

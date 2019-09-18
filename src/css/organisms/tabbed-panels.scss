@@ -1,4 +1,3 @@
-
 .tabbed-panels-mobile {
   display: block;
   @media #{$mq-md} {
@@ -59,7 +58,7 @@
   display: none;
   background-color: $color-gray-20;
   height: 316px;
-  margin-top: 32px
+  margin-top: 32px;
 }
 
 .tabbed-panels-content {
@@ -112,7 +111,7 @@
   margin-bottom: 2px;
   position: relative;
   text-align: center;
-  transition: background-position-x .1s ease-in;
+  transition: background-position-x 0.1s ease-in;
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -124,16 +123,16 @@
   }
 
   &.highlight2 {
-    background-image: url($image-path + '/icons/ui/arrow-left-black.svg');
+    background-image: url($image-path+'/icons/ui/arrow-left-black.svg');
   }
 
   &.highlight2-inverse {
-    background-image: url($image-path + '/icons/ui/arrow-left-white.svg');
+    background-image: url($image-path+'/icons/ui/arrow-left-white.svg');
   }
 
   &:hover {
     background-color: $color-white;
-    background-image: url($image-path + '/icons/ui/arrow-left-black.svg');
+    background-image: url($image-path+'/icons/ui/arrow-left-black.svg');
     background-position-x: calc(24px - 6px);
     color: $color-black;
 

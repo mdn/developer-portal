@@ -6,39 +6,61 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0002_auto_20190704_1221'),
-    ]
+    dependencies = [("externalcontent", "0002_auto_20190704_1221")]
 
     operations = [
         migrations.CreateModel(
-            name='ExternalArticle',
+            name="ExternalArticle",
             fields=[
-                ('externalcontent_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='externalcontent.ExternalContent')),
+                (
+                    "externalcontent_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="externalcontent.ExternalContent",
+                    ),
+                )
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('externalcontent.externalcontent',),
+            options={"abstract": False},
+            bases=("externalcontent.externalcontent",),
         ),
         migrations.CreateModel(
-            name='ExternalEvent',
+            name="ExternalEvent",
             fields=[
-                ('externalcontent_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='externalcontent.ExternalContent')),
+                (
+                    "externalcontent_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="externalcontent.ExternalContent",
+                    ),
+                )
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('externalcontent.externalcontent',),
+            options={"abstract": False},
+            bases=("externalcontent.externalcontent",),
         ),
         migrations.CreateModel(
-            name='ExternalVideo',
+            name="ExternalVideo",
             fields=[
-                ('externalcontent_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='externalcontent.ExternalContent')),
+                (
+                    "externalcontent_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="externalcontent.ExternalContent",
+                    ),
+                )
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('externalcontent.externalcontent',),
+            options={"abstract": False},
+            bases=("externalcontent.externalcontent",),
         ),
     ]

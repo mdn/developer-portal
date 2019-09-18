@@ -11,27 +11,74 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('articles', '0025_auto_20190716_1346'),
-        ('topics', '0034_auto_20190718_1504'),
+        ("articles", "0025_auto_20190716_1346"),
+        ("topics", "0034_auto_20190718_1504"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='topic',
-            name='featured',
-            field=wagtail.core.fields.StreamField([('article', wagtail.core.blocks.PageChooserBlock(page_type=['articles.Article'], required=False)), ('external_page', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('description', wagtail.core.blocks.TextBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock())]))], blank=True, null=True),
+            model_name="topic",
+            name="featured",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "article",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["articles.Article"], required=False
+                        ),
+                    ),
+                    (
+                        "external_page",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("url", wagtail.core.blocks.URLBlock()),
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "description",
+                                    wagtail.core.blocks.TextBlock(required=False),
+                                ),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+                null=True,
+            ),
         ),
         migrations.CreateModel(
-            name='TopicFeaturedArticle',
+            name="TopicFeaturedArticle",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='articles.Article')),
-                ('topic', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='featured_articles', to='topics.Topic')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="articles.Article",
+                    ),
+                ),
+                (
+                    "topic",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="featured_articles",
+                        to="topics.Topic",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
     ]

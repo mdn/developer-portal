@@ -8,17 +8,39 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0025_auto_20190716_1346'),
-    ]
+    dependencies = [("articles", "0025_auto_20190716_1346")]
 
     operations = [
         migrations.AddField(
-            model_name='article',
-            name='authors',
-            field=wagtail.core.fields.StreamField([('author', wagtail.core.blocks.PageChooserBlock(page_type=['people.Person'])), ('external_author', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(label='Name')), ('image', wagtail.images.blocks.ImageChooserBlock()), ('url', wagtail.core.blocks.URLBlock(label='URL', required=False))]))], blank=True, null=True),
+            model_name="article",
+            name="authors",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "author",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["people.Person"]
+                        ),
+                    ),
+                    (
+                        "external_author",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock(label="Name")),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "url",
+                                    wagtail.core.blocks.URLBlock(
+                                        label="URL", required=False
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+                null=True,
+            ),
         ),
-        migrations.DeleteModel(
-            name='ArticleAuthor',
-        ),
+        migrations.DeleteModel(name="ArticleAuthor"),
     ]

@@ -8,23 +8,48 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0036_auto_20190725_1226'),
-    ]
+    dependencies = [("topics", "0036_auto_20190725_1226")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='topic',
-            name='get_started',
+        migrations.RemoveField(model_name="topic", name="get_started"),
+        migrations.AddField(
+            model_name="topic",
+            name="tabbed_panels",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "panel",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                ("description", wagtail.core.blocks.TextBlock()),
+                                ("button_text", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "page_link",
+                                    wagtail.core.blocks.PageChooserBlock(
+                                        required=False
+                                    ),
+                                ),
+                                (
+                                    "external_link",
+                                    wagtail.core.blocks.URLBlock(
+                                        help_text="External URL to link to instead of a page.",
+                                        required=False,
+                                    ),
+                                ),
+                            ]
+                        ),
+                    )
+                ],
+                blank=True,
+                null=True,
+                verbose_name="Tabbed panels",
+            ),
         ),
         migrations.AddField(
-            model_name='topic',
-            name='tabbed_panels',
-            field=wagtail.core.fields.StreamField([('panel', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock()), ('image', wagtail.images.blocks.ImageChooserBlock()), ('description', wagtail.core.blocks.TextBlock()), ('button_text', wagtail.core.blocks.CharBlock()), ('page_link', wagtail.core.blocks.PageChooserBlock(required=False)), ('external_link', wagtail.core.blocks.URLBlock(help_text='External URL to link to instead of a page.', required=False))]))], blank=True, null=True, verbose_name='Tabbed panels'),
-        ),
-        migrations.AddField(
-            model_name='topic',
-            name='tabbed_panels_title',
-            field=models.CharField(blank=True, default='', max_length=250),
+            model_name="topic",
+            name="tabbed_panels_title",
+            field=models.CharField(blank=True, default="", max_length=250),
         ),
     ]

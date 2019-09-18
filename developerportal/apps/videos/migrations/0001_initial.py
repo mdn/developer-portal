@@ -15,87 +15,258 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('taggit', '0002_auto_20150616_2121'),
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('mozimages', '0001_initial'),
+        ("taggit", "0002_auto_20150616_2121"),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("mozimages", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Video',
+            name="Video",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.core.fields.RichTextField(blank=True, default='')),
-                ('description', models.CharField(blank=True, default='', max_length=250)),
-                ('types', models.CharField(choices=[('conference', 'Conference'), ('tutorial', 'Tutorial'), ('webinar', 'Webinar'), ('presentation', 'Presentation'), ('talk', 'Talk'), ('demo', 'Demo'), ('vlog', 'Vlog'), ('live stream', 'Live stream'), ('technical briefing', 'Technical briefing')], default='conference', max_length=14)),
-                ('duration', models.CharField(blank=True, max_length=30, null=True)),
-                ('transcript', wagtail.core.fields.RichTextField(blank=True, default='')),
-                ('video_url', wagtail.core.fields.StreamField([('embed', wagtail.embeds.blocks.EmbedBlock())], blank=True, null=True)),
-                ('speakers', wagtail.core.fields.StreamField([('speaker', wagtail.core.blocks.PageChooserBlock(page_type=['people.Person'], required=False))], blank=True, null=True)),
-                ('card_title', models.CharField(blank=True, default='', max_length=140, verbose_name='Title')),
-                ('card_description', models.TextField(blank=True, default='', max_length=140, verbose_name='Description')),
-                ('date', models.DateField(default=datetime.date.today, verbose_name='Upload date')),
-                ('card_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage', verbose_name='Image')),
-                ('image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("body", wagtail.core.fields.RichTextField(blank=True, default="")),
+                (
+                    "description",
+                    models.CharField(blank=True, default="", max_length=250),
+                ),
+                (
+                    "types",
+                    models.CharField(
+                        choices=[
+                            ("conference", "Conference"),
+                            ("tutorial", "Tutorial"),
+                            ("webinar", "Webinar"),
+                            ("presentation", "Presentation"),
+                            ("talk", "Talk"),
+                            ("demo", "Demo"),
+                            ("vlog", "Vlog"),
+                            ("live stream", "Live stream"),
+                            ("technical briefing", "Technical briefing"),
+                        ],
+                        default="conference",
+                        max_length=14,
+                    ),
+                ),
+                ("duration", models.CharField(blank=True, max_length=30, null=True)),
+                (
+                    "transcript",
+                    wagtail.core.fields.RichTextField(blank=True, default=""),
+                ),
+                (
+                    "video_url",
+                    wagtail.core.fields.StreamField(
+                        [("embed", wagtail.embeds.blocks.EmbedBlock())],
+                        blank=True,
+                        null=True,
+                    ),
+                ),
+                (
+                    "speakers",
+                    wagtail.core.fields.StreamField(
+                        [
+                            (
+                                "speaker",
+                                wagtail.core.blocks.PageChooserBlock(
+                                    page_type=["people.Person"], required=False
+                                ),
+                            )
+                        ],
+                        blank=True,
+                        null=True,
+                    ),
+                ),
+                (
+                    "card_title",
+                    models.CharField(
+                        blank=True, default="", max_length=140, verbose_name="Title"
+                    ),
+                ),
+                (
+                    "card_description",
+                    models.TextField(
+                        blank=True,
+                        default="",
+                        max_length=140,
+                        verbose_name="Description",
+                    ),
+                ),
+                (
+                    "date",
+                    models.DateField(
+                        default=datetime.date.today, verbose_name="Upload date"
+                    ),
+                ),
+                (
+                    "card_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="mozimages.MozImage",
+                        verbose_name="Image",
+                    ),
+                ),
+                (
+                    "image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="mozimages.MozImage",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('wagtailcore.page',),
+            options={"abstract": False},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='Videos',
+            name="Videos",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                )
             ],
-            options={
-                'verbose_name_plural': 'Videos',
-            },
-            bases=('wagtailcore.page',),
+            options={"verbose_name_plural": "Videos"},
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='VideoTopic',
+            name="VideoTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='topics.Topic')),
-                ('video', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics', to='videos.Video')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="topics.Topic",
+                    ),
+                ),
+                (
+                    "video",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics",
+                        to="videos.Video",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='VideoTag',
+            name="VideoTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='videos.Video')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='videos_videotag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="videos.Video",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="videos_videotag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.CreateModel(
-            name='VideosTag',
+            name="VideosTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='videos.Videos')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='videos_videostag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="videos.Videos",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="videos_videostag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
-            options={
-                'abstract': False,
-            },
+            options={"abstract": False},
         ),
         migrations.AddField(
-            model_name='videos',
-            name='keywords',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='A comma-separated list of tags.', through='videos.VideosTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="videos",
+            name="keywords",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="videos.VideosTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
         migrations.AddField(
-            model_name='video',
-            name='keywords',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='A comma-separated list of tags.', through='videos.VideoTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="video",
+            name="keywords",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="videos.VideoTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

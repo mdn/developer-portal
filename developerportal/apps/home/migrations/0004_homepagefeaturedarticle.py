@@ -8,22 +8,44 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('articles', '0020_auto_20190612_0426'),
-        ('home', '0003_auto_20190528_1305'),
+        ("articles", "0020_auto_20190612_0426"),
+        ("home", "0003_auto_20190528_1305"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='HomePageFeaturedArticle',
+            name="HomePageFeaturedArticle",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='articles.Article')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='featured_articles', to='home.HomePage')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="+",
+                        to="articles.Article",
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="featured_articles",
+                        to="home.HomePage",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
-        ),
+            options={"ordering": ["sort_order"], "abstract": False},
+        )
     ]

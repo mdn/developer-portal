@@ -5,102 +5,43 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0013_externalevent_venue'),
-    ]
+    dependencies = [("externalcontent", "0013_externalevent_venue")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='externalarticletopic',
-            name='article',
-        ),
-        migrations.RemoveField(
-            model_name='externalarticletopic',
-            name='topic',
-        ),
-        migrations.RemoveField(
-            model_name='externaleventspeaker',
-            name='article',
-        ),
-        migrations.RemoveField(
-            model_name='externaleventspeaker',
-            name='speaker',
-        ),
-        migrations.RemoveField(
-            model_name='externaleventtopic',
-            name='event',
-        ),
-        migrations.RemoveField(
-            model_name='externaleventtopic',
-            name='topic',
-        ),
-        migrations.RemoveField(
-            model_name='externalvideoperson',
-            name='article',
-        ),
-        migrations.RemoveField(
-            model_name='externalvideoperson',
-            name='person',
-        ),
-        migrations.RemoveField(
-            model_name='externalvideotopic',
-            name='topic',
-        ),
-        migrations.RemoveField(
-            model_name='externalvideotopic',
-            name='video',
-        ),
-        migrations.AlterModelOptions(
-            name='externalcontent',
-            options={},
-        ),
-        migrations.RemoveField(
-            model_name='externalarticle',
-            name='date',
-        ),
-        migrations.RemoveField(
-            model_name='externalcontent',
-            name='description',
-        ),
-        migrations.RemoveField(
-            model_name='externalevent',
-            name='location',
-        ),
-        migrations.RemoveField(
-            model_name='externalvideo',
-            name='date',
-        ),
+        migrations.RemoveField(model_name="externalarticletopic", name="article"),
+        migrations.RemoveField(model_name="externalarticletopic", name="topic"),
+        migrations.RemoveField(model_name="externaleventspeaker", name="article"),
+        migrations.RemoveField(model_name="externaleventspeaker", name="speaker"),
+        migrations.RemoveField(model_name="externaleventtopic", name="event"),
+        migrations.RemoveField(model_name="externaleventtopic", name="topic"),
+        migrations.RemoveField(model_name="externalvideoperson", name="article"),
+        migrations.RemoveField(model_name="externalvideoperson", name="person"),
+        migrations.RemoveField(model_name="externalvideotopic", name="topic"),
+        migrations.RemoveField(model_name="externalvideotopic", name="video"),
+        migrations.AlterModelOptions(name="externalcontent", options={}),
+        migrations.RemoveField(model_name="externalarticle", name="date"),
+        migrations.RemoveField(model_name="externalcontent", name="description"),
+        migrations.RemoveField(model_name="externalevent", name="location"),
+        migrations.RemoveField(model_name="externalvideo", name="date"),
         migrations.AlterField(
-            model_name='externalarticle',
-            name='read_time',
+            model_name="externalarticle",
+            name="read_time",
             field=models.CharField(blank=True, max_length=30),
         ),
         migrations.AlterField(
-            model_name='externalevent',
-            name='venue',
-            field=models.TextField(blank=True, default='', max_length=250),
+            model_name="externalevent",
+            name="venue",
+            field=models.TextField(blank=True, default="", max_length=250),
         ),
         migrations.AlterField(
-            model_name='externalvideo',
-            name='video_duration',
-            field=models.CharField(blank=True, default='0:00', max_length=30),
+            model_name="externalvideo",
+            name="video_duration",
+            field=models.CharField(blank=True, default="0:00", max_length=30),
         ),
-        migrations.DeleteModel(
-            name='ExternalArticleAuthor',
-        ),
-        migrations.DeleteModel(
-            name='ExternalArticleTopic',
-        ),
-        migrations.DeleteModel(
-            name='ExternalEventSpeaker',
-        ),
-        migrations.DeleteModel(
-            name='ExternalEventTopic',
-        ),
-        migrations.DeleteModel(
-            name='ExternalVideoPerson',
-        ),
-        migrations.DeleteModel(
-            name='ExternalVideoTopic',
-        ),
+        migrations.DeleteModel(name="ExternalArticleAuthor"),
+        migrations.DeleteModel(name="ExternalArticleTopic"),
+        migrations.DeleteModel(name="ExternalEventSpeaker"),
+        migrations.DeleteModel(name="ExternalEventTopic"),
+        migrations.DeleteModel(name="ExternalVideoPerson"),
+        migrations.DeleteModel(name="ExternalVideoTopic"),
     ]

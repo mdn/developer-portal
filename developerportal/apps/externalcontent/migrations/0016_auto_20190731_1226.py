@@ -8,17 +8,39 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0015_auto_20190725_1226'),
-    ]
+    dependencies = [("externalcontent", "0015_auto_20190725_1226")]
 
     operations = [
         migrations.AddField(
-            model_name='externalarticle',
-            name='authors',
-            field=wagtail.core.fields.StreamField([('author', wagtail.core.blocks.PageChooserBlock(page_type=['people.Person'])), ('external_author', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock(label='Name')), ('image', wagtail.images.blocks.ImageChooserBlock()), ('url', wagtail.core.blocks.URLBlock(label='URL', required=False))]))], blank=True, null=True),
+            model_name="externalarticle",
+            name="authors",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "author",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["people.Person"]
+                        ),
+                    ),
+                    (
+                        "external_author",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock(label="Name")),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "url",
+                                    wagtail.core.blocks.URLBlock(
+                                        label="URL", required=False
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+                null=True,
+            ),
         ),
-        migrations.DeleteModel(
-            name='ExternalArticleAuthor',
-        ),
+        migrations.DeleteModel(name="ExternalArticleAuthor"),
     ]

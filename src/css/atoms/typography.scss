@@ -4,7 +4,7 @@
   font-style: normal;
   font-weight: 400;
   src: url('../fonts/Inter-Regular.woff2') format('woff2'),
-       url('../fonts/Inter-Regular.woff') format('woff');
+    url('../fonts/Inter-Regular.woff') format('woff');
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-style: italic;
   font-weight: 400;
   src: url('../fonts/Inter-Italic.woff2') format('woff2'),
-       url('../fonts/Inter-Italic.woff') format('woff');
+    url('../fonts/Inter-Italic.woff') format('woff');
 }
 
 @font-face {
@@ -22,7 +22,7 @@
   font-style: normal;
   font-weight: 700;
   src: url('../fonts/Inter-Bold.woff2') format('woff2'),
-       url('../fonts/Inter-Bold.woff') format('woff');
+    url('../fonts/Inter-Bold.woff') format('woff');
 }
 
 @font-face {
@@ -31,7 +31,7 @@
   font-style: italic;
   font-weight: 700;
   src: url('../fonts/Inter-BoldItalic.woff2') format('woff2'),
-       url('../fonts/Inter-BoldItalic.woff') format('woff');
+    url('../fonts/Inter-BoldItalic.woff') format('woff');
 }
 
 @font-face {
@@ -40,7 +40,7 @@
   font-style: normal;
   font-weight: 400;
   src: url('../fonts/ZillaSlab-Regular.woff2') format('woff2'),
-       url('../fonts/ZillaSlab-Regular.woff') format('woff');
+    url('../fonts/ZillaSlab-Regular.woff') format('woff');
 }
 
 @font-face {
@@ -49,7 +49,7 @@
   font-style: normal;
   font-weight: 600;
   src: url('../fonts/ZillaSlab-SemiBold.woff2') format('woff2'),
-       url('../fonts/ZillaSlab-SemiBold.woff') format('woff');
+    url('../fonts/ZillaSlab-SemiBold.woff') format('woff');
 }
 
 @font-face {
@@ -58,7 +58,7 @@
   font-style: bold;
   font-weight: 700;
   src: url('../fonts/ZillaSlab-Bold.woff2') format('woff2'),
-       url('../fonts/ZillaSlab-Bold.woff') format('woff');
+    url('../fonts/ZillaSlab-Bold.woff') format('woff');
 }
 
 @font-face {
@@ -67,7 +67,7 @@
   font-style: normal;
   font-weight: 400;
   src: url('../fonts/ZillaSlabHighlight-Regular.woff2') format('woff2'),
-       url('../fonts/ZillaSlabHighlight-Regular.woff') format('woff');
+    url('../fonts/ZillaSlabHighlight-Regular.woff') format('woff');
 }
 
 @font-face {
@@ -76,7 +76,7 @@
   font-style: bold;
   font-weight: 700;
   src: url('../fonts/ZillaSlabHighlight-Bold.woff2') format('woff2'),
-       url('../fonts/ZillaSlabHighlight-Bold.woff') format('woff');
+    url('../fonts/ZillaSlabHighlight-Bold.woff') format('woff');
 }
 
 html {
@@ -121,7 +121,13 @@ h4,
 h5,
 h6 {
   &:not(.no-underline) {
-    background: repeating-linear-gradient(to bottom, transparent 0, transparent .8em, transparentize($color-yellow-30, .5) .8em, transparentize($color-yellow-30, .5) 1.1em);
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 0.8em,
+      transparentize($color-yellow-30, 0.5) 0.8em,
+      transparentize($color-yellow-30, 0.5) 1.1em
+    );
     display: inline;
     margin-bottom: 0;
 
@@ -143,7 +149,13 @@ h6 {
 }
 
 .underline {
-  background: repeating-linear-gradient(to bottom, transparent 0, transparent .8em, transparentize($color-yellow-30, .5) .8em, transparentize($color-yellow-30, .5) 1.1em);
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 0.8em,
+    transparentize($color-yellow-30, 0.5) 0.8em,
+    transparentize($color-yellow-30, 0.5) 1.1em
+  );
   display: inline;
 
   &:before {

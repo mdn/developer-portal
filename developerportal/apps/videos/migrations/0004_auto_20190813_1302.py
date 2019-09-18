@@ -5,19 +5,19 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('videos', '0003_auto_20190807_1244'),
-    ]
+    dependencies = [("videos", "0003_auto_20190807_1244")]
 
     operations = [
         migrations.AlterField(
-            model_name='video',
-            name='card_description',
-            field=models.TextField(blank=True, default='', max_length=400, verbose_name='Description'),
+            model_name="video",
+            name="card_description",
+            field=models.TextField(
+                blank=True, default="", max_length=400, verbose_name="Description"
+            ),
         ),
         migrations.AlterField(
-            model_name='video',
-            name='description',
-            field=models.TextField(blank=True, default='', max_length=400),
+            model_name="video",
+            name="description",
+            field=models.TextField(blank=True, default="", max_length=400),
         ),
     ]

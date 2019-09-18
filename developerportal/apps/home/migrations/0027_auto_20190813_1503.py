@@ -8,19 +8,67 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0026_auto_20190813_1302'),
-    ]
+    dependencies = [("home", "0026_auto_20190813_1302")]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='external_promos',
-            field=wagtail.core.fields.StreamField([('external_promo', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('description', wagtail.core.blocks.TextBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock())]))], blank=True, help_text='Optional promo space under the header for linking to external sites, max. 2', null=True),
+            model_name="homepage",
+            name="external_promos",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "external_promo",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("url", wagtail.core.blocks.URLBlock()),
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "description",
+                                    wagtail.core.blocks.TextBlock(required=False),
+                                ),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                            ]
+                        ),
+                    )
+                ],
+                blank=True,
+                help_text="Optional promo space under the header for linking to external sites, max. 2",
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='homepage',
-            name='featured',
-            field=wagtail.core.fields.StreamField([('article', wagtail.core.blocks.PageChooserBlock(page_type=['articles.Article', 'externalcontent.ExternalArticle'], required=True)), ('external_page', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('description', wagtail.core.blocks.TextBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock())]))], blank=True, help_text='Optional space for featured articles, max. 4', null=True),
+            model_name="homepage",
+            name="featured",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "article",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=[
+                                "articles.Article",
+                                "externalcontent.ExternalArticle",
+                            ],
+                            required=True,
+                        ),
+                    ),
+                    (
+                        "external_page",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("url", wagtail.core.blocks.URLBlock()),
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "description",
+                                    wagtail.core.blocks.TextBlock(required=False),
+                                ),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                            ]
+                        ),
+                    ),
+                ],
+                blank=True,
+                help_text="Optional space for featured articles, max. 4",
+                null=True,
+            ),
         ),
     ]

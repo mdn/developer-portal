@@ -8,14 +8,39 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0024_merge_20190702_1619'),
-    ]
+    dependencies = [("topics", "0024_merge_20190702_1619")]
 
     operations = [
         migrations.AlterField(
-            model_name='topic',
-            name='get_started',
-            field=wagtail.core.fields.StreamField([('panel', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock()), ('image', wagtail.images.blocks.ImageChooserBlock()), ('description', wagtail.core.blocks.TextBlock()), ('button_text', wagtail.core.blocks.CharBlock()), ('page_link', wagtail.core.blocks.PageChooserBlock(required=False)), ('external_link', wagtail.core.blocks.URLBlock(help_text='External URL to link to instead of a page.', required=False))]))]),
-        ),
+            model_name="topic",
+            name="get_started",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "panel",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                ("description", wagtail.core.blocks.TextBlock()),
+                                ("button_text", wagtail.core.blocks.CharBlock()),
+                                (
+                                    "page_link",
+                                    wagtail.core.blocks.PageChooserBlock(
+                                        required=False
+                                    ),
+                                ),
+                                (
+                                    "external_link",
+                                    wagtail.core.blocks.URLBlock(
+                                        help_text="External URL to link to instead of a page.",
+                                        required=False,
+                                    ),
+                                ),
+                            ]
+                        ),
+                    )
+                ]
+            ),
+        )
     ]

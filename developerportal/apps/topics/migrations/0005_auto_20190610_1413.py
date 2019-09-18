@@ -6,18 +6,16 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0004_topicfeaturedarticle'),
-    ]
+    dependencies = [("topics", "0004_topicfeaturedarticle")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='subtopic',
-            options={'verbose_name': 'Sub-topic', 'verbose_name_plural': 'Sub-topics'},
+            name="subtopic",
+            options={"verbose_name": "Sub-topic", "verbose_name_plural": "Sub-topics"},
         ),
         migrations.AddField(
-            model_name='topic',
-            name='intro',
-            field=wagtail.core.fields.RichTextField(default=''),
+            model_name="topic",
+            name="intro",
+            field=wagtail.core.fields.RichTextField(default=""),
         ),
     ]

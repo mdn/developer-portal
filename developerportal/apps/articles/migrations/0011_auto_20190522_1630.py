@@ -6,19 +6,15 @@ import modelcluster.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0001_initial'),
-        ('articles', '0010_article_labels'),
-    ]
+    dependencies = [("topics", "0001_initial"), ("articles", "0010_article_labels")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='article',
-            name='labels',
-        ),
+        migrations.RemoveField(model_name="article", name="labels"),
         migrations.AddField(
-            model_name='article',
-            name='labels',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='_article_labels_+', to='topics.Topic'),
+            model_name="article",
+            name="labels",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True, related_name="_article_labels_+", to="topics.Topic"
+            ),
         ),
     ]

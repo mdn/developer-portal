@@ -8,14 +8,27 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0010_topic_get_started'),
-    ]
+    dependencies = [("topics", "0010_topic_get_started")]
 
     operations = [
         migrations.AlterField(
-            model_name='topic',
-            name='get_started',
-            field=wagtail.core.fields.StreamField([('panel', wagtail.core.blocks.StructBlock([('title', wagtail.core.blocks.CharBlock()), ('image', wagtail.images.blocks.ImageChooserBlock()), ('description', wagtail.core.blocks.TextBlock()), ('buttonText', wagtail.core.blocks.CharBlock()), ('buttonUrl', wagtail.core.blocks.PageChooserBlock())]))]),
-        ),
+            model_name="topic",
+            name="get_started",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "panel",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                ("description", wagtail.core.blocks.TextBlock()),
+                                ("buttonText", wagtail.core.blocks.CharBlock()),
+                                ("buttonUrl", wagtail.core.blocks.PageChooserBlock()),
+                            ]
+                        ),
+                    )
+                ]
+            ),
+        )
     ]

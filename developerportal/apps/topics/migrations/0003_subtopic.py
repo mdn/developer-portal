@@ -6,19 +6,25 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('topics', '0002_topics'),
-    ]
+    dependencies = [("topics", "0002_topics")]
 
     operations = [
         migrations.CreateModel(
-            name='SubTopic',
+            name="SubTopic",
             fields=[
-                ('topic_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='topics.Topic')),
+                (
+                    "topic_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="topics.Topic",
+                    ),
+                )
             ],
-            options={
-                'abstract': False,
-            },
-            bases=('topics.topic',),
-        ),
+            options={"abstract": False},
+            bases=("topics.topic",),
+        )
     ]

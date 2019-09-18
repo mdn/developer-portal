@@ -5,13 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0022_auto_20190624_1622'),
-    ]
+    dependencies = [("articles", "0022_auto_20190624_1622")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='articles',
-            options={'verbose_name_plural': 'Articles'},
-        ),
+            name="articles", options={"verbose_name_plural": "Articles"}
+        )
     ]

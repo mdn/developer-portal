@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('home', '0025_homepage_external_promos'),
-    ]
+    dependencies = [("home", "0025_homepage_external_promos")]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='card_description',
-            field=models.TextField(blank=True, default='', max_length=400, verbose_name='Description'),
-        ),
+            model_name="homepage",
+            name="card_description",
+            field=models.TextField(
+                blank=True, default="", max_length=400, verbose_name="Description"
+            ),
+        )
     ]

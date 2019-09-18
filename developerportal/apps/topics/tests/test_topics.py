@@ -1,18 +1,18 @@
 from wagtail.tests.utils import WagtailPageTests
 
-from ..models import Topic, Topics
 from ...home.models import HomePage
+from ..models import Topic, Topics
 
 
 class TopicTests(WagtailPageTests):
     """Tests for the Topic page model."""
 
-    fixtures = ['common.json']
+    fixtures = ["common.json"]
 
     def test_topic_page(self):
         """Get the ‘CSS’ topic."""
         topic_page = Topic.objects.all()[0]
-        self.assertEqual('CSS', topic_page.title)
+        self.assertEqual("CSS", topic_page.title)
 
     def test_topic_page_parent_pages(self):
         """A topic page should only exist under the topics page."""
@@ -26,13 +26,16 @@ class TopicTests(WagtailPageTests):
         """A topic page should have article pages."""
         topic_page = Topic.objects.all()[0]
         topic_page_article = topic_page.articles[0].article
-        self.assertEqual('Faster smarter JavaScript debugging in Firefox DevTools', topic_page_article.title)
+        self.assertEqual(
+            "Faster smarter JavaScript debugging in Firefox DevTools",
+            topic_page_article.title,
+        )
 
 
 class TopicsTests(WagtailPageTests):
     """Tests for the Topics page model."""
 
-    fixtures = ['common.json']
+    fixtures = ["common.json"]
 
     def test_topics__page_parent_pages(self):
         """The Topics page can exist under another page."""

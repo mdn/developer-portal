@@ -6,14 +6,17 @@ import modelcluster.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('people', '0003_auto_20190530_1437'),
-    ]
+    dependencies = [("people", "0003_auto_20190530_1437")]
 
     operations = [
         migrations.AlterField(
-            model_name='person',
-            name='labels',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='_person_labels_+', to='topics.Topic', verbose_name='Topics interested in'),
-        ),
+            model_name="person",
+            name="labels",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="_person_labels_+",
+                to="topics.Topic",
+                verbose_name="Topics interested in",
+            ),
+        )
     ]

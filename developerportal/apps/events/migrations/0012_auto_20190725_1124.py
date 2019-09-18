@@ -6,62 +6,65 @@ import django_countries.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('events', '0011_auto_20190718_1724'),
-    ]
+    dependencies = [("events", "0011_auto_20190718_1724")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='event',
-            name='location',
-        ),
-        migrations.RemoveField(
-            model_name='event',
-            name='venue',
+        migrations.RemoveField(model_name="event", name="location"),
+        migrations.RemoveField(model_name="event", name="venue"),
+        migrations.AddField(
+            model_name="event",
+            name="address_line_1",
+            field=models.CharField(blank=True, default="", max_length=100),
         ),
         migrations.AddField(
-            model_name='event',
-            name='address_line_1',
-            field=models.CharField(blank=True, default='', max_length=100),
+            model_name="event",
+            name="address_line_2",
+            field=models.CharField(blank=True, default="", max_length=100),
         ),
         migrations.AddField(
-            model_name='event',
-            name='address_line_2',
-            field=models.CharField(blank=True, default='', max_length=100),
+            model_name="event",
+            name="address_line_3",
+            field=models.CharField(blank=True, default="", max_length=100),
         ),
         migrations.AddField(
-            model_name='event',
-            name='address_line_3',
-            field=models.CharField(blank=True, default='', max_length=100),
+            model_name="event",
+            name="city",
+            field=models.CharField(blank=True, default="", max_length=100),
         ),
         migrations.AddField(
-            model_name='event',
-            name='city',
-            field=models.CharField(blank=True, default='', max_length=100),
+            model_name="event",
+            name="country",
+            field=django_countries.fields.CountryField(
+                blank=True, default="", max_length=2
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='country',
-            field=django_countries.fields.CountryField(blank=True, default='', max_length=2),
+            model_name="event",
+            name="state",
+            field=models.CharField(
+                blank=True,
+                default="",
+                max_length=100,
+                verbose_name="State/Province/Region",
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='state',
-            field=models.CharField(blank=True, default='', max_length=100, verbose_name='State/Province/Region'),
+            model_name="event",
+            name="venue_name",
+            field=models.CharField(blank=True, default="", max_length=100),
         ),
         migrations.AddField(
-            model_name='event',
-            name='venue_name',
-            field=models.CharField(blank=True, default='', max_length=100),
+            model_name="event",
+            name="venue_url",
+            field=models.URLField(
+                blank=True, default="", max_length=100, verbose_name="Venue URL"
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='venue_url',
-            field=models.URLField(blank=True, default='', max_length=100, verbose_name='Venue URL'),
-        ),
-        migrations.AddField(
-            model_name='event',
-            name='zip_code',
-            field=models.CharField(blank=True, default='', max_length=100, verbose_name='Zip/Postal code'),
+            model_name="event",
+            name="zip_code",
+            field=models.CharField(
+                blank=True, default="", max_length=100, verbose_name="Zip/Postal code"
+            ),
         ),
     ]

@@ -6,14 +6,17 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('people', '0025_auto_20190813_1503'),
-    ]
+    dependencies = [("people", "0025_auto_20190813_1503")]
 
     operations = [
         migrations.AlterField(
-            model_name='people',
-            name='description',
-            field=wagtail.core.fields.RichTextField(blank=True, default='', help_text='Optional short text description, max. 400 characters', max_length=400),
-        ),
+            model_name="people",
+            name="description",
+            field=wagtail.core.fields.RichTextField(
+                blank=True,
+                default="",
+                help_text="Optional short text description, max. 400 characters",
+                max_length=400,
+            ),
+        )
     ]

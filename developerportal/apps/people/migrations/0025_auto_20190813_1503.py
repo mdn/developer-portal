@@ -8,24 +8,56 @@ import wagtail.images.blocks
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('people', '0024_auto_20190813_1302'),
-    ]
+    dependencies = [("people", "0024_auto_20190813_1302")]
 
     operations = [
         migrations.AlterField(
-            model_name='people',
-            name='description',
-            field=models.TextField(blank=True, default='', help_text='Optional short text description, max. 400 characters', max_length=400),
+            model_name="people",
+            name="description",
+            field=models.TextField(
+                blank=True,
+                default="",
+                help_text="Optional short text description, max. 400 characters",
+                max_length=400,
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='description',
-            field=wagtail.core.fields.RichTextField(blank=True, default='', help_text='Optional ‘About me’ section content, supports rich text', verbose_name='About'),
+            model_name="person",
+            name="description",
+            field=wagtail.core.fields.RichTextField(
+                blank=True,
+                default="",
+                help_text="Optional ‘About me’ section content, supports rich text",
+                verbose_name="About",
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='websites',
-            field=wagtail.core.fields.StreamField([('website', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock(label='URL')), ('title', wagtail.core.blocks.CharBlock(required=False)), ('icon', wagtail.images.blocks.ImageChooserBlock(required=False))]))], blank=True, help_text='Optional links to any other personal websites', null=True),
+            model_name="person",
+            name="websites",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "website",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("url", wagtail.core.blocks.URLBlock(label="URL")),
+                                (
+                                    "title",
+                                    wagtail.core.blocks.CharBlock(required=False),
+                                ),
+                                (
+                                    "icon",
+                                    wagtail.images.blocks.ImageChooserBlock(
+                                        required=False
+                                    ),
+                                ),
+                            ]
+                        ),
+                    )
+                ],
+                blank=True,
+                help_text="Optional links to any other personal websites",
+                null=True,
+            ),
         ),
     ]

@@ -7,19 +7,26 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0016_auto_20190731_1226'),
-    ]
+    dependencies = [("externalcontent", "0016_auto_20190731_1226")]
 
     operations = [
         migrations.RenameField(
-            model_name='externalvideo',
-            old_name='video_duration',
-            new_name='duration',
+            model_name="externalvideo", old_name="video_duration", new_name="duration"
         ),
         migrations.AddField(
-            model_name='externalvideo',
-            name='speakers',
-            field=wagtail.core.fields.StreamField([('speaker', wagtail.core.blocks.PageChooserBlock(page_type=['people.Person'], required=False))], blank=True, null=True),
+            model_name="externalvideo",
+            name="speakers",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "speaker",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["people.Person"], required=False
+                        ),
+                    )
+                ],
+                blank=True,
+                null=True,
+            ),
         ),
     ]

@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('externalcontent', '0007_auto_20190711_1940'),
-    ]
+    dependencies = [("externalcontent", "0007_auto_20190711_1940")]
 
     operations = [
         migrations.AddField(
-            model_name='externalcontent',
-            name='description',
-            field=models.TextField(blank=True, default='', max_length=250),
-        ),
+            model_name="externalcontent",
+            name="description",
+            field=models.TextField(blank=True, default="", max_length=250),
+        )
     ]

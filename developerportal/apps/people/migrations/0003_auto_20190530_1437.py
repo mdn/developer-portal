@@ -5,34 +5,32 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('people', '0002_people'),
-    ]
+    dependencies = [("people", "0002_people")]
 
     operations = [
         migrations.AlterField(
-            model_name='person',
-            name='email',
-            field=models.CharField(blank=True, default='', max_length=250),
+            model_name="person",
+            name="email",
+            field=models.CharField(blank=True, default="", max_length=250),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='facebook',
-            field=models.CharField(blank=True, default='', max_length=250),
+            model_name="person",
+            name="facebook",
+            field=models.CharField(blank=True, default="", max_length=250),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='github',
-            field=models.CharField(blank=True, default='', max_length=250),
+            model_name="person",
+            name="github",
+            field=models.CharField(blank=True, default="", max_length=250),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='linkedin',
-            field=models.CharField(blank=True, default='', max_length=250),
+            model_name="person",
+            name="linkedin",
+            field=models.CharField(blank=True, default="", max_length=250),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='twitter',
-            field=models.CharField(blank=True, default='', max_length=250),
+            model_name="person",
+            name="twitter",
+            field=models.CharField(blank=True, default="", max_length=250),
         ),
     ]

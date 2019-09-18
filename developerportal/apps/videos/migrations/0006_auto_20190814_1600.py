@@ -7,14 +7,24 @@ import wagtail.core.fields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('videos', '0005_auto_20190813_1503'),
-    ]
+    dependencies = [("videos", "0005_auto_20190813_1503")]
 
     operations = [
         migrations.AlterField(
-            model_name='video',
-            name='speakers',
-            field=wagtail.core.fields.StreamField([('speaker', wagtail.core.blocks.PageChooserBlock(page_type=['people.Person']))], blank=True, help_text='Optional list of people associated with or starring in the video', null=True),
-        ),
+            model_name="video",
+            name="speakers",
+            field=wagtail.core.fields.StreamField(
+                [
+                    (
+                        "speaker",
+                        wagtail.core.blocks.PageChooserBlock(
+                            page_type=["people.Person"]
+                        ),
+                    )
+                ],
+                blank=True,
+                help_text="Optional list of people associated with or starring in the video",
+                null=True,
+            ),
+        )
     ]

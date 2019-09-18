@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('topics', '0023_auto_20190702_1318'),
-        ('topics', '0020_topic_featured'),
+        ("topics", "0023_auto_20190702_1318"),
+        ("topics", "0020_topic_featured"),
     ]
 
-    operations = [
-    ]
+    operations = []

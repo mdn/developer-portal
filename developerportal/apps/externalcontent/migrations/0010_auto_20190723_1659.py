@@ -9,68 +9,142 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('people', '0017_auto_20190718_1424'),
-        ('topics', '0034_auto_20190718_1504'),
-        ('externalcontent', '0009_externalarticleauthor'),
+        ("people", "0017_auto_20190718_1424"),
+        ("topics", "0034_auto_20190718_1504"),
+        ("externalcontent", "0009_externalarticleauthor"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='externalevent',
-            name='venue',
+        migrations.RemoveField(model_name="externalevent", name="venue"),
+        migrations.AddField(
+            model_name="externalarticle",
+            name="date",
+            field=models.DateField(
+                default=datetime.date.today, verbose_name="Article date"
+            ),
         ),
         migrations.AddField(
-            model_name='externalarticle',
-            name='date',
-            field=models.DateField(default=datetime.date.today, verbose_name='Article date'),
-        ),
-        migrations.AddField(
-            model_name='externalevent',
-            name='location',
-            field=models.CharField(blank=True, default='', help_text='Location details (city and country), displayed on event cards', max_length=100),
+            model_name="externalevent",
+            name="location",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Location details (city and country), displayed on event cards",
+                max_length=100,
+            ),
         ),
         migrations.AlterField(
-            model_name='externalarticle',
-            name='read_time',
-            field=models.CharField(blank=True, help_text='Optional, approximate read-time for this article, e.g. “2 mins”. This is shown as a small hint when the article is displayed as a card.', max_length=30),
+            model_name="externalarticle",
+            name="read_time",
+            field=models.CharField(
+                blank=True,
+                help_text="Optional, approximate read-time for this article, e.g. “2 mins”. This is shown as a small hint when the article is displayed as a card.",
+                max_length=30,
+            ),
         ),
         migrations.CreateModel(
-            name='ExternalEventTopic',
+            name="ExternalEventTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('event', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics', to='externalcontent.ExternalEvent')),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_events', to='topics.Topic')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "event",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics",
+                        to="externalcontent.ExternalEvent",
+                    ),
+                ),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_events",
+                        to="topics.Topic",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalEventSpeaker',
+            name="ExternalEventSpeaker",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='speakers', to='externalcontent.ExternalEvent')),
-                ('speaker', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_events', to='people.Person')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="speakers",
+                        to="externalcontent.ExternalEvent",
+                    ),
+                ),
+                (
+                    "speaker",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_events",
+                        to="people.Person",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
         migrations.CreateModel(
-            name='ExternalArticleTopic',
+            name="ExternalArticleTopic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('article', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='topics', to='externalcontent.ExternalArticle')),
-                ('topic', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='external_articles', to='topics.Topic')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "article",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="topics",
+                        to="externalcontent.ExternalArticle",
+                    ),
+                ),
+                (
+                    "topic",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="external_articles",
+                        to="topics.Topic",
+                    ),
+                ),
             ],
-            options={
-                'ordering': ['sort_order'],
-                'abstract': False,
-            },
+            options={"ordering": ["sort_order"], "abstract": False},
         ),
     ]

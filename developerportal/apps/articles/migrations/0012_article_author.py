@@ -7,14 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('articles', '0011_auto_20190522_1630'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("articles", "0011_auto_20190522_1630"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='article',
-            name='author',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page'),
-        ),
+            model_name="article",
+            name="author",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailcore.Page",
+            ),
+        )
     ]

@@ -6,19 +6,29 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('people', '0008_featuredperson'),
-    ]
+    dependencies = [("people", "0008_featuredperson")]
 
     operations = [
         migrations.AlterField(
-            model_name='person',
-            name='intro_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage'),
+            model_name="person",
+            name="intro_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="mozimages.MozImage",
+            ),
         ),
         migrations.AlterField(
-            model_name='person',
-            name='profile_picture',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='mozimages.MozImage'),
+            model_name="person",
+            name="profile_picture",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="mozimages.MozImage",
+            ),
         ),
     ]

@@ -6,19 +6,28 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('events', '0005_merge_20190711_2019'),
-    ]
+    dependencies = [("events", "0005_merge_20190711_2019")]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='card_venue',
-            field=models.CharField(blank=True, default='', help_text='Location details (city and country), displayed on event cards', max_length=100),
+            model_name="event",
+            name="card_venue",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Location details (city and country), displayed on event cards",
+                max_length=100,
+            ),
         ),
         migrations.AddField(
-            model_name='events',
-            name='featured_event',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='events.Event'),
+            model_name="events",
+            name="featured_event",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="events.Event",
+            ),
         ),
     ]
