@@ -34,6 +34,7 @@ actions:
       - '*.scss'
       - '*.svg'
       - 'developerportal/apps/common/fixtures/common.json'
+      - 'developerportal/renovate.json'
 
   # JS and SCSS autoformatting
   prettier:

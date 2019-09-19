@@ -4,3 +4,4 @@ dist
 *.pyc
 *.html
 *.svg
+renovate.json
