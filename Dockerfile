@@ -1,4 +1,4 @@
-FROM node:12.2-alpine AS static
+FROM node:12.10-alpine AS static
 
 WORKDIR /app/
 
