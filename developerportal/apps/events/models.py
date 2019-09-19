@@ -35,6 +35,7 @@ from django_countries.fields import CountryField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
+from ..common.forms import BasePageForm
 from ..common.utils import get_combined_events
 
 
@@ -66,6 +67,8 @@ class Events(Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["events.Event"]
     template = "events.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     featured = StreamField(
@@ -152,6 +155,8 @@ class Event(Page):
     parent_page_types = ["events.Events"]
     subpage_types = []
     template = "event.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(

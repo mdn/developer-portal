@@ -32,6 +32,7 @@ import readtime
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
+from ..common.forms import BasePageForm
 from ..common.utils import get_combined_articles, get_combined_articles_and_videos
 
 
@@ -45,6 +46,8 @@ class Articles(Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Article"]
     template = "articles.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -132,6 +135,8 @@ class Article(Page):
     parent_page_types = ["Articles"]
     subpage_types = []
     template = "article.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(

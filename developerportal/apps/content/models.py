@@ -14,6 +14,7 @@ from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.fields import CustomStreamField
+from ..common.forms import BasePageForm
 
 
 class ContentPageTag(TaggedItemBase):
@@ -26,6 +27,8 @@ class ContentPage(Page):
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["people.People", "content.ContentPage"]
     template = "content.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     hero_image = ForeignKey(
