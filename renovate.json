@@ -9,5 +9,6 @@
     "enabled": false
   },
   "masterIssue": true,
-  "rangeStrategy": "pin"
+  "rangeStrategy": "pin",
+  "rebaseStalePrs": true
 }
