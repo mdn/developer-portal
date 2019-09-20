@@ -26,18 +26,13 @@ actions:
     description: ESLint
     run: $(npm bin)/eslint {files}
     fix: $(npm bin)/eslint --fix {files}
-    exclude:
-      - '*.html'
-      - '*.md'
-      - '*.py'
-      - '*.pyc'
-      - '*.scss'
-      - '*.svg'
-      - 'developerportal/apps/common/fixtures/common.json'
-      - 'developerportal/renovate.json'
+    include:
+      - '*.js'
 
   # JS and SCSS autoformatting
   prettier:
     description: Prettier
     run: $(npm bin)/prettier -c {files}
     fix: $(npm bin)/prettier --write {files}
+    exclude:
+      - 'webpack.config.js'
