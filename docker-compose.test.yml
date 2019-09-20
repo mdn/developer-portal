@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   db:
-    image: postgres:11.3-alpine
+    image: postgres:11.5-alpine
     environment: &db_environment
       POSTGRES_DB: developerportal
       POSTGRES_HOST: db
