@@ -72,10 +72,10 @@ k8s-pvc:
 	j2 app.pvc.yaml.j2 | ${KC} apply -f -
 
 k8s-delete-pv:
-	${KC} delete --ignore-not-found ${APP_PV_NAME}
+	${KC} delete --ignore-not-found pv ${APP_PV_NAME}
 
 k8s-delete-pvc:
-	${KC} delete --ignore-not-found ${APP_PVC_NAME}
+	${KC} delete --ignore-not-found pvc ${APP_PVC_NAME}
 
 k8s-jenkins-create-rbac:
 	kubectl apply -f jenkins-rbac.yaml
