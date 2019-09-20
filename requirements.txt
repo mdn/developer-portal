@@ -16,7 +16,7 @@ botocore==1.12.199
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0
-django-bakery==0.12.3
+django-bakery==0.12.7
 django-countries==5.5
 django-modelcluster==4.4
 django-taggit==0.24
