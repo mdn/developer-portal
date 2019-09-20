@@ -24,6 +24,7 @@ export APP_MEMORY_REQUEST ?= 2Gi
 export APP_GUNICORN_WORKERS ?= 3
 export APP_GUNICORN_TIMEOUT ?= 118
 export APP_BASE_URL ?= https://${APP_HOST}
+export APP_EXPORTED_SITE_URL ?= https://${APP_EXPORTED_SITE_HOST}
 export APP_MOUNT_PATH ?= /app/media
 
 export GOOGLE_ANALYTICS ?= 0
