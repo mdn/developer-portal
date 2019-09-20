@@ -24,7 +24,7 @@ django-treebeard==4.3
 djangorestframework==3.10.2
 docutils==0.14
 draftjs-exporter==2.1.6
-fs==2.4.10
+fs==2.4.11
 greenlet==0.4.15
 html5lib==1.0.1
 idna==2.8
