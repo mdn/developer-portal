@@ -22,7 +22,7 @@ django-modelcluster==4.4
 django-taggit==0.24
 django-treebeard==4.3
 djangorestframework==3.10.3
-docutils==0.14
+docutils==0.15.2
 draftjs-exporter==2.1.6
 fs==2.4.10
 greenlet==0.4.15
