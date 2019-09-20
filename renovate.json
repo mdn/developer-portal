@@ -2,5 +2,13 @@
   "extends": [
     "config:base"
   ],
-  "rangeStrategy": "pin"
+  "dockerfile": {
+    "pinDigests": true
+  },
+  "docker-compose": {
+    "enabled": false
+  },
+  "masterIssue": true,
+  "rangeStrategy": "pin",
+  "rebaseStalePrs": true
 }
