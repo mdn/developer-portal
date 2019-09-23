@@ -225,7 +225,9 @@ BASE_URL = os.environ.get("BASE_URL")
 # Wagtail Bakery Settings
 BUILD_DIR = os.path.join(BASE_DIR, "build")
 BAKERY_MULTISITE = True
-BAKERY_VIEWS = ("wagtailbakery.views.AllPublishedPagesView",)
+BAKERY_VIEWS = (
+    "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
+)
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
 
