@@ -1,14 +1,14 @@
 {% load app_tags %}
 {% load wagtailcore_tags %}
 
-{% with base_url=request.site.root_url home_page=request.site.root_page %}
+{% with home_page=request.site.root_page %}
   <header class="header">
     <div class="mzp-c-navigation">
       <div class="mzp-c-navigation-l-content">
         <div class="mzp-c-navigation-container">
           <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
           <div class="mzp-c-navigation-logo">
-            <a href="{{ base_url }}">
+            <a href="/">
               <span class="logo"></span>
               <span class="logo-prefix">Mozilla</span><span class="heading5 logo-text">Developers</span>
             </a>
@@ -23,7 +23,7 @@
                         {% if child_pages %}
                         <span class="mzp-c-menu-title" aria-haspopup="true" aria-controls="mzp-c-menu-panel-{{ page.slug }}">{{ page.title }}</span>
                         {% else %}
-                        <a class="mzp-c-menu-title" href="{{ base_url }}{% pageurl page %}">
+                        <a class="mzp-c-menu-title" href="{{ page.url }}">
                           {{ page.title }}
                         </a>
                         {% endif %}
@@ -38,7 +38,7 @@
                                   {% for page in child_pages.public.live.in_menu.specific %}
                                     <li>
                                       <section class="mzp-c-menu-item">
-                                        <a class="mzp-c-menu-item-link" href="{{ base_url }}{% pageurl page %}">
+                                        <a class="mzp-c-menu-item-link" href="{{ page.url }}">
                                           <p class="mzp-c-menu-item-title">{{ page.title }}</p>
                                         </a>
                                       </section>

@@ -35,3 +35,8 @@ def render_gif(block_value):
     if hasattr(block_value, "file") and hasattr(block_value.file, "name"):
         file_url = settings.MEDIA_URL + block_value.file.name
         return mark_safe(f'<img src="{file_url}" alt="">')
+
+
+@register.simple_tag
+def get_scheme_and_host(request):
+    return f"{request.scheme}://{request.get_host()}"
