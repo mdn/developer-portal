@@ -36,7 +36,7 @@
     "@mozilla-protocol/core": "7.0.2",
     "@mozilla-protocol/tokens": "3.0.0",
     "autoprefixer": "9.6.1",
-    "buble": "0.19.7",
+    "buble": "0.19.8",
     "buble-loader": "0.5.1",
     "css-loader": "2.1.1",
     "eslint": "5.3.0",
