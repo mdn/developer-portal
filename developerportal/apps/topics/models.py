@@ -35,6 +35,7 @@ from ..common.constants import (
     RESOURCE_COUNT_CHOICES,
     RICH_TEXT_FEATURES_SIMPLE,
 )
+from ..common.forms import BasePageForm
 from ..common.utils import (
     get_combined_articles,
     get_combined_events,
@@ -73,6 +74,8 @@ class Topic(Page):
     parent_page_types = ["Topics"]
     subpage_types = ["Topic"]
     template = "topic.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -236,6 +239,8 @@ class Topics(Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Topic"]
     template = "topics.html"
+
+    base_form_class = BasePageForm
 
     # Meta fields
     keywords = ClusterTaggableManager(through=TopicsTag, blank=True)

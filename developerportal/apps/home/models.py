@@ -23,6 +23,7 @@ from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock
+from ..common.forms import BasePageForm
 
 
 class HomePageTag(TaggedItemBase):
@@ -41,6 +42,8 @@ class HomePage(Page):
         "videos.Videos",
     ]
     template = "home.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     subtitle = TextField(max_length=250, blank=True, default="")

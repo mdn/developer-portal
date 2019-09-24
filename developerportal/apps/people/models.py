@@ -22,6 +22,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
+from ..common.forms import BasePageForm
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -35,6 +36,8 @@ class People(Page):
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]
     template = "people.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -122,6 +125,8 @@ class Person(Page):
     parent_page_types = ["People"]
     subpage_types = []
     template = "person.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     job_title = CharField(max_length=250)

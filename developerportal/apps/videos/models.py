@@ -32,6 +32,7 @@ import readtime
 
 from ..common.blocks import ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES, RICH_TEXT_FEATURES_SIMPLE, VIDEO_TYPE
+from ..common.forms import BasePageForm
 from ..common.utils import get_combined_articles_and_videos
 
 
@@ -52,6 +53,8 @@ class Videos(Page):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Video"]
     template = "videos.html"
+
+    base_form_class = BasePageForm
 
     # Meta fields
     keywords = ClusterTaggableManager(through=VideosTag, blank=True)
@@ -105,6 +108,8 @@ class Video(Page):
     parent_page_types = ["Videos"]
     subpage_types = []
     template = "video.html"
+
+    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
