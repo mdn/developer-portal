@@ -20,6 +20,8 @@ from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from django_countries.fields import CountryField
+
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
 from .edit_handlers import CustomLabelFieldPanel
@@ -154,6 +156,7 @@ class Person(Page):
     )
 
     # Meta
+    country = CountryField(blank=True, default="")
     twitter = CharField(max_length=250, blank=True, default="")
     facebook = CharField(max_length=250, blank=True, default="")
     linkedin = CharField(max_length=250, blank=True, default="")
@@ -197,6 +200,14 @@ class Person(Page):
 
     # Meta panels
     meta_panels = [
+        MultiFieldPanel(
+            [FieldPanel("country")],
+            heading="Location",
+            help_text=(
+                "Optional location fields. The country field is also "
+                "filterable via the people directory page."
+            ),
+        ),
         MultiFieldPanel([InlinePanel("topics")], heading="Topics interested in"),
         MultiFieldPanel(
             [
