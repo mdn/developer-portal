@@ -188,6 +188,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 
+# Django security settings (see `manage.py check --deploy`)
+
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+X_FRAME_OPTIONS = "DENY"
+
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "Mozilla Developers"
@@ -215,7 +225,9 @@ BASE_URL = os.environ.get("BASE_URL")
 # Wagtail Bakery Settings
 BUILD_DIR = os.path.join(BASE_DIR, "build")
 BAKERY_MULTISITE = True
-BAKERY_VIEWS = ("wagtailbakery.views.AllPublishedPagesView",)
+BAKERY_VIEWS = (
+    "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
+)
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
 

@@ -8,6 +8,7 @@ ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+SECURE_SSL_REDIRECT = False
 
 try:
     from .local import *
