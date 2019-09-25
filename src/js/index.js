@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+require('./polyfills');
 const FilterForm = require('./organisms/filter-form');
 const MapEmbed = require('./atoms/map-embed');
 const TabbedPanels = require('./organisms/tabbed-panels');

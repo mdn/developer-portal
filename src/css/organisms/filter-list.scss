@@ -1,5 +1,7 @@
 .filter-list-content {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 4fr 8fr;
   column-gap: $grid-gap-mobile;
   grid-template-columns: [items-start sidebar-start] 1fr [sidebar-end items-end];
 
@@ -16,6 +18,7 @@
 }
 
 .filter-list-sidebar {
+  -ms-grid-column: 1;
   grid-column: sidebar;
   margin-bottom: $grid-gap-mobile;
 
@@ -57,6 +60,7 @@
 }
 
 .filter-list-items {
+  -ms-grid-column: 2;
   grid-column: items;
 
   .card-link {

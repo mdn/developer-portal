@@ -51,7 +51,7 @@ module.exports = class FilterForm {
     });
 
     this.nextPageButton.addEventListener('click', e => this.nextPage(e));
-    this.form.addEventListener('input', () => this.onFormInput());
+    this.form.addEventListener('change', () => this.onFormInput());
   }
 
   /** Updates state and re-renders the results when an input is updated. */
@@ -89,7 +89,8 @@ module.exports = class FilterForm {
     });
 
     if (matchedCheckboxes.length) {
-      this.form.dispatchEvent(new Event('input'));
+      const event = new Event('change');
+      this.form.dispatchEvent(event);
     }
   }
 
