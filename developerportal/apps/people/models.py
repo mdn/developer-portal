@@ -101,6 +101,7 @@ class People(Page):
         from ..topics.models import Topic
 
         return {
+            "countries": True,
             "roles": True,
             "topics": Topic.objects.live().public().order_by("title"),
         }
@@ -332,3 +333,11 @@ class Person(Page):
     @property
     def role_group(self):
         return {"slug": self.role, "title": dict(ROLE_CHOICES).get(self.role, "")}
+
+    @property
+    def country_group(self):
+        return (
+            {"slug": self.country.code.lower(), "title": self.country.name}
+            if self.country
+            else {"slug": ""}
+        )

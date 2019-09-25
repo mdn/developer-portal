@@ -16,6 +16,9 @@
     data-job-title="{{ resource.job_title }}"
     data-role="{{ resource.role }}"
     data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
+    {% if resource.country %}
+      data-country="{{ resource.country|lower }}"
+    {% endif %}
     hidden
   {% endif %}
 >

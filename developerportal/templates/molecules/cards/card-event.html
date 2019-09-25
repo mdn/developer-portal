@@ -18,6 +18,9 @@
   {% if filter_target %}
     data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
     data-month="{{ resource.month_group|date:'Y-m' }}"
+    {% if resource.country %}
+      data-country="{{ resource.country|lower }}"
+    {% endif %}
   {% endif %}
 >
   <div class="card card-event{% if featured %} card-event-featured{% endif %}">
@@ -50,15 +53,11 @@
           <span>{{ resource.event_dates_full|safe }}</span>
         </div>
         {% make_list_from_args resource.city resource.country as location %}
-        {% if location or resource.location %}
+        {% if location %}
           <div class="card-event-location">
             <span class="icon">{% include "atoms/icons/location.svg" %}</span>
             <address>
-            {% if resource.location %}
-              {{ resource.location }}
-            {% else %}
               {{ location | join:', ' }}
-            {% endif %}
             </address>
           </div>
         {% endif %}

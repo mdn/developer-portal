@@ -246,6 +246,14 @@ class ExternalEvent(ExternalContent):
         return self.start_date.replace(day=1)
 
     @property
+    def country_group(self):
+        return (
+            {"slug": self.country.code.lower(), "title": self.country.name}
+            if self.country
+            else {"slug": ""}
+        )
+
+    @property
     def event_dates(self):
         """Return a formatted string of the event start and end dates"""
         event_dates = self.start_date.strftime("%b %-d")
