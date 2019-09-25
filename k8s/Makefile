@@ -26,6 +26,10 @@ export APP_GUNICORN_TIMEOUT ?= 118
 export APP_BASE_URL ?= https://${APP_HOST}
 export APP_MOUNT_PATH ?= /app/media
 
+export EMAIL_HOST ?= email-smtp.us-west-2.amazonaws.com
+export EMAIL_PORT ?= 587
+export EMAIL_USE_TLS ?= True
+
 export GOOGLE_ANALYTICS ?= 0
 
 ###############################
