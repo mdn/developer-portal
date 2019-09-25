@@ -7,7 +7,6 @@ from django.db.models import (
     CharField,
     DateField,
     ForeignKey,
-    TextField,
     URLField,
 )
 
@@ -25,6 +24,8 @@ from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from django_countries.fields import CountryField
 
 from ..common.blocks import ExternalAuthorBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
@@ -200,30 +201,15 @@ class ExternalEvent(ExternalContent):
     end_date = DateField(
         blank=True, null=True, help_text="The date the event is scheduled to end"
     )
-    venue = TextField(
-        max_length=250,
-        blank=True,
-        default="",
-        help_text=(
-            "Full address of the event venue, displayed on the event detail page"
-        ),
-    )
-    location = CharField(
-        max_length=100,
-        blank=True,
-        default="",
-        help_text=("Location details (city and country), displayed on event cards"),
-    )
+    city = CharField(max_length=100, blank=True, default="")
+    country = CountryField(blank=True, default="")
 
     meta_panels = [
         MultiFieldPanel(
-            [
-                FieldPanel("start_date"),
-                FieldPanel("end_date"),
-                FieldPanel("venue"),
-                FieldPanel("location"),
-            ],
-            heading="Event details",
+            [FieldPanel("start_date"), FieldPanel("end_date")], heading="Event details"
+        ),
+        MultiFieldPanel(
+            [FieldPanel("city"), FieldPanel("country")], heading="Event address"
         ),
         InlinePanel(
             "topics",
