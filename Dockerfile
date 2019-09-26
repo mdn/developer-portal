@@ -17,6 +17,12 @@ FROM python:3.7-alpine@sha256:488bfa82d8ac22f1ed9f1d4297613a920bf14913adb98a652a
 EXPOSE 8000
 WORKDIR /app/
 
+# Update cron to publish/unpublished scheduled pages hourly
+RUN crontab -l | { cat; echo '0 * * * * /usr/local/bin/python /app/manage.py publish_scheduled_pages'; } | crontab -
+
+# Update cron to "bake" a new static site each hour and push it to S3 - allows 10 mins for auto-publishing to complete
+RUN crontab -l | { cat; echo '10 * * * * /usr/local/bin/python /app/manage.py build && /usr/local/bin/python /app/manage.py publish'; } | crontab -
+
 RUN apk add --no-cache --virtual .build-deps \
   gcc \
   musl-dev \
@@ -41,4 +47,5 @@ COPY --from=static /app/dist /app/dist/
 
 # Collect all of the static files into the static folder
 RUN DJANGO_ENV=production python manage.py collectstatic
-CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+CMD crond -d 8 -L /var/log/cron.log && \
+  exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
