@@ -200,7 +200,7 @@ X_FRAME_OPTIONS = "DENY"
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "Mozilla Developers"
+WAGTAIL_SITE_NAME = "Mozilla Developer"
 
 # Add support for CodePen oEmbed
 WAGTAILEMBEDS_FINDERS = [

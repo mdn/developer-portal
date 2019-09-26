@@ -549,7 +549,7 @@
     "fields": {
       "hostname": "localhost",
       "port": 8000,
-      "site_name": "Mozilla Developers",
+      "site_name": "Mozilla Developer",
       "root_page": 3,
       "is_default_site": true
     }
