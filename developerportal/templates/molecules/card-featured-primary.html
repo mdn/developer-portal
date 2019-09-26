@@ -1,7 +1,9 @@
+{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% image resource.image width-1024 as image %}
 {% image resource.card_image width-1024 as card_image %}
+{% static "img/placeholders/article.jpg" as fallback_image_url %}
 
 {% if external_page %}
 <a href="{{ resource.url }}" class="card-link" data-type="external_page">
@@ -10,7 +12,7 @@
 {% endif %}
   <div class="card-featured-primary">
     <div class="card-featured-image-wrapper">
-      <div class="card-featured-image" style="background-image: url('{% firstof card_image.url image.url %}')"></div>
+      <div class="card-featured-image" style="background-image: url('{% firstof card_image.url image.url fallback_image_url %}')"></div>
     </div>
     <div class="card-featured-primary-body">
       <div class="card-featured-primary-content">
