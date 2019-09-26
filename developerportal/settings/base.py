@@ -222,6 +222,7 @@ WAGTAILIMAGES_IMAGE_MODEL = "mozimages.MozImage"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.environ.get("BASE_URL")
 
+
 # Wagtail Bakery Settings
 BUILD_DIR = os.path.join(BASE_DIR, "build")
 BAKERY_MULTISITE = True
@@ -230,6 +231,16 @@ BAKERY_VIEWS = (
 )
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
+
+# Explicit configuration of where the 'baked' site will end up. This needs to match
+# the root URL of the developerportal Site in Wagtail's configuration, because
+# THAT value (Site.hostname) is what determines the domain used in any absolute
+# URLs generated.
+# However, we need to also have that root URL available here, because we must add it to
+# ALLOWED_HOSTS, else we will hit `DisallowedHost:Invalid HTTP_HOST header` during
+# baking in production mode, which then outputs all pages saying "400 Bad Request".
+
+EXPORTED_SITE_URL = os.environ.get("EXPORTED_SITE_URL")  # eg https://example.net
 
 # Static build management commands called in order
 STATIC_BUILD_PIPELINE = (("Build", "build"), ("Publish", "publish"))
