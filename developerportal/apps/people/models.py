@@ -157,7 +157,8 @@ class Person(Page):
     )
 
     # Meta
-    country = CountryField(blank=True, default="")
+    city = CharField(max_length=250, blank=True, default="")
+    country = CountryField()
     twitter = CharField(max_length=250, blank=True, default="")
     facebook = CharField(max_length=250, blank=True, default="")
     linkedin = CharField(max_length=250, blank=True, default="")
@@ -202,11 +203,11 @@ class Person(Page):
     # Meta panels
     meta_panels = [
         MultiFieldPanel(
-            [FieldPanel("country")],
+            [FieldPanel("city"), FieldPanel("country")],
             heading="Location",
             help_text=(
-                "Optional location fields. The country field is also "
-                "filterable via the people directory page."
+                "Location fields. The country field is also filterable "
+                "via the people directory page."
             ),
         ),
         MultiFieldPanel([InlinePanel("topics")], heading="Topics interested in"),
