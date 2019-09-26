@@ -145,6 +145,7 @@ class Events(Page):
         from ..topics.models import Topic
 
         return {
+            "countries": True,
             "months": True,
             "topics": Topic.objects.live().public().order_by("title"),
         }
@@ -340,6 +341,14 @@ class Event(Page):
     @property
     def month_group(self):
         return self.start_date.replace(day=1)
+
+    @property
+    def country_group(self):
+        return (
+            {"slug": self.country.code.lower(), "title": self.country.name}
+            if self.country
+            else {"slug": ""}
+        )
 
     @property
     def event_dates(self):

@@ -20,6 +20,8 @@ from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+from django_countries.fields import CountryField
+
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
 from ..common.forms import BasePageForm
@@ -102,6 +104,7 @@ class People(Page):
         from ..topics.models import Topic
 
         return {
+            "countries": True,
             "roles": True,
             "topics": Topic.objects.live().public().order_by("title"),
         }
@@ -159,6 +162,8 @@ class Person(Page):
     )
 
     # Meta
+    city = CharField(max_length=250, blank=True, default="")
+    country = CountryField()
     twitter = CharField(max_length=250, blank=True, default="")
     facebook = CharField(max_length=250, blank=True, default="")
     linkedin = CharField(max_length=250, blank=True, default="")
@@ -202,6 +207,14 @@ class Person(Page):
 
     # Meta panels
     meta_panels = [
+        MultiFieldPanel(
+            [FieldPanel("city"), FieldPanel("country")],
+            heading="Location",
+            help_text=(
+                "Location fields. The country field is also filterable "
+                "via the people directory page."
+            ),
+        ),
         MultiFieldPanel([InlinePanel("topics")], heading="Topics interested in"),
         MultiFieldPanel(
             [
@@ -326,3 +339,11 @@ class Person(Page):
     @property
     def role_group(self):
         return {"slug": self.role, "title": dict(ROLE_CHOICES).get(self.role, "")}
+
+    @property
+    def country_group(self):
+        return (
+            {"slug": self.country.code.lower(), "title": self.country.name}
+            if self.country
+            else {"slug": ""}
+        )
