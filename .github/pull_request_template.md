@@ -1,6 +1,6 @@
 This changeset addresses ... by ...
 
-(Resolves issue #XX)
+(Resolves #XX)
 
 ## Key changes:
 
