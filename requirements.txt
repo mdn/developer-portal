@@ -23,7 +23,7 @@ django-taggit==0.24
 django-treebeard==4.3
 djangorestframework==3.10.3
 docutils==0.15.2
-draftjs-exporter==2.1.6
+draftjs-exporter==2.1.7
 fs==2.4.11
 greenlet==0.4.15
 html5lib==1.0.1
