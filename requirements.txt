@@ -11,7 +11,7 @@ whitenoise==4.1.4
 ## The following requirements were added by pip freeze:
 appdirs==1.4.3
 beautifulsoup4==4.6.0
-boto3==1.9.236
+boto3==1.9.237
 botocore==1.12.236
 certifi==2019.9.11
 chardet==3.0.4
