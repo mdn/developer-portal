@@ -25,7 +25,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
@@ -36,6 +36,7 @@ from ..common.constants import (
     RICH_TEXT_FEATURES_SIMPLE,
 )
 from ..common.forms import BasePageForm
+from ..common.models import BasePage as Page
 from ..common.utils import (
     get_combined_articles,
     get_combined_events,
@@ -282,4 +283,4 @@ class Topics(Page):
 
     @property
     def topics(self):
-        return Topic.objects.live().public().order_by("title")
+        return Topic.published_objects.order_by("title")

@@ -24,7 +24,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 import readtime
@@ -33,6 +33,7 @@ from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.forms import BasePageForm
+from ..common.models import BasePage as Page
 from ..common.utils import get_combined_articles, get_combined_articles_and_videos
 
 
@@ -111,10 +112,7 @@ class Articles(Page):
     def get_filters(self):
         from ..topics.models import Topic
 
-        return {
-            "months": True,
-            "topics": Topic.objects.live().public().order_by("title"),
-        }
+        return {"months": True, "topics": Topic.published_objects.order_by("title")}
 
 
 class ArticleTag(TaggedItemBase):

@@ -10,11 +10,11 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.fields import CustomStreamField
 from ..common.forms import BasePageForm
+from ..common.models import BasePage as Page
 
 
 class ContentPageTag(TaggedItemBase):

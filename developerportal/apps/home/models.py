@@ -19,11 +19,11 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import StreamBlock, StreamField
-from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock
 from ..common.forms import BasePageForm
+from ..common.models import BasePage as Page
 
 
 class HomePageTag(TaggedItemBase):
@@ -197,9 +197,6 @@ class HomePage(Page):
         """The site’s top-level topics, i.e. topics without a parent topic."""
         from ..topics.models import Topic
 
-        return (
-            Topic.objects.filter(parent_topics__isnull=True)
-            .live()
-            .public()
-            .order_by("title")
+        return Topic.published_objects.filter(parent_topics__isnull=True).order_by(
+            "title"
         )

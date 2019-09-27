@@ -1,6 +1,8 @@
 from django import template
 from django.utils.safestring import mark_safe
 
+from wagtail.core.models import Page
+
 import pygments
 from pygments import formatters, lexers
 
@@ -22,6 +24,14 @@ def hex_to_rgb(hex_color, alpha=1):
     alpha = float(alpha)
     a = alpha if 0 < alpha < 1 else 1
     return f"rgb({r}, {g}, {b})" if a == 1 else f"rgb({r}, {g}, {b}, {a})"
+
+
+@register.filter(name="published")
+def published(items):
+    """Filters StreamField items to remove drafts Pages."""
+    return list(
+        filter(lambda item: not isinstance(item.value, Page) or item.value.live, items)
+    )
 
 
 @register.filter(name="syntax_highlight", is_safe=True)

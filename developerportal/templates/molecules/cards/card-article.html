@@ -1,6 +1,7 @@
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load app_filters %}
 
 {% image resource.image width-636 as image %}
 {% image resource.card_image width-636 as card_image %}
@@ -32,8 +33,8 @@
           {{ resource.description | richtext }}
         {% endif %}
       </div>
-      {% if show_author %}
-        {% include "molecules/article-details.html" with date=resource.date authors=resource.authors disable_author_links=True %}
+      {% if show_author and resource.authors|published %}
+        {% include "molecules/article-details.html" with date=resource.date authors=resource.authors|published disable_author_links=True %}
       {% endif %}
     </div>
   </div>

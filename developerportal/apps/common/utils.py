@@ -26,7 +26,7 @@ def get_resources(page, models, filters=None, order_by=None, reverse=False):
     """
 
     def callback(model):
-        return model.objects.filter(**filters).public().live().not_page(page).specific()
+        return model.published_objects.filter(**filters).not_page(page).specific()
 
     result = _combined_query(models, callback)
     return sorted(set(result), key=attrgetter(order_by), reverse=reverse)
