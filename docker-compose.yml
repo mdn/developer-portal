@@ -10,23 +10,38 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
 
-  app:
+  redis:
+    env_file: .env
+    expose:
+      - 6379
+    image: redis:5.0.6-alpine
+    tty: true
+
+  common: &common
     build:
       context: .
-      target: app
-    command: gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+      target: app_base
     depends_on:
       - db
+      - redis
     env_file: .env
-    ports:
-      - "8000:8000"
-      - "8080:8080"
     tty: true
     volumes:
       - dist:/app/dist
       - ./developerportal:/app/developerportal
       - ./media:/app/media
       - ./src:/app/src
+
+  app:
+    <<: *common
+    command: gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+    ports:
+      - '8000:8000'
+      - '8080:8080'
+
+  worker:
+    <<: *common
+    command: celery -A developerportal.apps.staticbuild worker -l info
 
   static:
     build:

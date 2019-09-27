@@ -12,7 +12,7 @@ COPY src/ /app/src/
 RUN npm run build
 
 
-FROM python:3.7-alpine@sha256:488bfa82d8ac22f1ed9f1d4297613a920bf14913adb98a652af7dbbbf1c3cab9 AS app
+FROM python:3.7-alpine@sha256:488bfa82d8ac22f1ed9f1d4297613a920bf14913adb98a652af7dbbbf1c3cab9 AS app_base
 
 EXPOSE 8000
 WORKDIR /app/
@@ -41,4 +41,6 @@ COPY --from=static /app/dist /app/dist/
 
 # Collect all of the static files into the static folder
 RUN DJANGO_ENV=production python manage.py collectstatic
-CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+
+# The following is explicitly called by docker-compose or a k8s manifest
+# CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3

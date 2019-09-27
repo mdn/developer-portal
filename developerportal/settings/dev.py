@@ -6,12 +6,15 @@ DEBUG = True
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = ["*"]
 
+CELERY_BROKER_URL = "redis://redis:6379"
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Disable production defaults that get in the way of local development
 SECURE_SSL_REDIRECT = False
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
+
 
 try:
     from .local import *

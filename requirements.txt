@@ -1,4 +1,6 @@
 Django==2.2.6
+celery==4.3.0
+redis
 gunicorn==19.9.0
 meinheld==1.0.1
 psycopg2==2.8.3
@@ -12,7 +14,7 @@ whitenoise==4.1.4
 appdirs==1.4.3
 beautifulsoup4==4.6.0
 boto3==1.9.242
-botocore==1.12.242 
+botocore==1.12.242
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0
