@@ -1,9 +1,8 @@
 from django.test import TestCase
 
 from wagtail.admin.edit_handlers import get_form_for_model
-from wagtail.core.models import Site
+from wagtail.core.models import Page, Site
 
-from ...common.models import BasePage as Page
 from ..forms import BasePageForm
 from ..utils import (
     get_combined_articles,

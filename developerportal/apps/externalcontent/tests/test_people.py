@@ -1,6 +1,6 @@
+from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
-from ...common.models import BasePage as Page
 from ..models import ExternalArticle, ExternalEvent, ExternalVideo
 
 

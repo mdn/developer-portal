@@ -1,7 +1,7 @@
+from wagtail.core.models import Page
 from wagtail.tests.utils import WagtailPageTests
 
 from ...articles.models import Articles
-from ...common.models import BasePage as Page
 from ...content.models import ContentPage
 from ...events.models import Events
 from ...people.models import People
