@@ -1,17 +1,14 @@
-from wagtail.core.models import BasePageManager, Page
-from wagtail.core.query import PageQuerySet
+from wagtail.core.models import PageManager, Page
 
 from .forms import BasePageForm
 
 
-class BasePublishedPageManager(BasePageManager):
-    use_for_related_fields = True
-
+class PublishedPageManager(PageManager):
     def get_queryset(self):
-        return self._queryset_class(self.model).live().public().order_by("path")
-
-
-PublishedPageManager = BasePublishedPageManager.from_queryset(PageQuerySet)
+        # This method restricts the query to only live (non-draft) pages - it
+        # doesn't guard against private pages, however these aren't supported
+        # by the static site build.
+        return super().get_queryset().live()
 
 
 class BasePage(Page):
