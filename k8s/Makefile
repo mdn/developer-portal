@@ -5,6 +5,10 @@ export AWS_RESOURCE_STACK=dev-portal-${TARGET_ENVIRONMENT}
 export AWS_REGION ?= us-west-2
 export K8S_CLUSTER_SHORT_NAME ?= eks-oregon
 
+export AWS_BUCKET_NAME = ${AWS_BUCKET_NAME}
+export AWS_ACCESS_KEY_ID = ${AWS_ACCESS_KEY_ID}
+export AWS_SECRET_ACCESS_KEY = ${AWS_SECRET_ACCESS_KEY}
+
 # Define an alias for the namespaced kubectl for convenience.
 export KC=kubectl -n ${K8S_NAMESPACE}
 

@@ -242,6 +242,8 @@ BAKERY_VIEWS = (
 )
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
 # Explicit configuration of where the 'baked' site will end up. This needs to match
 # the root URL of the developerportal Site in Wagtail's configuration, because
