@@ -296,7 +296,7 @@ MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")
 COUNTRIES_FIRST = ["US", "GB"]
 
 # Celery settings
-CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379")
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
 CELERY_RESULT_BACKEND = "django-db"  #  for django-celery-results
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
