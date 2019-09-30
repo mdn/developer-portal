@@ -30,11 +30,11 @@ def _static_build_async(force=False, pipeline=settings.STATIC_BUILD_PIPELINE):
     log_prefix = "Static build task"
     for name, command in pipeline:
         if settings.DEBUG and not force:
-            logger.info(f"{log_prefix} wagtail-bakery command '{name}' skipped.")
+            logger.info(f"{log_prefix} (wagtail-bakery) command '{name}' skipped.")
         else:
-            logger.info(f"{log_prefix} wagtail-bakery command '{name}' started.")
+            logger.info(f"{log_prefix} (wagtail-bakery) command '{name}' started.")
             call_command(command)
-            logger.info(f"{log_prefix} wagtail-bakery command '{name}' finished.")
+            logger.info(f"{log_prefix} (wagtail-bakery) command '{name}' finished.")
 
 
 def static_build(**kwargs):
