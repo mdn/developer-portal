@@ -28,7 +28,7 @@ def hex_to_rgb(hex_color, alpha=1):
 
 @register.filter(name="published")
 def published(items):
-    """Filters StreamField items to remove drafts Pages."""
+    """Filters StreamField items to remove draft Pages."""
     return list(
         filter(lambda item: not isinstance(item.value, Page) or item.value.live, items)
     )
