@@ -139,7 +139,7 @@ class Events(Page):
     @property
     def events(self):
         """Return events in chronological order"""
-        return get_combined_events(self)
+        return get_combined_events(self, start_date__gte=datetime.date.today())
 
     def get_filters(self):
         from ..topics.models import Topic
@@ -330,7 +330,7 @@ class Event(Page):
     @property
     def is_upcoming(self):
         """Returns whether an event is in the future."""
-        return self.start_date > datetime.date.today()
+        return self.start_date >= datetime.date.today()
 
     @property
     def primary_topic(self):
