@@ -12,7 +12,7 @@ whitenoise==4.1.4
 appdirs==1.4.3
 beautifulsoup4==4.6.0
 boto3==1.9.240
-botocore==1.12.239 
+botocore==1.12.240 
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0
