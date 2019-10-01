@@ -33,7 +33,7 @@
     "trailingComma": "all"
   },
   "devDependencies": {
-    "@mozilla-protocol/core": "7.0.2",
+    "@mozilla-protocol/core": "9.0.1",
     "@mozilla-protocol/tokens": "3.0.0",
     "autoprefixer": "9.6.1",
     "buble": "0.19.8",
