@@ -25,7 +25,9 @@
 {% get_scheme_and_host request as base_url %}
 {% static "img/placeholders/article.jpg" as fallback_image_url %}
 {% with fallback_image_width="960" fallback_image_height="720" %}
-  {% if page.card_image %}
+  {% if page.social_image %}
+    {% image page.social_image width-1200 as image %}
+  {% elif page.card_image %}
     {% image page.card_image width-1200 as image %}
   {% elif page.image %}
     {% image page.image width-1200 as image %}
