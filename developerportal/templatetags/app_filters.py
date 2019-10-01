@@ -1,9 +1,10 @@
 from django import template
 from django.utils.safestring import mark_safe
 
+from wagtail.core.models import Page
+
 import pygments
 from pygments import formatters, lexers
-from wagtail.core.models import Page
 
 register = template.Library()
 

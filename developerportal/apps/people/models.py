@@ -4,7 +4,6 @@ from operator import attrgetter
 
 from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, TextField
 
-from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -20,6 +19,8 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+from django_countries.fields import CountryField
 
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
@@ -59,6 +60,7 @@ class People(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -227,6 +229,7 @@ class Person(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",

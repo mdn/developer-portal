@@ -10,7 +10,6 @@ from django.db.models import (
     TextField,
 )
 
-import readtime
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -28,6 +27,8 @@ from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
+
+import readtime
 
 from ..common.blocks import ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES, RICH_TEXT_FEATURES_SIMPLE, VIDEO_TYPE
@@ -61,6 +62,7 @@ class Videos(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -225,6 +227,7 @@ class Video(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
