@@ -25,9 +25,9 @@
 {% get_scheme_and_host request as base_url %}
 {% static "img/placeholders/article.jpg" as fallback_image_url %}
 {% if page.card_image %}
-  {% image page.card_image width-1024 as image %}
+  {% image page.card_image width-1200 as image %}
 {% elif page.image %}
-  {% image page.image width-1024 as image %}
+  {% image page.image width-1200 as image %}
 {% endif %}
 <meta property="og:image" content="{{ base_url }}{% if image %}{{ image.url }}{% else %}{{ fallback_image_url }}{% endif %}">
 <meta property="og:image:width" content="{% if image %}{{ image.width }}{% else %}960{% endif %}">
