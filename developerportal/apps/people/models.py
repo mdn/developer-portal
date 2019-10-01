@@ -24,8 +24,7 @@ from django_countries.fields import CountryField
 
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
-from ..common.forms import BasePageForm
-from ..common.models import BasePage as Page
+from ..common.models import BasePage
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -35,12 +34,10 @@ class PeopleTag(TaggedItemBase):
     )
 
 
-class People(Page):
+class People(BasePage):
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]
     template = "people.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -55,7 +52,7 @@ class People(Page):
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [FieldPanel("description")]
+    content_panels = BasePage.content_panels + [FieldPanel("description")]
 
     # Meta panels
     meta_panels = [
@@ -124,13 +121,11 @@ class PersonTopic(Orderable):
     panels = [PageChooserPanel("topic")]
 
 
-class Person(Page):
+class Person(BasePage):
     resource_type = "person"
     parent_page_types = ["People"]
     subpage_types = []
     template = "person.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     job_title = CharField(max_length=250)

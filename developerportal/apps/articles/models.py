@@ -32,8 +32,7 @@ import readtime
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
-from ..common.forms import BasePageForm
-from ..common.models import BasePage as Page
+from ..common.models import BasePage
 from ..common.utils import get_combined_articles, get_combined_articles_and_videos
 
 
@@ -43,12 +42,10 @@ class ArticlesTag(TaggedItemBase):
     )
 
 
-class Articles(Page):
+class Articles(BasePage):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Article"]
     template = "articles.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -63,7 +60,7 @@ class Articles(Page):
     keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [FieldPanel("description")]
+    content_panels = BasePage.content_panels + [FieldPanel("description")]
 
     # Meta panels
     meta_panels = [
@@ -128,13 +125,11 @@ class ArticleTopic(Orderable):
     panels = [PageChooserPanel("topic")]
 
 
-class Article(Page):
+class Article(BasePage):
     resource_type = "article"
     parent_page_types = ["Articles"]
     subpage_types = []
     template = "article.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -201,7 +196,7 @@ class Article(Page):
     keywords = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         MultiFieldPanel(
             [ImageChooserPanel("image")],

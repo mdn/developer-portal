@@ -22,8 +22,7 @@ from wagtail.core.fields import StreamBlock, StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock
-from ..common.forms import BasePageForm
-from ..common.models import BasePage as Page
+from ..common.models import BasePage
 
 
 class HomePageTag(TaggedItemBase):
@@ -32,7 +31,7 @@ class HomePageTag(TaggedItemBase):
     )
 
 
-class HomePage(Page):
+class HomePage(BasePage):
     subpage_types = [
         "articles.Articles",
         "content.ContentPage",
@@ -42,8 +41,6 @@ class HomePage(Page):
         "videos.Videos",
     ]
     template = "home.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     subtitle = TextField(max_length=250, blank=True, default="")
@@ -109,7 +106,7 @@ class HomePage(Page):
     keywords = ClusterTaggableManager(through=HomePageTag, blank=True)
 
     # Editor panel configuration
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         MultiFieldPanel(
             [
                 FieldPanel("subtitle"),

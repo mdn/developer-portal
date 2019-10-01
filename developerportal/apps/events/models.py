@@ -35,8 +35,7 @@ from django_countries.fields import CountryField
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
-from ..common.forms import BasePageForm
-from ..common.models import BasePage as Page
+from ..common.models import BasePage
 from ..common.utils import get_combined_events
 
 
@@ -64,12 +63,10 @@ class EventSpeaker(Orderable):
     panels = [PageChooserPanel("speaker")]
 
 
-class Events(Page):
+class Events(BasePage):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["events.Event"]
     template = "events.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     featured = StreamField(
@@ -95,7 +92,7 @@ class Events(Page):
     keywords = ClusterTaggableManager(through=EventsTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [StreamFieldPanel("featured")]
+    content_panels = BasePage.content_panels + [StreamFieldPanel("featured")]
 
     # Meta panels
     meta_panels = [
@@ -152,13 +149,11 @@ class Events(Page):
         }
 
 
-class Event(Page):
+class Event(BasePage):
     resource_type = "event"
     parent_page_types = ["events.Events"]
     subpage_types = []
     template = "event.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -232,7 +227,7 @@ class Event(Page):
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         MultiFieldPanel(
             [ImageChooserPanel("image")],

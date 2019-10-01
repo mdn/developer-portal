@@ -32,8 +32,7 @@ import readtime
 
 from ..common.blocks import ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES, RICH_TEXT_FEATURES_SIMPLE, VIDEO_TYPE
-from ..common.forms import BasePageForm
-from ..common.models import BasePage as Page
+from ..common.models import BasePage
 from ..common.utils import get_combined_articles_and_videos
 
 
@@ -50,12 +49,10 @@ class VideoTopic(Orderable):
     panels = [PageChooserPanel("topic")]
 
 
-class Videos(Page):
+class Videos(BasePage):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Video"]
     template = "videos.html"
-
-    base_form_class = BasePageForm
 
     # Meta fields
     keywords = ClusterTaggableManager(through=VideosTag, blank=True)
@@ -79,7 +76,7 @@ class Videos(Page):
 
     edit_handler = TabbedInterface(
         [
-            ObjectList(Page.content_panels, heading="Content"),
+            ObjectList(BasePage.content_panels, heading="Content"),
             ObjectList(meta_panels, heading="Meta"),
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
@@ -104,13 +101,11 @@ class VideoTag(TaggedItemBase):
     )
 
 
-class Video(Page):
+class Video(BasePage):
     resource_type = "video"
     parent_page_types = ["Videos"]
     subpage_types = []
     template = "video.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -192,7 +187,7 @@ class Video(Page):
     keywords = ClusterTaggableManager(through=VideoTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         ImageChooserPanel("image"),
         StreamFieldPanel("video_url"),
