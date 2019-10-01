@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load app_filters %}
 
 {% block body_class %}events{% endblock %}
 
@@ -10,18 +11,18 @@
 {% block content %}
   <main>
     {% if page.events %}
-      <section class="section{% if not page.featured %} section-pattern{% endif %}">
+      <section class="section{% if not page.featured|published %} section-pattern{% endif %}">
         <div class="container">
           <div class="section-header">
             <h2>Events</h2>
           </div>
-          {% for featured_item in page.featured %}
+          {% for featured_item in page.featured|published %}
             {% with featured_item.value.specific as event %}
               {% include "molecules/cards/card.html" with resource=event featured=True %}
             {% endwith %}
           {% endfor %}
         </div>
-      {% if page.featured %}
+      {% if page.featured|published %}
       </section>
       <section class="section section-pattern">
       {% endif %}

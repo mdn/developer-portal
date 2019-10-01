@@ -17,9 +17,9 @@ def directory_pages(request):
 
     return {
         "directory_pages": {
-            "articles": Articles.objects.first(),
-            "events": Events.objects.first(),
-            "people": People.objects.first(),
-            "topics": Topics.objects.first(),
+            "articles": Articles.published_objects.first(),
+            "events": Events.published_objects.first(),
+            "people": People.published_objects.first(),
+            "topics": Topics.published_objects.first(),
         }
     }

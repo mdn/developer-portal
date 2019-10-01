@@ -10,6 +10,7 @@ from django.db.models import (
     URLField,
 )
 
+from django_countries.fields import CountryField
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -22,16 +23,15 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from django_countries.fields import CountryField
 
 from ..common.blocks import ExternalAuthorBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.models import BasePage
 
 
-class ExternalContent(Page):
+class ExternalContent(BasePage):
     is_external = True
     subpage_types = []
 
@@ -61,7 +61,7 @@ class ExternalContent(Page):
         related_name="+",
     )
 
-    card_panels = Page.content_panels + [
+    card_panels = BasePage.content_panels + [
         FieldPanel("description"),
         MultiFieldPanel(
             [ImageChooserPanel("image")],
@@ -77,7 +77,9 @@ class ExternalContent(Page):
     edit_handler = TabbedInterface(
         [
             ObjectList(card_panels, heading="Card"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+            ObjectList(
+                BasePage.settings_panels, heading="Settings", classname="settings"
+            ),
         ]
     )
 
@@ -154,7 +156,9 @@ class ExternalArticle(ExternalContent):
         [
             ObjectList(ExternalContent.card_panels, heading="Card"),
             ObjectList(meta_panels, heading="Meta"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+            ObjectList(
+                BasePage.settings_panels, heading="Settings", classname="settings"
+            ),
         ]
     )
 
@@ -233,7 +237,9 @@ class ExternalEvent(ExternalContent):
         [
             ObjectList(ExternalContent.card_panels, heading="Card"),
             ObjectList(meta_panels, heading="Meta"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+            ObjectList(
+                BasePage.settings_panels, heading="Settings", classname="settings"
+            ),
         ]
     )
 
@@ -331,7 +337,9 @@ class ExternalVideo(ExternalContent):
         [
             ObjectList(ExternalContent.card_panels, heading="Card"),
             ObjectList(meta_panels, heading="Meta"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+            ObjectList(
+                BasePage.settings_panels, heading="Settings", classname="settings"
+            ),
         ]
     )
 
