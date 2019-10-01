@@ -25,7 +25,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
@@ -35,7 +35,7 @@ from ..common.constants import (
     RESOURCE_COUNT_CHOICES,
     RICH_TEXT_FEATURES_SIMPLE,
 )
-from ..common.forms import BasePageForm
+from ..common.models import BasePage
 from ..common.utils import (
     get_combined_articles,
     get_combined_events,
@@ -69,13 +69,11 @@ class ParentTopic(Orderable):
     panels = [PageChooserPanel("child"), PageChooserPanel("parent")]
 
 
-class Topic(Page):
+class Topic(BasePage):
     resource_type = "topic"
     parent_page_types = ["Topics"]
     subpage_types = ["Topic"]
     template = "topic.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -138,7 +136,7 @@ class Topic(Page):
     keywords = ClusterTaggableManager(through=TopicTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         StreamFieldPanel("featured"),
         FieldPanel("tabbed_panels_title"),
@@ -235,12 +233,10 @@ class Topic(Page):
         return [topic.child for topic in self.child_topics.all()]
 
 
-class Topics(Page):
+class Topics(BasePage):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Topic"]
     template = "topics.html"
-
-    base_form_class = BasePageForm
 
     # Meta fields
     keywords = ClusterTaggableManager(through=TopicsTag, blank=True)
@@ -266,7 +262,7 @@ class Topics(Page):
 
     edit_handler = TabbedInterface(
         [
-            ObjectList(Page.content_panels, heading="Content"),
+            ObjectList(BasePage.content_panels, heading="Content"),
             ObjectList(meta_panels, heading="Meta"),
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
@@ -282,4 +278,4 @@ class Topics(Page):
 
     @property
     def topics(self):
-        return Topic.objects.live().public().order_by("title")
+        return Topic.published_objects.order_by("title")

@@ -21,10 +21,10 @@
       </div>
     </section>
     {% endif %}
-    {% if page.featured %}
+    {% if page.featured|published %}
       <section id="featured" class="section">
         <div class="container">
-          {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
+          {% include "organisms/featured.html" with featured=page.featured|published featured_count=page.featured|length %}
         </div>
       </section>
     {% endif %}
