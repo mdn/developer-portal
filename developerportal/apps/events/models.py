@@ -13,6 +13,7 @@ from django.db.models import (
 )
 from django.utils.safestring import mark_safe
 
+from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -29,8 +30,6 @@ from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from django_countries.fields import CountryField
 
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE

@@ -1,4 +1,4 @@
-from wagtail.core.models import PageManager, Page
+from wagtail.core.models import Page, PageManager
 
 from .forms import BasePageForm
 
