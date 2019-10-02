@@ -1,0 +1,13 @@
+// Override Protocol default padding for modals on mobile
+.mzp-c-modal-window,
+.mzp-c-modal-inner {
+  @media screen and (max-width: 1055px) {
+    padding: 16px;
+  }
+}
+
+.mzp-c-modal-inner {
+  > header h2 {
+    background: none;
+  }
+}
