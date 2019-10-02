@@ -18,6 +18,13 @@
     {% elif author.description %}
       {{ author.description | richtext }}
     {% endif %}
-    <p><a href="{% if author.slug %}{% pageurl author %}{% else %}{{ author.url }}{% endif %}">See more</a></p>
+
+    {% if author.slug %}
+      {% pageurl author as page_url %}
+    {% endif %}
+    {% firstof page_url author.url as url %}
+    {% if url %}
+      <p><a href="{{ url }}"{% if not author.slug %} target="_blank" rel="nofollow noopener"{% endif %}>See more</a></p>
+    {% endif %}
   </div>
 </div>
