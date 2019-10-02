@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
+{% load app_filters %}
 
 {% block body_class %}article{% endblock %}
 
@@ -12,7 +13,7 @@
 
 {% block content %}
   <main>
-    {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors %}
+    {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors|published %}
     <section class="section">
       <div class="container article-content">
         <div class="article-body">
@@ -33,9 +34,9 @@
             {% include "molecules/resource-topic-tags.html" with topics=page.topics.all %}
             {% include "molecules/resource-share.html" %}
           </div>
-          {% if page.authors %}
+          {% if page.authors|published %}
             <footer class="article-authors">
-              {% for author in page.authors %}
+              {% for author in page.authors|published %}
                 {% include "molecules/article-author.html" with author=author.value %}
               {% endfor %}
             </footer>

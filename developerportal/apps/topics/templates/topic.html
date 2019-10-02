@@ -13,10 +13,10 @@
 {% block content %}
 <main>
   {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
-  {% if page.featured %}
+  {% if page.featured|published %}
     <section class="section">
       <div class="container">
-        {% include "organisms/featured.html" with featured=page.featured featured_count=page.featured|length %}
+        {% include "organisms/featured.html" with featured=page.featured|published featured_count=page.featured|length %}
       </div>
     </section>
   {% endif %}

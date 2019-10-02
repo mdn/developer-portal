@@ -4,6 +4,7 @@ from operator import attrgetter
 
 from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, TextField
 
+from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -17,14 +18,12 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
 )
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from django_countries.fields import CountryField
 
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
-from ..common.forms import BasePageForm
+from ..common.models import BasePage
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -34,12 +33,10 @@ class PeopleTag(TaggedItemBase):
     )
 
 
-class People(Page):
+class People(BasePage):
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]
     template = "people.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -54,7 +51,7 @@ class People(Page):
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [FieldPanel("description")]
+    content_panels = BasePage.content_panels + [FieldPanel("description")]
 
     # Meta panels
     meta_panels = [
@@ -62,6 +59,7 @@ class People(Page):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -98,7 +96,7 @@ class People(Page):
 
     @property
     def people(self):
-        return Person.objects.all().public().live().order_by("title")
+        return Person.published_objects.all().order_by("title")
 
     def get_filters(self):
         from ..topics.models import Topic
@@ -106,7 +104,7 @@ class People(Page):
         return {
             "countries": True,
             "roles": True,
-            "topics": Topic.objects.live().public().order_by("title"),
+            "topics": Topic.published_objects.order_by("title"),
         }
 
 
@@ -123,13 +121,11 @@ class PersonTopic(Orderable):
     panels = [PageChooserPanel("topic")]
 
 
-class Person(Page):
+class Person(BasePage):
     resource_type = "person"
     parent_page_types = ["People"]
     subpage_types = []
     template = "person.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     job_title = CharField(max_length=250)
@@ -215,7 +211,9 @@ class Person(Page):
                 "via the people directory page."
             ),
         ),
-        MultiFieldPanel([InlinePanel("topics")], heading="Topics interested in"),
+        MultiFieldPanel(
+            [InlinePanel("topics")], heading="Topics this person specializes in"
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("twitter"),
@@ -232,6 +230,7 @@ class Person(Page):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -263,18 +262,16 @@ class Person(Page):
         """
         from ..events.models import Event
 
-        upcoming_events = (
-            Event.objects.filter(start_date__gte=datetime.datetime.now())
-            .live()
-            .public()
+        upcoming_events = Event.published_objects.filter(
+            start_date__gte=datetime.datetime.now()
         )
 
-        speaker_events = Event.objects.none()
+        speaker_events = Event.published_objects.none()
 
         for event in upcoming_events.all():
             # add the event to the list if the current person is a speaker
             if event.has_speaker(self):
-                speaker_events = speaker_events | Event.objects.page(event)
+                speaker_events = speaker_events | Event.published_objects.page(event)
 
         return speaker_events.order_by("start_date")
 
@@ -287,20 +284,20 @@ class Person(Page):
         from ..articles.models import Article
         from ..externalcontent.models import ExternalArticle
 
-        articles = Article.objects.none()
-        external_articles = ExternalArticle.objects.none()
+        articles = Article.published_objects.none()
+        external_articles = ExternalArticle.published_objects.none()
 
-        all_articles = Article.objects.live().public().all()
-        all_external_articles = ExternalArticle.objects.live().public().all()
+        all_articles = Article.published_objects.all()
+        all_external_articles = ExternalArticle.published_objects.all()
 
         for article in all_articles:
             if article.has_author(self):
-                articles = articles | Article.objects.page(article)
+                articles = articles | Article.published_objects.page(article)
 
         for external_article in all_external_articles:
             if external_article.has_author(self):
-                external_articles = external_articles | ExternalArticle.objects.page(
-                    external_article
+                external_articles = external_articles | (
+                    ExternalArticle.published_objects.page(external_article)
                 )
 
         return sorted(
@@ -316,20 +313,20 @@ class Person(Page):
         from ..videos.models import Video
         from ..externalcontent.models import ExternalVideo
 
-        videos = Video.objects.none()
-        external_videos = ExternalVideo.objects.none()
+        videos = Video.published_objects.none()
+        external_videos = ExternalVideo.published_objects.none()
 
-        all_videos = Video.objects.live().public().all()
-        all_external_videos = ExternalVideo.objects.live().public().all()
+        all_videos = Video.published_objects.all()
+        all_external_videos = ExternalVideo.published_objects.all()
 
         for video in all_videos:
             if video.has_speaker(self):
-                videos = videos | Video.objects.page(video)
+                videos = videos | Video.published_objects.page(video)
 
         for external_video in all_external_videos:
             if external_video.has_speaker(self):
-                external_videos = external_videos | ExternalVideo.objects.page(
-                    external_video
+                external_videos = external_videos | (
+                    ExternalVideo.published_objects.page(external_video)
                 )
 
         return sorted(

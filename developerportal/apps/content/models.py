@@ -10,11 +10,10 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.fields import CustomStreamField
-from ..common.forms import BasePageForm
+from ..common.models import BasePage
 
 
 class ContentPageTag(TaggedItemBase):
@@ -23,12 +22,10 @@ class ContentPageTag(TaggedItemBase):
     )
 
 
-class ContentPage(Page):
+class ContentPage(BasePage):
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["people.People", "content.ContentPage"]
     template = "content.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     hero_image = ForeignKey(
@@ -61,7 +58,7 @@ class ContentPage(Page):
     keywords = ClusterTaggableManager(through=ContentPageTag, blank=True)
 
     # Editor panel configuration
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         MultiFieldPanel(
             [ImageChooserPanel("hero_image")],
             heading="Hero image",
@@ -83,6 +80,7 @@ class ContentPage(Page):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",

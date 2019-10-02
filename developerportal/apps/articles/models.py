@@ -10,6 +10,7 @@ from django.db.models import (
     TextField,
 )
 
+import readtime
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -24,15 +25,13 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Page
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-import readtime
 
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
-from ..common.forms import BasePageForm
+from ..common.models import BasePage
 from ..common.utils import get_combined_articles, get_combined_articles_and_videos
 
 
@@ -42,12 +41,10 @@ class ArticlesTag(TaggedItemBase):
     )
 
 
-class Articles(Page):
+class Articles(BasePage):
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Article"]
     template = "articles.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -62,7 +59,7 @@ class Articles(Page):
     keywords = ClusterTaggableManager(through=ArticlesTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [FieldPanel("description")]
+    content_panels = BasePage.content_panels + [FieldPanel("description")]
 
     # Meta panels
     meta_panels = [
@@ -70,6 +67,7 @@ class Articles(Page):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -111,10 +109,7 @@ class Articles(Page):
     def get_filters(self):
         from ..topics.models import Topic
 
-        return {
-            "months": True,
-            "topics": Topic.objects.live().public().order_by("title"),
-        }
+        return {"months": True, "topics": Topic.published_objects.order_by("title")}
 
 
 class ArticleTag(TaggedItemBase):
@@ -130,13 +125,11 @@ class ArticleTopic(Orderable):
     panels = [PageChooserPanel("topic")]
 
 
-class Article(Page):
+class Article(BasePage):
     resource_type = "article"
     parent_page_types = ["Articles"]
     subpage_types = []
     template = "article.html"
-
-    base_form_class = BasePageForm
 
     # Content fields
     description = RichTextField(
@@ -203,7 +196,7 @@ class Article(Page):
     keywords = ClusterTaggableManager(through=ArticleTag, blank=True)
 
     # Content panels
-    content_panels = Page.content_panels + [
+    content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         MultiFieldPanel(
             [ImageChooserPanel("image")],
@@ -241,6 +234,7 @@ class Article(Page):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
