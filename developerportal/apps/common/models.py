@@ -1,3 +1,5 @@
+from django.db.models import SET_NULL, ForeignKey
+
 from wagtail.core.models import Page, PageManager
 
 from .forms import BasePageForm
@@ -15,6 +17,14 @@ class PublishedPageManager(PageManager):
 class BasePage(Page):
     base_form_class = BasePageForm
     published_objects = PublishedPageManager()
+
+    social_image = ForeignKey(
+        "mozimages.MozImage",
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name="+",
+    )
 
     class Meta:
         abstract = True

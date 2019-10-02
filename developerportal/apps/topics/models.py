@@ -184,6 +184,7 @@ class Topic(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -247,6 +248,7 @@ class Topics(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
