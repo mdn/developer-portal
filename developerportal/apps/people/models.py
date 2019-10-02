@@ -59,6 +59,7 @@ class People(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -210,7 +211,9 @@ class Person(BasePage):
                 "via the people directory page."
             ),
         ),
-        MultiFieldPanel([InlinePanel("topics")], heading="Topics interested in"),
+        MultiFieldPanel(
+            [InlinePanel("topics")], heading="Topics this person specializes in"
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("twitter"),
@@ -227,6 +230,7 @@ class Person(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
