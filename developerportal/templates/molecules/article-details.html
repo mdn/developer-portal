@@ -4,28 +4,36 @@
 
 <div class="article-details">
   {% if authors %}
-    {% with authors.0.value as author %}
-      {% image author.image fill-96x96 as author_image %}
-      {% if author.role == "staff" %}
-        {% static "img/placeholders/mozillian.jpg" as fallback_image %}
-      {% else %}
-        {% static "img/placeholders/person.jpg" as fallback_image %}
-      {% endif %}
-      <img src="{% firstof author_image.url fallback_image %}" alt="">
-    {% endwith %}
-  {% endif %}
-  <div class="article-details-meta">
-    {% if authors %}
-      <p class="article-details-meta-names">
+    <div class="article-details-avatars">
+      {% for block in authors reversed %}
+        {% with block.value as author %}
+          {% image author.image fill-96x96 as author_image %}
+          {% if author.role == "staff" %}
+            {% static "img/placeholders/mozillian.jpg" as fallback_image %}
+          {% else %}
+            {% static "img/placeholders/person.jpg" as fallback_image %}
+          {% endif %}
+          <img src="{% firstof author_image.url fallback_image %}" alt="">
+        {% endwith %}
+      {% endfor %}
+    </div>
+    <div class="article-details-meta">
+      <ul class="article-details-meta-names">
         {% for block in authors %}
           {% with block.value as author %}
-            {% if author.url and not disable_author_links %}
-              <a href="{{ author.url }}">{% endif %}{{ author.title }}{% if author.url and not disable_author_links %}</a>{% if not forloop.last %}, {% endif %}
-            {% endif %}
+            <li>
+              {% if author.url and not disable_author_links %}
+                <a href="{{ author.url }}">
+              {% endif %}
+              {{ author.title }}
+              {% if author.url and not disable_author_links %}
+                </a>
+              {% endif %}
+            </li>
           {% endwith %}
         {% endfor %}
-      </p>
-    {% endif %}
-    <p>{{ date }}</p>
-  </div>
+      </ul>
+      <p>{{ date }}</p>
+    </div>
+  {% endif %}
 </div>
