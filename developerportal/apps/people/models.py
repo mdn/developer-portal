@@ -211,7 +211,9 @@ class Person(BasePage):
                 "via the people directory page."
             ),
         ),
-        MultiFieldPanel([InlinePanel("topics")], heading="Topics interested in"),
+        MultiFieldPanel(
+            [InlinePanel("topics")], heading="Topics this person specializes in"
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("twitter"),
