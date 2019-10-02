@@ -27,9 +27,9 @@ export APP_BASE_URL ?= https://${APP_HOST}
 export APP_EXPORTED_SITE_URL ?= https://${APP_EXPORTED_SITE_HOST}
 export APP_MOUNT_PATH ?= /app/media
 
-export EMAIL_HOST ?= email-smtp.us-west-2.amazonaws.com
-export EMAIL_PORT ?= 587
-export EMAIL_USE_TLS ?= True
+export APP_EMAIL_HOST ?= email-smtp.us-west-2.amazonaws.com
+export APP_EMAIL_PORT ?= 587
+export APP_EMAIL_USE_TLS ?= True
 
 export CELERY_WORKER_NAME ?= celery-worker
 export CELERY_WORKER_REPLICAS ?= 1
