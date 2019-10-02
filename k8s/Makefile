@@ -31,6 +31,14 @@ export EMAIL_HOST ?= email-smtp.us-west-2.amazonaws.com
 export EMAIL_PORT ?= 587
 export EMAIL_USE_TLS ?= True
 
+export CELERY_WORKER_NAME ?= celery-worker
+export CELERY_WORKER_REPLICAS ?= 1
+export CELERY_WORKER_CONCURRENCY ?= 2
+export CELERY_WORKER_CPU_REQUEST ?= 100m
+export CELERY_WORKER_MEMORY_REQUEST ?= 128Mi
+export CELERY_WORKER_CPU_LIMIT ?= 2
+export CELERY_WORKER_MEMORY_LIMIT ?= 256Mi
+
 export GOOGLE_ANALYTICS ?= 0
 
 ###############################
