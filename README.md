@@ -115,6 +115,8 @@ If things get messed up, you could (as a last resort) prune ALL Docker images, c
 
 Wagtail Bakery can build a static version of the site. In production this runs automatically when pages are published or unpublished from the Wagtail admin.
 
+See [these notes](docs/automatic-publishing-to-s3.md) for more detail.
+
 ### Usage
 
 To manually build the static site, run:
