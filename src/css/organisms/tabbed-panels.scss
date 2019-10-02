@@ -123,16 +123,16 @@
   }
 
   &.highlight2 {
-    background-image: url($image-path+'/icons/ui/arrow-left-black.svg');
+    background-image: url($image-path+'/icons/arrow-left.svg');
   }
 
   &.highlight2-inverse {
-    background-image: url($image-path+'/icons/ui/arrow-left-white.svg');
+    background-image: url($image-path+'/icons/arrow-left-white.svg');
   }
 
   &:hover {
     background-color: $color-white;
-    background-image: url($image-path+'/icons/ui/arrow-left-black.svg');
+    background-image: url($image-path+'/icons/arrow-left.svg');
     background-position-x: calc(24px - 6px);
     color: $color-black;
 
