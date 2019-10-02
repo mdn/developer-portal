@@ -67,6 +67,7 @@ class Articles(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -233,6 +234,7 @@ class Article(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",

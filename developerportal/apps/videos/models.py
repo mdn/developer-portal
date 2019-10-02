@@ -61,6 +61,7 @@ class Videos(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
@@ -225,6 +226,7 @@ class Video(BasePage):
             [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
+                ImageChooserPanel("social_image"),
                 FieldPanel("keywords"),
             ],
             heading="SEO",
