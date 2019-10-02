@@ -10,6 +10,7 @@ from django.db.models import (
     URLField,
 )
 
+from django_countries.fields import CountryField
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import (
     FieldPanel,
@@ -24,8 +25,6 @@ from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-from django_countries.fields import CountryField
 
 from ..common.blocks import ExternalAuthorBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
