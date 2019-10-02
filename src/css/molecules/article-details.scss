@@ -2,12 +2,22 @@
   color: $color-nevada;
   display: flex;
   font-size: 12px;
+}
+
+.article-details-avatars {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-shrink: 0;
+  margin-right: 16px;
 
   img {
     border-radius: 50%;
-    height: 48px;
-    margin-right: 16px;
-    width: 48px;
+    height: 42px;
+    width: 42px;
+
+    &:not(:first-child) {
+      margin-right: -16px;
+    }
   }
 }
 
@@ -26,6 +36,20 @@
 
 .article-details-meta-names {
   font-weight: bold;
+  margin-bottom: 4px;
+
+  li {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 2px;
+
+      &::after {
+        content: '·';
+        margin-left: 2px;
+      }
+    }
+  }
 
   a {
     color: inherit;
