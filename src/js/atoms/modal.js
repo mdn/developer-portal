@@ -128,12 +128,8 @@ module.exports = class Modal {
       ...this.options,
       // The following methods prevent the video from autoplaying when the
       // modal is closed in some browsers.
-      onCreate() {
-        document.body.appendChild(this.modal);
-      },
-      onDestroy() {
-        document.body.removeChild(this.modal);
-      },
+      onCreate: () => document.body.appendChild(this.modal),
+      onDestroy: () => document.body.removeChild(this.modal),
     });
   }
 
