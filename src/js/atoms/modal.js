@@ -26,6 +26,7 @@ const RE_MATCH_YOUTUBE_URL = /^https?:\/\/(?:(?:www\.)?youtube(?:-nocookie)?\.co
 
 /**
  * Helper method, transforms a normal YouTube URL into an iframe embed URL
+ *
  * @param {string} url A YouTube URL string
  * @returns {string}
  */
@@ -43,6 +44,7 @@ function transformYouTubeURL(url) {
 module.exports = class Modal {
   /**
    * Returns modal content for given trigger element, via delegation.
+   *
    * @param {Element} element
    * @returns {Element}
    */
@@ -61,6 +63,7 @@ module.exports = class Modal {
 
   /**
    * Returns modal content for 'video' type trigger elements.
+   *
    * @param {Element} element
    * @returns {Element}
    */
@@ -82,6 +85,7 @@ module.exports = class Modal {
 
   /**
    * Returns Mzp.Modal options from an element’s data attributes.
+   *
    * @param {Element} element
    * @returns {object}
    */
@@ -101,6 +105,7 @@ module.exports = class Modal {
 
   /**
    * Binds click event listener to trigger element.
+   *
    * @param {Element} trigger
    */
   constructor(trigger) {
@@ -135,6 +140,7 @@ module.exports = class Modal {
 
   /**
    * Creates a modal if one does not exist and opens it.
+   *
    * @param {Event} event
    */
   onClick(event) {

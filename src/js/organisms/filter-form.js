@@ -1,11 +1,25 @@
 const { parseForm, parseQueryParams } = require('../utils');
 
+/**
+ * Represents a directory page filter form; reacts to user input and reflects
+ * state in cards.
+ */
 module.exports = class FilterForm {
+  /**
+   * Constructs an instance of FilterForm class for each element.
+   *
+   * @returns {Element[]}
+   */
   static init() {
     const elements = document.querySelectorAll('.js-filter-form');
     return Array.from(elements).map(element => new this(element));
   }
 
+  /**
+   * Gets initial state, fetches elements and calls setup methods.
+   *
+   * @param {Element} form
+.  */
   constructor(form) {
     this.form = form;
 
@@ -60,7 +74,10 @@ module.exports = class FilterForm {
     this.render();
   }
 
-  /** Ensures the DOM reflects the current state. Used after query parameter loading. */
+  /**
+   * Ensures the DOM reflects the current state. Used after query parameter
+   * loading.
+   */
   updateCheckboxes() {
     Object.entries(this.state).forEach(pair => {
       pair[1].forEach(value => {
@@ -74,7 +91,11 @@ module.exports = class FilterForm {
     });
   }
 
-  /** Uncheck checkboxes by the section they appear in.  */
+  /**
+   * Uncheck checkboxes by the section they appear in.
+   *
+   * @param {Event} e
+   */
   uncheckInputs(e) {
     e.preventDefault();
     const { controls } = e.target.dataset;
@@ -134,7 +155,11 @@ module.exports = class FilterForm {
     }
   }
 
-  /** Shows the next page of items. */
+  /**
+   * Shows the next page of items.
+   *
+   * @param {Event} e
+   */
   nextPage(e) {
     e.preventDefault();
     if (this.matches.length >= this.resourcesOnPage) {

@@ -6,6 +6,7 @@
 module.exports = class MapEmbed {
   /**
    * Returns a Map instance from options.
+   *
    * @param {Array<number>} center
    * @param {Element} container
    * @param {string} style
@@ -23,6 +24,7 @@ module.exports = class MapEmbed {
 
   /**
    * Returns a Marker instance and sets coordinates.
+   *
    * @param {Array<number>} coords
    * @returns {mapboxgl.Marker}
    */
@@ -34,6 +36,7 @@ module.exports = class MapEmbed {
 
   /**
    * Returns a Popup instance and sets its HTML.
+   *
    * @param {string} content
    * @returns {mapboxgl.Popup}
    */
@@ -51,6 +54,7 @@ module.exports = class MapEmbed {
 
   /**
    * Creates a Map, Marker and Popup based on the element’s data attributes.
+   *
    * @param {Element} el
    */
   constructor(el) {
