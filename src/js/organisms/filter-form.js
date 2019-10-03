@@ -3,12 +3,14 @@ const { parseForm, parseQueryParams } = require('../utils');
 /**
  * Represents a directory page filter form; reacts to user input and reflects
  * state in cards.
+ *
+ * @class FilterForm
  */
 module.exports = class FilterForm {
   /**
    * Constructs an instance of FilterForm class for each element.
    *
-   * @returns {Element[]}
+   * @returns {FilterForm[]}
    */
   static init() {
     const elements = document.querySelectorAll('.js-filter-form');

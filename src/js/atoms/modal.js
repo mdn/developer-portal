@@ -40,6 +40,8 @@ function transformYouTubeURL(url) {
 /**
  * Listens to a trigger element for click events and constructs content for use
  * with Mzp.Modal.
+ *
+ * @class Modal
  */
 module.exports = class Modal {
   /**
@@ -97,10 +99,12 @@ module.exports = class Modal {
 
   /**
    * Constructs an instance of Modal class for each trigger element.
+   *
+   * @returns {Modal[]}
    */
   static init() {
     const elements = document.querySelectorAll('.js-modal-trigger');
-    Array.from(elements).forEach(content => new Modal(content));
+    return Array.from(elements).map(element => new Modal(element));
   }
 
   /**

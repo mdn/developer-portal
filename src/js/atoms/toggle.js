@@ -1,14 +1,18 @@
 /**
  * Listens to click events on a given element, and toggles visibility of other
  * elements accordingly.
+ *
+ * @class Toggle
  */
 module.exports = class Toggle {
   /**
    * Constructs an instance of Toggle class for each toggle element.
+   *
+   * @returns {Toggle[]}
    */
   static init() {
-    const elements = Array.from(document.querySelectorAll('.js-toggle'));
-    Array.from(elements).forEach(element => new this(element));
+    const elements = document.querySelectorAll('.js-toggle');
+    return Array.from(elements).map(element => new Toggle(element));
   }
 
   /**

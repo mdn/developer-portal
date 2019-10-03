@@ -2,6 +2,8 @@
 
 /**
  * Creates a Map Box embed with marker.
+ *
+ * @class MapEmbed
  */
 module.exports = class MapEmbed {
   /**
@@ -46,19 +48,21 @@ module.exports = class MapEmbed {
 
   /**
    * Constructs an instance of MapEmbed class for each map element.
+   *
+   * @returns {MapEmbed[]}
    */
   static init() {
-    const maps = Array.from(document.querySelectorAll('.map'));
-    maps.forEach(el => new MapEmbed(el));
+    const elements = document.querySelectorAll('.map');
+    return Array.from(elements).map(element => new MapEmbed(element));
   }
 
   /**
    * Creates a Map, Marker and Popup based on the element’s data attributes.
    *
-   * @param {Element} el
+   * @param {Element} element
    */
-  constructor(el) {
-    const { lat, lng, mapId, venue } = el.dataset;
+  constructor(element) {
+    const { lat, lng, mapId, venue } = element.dataset;
     const coords = [lng, lat];
     const map = MapEmbed.createMap(coords, mapId);
     const popup = MapEmbed.createPopup(venue);

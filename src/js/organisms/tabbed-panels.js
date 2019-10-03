@@ -1,11 +1,13 @@
 /**
  * Listens to hashchange events and toggles classes on a tabbed-panel element.
+ *
+ * @class TabbedPanels
  */
 module.exports = class TabbedPanels {
   /**
    * Constructs an instance of Toggle class for each toggle element.
    *
-   * @returns {Element[]}
+   * @returns {TabbedPanels[]}
    */
   static init() {
     const elements = document.querySelectorAll('.js-tabbed-panels');
