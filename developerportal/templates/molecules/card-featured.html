@@ -16,7 +16,7 @@
       <span class="highlighted featured">Featured</span>
     </div>
     <div class="card-featured-caption">
-      <h5 class="no-underline">{% firstof resource.card_title resource.title %}{% if external_page %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}</h5>
+      <h5 class="no-underline">{% firstof resource.card_title resource.title %}{% if external_page or resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}</h5>
     </div>
   </div>
 </a>
