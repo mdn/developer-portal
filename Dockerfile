@@ -39,7 +39,14 @@ COPY developerportal/ /app/developerportal/
 COPY src/ /app/src/
 COPY --from=static /app/dist /app/dist/
 
+# Create a non-root user with a fixed UID, no password and a home directory
+RUN adduser -u 1000 -s /bin/bash -D devportaluser \
+  && mkdir -p app \
+  && chown devportaluser:devportaluser /app \
+  && chmod 775 /app
+
 # Collect all of the static files into the static folder
+USER devportaluser
 RUN DJANGO_ENV=production python manage.py collectstatic
 
 # The following is explicitly called by docker-compose or a k8s manifest

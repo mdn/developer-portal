@@ -38,10 +38,12 @@ services:
     ports:
       - '8000:8000'
       - '8080:8080'
+    user: ${UID:-1000}
 
   worker:
     <<: *common
     command: celery -A developerportal.apps.staticbuild worker -l info
+    user: ${UID:-1000}
 
   static:
     build:
