@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -241,6 +242,8 @@ BAKERY_VIEWS = (
 )
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
 # Explicit configuration of where the 'baked' site will end up. This needs to match
 # the root URL of the developerportal Site in Wagtail's configuration, because
@@ -293,3 +296,10 @@ GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS")
 MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")
 
 COUNTRIES_FIRST = ["US", "GB"]
+
+# Celery settings
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CELERY_RESULT_BACKEND = "django-db"  #  for django-celery-results
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
