@@ -107,6 +107,24 @@ class People(BasePage):
             "topics": Topic.published_objects.order_by("title"),
         }
 
+    @property
+    def latest_authors(self, limit=3):
+        """
+        Returns a list of authors from the most recently published articles.
+        """
+        from ..articles.models import Article
+
+        authors = []
+        articles = Article.published_objects.order_by("last_published_at").specific()
+        for article in articles:
+            if article.has_author:
+                for author in article.authors:  # pylint: disable=not-an-iterable
+                    if author.block_type == "author" and author.value not in authors:
+                        authors.append(author.value)
+                        if len(authors) >= limit:
+                            return authors  # Limit reached, return early
+        return authors
+
 
 class PersonTag(TaggedItemBase):
     content_object = ParentalKey(

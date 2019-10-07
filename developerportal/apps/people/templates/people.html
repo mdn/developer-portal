@@ -8,28 +8,28 @@
 {% block content %}
   <main>
     {% if page.people %}
-      <section class="section{% if not page.recently_published %} section-pattern{% endif %}">
+      <section class="section{% if not page.latest_authors %} section-pattern{% endif %}">
         <div class="container">
           <div class="section-header">
             <h2>Latest authors</h2>
           </div>
-          {% if page.recently_published|length == 1 %}
+          {% if page.latest_authors|length == 1 %}
             {# a single person is rendered full width #}
             <div>
-              {% with page.recently_published.0 as person %}
+              {% with page.latest_authors.0 as person %}
                 {% include "molecules/item-person.html" with person=person type="person" full_width=True %}
               {% endwith %}
             </div>
           {% else %}
             {# 2 or 3 are rendered side-by-side #}
-            <div class="card-container {% if page.recently_published|length == 2 %}card-container-2-wide{% endif %}">
-              {% for person in page.recently_published %}
+            <div class="card-container {% if page.latest_authors|length == 2 %}card-container-2-wide{% endif %}">
+              {% for person in page.latest_authors %}
                 {% include "molecules/item-person.html" with person=person type="person" full_width=False %}
               {% endfor %}
             </div>
           {% endif %}
         </div>
-      {% if page.recently_published %}
+      {% if page.latest_authors %}
       </section>
       <section class="section section-pattern">
       {% endif %}
