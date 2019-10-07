@@ -8,19 +8,31 @@
 {% block content %}
   <main>
     {% if page.people %}
-      <section class="section section-pattern">
+      <section class="section{% if not page.recently_published %} section-pattern{% endif %}">
         <div class="container">
           <div class="section-header">
-            <div>
-              <h2>People</h2>
-              {% if page.description %}
-                <div class="page-description">
-                  {{ page.description | richtext }}
-                </div>
-              {% endif %}
-            </div>
+            <h2>Latest authors</h2>
           </div>
+          {% if page.recently_published|length == 1 %}
+            {# a single person is rendered full width #}
+            <div>
+              {% with page.recently_published.0 as person %}
+                {% include "molecules/item-person.html" with person=person type="person" full_width=True %}
+              {% endwith %}
+            </div>
+          {% else %}
+            {# 2 or 3 are rendered side-by-side #}
+            <div class="card-container {% if page.recently_published|length == 2 %}card-container-2-wide{% endif %}">
+              {% for person in page.recently_published %}
+                {% include "molecules/item-person.html" with person=person type="person" full_width=False %}
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
+      {% if page.recently_published %}
+      </section>
+      <section class="section section-pattern">
+      {% endif %}
         {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
       </section>
     {% endif %}
