@@ -1,0 +1,20 @@
+# Uncomment these, as required, to reset things from settings.dev to more
+# production-like ones for testing features like email sending and S3 use
+
+# DEBUG = False
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# AWS_ACCESS_KEY_ID = "ADD_ME"
+# AWS_SECRET_ACCESS_KEY = "ADD_ME"
+# AWS_BUCKET_NAME = "BUCKET_NAME_HERE"  # Destination of baked site
+# AWS_REGION = "REGION_NAME_HERE"  # eg eu-west-1
+
+# # Reinstate critical settings for using S3 as user-media storage
+# AWS_STORAGE_BUCKET_NAME = "MEDIA_BUCKET_NAME_HERE"  #  destination of user media
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+# MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+# MEDIA_ROOT = None
+

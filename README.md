@@ -14,6 +14,8 @@ After installing Docker, use the **dev-setup** script to run the project locally
 
 This command will create an .env file with unique keys, build docker images and containers, run database migrations, and load fixture data.
 
+It's worth copying `settings/local.py.example` to `settings/local.py` but leaving everything commented out for now. Updating `local.py` can be a handy way to re-enable production-like settings (eg S3 uploads) that are disabled via the default local-development settings.
+
 ### Run locally
 
 With Docker Desktop running in the background, bring up the services by running:

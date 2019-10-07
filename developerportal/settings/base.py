@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail.core",
+    "storages",
     "bakery",
     "wagtailbakery",
     "modelcluster",
@@ -194,10 +195,6 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
-
-
 # Django security settings (see `manage.py check --deploy`)
 
 CSRF_COOKIE_SECURE = True
@@ -242,9 +239,21 @@ BAKERY_VIEWS = (
     "bakery.views.Buildable404View",
 )
 AWS_REGION = os.environ.get("AWS_REGION")
+
+# This bucket is where the static site will be baked to
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+
+# This bucket is where user-media will be uploaded to
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_DEFAULT_ACL = "public-read"
+
+MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+# This is critical for django-bakery NOT to try to do a filesystem copy on a URI in S3
+MEDIA_ROOT = None
 
 # Explicit configuration of where the 'baked' site will end up. This needs to match
 # the root URL of the developerportal Site in Wagtail's configuration, because
