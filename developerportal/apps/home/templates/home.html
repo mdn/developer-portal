@@ -35,6 +35,11 @@
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
     {% endif %}
+    {% if directory_pages.people.latest_authors %}
+      <section id="latest-authors" class="section">
+        {% include "organisms/people-section.html" with people=directory_pages.people.latest_authors show_link=True %}
+      </section>
+    {% endif %}
     {% if page.about_title %}
       <section id="about" class="section section-background section-background-gray">
         {% include "organisms/homepage-about.html" with title=page.about_title subtitle=page.about_subtitle button_url=page.about_button_url button_text=page.about_button_text %}

@@ -107,7 +107,6 @@ class People(BasePage):
             "topics": Topic.published_objects.order_by("title"),
         }
 
-    @property
     def latest_authors(self, limit=3):
         """
         Returns a list of authors from the most recently published articles.

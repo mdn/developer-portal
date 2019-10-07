@@ -9,30 +9,11 @@
   <main>
     {% if page.people %}
       <section class="section{% if not page.latest_authors %} section-pattern{% endif %}">
-        <div class="container">
-          <div class="section-header">
-            <h2>Latest authors</h2>
-          </div>
-          {% if page.latest_authors|length == 1 %}
-            {# a single person is rendered full width #}
-            <div>
-              {% with page.latest_authors.0 as person %}
-                {% include "molecules/item-person.html" with person=person type="person" full_width=True %}
-              {% endwith %}
-            </div>
-          {% else %}
-            {# 2 or 3 are rendered side-by-side #}
-            <div class="card-container {% if page.latest_authors|length == 2 %}card-container-2-wide{% endif %}">
-              {% for person in page.latest_authors %}
-                {% include "molecules/item-person.html" with person=person type="person" full_width=False %}
-              {% endfor %}
-            </div>
-          {% endif %}
-        </div>
-      {% if page.latest_authors %}
-      </section>
-      <section class="section section-pattern">
-      {% endif %}
+        {% include "organisms/people-section.html" with people=page.latest_authors title="Latest authors" %}
+        {% if page.latest_authors %}
+          </section>
+          <section class="section section-pattern">
+        {% endif %}
         {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
       </section>
     {% endif %}
