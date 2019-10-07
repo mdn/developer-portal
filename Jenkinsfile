@@ -39,11 +39,9 @@ node {
         sh "docker build --tag ${image}:latest --tag ${image}:${tag} ."
       }
       stage ('Test') {
-        sh "docker-compose up --detach"
         try {
-            sh "scripts/ci-setup"
-            // Consider running this through scripts/ci-tests ?
-            sh "docker-compose exec -T app ./manage.py test"
+            sh "scripts/ci-setup --build"
+            sh "scripts/ci-tests"
         } finally {
             sh "docker-compose down --volumes --remove-orphans"
         }
