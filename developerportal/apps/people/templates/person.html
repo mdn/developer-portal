@@ -12,7 +12,7 @@
 
 {% block content %}
   <main>
-    {% include "organisms/pattern-bg-header.html" with title=page.display_title description=page.job_title type=page.resource_type role=page.role %}
+    {% include "organisms/pattern-bg-header.html" with title=page.display_title description=page.get_role_display type=page.resource_type role=page.role %}
     <section class="section">
       <div class="container">
         {% include "organisms/person-overview.html" with resource=page %}

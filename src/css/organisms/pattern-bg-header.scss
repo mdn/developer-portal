@@ -61,4 +61,8 @@
   @media #{$mq-md} {
     max-width: 65%;
   }
+
+  h1 {
+    margin-bottom: 12px;
+  }
 }
