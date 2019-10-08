@@ -12,7 +12,7 @@ COPY src/ /app/src/
 RUN npm run build
 
 
-FROM python:3.7-alpine@sha256:488bfa82d8ac22f1ed9f1d4297613a920bf14913adb98a652af7dbbbf1c3cab9 AS app_base
+FROM python:3.7-alpine@sha256:488bfa82d8ac22f1ed9f1d4297613a920bf14913adb98a652af7dbbbf1c3cab9 AS app
 
 EXPOSE 8000
 WORKDIR /app/
@@ -39,15 +39,6 @@ COPY developerportal/ /app/developerportal/
 COPY src/ /app/src/
 COPY --from=static /app/dist /app/dist/
 
-# Create a non-root user with a fixed UID, no password and a home directory
-RUN adduser -u 1000 -s /bin/bash -D devportaluser \
-  && mkdir -p app \
-  && chown devportaluser:devportaluser /app \
-  && chmod 775 /app
-
 # Collect all of the static files into the static folder
-USER devportaluser
 RUN DJANGO_ENV=production python manage.py collectstatic
-
-# The following is explicitly called by docker-compose or a k8s manifest
-# CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+CMD exec gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3

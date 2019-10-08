@@ -1,7 +1,4 @@
 Django==2.2.6
-celery==4.3.0
-redis==3.3.8
-django-celery-results==1.1.2
 gunicorn==19.9.0
 meinheld==1.0.1
 psycopg2==2.8.3
