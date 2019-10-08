@@ -12,10 +12,17 @@ spec:
       labels:
         app: {{ CELERY_WORKER_NAME }}
     spec:
+      volumes:
+      - name: developer-portal-fs
+        persistentVolumeClaim:
+          claimName: {{ APP_PVC_NAME }}
       containers:
         - name: {{ CELERY_WORKER_NAME }}
           image: "{{ APP_IMAGE }}:{{ APP_IMAGE_TAG }}"
           imagePullPolicy: {{ APP_IMAGE_PULL_POLICY }}
+          volumeMounts:
+            - name: developer-portal-fs
+              mountPath: {{ APP_MOUNT_PATH }}
           command:
             - "celery"
           args:
