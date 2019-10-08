@@ -1,7 +1,7 @@
 /* globals mapboxgl */
 
 /**
- * Creates a Map Box embed with marker.
+ * Creates a Mapbox embed with marker.
  *
  * @class MapEmbed
  */
