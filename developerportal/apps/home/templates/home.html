@@ -12,10 +12,8 @@
     <section class="section">
       <div class="container">
         <div class="card-container card-container-2-wide">
-          {% for external_promo in page.external_promos %}
-            {% with external_promo.value as promo %}
-              {% include "molecules/external-promo.html" with resource=promo %}
-            {% endwith %}
+          {% for promo in page.external_promos|by_key:"value" %}
+            {% include "molecules/external-promo.html" with resource=promo %}
           {% endfor %}
         </div>
       </div>
@@ -35,9 +33,9 @@
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
     {% endif %}
-    {% if directory_pages.people.latest_authors %}
+    {% if page.featured_people %}
       <section id="latest-authors" class="section">
-        {% include "organisms/people-section.html" with people=directory_pages.people.latest_authors show_link=True %}
+        {% include "organisms/people-section.html" with people=page.featured_people|by_key:"value" show_link=True %}
       </section>
     {% endif %}
     {% if page.about_title %}

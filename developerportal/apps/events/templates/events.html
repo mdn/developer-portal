@@ -15,10 +15,8 @@
         <div class="section-header">
           <h2>Events</h2>
         </div>
-        {% for featured_item in page.featured|published %}
-          {% with featured_item.value.specific as event %}
-            {% include "molecules/cards/card.html" with resource=event featured=True %}
-          {% endwith %}
+        {% for event in page.featured.specific|published|by_key:"value" %}
+          {% include "molecules/cards/card.html" with resource=event featured=True %}
         {% endfor %}
       </div>
       {% if page.featured|published %}
