@@ -2,6 +2,32 @@
 
 set -eo pipefail
 
+usage() {
+    echo -en "\nUsage: ${0} [ --build ]\n"
+    echo -en "Options: \n"
+    echo -en "  --help      What you see here\n"
+    echo -en "  --debug     Bash set -x\n"
+    echo -en "  --build     Optional argument, runs docker-compose up --build --detach\n"
+    exit 0
+}
+
+while test $# -gt 0
+do
+  case "$1" in
+    --debug)
+        set -x
+    ;;
+    --help)
+        usage
+    ;;
+    --build)
+        ARG_BUILD=1
+    ;;
+  esac
+  shift
+done
+
+
 echo "Setting up environment"
 
 echo "Generating .env file"
@@ -16,8 +42,10 @@ POSTGRES_PASSWORD=$(openssl rand -base64 64 | tr -d '+/\n=')
 POSTGRES_USER=admin
 EOF
 
-echo "Running build"
-docker-compose up --build --detach
+if [ -n "${ARG_BUILD}" ]; then
+    echo "Running build"
+    docker-compose up --build --detach
+fi
 
 echo "Running migrate"
 docker-compose exec -T app python manage.py migrate

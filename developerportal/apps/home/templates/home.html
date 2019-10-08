@@ -21,16 +21,23 @@
       </div>
     </section>
     {% endif %}
-    {% if page.featured|published %}
-      <section id="featured" class="section">
-        <div class="container">
-          {% include "organisms/featured.html" with featured=page.featured|published featured_count=page.featured|length %}
-        </div>
-      </section>
-    {% endif %}
+    {% with page.featured|published as featured %}
+      {% if featured %}
+        <section id="featured" class="section">
+          <div class="container">
+            {% include "organisms/featured.html" with featured=featured %}
+          </div>
+        </section>
+      {% endif %}
+    {% endwith %}
     {% if page.primary_topics.all %}
       <section id="topics" class="section">
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
+      </section>
+    {% endif %}
+    {% if directory_pages.people.latest_authors %}
+      <section id="latest-authors" class="section">
+        {% include "organisms/people-section.html" with people=directory_pages.people.latest_authors show_link=True %}
       </section>
     {% endif %}
     {% if page.about_title %}
