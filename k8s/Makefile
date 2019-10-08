@@ -31,6 +31,14 @@ export APP_EMAIL_HOST ?= email-smtp.us-west-2.amazonaws.com
 export APP_EMAIL_PORT ?= 587
 export APP_EMAIL_USE_TLS ?= True
 
+export CELERY_WORKER_NAME ?= celery-worker
+export CELERY_WORKER_REPLICAS ?= 1
+export CELERY_WORKER_CONCURRENCY ?= 2
+export CELERY_WORKER_CPU_REQUEST ?= 100m
+export CELERY_WORKER_MEMORY_REQUEST ?= 128Mi
+export CELERY_WORKER_CPU_LIMIT ?= 2
+export CELERY_WORKER_MEMORY_LIMIT ?= 256Mi
+
 export GOOGLE_ANALYTICS ?= 0
 
 ###############################
@@ -48,14 +56,25 @@ k8s-services:
 k8s-delete-services:
 	${KC} delete --ignore-not-found svc ${APP_SERVICE_NAME}
 
-k8s-deployments:
+k8s-deployments: k8s-wagtail-deployments k8s-celery-deployments
+
+k8s-delete-deployments: k8s-delete-wagtail-deployments k8s-delete-celery-deployments
+
+k8s-wagtail-deployments:
 	j2 app.deploy.yaml.j2 | ${KC} apply -f -
 
-k8s-delete-deployments:
+k8s-celery-deployments:
+	j2 celery.yaml.j2 | ${KC} apply -f -
+
+k8s-delete-wagtail-deployments:
 	${KC} delete --ignore-not-found deploy ${APP_NAME}
+
+k8s-delete-celery-deployments:
+	${KC} delete --ignore-not-found deploy ${CELERY_WORKER_NAME}
 
 k8s-rollout-status:
 	${KC} rollout status deploy ${APP_NAME}
+	${KC} rollout status deploy ${CELERY_WORKER_NAME}
 
 k8s-rollback:
 	${KC} rollout undo deploy ${APP_NAME}
@@ -69,6 +88,7 @@ k8s-db-migration-job: k8s-delete-db-migration-job
 
 k8s-delete-db-migration-job:
 	${KC} delete --ignore-not-found job db-migration
+
 
 k8s-pv:
 	j2 app.pv.yaml.j2 | ${KC} apply -f -
@@ -94,5 +114,7 @@ k8s-jenkins-delete-rbac:
 # These tasks don't have file targets
 .PHONY: k8s-ns k8s-delete-ns k8s-services k8s-delete-services \
 		k8s-deployments k8s-delete-deployments k8s-rollout-status \
+		k8s-wagtail-deployments k8s-celery-deployments \
+		k8s-delete-wagtail-deployments k8s-delete-celery-deployments \
 		k8s-rollback k8s-history k8s-db-migration-job \
 		k8s-delete-db-migration-job
