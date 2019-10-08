@@ -8,19 +8,12 @@
 {% block content %}
   <main>
     {% if page.people %}
-      <section class="section section-pattern">
-        <div class="container">
-          <div class="section-header">
-            <div>
-              <h2>People</h2>
-              {% if page.description %}
-                <div class="page-description">
-                  {{ page.description | richtext }}
-                </div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
+      <section class="section{% if not page.latest_authors %} section-pattern{% endif %}">
+        {% include "organisms/people-section.html" with people=page.latest_authors title="Latest authors" %}
+        {% if page.latest_authors %}
+          </section>
+          <section class="section section-pattern">
+        {% endif %}
         {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
       </section>
     {% endif %}
