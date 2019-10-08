@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: {{ CELERY_WORKER_NAME }}
-spec
+spec:
   replicas: {{ CELERY_WORKER_REPLICAS }}
   selector:
     matchLabels:
