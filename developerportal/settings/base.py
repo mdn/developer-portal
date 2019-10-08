@@ -237,6 +237,7 @@ BUILD_DIR = os.path.join(BASE_DIR, "build")
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
     "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
+    "developerportal.apps.bakery.views.S3RedirectManagementView",
 )
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
