@@ -58,8 +58,7 @@ RICH_TEXT_FEATURES_SIMPLE = ("bold", "italic", "code")
 ROLE_CHOICES = (
     ("staff", "Staff"),
     ("tech-speaker", "Tech Speaker"),
-    ("guest", "Guest"),
-    ("contributor", "Contributor"),
+    ("community", "Community"),
 )
 
 VIDEO_TYPE = (
