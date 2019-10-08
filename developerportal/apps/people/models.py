@@ -145,6 +145,7 @@ class Person(BasePage):
     template = "person.html"
 
     # Content fields
+    nickname = CharField(max_length=250, null=True, blank=True)
     job_title = CharField(max_length=250)
     role = CharField(max_length=250, choices=ROLE_CHOICES, default="staff")
     description = RichTextField(
@@ -195,6 +196,7 @@ class Person(BasePage):
         MultiFieldPanel(
             [
                 CustomLabelFieldPanel("title", label="Full name"),
+                FieldPanel("nickname"),
                 FieldPanel("job_title"),
                 FieldPanel("role"),
             ],
@@ -270,6 +272,14 @@ class Person(BasePage):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    @property
+    def display_title(self):
+        """
+        Return the display title for profile pages. Adds a nickname to the
+        person's full name when one is provided.
+        """
+        return f'{self.title} aka "{self.nickname}"' if self.nickname else self.title
 
     @property
     def events(self):
