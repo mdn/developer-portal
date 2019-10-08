@@ -35,4 +35,7 @@ actions:
     run: $(npm bin)/prettier -c {files}
     fix: $(npm bin)/prettier --write {files}
     exclude:
+      - 'src/fonts'
+      - 'src/img'
+      - 'src/js/polyfills.js'
       - 'webpack.config.js'

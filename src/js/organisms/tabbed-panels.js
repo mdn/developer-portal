@@ -1,9 +1,24 @@
+/**
+ * Listens to hashchange events and toggles classes on a tabbed-panel element.
+ *
+ * @class TabbedPanels
+ */
 module.exports = class TabbedPanels {
+  /**
+   * Constructs an instance of Toggle class for each toggle element.
+   *
+   * @returns {TabbedPanels[]}
+   */
   static init() {
     const elements = document.querySelectorAll('.js-tabbed-panels');
     return Array.from(elements).map(element => new this(element));
   }
 
+  /**
+   * Finds various elements and listens for hashchange events.
+   *
+   * @param {Element} element
+   */
   constructor(element) {
     this.backgrounds = Array.from(
       element.querySelectorAll('.tabbed-panels-content-bg'),
@@ -22,6 +37,9 @@ module.exports = class TabbedPanels {
     }
   }
 
+  /**
+   * Sets the initial state on elements.
+   */
   setInitialState() {
     this.backgrounds.forEach((background, index) => {
       if (index) background.classList.remove('displayed');
@@ -31,6 +49,9 @@ module.exports = class TabbedPanels {
     }
   }
 
+  /**
+   * Set CSS classes on elements based on location.hash values.
+   */
   showContent() {
     const { hash } = window.location;
     if (!hash) return;
