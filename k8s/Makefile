@@ -82,6 +82,13 @@ k8s-rollback:
 k8s-history:
 	${KC} rollout history deploy ${APP_NAME}
 
+k8s-efs-job: k8s-delete-efs-job
+	j2 app.efs-setup.yaml.j2 | ${KC} apply -f -
+	env JOB_NAME=dev-portal-efs-setup ./wait_for_job.sh
+
+k8s-delete-efs-job:
+	${KC} delete --ignore-not-found job dev-portal-efs-setup
+
 k8s-db-migration-job: k8s-delete-db-migration-job
 	j2 db-migration-job.yaml.j2 | ${KC} apply -f -
 	env JOB_NAME=db-migration ./wait_for_job.sh
