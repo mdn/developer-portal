@@ -14,7 +14,7 @@
           </section>
           <section class="section section-pattern">
         {% endif %}
-        {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 %}
+        {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 no_resources_message="No people found" %}
       </section>
     {% endif %}
     {% include "organisms/newsletter-signup.html" %}

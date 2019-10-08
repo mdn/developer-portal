@@ -4,39 +4,45 @@
       {% include "atoms/pattern.html" %}
     </div>
     <div class="container">
-      <div class="filter-list-content">
-        <aside class="filter-list-sidebar">
-          <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
-            <summary>Filter</summary>
-            {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
-          </details>
-          <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
-            {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
-          </div>
-        </aside>
-        <div class="filter-list-items">
-          <div class="filter-list-no-results" id="js-filter-list-no-results" hidden>
-            <p>No results found with these filters.</p>
-            <button class="mzp-c-button js-filter-clear" type="button">
-              Clear filters
-            </button>
-          </div>
-          <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
-            {% for resource in resources %}
-              {% if type == "article" %}
-                {% include "molecules/cards/card.html" with resource=resource.article filter_target=True show_author=True %}
-              {% elif type == "person" %}
-                {% include "molecules/cards/card.html" with resource=resource.person filter_target=True %}
-              {% elif type == "event" %}
-                {% include "molecules/cards/card.html" with resource=resource.event filter_target=True %}
-              {% endif %}
-            {% endfor %}
-          </div>
-          <div class="filter-list-actions" id="js-filter-list-actions">
-            <button class="mzp-c-button" id="js-filter-list-action-next-page" type="button">See more</button>
+      {% if resources %}
+        <div class="filter-list-content">
+          <aside class="filter-list-sidebar">
+            <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
+              <summary>Filter</summary>
+              {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+            </details>
+            <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
+              {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+            </div>
+          </aside>
+          <div class="filter-list-items">
+            <div class="filter-list-no-results" id="js-filter-list-no-results" hidden>
+              <p>No results found with these filters.</p>
+              <button class="mzp-c-button js-filter-clear" type="button">
+                Clear filters
+              </button>
+            </div>
+            <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
+              {% for resource in resources %}
+                {% if type == "article" %}
+                  {% include "molecules/cards/card.html" with resource=resource.article filter_target=True show_author=True %}
+                {% elif type == "person" %}
+                  {% include "molecules/cards/card.html" with resource=resource.person filter_target=True %}
+                {% elif type == "event" %}
+                  {% include "molecules/cards/card.html" with resource=resource.event filter_target=True %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="filter-list-actions" id="js-filter-list-actions">
+              <button class="mzp-c-button" id="js-filter-list-action-next-page" type="button">See more</button>
+            </div>
           </div>
         </div>
-      </div>
+      {% else %}
+        <div class="filter-list-no-results">
+          <h2>{{ no_resources_message|default:"No resources found" }}</h2>
+        </div>
+      {% endif %}
     </div>
     <div class="pattern-section-pattern pattern-section-pattern-after">
       {% include "atoms/pattern.html" %}
