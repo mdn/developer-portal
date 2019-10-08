@@ -221,6 +221,11 @@ class Topic(BasePage):
         )
 
     @property
+    def experts(self):
+        """Return Person instances for topic experts"""
+        return [person.person for person in self.people.all()]
+
+    @property
     def videos(self):
         """Return the latest videos and external videos for this topic. """
         return get_combined_videos(self, topics__topic__pk=self.pk)

@@ -107,6 +107,23 @@ class People(BasePage):
             "topics": Topic.published_objects.order_by("title"),
         }
 
+    def latest_authors(self, limit=3):
+        """
+        Returns a list of authors from the most recently published articles.
+        """
+        from ..articles.models import Article
+
+        authors = []
+        articles = Article.published_objects.order_by("last_published_at").specific()
+        for article in articles:
+            if article.has_author:
+                for author in article.authors:  # pylint: disable=not-an-iterable
+                    if author.block_type == "author" and author.value not in authors:
+                        authors.append(author.value)
+                        if len(authors) >= limit:
+                            return authors  # Limit reached, return early
+        return authors
+
 
 class PersonTag(TaggedItemBase):
     content_object = ParentalKey(
@@ -128,6 +145,7 @@ class Person(BasePage):
     template = "person.html"
 
     # Content fields
+    nickname = CharField(max_length=250, null=True, blank=True)
     job_title = CharField(max_length=250)
     role = CharField(max_length=250, choices=ROLE_CHOICES, default="staff")
     description = RichTextField(
@@ -178,6 +196,7 @@ class Person(BasePage):
         MultiFieldPanel(
             [
                 CustomLabelFieldPanel("title", label="Full name"),
+                FieldPanel("nickname"),
                 FieldPanel("job_title"),
                 FieldPanel("role"),
             ],
@@ -253,6 +272,14 @@ class Person(BasePage):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    @property
+    def display_title(self):
+        """
+        Return the display title for profile pages. Adds a nickname to the
+        person's full name when one is provided.
+        """
+        return f'{self.title} aka "{self.nickname}"' if self.nickname else self.title
 
     @property
     def events(self):

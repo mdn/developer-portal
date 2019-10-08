@@ -85,6 +85,18 @@ class HomePage(BasePage):
         blank=True,
         help_text="Optional space for featured articles, max. 4",
     )
+
+    featured_people = StreamField(
+        StreamBlock(
+            [("person", PageChooserBlock(target_model="people.Person"))],
+            max_num=3,
+            required=False,
+        ),
+        null=True,
+        blank=True,
+        help_text="Optional featured people, max. 3",
+    )
+
     about_title = TextField(max_length=250, blank=True, default="")
     about_subtitle = TextField(max_length=250, blank=True, default="")
     about_button_text = CharField(max_length=30, blank=True, default="")
@@ -125,6 +137,7 @@ class HomePage(BasePage):
         ),
         StreamFieldPanel("external_promos"),
         StreamFieldPanel("featured"),
+        StreamFieldPanel("featured_people"),
         MultiFieldPanel(
             [
                 FieldPanel("about_title"),

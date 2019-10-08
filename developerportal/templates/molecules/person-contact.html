@@ -1,4 +1,5 @@
 {% load static wagtailimages_tags %}
+{% load app_filters %}
 
 {% if resource.twitter or resource.github or resource.facebook or resource.linkedin or resource.email or resource.websites %}
   <div class="resource-share">
@@ -39,19 +40,17 @@
           </span>
         </a>
       {% endif %}
-      {% for block in resource.websites %}
-        {% with block.value as website %}
-          {% image website.icon fill-24x24 as icon %}
-          <a href="{{ website.url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit this person's {{ website.title }} site">
-            <span class="icon">
-              {% if icon %}
-              <img src="{{ icon.url }}" alt="{{ icon.alt }}">
-              {% else %}
-              <img src="{% static 'img/icons/website.png' %}" alt="website">
-              {% endif %}
-            </span>
-          </a>
-        {% endwith %}
+      {% for website in resource.websites|by_key:"value" %}
+        {% image website.icon fill-24x24 as icon %}
+        <a href="{{ website.url}}" target="_blank" rel="noopener noreferrer" aria-label="Visit this person's {{ website.title }} site">
+          <span class="icon">
+            {% if icon %}
+            <img src="{{ icon.url }}" alt="{{ icon.alt }}">
+            {% else %}
+            <img src="{% static 'img/icons/website.png' %}" alt="website">
+            {% endif %}
+          </span>
+        </a>
       {% endfor %}
     </div>
   </div>

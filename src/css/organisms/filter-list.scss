@@ -71,8 +71,12 @@
 }
 
 .filter-list-no-results {
-  padding: 140px 0;
+  padding: 100px 0;
   text-align: center;
+
+  h2::after {
+    margin-bottom: 0;
+  }
 }
 
 .filter-list-actions {

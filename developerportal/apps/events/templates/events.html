@@ -10,25 +10,21 @@
 
 {% block content %}
   <main>
-    {% if page.events %}
-      <section class="section{% if not page.featured|published %} section-pattern{% endif %}">
-        <div class="container">
-          <div class="section-header">
-            <h2>Events</h2>
-          </div>
-          {% for featured_item in page.featured|published %}
-            {% with featured_item.value.specific as event %}
-              {% include "molecules/cards/card.html" with resource=event featured=True %}
-            {% endwith %}
-          {% endfor %}
+    <section class="section{% if not page.featured|published %} section-pattern{% endif %}">
+      <div class="container">
+        <div class="section-header">
+          <h2>Events</h2>
         </div>
+        {% for event in page.featured.specific|published|by_key:"value" %}
+          {% include "molecules/cards/card.html" with resource=event featured=True %}
+        {% endfor %}
+      </div>
       {% if page.featured|published %}
-      </section>
-      <section class="section section-pattern">
+        </section>
+        <section class="section section-pattern">
       {% endif %}
-        {% include "organisms/filter-list.html" with type="event" resources=page.events initial_resources=6 resources_per_page=4 %}
-      </section>
-    {% endif %}
+      {% include "organisms/filter-list.html" with type="event" resources=page.events initial_resources=6 resources_per_page=4 no_resources_message="No upcoming events found" %}
+    </section>
     {% include "organisms/newsletter-signup.html" %}
   </main>
 {% endblock content %}

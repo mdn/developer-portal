@@ -1,43 +1,42 @@
 {% load wagtailcore_tags %}
+{% load app_filters %}
 
 {% if resource.agenda %}
 <div class="section-header">
   <h2>Agenda</h2>
 </div>
 <table class="agenda">
-  {% for block in resource.agenda %}
-  {% with block.value as agenda_item %}
-  <tr class="agenda-item">
-    <td class="agenda-item-time">
-      <span>
-        {{ agenda_item.start_time }}
-        {% if agenda_item.end_time %}
-        &ndash; {{ agenda_item.end_time }}
-        {% endif %}
-      </span>
-    </td>
-    <td class="agenda-item-detail">
-      <div class="agenda-item-title">
-          {{ agenda_item.title }}
-      </div>
-      {% if agenda_item.speaker %}
-        <a href="{% pageurl agenda_item.speaker %}" class="page-link">
-          {{ agenda_item.speaker }}
-        </a>
-      {% elif agenda_item.external_speaker.name %}
-        {% with agenda_item.external_speaker as speaker %}
-          {% if speaker.url %}
-            <a href="{{ speaker.url }}" class="external-link" target="_blank" rel="nofollow noopener">
-              {{ speaker.name }}
-            </a>
-          {% else %}
-            <span>{{ speaker.name }}</span>
+  {% for agenda_item in resource.agenda|by_key:"value" %}
+    <tr class="agenda-item">
+      <td class="agenda-item-time">
+        <span>
+          {{ agenda_item.start_time }}
+          {% if agenda_item.end_time %}
+          &ndash; {{ agenda_item.end_time }}
           {% endif %}
-        {% endwith %}
-      {% endif %}
-    </td>
-  </tr>
-  {% endwith %}
+        </span>
+      </td>
+      <td class="agenda-item-detail">
+        <div class="agenda-item-title">
+            {{ agenda_item.title }}
+        </div>
+        {% if agenda_item.speaker %}
+          <a href="{% pageurl agenda_item.speaker %}" class="page-link">
+            {{ agenda_item.speaker }}
+          </a>
+        {% elif agenda_item.external_speaker.name %}
+          {% with agenda_item.external_speaker as speaker %}
+            {% if speaker.url %}
+              <a href="{{ speaker.url }}" class="external-link" target="_blank" rel="nofollow noopener">
+                {{ speaker.name }}
+              </a>
+            {% else %}
+              <span>{{ speaker.name }}</span>
+            {% endif %}
+          {% endwith %}
+        {% endif %}
+      </td>
+    </tr>
   {% endfor %}
 </table>
 {% endif %}

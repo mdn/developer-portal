@@ -1,4 +1,5 @@
 {% load static %}
+{% load app_filters %}
 
 <div class="related-links-mdn">
   <header class="related-links-mdn-header">
@@ -7,14 +8,14 @@
   </header>
   <div class="related-links-mdn-links">
     <ul>
-      {% for link in links %}
+      {% for link in links|by_key:"value" %}
         <li>
-          <a href="{{ link.value.url }}" target="_blank" rel="noopener noreferrer">
+          <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
             <span class="icon icon-external">
               {% include "atoms/icons/external.svg" %}
             </span>
             <span class="related-links-mdn-link-text">
-              {{ link.value.title }}
+              {{ link.title }}
             </span>
           </a>
         </li>

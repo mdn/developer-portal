@@ -1,29 +1,45 @@
+/**
+ * Listens to click events on a given element, and toggles visibility of other
+ * elements accordingly.
+ *
+ * @class Toggle
+ */
 module.exports = class Toggle {
+  /**
+   * Constructs an instance of Toggle class for each toggle element.
+   *
+   * @returns {Toggle[]}
+   */
   static init() {
-    const elements = Array.from(document.querySelectorAll('.js-toggle'));
-    return Array.from(elements).map(element => new this(element));
+    const elements = document.querySelectorAll('.js-toggle');
+    return Array.from(elements).map(element => new Toggle(element));
   }
 
+  /**
+   * Listens to click events on the toggle element.
+   *
+   * @param {Element} element
+.   */
   constructor(element) {
+    this.toggle = element;
     element.addEventListener('click', e => this.onToggleClick(e));
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  onToggleClick(e) {
-    e.preventDefault();
-    const { controls } = e.target.dataset;
+  /**
+   * Constructs an instance of MapEmbed class for each map element.
+   *
+   * @param {Event} event
+   */
+  onToggleClick(event) {
+    event.preventDefault();
+    const { controls, hide } = this.toggle.dataset;
     const targetEls = document.querySelectorAll(controls);
 
     Array.from(targetEls).forEach(targetEl => {
-      if (targetEl.hasAttribute('hidden')) {
-        targetEl.removeAttribute('hidden');
-      } else {
-        targetEl.setAttribute('hidden', '');
-      }
+      // eslint-disable-next-line no-param-reassign
+      targetEl.hidden = !targetEl.hidden;
     });
 
-    if ('hide' in e.target.dataset) {
-      e.target.setAttribute('hidden', '');
-    }
+    if (hide) this.toggle.hidden = false;
   }
 };

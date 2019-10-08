@@ -1,5 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
+
 require('./polyfills');
+
 const FilterForm = require('./organisms/filter-form');
 const MapEmbed = require('./atoms/map-embed');
 const Modal = require('./atoms/modal');
@@ -16,6 +18,9 @@ require('@mozilla-protocol/core/protocol/js/protocol-details');
 
 require('../css/index.scss');
 
+/**
+ * Initialize components on DOM load.
+ */
 window.addEventListener('DOMContentLoaded', () => {
   Mzp.Navigation.init();
   Mzp.Menu.init();

@@ -5,23 +5,21 @@
 
 {% block content %}
   <main>
-    {% if page.articles %}
-      <section class="section section-pattern">
-        <div class="container">
-          <div class="section-header">
-            <div>
-              <h2>Articles</h2>
-              {% if page.description %}
-                <div class="page-description">
-                  {{ page.description | richtext }}
-                </div>
-              {% endif %}
-            </div>
+    <section class="section section-pattern">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2>Articles</h2>
+            {% if page.description %}
+              <div class="page-description">
+                {{ page.description | richtext }}
+              </div>
+            {% endif %}
           </div>
         </div>
-        {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 %}
-      </section>
-    {% endif %}
+      </div>
+      {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 no_resources_message="No articles found" %}
+    </section>
     {% include "organisms/newsletter-signup.html" %}
   </main>
 {% endblock content %}

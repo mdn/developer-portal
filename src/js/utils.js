@@ -1,4 +1,8 @@
-/** Retrieves query parameters from the URL. Custom due to IE support. */
+/**
+ * Retrieves query parameters from the URL. Custom due to IE support.
+ *
+ * @returns {object}
+ */
 exports.parseQueryParams = () => {
   const { search } = window.location;
 
@@ -14,11 +18,15 @@ exports.parseQueryParams = () => {
   }, {});
 };
 
-/** Creates an object based on a form's current input values. */
+/**
+ * Creates an object based on a form's current input values.
+ *
+ * @returns {object}
+ */
 exports.parseForm = () => {
   const filter = {};
   const elements = document.querySelectorAll('input[type="checkbox"]:checked');
-  Array.from(elements).forEach((element) => {
+  Array.from(elements).forEach(element => {
     if (!filter[element.name]) {
       filter[element.name] = [];
     }
