@@ -36,8 +36,7 @@ services:
     <<: *common
     command: gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
     ports:
-      - '8000:8000'
-      - '8080:8080'
+      - "8000:8000"
     user: ${UID:-1000}
 
   worker:
