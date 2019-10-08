@@ -36,8 +36,8 @@
           </div>
           {% if page.authors|published %}
             <footer class="article-authors">
-              {% for author in page.authors|published %}
-                {% include "molecules/article-author.html" with author=author.value %}
+              {% for author in page.authors|published|by_key:"value" %}
+                {% include "molecules/article-author.html" with author=author %}
               {% endfor %}
             </footer>
           {% endif %}
