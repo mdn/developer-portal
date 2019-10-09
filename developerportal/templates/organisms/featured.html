@@ -18,23 +18,25 @@
       {% endif %}
     {% endwith %}
     {# remaining items are rendered side-by-side #}
-    <div class="card-container {% if featured_count == 3 %}card-container-2-wide{% endif %}">
-      {% for featured_item in featured %}
-        {% if not forloop.first %}
-          {% with featured_item as block %}
-            {% if block.block_type == 'article' %}
-              {% with block.value as article %}
-                {% include "molecules/card-featured.html" with resource=article.specific %}
-              {% endwith %}
-            {% elif block.block_type == 'external_page' %}
-              {% with block.value as external_page %}
-                {% include "molecules/card-featured.html" with resource=external_page external_page=True %}
-              {% endwith %}
-            {% endif %}
-          {% endwith %}
-        {% endif %}
-      {% endfor %}
-    </div>
+    {% if featured_count != 1 %}
+      <div class="card-container {% if featured_count == 3 %}card-container-2-wide{% endif %}">
+        {% for featured_item in featured %}
+          {% if not forloop.first %}
+            {% with featured_item as block %}
+              {% if block.block_type == 'article' %}
+                {% with block.value as article %}
+                  {% include "molecules/card-featured.html" with resource=article.specific %}
+                {% endwith %}
+              {% elif block.block_type == 'external_page' %}
+                {% with block.value as external_page %}
+                  {% include "molecules/card-featured.html" with resource=external_page external_page=True %}
+                {% endwith %}
+              {% endif %}
+            {% endwith %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
   {% else %}
     {# 2 items rendered side-by-side #}
     <div class="card-container card-container-2-wide">
