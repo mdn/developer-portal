@@ -20,13 +20,12 @@ module.exports = class TabbedPanels {
    * @param {Element} element
    */
   constructor(element) {
-    this.backgrounds = Array.from(
-      element.querySelectorAll('.tabbed-panels-content-bg'),
+    this.contentItems = Array.from(
+      element.querySelectorAll('.tabbed-panels-item'),
     );
-    this.toggles = Array.from(
-      element.querySelectorAll('.tabbed-panels-toggle'),
+    this.navItems = Array.from(
+      element.querySelectorAll('.tabbed-panels-nav-item'),
     );
-    this.nav = element.querySelector('.tabbed-panels-nav');
 
     this.setInitialState();
 
@@ -41,12 +40,9 @@ module.exports = class TabbedPanels {
    * Sets the initial state on elements.
    */
   setInitialState() {
-    this.backgrounds.forEach((background, index) => {
-      if (index) background.classList.remove('displayed');
+    this.contentItems.forEach((background, index) => {
+      if (index) background.classList.remove('is-active');
     });
-    if (this.toggles.length > 1) {
-      this.nav.classList.remove('hidden');
-    }
   }
 
   /**
@@ -54,23 +50,26 @@ module.exports = class TabbedPanels {
    */
   showContent() {
     const { hash } = window.location;
+
     if (!hash) return;
 
-    this.toggles.forEach(toggle => {
-      if (toggle.attributes.getNamedItem('href').value === hash) {
-        toggle.classList.add('highlight2');
-        toggle.classList.remove('highlight2-inverse');
+    const hashes = this.contentItems.map(el => `#${el.dataset.hash}`);
+
+    if (!hashes.includes(hash)) return;
+
+    this.navItems.forEach(item => {
+      if (item.attributes.getNamedItem('href').value === hash) {
+        item.classList.add('is-active');
       } else {
-        toggle.classList.add('highlight2-inverse');
-        toggle.classList.remove('highlight2');
+        item.classList.remove('is-active');
       }
     });
 
-    this.backgrounds.forEach(background => {
-      if (`#${background.dataset.hash}` === hash) {
-        background.classList.add('displayed');
+    this.contentItems.forEach(item => {
+      if (`#${item.dataset.hash}` === hash) {
+        item.classList.add('is-active');
       } else {
-        background.classList.remove('displayed');
+        item.classList.remove('is-active');
       }
     });
   }
