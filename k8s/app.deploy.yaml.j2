@@ -45,7 +45,7 @@ spec:
               memory: {{ APP_MEMORY_LIMIT }}
           livenessProbe:
             httpGet:
-              scheme: HTTPS
+              scheme: HTTP
               path: /healthz/
               port: {{ APP_PORT }}
               httpHeaders:
@@ -57,7 +57,7 @@ spec:
             failureThreshold: 6
           readinessProbe:
             httpGet:
-              scheme: HTTPS
+              scheme: HTTP
               path: /readiness/
               port: {{ APP_PORT }}
               httpHeaders:
