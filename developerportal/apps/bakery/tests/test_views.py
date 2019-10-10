@@ -107,7 +107,7 @@ class S3RedirectManagementViewTest(TestCase):
             [
                 (
                     "INFO:developerportal.apps.bakery.views:No Wagtail Redirects "
-                    "detected, so no S3 Website Redirects to create."
+                    "detected, so no S3 Website Redirects to create"
                 )
             ],
         )
