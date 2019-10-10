@@ -5,7 +5,7 @@
 
 <meta property="og:title" content="{{ page.title }}">
 {% with page.description|richtext|striptags as rich_description %}
-  {% firstof page.search_description page.card_description rich_description as description %}
+  {% firstof page.search_description page.card_description rich_description fallback_description as description %}
   {% if description %}
     <meta name="description" content="{{ description }}">
     <meta property="og:description" content="{{ description }}">
