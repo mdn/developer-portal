@@ -1593,7 +1593,6 @@
     "fields": {
       "description": "",
       "featured": "[]",
-      "tabbed_panels_title": "",
       "tabbed_panels": "[]",
       "latest_articles_count": 3,
       "card_title": "",
@@ -1609,7 +1608,6 @@
     "fields": {
       "description": "",
       "featured": "[]",
-      "tabbed_panels_title": "",
       "tabbed_panels": "[]",
       "latest_articles_count": 3,
       "card_title": "",

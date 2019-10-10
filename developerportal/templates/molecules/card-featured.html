@@ -6,7 +6,7 @@
 {% static "img/placeholders/article.jpg" as fallback_image_url %}
 
 {% if external_page %}
-<a href="{{ resource.url }}" class="card-link" data-type="external_page">
+<a href="{{ resource.url }}" class="card-link" data-type="external_page" target="_blank" rel="nofollow noopener">
 {% else %}
 <a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
 {% endif %}

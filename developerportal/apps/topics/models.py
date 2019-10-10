@@ -104,7 +104,6 @@ class Topic(BasePage):
         blank=True,
         help_text="Optional space for featured articles, max. 4",
     )
-    tabbed_panels_title = CharField(max_length=250, blank=True, default="")
     tabbed_panels = StreamField(
         StreamBlock([("panel", TabbedPanelBlock())], max_num=3, required=False),
         null=True,
@@ -139,7 +138,6 @@ class Topic(BasePage):
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         StreamFieldPanel("featured"),
-        FieldPanel("tabbed_panels_title"),
         StreamFieldPanel("tabbed_panels"),
         FieldPanel("latest_articles_count"),
         MultiFieldPanel(
