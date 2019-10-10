@@ -261,7 +261,7 @@ STATIC_BUILD_PIPELINE = (("Build", "build"), ("Publish", "publish"))
 
 # Amazon S3 config
 S3_BUCKET = os.environ.get("S3_BUCKET")
-
+AWS_CLOUDFRONT_DISTRIBUTION_ID = os.environ.get("AWS_CLOUDFRONT_DISTRIBUTION_ID")
 
 # Social Auth pipelines
 SOCIAL_AUTH_PIPELINE = (
