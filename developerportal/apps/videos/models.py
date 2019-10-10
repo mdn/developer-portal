@@ -263,7 +263,7 @@ class Video(BasePage):
     def related_resources(self):
         """Returns resources that are related to the current resource, i.e. live,
         public articles and videos which have the same topics."""
-        topic_pks = self.topics.values_list("topic")
+        topic_pks = [topic.topic.pk for topic in self.topics.all()]
         return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 
     def has_speaker(self, person):
