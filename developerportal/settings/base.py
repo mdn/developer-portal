@@ -237,9 +237,12 @@ BASE_URL = os.environ.get("BASE_URL")
 BUILD_DIR = os.path.join(BASE_DIR, "build")
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
+    # The order of these views is significant - we need CloudfrontInvalidationView
+    # to run last of all
     "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
-    "developerportal.apps.bakery.views.S3RedirectManagementView",
     "bakery.views.Buildable404View",
+    "developerportal.apps.bakery.views.S3RedirectManagementView",
+    "developerportal.apps.bakery.views.CloudfrontInvalidationView",
 )
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")

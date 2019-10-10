@@ -1,9 +1,12 @@
 import logging
+from http import HTTPStatus
 
 from django.conf import settings
 from django.db.models import Q
 from django.test.client import RequestFactory
+from django.utils.timezone import now as tz_now
 
+import boto3
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.core.models import Site
 
@@ -44,11 +47,10 @@ class AllPublishedPagesViewAllowingSecureRedirect(AllPublishedPagesView):
         self.build_file(path, self.get_content(obj))
 
 
-class S3RedirectManagementView(WagtailBakeryView):
-    """Buildable "view" that generates S3-native redirects for each
-    Wagtail Redirect that exists.
-
-    Only produces results upon publish() not build().
+class PostPublishOnlyWagtailBakeryView(WagtailBakeryView):
+    """
+    Base view class designed for hooking in ONLY post_publish actions.
+    It should not not do any building or publishing
 
     It's a slight hack, in that it's one view that produces multiple
     redirects in S3 and noops the actual build step, but it slots in
@@ -56,8 +58,16 @@ class S3RedirectManagementView(WagtailBakeryView):
     """
 
     def build_method(self):
-        # We don't want to do something on Build, only after Publish
+        # We don't want to do something on Build, only *after* Publish
         return None
+
+    def post_publish(self):
+        raise NotImplementedError()
+
+
+class S3RedirectManagementView(PostPublishOnlyWagtailBakeryView):
+    """Buildable "view" that generates S3-native redirects for each
+    Wagtail Redirect that exists."""
 
     def get_redirect_url(self, redirect):
         """If the redirect points to a Page, generate a relative path,
@@ -112,3 +122,50 @@ class S3RedirectManagementView(WagtailBakeryView):
                 Key=original_dest,
                 WebsiteRedirectLocation=new_dest,
             )
+
+
+class CloudfrontInvalidationView(PostPublishOnlyWagtailBakeryView):
+    """Buildable "view" that invalidates the ENTIRE distribution in Cloudfront."""
+
+    def post_publish(self, bucket):
+
+        distribution_id = settings.AWS_CLOUDFRONT_DISTRIBUTION_ID
+
+        if not distribution_id:
+            logger.info("No Cloudfront distribtion ID configured. Skipping CDN purge.")
+        else:
+            logger.info("Purging Cloudfront distribtion ID {}.".format(distribution_id))
+            client = boto3.client("cloudfront")
+
+            # Make a unique string so that this call to invalidate is not ignored
+            caller_reference = str(tz_now().isoformat())
+
+            invalidation_targets = ["/*"]  # this wildcard should catch everything
+
+            response = client.create_invalidation(
+                DistributionId=distribution_id,
+                InvalidationBatch={
+                    "Paths": {
+                        "Items": invalidation_targets,
+                        "Quantity": len(invalidation_targets),
+                    },
+                    "CallerReference": caller_reference,
+                },
+            )
+            http_status = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
+
+            if http_status == HTTPStatus.CREATED:
+                invalidation_status = response.get("Invalidation", {}).get(
+                    "Status", "RESPONSE ERROR"
+                )
+                logger.info(
+                    (
+                        "Got a positive response from Cloudfront. "
+                        "Invalidation status: {}"
+                    ).format(invalidation_status)
+                )
+                logger.debug("Response: {}".format(response))
+            else:
+                logger.warning(
+                    "Got an unexpected response from Cloudfront: {}".format(response)
+                )
