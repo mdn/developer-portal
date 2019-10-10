@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 class ArticleAdmin(ModelAdmin):
     model = StaticBuild
+    menu_label = "Manually trigger a static build"
     menu_icon = "doc-full"
     add_to_settings_menu = True
 
