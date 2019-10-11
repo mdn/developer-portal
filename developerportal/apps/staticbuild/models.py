@@ -4,6 +4,9 @@ from django.utils.formats import date_format
 
 
 class StaticBuild(Model):
+    """Saving a new instance of this via the Wagtail Admin will immediately
+    trigger a build-and-sync"""
+
     date = DateTimeField(auto_now_add=True)
 
     def __str__(self):
