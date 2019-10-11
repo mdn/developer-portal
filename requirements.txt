@@ -47,4 +47,4 @@ sqlparse==0.3.0
 Unidecode==1.1.1
 urllib3==1.25.6
 webencodings==0.5.1
-Willow==1.1
+Willow==1.2
