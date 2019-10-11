@@ -147,14 +147,14 @@
     @media #{$mq-md} {
       top: 0;
     }
+
+    span {
+      display: inline-block;
+    }
   }
 
   .featured {
     margin-bottom: 16px;
-  }
-
-  span {
-    display: inline-block;
   }
 
   p {
