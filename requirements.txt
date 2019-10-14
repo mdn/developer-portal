@@ -5,7 +5,7 @@ django-celery-results==1.1.2
 gunicorn==19.9.0
 meinheld==1.0.1
 django-storages==1.7.2
-boto3==1.9.247
+boto3==1.9.248
 psycopg2==2.8.3
 Pygments==2.4.2
 readtime==1.1.1
