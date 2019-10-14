@@ -24,4 +24,4 @@ There is a risk that the various ways of triggering an async build, plus the fac
 
 # CDN invalidation
 
-We'll lean on Wagtail for frontend/CDN cache invalidation: https://docs.wagtail.io/en/v2.6.2/reference/contrib/frontendcache.html#frontend-cache-purging
+We can't lean on Wagtail for frontend/CDN cache invalidation because the build-and-sync process happens asynchronously, so we'll be handling that with a post-publish API call to the CDN
