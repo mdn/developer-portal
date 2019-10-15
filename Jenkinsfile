@@ -102,7 +102,7 @@ node {
       break
 
     default:
-      stage ('Buld Image')  {
+      stage ('Build Image')  {
         sh "docker build --tag ${image}:${tag} ."
       }
       stage('Push Image') {
