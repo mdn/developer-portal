@@ -232,7 +232,12 @@ BASE_URL = os.environ.get("BASE_URL")
 
 
 # Wagtail Bakery Settings
+
+# This is a handy default for local building, but note that when we build in production
+# we're actually using this as a root of a build path, to prevent concurrent builds
+# from clashing.
 BUILD_DIR = os.path.join(BASE_DIR, "build")
+
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
     "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
