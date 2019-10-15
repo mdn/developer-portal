@@ -1,7 +1,9 @@
 Django==2.2.6
 celery==4.3.0
 redis==3.3.11
+kombu==4.5.0  # This is not the latest, but see https://github.com/celery/kombu/issues/1087
 django-celery-results==1.1.2
+django-redis==4.10.0
 gunicorn==19.9.0
 meinheld==1.0.1
 django-storages==1.7.2

@@ -322,3 +322,16 @@ CELERY_RESULT_BACKEND = "django-db"  #  for django-celery-results
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+CELERY_ENABLE_UTC = True
+
+_redis_cache_url = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+_redis_cache_url = _redis_cache_url.replace("/0", "/1")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": _redis_cache_url,
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+    }
+}
