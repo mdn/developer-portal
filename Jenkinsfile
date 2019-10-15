@@ -60,7 +60,7 @@ node {
 
   switch (env.BRANCH_NAME) {
     case 'master':
-      stage ('Buld Image') {
+      stage ('Build Image') {
         try {
           sh "docker build --tag ${image}:latest --tag ${image}:${tag} ."
         } catch(err) {
