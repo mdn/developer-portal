@@ -240,9 +240,12 @@ BUILD_DIR = os.path.join(BASE_DIR, "build")
 
 BAKERY_MULTISITE = True
 BAKERY_VIEWS = (
+    # The order of these views is significant - we need CloudfrontInvalidationView
+    # to run last of all
     "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
-    "developerportal.apps.bakery.views.S3RedirectManagementView",
     "bakery.views.Buildable404View",
+    "developerportal.apps.bakery.views.S3RedirectManagementView",
+    "developerportal.apps.bakery.views.CloudfrontInvalidationView",
 )
 AWS_REGION = os.environ.get("AWS_REGION")
 
@@ -276,7 +279,7 @@ STATIC_BUILD_PIPELINE = (("Build", "build"), ("Publish", "publish"))
 
 # Amazon S3 config
 S3_BUCKET = os.environ.get("S3_BUCKET")
-
+AWS_CLOUDFRONT_DISTRIBUTION_ID = os.environ.get("AWS_CLOUDFRONT_DISTRIBUTION_ID")
 
 # Social Auth pipelines
 SOCIAL_AUTH_PIPELINE = (
