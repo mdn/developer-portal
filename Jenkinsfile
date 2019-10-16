@@ -41,6 +41,11 @@ def deploy(config, environment) {
         make k8s-deployments
         make k8s-rollout-status
       """
+      notify_slack([
+        stage: "Deployed to ${environment}",
+        status: 'sucess'
+      ])
+
     } catch(err) {
       notify_slack([
         stage: "Failed to deploy to ${environment}",
