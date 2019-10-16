@@ -27,6 +27,12 @@ do
   shift
 done
 
+# Remove env file to get a clean env
+echo "Removing old .env file"
+if [ -f .env ]; then
+    echo "Removing env file"
+    rm -f .env
+fi
 
 echo "Setting up environment"
 
@@ -42,10 +48,18 @@ POSTGRES_PASSWORD=$(openssl rand -base64 64 | tr -d '+/\n=')
 POSTGRES_USER=admin
 EOF
 
+echo "Taking down any existing containers"
+docker-compose down --remove-orphans --volumes
+
 if [ -n "${ARG_BUILD}" ]; then
     echo "Running build"
     docker-compose up --build --detach
 fi
+
+# wait for services to be up
+echo "Waiting on services to come up"
+docker-compose exec -T app urlwait postgresql://db:5432/developerportal 30
+docker-compose exec -T app urlwait redis://redis:6379/0 30
 
 echo "Running migrate"
 docker-compose exec -T app python manage.py migrate
