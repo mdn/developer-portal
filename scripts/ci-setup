@@ -28,7 +28,6 @@ do
 done
 
 # Remove env file to get a clean env
-echo "Removing old .env file"
 if [ -f .env ]; then
     echo "Removing env file"
     rm -f .env
