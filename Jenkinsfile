@@ -87,7 +87,7 @@ node {
             ])
 
         } catch (err) {
-          notify_slack([
+            notify_slack([
               stage: "Test run failed on tag ${tag}",
               status: 'failure'
             ])
