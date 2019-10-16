@@ -43,7 +43,7 @@ def deploy(config, environment) {
       """
       notify_slack([
         stage: "Deployed to ${environment}",
-        status: 'sucess'
+        status: 'success'
       ])
 
     } catch(err) {
