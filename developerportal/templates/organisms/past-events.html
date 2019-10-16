@@ -1,20 +1,13 @@
-<section class="section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Past events</h2>
-    </div>
-    {% for event in events|slice:":3" %}
+{% for event in events|slice:":3" %}
+  {% include "molecules/cards/card.html" with resource=event %}
+{% endfor %}
+{% if events|slice:"3:" %}
+  <div class="filter-list-actions">
+    <button class="mzp-c-button js-toggle" data-controls="#past-event-list" data-hide>See all</button>
+  </div>
+  <div id="past-event-list" hidden>
+    {% for event in events|slice:"3:" %}
       {% include "molecules/cards/card.html" with resource=event %}
     {% endfor %}
-    {% if events|slice:"3:" %}
-      <div class="filter-list-actions">
-        <button class="mzp-c-button js-toggle" data-controls="#past-event-list" data-hide>See all</button>
-      </div>
-      <div id="past-event-list" hidden>
-        {% for event in events|slice:"3:" %}
-          {% include "molecules/cards/card.html" with resource=event %}
-        {% endfor %}
-      </div>
-    {% endif %}
   </div>
-</section>
+{% endif %}

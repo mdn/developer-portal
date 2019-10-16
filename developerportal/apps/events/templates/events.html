@@ -26,7 +26,14 @@
       {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=page.events initial_resources=6 resources_per_page=4 no_resources_message="No upcoming events found" %}
     </section>
     {% if page.past_events %}
-      {% include "organisms/past-events.html" with events=page.past_events %}
+      <section class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Past events</h2>
+          </div>
+          {% include "organisms/past-events.html" with events=page.past_events %}
+        </div>
+      </section>
     {% endif %}
     {% include "organisms/newsletter-signup.html" %}
   </main>
