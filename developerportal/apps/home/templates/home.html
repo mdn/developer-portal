@@ -7,7 +7,9 @@
 
 {% block content %}
   <main>
-    {% include "organisms/homepage-header.html" %}
+    {% if page.show_header %}
+      {% include "organisms/homepage-header.html" %}
+    {% endif %}
     {% if page.external_promos %}
     <section class="section">
       <div class="container">
