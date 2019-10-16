@@ -5,7 +5,18 @@ def get_commit_tag() {
   return sh([returnStdout: true, script: "git rev-parse --short=7 HEAD"]).trim()
 }
 
-def deploy(config) {
+def notify_slack(Map args, credential_id='slack-hook-devportal-notifications') {
+    def command = "${env.WORKSPACE}/scripts/slack-notify.sh"
+    withCredentials([string(credentialsId: credential_id, variable: 'HOOK')]) {
+        for (arg in args) {
+            command += " --${arg.key} '${arg.value}'"
+        }
+        command += " --hook '${HOOK}'"
+        sh command
+    }
+}
+
+def deploy(config, environment) {
   /*
    * Start a rolling update of the K8s deployments.
    */
@@ -16,13 +27,32 @@ def deploy(config) {
   // Configure the environment, perform any database migrations if necessary,
   // start the rolling update, and finally, monitor until complete.
   dir('k8s') {
-    sh """
-      . config/${config}.sh
-      export APP_IMAGE_TAG=${tag}
-      make k8s-db-migration-job
-      make k8s-deployments
-      make k8s-rollout-status
-    """
+    try {
+
+      notify_slack([
+        status: "Pushing to ${environment}",
+        message: "developer-portal image ${tag}"
+      ])
+
+      sh """
+        . config/${config}.sh
+        export APP_IMAGE_TAG=${tag}
+        make k8s-db-migration-job
+        make k8s-deployments
+        make k8s-rollout-status
+      """
+      notify_slack([
+        stage: "Deployed to ${environment}",
+        status: 'success'
+      ])
+
+    } catch(err) {
+      notify_slack([
+        stage: "Failed to deploy to ${environment}",
+        status: 'failure'
+      ])
+      throw err
+    }
   }
 }
 
@@ -35,8 +65,16 @@ node {
 
   switch (env.BRANCH_NAME) {
     case 'master':
-      stage ('Buld Image') {
-        sh "docker build --tag ${image}:latest --tag ${image}:${tag} ."
+      stage ('Build Image') {
+        try {
+          sh "docker build --tag ${image}:latest --tag ${image}:${tag} ."
+        } catch(err) {
+          notify_slack([
+            stage: "Build of latest-tagged developer-portal image",
+            status: 'failure'
+          ])
+          throw err
+        }
       }
       stage ('Test') {
         try {
@@ -44,6 +82,10 @@ node {
             sh "scripts/ci-tests"
         } finally {
             sh "docker-compose down --volumes --remove-orphans"
+            notify_slack([
+              stage: "Test run failed on tag ${tag}",
+              status: 'failure'
+            ])
         }
       }
       stage('Push Images') {
@@ -54,18 +96,18 @@ node {
 
     case 'stage-push':
       stage('Deploy') {
-        deploy('stage-oregon')
+        deploy('stage-oregon', 'stage')
       }
       break
 
     case 'prod-push':
       stage('Deploy') {
-        deploy('prod')
+        deploy('prod', 'prod')
       }
       break
 
     default:
-      stage ('Buld Image')  {
+      stage ('Build Image')  {
         sh "docker build --tag ${image}:${tag} ."
       }
       stage('Push Image') {
