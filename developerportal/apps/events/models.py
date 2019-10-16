@@ -170,6 +170,11 @@ class Event(BasePage):
         on_delete=SET_NULL,
         related_name="+",
     )
+    start_date = DateField(default=datetime.date.today)
+    end_date = DateField(blank=True, null=True)
+    latitude = FloatField(blank=True, null=True)
+    longitude = FloatField(blank=True, null=True)
+    register_url = URLField("Register URL", blank=True, null=True)
     body = CustomStreamField(
         blank=True,
         null=True,
@@ -178,6 +183,15 @@ class Event(BasePage):
             "embed via HTML, and inline code snippets"
         ),
     )
+    venue_name = CharField(max_length=100, blank=True, default="")
+    venue_url = URLField("Venue URL", max_length=100, blank=True, default="")
+    address_line_1 = CharField(max_length=100, blank=True, default="")
+    address_line_2 = CharField(max_length=100, blank=True, default="")
+    address_line_3 = CharField(max_length=100, blank=True, default="")
+    city = CharField(max_length=100, blank=True, default="")
+    state = CharField("State/Province/Region", max_length=100, blank=True, default="")
+    zip_code = CharField("Zip/Postal code", max_length=100, blank=True, default="")
+    country = CountryField(blank=True, default="")
     agenda = StreamField(
         StreamBlock([("agenda_item", AgendaItemBlock())], required=False),
         blank=True,
@@ -210,20 +224,6 @@ class Event(BasePage):
     )
 
     # Meta fields
-    start_date = DateField(default=datetime.date.today)
-    end_date = DateField(blank=True, null=True)
-    latitude = FloatField(blank=True, null=True)
-    longitude = FloatField(blank=True, null=True)
-    register_url = URLField("Register URL", blank=True, null=True)
-    venue_name = CharField(max_length=100, blank=True, default="")
-    venue_url = URLField("Venue URL", max_length=100, blank=True, default="")
-    address_line_1 = CharField(max_length=100, blank=True, default="")
-    address_line_2 = CharField(max_length=100, blank=True, default="")
-    address_line_3 = CharField(max_length=100, blank=True, default="")
-    city = CharField(max_length=100, blank=True, default="")
-    state = CharField("State/Province/Region", max_length=100, blank=True, default="")
-    zip_code = CharField("Zip/Postal code", max_length=100, blank=True, default="")
-    country = CountryField(blank=True, default="")
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
 
     # Content panels
@@ -237,20 +237,6 @@ class Event(BasePage):
                 "This image is also shown when sharing this page via social media"
             ),
         ),
-        StreamFieldPanel("body"),
-        StreamFieldPanel("agenda"),
-        StreamFieldPanel("speakers"),
-    ]
-
-    # Card panels
-    card_panels = [
-        FieldPanel("card_title"),
-        FieldPanel("card_description"),
-        ImageChooserPanel("card_image"),
-    ]
-
-    # Meta panels
-    meta_panels = [
         MultiFieldPanel(
             [
                 FieldPanel("start_date"),
@@ -269,6 +255,7 @@ class Event(BasePage):
                 "see this article</a>"
             ),
         ),
+        StreamFieldPanel("body"),
         MultiFieldPanel(
             [
                 FieldPanel("venue_name"),
@@ -288,6 +275,19 @@ class Event(BasePage):
                 "on event cards"
             ),
         ),
+        StreamFieldPanel("agenda"),
+        StreamFieldPanel("speakers"),
+    ]
+
+    # Card panels
+    card_panels = [
+        FieldPanel("card_title"),
+        FieldPanel("card_description"),
+        ImageChooserPanel("card_image"),
+    ]
+
+    # Meta panels
+    meta_panels = [
         MultiFieldPanel(
             [InlinePanel("topics")],
             heading="Topics",
