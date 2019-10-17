@@ -100,7 +100,7 @@ def _set_build_needed_sentinel(oid):
 
 @app.task(bind=True)
 def _request_static_build(self, **kwargs):
-    log_prefix = "[Static build requester]"
+    log_prefix = "[Static-build-and-sync requester]"
     logger.info(
         f"{log_prefix} Caching a sentinel marker to request a static build "
         f"within the next {STATIC_BUILD_JOB_ATTEMPT_FREQUENCY} seconds."
@@ -118,8 +118,8 @@ def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELI
         force (optional): Boolean - used to run a build even when DEBUG is False
         pipeline (optional): tuple of strings that map to wagtail-bakery commands
     """
-    logger.info("Starting _static_build_async")
-    log_prefix = "[Static build]"
+    logger.debug("Entering _static_build_async")
+    log_prefix = "[Static-build-and-sync]"
     build_dir = None
 
     if not force:
@@ -128,12 +128,12 @@ def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELI
             sentinel_val = cache.get(SENTINEL_KEY_NAME)
             cache.delete(SENTINEL_KEY_NAME)
             if sentinel_val is not True:
-                logger.info(f"{log_prefix} No static build requested.")
+                logger.info(f"{log_prefix} No fresh static build requested.")
                 return
 
     # If we reach here, an actual build is needed, but only if one is not
     # already in progress.
-    logger.info(f"{log_prefix} Starting fresh build")
+    logger.info(f"{log_prefix} Attempting fresh build")
     with redis_lock(lock_id=BUILD_LOCK_NAME, oid=self.app.oid) as lock_acquired:
         if lock_acquired:
 
