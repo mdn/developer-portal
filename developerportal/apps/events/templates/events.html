@@ -10,18 +10,15 @@
 
 {% block content %}
   <main>
-    {% if page.featured|published %}
-      <section class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Featured</h2>
+    {% with page.featured|published as featured %}
+      {% if featured %}
+        <section class="section">
+          <div class="container">
+            {% include "organisms/featured.html" with featured=featured %}
           </div>
-          {% for event in page.featured.specific|published|by_key:"value" %}
-            {% include "molecules/cards/card.html" with resource=event featured=True %}
-          {% endfor %}
-        </div>
-      </section>
-    {% endif %}
+        </section>
+      {% endif %}
+    {% endwith %}
     <section class="section section-pattern">
       {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=page.events initial_resources=6 resources_per_page=4 no_resources_message="No upcoming events found" %}
     </section>

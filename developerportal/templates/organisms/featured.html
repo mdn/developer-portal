@@ -7,9 +7,9 @@
   {% if featured_count != 2 %}
     {# first item is rendered as a primary card #}
     {% with featured.0 as block %}
-      {% if block.block_type == 'article' %}
-        {% with block.value as article %}
-          {% include "molecules/card-featured-primary.html" with resource=article.specific %}
+      {% if block.block_type == 'article' or block.block_type == 'event' %}
+        {% with block.value as page %}
+          {% include "molecules/card-featured-primary.html" with resource=page.specific %}
         {% endwith %}
       {% elif block.block_type == 'external_page' %}
         {% with block.value as external_page %}
@@ -23,9 +23,9 @@
         {% for featured_item in featured %}
           {% if not forloop.first %}
             {% with featured_item as block %}
-              {% if block.block_type == 'article' %}
-                {% with block.value as article %}
-                  {% include "molecules/card-featured.html" with resource=article.specific %}
+              {% if block.block_type == 'article' or block.block_type == 'event' %}
+                {% with block.value as page %}
+                  {% include "molecules/card-featured.html" with resource=page.specific %}
                 {% endwith %}
               {% elif block.block_type == 'external_page' %}
                 {% with block.value as external_page %}
@@ -42,9 +42,9 @@
     <div class="card-container card-container-2-wide">
       {% for featured_item in featured %}
         {% with featured_item as block %}
-          {% if block.block_type == 'article' %}
-            {% with block.value as article %}
-              {% include "molecules/card-featured.html" with resource=article.specific %}
+          {% if block.block_type == 'article' or block.block_type == 'event' %}
+            {% with block.value as page %}
+              {% include "molecules/card-featured.html" with resource=page.specific %}
             {% endwith %}
           {% elif block.block_type == 'external_page' %}
             {% with block.value as external_page %}
