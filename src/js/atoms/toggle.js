@@ -32,7 +32,7 @@ module.exports = class Toggle {
    */
   onToggleClick(event) {
     event.preventDefault();
-    const { controls, hide } = this.toggle.dataset;
+    const { controls } = this.toggle.dataset;
     const targetEls = document.querySelectorAll(controls);
 
     Array.from(targetEls).forEach(targetEl => {
@@ -40,6 +40,6 @@ module.exports = class Toggle {
       targetEl.hidden = !targetEl.hidden;
     });
 
-    if (hide) this.toggle.hidden = false;
+    if ('hide' in this.toggle.dataset) this.toggle.hidden = true;
   }
 };

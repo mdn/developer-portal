@@ -5,6 +5,9 @@
     </div>
     <div class="container">
       {% if resources %}
+        {% if heading %}
+          <h2>{{ heading }}</h2>
+        {% endif %}
         <div class="filter-list-content">
           <aside class="filter-list-sidebar">
             <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">

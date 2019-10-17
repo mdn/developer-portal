@@ -136,8 +136,15 @@ class Events(BasePage):
 
     @property
     def events(self):
-        """Return events in chronological order"""
+        """Return future events in chronological order"""
         return get_combined_events(self, start_date__gte=datetime.date.today())
+
+    @property
+    def past_events(self):
+        """Return past events in reverse chronological order"""
+        return get_combined_events(
+            self, reverse=True, start_date__lt=datetime.date.today()
+        )
 
     def get_filters(self):
         from ..topics.models import Topic

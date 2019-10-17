@@ -59,13 +59,14 @@ def get_combined_articles_and_videos(page, **filters):
     )
 
 
-def get_combined_events(page, **filters):
+def get_combined_events(page, reverse=False, **filters):
     """Get internal and external events matching filters."""
     return get_resources(
         page,
         ["events.Event", "externalcontent.ExternalEvent"],
         filters=filters,
         order_by="start_date",
+        reverse=reverse,
     )
 
 
