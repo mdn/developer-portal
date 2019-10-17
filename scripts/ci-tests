@@ -3,5 +3,5 @@
 set -eo pipefail
 
 echo "Running tests"
-docker-compose exec -T app python manage.py test
+docker-compose exec -T app python manage.py test --settings=developerportal.settings.test
 docker-compose exec -T static npm run test
