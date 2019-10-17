@@ -85,6 +85,7 @@ class ExternalAuthorBlock(blocks.StructBlock):
 
     title = blocks.CharBlock(label="Name")
     image = ImageChooserBlock()
+    description = blocks.CharBlock(label="About", required=False)
     url = blocks.URLBlock(label="URL", required=False)
 
 
