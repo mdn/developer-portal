@@ -94,8 +94,15 @@ def _is_build_and_sync_job(job_details):
 def _set_build_needed_sentinel(oid):
     """Idempotent flag that a static build should be attempted when next checked
     (which is within STATIC_BUILD_JOB_ATTEMPT_FREQUENCY seconds)"""
-    with redis_lock(SENTINEL_LOCK_NAME, oid):
+    with redis_lock(SENTINEL_LOCK_NAME, oid=oid):
         cache.set(SENTINEL_KEY_NAME, True, SENTINEL_KEY_TIMEOUT)
+
+
+def _get_build_needed_sentinel(oid):
+    with redis_lock(SENTINEL_LOCK_NAME, oid=oid):
+        sentinel_val = cache.get(SENTINEL_KEY_NAME)
+        cache.delete(SENTINEL_KEY_NAME)
+    return sentinel_val
 
 
 @app.task(bind=True)
@@ -124,12 +131,10 @@ def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELI
 
     if not force:
         # Check to see if a build has been requested, and if so, wipe the key.
-        with redis_lock(SENTINEL_LOCK_NAME, oid=self.app.oid):
-            sentinel_val = cache.get(SENTINEL_KEY_NAME)
-            cache.delete(SENTINEL_KEY_NAME)
-            if sentinel_val is not True:
-                logger.info(f"{log_prefix} No fresh static build requested.")
-                return
+        sentinel_val = _get_build_needed_sentinel(oid=self.app.oid)
+        if sentinel_val is not True:
+            logger.info(f"{log_prefix} No fresh static build requested.")
+            return
 
     # If we reach here, an actual build is needed, but only if one is not
     # already in progress.
