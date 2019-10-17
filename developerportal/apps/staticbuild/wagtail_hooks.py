@@ -106,7 +106,7 @@ def _get_build_needed_sentinel(oid):
 
 
 @app.task(bind=True)
-def _request_static_build(self, **kwargs):
+def _request_static_build(self):
     log_prefix = "[Static-build-and-sync requester]"
     logger.info(
         f"{log_prefix} Caching a sentinel marker to request a static build "
@@ -178,8 +178,7 @@ def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELI
 def static_build(**kwargs):
     """Callback for Wagtail publish and unpublish signals to spawn a
     task-queue job to do the actual build, if required"""
-    force = kwargs.get("force", False)
-    _request_static_build.delay(force=force)
+    _request_static_build.delay()
 
 
 page_published.connect(static_build)
