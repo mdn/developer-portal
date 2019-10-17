@@ -80,12 +80,20 @@ node {
         try {
             sh "scripts/ci-setup --build"
             sh "scripts/ci-tests"
-        } finally {
-            sh "docker-compose down --volumes --remove-orphans"
+
+            notify_slack([
+              stage: "Running test on tag ${tag}",
+              status: 'success'
+            ])
+
+        } catch (err) {
             notify_slack([
               stage: "Test run failed on tag ${tag}",
               status: 'failure'
             ])
+            throw err
+        } finally {
+            sh "docker-compose down --volumes --remove-orphans"
         }
       }
       stage('Push Images') {
