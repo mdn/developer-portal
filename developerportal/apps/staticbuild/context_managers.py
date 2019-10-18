@@ -17,7 +17,7 @@ LOCK_EXPIRE = 60 * 10  # Lock expires in 10 minutes
 @contextmanager
 def redis_lock(lock_id, oid):
     timeout_at = monotonic() + LOCK_EXPIRE - 3
-    # cache.add returns False if the key already exists
+    # cache.add returns None if the key already exists
     status = cache.add(lock_id, oid, LOCK_EXPIRE)
     try:
         yield status

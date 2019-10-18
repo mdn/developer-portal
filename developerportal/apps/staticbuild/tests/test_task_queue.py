@@ -6,6 +6,8 @@ from django.core.cache import cache
 from django.test import TestCase
 
 import pytz
+
+from developerportal.apps.staticbuild.context_managers import redis_lock
 from developerportal.apps.staticbuild.wagtail_hooks import (
     EXPECTED_BUILD_AND_SYNC_JOB_FUNC_NAME,
     SENTINEL_KEY_NAME,
@@ -185,3 +187,27 @@ class TaskQueueBuildTests(TestCase):
         assert not mock_request_static_build_delay.called
         static_build()
         assert mock_request_static_build_delay.call_count == 1
+
+
+class ContextManagerTests(TestCase):
+    def test_redis_lock(self):
+
+        #  locking while also locked is not allowed
+        with redis_lock("test-lock-id", "oid-1") as acquired_1:
+            assert acquired_1 is True
+
+            # Can't re-lock a locked lock
+            with redis_lock("test-lock-id", "oid-2") as acquired_2:
+                assert acquired_2 is None
+
+            # Can lock an unlocked lock inside another lock (sheesh!)
+            with redis_lock("alternative-test-lock-id", "oid-2") as acquired_3:
+                assert acquired_3 is True
+
+        # Can re-lock a released lock
+        with redis_lock("test-lock-id", "oid-3") as acquired_4:
+            assert acquired_4 is True
+
+        # Can re-lock previously denied lock (same oid) when it's been released
+        with redis_lock("test-lock-id", "oid-2a") as acquired_5:
+            assert acquired_5 is True
