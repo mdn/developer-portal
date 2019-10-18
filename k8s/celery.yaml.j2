@@ -37,4 +37,24 @@ spec:
             limits:
               cpu: {{ CELERY_WORKER_CPU_LIMIT }}
               memory: {{ CELERY_WORKER_MEMORY_LIMIT }}
+        - name: {{ CELERY_SCHEDULER_NAME }}
+          image: "{{ APP_IMAGE }}:{{ APP_IMAGE_TAG }}"
+          imagePullPolicy: {{ APP_IMAGE_PULL_POLICY }}
+          volumeMounts:
+            - name: developer-portal-fs
+              mountPath: {{ APP_MOUNT_PATH }}
+          command:
+            - "celery"
+          args:
+            - "--app=developerportal.apps.staticbuild"
+            - beat
+            - "--loglevel=INFO"
+            - "--concurrency={{ CELERY_SCHEDULER_CONCURRENCY }}"
+          resources:
+            requests:
+              cpu: {{ CELERY_SCHEDULER_CPU_REQUEST }}
+              memory: {{ CELERY_SCHEDULER_MEMORY_REQUEST }}
+            limits:
+              cpu: {{ CELERY_SCHEDULER_CPU_LIMIT }}
+              memory: {{ CELERY_SCHEDULER_MEMORY_LIMIT }}
 {% include 'app.env.yaml.j2' %}
