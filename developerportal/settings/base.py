@@ -16,6 +16,8 @@ from django.core.management.utils import get_random_secret_key
 
 from wagtail.embeds.oembed_providers import all_providers
 
+from developerportal.apps.common.settings_helpers import _get_redis_url_for_cache
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -317,8 +319,20 @@ MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")
 COUNTRIES_FIRST = ["US", "GB"]
 
 # Celery settings
-CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379")
 CELERY_RESULT_BACKEND = "django-db"  #  for django-celery-results
 CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+CELERY_ENABLE_UTC = True
+
+REDIS_CACHE_DB_NUMBER = os.environ.get("REDIS_CACHE_DB_NUMBER", "1")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": _get_redis_url_for_cache(REDIS_CACHE_DB_NUMBER),
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+    }
+}

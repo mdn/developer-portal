@@ -6,7 +6,7 @@ DEBUG = True
 # SECURITY WARNING: define the correct hosts in production!
 ALLOWED_HOSTS = ["*"]
 
-CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_BROKER_URL = "redis://redis:6379"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
