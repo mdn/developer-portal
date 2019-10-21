@@ -6,7 +6,7 @@ gunicorn==19.9.0
 meinheld==1.0.1
 django-storages==1.7.2
 boto3==1.9.253
-psycopg2==2.8.3
+psycopg2==2.8.4
 Pygments==2.4.2
 readtime==1.1.1
 social-auth-app-django==3.1.0
