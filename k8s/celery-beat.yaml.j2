@@ -27,7 +27,7 @@ spec:
             - "celery"
           args:
             - "--app=developerportal.apps.staticbuild"
-            - worker
+            - beat
             - "--loglevel=INFO"
             - "--concurrency={{ CELERY_SCHEDULER_CONCURRENCY }}"
           resources:
