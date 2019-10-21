@@ -39,6 +39,14 @@ export CELERY_WORKER_MEMORY_REQUEST ?= 128Mi
 export CELERY_WORKER_CPU_LIMIT ?= 2
 export CELERY_WORKER_MEMORY_LIMIT ?= 256Mi
 
+export CELERY_SCHEDULER_NAME ?= celery-beat
+export CELERY_SCHEDULER_REPLICAS ?= 1
+export CELERY_SCHEDULER_CONCURRENCY ?= 1
+export CELERY_SCHEDULER_CPU_REQUEST =? 100m
+export CELERY_SCHEDULER_MEMORY_REQUEST ?= 128Mi
+export CELERY_SCHEDULER_CPU_LIMIT ?= 2
+export CELERY_SCHEDULER_MEMORY_LIMIT ?=256
+
 export GOOGLE_ANALYTICS ?= 0
 
 ###############################
@@ -56,9 +64,9 @@ k8s-services:
 k8s-delete-services:
 	${KC} delete --ignore-not-found svc ${APP_SERVICE_NAME}
 
-k8s-deployments: k8s-wagtail-deployments k8s-celery-deployments
+k8s-deployments: k8s-wagtail-deployments k8s-celery-deployments k8s-celery-beat-deployments
 
-k8s-delete-deployments: k8s-delete-wagtail-deployments k8s-delete-celery-deployments
+k8s-delete-deployments: k8s-delete-wagtail-deployments k8s-delete-celery-deployments k8s-delete-celery-beat-deployments
 
 k8s-wagtail-deployments:
 	j2 app.deploy.yaml.j2 | ${KC} apply -f -
@@ -66,11 +74,17 @@ k8s-wagtail-deployments:
 k8s-celery-deployments:
 	j2 celery.yaml.j2 | ${KC} apply -f -
 
+k8s-celery-beat-deployments:
+	j2 celery-beat.yaml.j2 | ${KC} apply -f -
+
 k8s-delete-wagtail-deployments:
 	${KC} delete --ignore-not-found deploy ${APP_NAME}
 
 k8s-delete-celery-deployments:
 	${KC} delete --ignore-not-found deploy ${CELERY_WORKER_NAME}
+
+k8s-delete-celery-beat-deployments:
+	${KC} delete --ignore-not-found deploy ${CELERY_SCHEDULER_NAME}
 
 k8s-rollout-status:
 	${KC} rollout status deploy ${APP_NAME}
