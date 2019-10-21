@@ -29,7 +29,6 @@ spec:
             - "--app=developerportal.apps.staticbuild"
             - beat
             - "--loglevel=INFO"
-            - "--concurrency={{ CELERY_SCHEDULER_CONCURRENCY }}"
           resources:
             requests:
               cpu: {{ CELERY_SCHEDULER_CPU_REQUEST }}
