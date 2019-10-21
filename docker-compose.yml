@@ -34,10 +34,18 @@ services:
 
   app:
     <<: *common
-    command: gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+    command: /bin/sh -c "/etc/nginx/ssl/generate_dev_cert.sh && gunicorn developerportal.wsgi:application --access-logfile=- --timeout=120 --worker-class=meinheld.gmeinheld.MeinheldWorker --bind=0.0.0.0:8000 --reload --workers=3"
     ports:
       - '8000:8000'
+      # 8000 is left exposed if you want to access it not over SSL,
+      # else use nginx on developer-portal-127-0-0-1.nip.io
     user: ${UID:-1000}
+    volumes: # needs more than the base definition
+      - dist:/app/dist
+      - ./developerportal:/app/developerportal
+      - ./media:/app/media
+      - ./src:/app/src
+      - ./etc/nginx/ssl:/etc/nginx/ssl
 
   worker:
     <<: *common
@@ -48,6 +56,17 @@ services:
     <<: *common
     command: celery -A developerportal.apps.staticbuild beat -l debug
     user: ${UID:-1000}
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./etc/nginx/ssl:/etc/nginx/ssl
+    ports:
+      - '80:80'
+      - '443:443'
+    depends_on:
+      - app
 
   static:
     build:

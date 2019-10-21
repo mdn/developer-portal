@@ -547,8 +547,8 @@
     "model": "wagtailcore.site",
     "pk": 2,
     "fields": {
-      "hostname": "localhost",
-      "port": 8000,
+      "hostname": "developer-portal-127-0-0-1.nip.io",
+      "port": 433,
       "site_name": "Mozilla Developer",
       "root_page": 3,
       "is_default_site": true
