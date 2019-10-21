@@ -1,5 +1,20 @@
 version: '3.4'
 
+x-common: &common
+  build:
+    context: .
+    target: app_base
+  depends_on:
+    - db
+    - redis
+  env_file: .env
+  tty: true
+  volumes:
+    - dist:/app/dist
+    - ./developerportal:/app/developerportal
+    - ./media:/app/media
+    - ./src:/app/src
+
 services:
   db:
     env_file: .env
@@ -17,26 +32,11 @@ services:
     image: redis:5.0.6-alpine
     tty: true
 
-  common: &common
-    build:
-      context: .
-      target: app_base
-    depends_on:
-      - db
-      - redis
-    env_file: .env
-    tty: true
-    volumes:
-      - dist:/app/dist
-      - ./developerportal:/app/developerportal
-      - ./media:/app/media
-      - ./src:/app/src
-
   app:
     <<: *common
     command: gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
     ports:
-      - "8000:8000"
+      - '8000:8000'
     user: ${UID:-1000}
 
   worker:
