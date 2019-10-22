@@ -4,9 +4,6 @@ x-common: &common
   build:
     context: .
     target: app_base
-  depends_on:
-    - db
-    - redis
   env_file: .env
   tty: true
   volumes:
@@ -46,16 +43,23 @@ services:
       - ./media:/app/media
       - ./src:/app/src
       - ./etc/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - db
+      - redis
 
   worker:
     <<: *common
     command: celery -A developerportal.apps.staticbuild worker -l info
     user: ${UID:-1000}
+    depends_on:
+      - redis
 
   scheduler:
     <<: *common
     command: celery -A developerportal.apps.staticbuild beat -l debug
     user: ${UID:-1000}
+    depends_on:
+      - redis
 
   nginx:
     image: nginx
