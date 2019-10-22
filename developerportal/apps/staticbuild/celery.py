@@ -3,6 +3,7 @@ import os
 from django.conf import settings
 
 from celery import Celery
+from celery.schedules import crontab
 
 STATIC_BUILD_JOB_ATTEMPT_FREQUENCY = 60.0 * 1  # Check each minute
 
@@ -17,10 +18,15 @@ app.autodiscover_tasks()
 
 # Set up a Celery Beat task to try to build the static site every minute
 app.conf.beat_schedule = {
-    "add-every-minute": {
+    "check-for-build-desire": {
         "task": "developerportal.apps.staticbuild.wagtail_hooks._static_build_async",
         "schedule": STATIC_BUILD_JOB_ATTEMPT_FREQUENCY,
         "args": (),
-    }
+    },
+    "fresh-static-build-every-hour": {
+        "task": "developerportal.apps.staticbuild.wagtail_hooks._request_static_build",
+        "schedule": crontab(minute=30),  # Half past past each hour
+        "args": (),
+    },
 }
 app.conf.timezone = "UTC"
