@@ -21,7 +21,7 @@ before_install:
   - docker-compose version
 
 install:
-  - scripts/ci-setup --build
+  - scripts/ci-setup --build --debug
 
 script:
   - scripts/ci-tests
