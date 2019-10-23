@@ -52,14 +52,15 @@ services:
     command: celery -A developerportal.apps.staticbuild worker -l info
     user: ${UID:-1000}
     depends_on:
-      - redis
+      - app
 
   scheduler:
     <<: *common
     command: celery -A developerportal.apps.staticbuild beat -l debug
     user: ${UID:-1000}
     depends_on:
-      - redis
+      - app
+      - worker
 
   nginx:
     image: nginx
