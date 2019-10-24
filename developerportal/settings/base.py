@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 from django.core.management.utils import get_random_secret_key
+from django.utils.log import DEFAULT_LOGGING
 
 from wagtail.embeds.oembed_providers import all_providers
 
@@ -71,6 +72,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_celery_results",
+    "mozilla_django_oidc",  # needs to be loaded after auth
 ]
 
 MIDDLEWARE = [
@@ -81,6 +83,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    # In case someone has their Auth0 revoked while logged in, revalidate it:
+    "mozilla_django_oidc.middleware.SessionRefresh",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "wagtail.core.middleware.SiteMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
@@ -111,7 +115,10 @@ TEMPLATES = [
     }
 ]
 
-AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+AUTHENTICATION_BACKENDS = (
+    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
 
 WSGI_APPLICATION = "developerportal.wsgi.application"
 
@@ -278,6 +285,7 @@ AWS_CLOUDFRONT_DISTRIBUTION_ID = os.environ.get("AWS_CLOUDFRONT_DISTRIBUTION_ID"
 
 LOGIN_ERROR_URL = "/admin/"
 LOGIN_REDIRECT_URL = "/admin/"
+LOGOUT_REDIRECT_URL = "/admin/"
 
 # GOOGLE_ANALYTICS
 GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS")
@@ -304,4 +312,37 @@ CACHES = {
         "LOCATION": _get_redis_url_for_cache(REDIS_CACHE_DB_NUMBER),
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
+}
+
+# Mozilla OpenID Connect / Auth0 configuration
+
+# How frequently do we check with the provider that the
+# user still exists and is authorised?
+OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = 15  # This is the default, but here for visibility
+OIDC_CREATE_USER = False  # We don't want stop drive-by signups
+
+OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
+OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET")
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get(
+    "OIDC_OP_AUTHORIZATION_ENDPOINT"
+    # https://<TENANT>.auth0.com/authorize
+)
+OIDC_OP_TOKEN_ENDPOINT = os.environ.get(
+    "OIDC_OP_TOKEN_ENDPOINT"
+    # https://<TENANT>.auth0.com/oauth/token
+)
+OIDC_OP_USER_ENDPOINT = os.environ.get(
+    "OIDC_OP_USER_ENDPOINT"
+    # https://<TENANT>.auth0.com/userinfo
+)
+OIDC_OP_DOMAIN = os.environ.get(
+    "OIDC_OP_DOMAIN"
+    # <TENANT>.auth0.com
+)
+
+
+# EXTRA LOGGING
+DEFAULT_LOGGING["loggers"]["mozilla_django_oidc"] = {
+    "handlers": ["console"],
+    "level": "INFO",
 }

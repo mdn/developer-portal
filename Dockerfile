@@ -24,6 +24,7 @@ RUN apk add --no-cache --virtual .build-deps \
 RUN apk add --no-cache \
   jpeg-dev \
   libc-dev \
+  libffi-dev \
   libmemcached-dev \
   libxslt-dev \
   postgresql-libs \

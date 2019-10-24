@@ -18,3 +18,11 @@
 # MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 # MEDIA_ROOT = None
 
+# Mozilla OpenID Connect using Auth0 # get from IAM
+# either set these in your .env, or in your settings/local.py
+OIDC_RP_CLIENT_ID=
+OIDC_RP_CLIENT_SECRET=
+OIDC_OP_AUTHORIZATION_ENDPOINT=https://<TENANT>.auth0.com/authorize
+OIDC_OP_TOKEN_ENDPOINT=https://<TENANT>.auth0.com/oauth/token
+OIDC_OP_USER_ENDPOINT=https://<TENANT>.auth0.com/userinfo
+OIDC_OP_DOMAIN=<TENANT>.auth0.com
