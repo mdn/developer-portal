@@ -318,7 +318,11 @@ CACHES = {
 
 # How frequently do we check with the provider that the
 # user still exists and is authorised?
-OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = 15  # This is the default, but here for visibility
+OIDC_RP_SIGN_ALGO = "RS256"
+
+OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = (
+    15 * 60
+)  # 15 mins is the default, but re-expressed here for visibility
 OIDC_CREATE_USER = False  # We don't want stop drive-by signups
 
 OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
@@ -339,7 +343,7 @@ OIDC_OP_DOMAIN = os.environ.get(
     "OIDC_OP_DOMAIN"
     # <TENANT>.auth0.com
 )
-
+OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT")
 
 # EXTRA LOGGING
 DEFAULT_LOGGING["loggers"]["mozilla_django_oidc"] = {
