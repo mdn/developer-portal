@@ -96,13 +96,6 @@ k8s-rollback:
 k8s-history:
 	${KC} rollout history deploy ${APP_NAME}
 
-k8s-efs-job: k8s-delete-efs-job
-	j2 app.efs-setup.yaml.j2 | ${KC} apply -f -
-	env JOB_NAME=dev-portal-efs-setup ./wait_for_job.sh
-
-k8s-delete-efs-job:
-	${KC} delete --ignore-not-found job dev-portal-efs-setup
-
 k8s-db-migration-job: k8s-delete-db-migration-job
 	j2 db-migration-job.yaml.j2 | ${KC} apply -f -
 	env JOB_NAME=db-migration ./wait_for_job.sh
@@ -110,18 +103,6 @@ k8s-db-migration-job: k8s-delete-db-migration-job
 k8s-delete-db-migration-job:
 	${KC} delete --ignore-not-found job db-migration
 
-
-k8s-pv:
-	j2 app.pv.yaml.j2 | ${KC} apply -f -
-
-k8s-pvc:
-	j2 app.pvc.yaml.j2 | ${KC} apply -f -
-
-k8s-delete-pv:
-	${KC} delete --ignore-not-found pv ${APP_PV_NAME}
-
-k8s-delete-pvc:
-	${KC} delete --ignore-not-found pvc ${APP_PVC_NAME}
 
 k8s-jenkins-create-rbac:
 	kubectl apply -f jenkins-rbac.yaml
