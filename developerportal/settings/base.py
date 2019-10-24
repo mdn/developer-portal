@@ -345,6 +345,16 @@ OIDC_OP_DOMAIN = os.environ.get(
 )
 OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT")
 
+# Extra Wagtail config to disable password usage (SSO should be the only way in)
+# https://docs.wagtail.io/en/v2.6.3/advanced_topics/settings.html#password-management
+# Don't let users change or reset their password
+WAGTAIL_PASSWORD_MANAGEMENT_ENABLED = False
+WAGTAIL_PASSWORD_RESET_ENABLED = False
+
+# Don't require a password when creating a user,
+# and blank password means cannot log in unless SSO
+WAGTAILUSERS_PASSWORD_ENABLED = False
+
 # EXTRA LOGGING
 DEFAULT_LOGGING["loggers"]["mozilla_django_oidc"] = {
     "handlers": ["console"],
