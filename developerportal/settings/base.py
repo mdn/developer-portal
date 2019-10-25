@@ -117,7 +117,8 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
-    "django.contrib.auth.backends.ModelBackend",
+    # Deliberately disabled: OIDC or no entry
+    # "django.contrib.auth.backends.ModelBackend",
 )
 
 WSGI_APPLICATION = "developerportal.wsgi.application"
