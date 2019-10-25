@@ -1,10 +1,16 @@
 {% extends "wagtailadmin/login.html" %}
 {% load i18n %}
 
-{% block submit_buttons %}
-  {{ block.super }}
-  <span style="display: inline-block; margin-left: 1em; margin-right: 1em"> or </span>
-  <a href="{% url 'oidc_authentication_init' %}" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}"><span class="icon icon-spinner"></span><em>{% trans 'Sign in with Mozilla SSO' %}</em></a>
+{% block above_login %}
+  <h1>Admin</h1>
+{% endblock %}
+{% block login_form %}
+  <a href="{% url 'oidc_authentication_init' %}" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}">
+    <span class="icon icon-spinner"></span>
+    <em>
+      {% trans 'Sign in with Mozilla SSO' %}
+    </em>
+  </a>
+  <h3>If you lack SSO access, please ask your contact within Mozilla.</h3>
 {% endblock %}
 
-{% block branding_login %}Sign in{% endblock %}
