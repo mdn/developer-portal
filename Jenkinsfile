@@ -105,11 +105,13 @@ node {
     case 'stage-push':
       stage('Deploy') {
         deploy('stage-oregon', 'stage')
+        deploy('stage', 'stage')
       }
       break
 
     case 'prod-push':
       stage('Deploy') {
+        deploy('prod', 'prod')
         deploy('prod', 'prod')
       }
       break
