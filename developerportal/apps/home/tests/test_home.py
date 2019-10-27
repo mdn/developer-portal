@@ -1,5 +1,6 @@
 from wagtail.core.models import Page
-from wagtail.tests.utils import WagtailPageTests
+
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...articles.models import Articles
 from ...content.models import ContentPage
@@ -10,7 +11,7 @@ from ...videos.models import Videos
 from ..models import HomePage
 
 
-class HomePageTests(WagtailPageTests):
+class HomePageTests(PatchedWagtailPageTests):
     """Tests for the HomePage model."""
 
     def test_topic_parent_pages(self):

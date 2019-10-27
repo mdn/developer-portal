@@ -1,10 +1,10 @@
-from wagtail.tests.utils import WagtailPageTests
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...home.models import HomePage
 from ..models import Topic, Topics
 
 
-class TopicTests(WagtailPageTests):
+class TopicTests(PatchedWagtailPageTests):
     """Tests for the Topic page model."""
 
     fixtures = ["common.json"]
@@ -32,7 +32,7 @@ class TopicTests(WagtailPageTests):
         )
 
 
-class TopicsTests(WagtailPageTests):
+class TopicsTests(PatchedWagtailPageTests):
     """Tests for the Topics page model."""
 
     fixtures = ["common.json"]
