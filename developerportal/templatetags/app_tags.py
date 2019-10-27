@@ -43,3 +43,8 @@ def get_scheme_and_host(request):
         # If we're using S3, we don't need to return a "base url" for assets
         return ""
     return f"{request.scheme}://{request.get_host()}"
+
+
+@register.simple_tag
+def use_conventional_auth():
+    return settings.USE_CONVENTIONAL_AUTH

@@ -117,7 +117,7 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
-    # Deliberately disabled: OIDC or no entry
+    # Deliberately disabled by default: OIDC or no entry
     # "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -345,6 +345,11 @@ OIDC_OP_DOMAIN = os.environ.get(
     # <TENANT>.auth0.com
 )
 OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT")
+
+# If True (which should only be done in settings.local), then show username and
+# password fields. You'll also need to enable the model backend in local settings
+USE_CONVENTIONAL_AUTH = False
+
 
 # Extra Wagtail config to disable password usage (SSO should be the only way in)
 # https://docs.wagtail.io/en/v2.6.3/advanced_topics/settings.html#password-management

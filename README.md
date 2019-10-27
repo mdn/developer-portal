@@ -93,6 +93,8 @@ If you have a Mozilla SSO account, create a Django superuser with the same email
 docker-compose exec app python manage.py createsuperuser
 ```
 
+If you do not have such an account, you can create a Django superuser and configure the local build to use conventional Django auth. See `settings/local.py.example`
+
 ### Update
 
 After pulling master you may need to install new dependencies…:

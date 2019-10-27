@@ -3,11 +3,11 @@ just do not work (which is good, because everyone should go via SSO)"""
 
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 
-class LoginDeniedTest(TestCase):
+class LoginTestBase(TestCase):
     def setUp(self):
         self.wagtail_login_url = reverse("wagtailadmin_login")
         self.django_admin_login_url = reverse("admin:login")
@@ -25,6 +25,8 @@ class LoginDeniedTest(TestCase):
 
         return admin
 
+
+class ConventionalLoginDeniedTest(LoginTestBase):
     def test_login_page_contains_no_form(self):
         for url in (self.wagtail_login_url, self.django_admin_login_url):
             with self.subTest(url=url):
@@ -38,7 +40,7 @@ class LoginDeniedTest(TestCase):
                 # Confirm SSO link
                 self.assertContains(response, b"Sign in with Mozilla SSO")
 
-    def test_posting_to_login_still_denied(self):
+    def test_posting_to_login_denied(self):
         admin = self._create_admin()
         for url, error_message, expected_template in (
             (
@@ -74,3 +76,45 @@ class LoginDeniedTest(TestCase):
             settings.AUTHENTICATION_BACKENDS,
             ("mozilla_django_oidc.auth.OIDCAuthenticationBackend",),
         )
+
+
+class ConventionalLoginAllowedTest(LoginTestBase):
+    """If certain settings are set in settings.local, regular
+    username + password sign-in functionality is restored
+    """
+
+    @override_settings(USE_CONVENTIONAL_AUTH=True)
+    def test_login_page_contains_form(self):
+        for url in (self.wagtail_login_url, self.django_admin_login_url):
+            with self.subTest(url=url):
+                response = self.client.get(url)
+                assert response.status_code == 200
+                # Check for the form field attrs that would normally be present
+                self.assertContains(response, b'name="username"', 1)
+                self.assertContains(response, b'name="password"', 1)
+                self.assertContains(response, b"csrfmiddlewaretoken", 1)
+                self.assertNotContains(response, b"Sign in with Mozilla SSO")
+
+    @override_settings(
+        AUTHENTICATION_BACKENDS=(
+            "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+            "django.contrib.auth.backends.ModelBackend",
+        )
+    )
+    def test_posting_to_login_is_accepted_if_the_modelbackend_is_re_configured(self):
+        admin = self._create_admin()
+        for url, expected_template in (
+            (self.wagtail_login_url, "wagtailadmin/home.html"),
+            (
+                self.django_admin_login_url,
+                "wagtailadmin/home.html"
+                # CORRECT: signing in to Django Admin redirects to Wagtail Admin,
+                # because that's what LOGIN_REDIRECT_URL points to
+            ),
+        ):
+            payload = {"username": admin.username, "password": "admin12345"}
+            with self.subTest(url=url, expected_template=expected_template):
+                response = self.client.post(url, data=payload, follow=True)
+                self.assertEqual(response.status_code, 200)
+                self.assertNotContains(response, b"Sign in")
+                self.assertTemplateUsed(response, expected_template)
