@@ -45,6 +45,9 @@ POSTGRES_DB=developerportal
 POSTGRES_HOST=db
 POSTGRES_PASSWORD=$(openssl rand -base64 64 | tr -d '+/\n=')
 POSTGRES_USER=admin
+OIDC_RP_CLIENT_ID=NotUsedInTestsButNeedsToBePresentForBootup
+OIDC_RP_CLIENT_SECRET=NotUsedInTestsButNeedsToBePresentForBootup
+OIDC_OP_JWKS_ENDPOINT=https://example.com/.well-known/jwks.json
 EOF
 
 echo "Taking down any existing containers"
