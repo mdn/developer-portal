@@ -8,6 +8,9 @@ from django.urls import reverse
 
 
 class LoginTestBase(TestCase):
+
+    TEST_ADMIN_PASSWORD = "admin12345"
+
     def setUp(self):
         self.wagtail_login_url = reverse("wagtailadmin_login")
         self.django_admin_login_url = reverse("admin:login")
@@ -15,11 +18,13 @@ class LoginTestBase(TestCase):
     def _create_admin(self):
         # create an admin user
         admin = User.objects.create_superuser(
-            username="admin", email="admin@example.com", password="admin12345"
+            username="admin",
+            email="admin@example.com",
+            password=self.TEST_ADMIN_PASSWORD,
         )
         assert admin.is_active is True
         assert admin.has_usable_password() is True
-        assert admin.check_password("admin12345") is True
+        assert admin.check_password(self.TEST_ADMIN_PASSWORD) is True
         assert admin.is_staff is True
         assert admin.is_superuser is True
 
@@ -54,7 +59,7 @@ class ConventionalLoginDeniedTest(LoginTestBase):
                 "admin/login.html",
             ),
         ):
-            payload = {"username": admin.username, "password": "admin12345"}
+            payload = {"username": admin.username, "password": self.TEST_ADMIN_PASSWORD}
             with self.subTest(
                 url=url,
                 error_message=error_message,
@@ -112,7 +117,7 @@ class ConventionalLoginAllowedTest(LoginTestBase):
                 # because that's what LOGIN_REDIRECT_URL points to
             ),
         ):
-            payload = {"username": admin.username, "password": "admin12345"}
+            payload = {"username": admin.username, "password": self.TEST_ADMIN_PASSWORD}
             with self.subTest(url=url, expected_template=expected_template):
                 response = self.client.post(url, data=payload, follow=True)
                 self.assertEqual(response.status_code, 200)
