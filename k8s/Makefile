@@ -47,6 +47,13 @@ export CELERY_SCHEDULER_MEMORY_REQUEST ?= 128Mi
 export CELERY_SCHEDULER_CPU_LIMIT ?= 2
 export CELERY_SCHEDULER_MEMORY_LIMIT ?=256Mi
 
+# New relic config
+export NEW_RELIC_CONFIG_FILE ?= /app/etc/newrelic.ini
+export NEW_RELIC_LICENSE_KEY ?= foo
+export NEW_RELIC_LICENSE_KEY_BASE64 ?= $(shell echo -n "${NEW_RELIC_LICENSE_KEY}" | base64)
+export NEW_RELIC_MONITOR_MODE ?= 1
+export NEW_RELIC_LABELS ?= Project:developer-portal;Namespace:${K8S_NAMESPACE};Environment:${TARGET_ENVIRONMENT}
+
 export GOOGLE_ANALYTICS ?= 0
 
 ###############################
@@ -69,12 +76,15 @@ k8s-deployments: k8s-wagtail-deployments k8s-celery-deployments k8s-celery-beat-
 k8s-delete-deployments: k8s-delete-wagtail-deployments k8s-delete-celery-deployments k8s-delete-celery-beat-deployments
 
 k8s-wagtail-deployments:
+	env NEW_RELIC_APP_NAME=wagtail-${TARGET_ENVIRONMENT} \
 	j2 app.deploy.yaml.j2 | ${KC} apply -f -
 
 k8s-celery-deployments:
+	env NEW_RELIC_APP_NAME=celery-worker-${TARGET_ENVIRONMENT} \
 	j2 celery.yaml.j2 | ${KC} apply -f -
 
 k8s-celery-beat-deployments:
+	env NEW_RELIC_APP_NAME=celery-beat-${TARGET_ENVIRONMENT} \
 	j2 celery-beat.yaml.j2 | ${KC} apply -f -
 
 k8s-delete-wagtail-deployments:
