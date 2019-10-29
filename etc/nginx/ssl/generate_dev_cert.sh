@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SSL_DIR=$(dirname $0)
 BASENAME="developer-portal-127-0-0-1.nip.io"

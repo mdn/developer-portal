@@ -29,6 +29,7 @@ RUN apk add --no-cache \
   libxslt-dev \
   postgresql-libs \
   zlib-dev \
+  bash \
   openssl \
   openssl-dev
 
