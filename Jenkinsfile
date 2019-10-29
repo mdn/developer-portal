@@ -16,7 +16,7 @@ def notify_slack(Map args, credential_id='slack-hook-devportal-notifications') {
     }
 }
 
-def deploy(config, environment) {
+def deploy(config, environment, cluster) {
   /*
    * Start a rolling update of the K8s deployments.
    */
@@ -30,7 +30,7 @@ def deploy(config, environment) {
     try {
 
       notify_slack([
-        status: "Pushing to ${environment}",
+        status: "Pushing to ${environment} (cluster: ${cluster})",
         message: "developer-portal image ${tag}"
       ])
 
@@ -42,13 +42,13 @@ def deploy(config, environment) {
         make k8s-rollout-status
       """
       notify_slack([
-        stage: "Deployed to ${environment}",
+        stage: "Deployed to ${environment} (cluster: ${cluster})",
         status: 'success'
       ])
 
     } catch(err) {
       notify_slack([
-        stage: "Failed to deploy to ${environment}",
+        stage: "Failed to deploy to ${environment} (cluster: ${cluster})",
         status: 'failure'
       ])
       throw err
@@ -104,15 +104,15 @@ node {
 
     case 'stage-push':
       stage('Deploy') {
-        deploy('stage-oregon', 'stage')
-        deploy('stage', 'stage')
+        deploy('stage-oregon', 'stage', 'oregon')
+        deploy('stage', 'stage', 'mdn-apps-a')
       }
       break
 
     case 'prod-push':
       stage('Deploy') {
-        deploy('prod', 'prod')
-        deploy('prod', 'prod')
+        deploy('prod-oregon', 'prod', 'oregon')
+        deploy('prod', 'prod', 'mdn-apps-a')
       }
       break
 
