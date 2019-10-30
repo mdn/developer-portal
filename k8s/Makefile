@@ -84,7 +84,7 @@ k8s-celery-deployments:
 	j2 celery.yaml.j2 | ${KC} apply -f -
 
 k8s-celery-beat-deployments:
-	env NEW_RELIC_APP_NAME=dev-portal-celery-${TARGET_ENVIRONMENT} \
+	env NEW_RELIC_APP_NAME="" \
 	j2 celery-beat.yaml.j2 | ${KC} apply -f -
 
 k8s-delete-wagtail-deployments:
