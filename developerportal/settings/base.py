@@ -120,6 +120,8 @@ AUTHENTICATION_BACKENDS = (
     # Deliberately disabled by default: OIDC or no entry
     # "django.contrib.auth.backends.ModelBackend",
 )
+# Note that AUTHENTICATION_BACKENDS are overridden in tests, so take care
+# to check/amend those if you add additional auth backends
 
 WSGI_APPLICATION = "developerportal.wsgi.application"
 
@@ -317,13 +319,12 @@ CACHES = {
 
 # Mozilla OpenID Connect / Auth0 configuration
 
-# How frequently do we check with the provider that the
-# user still exists and is authorised?
 OIDC_RP_SIGN_ALGO = "RS256"
 
-OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = (
-    15 * 60
-)  # 15 mins is the default, but re-expressed here for visibility
+# How frequently do we check with the provider that the user still exists
+# and is authorised? It's 15 mins by default.
+# To override, set OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS
+
 OIDC_CREATE_USER = False  # We don't want stop drive-by signups
 
 OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
