@@ -1,12 +1,12 @@
-from .settings.base import GOOGLE_ANALYTICS, MAPBOX_ACCESS_TOKEN
+from django.conf import settings
 
 
 def google_analytics(request):
-    return {"GOOGLE_ANALYTICS": GOOGLE_ANALYTICS}
+    return {"GOOGLE_ANALYTICS": settings.GOOGLE_ANALYTICS}
 
 
 def mapbox_access_token(request):
-    return {"MAPBOX_ACCESS_TOKEN": MAPBOX_ACCESS_TOKEN}
+    return {"MAPBOX_ACCESS_TOKEN": settings.MAPBOX_ACCESS_TOKEN}
 
 
 def directory_pages(request):

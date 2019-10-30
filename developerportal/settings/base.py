@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 from django.core.management.utils import get_random_secret_key
+from django.utils.log import DEFAULT_LOGGING
 
 from wagtail.embeds.oembed_providers import all_providers
 
@@ -63,7 +64,6 @@ INSTALLED_APPS = [
     "wagtailbakery",
     "modelcluster",
     "taggit",
-    "social_django",
     "django_countries",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_celery_results",
+    "mozilla_django_oidc",  # needs to be loaded after auth
 ]
 
 MIDDLEWARE = [
@@ -82,8 +83,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    # In case someone has their Auth0 revoked while logged in, revalidate it:
+    "mozilla_django_oidc.middleware.SessionRefresh",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "social_django.middleware.SocialAuthExceptionMiddleware",
     "wagtail.core.middleware.SiteMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
@@ -101,8 +103,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "social_django.context_processors.backends",
-                "social_django.context_processors.login_redirect",
                 "developerportal.context_processors.directory_pages",
                 "developerportal.context_processors.google_analytics",
                 "developerportal.context_processors.mapbox_access_token",
@@ -116,9 +116,12 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    "social_core.backends.github.GithubOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
+    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+    # Deliberately disabled by default: OIDC or no entry
+    # "django.contrib.auth.backends.ModelBackend",
 )
+# Note that AUTHENTICATION_BACKENDS are overridden in tests, so take care
+# to check/amend those if you add additional auth backends
 
 WSGI_APPLICATION = "developerportal.wsgi.application"
 
@@ -283,32 +286,9 @@ STATIC_BUILD_PIPELINE = (("Build", "build"), ("Publish", "publish"))
 S3_BUCKET = os.environ.get("S3_BUCKET")
 AWS_CLOUDFRONT_DISTRIBUTION_ID = os.environ.get("AWS_CLOUDFRONT_DISTRIBUTION_ID")
 
-# Social Auth pipelines
-SOCIAL_AUTH_PIPELINE = (
-    "social_core.pipeline.social_auth.social_details",
-    "social_core.pipeline.social_auth.social_uid",
-    "social_core.pipeline.social_auth.auth_allowed",
-    "social_core.pipeline.social_auth.social_user",
-    "developerportal.pipeline.github_user_allowed",
-    "social_core.pipeline.user.get_username",
-    "social_core.pipeline.mail.mail_validation",
-    "social_core.pipeline.user.create_user",
-    "social_core.pipeline.social_auth.associate_user",
-    "social_core.pipeline.social_auth.load_extra_data",
-    "social_core.pipeline.user.user_details",
-    "developerportal.pipeline.success_message",
-)
-
-# GitHub scope to check emails and correct domains
-SOCIAL_AUTH_GITHUB_SCOPE = ["user:email"]
-
-# GitHub social auth access keys
-SOCIAL_AUTH_GITHUB_KEY = os.environ.get("GITHUB_CLIENT_ID")
-SOCIAL_AUTH_GITHUB_SECRET = os.environ.get("GITHUB_CLIENT_SECRET")
-
 LOGIN_ERROR_URL = "/admin/"
 LOGIN_REDIRECT_URL = "/admin/"
-SOCIAL_AUTH_NEW_USER_REDIRECT_URL = "/admin/login/"
+LOGOUT_REDIRECT_URL = "/admin/"
 
 # GOOGLE_ANALYTICS
 GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS")
@@ -335,4 +315,44 @@ CACHES = {
         "LOCATION": _get_redis_url_for_cache(REDIS_CACHE_DB_NUMBER),
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
+}
+
+# Mozilla OpenID Connect / Auth0 configuration
+
+OIDC_RP_SIGN_ALGO = "RS256"
+
+# How frequently do we check with the provider that the user still exists
+# and is authorised? It's 15 mins by default.
+# To override, set OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS
+
+OIDC_CREATE_USER = False  # We don't want stop drive-by signups
+
+OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
+OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET")
+
+OIDC_OP_AUTHORIZATION_ENDPOINT = "https://auth.mozilla.auth0.com/authorize"
+OIDC_OP_TOKEN_ENDPOINT = "https://auth.mozilla.auth0.com/oauth/token"
+OIDC_OP_USER_ENDPOINT = "https://auth.mozilla.auth0.com/userinfo"
+OIDC_OP_DOMAIN = "auth.mozilla.auth0.com"
+OIDC_OP_JWKS_ENDPOINT = "https://auth.mozilla.auth0.com/.well-known/jwks.json"
+
+# If True (which should only be done in settings.local), then show username and
+# password fields. You'll also need to enable the model backend in local settings
+USE_CONVENTIONAL_AUTH = False
+
+
+# Extra Wagtail config to disable password usage (SSO should be the only way in)
+# https://docs.wagtail.io/en/v2.6.3/advanced_topics/settings.html#password-management
+# Don't let users change or reset their password
+WAGTAIL_PASSWORD_MANAGEMENT_ENABLED = False
+WAGTAIL_PASSWORD_RESET_ENABLED = False
+
+# Don't require a password when creating a user,
+# and blank password means cannot log in unless SSO
+WAGTAILUSERS_PASSWORD_ENABLED = False
+
+# EXTRA LOGGING
+DEFAULT_LOGGING["loggers"]["mozilla_django_oidc"] = {
+    "handlers": ["console"],
+    "level": "INFO",
 }

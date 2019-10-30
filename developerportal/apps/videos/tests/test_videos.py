@@ -1,10 +1,10 @@
-from wagtail.tests.utils import WagtailPageTests
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...home.models import HomePage
 from ..models import Video, Videos
 
 
-class VideoTests(WagtailPageTests):
+class VideoTests(PatchedWagtailPageTests):
     """Tests for the Video model."""
 
     def test_video_parent_pages(self):
@@ -14,7 +14,7 @@ class VideoTests(WagtailPageTests):
         self.assertAllowedSubpageTypes(Video, {})
 
 
-class VideosTests(WagtailPageTests):
+class VideosTests(PatchedWagtailPageTests):
     """Tests for the Videos model."""
 
     def test_videos_parent_pages(self):

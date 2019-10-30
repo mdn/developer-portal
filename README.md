@@ -85,13 +85,15 @@ Finally, `therapist` can be passed a list of file paths if you want to just run 
 
 ### User authentication
 
-GitHub OAuth is supported for admin login. When running in production, the auth pipeline checks to see if the GitHub user is a member of the **mdn** organization. Additional organizations can be added via the `GITHUB_ORGS` env variable.
+Mozilla SSO via OpenID Connect is the default for admin login.
 
-When running in debug any GitHub user is allowed to log in and is automatically given superuser status. It is possible to log in without using GitHub by creating a Django superuser as normal:
+If you have a Mozilla SSO account, create a Django superuser with the same email address.
 
 ```shell
 docker-compose exec app python manage.py createsuperuser
 ```
+
+If you do not have such an account, you can create a Django superuser and configure the local build to use conventional Django auth. See `settings/local.py.example`
 
 ### Update
 

@@ -1,11 +1,11 @@
-from wagtail.tests.utils import WagtailPageTests
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...content.models import ContentPage
 from ...home.models import HomePage
 from ..models import People, Person
 
 
-class PersonTests(WagtailPageTests):
+class PersonTests(PatchedWagtailPageTests):
     """Tests for the Person model."""
 
     def test_person_parent_pages(self):
@@ -15,7 +15,7 @@ class PersonTests(WagtailPageTests):
         self.assertAllowedSubpageTypes(Person, {})
 
 
-class PeopleTests(WagtailPageTests):
+class PeopleTests(PatchedWagtailPageTests):
     """Tests for the People model."""
 
     def test_people_parent_pages(self):

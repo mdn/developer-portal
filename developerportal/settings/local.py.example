@@ -18,3 +18,14 @@
 # MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 # MEDIA_ROOT = None
 
+# Mozilla OpenID Connect using Auth0 # get from IAM
+# either set these in your .env, or in your settings/local.py
+OIDC_RP_CLIENT_ID=
+OIDC_RP_CLIENT_SECRET=
+
+# For local development, allow authentication by username + password, not SSO
+USE_CONVENTIONAL_AUTH = True
+AUTHENTICATION_BACKENDS = (
+    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
