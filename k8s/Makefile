@@ -76,15 +76,15 @@ k8s-deployments: k8s-wagtail-deployments k8s-celery-deployments k8s-celery-beat-
 k8s-delete-deployments: k8s-delete-wagtail-deployments k8s-delete-celery-deployments k8s-delete-celery-beat-deployments
 
 k8s-wagtail-deployments:
-	env NEW_RELIC_APP_NAME=wagtail-${TARGET_ENVIRONMENT} \
+	env NEW_RELIC_APP_NAME=dev-portal-web-${TARGET_ENVIRONMENT} \
 	j2 app.deploy.yaml.j2 | ${KC} apply -f -
 
 k8s-celery-deployments:
-	env NEW_RELIC_APP_NAME=celery-worker-${TARGET_ENVIRONMENT} \
+	env NEW_RELIC_APP_NAME=dev-portal-celery-${TARGET_ENVIRONMENT} \
 	j2 celery.yaml.j2 | ${KC} apply -f -
 
 k8s-celery-beat-deployments:
-	env NEW_RELIC_APP_NAME=celery-beat-${TARGET_ENVIRONMENT} \
+	env NEW_RELIC_APP_NAME=dev-portal-celery-${TARGET_ENVIRONMENT} \
 	j2 celery-beat.yaml.j2 | ${KC} apply -f -
 
 k8s-delete-wagtail-deployments:
