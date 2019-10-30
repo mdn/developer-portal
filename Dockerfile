@@ -1,4 +1,4 @@
-FROM node:12.13-alpine@sha256:2ecde718fd39a49d2515e197282ac87e8f1873492741f54a6a4e2240ce87ae00 AS static
+FROM node:12.13-alpine@sha256:36a15a00134761c19e4438d948ad01eb9323811e1edd947562da3fc06ae78b09 AS static
 
 WORKDIR /app/
 
@@ -24,6 +24,7 @@ RUN apk add --no-cache --virtual .build-deps \
 RUN apk add --no-cache \
   jpeg-dev \
   libc-dev \
+  libffi-dev \
   libmemcached-dev \
   libxslt-dev \
   postgresql-libs \

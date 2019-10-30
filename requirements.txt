@@ -6,12 +6,12 @@ django-celery-results==1.1.2
 django-redis==4.10.0
 gunicorn==19.9.0
 meinheld==1.0.1
+mozilla-django-oidc==1.2.2
 django-storages==1.7.2
-boto3==1.10.3
+boto3==1.10.6
 psycopg2==2.8.4
 Pygments==2.4.2
 readtime==1.1.1
-social-auth-app-django==3.1.0
 wagtail==2.6.3
 wagtail-bakery==0.3.0
 whitenoise==4.1.4
@@ -20,7 +20,7 @@ newrelic==5.2.1.129
 ## The following requirements were added by pip freeze:
 appdirs==1.4.3
 beautifulsoup4==4.6.0
-botocore==1.13.3
+botocore==1.13.6
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0

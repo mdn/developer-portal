@@ -1,10 +1,10 @@
-from wagtail.tests.utils import WagtailPageTests
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...home.models import HomePage
 from ..models import Article, Articles
 
 
-class ArticleTests(WagtailPageTests):
+class ArticleTests(PatchedWagtailPageTests):
     """Tests for the Article page model."""
 
     fixtures = ["common.json"]
@@ -42,7 +42,7 @@ class ArticleTests(WagtailPageTests):
         self.assertEqual("1 min read", article_page.primary_topic.read_time)
 
 
-class ArticlesTests(WagtailPageTests):
+class ArticlesTests(PatchedWagtailPageTests):
     """Tests for the Articles page model."""
 
     fixtures = ["common.json"]

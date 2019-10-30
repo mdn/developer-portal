@@ -1,11 +1,11 @@
-from wagtail.tests.utils import WagtailPageTests
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...home.models import HomePage
 from ...people.models import People
 from ..models import ContentPage
 
 
-class ContentPageTests(WagtailPageTests):
+class ContentPageTests(PatchedWagtailPageTests):
     """Tests for the ContentPage model."""
 
     def test_content_page_parent_pages(self):

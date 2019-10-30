@@ -1,12 +1,12 @@
 import datetime
 
-from wagtail.tests.utils import WagtailPageTests
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...home.models import HomePage
 from ..models import Event, Events
 
 
-class EventTests(WagtailPageTests):
+class EventTests(PatchedWagtailPageTests):
     """Tests for the Event model."""
 
     def test_event_parent_pages(self):
@@ -16,7 +16,7 @@ class EventTests(WagtailPageTests):
         self.assertAllowedSubpageTypes(Event, {})
 
 
-class EventsTests(WagtailPageTests):
+class EventsTests(PatchedWagtailPageTests):
     """Tests for the Events model."""
 
     fixtures = ["common.json"]

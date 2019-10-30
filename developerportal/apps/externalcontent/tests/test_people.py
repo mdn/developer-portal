@@ -1,10 +1,11 @@
 from wagtail.core.models import Page
-from wagtail.tests.utils import WagtailPageTests
+
+from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ..models import ExternalArticle, ExternalEvent, ExternalVideo
 
 
-class ExternalArticleTests(WagtailPageTests):
+class ExternalArticleTests(PatchedWagtailPageTests):
     """Tests for the ExternalArticle model."""
 
     def test_external_article_parent_pages(self):
@@ -14,7 +15,7 @@ class ExternalArticleTests(WagtailPageTests):
         self.assertAllowedSubpageTypes(ExternalArticle, {})
 
 
-class ExternalEventTests(WagtailPageTests):
+class ExternalEventTests(PatchedWagtailPageTests):
     """Tests for the ExternalEvent model."""
 
     def test_external_event_parent_pages(self):
@@ -24,7 +25,7 @@ class ExternalEventTests(WagtailPageTests):
         self.assertAllowedSubpageTypes(ExternalEvent, {})
 
 
-class ExternalVideoTests(WagtailPageTests):
+class ExternalVideoTests(PatchedWagtailPageTests):
     """Tests for the ExternalVideo model."""
 
     def test_external_video_parent_pages(self):
