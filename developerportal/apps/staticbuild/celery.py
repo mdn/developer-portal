@@ -28,5 +28,12 @@ app.conf.beat_schedule = {
         "schedule": crontab(minute=30),  # Half past past each hour
         "args": (),
     },
+    "run-publish-scheduled-command-every-hour": {
+        "task": (
+            "developerportal.apps.staticbuild.wagtail_hooks._publish_scheduled_pages"
+        ),
+        "schedule": crontab(minute=55),  # Five minutes to each hour
+        "args": (),
+    },
 }
 app.conf.timezone = "UTC"
