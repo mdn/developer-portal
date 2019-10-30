@@ -22,11 +22,6 @@
 # either set these in your .env, or in your settings/local.py
 OIDC_RP_CLIENT_ID=
 OIDC_RP_CLIENT_SECRET=
-OIDC_OP_AUTHORIZATION_ENDPOINT=https://<TENANT>.auth0.com/authorize
-OIDC_OP_TOKEN_ENDPOINT=https://<TENANT>.auth0.com/oauth/token
-OIDC_OP_USER_ENDPOINT=https://<TENANT>.auth0.com/userinfo
-OIDC_OP_DOMAIN=<TENANT>.auth0.com
-OIDC_OP_JWKS_ENDPOINT=<TENANT>.auth0.com/.well-known/jwks.json
 
 # For local development, allow authentication by username + password, not SSO
 USE_CONVENTIONAL_AUTH = True

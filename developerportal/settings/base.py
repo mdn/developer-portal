@@ -329,23 +329,12 @@ OIDC_CREATE_USER = False  # We don't want stop drive-by signups
 
 OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
 OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET")
-OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get(
-    "OIDC_OP_AUTHORIZATION_ENDPOINT"
-    # https://<TENANT>.auth0.com/authorize
-)
-OIDC_OP_TOKEN_ENDPOINT = os.environ.get(
-    "OIDC_OP_TOKEN_ENDPOINT"
-    # https://<TENANT>.auth0.com/oauth/token
-)
-OIDC_OP_USER_ENDPOINT = os.environ.get(
-    "OIDC_OP_USER_ENDPOINT"
-    # https://<TENANT>.auth0.com/userinfo
-)
-OIDC_OP_DOMAIN = os.environ.get(
-    "OIDC_OP_DOMAIN"
-    # <TENANT>.auth0.com
-)
-OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT")
+
+OIDC_OP_AUTHORIZATION_ENDPOINT = "https://auth.mozilla.auth0.com/authorize"
+OIDC_OP_TOKEN_ENDPOINT = "https://auth.mozilla.auth0.com/oauth/token"
+OIDC_OP_USER_ENDPOINT = "https://auth.mozilla.auth0.com/userinfo"
+OIDC_OP_DOMAIN = "auth.mozilla.auth0.com"
+OIDC_OP_JWKS_ENDPOINT = "https://auth.mozilla.auth0.com/.well-known/jwks.json"
 
 # If True (which should only be done in settings.local), then show username and
 # password fields. You'll also need to enable the model backend in local settings
