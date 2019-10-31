@@ -207,13 +207,16 @@ CSRF_COOKIE_HTTPONLY = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = True
 SECURE_SSL_REDIRECT = bool(os.environ.get("SECURE_SSL_REDIRECT", False))
 SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = "DENY"
 
-# Wagtail settings
+# Set header Strict-Transport-Security header
+SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", 3600))
+# Start with an hour, move to a year once we're settled.
+# Set to 0 via env to disable BEFORE deployment (!)
 
+# Wagtail settings
 WAGTAIL_SITE_NAME = "Mozilla Developer"
 
 # Add support for CodePen oEmbed
