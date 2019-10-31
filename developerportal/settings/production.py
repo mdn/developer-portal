@@ -2,6 +2,8 @@ from urllib.parse import urlparse
 
 from .base import *  # noqa
 
+ADMINS = [ ("Developer-Portal Errors", "dev-portal-errors@mozilla.com") ]
+
 DEBUG = False
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
