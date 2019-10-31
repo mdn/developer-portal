@@ -25,6 +25,4 @@ export APP_AWS_BUCKET_NAME=developer-portal-prod-178589013767
 export APP_AWS_STORAGE_BUCKET_NAME=devportal-media-prod
 export APP_AWS_BUCKET_REGION=us-west-2
 
-export CELERY_WORKER_REPLICAS=2
-
 export GOOGLE_ANALYTICS=UA-49796218-59
