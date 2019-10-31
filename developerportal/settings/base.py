@@ -203,6 +203,7 @@ STATIC_URL = "/static/"
 # Django security settings (see `manage.py check --deploy`)
 
 CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
