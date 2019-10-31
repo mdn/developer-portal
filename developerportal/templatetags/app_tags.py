@@ -39,9 +39,6 @@ def render_gif(block_value):
 
 @register.simple_tag
 def get_scheme_and_host(request):
-    if settings.DEFAULT_FILE_STORAGE == "storages.backends.s3boto3.S3Boto3Storage":
-        # If we're using S3, we don't need to return a "base url" for assets
-        return ""
     return f"{request.scheme}://{request.get_host()}"
 
 
