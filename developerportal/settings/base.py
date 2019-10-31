@@ -27,10 +27,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", get_random_secret_key())
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
+ADMINS = [("DevPortal Admins", "dev-portal-errors@mozilla.com")]
 
 # Application definition
 INSTALLED_APPS = [
