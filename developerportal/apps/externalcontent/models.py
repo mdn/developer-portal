@@ -110,7 +110,11 @@ class ExternalArticleTopic(Orderable):
 
 
 class ExternalArticle(ExternalContent):
-    resource_type = "article"
+    class Meta:
+        verbose_name = "External Post"
+        verbose_name_plural = "External Posts"
+
+    resource_type = "article"  #  if you change this, amend the related CSS, too
 
     date = DateField(
         "Article date",

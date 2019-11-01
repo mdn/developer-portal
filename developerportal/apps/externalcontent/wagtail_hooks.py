@@ -46,7 +46,7 @@ class ExternalContentAdmin(ModelAdmin):
 class ExternalArticleAdmin(ModelAdmin):
     model = ExternalArticle
     menu_icon = "doc-full-inverse"
-    menu_label = "Articles"
+    menu_label = "Posts"
     exclude_from_explorer = True
     button_helper_class = ExternalContentButtonHelper
 
