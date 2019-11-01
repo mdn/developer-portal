@@ -7,7 +7,7 @@ from celery.schedules import crontab
 
 STATIC_BUILD_JOB_ATTEMPT_FREQUENCY = 60.0 * 1  # Check each minute
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "developerportal.settings.production")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "developerportal.settings.worker")
 
 app = Celery("developerportal.apps.staticbuild", broker=settings.CELERY_BROKER_URL)
 
