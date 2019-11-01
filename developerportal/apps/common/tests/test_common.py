@@ -63,7 +63,7 @@ class BasePageFormTestCase(TestCase):
             form.fields["slug"].help_text,
             (
                 "The name of the page as it will appear in URLs. For example, "
-                "for an Article: https://example.com/articles/slug/"
+                "for a post: https://example.com/posts/your-slug-here/"
             ),
         )
 
@@ -80,6 +80,6 @@ class BasePageFormTestCase(TestCase):
             form.fields["slug"].help_text,
             (
                 "The name of the page as it will appear in URLs. For example, "
-                "for an Article: http://localhost/articles/slug/"
+                "for a post: http://localhost/posts/your-slug-here/"
             ),
         )
