@@ -87,7 +87,7 @@ class Topic(BasePage):
         StreamBlock(
             [
                 (
-                    "article",
+                    "post",
                     PageChooserBlock(
                         target_model=(
                             "articles.Article",
@@ -102,7 +102,7 @@ class Topic(BasePage):
         ),
         null=True,
         blank=True,
-        help_text="Optional space for featured articles, max. 4",
+        help_text="Optional space for featured posts, max. 4",
     )
     tabbed_panels = StreamField(
         StreamBlock([("panel", TabbedPanelBlock())], max_num=3, required=False),
@@ -114,7 +114,7 @@ class Topic(BasePage):
     latest_articles_count = IntegerField(
         choices=RESOURCE_COUNT_CHOICES,
         default=3,
-        help_text="The number of articles to display for this topic.",
+        help_text="The number of posts to display for this topic.",
     )
 
     # Card fields
@@ -174,7 +174,7 @@ class Topic(BasePage):
             heading="Theme",
             help_text=(
                 "Theme settings used on topic page and any tagged content. "
-                "For example, an article tagged with this topic "
+                "For example, a post tagged with this topic "
                 "will use the color specified here as its accent color."
             ),
         ),
