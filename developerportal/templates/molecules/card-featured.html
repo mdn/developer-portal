@@ -12,9 +12,6 @@
 {% endif %}
   <div class="card-featured">
     <div class="card-featured-image" style="background-image: url('{% firstof card_image.url image.url fallback_image_url %}')"></div>
-    <div class="card-featured-content">
-      <span class="highlighted featured">Featured</span>
-    </div>
     <div class="card-featured-caption">
       <h5 class="no-underline">
         {% firstof resource.card_title resource.title %}{% if external_page or resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
