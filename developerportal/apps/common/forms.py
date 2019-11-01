@@ -10,7 +10,7 @@ def _custom_slug_help_text():
 
     return (
         f"The name of the page as it will appear in URLs. For example, "
-        f"for an Article: {base_url}/articles/slug/"
+        f"for a post: {base_url}/posts/your-slug-here/"
     )
 
 
