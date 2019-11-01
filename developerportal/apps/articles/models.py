@@ -42,9 +42,14 @@ class ArticlesTag(TaggedItemBase):
 
 
 class Articles(BasePage):
+    # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Article"]
     template = "articles.html"
+
+    class Meta:
+        verbose_name = "Posts"
+        verbose_name_plural = "Posts"
 
     # Content fields
     description = RichTextField(
@@ -89,9 +94,6 @@ class Articles(BasePage):
         ]
     )
 
-    class Meta:
-        verbose_name_plural = "Articles"
-
     @classmethod
     def can_create_at(cls, parent):
         # Allow only one instance of this page type
@@ -126,10 +128,16 @@ class ArticleTopic(Orderable):
 
 
 class Article(BasePage):
-    resource_type = "article"
+    # IMPORTANT: EACH ARTICLE is NOW LABELLED "POST" IN THE FRONT END
+
+    resource_type = "article"  # If you chance this, CSS will need updating, too
     parent_page_types = ["Articles"]
     subpage_types = []
     template = "article.html"
+
+    class Meta:
+        verbose_name = "Post"  # NB
+        verbose_name_plural = "Posts"  # NB
 
     # Content fields
     description = RichTextField(
