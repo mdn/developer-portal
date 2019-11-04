@@ -1,9 +1,13 @@
+import logging
+
 from django.db.utils import ProgrammingError
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.contrib.modeladmin.helpers import PageButtonHelper
 from wagtail.contrib.modeladmin.helpers.url import AdminURLHelper
 from wagtail.contrib.modeladmin.options import ModelAdmin
+
+logger = logging.getLogger(__name__)
 
 
 class ExplorerRedirectAdminURLHelper(AdminURLHelper):
@@ -14,8 +18,9 @@ class ExplorerRedirectAdminURLHelper(AdminURLHelper):
                 if page:
                     return r"^pages/%s/$" % (page.pk)
                 action = "add"
-            except ProgrammingError:
-                pass
+            except ProgrammingError as e:
+                logger.exception(e)
+
         super()._get_action_url_pattern(action)
 
 
