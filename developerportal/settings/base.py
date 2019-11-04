@@ -294,8 +294,9 @@ LOGIN_ERROR_URL = "/admin/"
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
 
-# GOOGLE_ANALYTICS
-GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS")
+GOOGLE_ANALYTICS = ""
+# GOOGLE_ANALYTICS is _only_ set in settings.worker, because we ONLY want it
+# to appear in the static site, not the live-rendered site.
 
 # Mapbox
 MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")
