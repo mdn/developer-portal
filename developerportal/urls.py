@@ -3,6 +3,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.http import Http404
 from django.views.defaults import page_not_found, server_error
+from django.views.generic import TemplateView
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -17,6 +18,10 @@ urlpatterns = [
     url(r"^documents/", include(wagtaildocs_urls)),
     url(r"^article-feed/", RssFeeds()),
     url(r"^auth/", include("mozilla_django_oidc.urls")),
+    url(
+        r"^robots\.txt$",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
 ]
 
 
