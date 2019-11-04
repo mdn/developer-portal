@@ -11,6 +11,13 @@ logger = logging.getLogger(__name__)
 
 
 class ExplorerRedirectAdminURLHelper(AdminURLHelper):
+    """Make the sidebar link for the particular page type go to the
+    view of the page that lists their children, rather than the edit
+    view of the top-level page itself (Articles, Events, Topics or Videos)
+
+    eg: go to `/admin/pages/<id>/` rather than `/admin/videos/videos`
+    """
+
     def _get_action_url_pattern(self, action):
         if action == "index" and self.model.objects:
             try:
