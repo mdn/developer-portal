@@ -24,3 +24,5 @@ export APP_EXPORTED_SITE_HOST=developer-portal-published.stage.mdn.mozit.cloud
 export APP_AWS_BUCKET_NAME=developer-portal-stage-178589013767
 export APP_AWS_STORAGE_BUCKET_NAME=devportal-media-stage
 export APP_AWS_BUCKET_REGION=us-west-2
+
+export GOOGLE_ANALYTICS=UA-49796218-59
