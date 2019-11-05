@@ -79,13 +79,26 @@ class HomePage(BasePage):
                     ),
                 ),
                 ("external_page", FeaturedExternalBlock()),
+                (
+                    "video",
+                    PageChooserBlock(
+                        target_model=(
+                            "videos.Video",
+                            # NB: ExternalVideo is NOT allowed on the homepage
+                            # "externalcontent.ExternalVideo"
+                        )
+                    ),
+                ),
             ],
             max_num=4,
             required=False,
         ),
         null=True,
         blank=True,
-        help_text="Optional space for featured posts, max. 4",
+        help_text=(
+            "Optional space for featured posts, videos or links, max. 4. "
+            "Note that External Video is NOT allowed here."
+        ),
     )
 
     featured_people = StreamField(

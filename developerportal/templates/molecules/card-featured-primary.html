@@ -3,7 +3,14 @@
 {% load wagtailimages_tags %}
 {% image resource.image width-1024 as image %}
 {% image resource.card_image width-1024 as card_image %}
-{% static "img/placeholders/article.jpg" as fallback_image_url %}
+
+{% if block_type == "video" %}
+  {% static "img/placeholders/video.jpg" as fallback_image_url %}
+{% elif block_type == "event" %}
+  {% static "img/placeholders/event.jpg" as fallback_image_url %}
+{% else %}
+  {% static "img/placeholders/article.jpg" as fallback_image_url %}
+{% endif %}
 
 {% if external_page %}
 <a href="{{ resource.url }}" class="card-link" data-type="external_page" target="_blank" rel="nofollow noopener">
