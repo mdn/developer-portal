@@ -142,8 +142,9 @@ def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELI
     with redis_lock(lock_id=BUILD_LOCK_NAME, oid=self.app.oid) as lock_acquired:
         if lock_acquired:
 
-            build_dir = _generate_build_path()
-            logger.info(f"{log_prefix} Created temporary build dir {build_dir}")
+            if not settings.DEBUG:
+                build_dir = _generate_build_path()
+                logger.info(f"{log_prefix} Created temporary build dir {build_dir}")
 
             for name, command in pipeline:
                 if settings.DEBUG and not force:
