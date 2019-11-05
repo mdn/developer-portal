@@ -34,5 +34,7 @@ class Migration(migrations.Migration):
     dependencies = []
 
     operations = [
-        migrations.RunPython(drop_social_auth_tables, migrations.RunPython.noop)
+        # DISABLED BECAUSE WE NO LONGER NEED IT, BUT KEPT FOR REFERENCE
+        # migrations.RunPython(drop_social_auth_tables, migrations.RunPython.noop)
+        # migrations.RunPython(drop_social_auth_tables, migrations.RunPython.noop)
     ]
