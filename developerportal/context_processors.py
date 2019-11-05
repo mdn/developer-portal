@@ -2,7 +2,12 @@ from django.conf import settings
 
 
 def google_analytics(request):
-    return {"GOOGLE_ANALYTICS": settings.GOOGLE_ANALYTICS}
+    DEFAULT_GA_PLACEHOLDER_VAL = "0"  # from the k8s Makefile
+    output = {}
+    ga_code = settings.GOOGLE_ANALYTICS
+    if ga_code and ga_code != DEFAULT_GA_PLACEHOLDER_VAL:
+        output.update({"GOOGLE_ANALYTICS": ga_code})
+    return output
 
 
 def mapbox_access_token(request):
