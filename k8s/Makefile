@@ -8,6 +8,9 @@ export K8S_CLUSTER_SHORT_NAME ?= eks-oregon
 # Define an alias for the namespaced kubectl for convenience.
 export KC=kubectl -n ${K8S_NAMESPACE}
 
+# Configure default django settings to prod
+export DJANGO_SETTINGS_MODULE ?= developerportal.settings.production
+
 export APP_SERVICE_NAME ?= wagtail
 export APP_SERVICE_IDLE_TIMEOUT ?= 120
 
@@ -72,6 +75,7 @@ k8s-wagtail-deployments:
 	j2 app.deploy.yaml.j2 | ${KC} apply -f -
 
 k8s-celery-deployments:
+	env DJANGO_SETTINGS_MODULE=developerportal.settings.worker \
 	j2 celery.yaml.j2 | ${KC} apply -f -
 
 k8s-celery-beat-deployments:

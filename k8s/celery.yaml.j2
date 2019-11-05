@@ -31,7 +31,3 @@ spec:
               cpu: {{ CELERY_WORKER_CPU_LIMIT }}
               memory: {{ CELERY_WORKER_MEMORY_LIMIT }}
 {% include 'app.env.yaml.j2' %}
-            # Ensure we have the right settings available for the worker
-            # (the indentation here is the right depth to be in the `env:` key)
-            - name: DJANGO_SETTINGS_MODULE
-              value: "developerportal.settings.worker"
