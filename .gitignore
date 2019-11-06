@@ -112,4 +112,3 @@ node_modules
 /etc/nginx/ssl/*.crt
 /etc/nginx/ssl/*.pem
 /etc/nginx/ssl/*.csr
-/etc/nginx/ssl/*.json
