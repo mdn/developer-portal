@@ -4,9 +4,9 @@ from developerportal.apps.articles.models import Article
 
 
 class RssFeeds(Feed):
-    title = "Mozilla Developer articles feed"
-    link = "/article-feed/"
-    description = "Articles published"
+    title = "Mozilla Developer posts feed"
+    link = "/posts-feed/"
+    description = "Posts published"
 
     def items(self):
         return Article.published_objects.all().order_by("-date")[:20]
