@@ -283,7 +283,7 @@ class Article(BasePage):
     @property
     def related_resources(self):
         """Returns resources that are related to the current resource, i.e.
-        live, public Articles and videos which have the same topics."""
+        live, public Articles and Videos which have the same Topics."""
         topic_pks = [topic.topic.pk for topic in self.topics.all()]
         return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 
