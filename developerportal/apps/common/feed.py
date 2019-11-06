@@ -4,7 +4,7 @@ from developerportal.apps.articles.models import Article
 
 
 class RssFeeds(Feed):
-    title = "Mozilla Developer Portal posts feed"
+    title = "Mozilla Developer posts feed"
     link = "/posts-feed/"
     description = "Posts published"
 
