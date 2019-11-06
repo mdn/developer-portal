@@ -48,8 +48,8 @@ class Articles(BasePage):
     template = "articles.html"
 
     class Meta:
-        verbose_name = "Posts"
-        verbose_name_plural = "Posts"
+        verbose_name = "posts"
+        verbose_name_plural = "posts"
 
     # Content fields
     description = RichTextField(
@@ -136,8 +136,8 @@ class Article(BasePage):
     template = "article.html"
 
     class Meta:
-        verbose_name = "Post"  # NB
-        verbose_name_plural = "Posts"  # NB
+        verbose_name = "post"  # NB
+        verbose_name_plural = "posts"  # NB
 
     # Content fields
     description = RichTextField(

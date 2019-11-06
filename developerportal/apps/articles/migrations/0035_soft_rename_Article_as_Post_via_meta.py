@@ -5,17 +5,15 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('articles', '0034_external_person_description'),
-    ]
+    dependencies = [("articles", "0034_external_person_description")]
 
     operations = [
         migrations.AlterModelOptions(
-            name='article',
-            options={'verbose_name': 'Post', 'verbose_name_plural': 'Posts'},
+            name="article",
+            options={"verbose_name": "post", "verbose_name_plural": "posts"},
         ),
         migrations.AlterModelOptions(
-            name='articles',
-            options={'verbose_name': 'Posts', 'verbose_name_plural': 'Posts'},
+            name="articles",
+            options={"verbose_name": "posts", "verbose_name_plural": "posts"},
         ),
     ]
