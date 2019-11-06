@@ -327,9 +327,15 @@ CACHES = {
 
 OIDC_RP_SIGN_ALGO = "RS256"
 
-# How frequently do we check with the provider that the user still exists
-# and is authorised? It's 15 mins by default.
-# To override, set OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS
+# How frequently do we check with the provider that the authenticated CMS user
+# still exists and is authorised? It's 15 mins by default, but we're extending
+# this. Why? It looks like renewal of an expired "lease" appears to give us a
+# fresh CSRF token, which means pages that are edited over a period greater
+# than this timeframe will fail to save because they feature the old token in
+# their page and POST payload.
+# So, we're going with a longer lease, with the minor trade-off that a revoked
+# SSO account can still remain active within the CMS for up to an hour
+OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = 60 * 60  # 1 hour
 
 OIDC_CREATE_USER = False  # We don't want stop drive-by signups
 
