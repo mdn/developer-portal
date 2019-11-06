@@ -63,6 +63,7 @@ services:
       - worker
 
   # For local development, generates a self sign cert
+  # to run: docker-compose run cfssl
   cfssl:
     image: cfssl/cfssl
     working_dir: /ssl
