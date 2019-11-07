@@ -267,8 +267,8 @@ class Article(BasePage):
         ]
     )
 
-    # Rss feed
     def get_absolute_url(self):
+        # For the RSS feed
         return self.full_url
 
     @property

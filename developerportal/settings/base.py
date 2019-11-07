@@ -299,6 +299,10 @@ GOOGLE_ANALYTICS = ""
 # GOOGLE_ANALYTICS is _only_ set in settings.worker, because we ONLY want it
 # to appear in the static site, not the live-rendered site.
 
+# RSS Feed
+RSS_MAX_ITEMS = 20
+
+
 # Mapbox
 MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")
 
