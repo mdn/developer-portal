@@ -1,6 +1,7 @@
 # pylint: disable=no-member
 import datetime
 
+from django.core.exceptions import ValidationError
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -41,6 +42,16 @@ from ..common.utils import (
     get_combined_events,
     get_combined_videos,
 )
+
+
+def check_for_svg_file(obj):
+    # A very light, naive check that the file at least has an .svg suffix.
+    # This is NOT 100% safe/guaranteed, but given the users are trusted, this just a
+    # small layer of protection against accidental oversights, because saving a bitmap
+    # into this field by accident will cause `app_tags.render_svg()` to fail.
+
+    if obj.file.name.split(".")[-1] != "svg":
+        raise ValidationError(u"Only SVG images are allowed here.")
 
 
 class TopicsTag(TaggedItemBase):
@@ -130,7 +141,16 @@ class Topic(BasePage):
     )
 
     # Meta
-    icon = FileField(upload_to="topics/icons", blank=True, default="")
+    icon = FileField(
+        upload_to="topics/icons",
+        blank=True,
+        default="",
+        help_text=(
+            "MUST be a black-on-transparent SVG icon ONLY, "
+            "with no bitmap embedded in it."
+        ),
+        validators=[check_for_svg_file],
+    )
     color = CharField(max_length=14, choices=COLOR_CHOICES, default="blue-40")
     keywords = ClusterTaggableManager(through=TopicTag, blank=True)
 
