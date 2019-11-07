@@ -32,7 +32,7 @@ from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import get_combined_articles, get_combined_articles_and_videos
+from ..common.utils import get_combined_articles_and_videos
 
 
 class ArticlesTag(TaggedItemBase):
@@ -105,8 +105,9 @@ class Articles(BasePage):
         return context
 
     @property
-    def articles(self):
-        return get_combined_articles(self)
+    def resources(self):
+        # This Page class will show both Articles/Posts and Videos in its listing
+        return get_combined_articles_and_videos(self)
 
     def get_filters(self):
         from ..topics.models import Topic
@@ -266,8 +267,8 @@ class Article(BasePage):
         ]
     )
 
-    # Rss feed
     def get_absolute_url(self):
+        # For the RSS feed
         return self.full_url
 
     @property
