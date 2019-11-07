@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 from django.core.management.utils import get_random_secret_key
-from django.utils.log import DEFAULT_LOGGING
 
 from wagtail.embeds.oembed_providers import all_providers
 
@@ -367,8 +366,52 @@ WAGTAIL_PASSWORD_RESET_ENABLED = False
 # and blank password means cannot log in unless SSO
 WAGTAILUSERS_PASSWORD_ENABLED = False
 
-# EXTRA LOGGING
-DEFAULT_LOGGING["loggers"]["mozilla_django_oidc"] = {
-    "handlers": ["console"],
-    "level": "INFO",
+# Based on DEFAULT_LOGGING with some tweaks
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+        "require_debug_true": {"()": "django.utils.log.RequireDebugTrue"},
+    },
+    "formatters": {
+        "django.server": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": "[{server_time}] {message}",
+            "style": "{",
+        }
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+        },
+        "django.server": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "django.server",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        "null": {"class": "logging.NullHandler"},
+    },
+    "loggers": {
+        "django": {"handlers": ["console", "mail_admins"], "level": "INFO"},
+        "django.server": {
+            "handlers": ["django.server"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "mozilla_django_oidc": {"handlers": ["console"], "level": "INFO"},
+        "django.security.DisallowedHost": {
+            # This is to silence warnings about hostname mismatches from bots, etc
+            # See https://docs.djangoproject.com/en/2.2/topics/logging/#django-security
+            "handlers": ["null"],
+            "propagate": False,
+        },
+    },
 }
