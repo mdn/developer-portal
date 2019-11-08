@@ -23,9 +23,9 @@ exports.parseQueryParams = () => {
  *
  * @returns {object}
  */
-exports.parseForm = () => {
+exports.parseForm = form => {
   const filter = {};
-  const elements = document.querySelectorAll('input[type="checkbox"]:checked');
+  const elements = form.querySelectorAll('input[type="checkbox"]:checked');
   Array.from(elements).forEach(element => {
     if (!filter[element.name]) {
       filter[element.name] = [];
