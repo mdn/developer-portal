@@ -83,3 +83,28 @@ class BasePageFormTestCase(TestCase):
                 "for a post: http://localhost/posts/your-slug-here/"
             ),
         )
+
+    def test_help_text_patching_for_external_content(self):
+        # Inline import because we need to use a subclass of Page and don't
+        # want to pollute this module more than we have to
+        from developerportal.apps.externalcontent.models import (
+            ExternalEvent,
+            ExternalContent,
+            ExternalVideo,
+            ExternalArticle,
+        )
+
+        for model in [ExternalEvent, ExternalContent, ExternalVideo, ExternalArticle]:
+            assert model.base_form_class == BasePageForm
+
+            FormClass = get_form_for_model(model, form_class=BasePageForm)
+            form = FormClass()
+
+            self.assertEqual(
+                form.fields["slug"].help_text,
+                (
+                    "Because you are adding External content, "
+                    "this slug will NOT be visible to the end user, "
+                    "but still needs to be unique within the CMS."
+                ),
+            )
