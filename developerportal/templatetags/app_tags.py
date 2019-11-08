@@ -45,3 +45,11 @@ def get_scheme_and_host(request):
 @register.simple_tag
 def use_conventional_auth():
     return settings.USE_CONVENTIONAL_AUTH
+
+
+@register.filter
+def has_at_least_two_filters(filters):
+    # For the given dictionary of `filters`, return True if at
+    # least two of its keys' values are truthy, else False
+    result = len([val for val in filters.values() if bool(val)]) >= 2
+    return result
