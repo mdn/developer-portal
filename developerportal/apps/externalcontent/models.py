@@ -74,12 +74,12 @@ class ExternalContent(BasePage):
         FieldPanel("external_url"),
     ]
 
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
+
     edit_handler = TabbedInterface(
         [
             ObjectList(card_panels, heading="Card"),
-            ObjectList(
-                BasePage.settings_panels, heading="Settings", classname="settings"
-            ),
+            ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
 
@@ -158,13 +158,13 @@ class ExternalArticle(ExternalContent):
         FieldPanel("read_time"),
     ]
 
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
+
     edit_handler = TabbedInterface(
         [
             ObjectList(ExternalContent.card_panels, heading="Card"),
             ObjectList(meta_panels, heading="Meta"),
-            ObjectList(
-                BasePage.settings_panels, heading="Settings", classname="settings"
-            ),
+            ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
 
@@ -239,13 +239,13 @@ class ExternalEvent(ExternalContent):
         ),
     ]
 
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
+
     edit_handler = TabbedInterface(
         [
             ObjectList(ExternalContent.card_panels, heading="Card"),
             ObjectList(meta_panels, heading="Meta"),
-            ObjectList(
-                BasePage.settings_panels, heading="Settings", classname="settings"
-            ),
+            ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
 
@@ -339,13 +339,13 @@ class ExternalVideo(ExternalContent):
         FieldPanel("duration"),
     ]
 
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
+
     edit_handler = TabbedInterface(
         [
             ObjectList(ExternalContent.card_panels, heading="Card"),
             ObjectList(meta_panels, heading="Meta"),
-            ObjectList(
-                BasePage.settings_panels, heading="Settings", classname="settings"
-            ),
+            ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
 
