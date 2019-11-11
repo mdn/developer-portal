@@ -1,4 +1,4 @@
-Django==2.2.6
+Django==2.2.7
 celery==4.3.0
 redis==3.3.11
 kombu==4.5.0  # This is not the latest, but see https://github.com/celery/kombu/issues/1087
@@ -8,7 +8,7 @@ gunicorn==19.9.0
 meinheld==1.0.1
 mozilla-django-oidc==1.2.2
 django-storages==1.7.2
-boto3==1.10.6
+boto3==1.10.14
 psycopg2==2.8.4
 Pygments==2.4.2
 readtime==1.1.1
@@ -20,7 +20,7 @@ newrelic==5.2.2.130
 ## The following requirements were added by pip freeze:
 appdirs==1.4.3
 beautifulsoup4==4.6.0
-botocore==1.13.6
+botocore==1.13.14
 certifi==2019.9.11
 chardet==3.0.4
 cssselect==1.1.0
@@ -41,12 +41,12 @@ lxml==4.4.1
 markdown2==2.3.8
 Pillow==6.2.1
 pyquery==1.4.1
-python-dateutil==2.8.0
+python-dateutil==2.8.1
 pytz==2019.3
 requests==2.22.0
 s3transfer==0.2.1
-six==1.12.0
-soupsieve==1.9.4
+six==1.13.0
+soupsieve==1.9.5
 sqlparse==0.3.0
 Unidecode==1.1.1
 urllib3==1.25.6

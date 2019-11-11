@@ -249,6 +249,10 @@ class Video(BasePage):
         ]
     )
 
+    def get_absolute_url(self):
+        # For the RSS feed
+        return self.full_url
+
     @property
     def primary_topic(self):
         """Return the first (primary) topic specified for the video."""

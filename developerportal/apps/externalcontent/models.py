@@ -110,12 +110,16 @@ class ExternalArticleTopic(Orderable):
 
 
 class ExternalArticle(ExternalContent):
-    resource_type = "article"
+    class Meta:
+        verbose_name = "External Post"
+        verbose_name_plural = "External Posts"
+
+    resource_type = "article"  #  if you change this, amend the related CSS, too
 
     date = DateField(
-        "Article date",
+        "External Post date",
         default=datetime.date.today,
-        help_text="The date the article was published",
+        help_text="The date the external post was published",
     )
     authors = StreamField(
         StreamBlock(
@@ -128,7 +132,8 @@ class ExternalArticle(ExternalContent):
         blank=True,
         null=True,
         help_text=(
-            "Optional list of the article’s authors. Use ‘External author’ to add "
+            "Optional list of the external post's authors. "
+            "Use ‘External author’ to add "
             "guest authors without creating a profile on the system"
         ),
     )
@@ -136,8 +141,9 @@ class ExternalArticle(ExternalContent):
         max_length=30,
         blank=True,
         help_text=(
-            "Optional, approximate read-time for this article, e.g. “2 mins”. This "
-            "is shown as a small hint when the article is displayed as a card."
+            "Optional, approximate read-time for this external post, "
+            "e.g. “2 mins”. This is shown as a small hint when the "
+            "external post is displayed as a card."
         ),
     )
 
@@ -147,7 +153,7 @@ class ExternalArticle(ExternalContent):
         MultiFieldPanel(
             [InlinePanel("topics")],
             heading="Topics",
-            help_text="The topic pages this article will appear on",
+            help_text="The topic pages this external post will appear on",
         ),
         FieldPanel("read_time"),
     ]

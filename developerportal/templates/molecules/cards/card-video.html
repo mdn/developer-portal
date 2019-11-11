@@ -8,11 +8,16 @@
 
 <a
   href="{% pageurl resource %}"
-  class="card-link {% if resource.is_external %}js-modal-trigger{% endif %}"
-  data-type="{{ resource.resource_type }}"
+  class="card-link {% if filter_target %}js-filter-target{% endif %} {% if resource.is_external %}js-modal-trigger{% endif %}"
   {% if resource.is_external %}
     data-class-name="mzp-has-media"
     data-title="{{ resource.title }}"
+  {% endif %}
+  data-type="{{ resource.resource_type }}"
+  {% if filter_target %}
+    data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
+    data-month="{{ resource.month_group|date:'Y-m' }}"
+    hidden
   {% endif %}
 >
   <div class="card {% if full_width %}card-full{% endif %}">

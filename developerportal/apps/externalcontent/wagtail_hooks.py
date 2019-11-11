@@ -35,7 +35,32 @@ class ExternalContentButtonHelper(PageButtonHelper):
         return btns
 
 
-class ExternalContentAdmin(ModelAdmin):
+class BaseExternalEntityAdmin(ModelAdmin):
+    """We want all the ExternalContent Pages to show in the list,
+    not just the live ones. And we want to make it easy to see which
+    of them is live and which is draft."""
+
+    list_display = ("title", "show_draft_status")
+
+    def show_draft_status(self, obj):
+        if obj.live:
+            return "Published"
+        else:
+            return "Draft"
+
+    show_draft_status.short_description = "Published state?"
+
+    def get_queryset(self, request):
+        # super().get_queryset() uses the default manager, which only gets
+        # live Pages, but here we want to see drafts, too
+        qs = self.model.objects.all()
+        ordering = self.get_ordering(request)
+        if ordering:
+            qs = qs.order_by(*ordering)
+        return qs
+
+
+class ExternalContentAdmin(BaseExternalEntityAdmin):
     model = ExternalContent
     menu_icon = "link"
     menu_label = "All content"
@@ -43,15 +68,15 @@ class ExternalContentAdmin(ModelAdmin):
     button_helper_class = ExternalContentButtonHelper
 
 
-class ExternalArticleAdmin(ModelAdmin):
+class ExternalArticleAdmin(BaseExternalEntityAdmin):
     model = ExternalArticle
     menu_icon = "doc-full-inverse"
-    menu_label = "Articles"
+    menu_label = "Posts"
     exclude_from_explorer = True
     button_helper_class = ExternalContentButtonHelper
 
 
-class ExternalEventAdmin(ModelAdmin):
+class ExternalEventAdmin(BaseExternalEntityAdmin):
     model = ExternalEvent
     menu_icon = "date"
     menu_label = "Events"
@@ -59,7 +84,7 @@ class ExternalEventAdmin(ModelAdmin):
     button_helper_class = ExternalContentButtonHelper
 
 
-class ExternalVideoAdmin(ModelAdmin):
+class ExternalVideoAdmin(BaseExternalEntityAdmin):
     model = ExternalVideo
     menu_icon = "media"
     menu_label = "Videos"

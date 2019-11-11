@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 from django.core.management.utils import get_random_secret_key
-from django.utils.log import DEFAULT_LOGGING
 
 from wagtail.embeds.oembed_providers import all_providers
 
@@ -27,10 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", get_random_secret_key())
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
+ADMINS = [("DevPortal Admins", "dev-portal-errors@mozilla.com")]
 
 # Application definition
 INSTALLED_APPS = [
@@ -164,6 +160,7 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
 EMAIL_USE_TLS = bool(os.environ.get("EMAIL_USE_TLS", True))
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+SERVER_EMAIL = os.environ.get("SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
 
 # Internationalization
@@ -203,16 +200,20 @@ STATIC_URL = "/static/"
 # Django security settings (see `manage.py check --deploy`)
 
 CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = True
 SECURE_SSL_REDIRECT = bool(os.environ.get("SECURE_SSL_REDIRECT", False))
 SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = "DENY"
 
-# Wagtail settings
+# Set header Strict-Transport-Security header
+SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", 3600))
+# Start with an hour, move to a year once we're settled.
+# Set to 0 via env to disable BEFORE deployment (!)
 
+# Wagtail settings
 WAGTAIL_SITE_NAME = "Mozilla Developer"
 
 # Add support for CodePen oEmbed
@@ -293,8 +294,13 @@ LOGIN_ERROR_URL = "/admin/"
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
 
-# GOOGLE_ANALYTICS
-GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS")
+GOOGLE_ANALYTICS = ""
+# GOOGLE_ANALYTICS is _only_ set in settings.worker, because we ONLY want it
+# to appear in the static site, not the live-rendered site.
+
+# RSS Feed
+RSS_MAX_ITEMS = 20
+
 
 # Mapbox
 MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")
@@ -324,9 +330,15 @@ CACHES = {
 
 OIDC_RP_SIGN_ALGO = "RS256"
 
-# How frequently do we check with the provider that the user still exists
-# and is authorised? It's 15 mins by default.
-# To override, set OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS
+# How frequently do we check with the provider that the authenticated CMS user
+# still exists and is authorised? It's 15 mins by default, but we're extending
+# this. Why? It looks like renewal of an expired "lease" appears to give us a
+# fresh CSRF token, which means pages that are edited over a period greater
+# than this timeframe will fail to save because they feature the old token in
+# their page and POST payload.
+# So, we're going with a longer lease, with the minor trade-off that a revoked
+# SSO account can still remain active within the CMS for up to an hour
+OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = 60 * 60  # 1 hour
 
 OIDC_CREATE_USER = False  # We don't want stop drive-by signups
 
@@ -354,8 +366,52 @@ WAGTAIL_PASSWORD_RESET_ENABLED = False
 # and blank password means cannot log in unless SSO
 WAGTAILUSERS_PASSWORD_ENABLED = False
 
-# EXTRA LOGGING
-DEFAULT_LOGGING["loggers"]["mozilla_django_oidc"] = {
-    "handlers": ["console"],
-    "level": "INFO",
+# Based on DEFAULT_LOGGING with some tweaks
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+        "require_debug_true": {"()": "django.utils.log.RequireDebugTrue"},
+    },
+    "formatters": {
+        "django.server": {
+            "()": "django.utils.log.ServerFormatter",
+            "format": "[{server_time}] {message}",
+            "style": "{",
+        }
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+        },
+        "django.server": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "django.server",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "filters": ["require_debug_false"],
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+        "null": {"class": "logging.NullHandler"},
+    },
+    "loggers": {
+        "django": {"handlers": ["console", "mail_admins"], "level": "INFO"},
+        "django.server": {
+            "handlers": ["django.server"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "mozilla_django_oidc": {"handlers": ["console"], "level": "INFO"},
+        "django.security.DisallowedHost": {
+            # This is to silence warnings about hostname mismatches from bots, etc
+            # See https://docs.djangoproject.com/en/2.2/topics/logging/#django-security
+            "handlers": ["null"],
+            "propagate": False,
+        },
+    },
 }

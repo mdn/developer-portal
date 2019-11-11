@@ -70,7 +70,7 @@ class HomePage(BasePage):
         StreamBlock(
             [
                 (
-                    "article",
+                    "post",
                     PageChooserBlock(
                         target_model=(
                             "articles.Article",
@@ -85,7 +85,7 @@ class HomePage(BasePage):
         ),
         null=True,
         blank=True,
-        help_text="Optional space for featured articles, max. 4",
+        help_text="Optional space for featured posts, max. 4",
     )
 
     featured_people = StreamField(

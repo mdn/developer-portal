@@ -14,6 +14,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 SECURE_SSL_REDIRECT = False
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
+SECURE_HSTS_SECONDS = 0
 
 # Swap out the default use of S3 for user media to instead use local machine
 DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"

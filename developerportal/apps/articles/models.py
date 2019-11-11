@@ -32,7 +32,7 @@ from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import get_combined_articles, get_combined_articles_and_videos
+from ..common.utils import get_combined_articles_and_videos
 
 
 class ArticlesTag(TaggedItemBase):
@@ -42,9 +42,14 @@ class ArticlesTag(TaggedItemBase):
 
 
 class Articles(BasePage):
+    # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Article"]
     template = "articles.html"
+
+    class Meta:
+        verbose_name = "posts"
+        verbose_name_plural = "posts"
 
     # Content fields
     description = RichTextField(
@@ -89,9 +94,6 @@ class Articles(BasePage):
         ]
     )
 
-    class Meta:
-        verbose_name_plural = "Articles"
-
     @classmethod
     def can_create_at(cls, parent):
         # Allow only one instance of this page type
@@ -103,8 +105,9 @@ class Articles(BasePage):
         return context
 
     @property
-    def articles(self):
-        return get_combined_articles(self)
+    def resources(self):
+        # This Page class will show both Articles/Posts and Videos in its listing
+        return get_combined_articles_and_videos(self)
 
     def get_filters(self):
         from ..topics.models import Topic
@@ -126,10 +129,16 @@ class ArticleTopic(Orderable):
 
 
 class Article(BasePage):
-    resource_type = "article"
+    # IMPORTANT: EACH ARTICLE is NOW LABELLED "POST" IN THE FRONT END
+
+    resource_type = "article"  # If you change this, CSS will need updating, too
     parent_page_types = ["Articles"]
     subpage_types = []
     template = "article.html"
+
+    class Meta:
+        verbose_name = "post"  # NB
+        verbose_name_plural = "posts"  # NB
 
     # Content fields
     description = RichTextField(
@@ -148,7 +157,7 @@ class Article(BasePage):
     )
     body = CustomStreamField(
         help_text=(
-            "The main article content. Supports rich text, images, embed via URL, "
+            "The main post content. Supports rich text, images, embed via URL, "
             "embed via HTML, and inline code snippets"
         )
     )
@@ -174,9 +183,9 @@ class Article(BasePage):
 
     # Meta fields
     date = DateField(
-        "Article date",
+        "Post date",
         default=datetime.date.today,
-        help_text="The date the article was published",
+        help_text="The date the post was published",
     )
     authors = StreamField(
         StreamBlock(
@@ -189,7 +198,7 @@ class Article(BasePage):
         blank=True,
         null=True,
         help_text=(
-            "Optional list of the article’s authors. Use ‘External author’ to add "
+            "Optional list of the post's authors. Use ‘External author’ to add "
             "guest authors without creating a profile on the system"
         ),
     )
@@ -225,7 +234,7 @@ class Article(BasePage):
             [InlinePanel("topics")],
             heading="Topics",
             help_text=(
-                "The topic pages this article will appear on. The first topic in the "
+                "The topic pages this post will appear on. The first topic in the "
                 "list will be treated as the primary topic and will be shown in the "
                 "page’s related content."
             ),
@@ -258,13 +267,13 @@ class Article(BasePage):
         ]
     )
 
-    # Rss feed
     def get_absolute_url(self):
+        # For the RSS feed
         return self.full_url
 
     @property
     def primary_topic(self):
-        """Return the first (primary) topic specified for the article."""
+        """Return the first (primary) topic specified for the Article."""
         article_topic = self.topics.first()
         return article_topic.topic if article_topic else None
 
@@ -275,7 +284,7 @@ class Article(BasePage):
     @property
     def related_resources(self):
         """Returns resources that are related to the current resource, i.e.
-        live, public articles and videos which have the same topics."""
+        live, public Articles and Videos which have the same Topics."""
         topic_pks = [topic.topic.pk for topic in self.topics.all()]
         return get_combined_articles_and_videos(self, topics__topic__pk__in=topic_pks)
 

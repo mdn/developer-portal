@@ -48,9 +48,9 @@ class ArticlesTests(PatchedWagtailPageTests):
     fixtures = ["common.json"]
 
     def test_articles_page(self):
-        """Get the default ‘Articles’ page."""
+        """Get the default ‘Articles’ page - WHICH IS LABELLED AS "Posts" """
         articles_page = Articles.objects.all()[0]
-        self.assertEqual("Articles", articles_page.title)
+        self.assertEqual("Posts", articles_page.title)
 
     def test_articles_page_parent_pages(self):
         """The Articles page can exist under another page."""

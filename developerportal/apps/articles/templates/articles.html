@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
+{% comment %} For now we're not renaming CSS classes from articles to posts {% endcomment %}
 {% block body_class %}articles{% endblock %}
 
 {% block content %}
@@ -9,7 +10,7 @@
       <div class="container">
         <div class="section-header">
           <div>
-            <h2>Articles</h2>
+            <h2>Posts</h2>
             {% if page.description %}
               <div class="page-description">
                 {{ page.description | richtext }}
@@ -18,7 +19,7 @@
           </div>
         </div>
       </div>
-      {% include "organisms/filter-list.html" with type="article" resources=page.articles initial_resources=6 resources_per_page=4 no_resources_message="No articles found" %}
+      {% include "organisms/filter-list.html" with type="article_or_video" resources=page.resources initial_resources=6 resources_per_page=4 no_resources_message="No posts found" %}
     </section>
     {% include "organisms/newsletter-signup.html" %}
   </main>

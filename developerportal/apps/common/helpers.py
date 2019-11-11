@@ -1,3 +1,5 @@
+import logging
+
 from django.db.utils import ProgrammingError
 from django.utils.translation import ugettext_lazy as _
 
@@ -5,8 +7,17 @@ from wagtail.contrib.modeladmin.helpers import PageButtonHelper
 from wagtail.contrib.modeladmin.helpers.url import AdminURLHelper
 from wagtail.contrib.modeladmin.options import ModelAdmin
 
+logger = logging.getLogger(__name__)
+
 
 class ExplorerRedirectAdminURLHelper(AdminURLHelper):
+    """Make the sidebar link for the particular page type go to the
+    view of the page that lists their children, rather than the edit
+    view of the top-level page itself (Articles, Events, Topics or Videos)
+
+    eg: go to `/admin/pages/<id>/` rather than `/admin/videos/videos`
+    """
+
     def _get_action_url_pattern(self, action):
         if action == "index" and self.model.objects:
             try:
@@ -14,8 +25,9 @@ class ExplorerRedirectAdminURLHelper(AdminURLHelper):
                 if page:
                     return r"^pages/%s/$" % (page.pk)
                 action = "add"
-            except ProgrammingError:
-                pass
+            except ProgrammingError as e:
+                logger.exception(e)
+
         super()._get_action_url_pattern(action)
 
 
