@@ -66,6 +66,7 @@ services:
   cfssl:
     image: cfssl/cfssl
     working_dir: /ssl
+    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ./etc/nginx/ssl:/ssl
     entrypoint: ./gen-cert.sh

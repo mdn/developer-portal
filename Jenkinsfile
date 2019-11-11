@@ -77,6 +77,9 @@ node {
         }
       }
       stage ('Test') {
+        // Set UID and GID
+        env['UID'] = sh(returnStdout: true, script: 'id -u jenkins').trim()
+        env['GID'] = sh(returnStdout: true, script: 'id -g jenkins').trim()
         try {
             sh "scripts/ci-setup --build"
             sh "scripts/ci-tests"
