@@ -19,8 +19,10 @@ spec:
           image: "{{ APP_IMAGE }}:{{ APP_IMAGE_TAG }}"
           imagePullPolicy: {{ APP_IMAGE_PULL_POLICY }}
           command:
-            - "gunicorn"
+            - "/usr/local/bin/newrelic-admin"
           args:
+            - "run-program"
+            - "gunicorn"
             - "--workers={{ APP_GUNICORN_WORKERS }}"
             - "--worker-class=meinheld.gmeinheld.MeinheldWorker"
             - "--bind=0.0.0.0:{{ APP_PORT }}"
