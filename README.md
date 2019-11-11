@@ -38,6 +38,13 @@ docker-compose exec app python manage.py makemigrations
 docker-compose exec app python manage.py migrate
 ```
 
+#### Accessing the site
+
+Note that the local build goes via nginx so that we can have local-dev HTTPS for greater parity with production.
+
+You can find the local site under HTTPS at `https://developer-portal-127-0-0-1.nip.io`. `http://localhost:8000` will also still respond, but be aware that any behaviour which requires HTTPS (eg: CSP) may cause problems.
+Feel free to add `127.0.0.1 developer-portal-127-0-0-1.nip.io` to your `/etc/hosts` if you want to work totally offline.
+
 ### Linting and autoformatting with (or without) a pre-commit hook
 
 The project has support for using [Therapist](https://github.com/rehandalal/therapist) to run pre-commit linting and formatting tools. You don't _have_ to use it, but it makes it life easier.

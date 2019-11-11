@@ -28,7 +28,10 @@ RUN apk add --no-cache \
   libmemcached-dev \
   libxslt-dev \
   postgresql-libs \
-  zlib-dev
+  zlib-dev \
+  bash \
+  openssl \
+  openssl-dev
 
 COPY requirements.txt /app/
 RUN pip install -U pip

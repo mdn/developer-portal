@@ -4,9 +4,6 @@ x-common: &common
   build:
     context: .
     target: app_base
-  depends_on:
-    - db
-    - redis
   env_file: .env
   tty: true
   volumes:
@@ -34,20 +31,57 @@ services:
 
   app:
     <<: *common
-    command: gunicorn developerportal.wsgi:application --bind=0.0.0.0:8000 --reload --workers=3
+    command: gunicorn developerportal.wsgi:application --access-logfile=- --timeout=120 --worker-class=meinheld.gmeinheld.MeinheldWorker --bind=0.0.0.0:8000 --reload --workers=3
     ports:
       - '8000:8000'
+      # 8000 is left exposed if you want to access it not over SSL,
+      # else use nginx on developer-portal-127-0-0-1.nip.io
     user: ${UID:-1000}
+    volumes: # needs more than the base definition
+      - dist:/app/dist
+      - ./developerportal:/app/developerportal
+      - ./media:/app/media
+      - ./src:/app/src
+      - ./etc/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - db
+      - redis
 
   worker:
     <<: *common
     command: celery -A developerportal.apps.staticbuild worker -l info
     user: ${UID:-1000}
+    depends_on:
+      - app
 
   scheduler:
     <<: *common
     command: celery -A developerportal.apps.staticbuild beat -l debug
     user: ${UID:-1000}
+    depends_on:
+      - app
+      - worker
+
+  # For local development, generates a self sign cert
+  # to run: docker-compose run cfssl
+  cfssl:
+    image: cfssl/cfssl
+    working_dir: /ssl
+    volumes:
+      - ./etc/nginx/ssl:/ssl
+    entrypoint: ./gen-cert.sh
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./etc/nginx/ssl:/etc/nginx/ssl
+    ports:
+      - '80:80'
+      - '443:443'
+    depends_on:
+      - cfssl
+      - app
 
   static:
     build:

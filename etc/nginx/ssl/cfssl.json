@@ -1,0 +1,19 @@
+{
+  "CN": "developer-portal-127-0-0-1.nip.io",
+  "hosts": [
+    "developer-portal-127-0-0-1.nip.io"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "O": "Mozilla",
+      "OU": "Developer Portal development",
+      "C": "US",
+      "ST": "CA",
+      "L": "San Francisco"
+    }
+  ]
+}
