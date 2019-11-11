@@ -111,6 +111,7 @@ k8s-history:
 	${KC} rollout history deploy ${APP_NAME}
 
 k8s-db-migration-job: k8s-delete-db-migration-job
+	env NEW_RELIC_APP_NAME="" \
 	j2 db-migration-job.yaml.j2 | ${KC} apply -f -
 	env JOB_NAME=db-migration ./wait_for_job.sh
 
