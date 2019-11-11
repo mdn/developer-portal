@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 class ArticleAdmin(ModelAdmin):
     model = StaticBuild
-    menu_label = "Manually trigger a static build"
+    menu_label = "Manually request a static build"
     menu_icon = "doc-full"
     add_to_settings_menu = True
 
@@ -99,6 +99,7 @@ def _set_build_needed_sentinel(oid):
 
 
 def _get_build_needed_sentinel(oid):
+    # Check to see if a build has been requested, and if so, wipe the key.
     with redis_lock(SENTINEL_LOCK_NAME, oid=oid):
         sentinel_val = cache.get(SENTINEL_KEY_NAME)
         cache.delete(SENTINEL_KEY_NAME)
@@ -116,25 +117,21 @@ def _request_static_build(self):
 
 
 @app.task(bind=True)
-def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELINE):
+def _static_build_async(self, pipeline=settings.STATIC_BUILD_PIPELINE):
     """Schedulable task that, if it gets the appropriate flag as a sign to proceed,
     calls each command in the static build pipeline in turn.
 
     See setup_periodic_tasks, above.
-
-        force (optional): Boolean - used to run a build even when DEBUG is False
         pipeline (optional): tuple of strings that map to wagtail-bakery commands
     """
     logger.debug("Entering _static_build_async")
     log_prefix = "[Static-build-and-sync]"
     build_dir = None
 
-    if not force:
-        # Check to see if a build has been requested, and if so, wipe the key.
-        sentinel_val = _get_build_needed_sentinel(oid=self.app.oid)
-        if sentinel_val is not True:
-            logger.info(f"{log_prefix} No fresh static build requested.")
-            return
+    sentinel_val = _get_build_needed_sentinel(oid=self.app.oid)
+    if sentinel_val is not True:
+        logger.info(f"{log_prefix} No fresh static build requested.")
+        return
 
     # If we reach here, an actual build is needed, but only if one is not
     # already in progress.
@@ -147,11 +144,7 @@ def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELI
                 logger.info(f"{log_prefix} Created temporary build dir {build_dir}")
 
             for name, command in pipeline:
-                if settings.DEBUG and not force:
-                    logger.info(
-                        f"{log_prefix} (wagtail-bakery) command '{name}' skipped."
-                    )
-                else:
+                if not settings.DEBUG:
                     logger.info(
                         f"{log_prefix} (wagtail-bakery) command '{name}' started."
                     )
@@ -162,6 +155,13 @@ def _static_build_async(self, force=False, pipeline=settings.STATIC_BUILD_PIPELI
                     )
                     logger.info(
                         f"{log_prefix} (wagtail-bakery) command '{name}' finished."
+                    )
+                else:
+                    logger.info(
+                        (
+                            f"{log_prefix} (wagtail-bakery) command '{name}' "
+                            "skipped because DEBUG=True."
+                        )
                     )
 
             if build_dir:
