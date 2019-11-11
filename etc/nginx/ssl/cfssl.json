@@ -1,8 +1,7 @@
 {
   "CN": "developer-portal-127-0-0-1.nip.io",
   "hosts": [
-    "developer-portal-127-0-0-1.nip.io",
-    "demos.developer-portal-127-0-0-1.nip.io"
+    "developer-portal-127-0-0-1.nip.io"
   ],
   "key": {
     "algo": "rsa",
