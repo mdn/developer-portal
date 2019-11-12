@@ -18,4 +18,4 @@ def trigger_build(sender, instance, created=False, **kwargs):
     if created:
         from .wagtail_hooks import static_build
 
-        static_build(force=True)
+        static_build()
