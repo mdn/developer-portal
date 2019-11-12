@@ -236,8 +236,11 @@ WAGTAILIMAGES_IMAGE_MODEL = "mozimages.MozImage"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.environ.get("BASE_URL")
 
+# Django-Bakery settings
+# https://django-bakery.readthedocs.io/en/latest/settingsvariables.html#bakery-gzip
+BAKERY_GZIP = True
 
-# Wagtail Bakery Settings
+# Wagtail-Bakery Settings
 
 # This is a handy default for local building, but note that when we build in production
 # we're actually using this as a root of a build path, to prevent concurrent builds
@@ -253,8 +256,8 @@ BAKERY_VIEWS = (
     "developerportal.apps.bakery.views.S3RedirectManagementView",
     "developerportal.apps.bakery.views.CloudfrontInvalidationView",
 )
-AWS_REGION = os.environ.get("AWS_REGION")
 
+AWS_REGION = os.environ.get("AWS_REGION")
 # This bucket is where the static site will be baked to
 AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
