@@ -1,7 +1,12 @@
+from unittest import mock
+
+from django.core.exceptions import ValidationError
+from django.test import TestCase
+
 from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...home.models import HomePage
-from ..models import Topic, Topics
+from ..models import Topic, Topics, check_for_svg_file
 
 
 class TopicTests(PatchedWagtailPageTests):
@@ -44,3 +49,22 @@ class TopicsTests(PatchedWagtailPageTests):
     def test_topics_page_subpages(self):
         """The Topics page should only have topic child pages."""
         self.assertAllowedSubpageTypes(Topics, {Topic})
+
+
+class SVGFileCheckTests(TestCase):
+    def test_check_for_svg_file(self):
+        # A light test of a naive safety-net validation rule
+        mock_field = mock.Mock("mock-FileField")
+        mock_file = mock.Mock(name="mock-File")
+        mock_field.file = mock_file
+
+        # Should fail:
+        for filename in ["foo.jpg", "foo.png", "foo.webp"]:
+            with self.subTest(filename=filename):
+                type(mock_file).name = filename
+                with self.assertRaises(ValidationError):
+                    check_for_svg_file(mock_field)
+
+        # Should be fine:
+        type(mock_file).name = "foo.svg"
+        check_for_svg_file(mock_field)
