@@ -17,8 +17,10 @@ spec:
           image: "{{ APP_IMAGE }}:{{ APP_IMAGE_TAG }}"
           imagePullPolicy: {{ APP_IMAGE_PULL_POLICY }}
           command:
-            - "celery"
+            - "/usr/local/bin/newrelic-admin"
           args:
+            - "run-program"
+            - "celery"
             - "--app=developerportal.apps.staticbuild"
             - worker
             - "--loglevel=INFO"
