@@ -238,7 +238,7 @@ BASE_URL = os.environ.get("BASE_URL")
 
 # Django-Bakery settings
 # https://django-bakery.readthedocs.io/en/latest/settingsvariables.html#bakery-gzip
-BAKERY_GZIP = True
+BAKERY_GZIP = False  # NB: *Not* enabled here, because it's done at the CDN level
 
 # Wagtail-Bakery Settings
 
