@@ -94,13 +94,15 @@ Finally, `therapist` can be passed a list of file paths if you want to just run 
 
 Mozilla SSO via OpenID Connect is the default for admin login.
 
+To use this locally, you will need to have a Mozilla SSO account, plus values for `OIDC_RP_CLIENT_ID` and `OIDC_RP_CLIENT_SECRET` in your `.env` or in `settings.local`. You can local-development versions of these credentials from a another MDN Developer Portal team member, someone on Mozilla IAM team or the project's SRE (@limed).
+
 If you have a Mozilla SSO account, create a Django superuser with the same email address.
 
 ```shell
 docker-compose exec app python manage.py createsuperuser
 ```
 
-If you do not have such an account, you can create a Django superuser and configure the local build to use conventional Django auth. See `settings/local.py.example`
+If you do not have a Mozilla SSO account, or you want to work offline, you can create a Django superuser and configure the local build to use conventional Django auth. See `settings/local.py.example`
 
 ### Update
 
@@ -124,16 +126,28 @@ If things get messed up, you could (as a last resort) prune ALL Docker images, c
 
 ## Building a static site
 
-Wagtail Bakery can build a static version of the site. In production this runs automatically when pages are published or unpublished from the Wagtail admin.
+Wagtail Bakery can build a static version of the site and sync it to S3. In production this runs automatically when pages are published or unpublished from the Wagtail admin. When `settings.DEBUG` is `True`, however, this does not happen and you hae to trigger it manually.
 
 See [these notes](docs/automatic-publishing-to-s3.md) for more detail.
 
 ### Usage
 
-To manually build the static site, run:
+The preferred way to do things is to have `settings.DEBUG=False` and to have an AWS bucket configured as per `settings/local.py.example` and to let the task queue run the static-build-and-publish, either when a page is published or via a special management command for requesting a build:
 
 ```shell
-docker-compose exec app python manage.py build --settings=developerportal.settings.production
+docker-compose exec app python manage.py request_static_build
 ```
 
-The result of this will be output to the /build directory.
+However, if you really can't set `DEBUG=False` or you don't want to build via the task queue, you can manually build the static site with:
+
+```shell
+docker-compose exec app python manage.py build --settings=developerportal.settings.worker
+```
+
+The result of this will be output to the /app/build directory _inside the `app` container, not on your host_.
+
+To publish the site to the S3 bucket configured in your settings (via environment vars in production, but more likely via `settings/local.py` for local dev):
+
+```shell
+docker-compose exec app python manage.py publish --settings=developerportal.settings.worker
+```
