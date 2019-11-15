@@ -1,5 +1,7 @@
-# Uncomment these, as required, to reset things from settings.dev to more
-# production-like ones for testing features like email sending and S3 use
+# USAGE: Copy this file and re-save as `settings.local`. Then, uncomment these,
+# as required, to override values from settings.dev to more appropriate or
+# production-like ones for using/testing features - like email sending, SSO
+# auth and S3 use
 
 # DEBUG = False
 
@@ -7,25 +9,25 @@
 
 # AWS_ACCESS_KEY_ID = "ADD_ME"
 # AWS_SECRET_ACCESS_KEY = "ADD_ME"
-# AWS_BUCKET_NAME = "BUCKET_NAME_HERE"  # Destination of baked site
+# AWS_BUCKET_NAME = "BUCKET_NAME_HERE"  # Upload destination for the static site
 # AWS_REGION = "REGION_NAME_HERE"  # eg eu-west-1
 
-# # Reinstate critical settings for using S3 as user-media storage
-# AWS_STORAGE_BUCKET_NAME = "MEDIA_BUCKET_NAME_HERE"  #  destination of user media
+# # Uncomment these to reinstate critical settings for using S3 as
+# user-media storage
+# AWS_STORAGE_BUCKET_NAME = "MEDIA_BUCKET_NAME"  # Upload dest of user media
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-
 # AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 # MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 # MEDIA_ROOT = None
 
-# Mozilla OpenID Connect using Auth0 # get from IAM
-# either set these in your .env, or in your settings/local.py
-OIDC_RP_CLIENT_ID=
-OIDC_RP_CLIENT_SECRET=
+# # Mozilla OpenID Connect using Auth0 # get from IAM
+# # either set these in your .env, or here in your settings/local.py
+# OIDC_RP_CLIENT_ID=
+# OIDC_RP_CLIENT_SECRET=
 
-# For local development, allow authentication by username + password, not SSO
-USE_CONVENTIONAL_AUTH = True
-AUTHENTICATION_BACKENDS = (
-    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
-    "django.contrib.auth.backends.ModelBackend",
-)
+# # For local development, allow authentication by username + password, not SSO
+# USE_CONVENTIONAL_AUTH = True
+# AUTHENTICATION_BACKENDS = (
+#     "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+#     "django.contrib.auth.backends.ModelBackend",
+# )
