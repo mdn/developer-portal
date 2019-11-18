@@ -47,6 +47,8 @@
   font-size: 0; // Prevent spacing below icon.
   margin-right: 16px;
   padding-top: 4px;
+  width: 50px;
+  text-align: center;
 
   img {
     width: 24px;
@@ -55,8 +57,8 @@
 
 .item-topic-link-content {
   max-width: 672px;
-
   @media #{$mq-md} {
+    padding-right: 6px;
     flex-grow: 1;
   }
 
