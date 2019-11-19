@@ -59,6 +59,15 @@ export NEW_RELIC_LABELS ?= Project:developer-portal;Namespace:${K8S_NAMESPACE};E
 
 export GOOGLE_ANALYTICS ?= 0
 
+# Backup config
+export RDS_BACKUP_DBTYPE ?= 'PGSQL'
+export RDS_BACKUP_SCHEDULE ?= '@daily'
+export RDS_BACKUP_IMAGE ?= mdnwebdocs/mdn-rds-backup
+export RDS_BACKUP_IMAGE_TAG ?= 6197650
+export RDS_BACKUP_DIR ?= '/backup'
+export RDS_BACKUP_BUCKET ?= 's3://developer-portal-backups-178589013767/backups'
+export RDS_BACKUP_DEBUG_MODE ?= 'false'
+
 ###############################
 ### core tasks
 
@@ -118,6 +127,11 @@ k8s-db-migration-job: k8s-delete-db-migration-job
 k8s-delete-db-migration-job:
 	${KC} delete --ignore-not-found job db-migration
 
+k8s-rds-backup-cronjob:
+	j2 db-backups-cron.yaml.j2 | ${KC} apply -f -
+
+k8s-delete-rds-backup-cronjob:
+	${KC} delete --ignore-not-found cronjob dev-portal-rds-backup
 
 k8s-jenkins-create-rbac:
 	kubectl apply -f jenkins-rbac.yaml
