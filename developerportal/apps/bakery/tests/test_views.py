@@ -267,3 +267,13 @@ class CloudfrontInvalidationViewTests(TestCase):
                 )
             ],
         )
+
+
+class SitemapViewTests(TestCase):
+    def test_reminder(self):
+        self.fail("WRITE ME")
+
+
+class HelpersTests(TestCase):
+    def test_is_secure_request(self):
+        self.fail("WRITE ME")

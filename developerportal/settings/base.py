@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
     "django_celery_results",
     "mozilla_django_oidc",  # needs to be loaded after auth
 ]
@@ -253,6 +254,7 @@ BAKERY_VIEWS = (
     # to run last of all
     "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
     "bakery.views.Buildable404View",
+    "developerportal.apps.bakery.views.SitemapBuildableView",
     "developerportal.apps.bakery.views.S3RedirectManagementView",
     "developerportal.apps.bakery.views.CloudfrontInvalidationView",
 )
