@@ -1,0 +1,73 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: dev-portal-rds-backup
+spec:
+  schedule: {{ RDS_BACKUP_SCHEDULE }}
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: dev-portal-rds-backup
+              image: {{ RDS_BACKUP_IMAGE }}:{{ RDS_BACKUP_IMAGE_TAG }}
+              {%- if RDS_BACKUP_DEBUG_MODE == 'true' %}
+              command: [ "/bin/bash", "-c", "--" ]
+              args: [ "while true; do sleep 30; done;" ]
+              {%- endif %}
+              env:
+                - name: DBTYPE
+                  value: {{ RDS_BACKUP_DBTYPE }}
+                - name: BACKUP_DIR
+                  value: {{ RDS_BACKUP_DIR }}
+                - name: BACKUP_BUCKET
+                  value: {{ RDS_BACKUP_BUCKET }}
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: AWS_ACCESS_KEY_ID
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: AWS_SECRET_ACCESS_KEY
+                - name: BACKUP_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: BACKUP_PASSWORD
+                - name: DBHOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: DBHOST
+                - name: DBNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: DBNAME
+                - name: DBPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: DBPASSWORD
+                - name: DBPORT
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: DBPORT
+                - name: DBUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: DBUSER
+                - name: DEADMANSSNITCH_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: dev-portal-backups
+                      key: DEADMANSSNITCH_URL
