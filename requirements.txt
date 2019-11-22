@@ -8,7 +8,7 @@ gunicorn==19.9.0
 meinheld==1.0.1
 mozilla-django-oidc==1.2.2
 django-storages==1.7.2
-boto3==1.10.23
+boto3==1.10.25
 psycopg2==2.8.4
 Pygments==2.4.2
 readtime==1.1.1
