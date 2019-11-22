@@ -3,6 +3,7 @@
 import datetime
 from unittest import mock
 
+from django.conf import settings
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.redirects.models import Redirect
@@ -11,6 +12,8 @@ from wagtail.core.models import Page, Site
 from developerportal.apps.bakery.views import (
     CloudfrontInvalidationView,
     S3RedirectManagementView,
+    SitemapBuildableView,
+    is_secure_request,
 )
 
 
@@ -270,10 +273,62 @@ class CloudfrontInvalidationViewTests(TestCase):
 
 
 class SitemapViewTests(TestCase):
-    def test_reminder(self):
-        self.fail("WRITE ME")
+    @mock.patch("developerportal.apps.bakery.views.SitemapBuildableView.get_content")
+    @mock.patch("developerportal.apps.bakery.views.SitemapBuildableView.prep_directory")
+    @mock.patch("developerportal.apps.bakery.views.SitemapBuildableView.build_file")
+    def test_sitemap_generation(
+        self, mock_build_file, mock_prep_directory, mock_get_content
+    ):
+        mock_get_content.return_value = "sitemap content here"
+
+        with self.assertLogs("developerportal.apps.bakery.views", level="INFO") as cm:
+            SitemapBuildableView().build_method()
+        assert mock_prep_directory.call_count == 1
+        assert mock_build_file.call_count == 1
+        mock_build_file.assert_called_once_with(
+            "/app/build/sitemap.xml", "sitemap content here"
+        )
+        self.assertEqual(
+            cm.output,
+            [
+                "INFO:developerportal.apps.bakery.views:Building out XML sitemap.",
+                "INFO:developerportal.apps.bakery.views:Sitemap building complete.",
+            ],
+        )
 
 
 class HelpersTests(TestCase):
     def test_is_secure_request(self):
-        self.fail("WRITE ME")
+        site = Site.objects.first()
+
+        port_params = [(80, False), (443, True), (8000, False)]
+        for params in port_params:
+            with self.subTest(params=params):
+                site.port, expected_result = params
+                self.assertEqual(is_secure_request(site), expected_result)
+
+        settings_params = [(True, True), (False, False)]
+        site.port = 80
+        for params in settings_params:
+            with self.subTest(params=params):
+                secure_redirect, expected_result = params
+                with override_settings(SECURE_SSL_REDIRECT=secure_redirect):
+                    self.assertEqual(is_secure_request(site), expected_result)
+
+
+class TestPipelineContents(TestCase):
+    def test_build_pipeline_contains_all_required_views(self):
+        # Light regression check - ensure all present and in right order
+        self.assertEqual(
+            settings.BAKERY_VIEWS,
+            (
+                (
+                    "developerportal.apps.bakery.views."
+                    "AllPublishedPagesViewAllowingSecureRedirect"
+                ),
+                "bakery.views.Buildable404View",
+                "developerportal.apps.bakery.views.SitemapBuildableView",
+                "developerportal.apps.bakery.views.S3RedirectManagementView",
+                "developerportal.apps.bakery.views.CloudfrontInvalidationView",
+            ),
+        )

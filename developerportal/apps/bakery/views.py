@@ -1,6 +1,7 @@
 import logging
 import os
 from http import HTTPStatus
+from http.client import HTTPS_PORT
 
 from django.conf import settings
 from django.db.models import Q
@@ -20,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 def is_secure_request(site):
-    return site.port == 443 or getattr(settings, "SECURE_SSL_REDIRECT", False)
+    return site.port == HTTPS_PORT or getattr(settings, "SECURE_SSL_REDIRECT", False)
 
 
 class AllPublishedPagesViewAllowingSecureRedirect(AllPublishedPagesView):
