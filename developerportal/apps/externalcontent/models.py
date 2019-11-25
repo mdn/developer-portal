@@ -99,7 +99,7 @@ class ExternalContent(BasePage):
         return self.external_url
 
     def get_site(self):
-        """Due to modelling/config (which will be changed soon), it's possiblethat
+        """Due to modelling/config (which will be changed soon), it's possible that
         ExternalContent subclasses end up a children of Wagtail's hidden root page,
         rather than the Homepage, which means that the default get_site() will not
         work for them and instead will return None. This addresses that
