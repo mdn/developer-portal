@@ -1,6 +1,5 @@
 # pylint: disable=no-member
 import datetime
-import logging
 
 from django.db.models import (
     CASCADE,
@@ -24,14 +23,12 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Site
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import ExternalAuthorBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
-
-logger = logging.getLogger(__name__)
 
 
 class ExternalContent(BasePage):
@@ -97,19 +94,6 @@ class ExternalContent(BasePage):
 
     def relative_url(self, current_site, request=None):
         return self.external_url
-
-    def get_site(self):
-        """Due to modelling/config (which will be changed soon), it's possible that
-        ExternalContent subclasses end up a children of Wagtail's hidden root page,
-        rather than the Homepage, which means that the default get_site() will not
-        work for them and instead will return None. This addresses that
-        shortcoming by fetching the default Site instead, if needed."""
-
-        site = super().get_site()
-        if not site:
-            logger.info(f"Page {self} lacks a Site. Using default Site...")
-            site = Site.objects.get(is_default_site=True)
-        return site
 
     @property
     def url(self):
