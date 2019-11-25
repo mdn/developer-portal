@@ -1,4 +1,4 @@
-FROM node:12.13-alpine@sha256:36a15a00134761c19e4438d948ad01eb9323811e1edd947562da3fc06ae78b09 AS static
+FROM node:12.13-alpine@sha256:6a0fa47a0c87853c53d1403b34c79befef7df04902d4e206cfaf6a43bedce0dd AS static
 
 WORKDIR /app/
 
