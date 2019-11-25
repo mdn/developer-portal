@@ -11,3 +11,8 @@ As a result, the changes done were all kept (as part of ticket 624) at surface l
 Streamfield blocks have been renamed from 'article' to 'post' to keep the UI consistent, but the internal use of a `type` or `resource_type` attribute on a Page instance has been left with the value 'article', not changed to 'post' because that would have been a non-visible-to-humans change.
 
 However, in the future, we may decide that we definitely want to stick with "Posts", in which case a proper model-renaming exercise is worth it, along with CSS and template-name changes, too.
+
+## General assumption about there being just one Site
+
+Sometimes in the custom views that inform the 'baking' process for wagtail-bakery, we've had to get hold of a Site object from the database instead of via a relation from a Page we're processing.
+In this case, we've had no option but to use the default Site -- which is fine because was only one at the genesis of this project. HOWEVER, if this changes and - for example - we add i18n and l10n, this assumption will no longer be reliable/safe and any ORM query that uses `is_default_site=` must be refactored out of the codebase.
