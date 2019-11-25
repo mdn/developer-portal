@@ -34,7 +34,7 @@ class AllPublishedPagesViewAllowingSecureRedirect(AllPublishedPagesView):
         Build wagtail page and set SERVER_NAME to retrieve corresponding site
         object.
         """
-        site = obj.get_site()
+        site = obj.specific.get_site()
         logger.debug("Building %s" % obj)
         secure_request = site.port == 443 or getattr(
             settings, "SECURE_SSL_REDIRECT", False
