@@ -21,6 +21,7 @@ exports.parseQueryParams = () => {
 /**
  * Creates an object based on a form's current input values.
  *
+ * @param {object} form
  * @returns {object}
  */
 exports.parseForm = form => {
