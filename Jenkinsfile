@@ -16,6 +16,19 @@ def notify_slack(Map args, credential_id='slack-hook-devportal-notifications') {
     }
 }
 
+def record_rollout() {
+    /*
+     * Record the rollout in external services like New Relic and SpeedCurve.
+     *
+     * Kept separate from deploy() so we don't double-log when deploying to
+     * an experimental EKS cluster as well as the regular k8s setup.
+     */
+
+      sh """
+        make k8s-record-deployment-job
+      """
+}
+
 def deploy(config, environment, cluster) {
   /*
    * Start a rolling update of the K8s deployments.
@@ -115,12 +128,14 @@ node {
     case 'stage-push':
       stage('Deploy') {
         deploy('stage', 'stage', 'mdn-apps-a')
+        record_rollout()
       }
       break
 
     case 'prod-push':
       stage('Deploy') {
         deploy('prod', 'prod', 'mdn-apps-a')
+        record_rollout()
       }
       break
 

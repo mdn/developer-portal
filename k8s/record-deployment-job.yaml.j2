@@ -1,0 +1,49 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: developerportal-{{ APP_NAME }}-record-deployment
+spec:
+  template:
+    metadata:
+      name: developerportal-{{ APP_NAME }}-record-deployment
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: developerportal-{{ APP_NAME }}-record-deployment
+          image: {{ APP_IMAGE }}:{{ APP_IMAGE_TAG }}
+          imagePullPolicy: {{ APP_IMAGE_PULL_POLICY }}
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          env:
+            - name: NEW_RELIC_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: newrelic-secrets
+                  key: NEW_RELIC_API_KEY
+            - name: NEW_RELIC_APP_IDS
+              valueFrom:
+                secretKeyRef:
+                  name: dev-portal-secrets
+                  key: {{ APP_NAME }}-new-relic-app-ids
+            - name: SPEEDCURVE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: speedcurve-secrets
+                  key: SPEEDCURVE_API_KEY
+            - name: SPEEDCURVE_SITE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: dev-portal-secrets
+                  key: speedcurve-site-id
+          command:
+            - "./scripts/record_deployments.py"
+          args:
+            - "--app={{ APP_NAME }}"
+            - "--from={{ FROM_REVISION_HASH }}"
+            - "--to={{ TO_REVISION_HASH }}"
+            - "--verbose"

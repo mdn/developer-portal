@@ -155,6 +155,19 @@ k8s-jenkins-create-rbac:
 k8s-jenkins-delete-rbac:
 	kubectl delete -f jenkins-rbac.yaml
 
+k8s-record-deployment-job: k8s-delete-record-deployment-job
+	env APP_NAME=wagtail \
+		FROM_REVISION_HASH=${FROM_REVISION_HASH} \
+		TO_REVISION_HASH=$(shell make k8s-get-developerportal-revision-hash) \
+		j2 record-deployment-job.yaml.j2 | ${KC} apply -n ${K8S_NAMESPACE} -f -
+	env JOB_NAME=developerportal-record-deployment ./wait_for_job.sh
+
+k8s-delete-record-deployment-job:
+	${KC} delete -n ${K8S_NAMESPACE} --ignore-not-found job developerportal-record-deployment
+
+k8s-get-developerportal-revision-hash:
+	@ ${KC} -n ${K8S_NAMESPACE} exec $(shell ${KC} -n ${K8S_NAMESPACE} get pods --selector app=${WEB_SERVICE_NAME} -o jsonpath='{.items[0].metadata.name}') -- printenv REVISION_HASH
+
 ### end core tasks
 ###############################
 
@@ -164,4 +177,7 @@ k8s-jenkins-delete-rbac:
 		k8s-wagtail-deployments k8s-celery-deployments \
 		k8s-delete-wagtail-deployments k8s-delete-celery-deployments \
 		k8s-rollback k8s-history k8s-db-migration-job \
-		k8s-delete-db-migration-job
+		k8s-delete-db-migration-job \
+    k8s-record-deployment-job \
+    k8s-delete-record-deployment-job \
+    k8s-get-developerportal-revision-hash
