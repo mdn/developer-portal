@@ -17,23 +17,18 @@ spec:
               cpu: 100m
               memory: 256Mi
             limits:
-              cpu: 500m
-              memory: 1Gi
+              cpu: 256m
+              memory: 512Mi
           env:
             - name: NEW_RELIC_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: newrelic-secrets
                   key: NEW_RELIC_API_KEY
-            - name: NEW_RELIC_APP_IDS
-              valueFrom:
-                secretKeyRef:
-                  name: dev-portal-secrets
-                  key: {{ APP_NAME }}-new-relic-app-ids
             - name: SPEEDCURVE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: speedcurve-secrets
+                  name: dev-portal-secrets
                   key: SPEEDCURVE_API_KEY
             - name: SPEEDCURVE_SITE_ID
               valueFrom:
