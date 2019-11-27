@@ -21,8 +21,12 @@ def mime_type(file_name):
 
 
 @register.simple_tag
-def random_hash():
-    return binascii.hexlify(os.urandom(16)).decode("utf-8")
+def random_hash(start_with_letter=True):
+    val = binascii.hexlify(os.urandom(15)).decode("utf-8")
+    if start_with_letter:
+        # If used as an XML or SVG `id` attribute, it has to start with a letter
+        val = f"a{val}"
+    return val
 
 
 @register.simple_tag
