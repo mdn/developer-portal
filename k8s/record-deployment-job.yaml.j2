@@ -28,13 +28,13 @@ spec:
             - name: SPEEDCURVE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: dev-portal-secrets
+                  name: speedcurve-secrets
                   key: SPEEDCURVE_API_KEY
             - name: SPEEDCURVE_SITE_ID
               valueFrom:
                 secretKeyRef:
                   name: dev-portal-secrets
-                  key: speedcurve-site-id
+                  key: SPEEDCURVE_SITE_ID
           command:
             - "./scripts/record_deployments.py"
           args:
