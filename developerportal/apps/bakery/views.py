@@ -1,5 +1,7 @@
 import logging
+import os
 from http import HTTPStatus
+from http.client import HTTPS_PORT
 
 from django.conf import settings
 from django.db.models import Q
@@ -8,12 +10,18 @@ from django.utils.timezone import now as tz_now
 
 import boto3
 from wagtail.contrib.redirects.models import Redirect
+from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.core.models import Site
 
 from bakery.management.commands import get_s3_client
+from bakery.views import BuildableMixin
 from wagtailbakery.views import AllPublishedPagesView, WagtailBakeryView
 
 logger = logging.getLogger(__name__)
+
+
+def is_secure_request(site):
+    return site.port == HTTPS_PORT or getattr(settings, "SECURE_SSL_REDIRECT", False)
 
 
 class AllPublishedPagesViewAllowingSecureRedirect(AllPublishedPagesView):
@@ -36,9 +44,7 @@ class AllPublishedPagesViewAllowingSecureRedirect(AllPublishedPagesView):
         """
         site = obj.get_site()
         logger.debug("Building %s" % obj)
-        secure_request = site.port == 443 or getattr(
-            settings, "SECURE_SSL_REDIRECT", False
-        )
+        secure_request = is_secure_request(site)
         self.request = RequestFactory(SERVER_NAME=site.hostname).get(
             self.get_url(obj), secure=secure_request
         )
@@ -169,3 +175,31 @@ class CloudfrontInvalidationView(PostPublishOnlyWagtailBakeryView):
                 logger.warning(
                     "Got an unexpected response from Cloudfront: {}".format(response)
                 )
+
+
+class SitemapBuildableView(BuildableMixin):
+    # Note that this code is based on https://github.com/wagtail/wagtail-bakery/pull/38
+    # and ONLY builds out the default site (which is fine for our current needs
+    # but may change over time). Ideally wagtail-bakery will soon get this behaviour
+    # and we can switch to its own implementation
+
+    build_path = "sitemap.xml"
+
+    def build(self):
+        logger.info("Building out XML sitemap.")
+        default_site = Site.objects.filter(is_default_site=True).first()
+        secure_request = is_secure_request(default_site)
+        self.request = RequestFactory(SERVER_NAME=default_site.hostname).get(
+            self.build_path, secure=secure_request
+        )
+        path = os.path.join(settings.BUILD_DIR, self.build_path)
+        self.prep_directory(self.build_path)
+        self.build_file(path, self.get_content())
+        logger.info("Sitemap building complete.")
+
+    @property
+    def build_method(self):
+        return self.build
+
+    def get_content(self):
+        return sitemap(self.request).render().content
