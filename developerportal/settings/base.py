@@ -71,6 +71,8 @@ INSTALLED_APPS = [
     "django_celery_results",
     "mozilla_django_oidc",  # needs to be loaded after auth
 ]
+# Note that "raven.contrib.django.raven_compat" is added to INSTALLED_APPS
+# if Sentry is enabled -- see later in this file
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -370,6 +372,16 @@ WAGTAIL_PASSWORD_RESET_ENABLED = False
 # Don't require a password when creating a user,
 # and blank password means cannot log in unless SSO
 WAGTAILUSERS_PASSWORD_ENABLED = False
+
+# Sentry logging
+REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
+
+if SENTRY_DSN:
+    RAVEN_CONFIG = {"dsn": SENTRY_DSN}
+    if REVISION_HASH and REVISION_HASH != "undefined":
+        RAVEN_CONFIG["release"] = REVISION_HASH
+    INSTALLED_APPS += ["raven.contrib.django.raven_compat"]
 
 # Based on DEFAULT_LOGGING with some tweaks
 LOGGING = {
