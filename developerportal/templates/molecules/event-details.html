@@ -8,15 +8,17 @@
       </span>
       <span>{{ resource.event_dates_full|safe }}</span>
     </div>
+    {% make_list_from_args resource.venue_name resource.address_line_1 resource.address_line_2 resource.address_line_3 resource.city resource.zip_code resource.country as address %}
+    {% if address %}
     <div class="event-details-venue">
       <span class="icon">
         {% include "atoms/icons/location.svg" %}
       </span>
       <address>
-        {% make_list_from_args resource.address_line_1 resource.address_line_2 resource.address_line_3 resource.city resource.zip_code resource.country as address %}
         {{ address | join:', ' }}
       </address>
     </div>
+    {% endif %}
   </div>
   {% if resource.register_url %}
   <div class="event-details-register">
