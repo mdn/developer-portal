@@ -33,6 +33,7 @@ export APP_MOUNT_PATH ?= /app/media
 export APP_EMAIL_HOST ?= email-smtp.us-west-2.amazonaws.com
 export APP_EMAIL_PORT ?= 587
 export APP_EMAIL_USE_TLS ?= True
+export APP_SECURE_HSTS_SECONDS = 31536000
 
 export CELERY_WORKER_NAME ?= celery-worker
 export CELERY_WORKER_REPLICAS ?= 1
