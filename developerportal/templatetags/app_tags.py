@@ -1,5 +1,7 @@
 import binascii
+import logging
 import os
+import re
 from mimetypes import guess_type
 
 from django import template
@@ -7,6 +9,8 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 
 register = template.Library()
+
+logger = logging.getLogger(__name__)
 
 
 @register.simple_tag
@@ -57,3 +61,38 @@ def has_at_least_two_filters(filters):
     # least two of its keys' values are truthy, else False
     result = len([val for val in filters.values() if bool(val)]) >= 2
     return result
+
+
+@register.filter
+def filename_cachebreaker_to_querystring(url):
+    """For the given URL, check if it has a cachebreaking hash. If it does,
+    convert it to be a URLthat uses the hash as a querystring cachebreaker
+    instead.
+
+    eg
+        INPUT: 'https://example.com/static/foo.12313abc.jpg'
+        OUTPUT: 'https://example.com/static/foo.jpg?h=12313abc'
+
+    Why? So that images automatically embedded in social media posts (via OG
+    tags) don't end up as broken links with a new release that changes the hash
+    in the filename -- by moving the hash to a querystring, we get the benefit
+    of cachebreaking but with a much softer edge that won't result in links
+    404ing even if the cachebreaking hash has changed. (ie, querystring
+    cachebreakers are more forgiving.)
+
+    Note that ManifestFileStorage (used by django-whitenoise in this project) makes
+    hash-named versions of the files, but also _does_ keep the original around,
+    so we are safe to assume that if static/img/foo.213123.jpg exists, then
+    static/img/foo.jpg will, too
+    """
+
+    pattern = re.compile(r"(\.[a-f0-9]+)(\.\w+)$")
+    hits = pattern.search(url)
+    if not hits:
+        logger.info(f"Couldn't extract has from URL {url}. Leaving unchanged.")
+        return url
+    dotted_hash = hits.groups()[0]
+    url = url.replace(dotted_hash, "")
+    _hash = dotted_hash[1:]  # the [1:] skips the . at the start
+    url = f"{url}?h={_hash}"
+    return url

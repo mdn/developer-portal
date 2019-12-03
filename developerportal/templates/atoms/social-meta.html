@@ -34,7 +34,7 @@
   {% endif %}
   {% if not image %}
     {# Fallback images are hosted by Django, so need absolute URLs creating #}
-    <meta property="og:image" content="{{base_url}}{{fallback_image_url}}">
+    <meta property="og:image" content="{{base_url}}{{fallback_image_url|filename_cachebreaker_to_querystring}}">
   {% else %}
     {% comment %}
       There's no need to add the base URL if the image file exists as it's externally
@@ -42,7 +42,7 @@
       Note: in local dev, if you use local file storage (not S3) the OG tags will
       have relative URLs - but that hopefully shouldn't be a real problem.
     {% endcomment %}
-    <meta property="og:image" content="{{ image.url }}">
+    <meta property="og:image" content="{{ image.url|filename_cachebreaker_to_querystring }}">
   {% endif %}
   <meta property="og:image:width" content="{% firstof image.width fallback_image_width %}">
   <meta property="og:image:height" content="{% firstof image.height fallback_image_height %}">
