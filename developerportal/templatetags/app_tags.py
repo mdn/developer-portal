@@ -86,7 +86,7 @@ def filename_cachebreaker_to_querystring(url):
     static/img/foo.jpg will, too
     """
 
-    pattern = re.compile(r"(\.[a-f0-9]+)(\.\w+)$")
+    pattern = re.compile(r"(\.[a-f0-9]+)\.\w+$")
     hits = pattern.search(url)
     if not hits:
         logger.info(f"Couldn't extract has from URL {url}. Leaving unchanged.")
