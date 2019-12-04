@@ -2,7 +2,10 @@ from django.test import TestCase
 
 from wagtail.core.models import Page
 
-from developerportal.templatetags.app_tags import has_at_least_two_filters
+from developerportal.templatetags.app_tags import (
+    filename_cachebreaker_to_querystring,
+    has_at_least_two_filters,
+)
 
 
 class AppTagsTestCase(TestCase):
@@ -28,3 +31,69 @@ class AppTagsTestCase(TestCase):
         for data, expected_outcome in case_data:
             with self.subTest(data=data, expected_outcome=expected_outcome):
                 self.assertEqual(has_at_least_two_filters(data), expected_outcome)
+
+    def test_filename_cachebreaker_to_querystring(self):
+        cases = [
+            (
+                # "expected" URL forms
+                "https://example.com/static/foo.0324221c33f4.jpg",
+                "https://example.com/static/foo.jpg?h=0324221c33f4",
+            ),
+            (
+                # forms with multiple things that might match a hashh
+                "/path/to/123445abc.123445def.foo.0324221c33f4.png",
+                "/path/to/123445abc.123445def.foo.png?h=0324221c33f4",
+            ),
+            (
+                # Simple filename
+                "foo.0324221c33f4.jpg",
+                "foo.jpg?h=0324221c33f4",
+            ),
+            (
+                # more complex filename
+                "foo-bar-baz.0324221c33f4.jpg",
+                "foo-bar-baz.jpg?h=0324221c33f4",
+            ),
+            (
+                # Full URL: CSS
+                "https://example.com/static/css/21c33.example.21c33.css",
+                "https://example.com/static/css/21c33.example.css?h=21c33",
+            ),
+            (
+                # Full URL: JS
+                "https://example.com/static/js/example.5434221c33f4.js",
+                "https://example.com/static/js/example.js?h=5434221c33f4",
+            ),
+            (
+                # Full URL: longer image suffix
+                "https://example.com/static/img/example.55e7cbb9ba48.jpeg",
+                "https://example.com/static/img/example.jpeg?h=55e7cbb9ba48",
+            ),
+        ]
+        for input_, expected in cases:
+            with self.subTest(input_=input_, expected=expected):
+                self.assertEqual(filename_cachebreaker_to_querystring(input_), expected)
+
+        no_change_cases = [
+            # And a couple which are not rewritten
+            ("no-filename-suffix.0324221c33f4", "no-filename-suffix.0324221c33f4"),
+            ("nohash.jpg", "nohash.jpg"),
+        ]
+        for input_, expected in no_change_cases:
+            with self.subTest(input_=input_, expected=expected):
+                with self.assertLogs(
+                    "developerportal.templatetags.app_tags", level="INFO"
+                ) as cm:
+                    self.assertEqual(
+                        filename_cachebreaker_to_querystring(input_), expected
+                    )
+                    self.assertEqual(
+                        cm.output,
+                        [
+                            (
+                                f"INFO:developerportal.templatetags.app_tags:"
+                                f"Couldn't extract has from URL {input_}. "
+                                f"Leaving unchanged."
+                            )
+                        ],
+                    )
