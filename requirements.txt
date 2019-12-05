@@ -20,4 +20,4 @@ whitenoise==4.1.4
 urlwait==0.4
 newrelic==5.4.0.132
 # Specific versions of dependencies to satisfy clashing requirements:
-beautifulsoup4>=4.5.1,<4.6.1  # from Wagtail 2.7
+beautifulsoup4==4.6.0  # from Wagtail 2.7
