@@ -3,6 +3,7 @@ celery==4.3.0
 redis==3.3.11
 kombu==4.6.6  # This is not the latest, but see https://github.com/celery/kombu/issues/1087
 django-celery-results==1.1.2
+django-countries==5.5
 django-redis==4.10.0
 gunicorn==19.10.0
 meinheld==1.0.1
@@ -18,38 +19,5 @@ wagtail-bakery==0.3.0
 whitenoise==4.1.4
 urlwait==0.4
 newrelic==5.4.0.132
-## The following requirements were added by pip freeze:
-appdirs==1.4.3
-beautifulsoup4==4.6.0
-botocore==1.13.33
-certifi==2019.11.28
-chardet==3.0.4
-cssselect==1.1.0
-django-bakery==0.12.3
-django-countries==5.5
-django-modelcluster==4.4
-django-taggit==0.24
-django-treebeard==4.3
-djangorestframework==3.10.3
-docutils==0.15.2
-draftjs-exporter==2.1.7
-fs==2.4.11
-greenlet==0.4.15
-html5lib==1.0.1
-idna==2.8
-jmespath==0.9.4
-lxml==4.4.2
-markdown2==2.3.8
-Pillow==6.2.1
-pyquery==1.4.1
-python-dateutil==2.8.1
-pytz==2019.3
-requests==2.22.0
-s3transfer==0.2.1
-six==1.13.0
-soupsieve==1.9.5
-sqlparse==0.3.0
-Unidecode==1.1.1
-urllib3==1.25.7
-webencodings==0.5.1
-Willow==1.1
+# Specific versions of dependencies to satisfy clashing requirements:
+beautifulsoup4>=4.5.1,<4.6.1  # from Wagtail 2.7
