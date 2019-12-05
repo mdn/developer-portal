@@ -51,6 +51,9 @@
         {% include "atoms/social-meta.html" with fallback_description=home.search_description %}
       {% endif %}
     {% endwith %}
+
+    {% include "base_includes/google_analytics.html"%}
+
     {% block head %}
     {% endblock %}
   </head>
@@ -65,14 +68,5 @@
     {% endblock %}
     <script>window.Mzp = {}</script>
     <script src="{% static 'js/bundle.js' %}"></script>
-    {% if GOOGLE_ANALYTICS %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{ GOOGLE_ANALYTICS }}');
-    </script>
-    {% endif %}
   </body>
 </html>

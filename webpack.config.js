@@ -4,12 +4,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const config = {
-  entry: './src/js/index.js',
-  target: 'web',
+  entry: {
+    bundle: './src/js/index.js',
+    head: './src/js/head-includes.js',
+  },
   output: {
-    filename: 'js/bundle.js',
+    filename: 'js/[name].js',
     path: resolve(__dirname, 'dist'),
   },
+  target: 'web',
   mode: process.env.NODE_ENV,
   module: {
     rules: [
@@ -47,10 +50,7 @@ const config = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-  config.plugins = [
-    ...config.plugins,
-    new OptimizeCssAssetsPlugin(),
-  ];
+  config.plugins = [...config.plugins, new OptimizeCssAssetsPlugin()];
 }
 
 module.exports = config;
