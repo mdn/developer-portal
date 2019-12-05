@@ -373,6 +373,11 @@ WAGTAIL_PASSWORD_RESET_ENABLED = False
 # and blank password means cannot log in unless SSO
 WAGTAILUSERS_PASSWORD_ENABLED = False
 
+# Don't allow a CMS user to change their email via Account Settings,
+# because this will break SSO. (Note that Admins can still change email
+# addresses for users via Settings > Users)
+WAGTAIL_EMAIL_MANAGEMENT_ENABLED = False
+
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
 SENTRY_DSN = os.environ.get("SENTRY_DSN")
