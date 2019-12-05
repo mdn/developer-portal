@@ -21,7 +21,7 @@ newrelic==5.4.0.132
 ## The following requirements were added by pip freeze:
 appdirs==1.4.3
 beautifulsoup4==4.6.0
-botocore==1.13.32
+botocore==1.13.33
 certifi==2019.11.28
 chardet==3.0.4
 cssselect==1.1.0
