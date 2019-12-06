@@ -96,3 +96,21 @@ def filename_cachebreaker_to_querystring(url):
     _hash = dotted_hash[1:]  # the [1:] skips the . at the start
     url = f"{url}?h={_hash}"
     return url
+
+
+@register.filter
+def pagination_additional_filter_params(request):
+    """Used to ensure the pagination links include anynon-pagination
+    querystrings in them, too"""
+
+    output_params_strings = []
+    input_params = list(request.GET.items())
+
+    for k, v in input_params:
+        if k != settings.PAGINATION_QUERYSTRING_KEY:
+            output_params_strings.append(f"{k}={v}")
+
+    joined_params = "&".join(output_params_strings)
+    if joined_params:
+        joined_params = f"&{joined_params}"
+    return joined_params

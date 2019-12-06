@@ -97,3 +97,6 @@ class AppTagsTestCase(TestCase):
                             )
                         ],
                     )
+
+    def test_pagination_additional_filter_params(self):
+        self.fail("WRITE ME")

@@ -14,19 +14,25 @@ def _resolve_model(model):
     return apps.get_model(model) if isinstance(model, str) else model
 
 
-def get_resources(page, models, filters=None, order_by=None, reverse=False):
+def get_resources(
+    page, models, filters=None, q_object=None, order_by=None, reverse=False
+):
     """Get resources for provided models matching filters.
 
     Params:
         page - the current page, used to exclude from queries.
         models - a list of app.model strings, or Models.
         filters - optional dictionary of queryset filters.
+        q_object - optional way to run a more complex query
         order_by - key to order the combined set by, must be common to all models.
         reverse - whether to reverse the combined set, default false.
     """
 
     def callback(model):
-        return model.published_objects.filter(**filters).not_page(page).specific()
+        qs = model.published_objects
+        if q_object:
+            qs = qs.filter(q_object)
+        return qs.filter(**filters).not_page(page).specific()
 
     result = _combined_query(models, callback)
     return sorted(set(result), key=attrgetter(order_by), reverse=reverse)
@@ -43,7 +49,7 @@ def get_combined_articles(page, **filters):
     )
 
 
-def get_combined_articles_and_videos(page, **filters):
+def get_combined_articles_and_videos(page, q_object=None, **filters):
     """Get internal and external articles and videos matching filters."""
     return get_resources(
         page,
@@ -54,6 +60,7 @@ def get_combined_articles_and_videos(page, **filters):
             "externalcontent.ExternalVideo",
         ],
         filters=filters,
+        q_object=q_object,
         order_by="date",
         reverse=True,
     )

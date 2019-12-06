@@ -46,7 +46,9 @@
               {% endfor %}
             </div>
 
+            {% if resources %}
             {% include "molecules/pagination.html" with items=resources %}
+            {% endif %}
 
           </div>
         </div>

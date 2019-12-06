@@ -1,6 +1,7 @@
 # pylint: disable=no-member
 import datetime
 
+from django.conf import settings
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import (
     CASCADE,
@@ -8,6 +9,7 @@ from django.db.models import (
     CharField,
     DateField,
     ForeignKey,
+    Q,
     TextField,
 )
 
@@ -45,6 +47,8 @@ class ArticlesTag(TaggedItemBase):
 class Articles(BasePage):
 
     RESOURCES_PER_PAGE = 10
+    TOPICS_QUERYSTRING_KEY = "topics"
+    PAGINATION_QUERYSTRING_KEY = settings.PAGINATION_QUERYSTRING_KEY
 
     # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
     parent_page_types = ["home.HomePage"]
@@ -112,10 +116,22 @@ class Articles(BasePage):
     def get_resources(self, request, paginate=True):
         # This Page class will show both Articles/Posts and Videos in its listing
 
-        resources = get_combined_articles_and_videos(self)
+        # We can't use __in in this deeply related query, so we have to make
+        # a custom Q object instead and pass is in as a filter, then deal with
+        # it later
+
+        q = None
+        topics = request.GET.get(self.TOPICS_QUERYSTRING_KEY, "")
+        if topics:
+            q = Q()
+            for topic_slug in topics.split(","):
+                if topic_slug:
+                    q.add(Q(topics__topic__slug=topic_slug), Q.OR)
+        resources = get_combined_articles_and_videos(self, q_object=q)
+
         if paginate:
             paginator = Paginator(resources, self.RESOURCES_PER_PAGE)
-            page = request.GET.get("page")
+            page = request.GET.get(self.PAGINATION_QUERYSTRING_KEY)
             try:
                 resources = paginator.page(page)
                 print("got paginated slice")

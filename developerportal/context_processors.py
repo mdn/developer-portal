@@ -28,3 +28,7 @@ def directory_pages(request):
             "topics": Topics.published_objects.first(),
         }
     }
+
+
+def pagination_constants(request):
+    return {"PAGINATION_QUERYSTRING_KEY": settings.PAGINATION_QUERYSTRING_KEY}

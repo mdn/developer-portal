@@ -1,227 +1,189 @@
-// const { parseForm, parseQueryParams } = require('../utils');
+const { parseForm, parseQueryParams } = require('../utils');
 
-// /**
-//  * Represents a directory page filter form; reacts to user input and reflects
-//  * state in cards.
-//  *
-//  * @class FilterForm
-//  */
-// module.exports = class FilterForm {
-//   /**
-//    * Constructs an instance of FilterForm class for each element.
-//    *
-//    * @returns {FilterForm[]}
-//    */
-//   static init() {
-//     const elements = document.querySelectorAll('.js-filter-form');
-//     return Array.from(elements).map(element => new this(element));
-//   }
+/**
+ * Represents a directory page filter form; reacts to user input and triggers
+ * new server-side submiting of results
+ *
+ * @class FilterForm
+ */
+module.exports = class FilterForm {
+  /**
+   * Constructs an instance of FilterForm class for each element.
+   *
+   * @returns {FilterForm[]}
+   */
+  static init() {
+    const elements = document.querySelectorAll('.js-filter-form');
+    return Array.from(elements).map(element => new this(element));
+  }
 
-//   /**
-//    * Gets initial state, fetches elements and calls setup methods.
-//    *
-//    * @param {Element} form
-// .  */
-//   constructor(form) {
-//     this.form = form;
+  /**
+   * Gets initial state, fetches elements and calls setup methods.
+   *
+   * @param {Element} form
+.  */
+  constructor(form) {
+    this.form = form;
 
-//     // A representation of the current state of the form.
-//     this.state = parseQueryParams();
+    // A representation of the current state of the form.
+    this.state = parseQueryParams();
 
-//     // Stores all resource matches based on the current filter (irrespective of
-//     // page or number of resources currently shown).
-//     this.matches = [];
+    // Elements for the filter form/list.
+    this.clearButtons = document.querySelectorAll('.js-filter-clear');
+    this.clearSectionEls = document.querySelectorAll(
+      '.js-filter-form-clear-section',
+    );
 
-//     this.initialResources = parseInt(this.form.dataset.initialResources, 10);
-//     this.resourcesPerPage = parseInt(
-//       this.form.dataset.resourcesPerPage || this.initialResources,
-//       10,
-//     );
+    this.updateCheckboxes();
+    this.setupEvents();
+    // this.submit();
+  }
 
-//     // Keeps track of the current number of resources on the page. This is used
-//     // primarily for pagination.
-//     this.resourcesOnPage = this.initialResources;
+  /** Sets up event listeners. */
+  setupEvents() {
+    Array.from(this.clearButtons).forEach(btn => {
+      btn.addEventListener('click', e => this.uncheckInputs(e));
+    });
 
-//     // Elements for the filter form/list.
-//     const control = document.getElementById(this.form.dataset.controls);
-//     this.targetEls = control.querySelectorAll('.js-filter-target');
-//     this.actionsEl = document.getElementById('js-filter-list-actions');
-//     this.nextPageButton = document.getElementById(
-//       'js-filter-list-action-next-page',
-//     );
-//     this.clearButtons = document.querySelectorAll('.js-filter-clear');
-//     this.noResultsEl = document.getElementById('js-filter-list-no-results');
-//     this.clearSectionEls = document.querySelectorAll(
-//       '.js-filter-form-clear-section',
-//     );
+    // this.nextPageButton.addEventListener('click', e => this.nextPage(e));
+    this.form.addEventListener('change', () => this.onFormInput());
+  }
 
-//     this.updateCheckboxes();
-//     this.setupEvents();
-//     this.render();
-//   }
+  /** Updates state and requests new results from the server when an input is updated. */
+  onFormInput() {
+    this.state = parseForm(this.form);
+    this.submit();
+  }
 
-//   /** Sets up event listeners. */
-//   setupEvents() {
-//     Array.from(this.clearButtons).forEach(btn => {
-//       btn.addEventListener('click', e => this.uncheckInputs(e));
-//     });
+  /**
+   * Ensures the DOM reflects the current state. Used after query parameter
+   * loading.
+   */
+  updateCheckboxes() {
+    Object.entries(this.state).forEach(pair => {
+      pair[1].forEach(value => {
+        const el = this.form.querySelector(
+          `input[name='${pair[0]}'][value='${value}']`,
+        );
+        if (el) {
+          el.checked = true;
+        }
+      });
+    });
+  }
 
-//     this.nextPageButton.addEventListener('click', e => this.nextPage(e));
-//     this.form.addEventListener('change', () => this.onFormInput());
-//   }
+  /**
+   * Uncheck checkboxes by the section they appear in.
+   *
+   * @param {Event} e
+   */
+  uncheckInputs(e) {
+    e.preventDefault();
+    const { controls } = e.target.dataset;
+    const checkboxes = this.form.querySelectorAll('input[type=checkbox]');
+    const matchedCheckboxes = Array.from(checkboxes).filter(
+      checkbox => (!controls || checkbox.name === controls) && checkbox.checked,
+    );
 
-//   /** Updates state and re-renders the results when an input is updated. */
-//   onFormInput() {
-//     this.state = parseForm(this.form);
-//     this.render();
-//   }
+    matchedCheckboxes.forEach(checkbox => {
+      // eslint-disable-next-line no-param-reassign
+      checkbox.checked = false;
+    });
 
-//   /**
-//    * Ensures the DOM reflects the current state. Used after query parameter
-//    * loading.
-//    */
-//   updateCheckboxes() {
-//     Object.entries(this.state).forEach(pair => {
-//       pair[1].forEach(value => {
-//         const el = this.form.querySelector(
-//           `input[name='${pair[0]}'][value='${value}']`,
-//         );
-//         if (el) {
-//           el.checked = true;
-//         }
-//       });
-//     });
-//   }
+    if (matchedCheckboxes.length) {
+      const event = new Event('change');
+      this.form.dispatchEvent(event);
+    }
+  }
 
-//   /**
-//    * Uncheck checkboxes by the section they appear in.
-//    *
-//    * @param {Event} e
-//    */
-//   uncheckInputs(e) {
-//     e.preventDefault();
-//     const { controls } = e.target.dataset;
-//     const checkboxes = this.form.querySelectorAll('input[type=checkbox]');
-//     const matchedCheckboxes = Array.from(checkboxes).filter(
-//       checkbox => (!controls || checkbox.name === controls) && checkbox.checked,
-//     );
+  /** Toggles the visibility of clear buttons depending on selected filters. */
+  updateClearVisibility() {
+    const checkedControls = Object.keys(this.state);
 
-//     matchedCheckboxes.forEach(checkbox => {
-//       // eslint-disable-next-line no-param-reassign
-//       checkbox.checked = false;
-//     });
+    Array.from(this.clearButtons).forEach(btn => {
+      const { controls } = btn.dataset;
 
-//     if (matchedCheckboxes.length) {
-//       const event = new Event('change');
-//       this.form.dispatchEvent(event);
-//     }
-//   }
+      if (checkedControls.includes(controls)) {
+        btn.removeAttribute('hidden');
+      } else if (controls) {
+        btn.setAttribute('hidden', '');
+      }
+    });
 
-//   /** Toggles the visibility of clear buttons depending on selected filters. */
-//   updateClearVisibility() {
-//     const checkedControls = Object.keys(this.state);
+    if (checkedControls.length) {
+      Array.from(this.clearSectionEls).forEach(el =>
+        el.removeAttribute('hidden'),
+      );
+    } else {
+      Array.from(this.clearSectionEls).forEach(el =>
+        el.setAttribute('hidden', ''),
+      );
+    }
+  }
 
-//     Array.from(this.clearButtons).forEach(btn => {
-//       const { controls } = btn.dataset;
+  /** Updates the URL to include selected filters. */
+  updateUrlParams() {
+    const stringResult = Object.entries(this.state)
+      .map(pair => {
+        return `${pair[0]}=${pair[1].join(',')}`;
+      }, [])
+      .join('&');
 
-//       if (checkedControls.includes(controls)) {
-//         btn.removeAttribute('hidden');
-//       } else if (controls) {
-//         btn.setAttribute('hidden', '');
-//       }
-//     });
+    if (stringResult) {
+      window.history.replaceState({}, '', `?${stringResult}`);
+    } else {
+      window.history.replaceState({}, null, '.');
+    }
+  }
 
-//     if (checkedControls.length) {
-//       Array.from(this.clearSectionEls).forEach(el =>
-//         el.removeAttribute('hidden'),
-//       );
-//     } else {
-//       Array.from(this.clearSectionEls).forEach(el =>
-//         el.setAttribute('hidden', ''),
-//       );
-//     }
-//   }
+  /**
+   * Shows the next page of items.
+   *
+   * @param {Event} e
+   */
+  nextPage(e) {
+    e.preventDefault();
+    if (this.matches.length >= this.resourcesOnPage) {
+      this.resourcesOnPage += this.resourcesPerPage;
+      this.submit();
+    }
+  }
 
-//   /** Updates the URL to include selected filters. */
-//   updateUrlParams() {
-//     const stringResult = Object.entries(this.state)
-//       .map(pair => {
-//         return `${pair[0]}=${pair[1].join(',')}`;
-//       }, [])
-//       .join('&');
+  // /** Filters the items by applying the selected filters. */
+  // filter() {
+  //   this.matches = [];
 
-//     if (stringResult) {
-//       window.history.replaceState({}, '', `?${stringResult}`);
-//     } else {
-//       window.history.replaceState({}, null, '.');
-//     }
-//   }
+  //   if (!Object.keys(this.state).length) {
+  //     this.matches = Array.from(this.targetEls);
+  //     return;
+  //   }
 
-//   /**
-//    * Shows the next page of items.
-//    *
-//    * @param {Event} e
-//    */
-//   nextPage(e) {
-//     e.preventDefault();
-//     if (this.matches.length >= this.resourcesOnPage) {
-//       this.resourcesOnPage += this.resourcesPerPage;
-//       this.render();
-//     }
-//   }
+  //   Array.from(this.targetEls).forEach(el => {
+  //     const results = Object.entries(this.state).map(([key, values]) => {
+  //       const dataValues = el.dataset[key] ? el.dataset[key].split(' ') : [];
+  //       return values.some(value => dataValues.includes(value));
+  //     });
 
-//   /** Filters the items by applying the selected filters. */
-//   filter() {
-//     this.matches = [];
+  //     if (results.every(Boolean)) {
+  //       this.matches.push(el);
+  //     }
+  //   });
+  // }
 
-//     if (!Object.keys(this.state).length) {
-//       this.matches = Array.from(this.targetEls);
-//       return;
-//     }
+  /** Submits a HTTP request to get an updated list of items based on the
+   * current state of the filters */
+  submit() {
+    // this.filter();
+    this.updateClearVisibility();
+    // if (this.matches.length <= this.resourcesOnPage) {
+    //   this.actionsEl.setAttribute('hidden', '');
+    // } else {
+    //   this.actionsEl.removeAttribute('hidden');
+    // }
 
-//     Array.from(this.targetEls).forEach(el => {
-//       const results = Object.entries(this.state).map(([key, values]) => {
-//         const dataValues = el.dataset[key] ? el.dataset[key].split(' ') : [];
-//         return values.some(value => dataValues.includes(value));
-//       });
-
-//       if (results.every(Boolean)) {
-//         this.matches.push(el);
-//       }
-//     });
-//   }
-
-//   /** Re-renders the items based on the current state. */
-//   render() {
-//     this.filter();
-//     this.updateClearVisibility();
-
-//     if (this.matches.length <= this.resourcesOnPage) {
-//       this.actionsEl.setAttribute('hidden', '');
-//     } else {
-//       this.actionsEl.removeAttribute('hidden');
-//     }
-
-//     // Limit the number of matched resources to the current page number.
-//     const pagedMatches = this.matches.slice(0, this.resourcesOnPage);
-
-//     // Show/hide resources on the page based on whether they're included within
-//     // the filter matches.
-//     Array.from(this.targetEls).forEach(target => {
-//       if (pagedMatches.includes(target)) {
-//         target.removeAttribute('hidden');
-//       } else {
-//         target.setAttribute('hidden', '');
-//       }
-//     });
-
-//     // Show "no resources" message if no resources match the current filters.
-//     if (pagedMatches.length === 0) {
-//       this.noResultsEl.removeAttribute('hidden');
-//     } else {
-//       this.noResultsEl.setAttribute('hidden', '');
-//     }
-
-//     this.updateUrlParams();
-//   }
-// };
+    // update the URL params
+    this.updateUrlParams();
+    // reload the page, based on the params just set
+    window.location.reload();
+  }
+};
