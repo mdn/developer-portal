@@ -1,0 +1,9 @@
+.pagination-block {
+  margin-top: $spacing-xl;
+  text-align: center;
+}
+
+.pagination-current {
+  display: inline-block;
+  margin: auto $spacing-md;
+}

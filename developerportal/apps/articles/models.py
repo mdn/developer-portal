@@ -1,6 +1,7 @@
 # pylint: disable=no-member
 import datetime
 
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -42,6 +43,9 @@ class ArticlesTag(TaggedItemBase):
 
 
 class Articles(BasePage):
+
+    RESOURCES_PER_PAGE = 10
+
     # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Article"]
@@ -102,12 +106,29 @@ class Articles(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
+        context["resources"] = self.get_resources(request)
         return context
 
-    @property
-    def resources(self):
+    def get_resources(self, request, paginate=True):
         # This Page class will show both Articles/Posts and Videos in its listing
-        return get_combined_articles_and_videos(self)
+
+        resources = get_combined_articles_and_videos(self)
+        if paginate:
+            paginator = Paginator(resources, self.RESOURCES_PER_PAGE)
+            page = request.GET.get("page")
+            try:
+                resources = paginator.page(page)
+                print("got paginated slice")
+            except EmptyPage:
+                print("EmptyPage")
+                # ie, out of range
+                resources = paginator.page(paginator.num_pages)
+            except PageNotAnInteger:
+                # This will also be the default if `page` is None
+                print("PageNotAnInteger")
+                resources = paginator.page(1)
+
+        return resources
 
     def get_filters(self):
         from ..topics.models import Topic

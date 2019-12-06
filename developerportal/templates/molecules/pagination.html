@@ -1,0 +1,23 @@
+<div class="pagination-block">
+  <span class="step-links">
+  {% if items.has_previous %}
+    {% comment %} <a class="mzp-c-button" href="?page=1">&laquo; 1</a> {% endcomment %}
+    <a class="mzp-c-button" href="?page={{ items.previous_page_number }}">Prev</a>
+  {% else %}
+    {% comment %} <button class="mzp-c-button" disabled>&laquo; 1</button> {% endcomment %}
+    <button class="mzp-c-button" disabled>Prev</button>
+  {% endif %}
+
+  <span class="pagination-current">
+    Page {{ items.number }} of {{ items.paginator.num_pages }}.
+  </span>
+
+  {% if items.has_next %}
+    <a class="mzp-c-button" href="?page={{ items.next_page_number }}">Next</a>
+    {% comment %} <a class="mzp-c-button" href="?page={{ items.paginator.num_pages }}">{{items.paginator.num_pages}} &raquo;</a> {% endcomment %}
+  {% else %}
+    <button class="mzp-c-button" disabled>Next</button>
+    {% comment %} <button class="mzp-c-button" disabled>{{items.paginator.num_pages}} &raquo;</button> {% endcomment %}
+  {% endif %}
+  </span>
+</div>
