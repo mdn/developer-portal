@@ -1,6 +1,14 @@
 .pagination-block {
   margin-top: $spacing-xl;
   text-align: center;
+
+  & .mzp-c-button {
+    @media #{$mq-md} {
+      padding: 14px 30px;
+      // This is the default for mzp-c-button, but we
+      // want to override mzp-t-small on larger viewports
+    }
+  }
 }
 
 .pagination-current {

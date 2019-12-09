@@ -5,9 +5,9 @@
 
   <span class="step-links">
   {% if items.has_previous %}
-    <a class="mzp-c-button" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.previous_page_number }}{{additional_qs_params}}">Prev</a>
+    <a class="mzp-c-button mzp-t-small" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.previous_page_number }}{{additional_qs_params}}">Prev</a>
   {% else %}
-    <button class="mzp-c-button" disabled>Prev</button>
+    <button class="mzp-c-button mzp-t-small" disabled>Prev</button>
   {% endif %}
 
   <span class="pagination-current">
@@ -15,9 +15,9 @@
   </span>
 
   {% if items.has_next %}
-    <a class="mzp-c-button" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.next_page_number }}{{additional_qs_params}}">Next</a>
+    <a class="mzp-c-button mzp-t-small" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.next_page_number }}{{additional_qs_params}}">Next</a>
   {% else %}
-    <button class="mzp-c-button" disabled>Next</button>
+    <button class="mzp-c-button mzp-t-small" disabled>Next</button>
   {% endif %}
   </span>
   {% endwith %}
