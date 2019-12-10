@@ -48,7 +48,7 @@ class ArticlesTag(TaggedItemBase):
 
 class Articles(BasePage):
 
-    RESOURCES_PER_PAGE = 10
+    RESOURCES_PER_PAGE = 6
     TOPICS_QUERYSTRING_KEY = "topics"
 
     # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
@@ -120,16 +120,10 @@ class Articles(BasePage):
         # We can't use __in in this deeply related query, so we have to make
         # a custom Q object instead and pass is in as a filter, then deal with
         # it later
-        print(
-            "request.GET.get(self.TOPICS_QUERYSTRING_KEY, '')",
-            request.GET.get(self.TOPICS_QUERYSTRING_KEY, ""),
-        )
         topics = request.GET.get(self.TOPICS_QUERYSTRING_KEY, "").split(",")
-
         q_object = build_complex_filtering_query_from_query_params(
             query_syntax="topics__topic__slug", params=topics
         )
-
         resources = get_combined_articles_and_videos(self, q_object=q_object)
         resources = paginate_resources(
             resources,

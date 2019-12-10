@@ -2,7 +2,8 @@ import datetime
 from itertools import chain
 from operator import attrgetter
 
-from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, TextField
+from django.conf import settings
+from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, Q, TextField
 
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -24,6 +25,10 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
 from ..common.models import BasePage
+from ..common.utils import (
+    build_complex_filtering_query_from_query_params,
+    paginate_resources,
+)
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -34,6 +39,12 @@ class PeopleTag(TaggedItemBase):
 
 
 class People(BasePage):
+
+    RESOURCES_PER_PAGE = 10
+    TOPICS_QUERYSTRING_KEY = "topics"
+    ROLE_QUERYSTRING_KEY = "role"
+    COUNTRY_QUERYSTRING_KEY = "country"
+
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]
     template = "people.html"
@@ -92,18 +103,62 @@ class People(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
+        context["people"] = self.get_people(request)
         return context
 
-    @property
-    def people(self):
-        return Person.published_objects.all().order_by("title")
+    def get_people(self, request):
+
+        countries = request.GET.get(self.COUNTRY_QUERYSTRING_KEY, "").split(",")
+        roles = request.GET.get(self.ROLE_QUERYSTRING_KEY, "").split(",")
+        topics = request.GET.get(self.TOPICS_QUERYSTRING_KEY, "").split(",")
+
+        countries_q = build_complex_filtering_query_from_query_params(
+            query_syntax="country", params=countries
+        )
+        roles_q = build_complex_filtering_query_from_query_params(
+            query_syntax="role", params=roles
+        )
+        topics_q = build_complex_filtering_query_from_query_params(
+            query_syntax="topics__topic__slug", params=topics
+        )
+
+        combined_q = Q()
+        if countries_q:
+            combined_q.add(countries_q, Q.AND)
+        if roles_q:
+            combined_q.add(roles_q, Q.AND)
+        if topics_q:
+            combined_q.add(topics_q, Q.AND)
+
+        people = Person.published_objects.order_by("title").filter(combined_q)
+
+        people = paginate_resources(
+            people,
+            page_ref=request.GET.get(settings.PAGINATION_QUERYSTRING_KEY),
+            per_page=self.RESOURCES_PER_PAGE,
+        )
+
+        return people
+
+    def get_relevant_countries(self):
+        # Relevant here means a country that a published person is in
+        raw_countries = set(
+            person.country
+            for person in Person.published_objects.all()
+            if person.country
+        )
+
+        return sorted(
+            [{"code": country.code, "name": country.name} for country in raw_countries],
+            key=lambda x: x["code"],
+        )
 
     def get_filters(self):
         from ..topics.models import Topic
 
         return {
-            "countries": True,
-            "roles": True,
+            "countries": self.get_relevant_countries(),
+            "roles": ROLE_CHOICES,
             "topics": Topic.published_objects.order_by("title"),
         }
 

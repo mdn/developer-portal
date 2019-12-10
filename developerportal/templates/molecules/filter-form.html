@@ -17,6 +17,7 @@
   </header>
   {% endif %}
 
+  {% comment "Note, this may not work with server-side filtering unless amended, so has been disabled as was not in use" %}
   {% if filters.months %}
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
@@ -37,6 +38,7 @@
       {% endfor %}
     </fieldset>
   {% endif %}
+  {% endcomment %}
 
   {% if filters.roles %}
     <fieldset class="filter-form-section">
@@ -49,11 +51,13 @@
           Clear
         </a>
       </header>
-      {% regroup resources|dictsort:"role_group.slug" by role_group as groups %}
-      {% for group in groups %}
+      {% for role in filters.roles %}
         <label>
-          <input type="checkbox" name="role" value="{{ group.grouper.slug }}">
-          {{ group.grouper.title }}
+          {% comment %}
+            filters.roles is a tuple of two-tuples defined in constants.ROLE_CHOICES
+          {% endcomment %}
+          <input type="checkbox" name="role" value="{{ role.0 }}">
+          {{ role.1 }}
         </label>
       {% endfor %}
     </fieldset>
@@ -80,27 +84,22 @@
   {% endif %}
 
   {% if filters.countries %}
-    {% regroup resources|dictsort:"country_group.slug" by country_group as groups %}
-    {% if groups %}
-      <fieldset class="filter-form-section">
-        <header class="filter-form-section-header">
-          <h5 class="no-underline">Country</h5>
-          <a href="#" class="filter-form-clear js-filter-clear" data-controls="country">
-            <span class="icon">
-              {% include "atoms/icons/close.svg" %}
-            </span>
-            Clear
-          </a>
-        </header>
-        {% for group in groups %}
-          {% if group.grouper.slug %}
-            <label>
-              <input type="checkbox" name="country" value="{{ group.grouper.slug }}">
-              {{ group.grouper.title }}
-            </label>
-          {% endif %}
-        {% endfor %}
-      </fieldset>
-    {% endif %}
+    <fieldset class="filter-form-section">
+      <header class="filter-form-section-header">
+        <h5 class="no-underline">Country</h5>
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="country">
+          <span class="icon">
+            {% include "atoms/icons/close.svg" %}
+          </span>
+          Clear
+        </a>
+      </header>
+      {% for country in filters.countries %}
+          <label>
+            <input type="checkbox" name="country" value="{{ country.code }}">
+            {{ country.name }}
+          </label>
+      {% endfor %}
+    </fieldset>
   {% endif %}
 </form>

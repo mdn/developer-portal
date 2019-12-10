@@ -36,6 +36,8 @@ module.exports = class FilterForm {
 
     this.updateCheckboxes();
     this.setupEvents();
+    this.updateClearVisibility();
+
     // this.submit();
   }
 
@@ -44,8 +46,6 @@ module.exports = class FilterForm {
     Array.from(this.clearButtons).forEach(btn => {
       btn.addEventListener('click', e => this.uncheckInputs(e));
     });
-
-    // this.nextPageButton.addEventListener('click', e => this.nextPage(e));
     this.form.addEventListener('change', () => this.onFormInput());
   }
 
@@ -99,7 +99,6 @@ module.exports = class FilterForm {
   /** Toggles the visibility of clear buttons depending on selected filters. */
   updateClearVisibility() {
     const checkedControls = Object.keys(this.state);
-
     Array.from(this.clearButtons).forEach(btn => {
       const { controls } = btn.dataset;
 
