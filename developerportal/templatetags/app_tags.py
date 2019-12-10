@@ -100,8 +100,12 @@ def filename_cachebreaker_to_querystring(url):
 
 @register.filter
 def pagination_additional_filter_params(request):
-    """Used to ensure the pagination links include anynon-pagination
-    querystrings in them, too"""
+    """Used to ensure the pagination links include any non-pagination
+    querystrings in them, too.
+
+    Note that the output always starts with & because the idea is that the
+    resulting string is appended to a ?page=X querystring in the template
+    """
 
     output_params_strings = []
     input_params = list(request.GET.items())

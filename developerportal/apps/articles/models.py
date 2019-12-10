@@ -9,7 +9,6 @@ from django.db.models import (
     CharField,
     DateField,
     ForeignKey,
-    Q,
     TextField,
 )
 
@@ -35,7 +34,10 @@ from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import get_combined_articles_and_videos
+from ..common.utils import (
+    build_complex_filtering_query_from_query_params,
+    get_combined_articles_and_videos,
+)
 
 
 class ArticlesTag(TaggedItemBase):
@@ -48,7 +50,6 @@ class Articles(BasePage):
 
     RESOURCES_PER_PAGE = 10
     TOPICS_QUERYSTRING_KEY = "topics"
-    PAGINATION_QUERYSTRING_KEY = settings.PAGINATION_QUERYSTRING_KEY
 
     # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
     parent_page_types = ["home.HomePage"]
@@ -113,36 +114,37 @@ class Articles(BasePage):
         context["resources"] = self.get_resources(request)
         return context
 
-    def get_resources(self, request, paginate=True):
+    def get_resources(self, request):
         # This Page class will show both Articles/Posts and Videos in its listing
 
         # We can't use __in in this deeply related query, so we have to make
         # a custom Q object instead and pass is in as a filter, then deal with
         # it later
+        print(
+            "request.GET.get(self.TOPICS_QUERYSTRING_KEY, '')",
+            request.GET.get(self.TOPICS_QUERYSTRING_KEY, ""),
+        )
+        topics = request.GET.get(self.TOPICS_QUERYSTRING_KEY, "").split(",")
 
-        q = None
-        topics = request.GET.get(self.TOPICS_QUERYSTRING_KEY, "")
-        if topics:
-            q = Q()
-            for topic_slug in topics.split(","):
-                if topic_slug:
-                    q.add(Q(topics__topic__slug=topic_slug), Q.OR)
-        resources = get_combined_articles_and_videos(self, q_object=q)
+        q_object = build_complex_filtering_query_from_query_params(
+            query_syntax="topics__topic__slug", params=topics
+        )
 
-        if paginate:
-            paginator = Paginator(resources, self.RESOURCES_PER_PAGE)
-            page = request.GET.get(self.PAGINATION_QUERYSTRING_KEY)
-            try:
-                resources = paginator.page(page)
-                print("got paginated slice")
-            except EmptyPage:
-                print("EmptyPage")
-                # ie, out of range
-                resources = paginator.page(paginator.num_pages)
-            except PageNotAnInteger:
-                # This will also be the default if `page` is None
-                print("PageNotAnInteger")
-                resources = paginator.page(1)
+        resources = get_combined_articles_and_videos(self, q_object=q_object)
+
+        paginator = Paginator(resources, self.RESOURCES_PER_PAGE)
+        page = request.GET.get(settings.PAGINATION_QUERYSTRING_KEY)
+        try:
+            resources = paginator.page(page)
+            print("got paginated slice")
+        except EmptyPage:
+            print("EmptyPage")
+            # ie, out of range - get the last page
+            resources = paginator.page(paginator.num_pages)
+        except PageNotAnInteger:
+            # This will also be the default if `page` is None
+            print("PageNotAnInteger")
+            resources = paginator.page(1)
 
         return resources
 

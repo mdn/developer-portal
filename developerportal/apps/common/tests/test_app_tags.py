@@ -1,10 +1,11 @@
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 
 from wagtail.core.models import Page
 
 from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
     has_at_least_two_filters,
+    pagination_additional_filter_params,
 )
 
 
@@ -99,4 +100,55 @@ class AppTagsTestCase(TestCase):
                     )
 
     def test_pagination_additional_filter_params(self):
-        self.fail("WRITE ME")
+        cases = [
+            {
+                # single topic only
+                "input_querystring": "?topics=css",
+                "expected_output": "&topics=css",
+            },
+            {
+                # multiple topics
+                "input_querystring": "?topics=css,javascript",
+                "expected_output": "&topics=css,javascript",
+            },
+            {
+                # single topic and page info
+                "input_querystring": "?topics=css&page=2",
+                "expected_output": "&topics=css",
+            },
+            {
+                # multiple topics and page info
+                "input_querystring": "?topics=css,javascript&page=2",
+                "expected_output": "&topics=css,javascript",
+            },
+            {
+                # single topic and page info
+                "input_querystring": "?page=22&topics=css",
+                "expected_output": "&topics=css",
+            },
+            {
+                # multiple topics and page info
+                "input_querystring": "?page=3&topics=css,javascript",
+                "expected_output": "&topics=css,javascript",
+            },
+            {
+                # multiple non-page params
+                "input_querystring": "?topics=css&foo=bar",
+                "expected_output": "&topics=css&foo=bar",
+            },
+            {
+                # multiple params, incl pages
+                "input_querystring": "?topics=css&foo=bar&page=234",
+                "expected_output": "&topics=css&foo=bar",
+            },
+        ]
+
+        factory = RequestFactory()
+
+        for case in cases:
+            with self.subTest(case=case):
+                request = factory.get(f"/{case['input_querystring']}")
+                self.assertEqual(
+                    pagination_additional_filter_params(request),
+                    case["expected_output"],
+                )
