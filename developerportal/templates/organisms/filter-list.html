@@ -18,12 +18,6 @@
             </div>
           </aside>
           <div class="filter-list-items">
-            <div class="filter-list-no-results" id="js-filter-list-no-results" hidden>
-              <p>No results found with these filters.</p>
-              <button class="mzp-c-button js-filter-clear" type="button">
-                Clear filters
-              </button>
-            </div>
             <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
               {% for resource in resources %}
                 {% if type == "article" %}
