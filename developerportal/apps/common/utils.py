@@ -2,6 +2,7 @@ from itertools import chain
 from operator import attrgetter
 
 from django.apps import apps
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 
 
@@ -116,3 +117,20 @@ def build_complex_filtering_query_from_query_params(query_syntax, params):
             else:
                 q.add(Q(**{query_syntax: param}), Q.OR)
     return q
+
+
+def paginate_resources(resources, per_page, page_ref):
+    paginator = Paginator(resources, per_page)
+    try:
+        resources = paginator.page(page_ref)
+        print("got paginated slice")
+    except EmptyPage:
+        print("EmptyPage")
+        # ie, out of range - get the last page
+        resources = paginator.page(paginator.num_pages)
+    except PageNotAnInteger:
+        # This will also be the default if `page` is None
+        print("PageNotAnInteger")
+        resources = paginator.page(1)
+
+    return resources

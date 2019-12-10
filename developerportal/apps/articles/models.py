@@ -2,7 +2,6 @@
 import datetime
 
 from django.conf import settings
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -37,6 +36,7 @@ from ..common.models import BasePage
 from ..common.utils import (
     build_complex_filtering_query_from_query_params,
     get_combined_articles_and_videos,
+    paginate_resources,
 )
 
 
@@ -131,20 +131,11 @@ class Articles(BasePage):
         )
 
         resources = get_combined_articles_and_videos(self, q_object=q_object)
-
-        paginator = Paginator(resources, self.RESOURCES_PER_PAGE)
-        page = request.GET.get(settings.PAGINATION_QUERYSTRING_KEY)
-        try:
-            resources = paginator.page(page)
-            print("got paginated slice")
-        except EmptyPage:
-            print("EmptyPage")
-            # ie, out of range - get the last page
-            resources = paginator.page(paginator.num_pages)
-        except PageNotAnInteger:
-            # This will also be the default if `page` is None
-            print("PageNotAnInteger")
-            resources = paginator.page(1)
+        resources = paginate_resources(
+            resources,
+            page_ref=request.GET.get(settings.PAGINATION_QUERYSTRING_KEY),
+            per_page=self.RESOURCES_PER_PAGE,
+        )
 
         return resources
 
