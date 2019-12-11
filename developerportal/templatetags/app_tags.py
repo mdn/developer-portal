@@ -8,6 +8,8 @@ from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
+from developerportal.apps.common.constants import PAGINATION_QUERYSTRING_KEY
+
 register = template.Library()
 
 logger = logging.getLogger(__name__)
@@ -111,7 +113,7 @@ def pagination_additional_filter_params(request):
     input_params = list(request.GET.items())
 
     for k, v in input_params:
-        if k != settings.PAGINATION_QUERYSTRING_KEY:
+        if k != PAGINATION_QUERYSTRING_KEY:
             output_params_strings.append(f"{k}={v}")
 
     joined_params = "&".join(output_params_strings)

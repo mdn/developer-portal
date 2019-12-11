@@ -31,4 +31,16 @@ def directory_pages(request):
 
 
 def pagination_constants(request):
-    return {"PAGINATION_QUERYSTRING_KEY": settings.PAGINATION_QUERYSTRING_KEY}
+    from developerportal.apps.common import constants
+
+    return {"PAGINATION_QUERYSTRING_KEY": constants.PAGINATION_QUERYSTRING_KEY}
+
+
+def filtering_constants(request):
+    from developerportal.apps.common import constants
+
+    return {
+        "TOPIC_QUERYSTRING_KEY": constants.TOPIC_QUERYSTRING_KEY,
+        "ROLE_QUERYSTRING_KEY": constants.ROLE_QUERYSTRING_KEY,
+        "COUNTRY_QUERYSTRING_KEY": constants.COUNTRY_QUERYSTRING_KEY,
+    }

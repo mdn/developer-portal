@@ -56,7 +56,7 @@
           {% comment %}
             filters.roles is a tuple of two-tuples defined in constants.ROLE_CHOICES
           {% endcomment %}
-          <input type="checkbox" name="role" value="{{ role.0 }}">
+          <input type="checkbox" name="{{ROLE_QUERYSTRING_KEY}}" value="{{ role.0 }}">
           {{ role.1 }}
         </label>
       {% endfor %}
@@ -76,7 +76,7 @@
       </header>
       {% for topic in filters.topics %}
         <label>
-          <input type="checkbox" name="topics" value="{{ topic.slug }}">
+          <input type="checkbox" name="{{TOPIC_QUERYSTRING_KEY}}" value="{{ topic.slug }}">
           {{ topic.title }}
         </label>
       {% endfor %}
@@ -96,7 +96,7 @@
       </header>
       {% for country in filters.countries %}
           <label>
-            <input type="checkbox" name="country" value="{{ country.code }}">
+            <input type="checkbox" name="{{COUNTRY_QUERYSTRING_KEY}}" value="{{ country.code }}">
             {{ country.name }}
           </label>
       {% endfor %}

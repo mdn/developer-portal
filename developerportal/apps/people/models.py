@@ -2,7 +2,6 @@ import datetime
 from itertools import chain
 from operator import attrgetter
 
-from django.conf import settings
 from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, Q, TextField
 
 from django_countries.fields import CountryField
@@ -23,7 +22,14 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import PersonalWebsiteBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
+from ..common.constants import (
+    COUNTRY_QUERYSTRING_KEY,
+    PAGINATION_QUERYSTRING_KEY,
+    RICH_TEXT_FEATURES_SIMPLE,
+    ROLE_CHOICES,
+    ROLE_QUERYSTRING_KEY,
+    TOPIC_QUERYSTRING_KEY,
+)
 from ..common.models import BasePage
 from ..common.utils import (
     build_complex_filtering_query_from_query_params,
@@ -41,9 +47,6 @@ class PeopleTag(TaggedItemBase):
 class People(BasePage):
 
     RESOURCES_PER_PAGE = 10
-    TOPICS_QUERYSTRING_KEY = "topics"
-    ROLE_QUERYSTRING_KEY = "role"
-    COUNTRY_QUERYSTRING_KEY = "country"
 
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]
@@ -108,9 +111,9 @@ class People(BasePage):
 
     def get_people(self, request):
 
-        countries = request.GET.get(self.COUNTRY_QUERYSTRING_KEY, "").split(",")
-        roles = request.GET.get(self.ROLE_QUERYSTRING_KEY, "").split(",")
-        topics = request.GET.get(self.TOPICS_QUERYSTRING_KEY, "").split(",")
+        countries = request.GET.get(COUNTRY_QUERYSTRING_KEY, "").split(",")
+        roles = request.GET.get(ROLE_QUERYSTRING_KEY, "").split(",")
+        topics = request.GET.get(TOPIC_QUERYSTRING_KEY, "").split(",")
 
         countries_q = build_complex_filtering_query_from_query_params(
             query_syntax="country", params=countries
@@ -130,11 +133,11 @@ class People(BasePage):
         if topics_q:
             combined_q.add(topics_q, Q.AND)
 
-        people = Person.published_objects.order_by("title").filter(combined_q)
+        people = Person.published_objects.filter(combined_q).order_by("title")
 
         people = paginate_resources(
             people,
-            page_ref=request.GET.get(settings.PAGINATION_QUERYSTRING_KEY),
+            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
             per_page=self.RESOURCES_PER_PAGE,
         )
 

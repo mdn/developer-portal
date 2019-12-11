@@ -72,3 +72,9 @@ VIDEO_TYPE = (
     ("live stream", "Live stream"),
     ("technical briefing", "Technical briefing"),
 )
+
+
+PAGINATION_QUERYSTRING_KEY = "page"
+TOPIC_QUERYSTRING_KEY = "topic"
+ROLE_QUERYSTRING_KEY = "role"
+COUNTRY_QUERYSTRING_KEY = "country"

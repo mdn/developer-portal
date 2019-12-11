@@ -1,7 +1,6 @@
 # pylint: disable=no-member
 import datetime
 
-from django.conf import settings
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -30,7 +29,11 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import (
+    PAGINATION_QUERYSTRING_KEY,
+    RICH_TEXT_FEATURES_SIMPLE,
+    TOPIC_QUERYSTRING_KEY,
+)
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
 from ..common.utils import (
@@ -49,7 +52,6 @@ class ArticlesTag(TaggedItemBase):
 class Articles(BasePage):
 
     RESOURCES_PER_PAGE = 6
-    TOPICS_QUERYSTRING_KEY = "topics"
 
     # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
     parent_page_types = ["home.HomePage"]
@@ -120,14 +122,14 @@ class Articles(BasePage):
         # We can't use __in in this deeply related query, so we have to make
         # a custom Q object instead and pass is in as a filter, then deal with
         # it later
-        topics = request.GET.get(self.TOPICS_QUERYSTRING_KEY, "").split(",")
+        topics = request.GET.get(TOPIC_QUERYSTRING_KEY, "").split(",")
         q_object = build_complex_filtering_query_from_query_params(
             query_syntax="topics__topic__slug", params=topics
         )
         resources = get_combined_articles_and_videos(self, q_object=q_object)
         resources = paginate_resources(
             resources,
-            page_ref=request.GET.get(settings.PAGINATION_QUERYSTRING_KEY),
+            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
             per_page=self.RESOURCES_PER_PAGE,
         )
 

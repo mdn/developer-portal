@@ -106,6 +106,7 @@ TEMPLATES = [
                 "developerportal.context_processors.google_analytics",
                 "developerportal.context_processors.mapbox_access_token",
                 "developerportal.context_processors.pagination_constants",
+                "developerportal.context_processors.filtering_constants",
             ],
             "libraries": {
                 "app_filters": "developerportal.templatetags.app_filters",
@@ -438,6 +439,3 @@ LOGGING = {
         },
     },
 }
-
-
-PAGINATION_QUERYSTRING_KEY = "page"
