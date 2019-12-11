@@ -17,7 +17,6 @@
   </header>
   {% endif %}
 
-  {% comment "Note, this may not work with server-side filtering unless amended, so has been disabled as was not in use" %}
   {% if filters.months %}
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
@@ -38,7 +37,6 @@
       {% endfor %}
     </fieldset>
   {% endif %}
-  {% endcomment %}
 
   {% if filters.roles %}
     <fieldset class="filter-form-section">

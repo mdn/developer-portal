@@ -32,10 +32,10 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import PAGINATION_QUERYSTRING_KEY, RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import get_combined_events
+from ..common.utils import get_combined_events, paginate_resources
 
 
 class EventsTag(TaggedItemBase):
@@ -63,6 +63,10 @@ class EventSpeaker(Orderable):
 
 
 class Events(BasePage):
+
+    # Note that we only paginate PAST events right now, and not the future ones
+    PAST_EVENTS_PER_PAGE = 6
+
     parent_page_types = ["home.HomePage"]
     subpage_types = ["events.Event"]
     template = "events.html"
@@ -132,25 +136,51 @@ class Events(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
+        context["events"] = self.get_events(request)
+        past_events, total_past_events = self.get_past_events(request)
+        context["past_events"] = past_events
+        context["show_past_event_pagination"] = (
+            total_past_events > self.PAST_EVENTS_PER_PAGE
+        )
         return context
 
-    @property
-    def events(self):
+    def get_events(self, request):
         """Return future events in chronological order"""
+        # These are not paginated but ARE filtered
         return get_combined_events(self, start_date__gte=datetime.date.today())
 
-    @property
-    def past_events(self):
-        """Return past events in reverse chronological order"""
-        return get_combined_events(
+    def get_past_events(self, request):
+        """Return paginated past events in reverse chronological order,
+        plus a count of how many there are in total
+        """
+        past_events = get_combined_events(
             self, reverse=True, start_date__lt=datetime.date.today()
+        )
+        total_past_events = len(past_events)
+
+        past_events = paginate_resources(
+            past_events,
+            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
+            per_page=self.PAST_EVENTS_PER_PAGE,
+        )
+        return past_events, total_past_events
+
+    def get_relevant_countries(self):
+        # Relevant here means a country that a published Event is or was in
+        raw_countries = set(
+            event.country for event in Event.published_objects.all() if event.country
+        )
+
+        return sorted(
+            [{"code": country.code, "name": country.name} for country in raw_countries],
+            key=lambda x: x["code"],
         )
 
     def get_filters(self):
         from ..topics.models import Topic
 
         return {
-            "countries": True,
+            "countries": self.get_relevant_countries(),
             "months": True,
             "topics": Topic.published_objects.order_by("title"),
         }

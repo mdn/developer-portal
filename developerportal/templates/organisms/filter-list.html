@@ -40,7 +40,7 @@
               {% endfor %}
             </div>
 
-            {% if resources %}
+            {% if resources and not hide_pagination %}
             {% include "molecules/pagination.html" with items=resources %}
             {% endif %}
 
