@@ -1,9 +1,9 @@
 {% if resource.resource_type == "article" %}
-  {% include "molecules/cards/card-article.html" with resource=resource filter_target=filter_target show_author=show_author card_number=card_number %}
+  {% include "molecules/cards/card-article.html" with resource=resource show_author=show_author card_number=card_number %}
 {% elif resource.resource_type == "event" %}
-  {% include "molecules/cards/card-event.html" with resource=resource filter_target=filter_target %}
+  {% include "molecules/cards/card-event.html" with resource=resource %}
 {% elif resource.resource_type == "person" %}
-  {% include "molecules/cards/card-person.html" with resource=resource filter_target=filter_target %}
+  {% include "molecules/cards/card-person.html" with resource=resource %}
 {% elif resource.resource_type == "video" %}
-  {% include "molecules/cards/card-video.html" with resource=resource filter_target=filter_target %}
+  {% include "molecules/cards/card-video.html" with resource=resource %}
 {% endif %}

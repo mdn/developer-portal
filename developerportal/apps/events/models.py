@@ -168,7 +168,6 @@ class Events(BasePage):
         years_and_months_tuples = self._year_months_to_years_and_months_tuples(
             year_months
         )
-        print("years_and_months_tuples", years_and_months_tuples)
         if not years_and_months_tuples:
             # Covers case where no year_months
             return default_future_events_q
@@ -188,9 +187,6 @@ class Events(BasePage):
         # Finally, ensure we don't include past events here (ie, same month as
         # selected but before today)
         overall_date_q.add(default_future_events_q, Q.AND)
-
-        print("overall_date_q", overall_date_q)
-
         return overall_date_q
 
     def get_upcoming_events(self, request):
@@ -211,7 +207,6 @@ class Events(BasePage):
         # year_months need splitting to make them work
         date_q = self._build_date_q(years_months)
 
-        print("date_q", date_q)
         combined_q = Q()
         if countries_q:
             combined_q.add(countries_q, Q.AND)

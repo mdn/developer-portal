@@ -33,7 +33,6 @@ def get_resources(
     def callback(model):
         qs = model.published_objects
         if q_object:
-            print("get_resources q_object", q_object)
             qs = qs.filter(q_object)
         return qs.filter(**filters).not_page(page).specific()
 
@@ -72,7 +71,6 @@ def get_combined_articles_and_videos(page, q_object=None, **filters):
 def get_combined_events(page, reverse=False, q_object=None, **filters):
     """Get internal and external events matching filters."""
 
-    print("get_combined_events: q_object", q_object)
     return get_resources(
         page,
         ["events.Event", "externalcontent.ExternalEvent"],
@@ -127,14 +125,11 @@ def paginate_resources(resources, per_page, page_ref):
     paginator = Paginator(resources, per_page)
     try:
         resources = paginator.page(page_ref)
-        print("got paginated slice")
     except EmptyPage:
-        print("EmptyPage")
         # ie, out of range - get the last page
         resources = paginator.page(paginator.num_pages)
     except PageNotAnInteger:
-        # This will also be the default if `page` is None
-        print("PageNotAnInteger")
+        # ie, `page_ref` is None or there's bad input
         resources = paginator.page(1)
 
     return resources

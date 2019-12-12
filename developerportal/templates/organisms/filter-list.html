@@ -11,10 +11,10 @@
           <aside class="filter-list-sidebar">
             <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
               <summary>Filter</summary>
-              {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+              {% include "molecules/filter-form.html" with resources=resources filters=filters %}
             </details>
             <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
-              {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+              {% include "molecules/filter-form.html" with resources=resources filters=filters %}
             </div>
           </aside>
           <div class="filter-list-items">
