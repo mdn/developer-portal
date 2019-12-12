@@ -82,7 +82,7 @@ class AppTagsTestCase(TestCase):
         for input_, expected in no_change_cases:
             with self.subTest(input_=input_, expected=expected):
                 with self.assertLogs(
-                    "developerportal.templatetags.app_tags", level="INFO"
+                    "developerportal.templatetags.app_tags", level="DEBUG"
                 ) as cm:
                     self.assertEqual(
                         filename_cachebreaker_to_querystring(input_), expected
@@ -91,8 +91,8 @@ class AppTagsTestCase(TestCase):
                         cm.output,
                         [
                             (
-                                f"INFO:developerportal.templatetags.app_tags:"
-                                f"Couldn't extract has from URL {input_}. "
+                                f"DEBUG:developerportal.templatetags.app_tags:"
+                                f"Couldn't extract hash from URL {input_}. "
                                 f"Leaving unchanged."
                             )
                         ],

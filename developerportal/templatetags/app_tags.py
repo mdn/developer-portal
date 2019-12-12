@@ -89,7 +89,7 @@ def filename_cachebreaker_to_querystring(url):
     pattern = re.compile(r"(\.[a-f0-9]+)\.\w+$")
     hits = pattern.search(url)
     if not hits:
-        logger.info(f"Couldn't extract has from URL {url}. Leaving unchanged.")
+        logger.debug(f"Couldn't extract hash from URL {url}. Leaving unchanged.")
         return url
     dotted_hash = hits.groups()[0]
     url = url.replace(dotted_hash, "")
