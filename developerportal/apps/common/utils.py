@@ -33,6 +33,7 @@ def get_resources(
     def callback(model):
         qs = model.published_objects
         if q_object:
+            print("get_resources q_object", q_object)
             qs = qs.filter(q_object)
         return qs.filter(**filters).not_page(page).specific()
 
@@ -68,12 +69,15 @@ def get_combined_articles_and_videos(page, q_object=None, **filters):
     )
 
 
-def get_combined_events(page, reverse=False, **filters):
+def get_combined_events(page, reverse=False, q_object=None, **filters):
     """Get internal and external events matching filters."""
+
+    print("get_combined_events: q_object", q_object)
     return get_resources(
         page,
         ["events.Event", "externalcontent.ExternalEvent"],
         filters=filters,
+        q_object=q_object,
         order_by="start_date",
         reverse=reverse,
     )

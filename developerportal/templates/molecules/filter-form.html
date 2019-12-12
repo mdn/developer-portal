@@ -17,22 +17,21 @@
   </header>
   {% endif %}
 
-  {% if filters.months %}
+  {% if filters.dates %}
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
         <h5 class="no-underline">Date</h5>
-        <a href="#" class="filter-form-clear js-filter-clear" data-controls="month">
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="{{YEAR_MONTH_QUERYSTRING_KEY}}">
           <span class="icon">
             {% include "atoms/icons/close.svg" %}
           </span>
           Clear
         </a>
       </header>
-      {% regroup resources by month_group as groups %}
-      {% for group in groups %}
+      {% for date in filters.dates %}
         <label>
-          <input type="checkbox" name="month" value="{{ group.grouper|date:'Y-m' }}">
-          {{ group.grouper|date:'F Y' }}
+          <input type="checkbox" name="{{YEAR_MONTH_QUERYSTRING_KEY}}" value="{{ date|date:'Y-m' }}">
+          {{ date|date:'F Y' }}
         </label>
       {% endfor %}
     </fieldset>
@@ -42,7 +41,7 @@
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
         <h5 class="no-underline">Role</h5>
-        <a href="#" class="filter-form-clear js-filter-clear" data-controls="role">
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="{{ROLE_QUERYSTRING_KEY}}">
           <span class="icon">
             {% include "atoms/icons/close.svg" %}
           </span>
@@ -65,7 +64,7 @@
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
         <h5 class="no-underline">Topic</h5>
-        <a href="#" class="filter-form-clear js-filter-clear" data-controls="topics">
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="{{TOPIC_QUERYSTRING_KEY}}">
           <span class="icon">
             {% include "atoms/icons/close.svg" %}
           </span>
@@ -85,7 +84,7 @@
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
         <h5 class="no-underline">Country</h5>
-        <a href="#" class="filter-form-clear js-filter-clear" data-controls="country">
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="{{COUNTRY_QUERYSTRING_KEY}}">
           <span class="icon">
             {% include "atoms/icons/close.svg" %}
           </span>
