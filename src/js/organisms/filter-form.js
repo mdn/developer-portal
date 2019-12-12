@@ -37,8 +37,6 @@ module.exports = class FilterForm {
     this.updateCheckboxes();
     this.setupEvents();
     this.updateClearVisibility();
-
-    // this.submit();
   }
 
   /** Sets up event listeners. */
@@ -148,38 +146,10 @@ module.exports = class FilterForm {
     }
   }
 
-  // /** Filters the items by applying the selected filters. */
-  // filter() {
-  //   this.matches = [];
-
-  //   if (!Object.keys(this.state).length) {
-  //     this.matches = Array.from(this.targetEls);
-  //     return;
-  //   }
-
-  //   Array.from(this.targetEls).forEach(el => {
-  //     const results = Object.entries(this.state).map(([key, values]) => {
-  //       const dataValues = el.dataset[key] ? el.dataset[key].split(' ') : [];
-  //       return values.some(value => dataValues.includes(value));
-  //     });
-
-  //     if (results.every(Boolean)) {
-  //       this.matches.push(el);
-  //     }
-  //   });
-  // }
-
   /** Submits a HTTP request to get an updated list of items based on the
    * current state of the filters */
   submit() {
-    // this.filter();
     this.updateClearVisibility();
-    // if (this.matches.length <= this.resourcesOnPage) {
-    //   this.actionsEl.setAttribute('hidden', '');
-    // } else {
-    //   this.actionsEl.removeAttribute('hidden');
-    // }
-
     // update the URL params
     this.updateUrlParams();
     // reload the page, based on the params just set
