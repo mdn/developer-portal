@@ -93,7 +93,10 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page = Events.published_objects.first()
         fake_request = RequestFactory().get(
-            "/?country=CA,ZA&topic=foo,bar,baz&year_month=2020-02,2020-03"
+            (
+                "/?country=CA&country=ZA&topic=foo&topic=bar&topic=baz"
+                "&year_month=2020-02&year_month=2020-03"
+            )
         )
 
         date_q1 = Q(start_date__year="2020")

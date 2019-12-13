@@ -111,9 +111,9 @@ class People(BasePage):
 
     def get_people(self, request):
 
-        countries = request.GET.get(COUNTRY_QUERYSTRING_KEY, "").split(",")
-        roles = request.GET.get(ROLE_QUERYSTRING_KEY, "").split(",")
-        topics = request.GET.get(TOPIC_QUERYSTRING_KEY, "").split(",")
+        countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+        roles = request.GET.getlist(ROLE_QUERYSTRING_KEY)
+        topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
         countries_q = build_complex_filtering_query_from_query_params(
             query_syntax="country", params=countries

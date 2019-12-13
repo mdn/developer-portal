@@ -37,7 +37,7 @@ class PeopleTests(PatchedWagtailPageTests):
         mock_filter.return_value = Person.objects.all()  # NBnot mocked
 
         request = RequestFactory().get(
-            "/?topic=foo,bar&country=DE,ZA&role=staff,community"
+            "/?topic=foo&topic=bar&country=DE&country=ZA&role=staff&role=community"
         )
         people_page = People(
             title="person_page", path="000100010009", depth=5, slug="people-test"

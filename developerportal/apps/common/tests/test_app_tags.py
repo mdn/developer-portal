@@ -2,6 +2,13 @@ from django.test import RequestFactory, TestCase
 
 from wagtail.core.models import Page
 
+from developerportal.apps.common.constants import (
+    COUNTRY_QUERYSTRING_KEY,
+    PAGINATION_QUERYSTRING_KEY,
+    ROLE_QUERYSTRING_KEY,
+    TOPIC_QUERYSTRING_KEY,
+    YEAR_MONTH_QUERYSTRING_KEY,
+)
 from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
     has_at_least_two_filters,
@@ -103,43 +110,111 @@ class AppTagsTestCase(TestCase):
         cases = [
             {
                 # single topic only
-                "input_querystring": "?topics=css",
-                "expected_output": "&topics=css",
+                "input_querystring": f"?{TOPIC_QUERYSTRING_KEY}=css",
+                "expected_output": f"&{TOPIC_QUERYSTRING_KEY}=css",
             },
             {
-                # multiple topics
-                "input_querystring": "?topics=css,javascript",
-                "expected_output": "&topics=css,javascript",
-            },
-            {
-                # single topic and page info
-                "input_querystring": "?topics=css&page=2",
-                "expected_output": "&topics=css",
-            },
-            {
-                # multiple topics and page info
-                "input_querystring": "?topics=css,javascript&page=2",
-                "expected_output": "&topics=css,javascript",
+                # multiple topic
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
             },
             {
                 # single topic and page info
-                "input_querystring": "?page=22&topics=css",
-                "expected_output": "&topics=css",
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{PAGINATION_QUERYSTRING_KEY}=2"
+                ),
+                "expected_output": f"&{TOPIC_QUERYSTRING_KEY}=css",
             },
             {
-                # multiple topics and page info
-                "input_querystring": "?page=3&topics=css,javascript",
-                "expected_output": "&topics=css,javascript",
+                # multiple topic and page info
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{PAGINATION_QUERYSTRING_KEY}=2"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+            },
+            {
+                # single topic and page info
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=22&{TOPIC_QUERYSTRING_KEY}=css"
+                ),
+                "expected_output": f"&{TOPIC_QUERYSTRING_KEY}=css",
+            },
+            {
+                # multiple topic and page info
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=3&{TOPIC_QUERYSTRING_KEY}=css"
+                    f"&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
             },
             {
                 # multiple non-page params
-                "input_querystring": "?topics=css&foo=bar",
-                "expected_output": "&topics=css&foo=bar",
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                ),
             },
             {
                 # multiple params, incl pages
-                "input_querystring": "?topics=css&foo=bar&page=234",
-                "expected_output": "&topics=css&foo=bar",
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{PAGINATION_QUERYSTRING_KEY}=234"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                ),
+            },
+            {
+                # double-multiple params, incl pages
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{ROLE_QUERYSTRING_KEY}=test&{PAGINATION_QUERYSTRING_KEY}=234"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{ROLE_QUERYSTRING_KEY}=test"
+                ),
+            },
+            {
+                # double-multiple params, incl pages, different key position
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=234&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
+                ),
+                "expected_output": (
+                    f"&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
+                ),
+            },
+            {
+                # Show that only whitelisted params are covered - 'evil', area'
+                # and 'location' will be skipped
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=234&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&area=javascript&evil=true"
+                    f"&location=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                ),
+                "expected_output": (
+                    f"&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{COUNTRY_QUERYSTRING_KEY}=AR"
+                ),
             },
         ]
 

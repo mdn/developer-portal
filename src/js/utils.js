@@ -13,7 +13,12 @@ exports.parseQueryParams = () => {
   const items = search.slice(1).split('&');
   return items.reduce((acc, item) => {
     const [key, value] = item.split('=');
-    acc[decodeURIComponent(key)] = decodeURIComponent(value).split(',');
+    const val = decodeURIComponent(value).split(',');
+    if (!acc[decodeURIComponent(key)]) {
+      acc[decodeURIComponent(key)] = val;
+    } else {
+      acc[decodeURIComponent(key)].push(val);
+    }
     return acc;
   }, {});
 };

@@ -1,8 +1,8 @@
 const { parseForm, parseQueryParams } = require('../utils');
 
 /**
- * Represents a directory page filter form; reacts to user input and triggers
- * new server-side submiting of results
+ * Represents a directory page filter form; a traditional form-submission button
+ * triggers server-side rendering of appropriately filtered results
  *
  * @class FilterForm
  */
@@ -33,6 +33,7 @@ module.exports = class FilterForm {
     this.clearSectionEls = document.querySelectorAll(
       '.js-filter-form-clear-section',
     );
+    this.submissionButton = document.querySelectorAll('.js-filter-form-submit');
 
     this.updateCheckboxes();
     this.setupEvents();
@@ -50,7 +51,6 @@ module.exports = class FilterForm {
   /** Updates state and requests new results from the server when an input is updated. */
   onFormInput() {
     this.state = parseForm(this.form);
-    this.submit();
   }
 
   /**
@@ -131,28 +131,5 @@ module.exports = class FilterForm {
     } else {
       window.history.replaceState({}, null, '.');
     }
-  }
-
-  /**
-   * Shows the next page of items.
-   *
-   * @param {Event} e
-   */
-  nextPage(e) {
-    e.preventDefault();
-    if (this.matches.length >= this.resourcesOnPage) {
-      this.resourcesOnPage += this.resourcesPerPage;
-      this.submit();
-    }
-  }
-
-  /** Submits a HTTP request to get an updated list of items based on the
-   * current state of the filters */
-  submit() {
-    this.updateClearVisibility();
-    // update the URL params
-    this.updateUrlParams();
-    // reload the page, based on the params just set
-    window.location.reload();
   }
 };

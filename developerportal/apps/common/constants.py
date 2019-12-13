@@ -79,3 +79,5 @@ TOPIC_QUERYSTRING_KEY = "topic"
 ROLE_QUERYSTRING_KEY = "role"
 COUNTRY_QUERYSTRING_KEY = "country"
 YEAR_MONTH_QUERYSTRING_KEY = "year_month"
+# Note: see app_tags.pagination_additional_filter_params to add support/whitelisting
+# to anynew querystring keys you add here, else they will be ignored

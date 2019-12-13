@@ -193,9 +193,9 @@ class Events(BasePage):
         """Return filtered future events in chronological order"""
         # These are not paginated but ARE filtered
 
-        countries = request.GET.get(COUNTRY_QUERYSTRING_KEY, "").split(",")
-        years_months = request.GET.get(YEAR_MONTH_QUERYSTRING_KEY, "").split(",")
-        topics = request.GET.get(TOPIC_QUERYSTRING_KEY, "").split(",")
+        countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+        years_months = request.GET.getlist(YEAR_MONTH_QUERYSTRING_KEY)
+        topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
         countries_q = build_complex_filtering_query_from_query_params(
             query_syntax="country", params=countries

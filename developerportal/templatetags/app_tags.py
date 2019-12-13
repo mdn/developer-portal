@@ -8,7 +8,12 @@ from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
-from developerportal.apps.common.constants import PAGINATION_QUERYSTRING_KEY
+from developerportal.apps.common.constants import (
+    COUNTRY_QUERYSTRING_KEY,
+    ROLE_QUERYSTRING_KEY,
+    TOPIC_QUERYSTRING_KEY,
+    YEAR_MONTH_QUERYSTRING_KEY,
+)
 
 register = template.Library()
 
@@ -109,12 +114,23 @@ def pagination_additional_filter_params(request):
     resulting string is appended to a ?page=X querystring in the template
     """
 
-    output_params_strings = []
-    input_params = list(request.GET.items())
+    QUERY_PARAMS_TO_PASS_ON = (
+        # PAGINATION_QUERYSTRING_KEY,  # we DON'T want the page param
+        TOPIC_QUERYSTRING_KEY,
+        ROLE_QUERYSTRING_KEY,
+        COUNTRY_QUERYSTRING_KEY,
+        YEAR_MONTH_QUERYSTRING_KEY,
+    )
 
-    for k, v in input_params:
-        if k != PAGINATION_QUERYSTRING_KEY:
-            output_params_strings.append(f"{k}={v}")
+    output_params_strings = []
+
+    input_keys = request.GET.keys()
+    for input_key in input_keys:
+        if input_key not in QUERY_PARAMS_TO_PASS_ON:
+            continue
+        input_params = request.GET.getlist(input_key)
+        for input_param in input_params:
+            output_params_strings.append(f"{input_key}={input_param}")
 
     joined_params = "&".join(output_params_strings)
     if joined_params:
