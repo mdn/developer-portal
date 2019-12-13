@@ -23,7 +23,7 @@
       {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=events no_resources_message="No upcoming events found" hide_pagination=True %}
     </section>
     {% if past_events %}
-      <section class="section">
+      <section id="past-events" class="section">
         <div class="container">
           <div class="section-header">
             <h2>Past events</h2>
