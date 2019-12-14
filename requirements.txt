@@ -16,7 +16,7 @@ raven==6.10.0
 readtime==1.1.1
 wagtail==2.7
 wagtail-bakery==0.3.0
-whitenoise==4.1.4
+whitenoise==5.0.1
 urlwait==0.4
 newrelic==5.4.0.132
 # Specific versions of dependencies to satisfy clashing requirements:
