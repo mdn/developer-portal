@@ -9,7 +9,7 @@ STATIC_BUILD_JOB_ATTEMPT_FREQUENCY = 60.0 * 1  # Check each minute
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "developerportal.settings.worker")
 
-app = Celery("developerportal.apps.staticbuild", broker=settings.CELERY_BROKER_URL)
+app = Celery("developerportal.apps.taskqueue", broker=settings.CELERY_BROKER_URL)
 
 # Add the Django settings module as a configuration source for Celery
 app.config_from_object("django.conf:settings")

@@ -48,14 +48,14 @@ services:
 
   worker:
     <<: *common
-    command: celery -A developerportal.apps.staticbuild worker -l info
+    command: celery -A developerportal.apps.taskqueue worker -l info
     user: ${UID:-1000}
     depends_on:
       - app
 
   scheduler:
     <<: *common
-    command: celery -A developerportal.apps.staticbuild beat -l debug
+    command: celery -A developerportal.apps.taskqueue beat -l debug
     user: ${UID:-1000}
     depends_on:
       - app
@@ -66,7 +66,7 @@ services:
   cfssl:
     image: cfssl/cfssl
     working_dir: /ssl
-    user: "${UID:-1000}:${GID:-1000}"
+    user: '${UID:-1000}:${GID:-1000}'
     volumes:
       - ./etc/nginx/ssl:/ssl
     entrypoint: ./gen-cert.sh
