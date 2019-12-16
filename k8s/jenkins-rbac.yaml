@@ -45,6 +45,29 @@ rules:
   verbs: ["*"]
 
 ---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: dev-full-access
+  namespace: dev-portal-dev
+rules:
+- apiGroups: [""]
+  resources:
+    - namespaces
+  verbs:
+    - get
+    - list
+    - watch
+- apiGroups: ["", "extensions", "apps"]
+  resources: ["*"]
+  verbs: ["*"]
+- apiGroups: ["batch"]
+  resources:
+  - jobs
+  - cronjobs
+  verbs: ["*"]
+
+---
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -73,3 +96,18 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: stage-full-access
+
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: jenkins-dev-access
+  namespace: dev-portal-dev
+subjects:
+- kind: Group
+  name: "jenkins-access"
+  namespace: dev-portal-dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: dev-full-access
