@@ -105,6 +105,12 @@ node {
       }
       break
 
+    case 'dev-push':
+      stage('Deploy') {
+        deploy('stage', 'stage', 'mdn-apps-a')
+      }
+      break
+
     case 'stage-push':
       stage('Deploy') {
         deploy('stage-oregon', 'stage', 'oregon')
