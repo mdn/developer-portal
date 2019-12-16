@@ -239,16 +239,17 @@ class Events(BasePage):
 
     def get_relevant_countries(self):
         # Relevant here means a country that a published Event is or was in
-        raw_countries = set(
+        raw_countries = (
             event.country
             for event in Event.published_objects.filter(start_date__gte=tz_now().date())
+            .distinct("country")
+            .order_by("country")
             if event.country
         )
 
-        return sorted(
-            [{"code": country.code, "name": country.name} for country in raw_countries],
-            key=lambda x: x["code"],
-        )
+        return [
+            {"code": country.code, "name": country.name} for country in raw_countries
+        ]
 
     def get_relevant_dates(self):
         # Relevant here means a date for a published *future* event

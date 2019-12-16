@@ -145,16 +145,17 @@ class People(BasePage):
 
     def get_relevant_countries(self):
         # Relevant here means a country that a published person is in
-        raw_countries = set(
+        raw_countries = (
             person.country
-            for person in Person.published_objects.all()
+            for person in Person.published_objects.distinct("country").order_by(
+                "country"
+            )
             if person.country
         )
 
-        return sorted(
-            [{"code": country.code, "name": country.name} for country in raw_countries],
-            key=lambda x: x["code"],
-        )
+        return [
+            {"code": country.code, "name": country.name} for country in raw_countries
+        ]
 
     def get_filters(self):
         from ..topics.models import Topic
