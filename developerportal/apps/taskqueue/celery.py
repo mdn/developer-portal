@@ -30,7 +30,7 @@ app.conf.beat_schedule = {
     },
     "run-publish-scheduled-command-every-hour": {
         "task": (
-            "developerportal.apps.staticbuild.wagtail_hooks._publish_scheduled_pages"
+            "developerportal.apps.staticbuild.wagtail_hooks.publish_scheduled_pages"
         ),
         "schedule": crontab(minute=55),  # Five minutes to each hour
         "args": (),
