@@ -33,5 +33,10 @@ app.conf.beat_schedule = {
         "schedule": crontab(minute=55),  # Five minutes to each hour
         "args": (),
     },
+    "selectively-purge-cdn-every-night": {
+        "task": "developerportal.apps.taskqueue.tasks.selectively_invalidate_cdn",
+        "schedule": crontab(minute=15, hour=0),  # 15 past midnight
+        "args": (),
+    },
 }
 app.conf.timezone = "UTC"
