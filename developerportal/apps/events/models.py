@@ -48,6 +48,7 @@ from ..common.utils import (
     get_combined_events,
     paginate_resources,
 )
+from ..topics.models import Topic
 
 
 class EventsTag(TaggedItemBase):
@@ -265,8 +266,6 @@ class Events(BasePage):
         return sorted([event.start_date for event in raw_events])
 
     def get_filters(self):
-        from ..topics.models import Topic
-
         return {
             "countries": self.get_relevant_countries(),
             "dates": self.get_relevant_dates(),
