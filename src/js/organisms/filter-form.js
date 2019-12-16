@@ -33,7 +33,6 @@ module.exports = class FilterForm {
     this.clearSectionEls = document.querySelectorAll(
       '.js-filter-form-clear-section',
     );
-    this.submissionButton = document.querySelectorAll('.js-filter-form-submit');
 
     this.updateCheckboxes();
     this.setupEvents();
