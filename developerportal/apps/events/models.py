@@ -157,6 +157,13 @@ class Events(BasePage):
         return context
 
     def _year_months_to_years_and_months_tuples(self, year_months):
+        """For the given list of "YYYY-MM" strings, return a list of tuples
+        containg the year and and month, still as strings.
+
+        Example input:  ["2020-03", "2020-12"]
+        Example output: [("2020", "03"), ("2020", "12")]
+        """
+
         if not year_months:
             return []
         return [tuple(x.split("-")) for x in [y for y in year_months if y]]
