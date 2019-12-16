@@ -14,10 +14,11 @@ exports.parseQueryParams = () => {
   return items.reduce((acc, item) => {
     const [key, value] = item.split('=');
     const val = decodeURIComponent(value).split(',');
-    if (!acc[decodeURIComponent(key)]) {
-      acc[decodeURIComponent(key)] = val;
+    const decodedKey = decodeURIComponent(key);
+    if (!acc[decodedKey]) {
+      acc[decodedKey] = val;
     } else {
-      acc[decodeURIComponent(key)].push(val);
+      acc[decodedKey].push(val);
     }
     return acc;
   }, {});
