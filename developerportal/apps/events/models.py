@@ -78,7 +78,7 @@ class EventSpeaker(Orderable):
 class Events(BasePage):
 
     # Note that we only paginate PAST events right now, and not the future ones
-    PAST_EVENTS_PER_PAGE = 6
+    PAST_EVENTS_PER_PAGE = 20
 
     parent_page_types = ["home.HomePage"]
     subpage_types = ["events.Event"]
