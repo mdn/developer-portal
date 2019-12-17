@@ -16,18 +16,7 @@ app.config_from_object("django.conf:settings")
 
 app.autodiscover_tasks()
 
-# Set up a Celery Beat task to try to build the static site every minute
 app.conf.beat_schedule = {
-    "check-for-build-desire": {
-        "task": "developerportal.apps.staticbuild.wagtail_hooks._static_build_async",
-        "schedule": STATIC_BUILD_JOB_ATTEMPT_FREQUENCY,
-        "args": (),
-    },
-    "fresh-static-build-every-hour": {
-        "task": "developerportal.apps.staticbuild.wagtail_hooks._request_static_build",
-        "schedule": crontab(minute=30),  # Half past past each hour
-        "args": (),
-    },
     "run-publish-scheduled-command-every-hour": {
         "task": ("developerportal.apps.taskqueue.tasks.publish_scheduled_pages"),
         "schedule": crontab(minute=55),  # Five minutes to each hour
