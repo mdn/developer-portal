@@ -107,7 +107,7 @@ node {
 
     case 'dev-push':
       stage('Deploy') {
-        deploy('stage', 'stage', 'mdn-apps-a')
+        deploy('dev', 'dev', 'mdn-apps-a')
       }
       break
 
