@@ -51,12 +51,9 @@ class PeopleTests(PatchedWagtailPageTests):
         # which won't match for equivalency even if they contain the same things
         actual_q = mock_filter.call_args_list[0][0][0]
 
-        countries_q = Q(country="DE")
-        countries_q.add(Q(country="ZA"), Q.OR)
-        roles_q = Q(role="staff")
-        roles_q.add(Q(role="community"), Q.OR)
-        topics_q = Q(topics__topic__slug="foo")
-        topics_q.add(Q(topics__topic__slug="bar"), Q.OR)
+        countries_q = Q(country__in=["DE", "ZA"])
+        roles_q = Q(role__in=["staff", "community"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar"])
 
         expected_q = Q()
         expected_q.add(countries_q, Q.AND)
@@ -89,7 +86,7 @@ class PeopleTests(PatchedWagtailPageTests):
         assert mock_filter.call_count == 1
 
         actual_q = mock_filter.call_args_list[0][0][0]
-        topics_q = Q(topics__topic__slug="foo")
+        topics_q = Q(topics__topic__slug__in=["foo"])
         expected_q = Q()
         expected_q.add(topics_q, Q.AND)
         self.assertEqual(actual_q, expected_q)
@@ -100,7 +97,7 @@ class PeopleTests(PatchedWagtailPageTests):
         assert mock_filter.call_count == 1
 
         actual_q = mock_filter.call_args_list[0][0][0]
-        role_q = Q(role="staff")
+        role_q = Q(role__in=["staff"])
         expected_q = Q()
         expected_q.add(role_q, Q.AND)
         self.assertEqual(actual_q, expected_q)
@@ -111,7 +108,7 @@ class PeopleTests(PatchedWagtailPageTests):
         assert mock_filter.call_count == 1
 
         actual_q = mock_filter.call_args_list[0][0][0]
-        country_q = Q(country="UK")
+        country_q = Q(country__in=["UK"])
         expected_q = Q()
         expected_q.add(country_q, Q.AND)
         self.assertEqual(actual_q, expected_q)

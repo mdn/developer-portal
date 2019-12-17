@@ -43,11 +43,7 @@ from ..common.constants import (
 )
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import (
-    build_complex_filtering_query_from_query_params,
-    get_combined_events,
-    paginate_resources,
-)
+from ..common.utils import get_combined_events, paginate_resources
 from ..topics.models import Topic
 
 
@@ -205,12 +201,8 @@ class Events(BasePage):
         years_months = request.GET.getlist(YEAR_MONTH_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
-        countries_q = build_complex_filtering_query_from_query_params(
-            query_syntax="country", params=countries
-        )
-        topics_q = build_complex_filtering_query_from_query_params(
-            query_syntax="topics__topic__slug", params=topics
-        )
+        countries_q = Q(country__in=countries) if countries else Q()
+        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
 
         # year_months need splitting to make them work
         date_q = self._build_date_q(years_months)

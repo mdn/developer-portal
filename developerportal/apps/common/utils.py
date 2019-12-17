@@ -3,7 +3,6 @@ from operator import attrgetter
 
 from django.apps import apps
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db.models import Q
 
 
 def _combined_query(models, fn):
@@ -90,35 +89,6 @@ def get_combined_videos(page, **filters):
         order_by="date",
         reverse=True,
     )
-
-
-def build_complex_filtering_query_from_query_params(query_syntax, params):
-    """For use with any method above that takes `q_object`, this method
-    creates an OR-chained Q object from the given query for each of the
-    values in params
-
-    query_syntax:
-        a string representation of a query for a Q object, which can include
-        double-underscore relations - eg `foo__bar__baz`
-
-    params:
-        iterable of values that count as valid matches for query_syntax
-
-    returns:
-        Q object
-    """
-    q = None
-    if not params:
-        # Covers case where no params
-        return q
-
-    for param in params:
-        if param:  # because we might have [""] as `params`, which is truthy
-            if q is None:
-                q = Q(**{query_syntax: param})
-            else:
-                q.add(Q(**{query_syntax: param}), Q.OR)
-    return q
 
 
 def paginate_resources(resources, per_page, page_ref):

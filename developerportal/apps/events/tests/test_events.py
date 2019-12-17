@@ -110,12 +110,8 @@ class EventsTests(PatchedWagtailPageTests):
         # Add the Q that stops past events for the selected month
         overall_date_q.add(Q(start_date__gte=datetime.date(2022, 10, 3)), Q.AND)
 
-        countries_q = Q(country="CA")
-        countries_q.add(Q(country="ZA"), Q.OR)
-
-        topics_q = Q(topics__topic__slug="foo")
-        topics_q.add(Q(topics__topic__slug="bar"), Q.OR)
-        topics_q.add(Q(topics__topic__slug="baz"), Q.OR)
+        countries_q = Q(country__in=["CA", "ZA"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
 
         expected_q = Q()
         expected_q.add(countries_q, Q.AND)

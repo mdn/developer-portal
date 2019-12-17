@@ -31,10 +31,7 @@ from ..common.constants import (
     TOPIC_QUERYSTRING_KEY,
 )
 from ..common.models import BasePage
-from ..common.utils import (
-    build_complex_filtering_query_from_query_params,
-    paginate_resources,
-)
+from ..common.utils import paginate_resources
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -115,15 +112,9 @@ class People(BasePage):
         roles = request.GET.getlist(ROLE_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
-        countries_q = build_complex_filtering_query_from_query_params(
-            query_syntax="country", params=countries
-        )
-        roles_q = build_complex_filtering_query_from_query_params(
-            query_syntax="role", params=roles
-        )
-        topics_q = build_complex_filtering_query_from_query_params(
-            query_syntax="topics__topic__slug", params=topics
-        )
+        countries_q = Q(country__in=countries) if countries else Q()
+        roles_q = Q(role__in=roles) if roles else Q()
+        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
 
         combined_q = Q()
         if countries_q:

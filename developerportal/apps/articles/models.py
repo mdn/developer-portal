@@ -7,6 +7,7 @@ from django.db.models import (
     CharField,
     DateField,
     ForeignKey,
+    Q,
     TextField,
 )
 
@@ -36,11 +37,7 @@ from ..common.constants import (
 )
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import (
-    build_complex_filtering_query_from_query_params,
-    get_combined_articles_and_videos,
-    paginate_resources,
-)
+from ..common.utils import get_combined_articles_and_videos, paginate_resources
 
 
 class ArticlesTag(TaggedItemBase):
@@ -123,10 +120,8 @@ class Articles(BasePage):
         # a custom Q object instead and pass is in as a filter, then deal with
         # it later
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
-        q_object = build_complex_filtering_query_from_query_params(
-            query_syntax="topics__topic__slug", params=topics
-        )
-        resources = get_combined_articles_and_videos(self, q_object=q_object)
+        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
+        resources = get_combined_articles_and_videos(self, q_object=topics_q)
         resources = paginate_resources(
             resources,
             page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
