@@ -1,5 +1,4 @@
 # pylint: disable=no-member
-import datetime
 
 from django.core.exceptions import ValidationError
 from django.db.models import (
@@ -41,6 +40,7 @@ from ..common.utils import (
     get_combined_articles,
     get_combined_events,
     get_combined_videos,
+    get_past_event_cutoff,
 )
 
 
@@ -235,7 +235,7 @@ class Topic(BasePage):
         """Return upcoming events for this topic,
         ignoring events in the past, ordered by start date"""
         return get_combined_events(
-            self, topics__topic__pk=self.pk, start_date__gte=datetime.datetime.now()
+            self, topics__topic__pk=self.pk, start_date__gte=get_past_event_cutoff()
         )
 
     @property

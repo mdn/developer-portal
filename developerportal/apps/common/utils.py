@@ -1,7 +1,9 @@
+import datetime
 from itertools import chain
 from operator import attrgetter
 
 from django.apps import apps
+from django.utils.timezone import now as tz_now
 
 
 def _combined_query(models, fn):
@@ -79,3 +81,7 @@ def get_combined_videos(page, **filters):
         order_by="date",
         reverse=True,
     )
+
+
+def get_past_event_cutoff():
+    return (tz_now() - datetime.timedelta(days=1)).date()

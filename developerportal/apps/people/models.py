@@ -1,4 +1,3 @@
-import datetime
 from itertools import chain
 from operator import attrgetter
 
@@ -24,6 +23,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
 from ..common.models import BasePage
+from ..common.utils import get_past_event_cutoff
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -273,7 +273,7 @@ class Person(BasePage):
         from ..events.models import Event
 
         upcoming_events = Event.published_objects.filter(
-            start_date__gte=datetime.datetime.now()
+            start_date__gte=get_past_event_cutoff()
         )
 
         speaker_events = Event.published_objects.none()
