@@ -19,6 +19,17 @@
         </section>
       {% endif %}
     {% endwith %}
+    <section class="section">
+      <article class="container">
+        {% for block in page.body %}
+          {% if block.block_type == 'image' %}
+            {% include "molecules/image-block.html" with block=block %}
+          {% else %}
+            {{ block }}
+          {% endif %}
+        {% endfor %}
+      </article>
+    </section>
     <section class="section section-pattern">
       {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=page.events initial_resources=6 resources_per_page=4 no_resources_message="No upcoming events found" %}
     </section>
