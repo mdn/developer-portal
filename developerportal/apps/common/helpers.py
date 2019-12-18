@@ -26,7 +26,9 @@ class ExplorerRedirectAdminURLHelper(AdminURLHelper):
                     return r"^pages/%s/$" % (page.pk)
                 action = "add"
             except ProgrammingError as e:
-                logger.exception(e)
+                # Because Wagtail imports and executes this helper before
+                # even `manage.py migrate` can run
+                logger.exception(f"Temporarily ignoring exception: {e}")
 
         super()._get_action_url_pattern(action)
 
