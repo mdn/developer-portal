@@ -1,4 +1,4 @@
-Django==2.2.8
+Django==2.2.9
 celery==4.3.0
 redis==3.3.11
 kombu==4.6.6  # This is not the latest, but see https://github.com/celery/kombu/issues/1087
