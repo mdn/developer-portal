@@ -1,8 +1,8 @@
 const { parseForm, parseQueryParams } = require('../utils');
 
 /**
- * Represents a directory page filter form; reacts to user input and reflects
- * state in cards.
+ * Represents a directory page filter form; a traditional form-submission button
+ * triggers server-side rendering of appropriately filtered results
  *
  * @class FilterForm
  */
@@ -28,36 +28,15 @@ module.exports = class FilterForm {
     // A representation of the current state of the form.
     this.state = parseQueryParams();
 
-    // Stores all resource matches based on the current filter (irrespective of
-    // page or number of resources currently shown).
-    this.matches = [];
-
-    this.initialResources = parseInt(this.form.dataset.initialResources, 10);
-    this.resourcesPerPage = parseInt(
-      this.form.dataset.resourcesPerPage || this.initialResources,
-      10,
-    );
-
-    // Keeps track of the current number of resources on the page. This is used
-    // primarily for pagination.
-    this.resourcesOnPage = this.initialResources;
-
     // Elements for the filter form/list.
-    const control = document.getElementById(this.form.dataset.controls);
-    this.targetEls = control.querySelectorAll('.js-filter-target');
-    this.actionsEl = document.getElementById('js-filter-list-actions');
-    this.nextPageButton = document.getElementById(
-      'js-filter-list-action-next-page',
-    );
     this.clearButtons = document.querySelectorAll('.js-filter-clear');
-    this.noResultsEl = document.getElementById('js-filter-list-no-results');
     this.clearSectionEls = document.querySelectorAll(
       '.js-filter-form-clear-section',
     );
 
     this.updateCheckboxes();
     this.setupEvents();
-    this.render();
+    this.updateClearVisibility();
   }
 
   /** Sets up event listeners. */
@@ -65,15 +44,12 @@ module.exports = class FilterForm {
     Array.from(this.clearButtons).forEach(btn => {
       btn.addEventListener('click', e => this.uncheckInputs(e));
     });
-
-    this.nextPageButton.addEventListener('click', e => this.nextPage(e));
     this.form.addEventListener('change', () => this.onFormInput());
   }
 
-  /** Updates state and re-renders the results when an input is updated. */
+  /** Updates state and requests new results from the server when an input is updated. */
   onFormInput() {
     this.state = parseForm(this.form);
-    this.render();
   }
 
   /**
@@ -120,7 +96,6 @@ module.exports = class FilterForm {
   /** Toggles the visibility of clear buttons depending on selected filters. */
   updateClearVisibility() {
     const checkedControls = Object.keys(this.state);
-
     Array.from(this.clearButtons).forEach(btn => {
       const { controls } = btn.dataset;
 
@@ -155,73 +130,5 @@ module.exports = class FilterForm {
     } else {
       window.history.replaceState({}, null, '.');
     }
-  }
-
-  /**
-   * Shows the next page of items.
-   *
-   * @param {Event} e
-   */
-  nextPage(e) {
-    e.preventDefault();
-    if (this.matches.length >= this.resourcesOnPage) {
-      this.resourcesOnPage += this.resourcesPerPage;
-      this.render();
-    }
-  }
-
-  /** Filters the items by applying the selected filters. */
-  filter() {
-    this.matches = [];
-
-    if (!Object.keys(this.state).length) {
-      this.matches = Array.from(this.targetEls);
-      return;
-    }
-
-    Array.from(this.targetEls).forEach(el => {
-      const results = Object.entries(this.state).map(([key, values]) => {
-        const dataValues = el.dataset[key] ? el.dataset[key].split(' ') : [];
-        return values.some(value => dataValues.includes(value));
-      });
-
-      if (results.every(Boolean)) {
-        this.matches.push(el);
-      }
-    });
-  }
-
-  /** Re-renders the items based on the current state. */
-  render() {
-    this.filter();
-    this.updateClearVisibility();
-
-    if (this.matches.length <= this.resourcesOnPage) {
-      this.actionsEl.setAttribute('hidden', '');
-    } else {
-      this.actionsEl.removeAttribute('hidden');
-    }
-
-    // Limit the number of matched resources to the current page number.
-    const pagedMatches = this.matches.slice(0, this.resourcesOnPage);
-
-    // Show/hide resources on the page based on whether they're included within
-    // the filter matches.
-    Array.from(this.targetEls).forEach(target => {
-      if (pagedMatches.includes(target)) {
-        target.removeAttribute('hidden');
-      } else {
-        target.setAttribute('hidden', '');
-      }
-    });
-
-    // Show "no resources" message if no resources match the current filters.
-    if (pagedMatches.length === 0) {
-      this.noResultsEl.removeAttribute('hidden');
-    } else {
-      this.noResultsEl.setAttribute('hidden', '');
-    }
-
-    this.updateUrlParams();
   }
 };

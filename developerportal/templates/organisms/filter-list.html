@@ -4,7 +4,6 @@
       {% include "atoms/pattern.html" %}
     </div>
     <div class="container">
-      {% if resources %}
         {% if heading %}
           <h2>{{ heading }}</h2>
         {% endif %}
@@ -12,46 +11,41 @@
           <aside class="filter-list-sidebar">
             <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
               <summary>Filter</summary>
-              {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+              {% include "molecules/filter-form.html" with resources=resources filters=filters %}
             </details>
             <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
-              {% include "molecules/filter-form.html" with resources=resources filters=filters initial_resources=initial_resources resources_per_page=resources_per_page %}
+              {% include "molecules/filter-form.html" with resources=resources filters=filters %}
             </div>
           </aside>
           <div class="filter-list-items">
-            <div class="filter-list-no-results" id="js-filter-list-no-results" hidden>
-              <p>No results found with these filters.</p>
-              <button class="mzp-c-button js-filter-clear" type="button">
-                Clear filters
-              </button>
-            </div>
             <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
               {% for resource in resources %}
                 {% if type == "article" %}
-                  {% include "molecules/cards/card.html" with resource=resource.article filter_target=True show_author=True %}
+                  {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}
                 {% elif type == "article_or_video" %}
                   {% if resource.video %}
-                    {% include "molecules/cards/card.html" with resource=resource.video filter_target=True %}
+                    {% include "molecules/cards/card.html" with resource=resource.video %}
                   {% else %}
-                    {% include "molecules/cards/card.html" with resource=resource.article filter_target=True show_author=True %}
+                    {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}
                   {% endif %}
                 {% elif type == "person" %}
-                  {% include "molecules/cards/card.html" with resource=resource.person filter_target=True %}
+                  {% include "molecules/cards/card.html" with resource=resource.person %}
                 {% elif type == "event" %}
-                  {% include "molecules/cards/card.html" with resource=resource.event filter_target=True %}
+                  {% include "molecules/cards/card.html" with resource=resource.event %}
                 {% endif %}
+              {% empty %}
+                <div class="filter-list-no-results">
+                  <h2>{{ no_resources_message|default:"No results found" }}</h2>
+                </div>
               {% endfor %}
             </div>
-            <div class="filter-list-actions" id="js-filter-list-actions">
-              <button class="mzp-c-button" id="js-filter-list-action-next-page" type="button">See more</button>
-            </div>
+
+            {% if resources and not hide_pagination %}
+            {% include "molecules/pagination.html" with items=resources %}
+            {% endif %}
+
           </div>
         </div>
-      {% else %}
-        <div class="filter-list-no-results">
-          <h2>{{ no_resources_message|default:"No resources found" }}</h2>
-        </div>
-      {% endif %}
     </div>
     <div class="pattern-section-pattern pattern-section-pattern-after">
       {% include "atoms/pattern.html" %}

@@ -8,6 +8,13 @@ from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
+from developerportal.apps.common.constants import (
+    COUNTRY_QUERYSTRING_KEY,
+    ROLE_QUERYSTRING_KEY,
+    TOPIC_QUERYSTRING_KEY,
+    YEAR_MONTH_QUERYSTRING_KEY,
+)
+
 register = template.Library()
 
 logger = logging.getLogger(__name__)
@@ -96,3 +103,36 @@ def filename_cachebreaker_to_querystring(url):
     _hash = dotted_hash[1:]  # the [1:] skips the . at the start
     url = f"{url}?h={_hash}"
     return url
+
+
+@register.filter
+def pagination_additional_filter_params(request):
+    """Used to ensure the pagination links include any non-pagination
+    querystrings in them, too.
+
+    Note that the output always starts with & because the idea is that the
+    resulting string is appended to a ?page=X querystring in the template
+    """
+
+    QUERY_PARAMS_TO_PASS_ON = (
+        # PAGINATION_QUERYSTRING_KEY,  # we DON'T want the page param
+        TOPIC_QUERYSTRING_KEY,
+        ROLE_QUERYSTRING_KEY,
+        COUNTRY_QUERYSTRING_KEY,
+        YEAR_MONTH_QUERYSTRING_KEY,
+    )
+
+    output_params_strings = []
+
+    input_keys = request.GET.keys()
+    for input_key in input_keys:
+        if input_key not in QUERY_PARAMS_TO_PASS_ON:
+            continue
+        input_params = request.GET.getlist(input_key)
+        for input_param in input_params:
+            output_params_strings.append(f"{input_key}={input_param}")
+
+    joined_params = "&".join(output_params_strings)
+    if joined_params:
+        joined_params = f"&{joined_params}"
+    return joined_params

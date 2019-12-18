@@ -12,7 +12,7 @@
   <div class="section-header">
     <h2>{{ title|default:"People" }}</h2>
     {% if show_link and directory_pages.people %}
-      <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topics={{ page.slug }}{% endif %}">See more</a>
+      <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
     {% endif %}
   </div>
   {% if people|length == 1 %}
