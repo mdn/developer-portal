@@ -86,12 +86,21 @@ class Events(BasePage):
         blank=True,
         help_text="Optional space to show a featured event",
     )
+    body = CustomStreamField(
+        help_text=(
+            "Main page body content. Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
+        )
+    )
 
     # Meta fields
     keywords = ClusterTaggableManager(through=EventsTag, blank=True)
 
     # Content panels
-    content_panels = BasePage.content_panels + [StreamFieldPanel("featured")]
+    content_panels = BasePage.content_panels + [
+        StreamFieldPanel("featured"),
+        StreamFieldPanel("body"),
+    ]
 
     # Meta panels
     meta_panels = [
