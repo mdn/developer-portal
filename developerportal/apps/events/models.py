@@ -35,7 +35,7 @@ from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExter
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import get_combined_events
+from ..common.utils import get_combined_events, get_past_event_cutoff
 
 
 class EventsTag(TaggedItemBase):
@@ -146,7 +146,7 @@ class Events(BasePage):
     @property
     def events(self):
         """Return future events in chronological order"""
-        return get_combined_events(self, start_date__gte=datetime.date.today())
+        return get_combined_events(self, start_date__gte=get_past_event_cutoff())
 
     @property
     def past_events(self):

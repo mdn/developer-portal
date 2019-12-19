@@ -45,12 +45,21 @@ class EventsTests(PatchedWagtailPageTests):
         event_yesterday = Event(
             depth=2,
             path="00019997",
-            start_date=now + datetime.timedelta(days=-1),
+            start_date=now - datetime.timedelta(days=1),
             title="Yesterday",
         )
         event_yesterday.save()
 
+        event_day_before_yesterday = Event(
+            depth=2,
+            path="00019992",
+            start_date=now - datetime.timedelta(days=2),
+            title="Day Before Yesterday",
+        )
+        event_day_before_yesterday.save()
+
         events = events_page.events
         self.assertIn(event_today, events)
         self.assertIn(event_tomorrow, events)
-        self.assertNotIn(event_yesterday, events)
+        self.assertIn(event_yesterday, events)  # CORRECT
+        self.assertNotIn(event_day_before_yesterday, events)
