@@ -8,6 +8,11 @@ from django import template
 from django.conf import settings
 from django.utils.safestring import mark_safe
 
+from developerportal.apps.common.constants import (
+    ENVIRONMENT_DEVELOPMENT,
+    ENVIRONMENT_STAGING,
+)
+
 register = template.Library()
 
 logger = logging.getLogger(__name__)
@@ -96,3 +101,18 @@ def filename_cachebreaker_to_querystring(url):
     _hash = dotted_hash[1:]  # the [1:] skips the . at the start
     url = f"{url}?h={_hash}"
     return url
+
+
+@register.simple_tag
+def get_favicon_path():
+    """Returns a path to the relevant favicon file, suitable for
+    use with the {% static %} tag."""
+
+    DEFAULT_FAVICON = "favicon.ico"
+    spec = {
+        ENVIRONMENT_DEVELOPMENT: "favicon_dev.ico",
+        ENVIRONMENT_STAGING: "favicon_stage.ico",
+    }
+    filename = spec.get(settings.ACTIVE_ENVIRONMENT, DEFAULT_FAVICON)
+
+    return f"img/icons/{filename}"
