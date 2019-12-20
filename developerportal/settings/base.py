@@ -303,9 +303,7 @@ LOGIN_ERROR_URL = "/admin/"
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
 
-GOOGLE_ANALYTICS = ""
-# GOOGLE_ANALYTICS is _only_ set in settings.worker, because we ONLY want it
-# to appear in the static site, not the live-rendered site.
+GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS", "")
 
 # RSS Feed
 RSS_MAX_ITEMS = 20
