@@ -42,7 +42,7 @@
         <div class="section-header">
           <h2>Latest posts</h2>
           {% if directory_pages.articles %}
-            <a href="{% pageurl directory_pages.articles %}?topics={{ page.slug }}">See more</a>
+            <a href="{% pageurl directory_pages.articles %}?topic={{ page.slug }}">See more</a>
           {% endif %}
         </div>
         {% with card_count_string=page.latest_articles_count|stringformat:"s" %}

@@ -8,6 +8,7 @@ from django.db.models import (
     DateField,
     FloatField,
     ForeignKey,
+    Q,
     TextField,
     URLField,
 )
@@ -32,10 +33,21 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import (
+    COUNTRY_QUERYSTRING_KEY,
+    PAGINATION_QUERYSTRING_KEY,
+    RICH_TEXT_FEATURES_SIMPLE,
+    TOPIC_QUERYSTRING_KEY,
+    YEAR_MONTH_QUERYSTRING_KEY,
+)
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import get_combined_events, get_past_event_cutoff
+from ..common.utils import (
+    get_combined_events,
+    get_past_event_cutoff,
+    paginate_resources,
+)
+from ..topics.models import Topic
 
 
 class EventsTag(TaggedItemBase):
@@ -63,6 +75,10 @@ class EventSpeaker(Orderable):
 
 
 class Events(BasePage):
+
+    # Note that we only paginate PAST events right now, and not the future ones
+    PAST_EVENTS_PER_PAGE = 20
+
     parent_page_types = ["home.HomePage"]
     subpage_types = ["events.Event"]
     template = "events.html"
@@ -141,26 +157,124 @@ class Events(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
+        context["events"] = self.get_upcoming_events(request)
+        past_events, total_past_events = self.get_past_events(request)
+        context["past_events"] = past_events
+        context["show_past_event_pagination"] = (
+            total_past_events > self.PAST_EVENTS_PER_PAGE
+        )
         return context
 
-    @property
-    def events(self):
-        """Return future events in chronological order"""
-        return get_combined_events(self, start_date__gte=get_past_event_cutoff())
+    def _year_months_to_years_and_months_tuples(self, year_months):
+        """For the given list of "YYYY-MM" strings, return a list of tuples
+        containg the year and and month, still as strings.
 
-    @property
-    def past_events(self):
-        """Return past events in reverse chronological order"""
-        return get_combined_events(
-            self, reverse=True, start_date__lt=datetime.date.today()
+        Example input:  ["2020-03", "2020-12"]
+        Example output: [("2020", "03"), ("2020", "12")]
+        """
+
+        if not year_months:
+            return []
+        return [tuple(x.split("-")) for x in [y for y in year_months if y]]
+
+    def _build_date_q(self, year_months):
+        "Support filtering future events by selected year-month pair(s)"
+        default_future_events_q = Q(start_date__gte=get_past_event_cutoff())
+
+        years_and_months_tuples = self._year_months_to_years_and_months_tuples(
+            year_months
+        )
+        if not years_and_months_tuples:
+            # Covers case where no year_months
+            return default_future_events_q
+
+        # Build a Q where it's (Month X AND Year X) OR (Month Y AND Year Y), etc
+        overall_date_q = None
+
+        for year, month in years_and_months_tuples:
+            date_q = Q(**{"start_date__year": year})
+            date_q.add(Q(**{"start_date__month": month}), Q.AND)
+
+            if overall_date_q is None:
+                overall_date_q = date_q
+            else:
+                overall_date_q.add(date_q, Q.OR)
+
+        # Finally, ensure we don't include past events here (ie, same month as
+        # selected but before today)
+        overall_date_q.add(default_future_events_q, Q.AND)
+        return overall_date_q
+
+    def get_upcoming_events(self, request):
+        """Return filtered future events in chronological order"""
+        # These are not paginated but ARE filtered
+
+        countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+        years_months = request.GET.getlist(YEAR_MONTH_QUERYSTRING_KEY)
+        topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
+
+        countries_q = Q(country__in=countries) if countries else Q()
+        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
+
+        # year_months need splitting to make them work
+        date_q = self._build_date_q(years_months)
+
+        combined_q = Q()
+        if countries_q:
+            combined_q.add(countries_q, Q.AND)
+        if date_q:
+            combined_q.add(date_q, Q.AND)
+        if topics_q:
+            combined_q.add(topics_q, Q.AND)
+
+        # Combined_q will always have something because it includes
+        # the start_date__gte test
+        events = get_combined_events(self, q_object=combined_q)
+
+        return events
+
+    def get_past_events(self, request):
+        """Return paginated past events in reverse chronological order,
+        plus a count of how many there are in total
+        """
+        past_events = get_combined_events(
+            self, reverse=True, start_date__lt=get_past_event_cutoff()
+        )
+        total_past_events = len(past_events)
+
+        past_events = paginate_resources(
+            past_events,
+            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
+            per_page=self.PAST_EVENTS_PER_PAGE,
+        )
+        return past_events, total_past_events
+
+    def get_relevant_countries(self):
+        # Relevant here means a country that a published Event is or was in
+        raw_countries = (
+            event.country
+            for event in Event.published_objects.filter(
+                start_date__gte=get_past_event_cutoff()
+            )
+            .distinct("country")
+            .order_by("country")
+            if event.country
         )
 
-    def get_filters(self):
-        from ..topics.models import Topic
+        return [
+            {"code": country.code, "name": country.name} for country in raw_countries
+        ]
 
+    def get_relevant_dates(self):
+        # Relevant here means a date for a published *future* event
+        # TODO: would be good to cache this for short period of time
+        raw_events = get_combined_events(self, start_date__gte=get_past_event_cutoff())
+        return sorted([event.start_date for event in raw_events])
+
+    def get_filters(self):
         return {
-            "countries": True,
-            "months": True,
+            "countries": self.get_relevant_countries(),
+            "dates": self.get_relevant_dates(),
             "topics": Topic.published_objects.order_by("title"),
         }
 
@@ -343,7 +457,7 @@ class Event(BasePage):
     @property
     def is_upcoming(self):
         """Returns whether an event is in the future."""
-        return self.start_date >= datetime.date.today()
+        return self.start_date >= get_past_event_cutoff()
 
     @property
     def primary_topic(self):

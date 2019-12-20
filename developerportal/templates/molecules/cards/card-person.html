@@ -11,17 +11,7 @@
   {% static "img/placeholders/person.jpg" as fallback_image %}
 {% endif %}
 
-<a href="{% pageurl resource %}" class="card-link {% if filter_target %}js-filter-target{% endif %}" data-type="{{ resource.resource_type }}"
-  {% if filter_target %}
-    data-job-title="{{ resource.job_title }}"
-    data-role="{{ resource.role }}"
-    data-topics="{% for topic in resource.topics.all %}{{ topic.topic.slug }} {% endfor %}"
-    {% if resource.country %}
-      data-country="{{ resource.country|lower }}"
-    {% endif %}
-    hidden
-  {% endif %}
->
+<a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
   <div class="card">
     <div class="card-image card-image-square" style="background-image: url('{% firstof card_image.url image.url fallback_image %}')"></div>
     <div class="card-content">

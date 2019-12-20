@@ -1,0 +1,25 @@
+{% load app_tags %}
+<div class="pagination-block">
+
+  {% with request|pagination_additional_filter_params as additional_qs_params %}
+
+  <span class="step-links">
+  {% if items.has_previous %}
+    <a class="mzp-c-button mzp-t-small" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.previous_page_number }}{{additional_qs_params}}{{page_anchor}}">Prev</a>
+  {% else %}
+    <button class="mzp-c-button mzp-t-small" disabled>Prev</button>
+  {% endif %}
+
+  <span class="pagination-current">
+    Page {{ items.number }} of {{ items.paginator.num_pages }}
+  </span>
+
+  {% if items.has_next %}
+    <a class="mzp-c-button mzp-t-small" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.next_page_number }}{{additional_qs_params}}{{page_anchor}}">Next</a>
+  {% else %}
+    <button class="mzp-c-button mzp-t-small" disabled>Next</button>
+  {% endif %}
+  </span>
+  {% endwith %}
+
+</div>

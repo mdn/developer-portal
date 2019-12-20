@@ -7,6 +7,7 @@ from django.db.models import (
     CharField,
     DateField,
     ForeignKey,
+    Q,
     TextField,
 )
 
@@ -29,10 +30,14 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import (
+    PAGINATION_QUERYSTRING_KEY,
+    RICH_TEXT_FEATURES_SIMPLE,
+    TOPIC_QUERYSTRING_KEY,
+)
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.utils import get_combined_articles_and_videos
+from ..common.utils import get_combined_articles_and_videos, paginate_resources
 
 
 class ArticlesTag(TaggedItemBase):
@@ -42,6 +47,9 @@ class ArticlesTag(TaggedItemBase):
 
 
 class Articles(BasePage):
+
+    RESOURCES_PER_PAGE = 6
+
     # IMPORTANT: ARTICLES ARE NOW LABELLED "POSTS" IN THE FRONT END
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Article"]
@@ -102,12 +110,25 @@ class Articles(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
+        context["resources"] = self.get_resources(request)
         return context
 
-    @property
-    def resources(self):
+    def get_resources(self, request):
         # This Page class will show both Articles/Posts and Videos in its listing
-        return get_combined_articles_and_videos(self)
+
+        # We can't use __in in this deeply related query, so we have to make
+        # a custom Q object instead and pass is in as a filter, then deal with
+        # it later
+        topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
+        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
+        resources = get_combined_articles_and_videos(self, q_object=topics_q)
+        resources = paginate_resources(
+            resources,
+            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
+            per_page=self.RESOURCES_PER_PAGE,
+        )
+
+        return resources
 
     def get_filters(self):
         from ..topics.models import Topic
