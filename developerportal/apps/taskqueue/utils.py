@@ -46,7 +46,7 @@ def invalidate_cdn(invalidation_targets=None):
         client = boto3.client("cloudfront")
 
         # Make a unique string so that this call to invalidate is not ignored
-        caller_reference = str(tz_now().isoformat())
+        caller_reference = tz_now().isoformat()
 
         response = client.create_invalidation(
             DistributionId=distribution_id,
