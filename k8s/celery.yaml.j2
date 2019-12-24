@@ -21,7 +21,7 @@ spec:
           args:
             - "run-program"
             - "celery"
-            - "--app=developerportal.apps.staticbuild"
+            - "--app=developerportal.apps.taskqueue"
             - worker
             - "--loglevel=INFO"
             - "--concurrency={{ CELERY_WORKER_CONCURRENCY }}"
