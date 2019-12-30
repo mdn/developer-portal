@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db.models import (
     CASCADE,
     SET_NULL,
+    BooleanField,
     CharField,
     FileField,
     ForeignKey,
@@ -154,6 +155,14 @@ class Topic(BasePage):
     color = CharField(max_length=14, choices=COLOR_CHOICES, default="blue-40")
     keywords = ClusterTaggableManager(through=TopicTag, blank=True)
 
+    # Settings
+    show_in_list_views_default = True
+    show_in_list_views = BooleanField(
+        verbose_name="show in list views",
+        default=True,
+        help_text="Whether this Topic will be shown in any listing of Topics",
+    )
+
     # Content panels
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
@@ -214,7 +223,11 @@ class Topic(BasePage):
     ]
 
     # Settings panels
-    settings_panels = [FieldPanel("slug"), FieldPanel("show_in_menus")]
+    settings_panels = [
+        FieldPanel("slug"),
+        FieldPanel("show_in_menus"),
+        FieldPanel("show_in_list_views"),
+    ]
 
     # Tabs
     edit_handler = TabbedInterface(
@@ -225,6 +238,15 @@ class Topic(BasePage):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.id:
+            # this model is being newly created
+            # rather than retrieved from the db;
+            if "show_in_list_views" not in kwargs:
+                # if the value is not set on submit refer to the model setting
+                self.show_in_list_views = self.show_in_list_views_default
 
     @property
     def articles(self):
@@ -303,4 +325,4 @@ class Topics(BasePage):
 
     @property
     def topics(self):
-        return Topic.published_objects.order_by("title")
+        return Topic.published_objects.filter(show_in_list_views=True).order_by("title")

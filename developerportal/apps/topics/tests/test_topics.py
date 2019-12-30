@@ -50,6 +50,20 @@ class TopicsTests(PatchedWagtailPageTests):
         """The Topics page should only have topic child pages."""
         self.assertAllowedSubpageTypes(Topics, {Topic})
 
+    def test_topics_page_gets_only_desired_topics(self):
+
+        topics_page = Topics.objects.get()
+        initial_topics_from_page = topics_page.topics
+        assert all([x.show_in_list_views for x in initial_topics_from_page])
+
+        topic = Topic.objects.first()
+        topic.show_in_list_views = False
+        topic.save()
+
+        updated_topics_from_page = topics_page.topics
+        assert all([x.show_in_list_views for x in updated_topics_from_page])
+        assert updated_topics_from_page.count() == initial_topics_from_page.count() - 1
+
 
 class SVGFileCheckTests(TestCase):
     def test_check_for_svg_file(self):

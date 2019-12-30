@@ -221,9 +221,11 @@ class HomePage(BasePage):
 
     @property
     def primary_topics(self):
-        """The site’s top-level topics, i.e. topics without a parent topic."""
+        """The site’s top-level topics, i.e. topics without a parent topic.
+        Excludes any we don't want to show in list views.
+        """
         from ..topics.models import Topic
 
-        return Topic.published_objects.filter(parent_topics__isnull=True).order_by(
-            "title"
-        )
+        return Topic.published_objects.filter(
+            parent_topics__isnull=True, show_in_list_views=True
+        ).order_by("title")
