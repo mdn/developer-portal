@@ -1,7 +1,7 @@
 Django==2.2.9
 celery==4.3.0
 redis==3.3.11
-kombu==4.6.6  # This is not the latest, but see https://github.com/celery/kombu/issues/1087
+kombu==4.6.7  # This is not the latest, but see https://github.com/celery/kombu/issues/1087
 django-celery-results==1.1.2
 django-countries==5.5
 django-redis==4.10.0
