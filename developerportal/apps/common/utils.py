@@ -6,6 +6,8 @@ from django.apps import apps
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.timezone import now as tz_now
 
+from wagtail.contrib.sitemaps import Sitemap
+
 
 def _combined_query(models, fn):
     """Execute callback `fn` for each model and chain the resulting querysets."""
@@ -109,3 +111,12 @@ def paginate_resources(resources, per_page, page_ref):
         resources = paginator.page(1)
 
     return resources
+
+
+def get_all_urls_from_sitemap():
+    sitemap = Sitemap()
+    site = sitemap.get_wagtail_site()
+    site.domain = site.hostname  # We need to patch this else it blows up
+    location_dict = sitemap.get_urls(site=site)
+
+    return [x["location"] for x in location_dict]
