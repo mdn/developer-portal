@@ -3,6 +3,8 @@ import os
 
 from django.core.management import call_command
 
+from wagtail.core.models import Site
+
 import requests
 from developerportal.apps.taskqueue.celery import app
 
@@ -14,6 +16,9 @@ from .utils import invalidate_cdn
 
 logging.basicConfig(level=os.environ.get("LOGLEVEL", logging.INFO))
 logger = logging.getLogger(__name__)
+
+
+DELAY_BEFORE_WARMING_CDN = 60 * 15  # Allow 15 mins, so the CDN invalidates
 
 
 @app.task
@@ -28,6 +33,9 @@ def invalidate_entire_cdn():
     log_prefix = "[Invalidate entire CDN]"
     logger.info(f"{log_prefix} Issuing purge command")
     invalidate_cdn()
+
+    # Warming the CDN after invalidation should help users
+    warm_entire_cdn.apply_async(countdown=DELAY_BEFORE_WARMING_CDN)
 
 
 @app.task
@@ -64,6 +72,19 @@ def selectively_invalidate_cdn():
     )
     invalidate_cdn(invalidation_targets=selected_targets)
 
+    # Warming the top-level pages will help, even if we don't warm them all
+    site = Site.objects.filter(is_default_site=True).get()  # Should fail loudly
+
+    proto = "https://" if site.port == 443 else "http://"
+    host = f"{proto}{site.hostname}"
+
+    urls_to_warm = [
+        f"{host}{x}" for x in [events_root_path, people_root_path, topics_root_path]
+    ]
+    selectively_warm_cdn.apply_async(
+        args=[urls_to_warm], countdown=DELAY_BEFORE_WARMING_CDN
+    )
+
 
 @app.task
 def warm_entire_cdn():
@@ -75,6 +96,11 @@ def warm_entire_cdn():
     """
     urls = get_all_urls_from_sitemap()
 
+    return _warm_cdn(urls)
+
+
+@app.task
+def selectively_warm_cdn(urls):
     return _warm_cdn(urls)
 
 
