@@ -3,8 +3,10 @@ import os
 
 from django.core.management import call_command
 
+import requests
 from developerportal.apps.taskqueue.celery import app
 
+from ..common.utils import get_all_urls_from_sitemap
 from ..events.models import Events
 from ..people.models import People
 from ..topics.models import Topics
@@ -61,3 +63,30 @@ def selectively_invalidate_cdn():
         f"selected CDN keys: {selected_targets}"
     )
     invalidate_cdn(invalidation_targets=selected_targets)
+
+
+@app.task
+def warm_entire_cdn():
+    """For use after blanket invalidation, this function iterates through all
+    URLs listed in the sitemap.
+
+    Note that this can be several hundreds of pages, hence it needs to happen
+    in a background task.
+    """
+    urls = get_all_urls_from_sitemap()
+
+    return _warm_cdn(urls)
+
+
+def _warm_cdn(urls):
+
+    total_urls = len(urls)
+    logger.info(f"Warming CDN. {total_urls} URLs obtained from sitemap.")
+
+    for i, url in enumerate(urls):
+        logger.info(f"Requesting {i+1}/{total_urls}: {url}")
+        response = requests.get(url)
+        if response.status_code != requests.codes.ok:
+            logger.exception(f"Failed to get {url} ")
+
+    logger.info("Warming complete.")
