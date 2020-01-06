@@ -71,6 +71,12 @@
     cursor: pointer;
     font-weight: normal;
 
+    @media #{$mq-xl} {
+      // OVERRIDE to make it the same as $mq-lg, so we can pack more in to the nav
+      // without awkward reflow
+      padding: 0 16px 24px;
+    }
+
     img {
       margin-right: 8px;
     }
