@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load static %}
+{% load static app_tags %}
 
 {% block branding_favicon %}
-  <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}">
+  {% get_favicon_path as favicon_path %}
+  <link rel="shortcut icon" href="{% static favicon_path %}">
 {% endblock %}

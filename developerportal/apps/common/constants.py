@@ -72,3 +72,7 @@ VIDEO_TYPE = (
     ("live stream", "Live stream"),
     ("technical briefing", "Technical briefing"),
 )
+
+ENVIRONMENT_PRODUCTION = "production"
+ENVIRONMENT_STAGING = "staging"
+ENVIRONMENT_DEVELOPMENT = "development"
