@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <link rel="self" href="http://www.youtube.com/feeds/videos.xml?channel_id=UCh5UlGiu9d6LegIeUCW4N1w"/>
+ <id>yt:channel:UCh5UlGiu9d6LegIeUCW4N1w</id>
+ <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+ <title>Mozilla Developer</title>
+ <link rel="alternate" href="https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w"/>
+ <author>
+  <name>Mozilla Developer</name>
+  <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+ </author>
+ <published>2019-08-19T16:50:26+00:00</published>
+ <entry>
+  <id>yt:video:mwF-PpJOjMs</id>
+  <yt:videoId>mwF-PpJOjMs</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Wait, ARIA Roles Have Categories?</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=mwF-PpJOjMs"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-12-18T11:00:18+00:00</published>
+  <updated>2019-12-19T11:21:54+00:00</updated>
+  <media:group>
+   <media:title>Wait, ARIA Roles Have Categories?</media:title>
+   <media:content url="https://www.youtube.com/v/mwF-PpJOjMs?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/mwF-PpJOjMs/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Selecting the correct ARIA Role for elements can be difficult if you don’t understand how they are categorized. In this video, Youri Wims teaches you about the 6 ARIA Role categories and offers examples of the how they are utilized on the user interface and within the accessibility tree.
+
+Resources:
+https://developer.mozilla.org/docs/Web/Accessibility/ARIA/ARIA_Techniques
+https://www.w3.org/TR/wai-aria-1.2/#roles_categorization
+
+#accessibility #accessibilityforall #youriwims</media:description>
+   <media:community>
+    <media:starRating count="94" average="4.96" min="1" max="5"/>
+    <media:statistics views="1493"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:qQ1oQJJn1nQ</id>
+  <yt:videoId>qQ1oQJJn1nQ</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Why are there Four Firefoxes?</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=qQ1oQJJn1nQ"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-12-16T11:00:12+00:00</published>
+  <updated>2019-12-17T11:31:42+00:00</updated>
+  <media:group>
+   <media:title>Why are there Four Firefoxes?</media:title>
+   <media:content url="https://www.youtube.com/v/qQ1oQJJn1nQ?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/qQ1oQJJn1nQ/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Firefox Nightly, Developer Edition, and Beta add to the options for which version of Firefox you can test and run. These &quot;release browsers&quot; can be very helpful for knowing what's coming in the future, and participating in creating new web technology. Safari, Chrome, Edge and other browser also have pre-lease versions. Jen Simmons explains which is which, what are the differences, and where to find them.
+
+#Firefox #FirefoxDevTools #JenSimmons #FirefoxNightly #FirefoxDeveloperEdition #FirefoxBeta</media:description>
+   <media:community>
+    <media:starRating count="383" average="5.00" min="1" max="5"/>
+    <media:statistics views="6027"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:spK_S0HfzFw</id>
+  <yt:videoId>spK_S0HfzFw</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Where do Browser Styles Come From?</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=spK_S0HfzFw"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-12-11T11:00:10+00:00</published>
+  <updated>2019-12-11T13:38:18+00:00</updated>
+  <media:group>
+   <media:title>Where do Browser Styles Come From?</media:title>
+   <media:content url="https://www.youtube.com/v/spK_S0HfzFw?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/spK_S0HfzFw/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Not sure where that default 8px of margin on the body comes from? Here's how to find out!
+
+Every browser provides a User Agent (UA) Stylesheet to give HTML elements their natural shape, and make our sites more readable by default. When we start a project with a reset or normalization stylesheet, it's the UA styles that we are re-setting or normalizing. But how can we see these UA styles? Miriam Suzanne will show you how to find them online, inside Firefox itself, or even in developer tools as we debug our site styles.
+
+- Firefox: resource://gre-resources/html.css or https://hg.mozilla.org/mozilla-central/file/tip/layout/style/res/html.css
+- Chrome: https://chromium.googlesource.com/chromium/blink/+/master/Source/core/css/html.css
+- Webkit: https://trac.webkit.org/browser/trunk/Source/WebCore/css/html.css
+- More: https://meiert.com/en/blog/user-agent-style-sheets/
+
+#css #miriamsuzanne #firefoxdevtools</media:description>
+   <media:community>
+    <media:starRating count="153" average="4.97" min="1" max="5"/>
+    <media:statistics views="3054"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:YhlAVlfH0rQ</id>
+  <yt:videoId>YhlAVlfH0rQ</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Test for Text Label Issues using the Firefox Accessibility Inspector</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=YhlAVlfH0rQ"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-12-09T11:00:09+00:00</published>
+  <updated>2019-12-10T07:19:42+00:00</updated>
+  <media:group>
+   <media:title>Test for Text Label Issues using the Firefox Accessibility Inspector</media:title>
+   <media:content url="https://www.youtube.com/v/YhlAVlfH0rQ?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/YhlAVlfH0rQ/hqdefault.jpg" width="480" height="360"/>
+   <media:description>The Firefox Accessibility Inspector can help you easily identify and fix text label accessibility issues on your site, such as missing ‘alt’ attributes, form labels, and more. Youri Wims teaches you how to use the Firefox Accessibility Inspector to find and fix common text label accessibility issues.
+
+#accessibility #firefoxdevtools #youriwims
+
+Resources:
+https://developer.mozilla.org/docs/Web/Accessibility/Understanding_WCAG/Text_labels_and_names
+https://developer.mozilla.org/docs/tools/Accessibility_Inspector</media:description>
+   <media:community>
+    <media:starRating count="88" average="4.91" min="1" max="5"/>
+    <media:statistics views="1465"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:Sp9ZfSvpf7A</id>
+  <yt:videoId>Sp9ZfSvpf7A</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Inspecting the CSS Cascade using Firefox DevTools</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=Sp9ZfSvpf7A"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-12-04T11:00:06+00:00</published>
+  <updated>2019-12-05T15:20:56+00:00</updated>
+  <media:group>
+   <media:title>Inspecting the CSS Cascade using Firefox DevTools</media:title>
+   <media:content url="https://www.youtube.com/v/Sp9ZfSvpf7A?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/Sp9ZfSvpf7A/hqdefault.jpg" width="480" height="360"/>
+   <media:description>The Cascade is a central feature of CSS, and a common source of confusion. With styles coming from multiple selectors and style sheets, the cascade determines which styles take priority: overriding other styles. There are several factors in play, so we can easily get lost wondering why a style isn't being applied, where a style is coming from, or why one rule overrides another. The Firefox DevTools can help so we know what we're looking at. Miriam Suzanne will show you how the cascade is represented in the inspector, and how to get the most out of these tools – from debugging code to writing and manipulating the cascade directly in the browser.
+
+MDN: https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Examine_and_edit_CSS
+Demo page: https://mozdemos.netlify.com/cascade-inspect/
+
+#css #miriamsuzanne #firefoxdevtools</media:description>
+   <media:community>
+    <media:starRating count="202" average="4.94" min="1" max="5"/>
+    <media:statistics views="3928"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:0FiQZnkKglk</id>
+  <yt:videoId>0FiQZnkKglk</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Test Keyboard Accessibility using the Firefox Accessibility Inspector</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=0FiQZnkKglk"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-12-02T11:00:00+00:00</published>
+  <updated>2019-12-02T17:10:56+00:00</updated>
+  <media:group>
+   <media:title>Test Keyboard Accessibility using the Firefox Accessibility Inspector</media:title>
+   <media:content url="https://www.youtube.com/v/0FiQZnkKglk?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/0FiQZnkKglk/hqdefault.jpg" width="480" height="360"/>
+   <media:description>So you know a bit about accessibility and want to start keyboard testing, but not sure where to start? The Firefox Accessibility Inspector can help you easily identify keyboard accessibility issues on your site and provide information on how to fix accessibility flags raised. Youri Wims teaches you how to configure your browser and system to start keyboard testing in addition to showing you how to use the Firefox Accessibility Inspector to troubleshoot a keyboard accessibility issue.
+
+Disclaimer: The Keyboard Issue Checker in the Firefox Accessibility Inspector does not replace manual accessibility testing, but is encouraged to be used in conjunction with it.
+
+https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector
+https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Keyboard
+https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Accessibility
+
+#accessibility #firefoxdevtools #youriwims</media:description>
+   <media:community>
+    <media:starRating count="156" average="4.90" min="1" max="5"/>
+    <media:statistics views="2230"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:u9bDe3Bw0sA</id>
+  <yt:videoId>u9bDe3Bw0sA</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Edit your CSS Shapes with the Shape Path Editor</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=u9bDe3Bw0sA"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-11-25T11:00:12+00:00</published>
+  <updated>2019-12-04T20:57:56+00:00</updated>
+  <media:group>
+   <media:title>Edit your CSS Shapes with the Shape Path Editor</media:title>
+   <media:content url="https://www.youtube.com/v/u9bDe3Bw0sA?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/u9bDe3Bw0sA/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Have you ever wanted to create more interesting shapes on the web, or flow text around the details of an image? CSS provides a number of built-in shapes we can use – from inset boxes to circles, ellipses, and polygons. Shape paths can be hard to code without a visual reference, but Firefox provides a shape editor to make it quick and clear. Miriam Suzanne will show you how to use the tool to inspect, edit, and create shapes directly in the browser.
+
+https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_CSS_shapes
+
+http://www.widehive.com/artists
+https://www.miriamsuzanne.com/2019/10/03/css-is-weird/
+https://codepen.io/stacy/full/449546ec58c27981aa764fe6a8d0d02b
+https://codepen.io/stacy/full/zjOeWa
+https://adobe-webplatform.github.io/Demo-for-Alice-s-Adventures-in-Wonderland/
+
+https://bennettfeely.com/clippy/
+https://labs.jensimmons.com/#shapes
+https://codepen.io/stacy/full/aWKerN
+
+#cssshapes #firefoxdevtools #miriamsuzanne</media:description>
+   <media:community>
+    <media:starRating count="386" average="4.98" min="1" max="5"/>
+    <media:statistics views="5210"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:WjvJheGhHIQ</id>
+  <yt:videoId>WjvJheGhHIQ</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Use new selectors responsibly with selector queries</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=WjvJheGhHIQ"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-11-20T11:00:07+00:00</published>
+  <updated>2019-11-21T18:01:39+00:00</updated>
+  <media:group>
+   <media:title>Use new selectors responsibly with selector queries</media:title>
+   <media:content url="https://www.youtube.com/v/WjvJheGhHIQ?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/WjvJheGhHIQ/hqdefault.jpg" width="480" height="360"/>
+   <media:description>There are many ways to start using a new feature in CSS without waiting for full cross-browser support, but &quot;feature queries&quot; are the most clear and explicit. We can use them to test for browser support, and provide targeted styles only where they are supported. Now we can do the same with new selectors, like ::marker or :focus-visible! Firefox 69 was the first to implement selector feature queries, but other browsers are following suit. Miriam Suzanne will show you how it works, and how to start using this new feature query right away.
+
+- Firefox 69 Release Notes: https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/69
+- MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/@supports#Testing_for_the_support_of_a_selector
+- Caniuse: https://caniuse.com/#feat=mdn-css_at-rules_supports_selector
+- Demos: https://mozdemos.netlify.com/support-selector/
+
+#CSS #featurequeries #miriamsuzanne</media:description>
+   <media:community>
+    <media:starRating count="297" average="4.93" min="1" max="5"/>
+    <media:statistics views="5377"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:aEDO_C_AI-0</id>
+  <yt:videoId>aEDO_C_AI-0</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>We Just Updated Underline Styling Together</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=aEDO_C_AI-0"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-11-18T11:00:01+00:00</published>
+  <updated>2019-11-19T06:33:08+00:00</updated>
+  <media:group>
+   <media:title>We Just Updated Underline Styling Together</media:title>
+   <media:content url="https://www.youtube.com/v/aEDO_C_AI-0?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/aEDO_C_AI-0/hqdefault.jpg" width="480" height="360"/>
+   <media:description>One of you left a comment on the video about Underline Styling — which resulted in us changing the implementation in Firefox, and likely other browsers as well. Jen Simmons explains how skip-ink and thickness interacted before the change, how the comment started a conversation at the CSS Working Group, and how skip-ink and thickness interact now.
+
+Special thanks to bokkeman123 for their comment! https://www.youtube.com/watch?v=sZS-7RX_c7g&amp;lc=UgzM2R4wupkg2exY_3p4AaABAg
+
+Original Video on Underline Styling: https://www.youtube.com/watch?v=sZS-7RX_c7g
+Demo: https://codepen.io/jensimmons/pen/xxxjEgd?editors=1100
+Issue Jen opened at CSSWG: https://github.com/w3c/csswg-drafts/issues/4493
+Text Decoration 4 spec: https://drafts.csswg.org/css-text-decor-4/
+
+#underlinestyling #csswg #jensimmons</media:description>
+   <media:community>
+    <media:starRating count="164" average="4.98" min="1" max="5"/>
+    <media:statistics views="1959"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:eBefjaWud-M</id>
+  <yt:videoId>eBefjaWud-M</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Testing Color Contrast &amp; Simulating Color Blindness with the Firefox Accessibility Inspector</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=eBefjaWud-M"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-11-13T11:00:08+00:00</published>
+  <updated>2019-11-27T22:22:38+00:00</updated>
+  <media:group>
+   <media:title>Testing Color Contrast &amp; Simulating Color Blindness with the Firefox Accessibility Inspector</media:title>
+   <media:content url="https://www.youtube.com/v/eBefjaWud-M?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/eBefjaWud-M/hqdefault.jpg" width="480" height="360"/>
+   <media:description>How can you easily check to make sure your choices of color are accessible — that as many people as possible will be able to see your content, no matter what kind of vision they have? Firefox Accessibly Tools can help you quickly test and know what decisions to make. Jen Simmons gives you a tour of the Color Contrast tools, and the Color Deficiency Simulator.
+
+Be sure to watch the part at 6:40 if the Color Deficiency Simulator is not showing up on your copy of Firefox. I'll explain how to get it.
+
+• https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector
+• https://hacks.mozilla.org/2019/10/auditing-for-accessibility-problems-with-firefox-developer-tools/
+
+#accessibility #firefoxdevtools #jensimmons</media:description>
+   <media:community>
+    <media:starRating count="226" average="4.96" min="1" max="5"/>
+    <media:statistics views="3669"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:7mqqgIxX_NU</id>
+  <yt:videoId>7mqqgIxX_NU</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Understand Website Accessibility with the Firefox Accessibility Inspector</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=7mqqgIxX_NU"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-11-11T11:00:01+00:00</published>
+  <updated>2019-11-12T07:11:01+00:00</updated>
+  <media:group>
+   <media:title>Understand Website Accessibility with the Firefox Accessibility Inspector</media:title>
+   <media:content url="https://www.youtube.com/v/7mqqgIxX_NU?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/7mqqgIxX_NU/hqdefault.jpg" width="480" height="360"/>
+   <media:description>When building a website, understanding what's happening with accessibility can help you make certain your site can be used by everyone. Firefox DevTools now has a new Accessibility Inspector that shows an outline of the accessibility tree, and lists problems with contrast or missing labels, and much more. Jen Simmons gives you a tour.
+
+• https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector
+• https://hacks.mozilla.org/2019/10/auditing-for-accessibility-problems-with-firefox-developer-tools/
+• https://hacks.mozilla.org/2019/06/how-accessibility-trees-inform-assistive-tech/
+
+#accessibly #firefoxdevtools #jensimmons</media:description>
+   <media:community>
+    <media:starRating count="332" average="4.98" min="1" max="5"/>
+    <media:statistics views="6991"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:UOKQ6gw21NA</id>
+  <yt:videoId>UOKQ6gw21NA</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>How do you wrap long words in CSS?</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=UOKQ6gw21NA"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-11-06T11:00:04+00:00</published>
+  <updated>2019-11-07T05:56:29+00:00</updated>
+  <media:group>
+   <media:title>How do you wrap long words in CSS?</media:title>
+   <media:content url="https://www.youtube.com/v/UOKQ6gw21NA?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/UOKQ6gw21NA/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Horizontal text overflow has always been difficult to manage on the web. The default visible overflow is designed to make sure content remains accessible no matter the size of a containing box, but it's not our only option. We can now use overflow-wrap to control how words break – and combine that with hyphens to make wrapped text more readable. The solutions aren't perfect yet, but Miriam Suzanne will walk you through the options we have, and how to use them.
+
+- MDN Overflow-Wrap: https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap
+- MDN Hyphens: https://developer.mozilla.org/en-US/docs/Web/CSS/hyphens
+- CodePen Demo: https://codepen.io/mirisuzanne/pen/GRKoxXY
+
+#webdesign #CSS #graphicdesign</media:description>
+   <media:community>
+    <media:starRating count="193" average="4.98" min="1" max="5"/>
+    <media:statistics views="2279"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:sZS-7RX_c7g</id>
+  <yt:videoId>sZS-7RX_c7g</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>New CSS for Styling Underlines on the Web</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=sZS-7RX_c7g"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-11-05T11:00:11+00:00</published>
+  <updated>2019-11-07T18:35:15+00:00</updated>
+  <media:group>
+   <media:title>New CSS for Styling Underlines on the Web</media:title>
+   <media:content url="https://www.youtube.com/v/sZS-7RX_c7g?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/sZS-7RX_c7g/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Finally in 2019, we have new CSS that allows us a lot of powerful ways to style underlines. Jen Simmons walks you through the options.
+
+These three new properties on MDN:
+https://developer.mozilla.org/en-US/docs/Web/CSS/text-underline-offset
+https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-thickness
+https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration-skip-ink
+
+The CSS Specification for Text Decoration, Level 4:
+https://drafts.csswg.org/css-text-decor-4/
+
+#underlinestyling #typography #jensimmons</media:description>
+   <media:community>
+    <media:starRating count="735" average="4.99" min="1" max="5"/>
+    <media:statistics views="13194"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:pohyK8iz-SQ</id>
+  <yt:videoId>pohyK8iz-SQ</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Scroll Snap in CSS Instead of JavaScript</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=pohyK8iz-SQ"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-10-31T10:00:08+00:00</published>
+  <updated>2019-10-31T18:26:49+00:00</updated>
+  <media:group>
+   <media:title>Scroll Snap in CSS Instead of JavaScript</media:title>
+   <media:content url="https://www.youtube.com/v/pohyK8iz-SQ?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/pohyK8iz-SQ/hqdefault.jpg" width="480" height="360"/>
+   <media:description>When we're scrolling down a page, or through a gallery of images, snap-targets can help guide us from one section or image to the next. In the past, developers have used JavaScript to hijack scrolling, but now we can manage scroll alignment directly in CSS with only a few lines of code. The fallback even works well in old browsers! Miriam Suzanne shows you how.
+
+Image Gallery Demo: https://codepen.io/mirisuzanne/pen/bXRebo?editors=0100
+Page Sections Demo: https://codepen.io/mirisuzanne/pen/vomNBg?editors=0100
+More on MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap/Basic_concepts
+
+#css #scrollsnap #miriamsuzanne</media:description>
+   <media:community>
+    <media:starRating count="575" average="4.97" min="1" max="5"/>
+    <media:statistics views="8948"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:4Clyc38U-MA</id>
+  <yt:videoId>4Clyc38U-MA</yt:videoId>
+  <yt:channelId>UCh5UlGiu9d6LegIeUCW4N1w</yt:channelId>
+  <title>Inner &amp; Outer Values of the Display Property</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=4Clyc38U-MA"/>
+  <author>
+   <name>Mozilla Developer</name>
+   <uri>https://www.youtube.com/channel/UCh5UlGiu9d6LegIeUCW4N1w</uri>
+  </author>
+  <published>2019-10-28T10:00:00+00:00</published>
+  <updated>2019-10-31T20:16:14+00:00</updated>
+  <media:group>
+   <media:title>Inner &amp; Outer Values of the Display Property</media:title>
+   <media:content url="https://www.youtube.com/v/4Clyc38U-MA?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/4Clyc38U-MA/hqdefault.jpg" width="480" height="360"/>
+   <media:description>The display property has been in CSS from the beginning, handling everything from block and inline boxes to list-items and full layout systems like flexbox or grid. Now the display syntax is getting an upgrade to match it's multiple uses. The new display spec adds flow and flow-root values, and allows for setting inner layout (grid, flex, etc) as well as outer box type (inline, block), and more.
+
+It might not be something we use much right away — but it still can help us understand all the power inside this one property. Miriam Suzanne explains the new syntax for Display.
+
+#css #cssdisplay #miriamsuzanne</media:description>
+   <media:community>
+    <media:starRating count="186" average="4.94" min="1" max="5"/>
+    <media:statistics views="3740"/>
+   </media:community>
+  </media:group>
+ </entry>
+</feed>

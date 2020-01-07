@@ -19,5 +19,7 @@ wagtail-bakery==0.3.0
 whitenoise==5.0.1
 urlwait==0.4
 newrelic==5.4.1.134
+feedparser==5.2.1
+python-dateutil==2.8.1
 # Specific versions of dependencies to satisfy clashing requirements:
 beautifulsoup4==4.6.0  # from Wagtail 2.7
