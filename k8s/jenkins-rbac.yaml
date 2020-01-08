@@ -12,7 +12,7 @@ rules:
     - get
     - list
     - watch
-- apiGroups: ["", "extensions", "apps"]
+- apiGroups: ["", "extensions", "apps", "autoscaling"]
   resources: ["*"]
   verbs: ["*"]
 - apiGroups: ["batch"]
@@ -35,7 +35,7 @@ rules:
     - get
     - list
     - watch
-- apiGroups: ["", "extensions", "apps"]
+- apiGroups: ["", "extensions", "apps", "autoscaling"]
   resources: ["*"]
   verbs: ["*"]
 - apiGroups: ["batch"]
@@ -58,7 +58,7 @@ rules:
     - get
     - list
     - watch
-- apiGroups: ["", "extensions", "apps"]
+- apiGroups: ["", "extensions", "apps", "autoscaling"]
   resources: ["*"]
   verbs: ["*"]
 - apiGroups: ["batch"]
