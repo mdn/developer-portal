@@ -10,7 +10,7 @@ export K8S_NAMESPACE=dev-portal-${TARGET_ENVIRONMENT}
 # Define an alias for the namespaced kubectl for convenience.
 alias kc="kubectl -n ${K8S_NAMESPACE}"
 
-export APP_SERVICE_CERT_ARN=arn:aws:acm:us-west-2:178589013767:certificate/03cedb62-c36d-4e9e-b5a1-716ca6bdd7c4
+export APP_SERVICE_CERT_ARN=arn:aws:acm:us-west-2:178589013767:certificate/555815e9-a0c5-4bc5-9719-99b1389bf663
 export APP_BUCKET_ROLE_ARN=arn:aws:iam::178589013767:role/developer-portal-prod-us-west-2-role
 
 export APP_REPLICAS=4
