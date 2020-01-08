@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "developerportal.apps.mozimages",
     "developerportal.apps.people",
     "developerportal.apps.staticbuild",
+    "developerportal.apps.taskqueue",
     "developerportal.apps.topics",
     "developerportal.apps.videos",
     "wagtail.contrib.forms",
@@ -107,6 +108,8 @@ TEMPLATES = [
                 "developerportal.context_processors.directory_pages",
                 "developerportal.context_processors.google_analytics",
                 "developerportal.context_processors.mapbox_access_token",
+                "developerportal.context_processors.pagination_constants",
+                "developerportal.context_processors.filtering_constants",
             ],
             "libraries": {
                 "app_filters": "developerportal.templatetags.app_filters",
@@ -303,9 +306,7 @@ LOGIN_ERROR_URL = "/admin/"
 LOGIN_REDIRECT_URL = "/admin/"
 LOGOUT_REDIRECT_URL = "/admin/"
 
-GOOGLE_ANALYTICS = ""
-# GOOGLE_ANALYTICS is _only_ set in settings.worker, because we ONLY want it
-# to appear in the static site, not the live-rendered site.
+GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS", "")
 
 # RSS Feed
 RSS_MAX_ITEMS = 20

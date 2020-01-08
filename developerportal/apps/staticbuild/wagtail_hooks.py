@@ -10,7 +10,7 @@ from django.utils.timezone import now as tz_now
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail.core.signals import page_published, page_unpublished
 
-from developerportal.apps.staticbuild.celery import (
+from developerportal.apps.taskqueue.celery import (
     STATIC_BUILD_JOB_ATTEMPT_FREQUENCY,
     app,
 )
@@ -174,13 +174,6 @@ def _static_build_async(self, pipeline=settings.STATIC_BUILD_PIPELINE):
                 "Setting the sentinel so we'll try again later."
             )
             _set_build_needed_sentinel(oid=self.app.oid)
-
-
-@app.task
-def _publish_scheduled_pages():
-    log_prefix = "[Publish scheduled pages]"
-    logger.info(f"{log_prefix} Trying to publish/unpublish scheduled pages")
-    call_command("publish_scheduled_pages")
 
 
 def static_build(**kwargs):

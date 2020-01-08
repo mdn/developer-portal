@@ -1,11 +1,19 @@
-from django.test import TestCase, override_settings
+from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.core.models import Page
 
+from developerportal.apps.common.constants import (
+    COUNTRY_QUERYSTRING_KEY,
+    PAGINATION_QUERYSTRING_KEY,
+    ROLE_QUERYSTRING_KEY,
+    TOPIC_QUERYSTRING_KEY,
+    YEAR_MONTH_QUERYSTRING_KEY,
+)
 from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
     get_favicon_path,
     has_at_least_two_filters,
+    pagination_additional_filter_params,
 )
 
 
@@ -98,6 +106,128 @@ class AppTagsTestCase(TestCase):
                             )
                         ],
                     )
+
+    def test_pagination_additional_filter_params(self):
+        cases = [
+            {
+                # single topic only
+                "input_querystring": f"?{TOPIC_QUERYSTRING_KEY}=css",
+                "expected_output": f"&{TOPIC_QUERYSTRING_KEY}=css",
+            },
+            {
+                # multiple topic
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+            },
+            {
+                # single topic and page info
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{PAGINATION_QUERYSTRING_KEY}=2"
+                ),
+                "expected_output": f"&{TOPIC_QUERYSTRING_KEY}=css",
+            },
+            {
+                # multiple topic and page info
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{PAGINATION_QUERYSTRING_KEY}=2"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+            },
+            {
+                # single topic and page info
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=22&{TOPIC_QUERYSTRING_KEY}=css"
+                ),
+                "expected_output": f"&{TOPIC_QUERYSTRING_KEY}=css",
+            },
+            {
+                # multiple topic and page info
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=3&{TOPIC_QUERYSTRING_KEY}=css"
+                    f"&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                ),
+            },
+            {
+                # multiple non-page params
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                ),
+            },
+            {
+                # multiple params, incl pages
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{PAGINATION_QUERYSTRING_KEY}=234"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{ROLE_QUERYSTRING_KEY}=test"
+                ),
+            },
+            {
+                # double-multiple params, incl pages
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{ROLE_QUERYSTRING_KEY}=test&{PAGINATION_QUERYSTRING_KEY}=234"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{ROLE_QUERYSTRING_KEY}=test"
+                ),
+            },
+            {
+                # double-multiple params, incl pages, different key position
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=234&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
+                ),
+                "expected_output": (
+                    f"&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
+                ),
+            },
+            {
+                # Show that only whitelisted params are covered - 'evil', area'
+                # and 'location' will be skipped
+                "input_querystring": (
+                    f"?{PAGINATION_QUERYSTRING_KEY}=234&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&area=javascript&evil=true"
+                    f"&location=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
+                ),
+                "expected_output": (
+                    f"&{ROLE_QUERYSTRING_KEY}=test"
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{COUNTRY_QUERYSTRING_KEY}=AR"
+                ),
+            },
+        ]
+
+        factory = RequestFactory()
+
+        for case in cases:
+            with self.subTest(case=case):
+                request = factory.get(f"/{case['input_querystring']}")
+                self.assertEqual(
+                    pagination_additional_filter_params(request),
+                    case["expected_output"],
+                )
 
     def test_get_favicon_path(self):
         cases = [

@@ -1,20 +1,18 @@
 import logging
 import os
-from http import HTTPStatus
 from http.client import HTTPS_PORT
 
 from django.conf import settings
 from django.db.models import Q
 from django.test.client import RequestFactory
-from django.utils.timezone import now as tz_now
 
-import boto3
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.core.models import Site
 
 from bakery.management.commands import get_s3_client
 from bakery.views import BuildableMixin
+from developerportal.apps.taskqueue.utils import invalidate_cdn
 from wagtailbakery.views import AllPublishedPagesView, WagtailBakeryView
 
 logger = logging.getLogger(__name__)
@@ -134,47 +132,8 @@ class CloudfrontInvalidationView(PostPublishOnlyWagtailBakeryView):
     """Buildable "view" that invalidates the ENTIRE distribution in Cloudfront."""
 
     def post_publish(self, bucket):
-
-        distribution_id = settings.AWS_CLOUDFRONT_DISTRIBUTION_ID
-
-        if not distribution_id:
-            logger.info("No Cloudfront distribtion ID configured. Skipping CDN purge.")
-        else:
-            logger.info("Purging Cloudfront distribtion ID {}.".format(distribution_id))
-            client = boto3.client("cloudfront")
-
-            # Make a unique string so that this call to invalidate is not ignored
-            caller_reference = str(tz_now().isoformat())
-
-            invalidation_targets = ["/*"]  # this wildcard should catch everything
-
-            response = client.create_invalidation(
-                DistributionId=distribution_id,
-                InvalidationBatch={
-                    "Paths": {
-                        "Items": invalidation_targets,
-                        "Quantity": len(invalidation_targets),
-                    },
-                    "CallerReference": caller_reference,
-                },
-            )
-            http_status = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
-
-            if http_status == HTTPStatus.CREATED:
-                invalidation_status = response.get("Invalidation", {}).get(
-                    "Status", "RESPONSE ERROR"
-                )
-                logger.info(
-                    (
-                        "Got a positive response from Cloudfront. "
-                        "Invalidation status: {}"
-                    ).format(invalidation_status)
-                )
-                logger.debug("Response: {}".format(response))
-            else:
-                logger.warning(
-                    "Got an unexpected response from Cloudfront: {}".format(response)
-                )
+        invalidation_targets = ["/*"]  # this wildcard should catch everything
+        invalidate_cdn(invalidation_targets)
 
 
 class SitemapBuildableView(BuildableMixin):

@@ -14,7 +14,7 @@
             <h2>People</h2>
           </div>
         </div>
-        {% include "organisms/filter-list.html" with type="person" resources=page.people initial_resources=10 resources_per_page=4 no_resources_message="No people found" %}
+        {% include "organisms/filter-list.html" with type="person" resources=people no_resources_message="No people found" %}
       </section>
     {% endif %}
     {% include "organisms/newsletter-signup.html" %}

@@ -1,7 +1,7 @@
 from itertools import chain
 from operator import attrgetter
 
-from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, TextField
+from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, Q, TextField
 
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -21,9 +21,16 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import PersonalWebsiteBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE, ROLE_CHOICES
+from ..common.constants import (
+    COUNTRY_QUERYSTRING_KEY,
+    PAGINATION_QUERYSTRING_KEY,
+    RICH_TEXT_FEATURES_SIMPLE,
+    ROLE_CHOICES,
+    ROLE_QUERYSTRING_KEY,
+    TOPIC_QUERYSTRING_KEY,
+)
 from ..common.models import BasePage
-from ..common.utils import get_past_event_cutoff
+from ..common.utils import get_past_event_cutoff, paginate_resources
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -34,6 +41,9 @@ class PeopleTag(TaggedItemBase):
 
 
 class People(BasePage):
+
+    RESOURCES_PER_PAGE = 10
+
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]
     template = "people.html"
@@ -92,18 +102,57 @@ class People(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
+        context["people"] = self.get_people(request)
         return context
 
-    @property
-    def people(self):
-        return Person.published_objects.all().order_by("title")
+    def get_people(self, request):
+
+        countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+        roles = request.GET.getlist(ROLE_QUERYSTRING_KEY)
+        topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
+
+        countries_q = Q(country__in=countries) if countries else Q()
+        roles_q = Q(role__in=roles) if roles else Q()
+        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
+
+        combined_q = Q()
+        if countries_q:
+            combined_q.add(countries_q, Q.AND)
+        if roles_q:
+            combined_q.add(roles_q, Q.AND)
+        if topics_q:
+            combined_q.add(topics_q, Q.AND)
+
+        people = Person.published_objects.filter(combined_q).order_by("title")
+
+        people = paginate_resources(
+            people,
+            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
+            per_page=self.RESOURCES_PER_PAGE,
+        )
+
+        return people
+
+    def get_relevant_countries(self):
+        # Relevant here means a country that a published person is in
+        raw_countries = (
+            person.country
+            for person in Person.published_objects.distinct("country").order_by(
+                "country"
+            )
+            if person.country
+        )
+
+        return [
+            {"code": country.code, "name": country.name} for country in raw_countries
+        ]
 
     def get_filters(self):
         from ..topics.models import Topic
 
         return {
-            "countries": True,
-            "roles": True,
+            "countries": self.get_relevant_countries(),
+            "roles": ROLE_CHOICES,
             "topics": Topic.published_objects.order_by("title"),
         }
 

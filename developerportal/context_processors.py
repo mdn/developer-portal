@@ -28,3 +28,20 @@ def directory_pages(request):
             "topics": Topics.published_objects.first(),
         }
     }
+
+
+def pagination_constants(request):
+    from developerportal.apps.common import constants
+
+    return {"PAGINATION_QUERYSTRING_KEY": constants.PAGINATION_QUERYSTRING_KEY}
+
+
+def filtering_constants(request):
+    from developerportal.apps.common import constants
+
+    return {
+        "TOPIC_QUERYSTRING_KEY": constants.TOPIC_QUERYSTRING_KEY,
+        "ROLE_QUERYSTRING_KEY": constants.ROLE_QUERYSTRING_KEY,
+        "COUNTRY_QUERYSTRING_KEY": constants.COUNTRY_QUERYSTRING_KEY,
+        "YEAR_MONTH_QUERYSTRING_KEY": constants.YEAR_MONTH_QUERYSTRING_KEY,
+    }

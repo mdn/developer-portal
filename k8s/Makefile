@@ -59,7 +59,11 @@ export NEW_RELIC_LICENSE_KEY_BASE64 ?= $(shell echo -n "${NEW_RELIC_LICENSE_KEY}
 export NEW_RELIC_MONITOR_MODE ?= 1
 export NEW_RELIC_LABELS ?= Project:developer-portal;Namespace:${K8S_NAMESPACE};Environment:${TARGET_ENVIRONMENT}
 
+# Google Analytics
 export GOOGLE_ANALYTICS ?= 0
+
+# Var to switch favicon colour
+export ACTIVE_ENVIRONMENT ?= production
 
 # Backup config
 export RDS_BACKUP_DBTYPE ?= 'PGSQL'
