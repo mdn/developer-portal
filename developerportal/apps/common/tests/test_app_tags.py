@@ -1,4 +1,4 @@
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
 
 from wagtail.core.models import Page
 
@@ -11,6 +11,7 @@ from developerportal.apps.common.constants import (
 )
 from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
+    get_favicon_path,
     has_at_least_two_filters,
     pagination_additional_filter_params,
 )
@@ -227,3 +228,17 @@ class AppTagsTestCase(TestCase):
                     pagination_additional_filter_params(request),
                     case["expected_output"],
                 )
+
+    def test_get_favicon_path(self):
+        cases = [
+            {"input": None, "output": "img/icons/favicon.ico"},
+            {"input": "", "output": "img/icons/favicon.ico"},
+            {"input": "production", "output": "img/icons/favicon.ico"},
+            {"input": "development", "output": "img/icons/favicon_dev.ico"},
+            {"input": "staging", "output": "img/icons/favicon_stage.ico"},
+        ]
+
+        for case in cases:
+            with self.subTest(case=case):
+                with override_settings(ACTIVE_ENVIRONMENT=case["input"]):
+                    self.assertEqual(get_favicon_path(), case["output"])

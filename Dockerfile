@@ -1,4 +1,4 @@
-FROM node:12.13-alpine@sha256:6a0fa47a0c87853c53d1403b34c79befef7df04902d4e206cfaf6a43bedce0dd AS static
+FROM node:12.14-alpine@sha256:57a34fed5fd5f18879c5915e3d0daad5d03825c997763e78a72d3c96a7f1476f AS static
 
 WORKDIR /app/
 
@@ -12,7 +12,7 @@ COPY src/ /app/src/
 RUN npm run build
 
 
-FROM python:3.7-alpine@sha256:64463934b2c542cc5ae132d66a4deae2146e64183343f751a942dc9ede109fd2 AS app_base
+FROM python:3.7-alpine@sha256:3057cc4b839790bedc5dce8ae3b77fcdc5f01c4f8e1d66bc096e140327b5973b AS app_base
 
 EXPOSE 8000
 WORKDIR /app/

@@ -1,4 +1,4 @@
-{% load static wagtailuserbar %}
+{% load static wagtailuserbar app_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -42,7 +42,8 @@
       </title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="{% static 'css/bundle.css' %}">
-      <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}">
+      {% get_favicon_path as favicon_path %}
+      <link rel="shortcut icon" href="{% static favicon_path %}">
       <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
       {% comment "DISABLED FOR NOW UNTIL WE CAN EXPORT IT TO THE STATIC SITE %}
       <link rel="alternate" type="application/rss+xml" href="/posts-feed/">
@@ -64,6 +65,7 @@
     {% endblock %}
     {% block content %}{% endblock %}
     {% block footer %}
+      {% include "organisms/social-links.html" %}
       {% include "footer.html" %}
     {% endblock %}
     <script>window.Mzp = {}</script>

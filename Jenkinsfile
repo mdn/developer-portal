@@ -39,6 +39,7 @@ def deploy(config, environment, cluster) {
         export APP_IMAGE_TAG=${tag}
         make k8s-db-migration-job
         make k8s-deployments
+        make k8s-hpa
         make k8s-rollout-status
       """
       notify_slack([
@@ -113,14 +114,12 @@ node {
 
     case 'stage-push':
       stage('Deploy') {
-        deploy('stage-oregon', 'stage', 'oregon')
         deploy('stage', 'stage', 'mdn-apps-a')
       }
       break
 
     case 'prod-push':
       stage('Deploy') {
-        deploy('prod-oregon', 'prod', 'oregon')
         deploy('prod', 'prod', 'mdn-apps-a')
       }
       break
