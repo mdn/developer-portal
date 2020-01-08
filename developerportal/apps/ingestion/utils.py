@@ -2,9 +2,15 @@
 import datetime
 import logging
 
+from django.db import transaction
+from django.utils.timezone import now as tz_now
+
 from dateutil.parser import parse as parse_datetime
 
 import feedparser
+
+from ..externalcontent import models as externalcontent_models
+from .models import IngestionConfiguration
 
 FEED_TYPE_ATOM = "atom"
 FEED_TYPE_RSS = "rss"
@@ -78,3 +84,42 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
         )
 
     return output
+
+
+def ingest_content(type_: str):
+    """For the given type_:
+    * fetch the relevant data from the configured sources
+    * for each item of source data:
+        * create an appropriate ExternalContent page subclass, as a draft
+    * update the last_sync timestamp for each configured source
+    * submit all just-created draft pages for moderation
+    """
+
+    _now = tz_now()
+    model_name = type_
+
+    configs = IngestionConfiguration.objects.filter(integration_type=type_)
+
+    Model = getattr(externalcontent_models, model_name)
+
+    for config in configs:
+        print("config.source_name", config.source_name)
+        with transaction.atomic():
+            data_from_source = fetch_external_data(
+                feed_url=config.source_url, last_synced=config.last_sync
+            )
+            config.last_sync = _now
+            config.save()
+
+            for data in data_from_source:
+                draft_page = Model.objects.generate_draft_from_external_data(data)
+
+                # This is a little messy: we save a new revision and ping the
+                # moderator, but because it's within a transaction if something
+                # fails we will roll it back at the DB level, but
+                # the emails notifying Moderators will have been sent for pages
+                # which will not exist. It's not ideal, but safer than having
+                # the moderation request happen outside of a transaction, else
+                # that would risk saved draft-saved pages existing with no
+                # owner and no 'for moderation' flag set.
+                draft_page.save_revision(submitted_for_moderation=True)

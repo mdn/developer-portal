@@ -67,6 +67,7 @@ class ExternalContentPageManagerBase(PageManager):
                 "because it that a base class."
             )
 
+        print("model", self.model, "data", data)
         page = self.model(
             title=data["title"],
             slug=hashlib.sha1(str(data).encode("utf-8")).hexdigest(),
