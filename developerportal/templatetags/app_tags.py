@@ -10,6 +10,8 @@ from django.utils.safestring import mark_safe
 
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
+    ENVIRONMENT_DEVELOPMENT,
+    ENVIRONMENT_STAGING,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
     YEAR_MONTH_QUERYSTRING_KEY,
@@ -136,3 +138,18 @@ def pagination_additional_filter_params(request):
     if joined_params:
         joined_params = f"&{joined_params}"
     return joined_params
+
+
+@register.simple_tag
+def get_favicon_path():
+    """Returns a path to the relevant favicon file, suitable for
+    use with the {% static %} tag."""
+
+    DEFAULT_FAVICON = "favicon.ico"
+    spec = {
+        ENVIRONMENT_DEVELOPMENT: "favicon_dev.ico",
+        ENVIRONMENT_STAGING: "favicon_stage.ico",
+    }
+    filename = spec.get(settings.ACTIVE_ENVIRONMENT, DEFAULT_FAVICON)
+
+    return f"img/icons/{filename}"

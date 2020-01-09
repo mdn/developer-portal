@@ -4,3 +4,4 @@ dist
 *.html
 *.svg
 *.json
+k8s/jenkins-rbac.yaml

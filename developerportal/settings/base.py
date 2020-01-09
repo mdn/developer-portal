@@ -16,12 +16,14 @@ from django.core.management.utils import get_random_secret_key
 
 from wagtail.embeds.oembed_providers import all_providers
 
+from developerportal.apps.common.constants import ENVIRONMENT_PRODUCTION
 from developerportal.apps.common.settings_helpers import _get_redis_url_for_cache
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+ACTIVE_ENVIRONMENT = os.environ.get("ACTIVE_ENVIRONMENT", ENVIRONMENT_PRODUCTION)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", get_random_secret_key())
@@ -308,7 +310,6 @@ GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS", "")
 
 # RSS Feed
 RSS_MAX_ITEMS = 20
-
 
 # Mapbox
 MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")

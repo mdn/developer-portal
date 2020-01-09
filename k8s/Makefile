@@ -20,6 +20,7 @@ export APP_IMAGE ?= mdnwebdocs/developer-portal
 
 export APP_IMAGE_PULL_POLICY ?= IfNotPresent
 export APP_REPLICAS ?= 3
+export MAX_APP_REPLICAS ?= 6
 export APP_CPU_LIMIT ?= 2
 export APP_CPU_REQUEST ?= 1
 export APP_MEMORY_LIMIT ?= 4Gi
@@ -58,7 +59,11 @@ export NEW_RELIC_LICENSE_KEY_BASE64 ?= $(shell echo -n "${NEW_RELIC_LICENSE_KEY}
 export NEW_RELIC_MONITOR_MODE ?= 1
 export NEW_RELIC_LABELS ?= Project:developer-portal;Namespace:${K8S_NAMESPACE};Environment:${TARGET_ENVIRONMENT}
 
+# Google Analytics
 export GOOGLE_ANALYTICS ?= 0
+
+# Var to switch favicon colour
+export ACTIVE_ENVIRONMENT ?= production
 
 # Backup config
 export RDS_BACKUP_DBTYPE ?= 'PGSQL'
@@ -100,6 +105,12 @@ k8s-celery-deployments:
 k8s-celery-beat-deployments:
 	env NEW_RELIC_APP_NAME="" \
 	j2 celery-beat.yaml.j2 | ${KC} apply -f -
+
+k8s-hpa:
+	j2 hpa.yaml.j2 | ${KC} apply -f -
+
+k8s-delete-hpa:
+	${KC} delete --ignode-not-found deploy ${APP_NAME}
 
 k8s-delete-wagtail-deployments:
 	${KC} delete --ignore-not-found deploy ${APP_NAME}
