@@ -2,7 +2,7 @@ import datetime
 from unittest import mock
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 import pytz
 from dateutil.tz import tzlocal
@@ -28,6 +28,7 @@ from ..utils import _store_external_image, generate_draft_from_external_data
 from .data.test_images_as_bytearrays import image_one as image_one_bytearray
 
 
+@override_settings(AUTOMATICALLY_INGEST_CONTENT=True)
 class UtilsTestCaseWithoutFixtures(TestCase):
 
     YOUTUBE_FEED_URL = (
@@ -124,6 +125,7 @@ class UtilsTestCaseWithoutFixtures(TestCase):
         self.assertEqual(bad_data, [])
 
 
+@override_settings(AUTOMATICALLY_INGEST_CONTENT=True)
 class UtilsTestCaseWithFixtures(TestCase):
 
     fixtures = ["common.json"]

@@ -25,6 +25,10 @@
 # OIDC_RP_CLIENT_ID=
 # OIDC_RP_CLIENT_SECRET=
 
+# # Automatically add ExternalArticle and Video pages using content
+# # from configured blogs and channels
+# AUTOMATICALLY_INGEST_CONTENT=True
+
 # # For local development, allow authentication by username + password, not SSO
 # USE_CONVENTIONAL_AUTH = True
 # AUTHENTICATION_BACKENDS = (

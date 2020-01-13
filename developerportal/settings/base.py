@@ -365,6 +365,9 @@ OIDC_OP_JWKS_ENDPOINT = "https://auth.mozilla.auth0.com/.well-known/jwks.json"
 # password fields. You'll also need to enable the model backend in local settings
 USE_CONVENTIONAL_AUTH = False
 
+AUTOMATICALLY_INGEST_CONTENT = bool(
+    os.environ.get("AUTOMATICALLY_INGEST_CONTENT", False)
+)
 
 # Extra Wagtail config to disable password usage (SSO should be the only way in)
 # https://docs.wagtail.io/en/v2.6.3/advanced_topics/settings.html#password-management
