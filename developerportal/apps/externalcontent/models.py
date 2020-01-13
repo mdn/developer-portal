@@ -124,7 +124,6 @@ class ExternalArticle(ExternalContent):
         verbose_name_plural = "External Posts"
 
     resource_type = "article"  #  if you change this, amend the related CSS, too
-    template = "redirection.html"
 
     date = DateField(
         "External Post date",
@@ -213,7 +212,6 @@ class ExternalEventSpeaker(Orderable):
 
 class ExternalEvent(ExternalContent):
     resource_type = "event"
-    template = "redirection.html"
 
     start_date = DateField(
         default=datetime.date.today,
@@ -317,7 +315,6 @@ class ExternalVideoPerson(Orderable):
 class ExternalVideo(ExternalContent):
     resource_type = "video"
     is_external = True
-    template = "redirection.html"
 
     # Meta fields
     date = DateField(
