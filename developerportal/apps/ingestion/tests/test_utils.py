@@ -1,6 +1,7 @@
 import datetime
 from unittest import mock
 
+from django.contrib.auth.models import User
 from django.test import TestCase
 
 import pytz
@@ -21,6 +22,7 @@ from ...externalcontent.models import (
 )
 from ...mozimages.models import MozImage
 from ...videos.models import Video
+from ..constants import INGESTION_USER_USERNAME
 from ..models import IngestionConfiguration
 from ..utils import _store_external_image, generate_draft_from_external_data
 from .data.test_images_as_bytearrays import image_one as image_one_bytearray
@@ -133,6 +135,8 @@ class UtilsTestCaseWithFixtures(TestCase):
         _now = datetime.datetime(12, 12, 13, 12, 34, 56, tzinfo=pytz.UTC)
         mock_tz_now.return_value = _now
 
+        ingestion_dummy_user = User.objects.get(username=INGESTION_USER_USERNAME)
+
         # Wipe any configs added via data migration 0002
         IngestionConfiguration.objects.all().delete()
 
@@ -192,6 +196,9 @@ class UtilsTestCaseWithFixtures(TestCase):
         # None of these has been published yet
         assert Video.objects.filter(first_published_at__isnull=True).count() == 3
 
+        # Show the owner has been set
+        assert Video.objects.filter(owner=ingestion_dummy_user).count() == 3
+
         article_return_value = video_return_value + [
             dict(
                 title="Test four",
@@ -222,14 +229,70 @@ class UtilsTestCaseWithFixtures(TestCase):
         assert (
             ExternalArticle.objects.filter(first_published_at__isnull=True).count() == 4
         )
+        # Show the owner has been set
+        assert ExternalArticle.objects.filter(owner=ingestion_dummy_user).count() == 4
 
         assert IngestionConfiguration.objects.filter(last_sync=_now).count() == 2
 
-    def test_ingest_content__setting_user(self):
-        self.fail("WRITE ME")
+    @mock.patch("developerportal.apps.ingestion.utils.fetch_external_data")
+    @mock.patch("developerportal.apps.ingestion.utils.send_notification")
+    def test_ingest_content__unhappy_path(
+        self, mock_send_notification, mock_fetch_external_data
+    ):
 
-    def test_ingest_content__unhappy_path(self):
-        self.fail("WRITE ME")
+        mock_send_notification.return_value = False
+
+        IngestionConfiguration.objects.all().delete()
+
+        IngestionConfiguration.objects.create(
+            source_name="One",
+            source_url="https://example.com/one.xml",
+            integration_type=IngestionConfiguration.CONTENT_TYPE_VIDEO,
+            last_sync=datetime.datetime(12, 12, 12, tzinfo=pytz.UTC),
+        )
+
+        video_return_value = [
+            dict(
+                title="Test one",
+                authors=["Fernando McTest"],
+                url="https://example.com/thing/one/",
+                # image_url="https://example.com/one.png",
+                # Image ingestion is tested elsewhere
+                timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
+            )
+        ]
+
+        mock_fetch_external_data.return_value = video_return_value
+
+        # First try Video content
+        assert Video.objects.count() == 0
+
+        with self.assertLogs(
+            "developerportal.apps.ingestion.utils", level="INFO"
+        ) as cm:
+            ingest_content(type_=IngestionConfiguration.CONTENT_TYPE_VIDEO)
+        assert Video.objects.count() == 1
+
+        draft_page = Video.objects.filter(live=False).get()
+
+        self.assertEqual(
+            cm.output,
+            [
+                (
+                    "INFO:developerportal.apps.ingestion.utils:Generating a "
+                    "new draft Video from "
+                    "{'title': 'Test one', "
+                    "'authors': ['Fernando McTest'], "
+                    "'url': 'https://example.com/thing/one/', "
+                    "'timestamp': datetime.datetime(2020, 1, 10, 22, 47, 43, "
+                    "tzinfo=<UTC>), 'owner': <User: ingestion_user>}"
+                ),
+                (
+                    "WARNING:developerportal.apps.ingestion.utils:"
+                    f"Failed to send notification that {draft_page} was created."
+                ),
+            ],
+        )
 
     def test_generate_draft_from_external_data__raises_NotImplementedError(self):
 

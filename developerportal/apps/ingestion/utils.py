@@ -164,7 +164,7 @@ def ingest_content(type_: str):
                         excluded_user_id=ingestion_user.id,
                     ):
                         logger.warning(
-                            "Failed to send notification that %s was created",
+                            "Failed to send notification that %s was created.",
                             draft_page,
                         )
 
