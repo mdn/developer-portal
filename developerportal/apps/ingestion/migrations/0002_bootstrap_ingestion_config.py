@@ -13,19 +13,19 @@ config = [
     },
     {
         "source_name": "Mozilla Developer (YouTube)",
-        "integration_type": "ExternalVideo",
+        "integration_type": "Video",
         "source_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCh5UlGiu9d6LegIeUCW4N1w",
         "last_sync": datetime.datetime(2020, 1, 1, tzinfo=pytz.utc),
     },
     {
         "source_name": "Layout Land (YouTube)",
-        "integration_type": "ExternalVideo",
+        "integration_type": "Video",
         "source_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC7TizprGknbDalbHplROtag",
         "last_sync": datetime.datetime(2020, 1, 1, tzinfo=pytz.utc),
     },
     {
         "source_name": "Mozilla Hacks (YouTube)",
-        "integration_type": "ExternalVideo",
+        "integration_type": "Video",
         "source_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCijjo5gfAscWgNCKFHWm1EA",
         "last_sync": datetime.datetime(2020, 1, 1, tzinfo=pytz.utc),
     },

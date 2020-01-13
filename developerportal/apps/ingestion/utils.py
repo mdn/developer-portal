@@ -1,15 +1,28 @@
 """Helpers for feed ingestion"""
 import datetime
+import hashlib
 import logging
+from io import BytesIO
 
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.files.images import ImageFile
 from django.db import transaction
+from django.utils.text import slugify
 from django.utils.timezone import now as tz_now
 
 from dateutil.parser import parse as parse_datetime
+from wagtail.admin.mail import send_notification
+from wagtail.core.models import Page
+from wagtail.embeds.blocks import EmbedValue
 
 import feedparser
+import requests
 
 from ..externalcontent import models as externalcontent_models
+from ..mozimages.models import MozImage
+from ..videos import models as video_models
+from .constants import INGESTION_USER_USERNAME
 from .models import IngestionConfiguration
 
 FEED_TYPE_ATOM = "atom"
@@ -86,6 +99,17 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
     return output
 
 
+def _get_model(model_name):
+    if model_name == "Video":
+        module = video_models
+    elif model_name == "ExternalArticle":
+        module = externalcontent_models
+    else:
+        raise NotImplementedError()
+
+    return getattr(module, model_name)
+
+
 def ingest_content(type_: str):
     """For the given type_:
     * fetch the relevant data from the configured sources
@@ -100,10 +124,11 @@ def ingest_content(type_: str):
 
     configs = IngestionConfiguration.objects.filter(integration_type=type_)
 
-    Model = getattr(externalcontent_models, model_name)
+    Model = _get_model(model_name)
+
+    ingestion_user = User.objects.get(username=INGESTION_USER_USERNAME)
 
     for config in configs:
-        print("config.source_name", config.source_name)
         with transaction.atomic():
             data_from_source = fetch_external_data(
                 feed_url=config.source_url, last_synced=config.last_sync
@@ -112,14 +137,125 @@ def ingest_content(type_: str):
             config.save()
 
             for data in data_from_source:
-                draft_page = Model.objects.generate_draft_from_external_data(data)
+                data.update(owner=ingestion_user)
+                try:
+                    draft_page = generate_draft_from_external_data(
+                        model=Model, data=data
+                    )
+                except ValidationError as ve:
+                    logger.warning("Problem ingesting article from %s: %s", data, ve)
+                else:
+                    draft_page.owner = ingestion_user
+                    draft_page.save()
+                    # This is a little messy: we save a new revision and ping the
+                    # moderator, but because it's within a transaction if something
+                    # fails we will roll it back at the DB level, but
+                    # the emails notifying Moderators will have been sent for pages
+                    # which will not exist. It's not ideal, but safer than having
+                    # the moderation request happen outside of a transaction, else
+                    # that would risk saved draft-saved pages existing with no
+                    # owner and no 'for moderation' flag set.
+                    revision = draft_page.save_revision(
+                        submitted_for_moderation=True, user=ingestion_user
+                    )
+                    if not send_notification(
+                        page_revision_id=revision.id,
+                        notification="submitted",
+                        excluded_user_id=ingestion_user.id,
+                    ):
+                        logger.warning(
+                            "Failed to send notification that %s was created",
+                            draft_page,
+                        )
 
-                # This is a little messy: we save a new revision and ping the
-                # moderator, but because it's within a transaction if something
-                # fails we will roll it back at the DB level, but
-                # the emails notifying Moderators will have been sent for pages
-                # which will not exist. It's not ideal, but safer than having
-                # the moderation request happen outside of a transaction, else
-                # that would risk saved draft-saved pages existing with no
-                # owner and no 'for moderation' flag set.
-                draft_page.save_revision(submitted_for_moderation=True)
+
+def _store_external_image(image_url: str) -> MozImage:
+    """Download an image from the given URL and store it as a Wagtail image"""
+    response = requests.get(image_url)
+    filename = image_url.split("/")[-1]
+    image = MozImage(
+        title=filename, file=ImageFile(BytesIO(response.content), name=filename)
+    )
+    image.save()
+    return image
+
+
+def _get_slug(data):
+    """Return a slug for the Page being imported, making it unique (enough) by
+    adding a 12-char truncated hash of the whole data payload at the end
+    eg "the-mozilla-story-a1b2c3d4e5f6"
+
+    """
+    MAX_SLUG_LENGTH = (
+        242
+    )  # Slugfield's max is 255, minus 12 for trucated hash (below), minus one for dash
+
+    hash_ = hashlib.sha1(str(data).encode("utf-8")).hexdigest()[:12]
+    slug = slugify(data["title"])[:MAX_SLUG_LENGTH]
+    return f"{slug}-{hash_}"
+
+
+@transaction.atomic()
+def generate_draft_from_external_data(model, data, **kwargs):
+    """Create a draft page of the appropriate `model` (eg: ExternalArticle,
+    Video) from the given `data`, including any associated thumbnail
+    (which is saved down as a Wagtail image).
+
+    It uses a SHA1 hash of all the data for the slug, because it'll be unique
+    (because it contains a datetime) and deterministic -- and doesn't get
+    shown to the users anyway.
+    """
+    if model not in (externalcontent_models.ExternalArticle, video_models.Video):
+        raise NotImplementedError(
+            f"This is not intended to be used on the {model} class "
+            "without further development."
+        )
+
+    logger.info(f"Generating a new draft {model.__name__} from {str(data)}")
+
+    # First, assemble the basic data that all pages need
+    instance_data = dict(
+        title=data["title"],
+        draft_title=data["title"],
+        slug=_get_slug(data),
+        date=data["timestamp"].date(),
+        live=False,  # Needs to be set because default is True
+        has_unpublished_changes=True,  # again, overriding a default
+        owner=kwargs.get("owner"),
+    )
+
+    # Now check what we're dealing with as a target page type,
+    # (If we used `type(model)`` here we'd get back PageBase)
+    is_external_article = model == externalcontent_models.ExternalArticle
+    is_video = model == video_models.Video
+
+    # Now handle any page-class-specific data
+    _url = data.get("url")
+
+    if is_video:
+        _video_url = _url
+
+    elif is_external_article:
+        instance_data["external_url"] = _url
+
+    # Make the page
+    page = model(**instance_data)
+
+    # Follow-up with any custom additions (eg StreamField manipulation)
+    # and appropriate parent-page selection, before adding it
+    if is_video:
+        parent_page = Page.objects.filter(slug="videos").first().specific
+        page.video_url = [("embed", EmbedValue(_video_url))]
+
+    elif is_external_article:
+        parent_page = Page.objects.first().specific
+        instance_data["external_url"] = _url
+
+    parent_page.add_child(instance=page)
+
+    # Finally, if there's an image to be associated, do that.
+    if data.get("image_url"):
+        image = _store_external_image(data["image_url"])
+        page.image = image
+        page.save()
+    return page

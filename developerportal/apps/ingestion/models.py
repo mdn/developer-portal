@@ -4,11 +4,11 @@ from django.db import models
 class IngestionConfiguration(models.Model):
 
     CONTENT_TYPE_ARTICLE = "ExternalArticle"
-    CONTENT_TYPE_VIDEO = "ExternalVideo"
+    CONTENT_TYPE_VIDEO = "Video"
 
     TARGET_CONTENT_TYPE_CHOICES = (
         (CONTENT_TYPE_ARTICLE, "External Article/Blog post"),
-        (CONTENT_TYPE_VIDEO, "External Article/Blog post"),
+        (CONTENT_TYPE_VIDEO, "Video post, to be embededed in portal"),
     )
 
     DEFAULT_DAYS_AGO_FOR_INITIAL_SYNC = 1

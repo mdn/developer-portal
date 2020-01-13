@@ -1,10 +1,7 @@
 # pylint: disable=no-member
 import datetime
-import hashlib
-from io import BytesIO
+import logging
 
-from django.core.files.images import ImageFile
-from django.db import transaction
 from django.db.models import (
     CASCADE,
     SET_NULL,
@@ -28,64 +25,14 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
-from wagtail.core.models import Orderable, Page, PageManager
+from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
-
-import requests
 
 from ..common.blocks import ExternalAuthorBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
-from ..mozimages.models import MozImage
 
-
-class ExternalContentPageManagerBase(PageManager):
-    def _store_external_image(self, image_url: str) -> MozImage:
-        """Download an image from the given URL and store it as a Wagtail image"""
-        response = requests.get(image_url)
-        filename = image_url.split("/")[-1]
-        image = MozImage(
-            title=filename, file=ImageFile(BytesIO(response.content), name=filename)
-        )
-        image.save()
-        return image
-
-    @transaction.atomic()
-    def generate_draft_from_external_data(self, data):
-        """Create a draft page of the appropriate type (eg: ExternalArticle,
-        ExternalVideo) from the given `data`, including any associated thumbnail
-        (which is saved down as a Wagtail image).
-
-        It uses a SHA1 hash of all the data for the slug, because it'll be unique
-        (because it contains a datetime) and deterministic -- and doesn't get
-        shown to the users anyway.
-        """
-        root = Page.objects.first().specific
-        if self.model == ExternalContent:
-            raise NotImplementedError(
-                "This is not intended to be used on the ExternalContent class "
-                "because it that a base class."
-            )
-
-        print("model", self.model, "data", data)
-        page = self.model(
-            title=data["title"],
-            slug=hashlib.sha1(str(data).encode("utf-8")).hexdigest(),
-            draft_title=data["title"],
-            external_url=data["url"],
-            date=data["timestamp"].date(),
-        )
-        root.add_child(instance=page)
-
-        if data.get("image_url"):
-            image = self._store_external_image(data["image_url"])
-            page.image = image
-            page.save()
-        return page
-
-
-class ExternalContentPageManager(ExternalContentPageManagerBase):
-    pass
+logger = logging.getLogger(__name__)
 
 
 class ExternalContent(BasePage):
@@ -139,7 +86,6 @@ class ExternalContent(BasePage):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
-    objects = ExternalContentPageManager()
 
     class Meta:
         verbose_name_plural = "External Content"
@@ -172,16 +118,13 @@ class ExternalArticleTopic(Orderable):
     panels = [PageChooserPanel("topic")]
 
 
-class ExternalArticlePageManager(ExternalContentPageManagerBase):
-    pass
-
-
 class ExternalArticle(ExternalContent):
     class Meta:
         verbose_name = "External Post"
         verbose_name_plural = "External Posts"
 
     resource_type = "article"  #  if you change this, amend the related CSS, too
+    template = "redirection.html"
 
     date = DateField(
         "External Post date",
@@ -235,8 +178,6 @@ class ExternalArticle(ExternalContent):
         ]
     )
 
-    objects = ExternalArticlePageManager()
-
     @property
     def article(self):
         return self
@@ -270,13 +211,9 @@ class ExternalEventSpeaker(Orderable):
     panels = [PageChooserPanel("speaker")]
 
 
-class ExternalEventPageManager(ExternalContentPageManagerBase):
-    def generate_draft_from_external_data(self, *args, **kwargs):
-        raise NotImplementedError()
-
-
 class ExternalEvent(ExternalContent):
     resource_type = "event"
+    template = "redirection.html"
 
     start_date = DateField(
         default=datetime.date.today,
@@ -312,8 +249,6 @@ class ExternalEvent(ExternalContent):
             ),
         ),
     ]
-
-    objects = ExternalEventPageManager()
 
     settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
 
@@ -379,13 +314,10 @@ class ExternalVideoPerson(Orderable):
     panels = [PageChooserPanel("person")]
 
 
-class ExternalVideoPageManager(ExternalContentPageManagerBase):
-    pass
-
-
 class ExternalVideo(ExternalContent):
     resource_type = "video"
     is_external = True
+    template = "redirection.html"
 
     # Meta fields
     date = DateField(
@@ -411,8 +343,6 @@ class ExternalVideo(ExternalContent):
             "Shown when the video is displayed as a card"
         ),
     )
-
-    objects = ExternalVideoPageManager()
 
     meta_panels = [
         FieldPanel("date"),
