@@ -9,6 +9,7 @@ from django.db.models import (
     ForeignKey,
     URLField,
 )
+from django.http import HttpResponseRedirect
 
 from django_countries.fields import CountryField
 from modelcluster.fields import ParentalKey
@@ -98,6 +99,11 @@ class ExternalContent(BasePage):
     @property
     def url(self):
         return self.external_url
+
+    def serve_preview(self, request, mode_name):
+        # ExternalContent subclasses don't preview like regular Pages: we just need
+        # to show where they link to.
+        return HttpResponseRedirect(self.external_url)
 
 
 class ExternalArticleTopic(Orderable):
