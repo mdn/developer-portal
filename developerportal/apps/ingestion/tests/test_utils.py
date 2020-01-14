@@ -1,6 +1,7 @@
 import datetime
 from unittest import mock
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase, override_settings
 
@@ -306,8 +307,14 @@ class UtilsTestCaseWithFixtures(TestCase):
                     generate_draft_from_external_data(data={}, model=klass)
 
     @mock.patch("developerportal.apps.ingestion.utils.requests.get")
-    def test__store_external_image(self, mock_requests_get):
-
+    def test__store_external_image__local_filesystem(self, mock_requests_get):
+        # This test is written assuming local file storage, even though
+        # everything apart from CI will be using S3 as its backend. The function
+        # HAS been tested with S3, though.
+        assert (
+            settings.DEFAULT_FILE_STORAGE
+            == "django.core.files.storage.FileSystemStorage"
+        )
         mock_response = mock.Mock()
         mock_response.content = image_one_bytearray
         mock_requests_get.return_value = mock_response
@@ -316,6 +323,7 @@ class UtilsTestCaseWithFixtures(TestCase):
 
         mock_requests_get.assert_called_once_with("https://example.com/test.png")
 
+        saved_image.file.open()
         saved_image.file.seek(0)
         comparison_content = saved_image.file.read()
         self.assertEqual(bytearray(comparison_content), image_one_bytearray)
