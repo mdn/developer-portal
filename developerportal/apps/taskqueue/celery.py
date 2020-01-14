@@ -27,5 +27,18 @@ app.conf.beat_schedule = {
         "schedule": crontab(minute=15, hour=0),  # 15 past midnight
         "args": (),
     },
+    # We're registering these tasks on behalf of `developerportal.apps.ingestion`
+    # because we only want to run one celerybeat scheduler (for now) to keep things
+    # simpler at the ops level.
+    "ingest-articles-every-two-hours": {
+        "task": ("developerportal.apps.ingestion.tasks.ingest_articles"),
+        "schedule": crontab(minute=17, hour="*/2"),  # Every two hours, at 17 min past
+        "args": (),
+    },
+    "ingest-videos-every-two-hours": {
+        "task": ("developerportal.apps.ingestion.tasks.ingest_videos"),
+        "schedule": crontab(minute=37, hour="*/2"),  # Every two hours, at 37 min past
+        "args": (),
+    },
 }
 app.conf.timezone = "UTC"
