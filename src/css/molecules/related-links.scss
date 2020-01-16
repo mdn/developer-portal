@@ -1,12 +1,13 @@
-.related-links-mdn {
+.related-links {
   border: 2px solid $color-gray-20;
   border-radius: 2px;
   margin-bottom: 24px;
 }
 
-.related-links-mdn-header {
+.related-links-header {
   align-items: center;
-  background: $color-mdn-background;
+  color: $color-white;
+  background: $color-black;
   border-radius: 2px 2px 0 0;
   display: flex;
   margin: -2px -2px 0;
@@ -18,7 +19,7 @@
   }
 }
 
-.related-links-mdn-links {
+.related-links-links {
   padding: 24px;
 
   ul {
@@ -36,7 +37,7 @@
     &:hover {
       text-decoration: none;
 
-      .related-links-mdn-link-text {
+      .related-links-link-text {
         text-decoration: underline;
       }
     }

@@ -1,12 +1,11 @@
 {% load static %}
 {% load app_filters %}
 
-<div class="related-links-mdn">
-  <header class="related-links-mdn-header">
-    <img src="{% static 'img/logos/mdn.svg' %}" alt="" width="40">
-    <h4 class="no-underline">Read more on MDN</h4>
+<div class="related-links">
+  <header class="related-links-header">
+    <h4 class="no-underline">Read more</h4>
   </header>
-  <div class="related-links-mdn-links">
+  <div class="related-links-links">
     <ul>
       {% for link in links|by_key:"value" %}
         <li>
@@ -14,7 +13,7 @@
             <span class="icon icon-external">
               {% include "atoms/icons/external.svg" %}
             </span>
-            <span class="related-links-mdn-link-text">
+            <span class="related-links-link-text">
               {{ link.title }}
             </span>
           </a>
