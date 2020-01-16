@@ -65,7 +65,7 @@ class AgendaItemBlock(blocks.StructBlock):
 
 class ExternalLinkBlock(blocks.StructBlock):
     """Content for a link to an external page without an image,
-    e.g. MDN related links."""
+    e.g. related links."""
 
     title = blocks.CharBlock(label="Name")
     url = blocks.URLBlock()

@@ -124,12 +124,12 @@ class Video(BasePage):
             "embed via HTML, and inline code snippets"
         ),
     )
-    related_links_mdn = StreamField(
+    related_links = StreamField(
         StreamBlock([("link", ExternalLinkBlock())], required=False),
         null=True,
         blank=True,
-        help_text="Optional links to MDN Web Docs for further reading",
-        verbose_name="Related MDN links",
+        help_text="Optional links further reading",
+        verbose_name="Related links",
     )
     image = ForeignKey(
         "mozimages.MozImage",
@@ -192,7 +192,7 @@ class Video(BasePage):
         ImageChooserPanel("image"),
         StreamFieldPanel("video_url"),
         FieldPanel("body"),
-        StreamFieldPanel("related_links_mdn"),
+        StreamFieldPanel("related_links"),
         FieldPanel("transcript"),
     ]
 
