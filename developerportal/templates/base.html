@@ -45,9 +45,7 @@
       {% get_favicon_path as favicon_path %}
       <link rel="shortcut icon" href="{% static favicon_path %}">
       <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
-      {% comment "DISABLED FOR NOW UNTIL WE CAN EXPORT IT TO THE STATIC SITE %}
       <link rel="alternate" type="application/rss+xml" href="/posts-feed/">
-      {% endcomment %}
       {% if page %}
         {% include "atoms/social-meta.html" with fallback_description=home.search_description %}
       {% endif %}
