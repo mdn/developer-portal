@@ -100,12 +100,16 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
 
 
 def _get_model(model_name):
+    """Get an appropriate model to use as an ingestion target"""
     if model_name == "Video":
         module = video_models
     elif model_name == "ExternalArticle":
         module = externalcontent_models
     else:
-        raise NotImplementedError()
+        raise NotImplementedError(
+            f"This is not intended to be used on the {model_name} class "
+            "without further development."
+        )
 
     return getattr(module, model_name)
 
@@ -205,12 +209,6 @@ def generate_draft_from_external_data(model, data, **kwargs):
     (because it contains a datetime) and deterministic -- and doesn't get
     shown to the users anyway.
     """
-    if model not in (externalcontent_models.ExternalArticle, video_models.Video):
-        raise NotImplementedError(
-            f"This is not intended to be used on the {model} class "
-            "without further development."
-        )
-
     logger.info(f"Generating a new draft {model.__name__} from {str(data)}")
 
     # First, assemble the basic data that all pages need

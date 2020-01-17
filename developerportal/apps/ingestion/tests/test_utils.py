@@ -25,7 +25,7 @@ from ...mozimages.models import MozImage
 from ...videos.models import Video
 from ..constants import INGESTION_USER_USERNAME
 from ..models import IngestionConfiguration
-from ..utils import _store_external_image, generate_draft_from_external_data
+from ..utils import _get_model, _store_external_image, generate_draft_from_external_data
 from .data.test_images_as_bytearrays import image_one as image_one_bytearray
 
 
@@ -297,14 +297,14 @@ class UtilsTestCaseWithFixtures(TestCase):
             ],
         )
 
-    def test_generate_draft_from_external_data__raises_NotImplementedError(self):
+    def test__get_model__raises_NotImplementedError(self):
 
         models = [Article, ExternalContent, ExternalVideo, ExternalEvent]
 
         for klass in models:
-            with self.subTest(klass=klass):
+            with self.subTest(model_name=klass.__name__):
                 with self.assertRaises(NotImplementedError):
-                    generate_draft_from_external_data(data={}, model=klass)
+                    _get_model(model_name=klass.__name__)
 
     @mock.patch("developerportal.apps.ingestion.utils.requests.get")
     def test__store_external_image__local_filesystem(self, mock_requests_get):
