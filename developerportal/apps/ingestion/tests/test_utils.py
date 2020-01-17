@@ -131,9 +131,12 @@ class UtilsTestCaseWithFixtures(TestCase):
 
     fixtures = ["common.json"]
 
+    @mock.patch("developerportal.apps.ingestion.utils.send_notification")
     @mock.patch("developerportal.apps.ingestion.utils.fetch_external_data")
     @mock.patch("developerportal.apps.ingestion.utils.tz_now")
-    def test_ingest_content(self, mock_tz_now, mock_fetch_external_data):
+    def test_ingest_content(
+        self, mock_tz_now, mock_fetch_external_data, mock_send_notification
+    ):
 
         _now = datetime.datetime(12, 12, 13, 12, 34, 56, tzinfo=pytz.UTC)
         mock_tz_now.return_value = _now
@@ -202,6 +205,8 @@ class UtilsTestCaseWithFixtures(TestCase):
         # Show the owner has been set
         assert Video.objects.filter(owner=ingestion_dummy_user).count() == 3
 
+        assert mock_send_notification.call_count == 3
+
         article_return_value = video_return_value + [
             dict(
                 title="Test four",
@@ -215,6 +220,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         for x in article_return_value:
             x["title"] += " for Video"
 
+        mock_send_notification.reset_mock()
         mock_fetch_external_data.reset_mock()
         mock_fetch_external_data.return_value = article_return_value
 
@@ -236,6 +242,8 @@ class UtilsTestCaseWithFixtures(TestCase):
         assert ExternalArticle.objects.filter(owner=ingestion_dummy_user).count() == 4
 
         assert IngestionConfiguration.objects.filter(last_sync=_now).count() == 2
+
+        assert mock_send_notification.call_count == 4
 
     @mock.patch("developerportal.apps.ingestion.utils.fetch_external_data")
     @mock.patch("developerportal.apps.ingestion.utils.send_notification")

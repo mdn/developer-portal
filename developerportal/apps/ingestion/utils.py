@@ -133,6 +133,8 @@ def ingest_content(type_: str):
     ingestion_user = User.objects.get(username=INGESTION_USER_USERNAME)
 
     for config in configs:
+        draft_page_revision_buffer = []
+
         with transaction.atomic():
             data_from_source = fetch_external_data(
                 feed_url=config.source_url, last_synced=config.last_sync
@@ -151,26 +153,25 @@ def ingest_content(type_: str):
                 else:
                     draft_page.owner = ingestion_user
                     draft_page.save()
-                    # This is a little messy: we save a new revision and ping the
-                    # moderator, but because it's within a transaction if something
-                    # fails we will roll it back at the DB level, but
-                    # the emails notifying Moderators will have been sent for pages
-                    # which will not exist. It's not ideal, but safer than having
-                    # the moderation request happen outside of a transaction, else
-                    # that would risk saved draft-saved pages existing with no
-                    # owner and no 'for moderation' flag set.
                     revision = draft_page.save_revision(
                         submitted_for_moderation=True, user=ingestion_user
                     )
-                    if not send_notification(
-                        page_revision_id=revision.id,
-                        notification="submitted",
-                        excluded_user_id=ingestion_user.id,
-                    ):
-                        logger.warning(
-                            "Failed to send notification that %s was created.",
-                            draft_page,
-                        )
+                    draft_page_revision_buffer.append(revision)
+
+        # If the transaction completes, we send the notification emails. If the
+        # notifications don't send even tho the data is now set in the DB, it's
+        # not the end of the world: the main CMS admin page will still
+        # show the items needing approval.
+        for revision in draft_page_revision_buffer:
+            notification_success = send_notification(
+                page_revision_id=revision.id,
+                notification="submitted",
+                excluded_user_id=ingestion_user.id,
+            )
+            if not notification_success:
+                logger.warning(
+                    "Failed to send notification that %s was created.", revision.page
+                )
 
 
 def _store_external_image(image_url: str) -> MozImage:
