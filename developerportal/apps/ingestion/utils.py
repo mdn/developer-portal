@@ -99,19 +99,20 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
     return output
 
 
-def _get_model(model_name):
-    """Get an appropriate model to use as an ingestion target"""
+def _get_factory_func(model_name):
+    """Get an appropriate helper function generate the desired ingestion target.
+    That func will be passed into generate_draft_from_external_data"""
     if model_name == "Video":
-        module = video_models
+        func = _make_video_page
     elif model_name == "ExternalArticle":
-        module = externalcontent_models
+        func = _make_external_article_page
     else:
         raise NotImplementedError(
             f"This is not intended to be used on the {model_name} class "
             "without further development."
         )
 
-    return getattr(module, model_name)
+    return func
 
 
 def ingest_content(type_: str):
@@ -128,7 +129,7 @@ def ingest_content(type_: str):
 
     configs = IngestionConfiguration.objects.filter(integration_type=type_)
 
-    Model = _get_model(model_name)
+    factory_func = _get_factory_func(model_name)
 
     ingestion_user = User.objects.get(username=INGESTION_USER_USERNAME)
 
@@ -146,7 +147,7 @@ def ingest_content(type_: str):
                 data.update(owner=ingestion_user)
                 try:
                     draft_page = generate_draft_from_external_data(
-                        model=Model, data=data
+                        factory_func=factory_func, data=data
                     )
                 except ValidationError as ve:
                     logger.warning("Problem ingesting article from %s: %s", data, ve)
@@ -200,19 +201,8 @@ def _get_slug(data):
     return f"{slug}-{hash_}"
 
 
-@transaction.atomic()
-def generate_draft_from_external_data(model, data, **kwargs):
-    """Create a draft page of the appropriate `model` (eg: ExternalArticle,
-    Video) from the given `data`, including any associated thumbnail
-    (which is saved down as a Wagtail image).
-
-    It uses a SHA1 hash of all the data for the slug, because it'll be unique
-    (because it contains a datetime) and deterministic -- and doesn't get
-    shown to the users anyway.
-    """
-    logger.info(f"Generating a new draft {model.__name__} from {str(data)}")
-
-    # First, assemble the basic data that all pages need
+def _make_external_article_page(data, extra_kwargs):
+    "Callable that takes care of making ExternalArticles"
     instance_data = dict(
         title=data["title"],
         draft_title=data["title"],
@@ -220,39 +210,53 @@ def generate_draft_from_external_data(model, data, **kwargs):
         date=data["timestamp"].date(),
         live=False,  # Needs to be set because default is True
         has_unpublished_changes=True,  # again, overriding a default
-        owner=kwargs.get("owner"),
+        owner=extra_kwargs.get("owner"),
+        external_url=data["url"],
     )
 
-    # Now check what we're dealing with as a target page type,
-    # (If we used `type(model)`` here we'd get back PageBase)
-    is_external_article = model == externalcontent_models.ExternalArticle
-    is_video = model == video_models.Video
+    page = externalcontent_models.ExternalArticle(**instance_data)
+    # These get added to the root page
+    parent_page = Page.objects.filter(slug="root").first().specific
+    parent_page.add_child(instance=page)  # Takes care of saving
 
-    # Now handle any page-class-specific data
-    _url = data.get("url")
+    return page
 
-    if is_video:
-        _video_url = _url
 
-    elif is_external_article:
-        instance_data["external_url"] = _url
+def _make_video_page(data, extra_kwargs):
 
-    # Make the page
-    page = model(**instance_data)
+    _video_url = data.get("url")
 
-    # Follow-up with any custom additions (eg StreamField manipulation)
-    # and appropriate parent-page selection, before adding it
-    if is_video:
-        parent_page = Page.objects.filter(slug="videos").first().specific
-        page.video_url = [("embed", EmbedValue(_video_url))]
+    instance_data = dict(
+        title=data["title"],
+        draft_title=data["title"],
+        slug=_get_slug(data),
+        date=data["timestamp"].date(),
+        live=False,  # Needs to be set because default is True
+        has_unpublished_changes=True,  # again, overriding a default
+        owner=extra_kwargs.get("owner"),
+    )
 
-    elif is_external_article:
-        parent_page = Page.objects.first().specific
-        instance_data["external_url"] = _url
+    page = video_models.Video(**instance_data)
+    page.video_url = [("embed", EmbedValue(_video_url))]
+    parent_page = Page.objects.filter(slug="videos").first().specific
+    parent_page.add_child(instance=page)  # Takes care of saving
 
-    parent_page.add_child(instance=page)
+    return page
 
-    # Finally, if there's an image to be associated, do that.
+
+@transaction.atomic()
+def generate_draft_from_external_data(factory_func, data, **kwargs):
+    """Create a draft page of the appropriate `model` (eg: ExternalArticle,
+    Video) from the given `factory_func` and `data`, including any associated
+    thumbnail (which is saved down as a Wagtail image).
+    """
+    logger.info(
+        f"Generating a new draft using {factory_func.__name__} from {str(data)}"
+    )
+
+    page = factory_func(data=data, extra_kwargs=kwargs)
+
+    # If there's an image to be associated, do that.
     if data.get("image_url"):
         image = _store_external_image(data["image_url"])
         page.image = image

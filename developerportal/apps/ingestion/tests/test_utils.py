@@ -25,7 +25,13 @@ from ...mozimages.models import MozImage
 from ...videos.models import Video
 from ..constants import INGESTION_USER_USERNAME
 from ..models import IngestionConfiguration
-from ..utils import _get_model, _store_external_image, generate_draft_from_external_data
+from ..utils import (
+    _get_factory_func,
+    _make_external_article_page,
+    _make_video_page,
+    _store_external_image,
+    generate_draft_from_external_data,
+)
 from .data.test_images_as_bytearrays import image_one as image_one_bytearray
 
 
@@ -291,7 +297,7 @@ class UtilsTestCaseWithFixtures(TestCase):
             [
                 (
                     "INFO:developerportal.apps.ingestion.utils:Generating a "
-                    "new draft Video from "
+                    "new draft using _make_video_page from "
                     "{'title': 'Test one', "
                     "'authors': ['Fernando McTest'], "
                     "'url': 'https://example.com/thing/one/', "
@@ -305,14 +311,21 @@ class UtilsTestCaseWithFixtures(TestCase):
             ],
         )
 
-    def test__get_model__raises_NotImplementedError(self):
+    def test__get_factory_func(self):
+
+        self.assertEqual(_get_factory_func("Video"), _make_video_page)
+        self.assertEqual(
+            _get_factory_func("ExternalArticle"), _make_external_article_page
+        )
+
+    def test__get_factory_func__raises_NotImplementedError(self):
 
         models = [Article, ExternalContent, ExternalVideo, ExternalEvent]
 
         for klass in models:
             with self.subTest(model_name=klass.__name__):
                 with self.assertRaises(NotImplementedError):
-                    _get_model(model_name=klass.__name__)
+                    _get_factory_func(model_name=klass.__name__)
 
     @mock.patch("developerportal.apps.ingestion.utils.requests.get")
     def test__store_external_image__local_filesystem(self, mock_requests_get):
@@ -353,7 +366,9 @@ class UtilsTestCaseWithFixtures(TestCase):
             timestamp=datetime.datetime(2019, 12, 10, 22, 47, 43, tzinfo=pytz.UTC),
         )
 
-        obj = generate_draft_from_external_data(data=data, model=ExternalArticle)
+        obj = generate_draft_from_external_data(
+            factory_func=_make_external_article_page, data=data
+        )
         self.assertEqual(type(obj), ExternalArticle)
         self.assertEqual(obj.slug, "ecsy-developer-tools-extension-c0a61483f56d")
         self.assertEqual(obj.title, data["title"])
@@ -380,7 +395,9 @@ class UtilsTestCaseWithFixtures(TestCase):
             timestamp=datetime.datetime(2019, 12, 11, 11, 0, 10, tzinfo=tzlocal()),
         )
 
-        obj = generate_draft_from_external_data(data=data, model=Video)
+        obj = generate_draft_from_external_data(
+            factory_func=_make_video_page, data=data
+        )
         self.assertEqual(type(obj), Video)
         self.assertEqual(obj.slug, "where-do-browser-styles-come-from-a36dd198ae6c")
         self.assertEqual(obj.title, data["title"])
