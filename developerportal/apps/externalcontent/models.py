@@ -1,5 +1,6 @@
 # pylint: disable=no-member
 import datetime
+import logging
 
 from django.db.models import (
     CASCADE,
@@ -30,6 +31,8 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..common.blocks import ExternalAuthorBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
+
+logger = logging.getLogger(__name__)
 
 
 class ExternalContent(BasePage):
