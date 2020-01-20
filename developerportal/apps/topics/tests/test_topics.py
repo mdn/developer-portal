@@ -1,5 +1,6 @@
 from unittest import mock
 
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
@@ -49,6 +50,24 @@ class TopicsTests(PatchedWagtailPageTests):
     def test_topics_page_subpages(self):
         """The Topics page should only have topic child pages."""
         self.assertAllowedSubpageTypes(Topics, {Topic})
+
+    def test_save_invalidates_relevant_cached_content(self):
+
+        topic_page = Topics.published_objects.get()
+
+        for key in topic_page._bulk_invalidation_cache_keys:
+            self.assertIsNone(cache.get(key))
+
+        for i, key in enumerate(topic_page._bulk_invalidation_cache_keys):
+            cache.set(key, "test{i}")
+
+        for key in topic_page._bulk_invalidation_cache_keys:
+            self.assertIsNotNone(cache.get(key))
+
+        topic_page.save()
+
+        for key in topic_page._bulk_invalidation_cache_keys:
+            self.assertIsNone(cache.get(key))
 
 
 class SVGFileCheckTests(TestCase):
