@@ -182,12 +182,12 @@ class Article(BasePage):
             "embed via HTML, and inline code snippets"
         )
     )
-    related_links_mdn = StreamField(
+    related_links = StreamField(
         StreamBlock([("link", ExternalLinkBlock())], required=False),
         blank=True,
         null=True,
-        help_text="Optional links to MDN Web Docs for further reading",
-        verbose_name="Related MDN links",
+        help_text="Optional links further reading",
+        verbose_name="Related links",
     )
 
     # Card fields
@@ -237,7 +237,7 @@ class Article(BasePage):
             ),
         ),
         StreamFieldPanel("body"),
-        StreamFieldPanel("related_links_mdn"),
+        StreamFieldPanel("related_links"),
     ]
 
     # Card panels
