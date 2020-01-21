@@ -224,7 +224,7 @@ class UtilsTestCaseWithFixtures(TestCase):
             )
         ]
         for x in article_return_value:
-            x["title"] += " for Video"
+            x["title"] += " for Post"
 
         mock_send_notification.reset_mock()
         mock_fetch_external_data.reset_mock()
@@ -235,10 +235,10 @@ class UtilsTestCaseWithFixtures(TestCase):
         ingest_content(type_=IngestionConfiguration.CONTENT_TYPE_ARTICLE)
         assert ExternalArticle.objects.count() == 4
 
-        assert ExternalArticle.objects.filter(title="Test one for Video").count() == 1
-        assert ExternalArticle.objects.filter(title="Test two for Video").count() == 1
-        assert ExternalArticle.objects.filter(title="Test three for Video").count() == 1
-        assert ExternalArticle.objects.filter(title="Test four for Video").count() == 1
+        assert ExternalArticle.objects.filter(title="Test one for Post").count() == 1
+        assert ExternalArticle.objects.filter(title="Test two for Post").count() == 1
+        assert ExternalArticle.objects.filter(title="Test three for Post").count() == 1
+        assert ExternalArticle.objects.filter(title="Test four for Post").count() == 1
 
         # None of these has been published yet
         assert (
