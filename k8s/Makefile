@@ -35,7 +35,10 @@ export APP_EMAIL_HOST ?= email-smtp.us-west-2.amazonaws.com
 export APP_EMAIL_PORT ?= 587
 export APP_EMAIL_USE_TLS ?= True
 export APP_SECURE_HSTS_SECONDS = 31536000
+
+# Automatic content loading from other sources
 export APP_AUTOMATICALLY_INGEST_CONTENT ?= True
+export APP_NOTIFY_AFTER_INGESTING_CONTENT ?= False
 
 export CELERY_WORKER_NAME ?= celery-worker
 export CELERY_WORKER_REPLICAS ?= 1

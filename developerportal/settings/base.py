@@ -365,8 +365,13 @@ OIDC_OP_JWKS_ENDPOINT = "https://auth.mozilla.auth0.com/.well-known/jwks.json"
 # password fields. You'll also need to enable the model backend in local settings
 USE_CONVENTIONAL_AUTH = False
 
+# Whether or not to automatically create content based on feeds configured in the DB
 AUTOMATICALLY_INGEST_CONTENT = bool(
     os.environ.get("AUTOMATICALLY_INGEST_CONTENT", False)
+)
+# Whether or not to email admins for each item of content automatically ingested
+NOTIFY_AFTER_INGESTING_CONTENT = bool(
+    os.environ.get("NOTIFY_AFTER_INGESTING_CONTENT", True)
 )
 
 # Extra Wagtail config to disable password usage (SSO should be the only way in)
@@ -383,6 +388,7 @@ WAGTAILUSERS_PASSWORD_ENABLED = False
 # because this will break SSO. (Note that Admins can still change email
 # addresses for users via Settings > Users)
 WAGTAIL_EMAIL_MANAGEMENT_ENABLED = False
+
 
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
