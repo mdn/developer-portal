@@ -251,6 +251,47 @@ class UtilsTestCaseWithFixtures(TestCase):
 
         assert mock_send_notification.call_count == 4
 
+    @override_settings(NOTIFY_AFTER_INGESTING_CONTENT=False)
+    @mock.patch("developerportal.apps.ingestion.utils.send_notification")
+    @mock.patch("developerportal.apps.ingestion.utils.fetch_external_data")
+    @mock.patch("developerportal.apps.ingestion.utils.tz_now")
+    def test_ingest_content__no_notifications_option_set(
+        self, mock_tz_now, mock_fetch_external_data, mock_send_notification
+    ):
+
+        _now = datetime.datetime(12, 12, 13, 12, 34, 56, tzinfo=pytz.UTC)
+        mock_tz_now.return_value = _now
+
+        # Wipe any configs added via data migration 0002
+        IngestionConfiguration.objects.all().delete()
+
+        IngestionConfiguration.objects.create(
+            source_name="One",
+            source_url="https://example.com/one.xml",
+            integration_type=IngestionConfiguration.CONTENT_TYPE_VIDEO,
+            last_sync=datetime.datetime(12, 12, 12, tzinfo=pytz.UTC),
+        )
+
+        assert IngestionConfiguration.objects.filter(last_sync=_now).count() == 0
+
+        video_return_value = [
+            dict(
+                title="Test one",
+                authors=["Fernando McTest"],
+                url="https://example.com/thing/one/",
+                # image_url="https://example.com/one.png",
+                # Image ingestion is tested elsewhere
+                timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
+            )
+        ]
+
+        mock_fetch_external_data.return_value = video_return_value
+
+        assert Video.objects.count() == 0
+        ingest_content(type_=IngestionConfiguration.CONTENT_TYPE_VIDEO)
+        assert Video.objects.count() == 1
+        assert not mock_send_notification.called  # This is what we care about here
+
     @mock.patch("developerportal.apps.ingestion.utils.fetch_external_data")
     @mock.patch("developerportal.apps.ingestion.utils.send_notification")
     def test_ingest_content__unhappy_path(

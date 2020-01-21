@@ -4,6 +4,7 @@ import hashlib
 import logging
 from io import BytesIO
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.files.images import ImageFile
@@ -163,16 +164,18 @@ def ingest_content(type_: str):
         # notifications don't send even tho the data is now set in the DB, it's
         # not the end of the world: the main CMS admin page will still
         # show the items needing approval.
-        for revision in draft_page_revision_buffer:
-            notification_success = send_notification(
-                page_revision_id=revision.id,
-                notification="submitted",
-                excluded_user_id=ingestion_user.id,
-            )
-            if not notification_success:
-                logger.warning(
-                    "Failed to send notification that %s was created.", revision.page
+        if settings.NOTIFY_AFTER_INGESTING_CONTENT:
+            for revision in draft_page_revision_buffer:
+                notification_success = send_notification(
+                    page_revision_id=revision.id,
+                    notification="submitted",
+                    excluded_user_id=ingestion_user.id,
                 )
+                if not notification_success:
+                    logger.warning(
+                        "Failed to send notification that %s was created.",
+                        revision.page,
+                    )
 
 
 def _store_external_image(image_url: str) -> MozImage:
