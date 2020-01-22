@@ -111,6 +111,7 @@ TEMPLATES = [
                 "developerportal.context_processors.mapbox_access_token",
                 "developerportal.context_processors.pagination_constants",
                 "developerportal.context_processors.filtering_constants",
+                "developerportal.context_processors.topics_title",
             ],
             "libraries": {
                 "app_filters": "developerportal.templatetags.app_filters",
@@ -335,6 +336,13 @@ CACHES = {
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
 }
+
+CACHE_TIME_TINY = 60 * 5  # 5 mins
+CACHE_TIME_SHORT = 60 * 60  # 1 hour
+CACHE_TIME_MEDIUM = 60 * 60 * 24  # 1 day
+CACHE_TIME_LONG = 60 * 60 * 24 * 7  # 1 week
+CACHE_TIME_VERY_LONG = 60 * 60 * 24 * 28  # 28 days
+
 
 # Mozilla OpenID Connect / Auth0 configuration
 

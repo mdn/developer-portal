@@ -9,13 +9,13 @@
       <div class="container">
         <div class="section-header">
           {% if pagetheme == 'home' or pagetheme == 'directory' %}
-            <h2>Browse by topic</h2>
+            <h2>Browse {{TOPICS_TITLE_LABEL|lower}}</h2>
           {% endif %}
           {% if pagetheme == 'topic' %}
             <h2>Continue exploring</h2>
           {% endif %}
           {% if pagetheme == 'person' %}
-            <h2>Topics I specialize in</h2>
+            <h2>{{TOPICS_TITLE_LABEL}} I specialize in</h2>
           {% endif %}
         </div>
         {% if topics.count == 1 %}

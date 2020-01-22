@@ -258,9 +258,14 @@ class Topic(BasePage):
 
 
 class Topics(BasePage):
+
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Topic"]
     template = "topics.html"
+
+    # Cache keys associated with this Page type - also see common.models.BasePage
+    CACHE_KEY_TOPICS_TITLE = "topics-titles"
+    _bulk_invalidation_cache_keys = [CACHE_KEY_TOPICS_TITLE]
 
     # Meta fields
     keywords = ClusterTaggableManager(through=TopicsTag, blank=True)

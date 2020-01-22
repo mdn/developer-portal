@@ -1,3 +1,5 @@
+from django.core.cache import cache
+from django.db import transaction
 from django.db.models import SET_NULL, ForeignKey
 
 from wagtail.core.models import Page, PageManager
@@ -26,5 +28,14 @@ class BasePage(Page):
         related_name="+",
     )
 
+    #  A single place to store/define cache keys that need invalidation
+    # when the object is saved
+    _bulk_invalidation_cache_keys = []
+
     class Meta:
         abstract = True
+
+    @transaction.atomic()
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete_many(self._bulk_invalidation_cache_keys)

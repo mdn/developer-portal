@@ -1,4 +1,9 @@
+import logging
+
 from django.conf import settings
+from django.core.cache import cache
+
+logger = logging.getLogger(__name__)
 
 
 def google_analytics(request):
@@ -28,6 +33,29 @@ def directory_pages(request):
             "topics": Topics.published_objects.first(),
         }
     }
+
+
+def topics_title(request):
+    """Get a name to use for the section formerly known as "Topics", based on
+    whatever the Topics page is currently called.
+
+    NB: this assumes the Topics page's title is a plural."""
+    from .apps.topics.models import Topics
+
+    _key = Topics.CACHE_KEY_TOPICS_TITLE
+
+    title = cache.get(_key)
+    if not title:
+        topics_page = Topics.published_objects.first()
+        if not topics_page:
+            # Something is very wrong here, but temporarily fall back regardless
+            # without caching
+            return {"TOPICS_TITLE_LABEL": "Topics"}
+
+        title = topics_page.title
+        cache.set(_key, title, settings.CACHE_TIME_VERY_LONG)
+
+    return {"TOPICS_TITLE_LABEL": title}
 
 
 def pagination_constants(request):
