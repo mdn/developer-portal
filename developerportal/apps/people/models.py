@@ -81,7 +81,10 @@ class People(BasePage):
     ]
 
     # Settings panels
-    settings_panels = [FieldPanel("slug"), FieldPanel("show_in_menus")]
+    settings_panels = BasePage.settings_panels + [
+        FieldPanel("slug"),
+        FieldPanel("show_in_menus"),
+    ]
 
     edit_handler = TabbedInterface(
         [
