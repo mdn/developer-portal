@@ -237,7 +237,7 @@ class Video(BasePage):
         ),
     ]
 
-    settings_panels = [FieldPanel("slug")]
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
 
     # Tabs
     edit_handler = TabbedInterface(

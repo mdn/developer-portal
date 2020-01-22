@@ -443,7 +443,7 @@ class Event(BasePage):
     ]
 
     # Settings panels
-    settings_panels = [FieldPanel("slug")]
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
 
     edit_handler = TabbedInterface(
         [
