@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "developerportal.apps.ingestion",
     "developerportal.apps.mozimages",
     "developerportal.apps.people",
-    "developerportal.apps.staticbuild",
     "developerportal.apps.taskqueue",
     "developerportal.apps.topics",
     "developerportal.apps.videos",
@@ -60,8 +59,6 @@ INSTALLED_APPS = [
     "wagtail.admin",
     "wagtail.core",
     "storages",
-    "bakery",
-    "wagtailbakery",
     "modelcluster",
     "taggit",
     "django_countries",
@@ -246,31 +243,14 @@ WAGTAILIMAGES_IMAGE_MODEL = "mozimages.MozImage"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = os.environ.get("BASE_URL")
 
-# Django-Bakery settings
-# https://django-bakery.readthedocs.io/en/latest/settingsvariables.html#bakery-gzip
-BAKERY_GZIP = False  # NB: *Not* enabled here, because it's done at the CDN level
+# Explicit configuration of where the CDNed site will be. This needs to match
+# the root URL of the developerportal Site in Wagtail's configuration, because
+# THAT value (Site.hostname) is what determines the domain used in any absolute
+# URLs generated, and we want to ensure that means the CDN.
+EXPORTED_SITE_URL = os.environ.get("EXPORTED_SITE_URL")  # eg https://example.net
 
-# Wagtail-Bakery Settings
-
-# This is a handy default for local building, but note that when we build in production
-# we're actually using this as a root of a build path, to prevent concurrent builds
-# from clashing.
-BUILD_DIR = os.path.join(BASE_DIR, "build")
-
-BAKERY_MULTISITE = True
-BAKERY_VIEWS = (
-    # The order of these views is significant - we need CloudfrontInvalidationView
-    # to run last of all
-    "developerportal.apps.bakery.views.AllPublishedPagesViewAllowingSecureRedirect",
-    "bakery.views.Buildable404View",
-    "developerportal.apps.bakery.views.SitemapBuildableView",
-    "developerportal.apps.bakery.views.S3RedirectManagementView",
-    "developerportal.apps.bakery.views.CloudfrontInvalidationView",
-)
 
 AWS_REGION = os.environ.get("AWS_REGION")
-# This bucket is where the static site will be baked to
-AWS_BUCKET_NAME = os.environ.get("AWS_BUCKET_NAME")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
@@ -284,23 +264,8 @@ AWS_DEFAULT_ACL = "public-read"
 AWS_S3_FILE_OVERWRITE = False
 
 MEDIA_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
-# This is critical for django-bakery NOT to try to do a filesystem copy on a URI in S3
 MEDIA_ROOT = None
 
-# Explicit configuration of where the 'baked' site will end up. This needs to match
-# the root URL of the developerportal Site in Wagtail's configuration, because
-# THAT value (Site.hostname) is what determines the domain used in any absolute
-# URLs generated.
-# However, we need to also have that root URL available here, because we must add it to
-# ALLOWED_HOSTS, else we will hit `DisallowedHost:Invalid HTTP_HOST header` during
-# baking in production mode, which then outputs all pages saying "400 Bad Request".
-
-EXPORTED_SITE_URL = os.environ.get("EXPORTED_SITE_URL")  # eg https://example.net
-
-# Static build management commands called in order
-STATIC_BUILD_PIPELINE = (("Build", "build"), ("Publish", "publish"))
-
-# Amazon S3 config
 S3_BUCKET = os.environ.get("S3_BUCKET")
 AWS_CLOUDFRONT_DISTRIBUTION_ID = os.environ.get("AWS_CLOUDFRONT_DISTRIBUTION_ID")
 

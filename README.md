@@ -124,12 +124,6 @@ If things get messed up, you could (as a last resort) prune ALL Docker images, c
 ./setup.sh --prune
 ```
 
-## Building a static site
-
-Wagtail Bakery can build a static version of the site and sync it to S3. In production this runs automatically when pages are published or unpublished from the Wagtail admin. When `settings.DEBUG` is `True`, however, this does not happen and you hae to trigger it manually.
-
-See [these notes](docs/automatic-publishing-to-s3.md) for more detail.
-
 ### Usage
 
 The preferred way to do things is to have `settings.DEBUG=False` and to have an AWS bucket configured as per `settings/local.py.example` and to let the task queue run the static-build-and-publish, either when a page is published or via a special management command for requesting a build:
