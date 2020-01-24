@@ -165,7 +165,7 @@ EMAIL_HOST = os.environ.get("EMAIL_HOST")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
-EMAIL_USE_TLS = bool(os.environ.get("EMAIL_USE_TLS", True))
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True") == "True"
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 SERVER_EMAIL = os.environ.get("SERVER_EMAIL", DEFAULT_FROM_EMAIL)
 
@@ -211,7 +211,7 @@ CSRF_COOKIE_HTTPONLY = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = bool(os.environ.get("SECURE_SSL_REDIRECT", False))
+SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", "False") == "True"
 SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = "DENY"
 
@@ -339,12 +339,12 @@ OIDC_OP_JWKS_ENDPOINT = "https://auth.mozilla.auth0.com/.well-known/jwks.json"
 USE_CONVENTIONAL_AUTH = False
 
 # Whether or not to automatically create content based on feeds configured in the DB
-AUTOMATICALLY_INGEST_CONTENT = bool(
-    os.environ.get("AUTOMATICALLY_INGEST_CONTENT", False)
+AUTOMATICALLY_INGEST_CONTENT = (
+    os.environ.get("AUTOMATICALLY_INGEST_CONTENT", "False") == "True"
 )
 # Whether or not to email admins for each item of content automatically ingested
-NOTIFY_AFTER_INGESTING_CONTENT = bool(
-    os.environ.get("NOTIFY_AFTER_INGESTING_CONTENT", True)
+NOTIFY_AFTER_INGESTING_CONTENT = (
+    os.environ.get("NOTIFY_AFTER_INGESTING_CONTENT", "True") == "True"
 )
 
 # Extra Wagtail config to disable password usage (SSO should be the only way in)
