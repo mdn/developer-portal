@@ -18,10 +18,10 @@ Each of these is running:
 
 Each environment has a CDN (Amazon Cloudfront).
 
-Each environment has a configuration file used by k8s `dev.sh`, `stage.sh` and `prod.sh` (in `k8s/config/`) and in each of those files there are two env vars defined: `APP_HOST` and `APP_EXPORTED_SITE_HOST` (which map to Django settings without the `APP_` prefix).
+Each environment has a configuration file used by k8s `dev.sh`, `stage.sh` and `prod.sh` (in `k8s/config/`) and in each of those files there are two env vars defined: `APP_HOST` and `APP_CDN_HOST` (which contribute values to Django settings).
 
 - `APP_HOST` is the hostname the CMS runs on, directly - ie no CDN cacheing
-- `APP_EXPORTED_SITE_HOST` is the hostname that the CDN runs on, fronting whatever is definied as `APP_HOST`. This currently caches statics and HTML, and _doesn't_ forward cookies. (Its name)
+- `APP_CDN_HOST` is the hostname that the CDN runs on, fronting whatever is definied as `APP_HOST`. This currently caches statics and HTML, and _doesn't_ forward cookies.
 
 # Deploying to environments
 
