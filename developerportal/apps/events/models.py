@@ -1,5 +1,6 @@
 # pylint: disable=no-member
 import datetime
+from typing import List
 
 from django.db.models import (
     CASCADE,
@@ -271,10 +272,22 @@ class Events(BasePage):
         raw_events = get_combined_events(self, start_date__gte=get_past_event_cutoff())
         return sorted([event.start_date for event in raw_events])
 
+    def dates_to_unique_month_years(self, dates: List[datetime.date]):
+        """From the given list of dates, generate another list of dates where the
+        year-month combinations are unique and the `day` of each is set to the 1st.
+
+        We do this because the filter-form.html template only uses Y and M when
+        rendering the date options, so we must skip/merge dates that feature year-month
+        pairs that _already_ appear in the list. If we don't, and if there is more than
+        one Event for the same year-month, we end up with multiple Year-Months
+        displayed in the filter options.
+        """
+        return sorted(set([datetime.date(x.year, x.month, 1) for x in dates]))
+
     def get_filters(self):
         return {
             "countries": self.get_relevant_countries(),
-            "dates": self.get_relevant_dates(),
+            "dates": self.unique_month_years_for_dates(self.get_relevant_dates()),
             "topics": Topic.published_objects.order_by("title"),
         }
 

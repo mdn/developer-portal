@@ -268,6 +268,56 @@ class EventsTests(PatchedWagtailPageTests):
         actual = events_page.get_relevant_dates()
         self.assertEqual(actual, expected)
 
+    def test_dates_to_unique_month_years(self):
+        cases = [
+            {
+                "input": [
+                    datetime.date(2022, 10, 3),
+                    datetime.date(2022, 10, 10),
+                    datetime.date(2022, 11, 2),
+                    datetime.date(2022, 10, 3),  # Same as first date
+                ],
+                "expected": [datetime.date(2022, 10, 1), datetime.date(2022, 11, 1)],
+            },
+            {
+                "input": [
+                    datetime.date(2022, 10, 3),
+                    datetime.date(2022, 10, 10),
+                    datetime.date(2023, 12, 3),
+                    datetime.date(2022, 11, 2),
+                ],
+                "expected": [
+                    datetime.date(2022, 10, 1),
+                    datetime.date(2022, 11, 1),
+                    datetime.date(2023, 12, 1),
+                ],
+            },
+            {
+                "input": [
+                    datetime.date(2022, 10, 3),
+                    datetime.date(2023, 12, 3),
+                    datetime.date(2022, 11, 2),
+                ],
+                "expected": [
+                    datetime.date(2022, 10, 1),
+                    datetime.date(2022, 11, 1),
+                    datetime.date(2023, 12, 1),
+                ],
+            },
+            {
+                "input": [
+                    datetime.date(2023, 12, 3),
+                    datetime.date(2023, 12, 3),
+                    datetime.date(2023, 12, 3),
+                ],
+                "expected": [datetime.date(2023, 12, 1)],
+            },
+        ]
+        for case in cases:
+            with self.subTest(case=case):
+                actual = Events().dates_to_unique_month_years(case["input"])
+                self.assertEqual(actual, case["expected"])
+
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     def test_events__get_relevant_countries(self, mock_get_past_event_cutoff):
 
