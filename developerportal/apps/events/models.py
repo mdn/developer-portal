@@ -287,7 +287,7 @@ class Events(BasePage):
     def get_filters(self):
         return {
             "countries": self.get_relevant_countries(),
-            "dates": self.unique_month_years_for_dates(self.get_relevant_dates()),
+            "dates": self.dates_to_unique_month_years(self.get_relevant_dates()),
             "topics": Topic.published_objects.order_by("title"),
         }
 
