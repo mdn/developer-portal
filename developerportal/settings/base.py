@@ -113,6 +113,7 @@ TEMPLATES = [
             "libraries": {
                 "app_filters": "developerportal.templatetags.app_filters",
                 "app_tags": "developerportal.templatetags.app_tags",
+                "survey_tags": "developerportal.templatetags.survey_tags",
             },
         },
     }

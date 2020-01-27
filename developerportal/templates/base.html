@@ -1,4 +1,4 @@
-{% load static wagtailuserbar app_tags %}
+{% load static wagtailuserbar app_tags survey_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -60,6 +60,7 @@
   </head>
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
+    {% block survey %}{% survey_prompt %}{% endblock survey%}
     {% block header %}
       {% include "header.html" %}
     {% endblock %}

@@ -18,6 +18,7 @@
 @import '~@mozilla-protocol/core/protocol/css/components/menu-item';
 @import '~@mozilla-protocol/core/protocol/css/components/modal';
 @import '~@mozilla-protocol/core/protocol/css/components/navigation';
+@import '~@mozilla-protocol/core/protocol/css/components/notification-bar';
 @import '~@mozilla-protocol/core/protocol/css/components/sidebar-menu';
 
 // Protocol templates.
@@ -55,6 +56,7 @@
 @import 'molecules/item-get-started';
 @import 'molecules/item-person';
 @import 'molecules/item-topic-link';
+@import 'molecules/notification-bar';
 @import 'molecules/related-links';
 @import 'molecules/resource-meta';
 @import 'molecules/resource-share';
