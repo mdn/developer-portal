@@ -363,6 +363,9 @@ WAGTAILUSERS_PASSWORD_ENABLED = False
 # addresses for users via Settings > Users)
 WAGTAIL_EMAIL_MANAGEMENT_ENABLED = False
 
+# The task-completion survey is hosted by a third party
+TASK_COMPLETION_SURVEY_URL = os.environ.get("TASK_COMPLETION_SURVEY_URL")
+
 
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
