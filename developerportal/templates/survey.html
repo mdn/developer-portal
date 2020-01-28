@@ -1,12 +1,16 @@
-{% if survey_url %}
-<aside class="mzp-c-notification-bar mzp-t-click">
-  <button class="mzp-c-notification-bar-button mzp-js-notification-trigger" type="button"></button>
-  <p>
-      Your feedback is important. Would you
-        <a target="_blank" rel="noreferrer noopener" href="{{survey_url}}" class="mzp-c-notification-bar-cta">
-          complete a short survey
-        </a>
-      after visiting?
-  </p>
-</aside>
-{% endif %}
+{% load waffle_tags %}
+
+{% flag "show_task_completion_survey" %}
+  {% if survey_url %}
+  <aside class="mzp-c-notification-bar mzp-t-click">
+    <button class="mzp-c-notification-bar-button mzp-js-notification-trigger" type="button"></button>
+    <p>
+        Your feedback is important. Would you
+          <a target="_blank" rel="noreferrer noopener" href="{{survey_url}}" class="mzp-c-notification-bar-cta">
+            complete a short survey
+          </a>
+        after visiting?
+    </p>
+  </aside>
+  {% endif %}
+{% endflag %}
