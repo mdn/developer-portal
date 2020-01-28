@@ -124,24 +124,6 @@ If things get messed up, you could (as a last resort) prune ALL Docker images, c
 ./setup.sh --prune
 ```
 
-### Usage
+### AWS S3 Usage
 
-The preferred way to do things is to have `settings.DEBUG=False` and to have an AWS bucket configured as per `settings/local.py.example` and to let the task queue run the static-build-and-publish, either when a page is published or via a special management command for requesting a build:
-
-```shell
-docker-compose exec app python manage.py request_static_build
-```
-
-However, if you really can't set `DEBUG=False` or you don't want to build via the task queue, you can manually build the static site with:
-
-```shell
-docker-compose exec app python manage.py build --settings=developerportal.settings.worker
-```
-
-The result of this will be output to the /app/build directory _inside the `app` container, not on your host_.
-
-To publish the site to the S3 bucket configured in your settings (via environment vars in production, but more likely via `settings/local.py` for local dev):
-
-```shell
-docker-compose exec app python manage.py publish --settings=developerportal.settings.worker
-```
+The preferred way to do things is to have a local-dev-only AWS bucket configured as per `settings/local.py.example` so that user media goes up to S3, but it is possible to use local storage instead.
