@@ -14,6 +14,10 @@ class SurveyTagTests(TestCase):
             response = self.client.get("/")
             self.assertNotContains(response, "complete a short survey")
 
+        with override_settings(TASK_COMPLETION_SURVEY_URL="undefined"):
+            response = self.client.get("/")
+            self.assertNotContains(response, "complete a short survey")
+
     @override_settings(TASK_COMPLETION_SURVEY_URL="https://example.com/test")
     def test_survey_content_only_rendered_if_flag_allows_it(self):
 
