@@ -31,3 +31,4 @@ export GOOGLE_ANALYTICS=UA-49796218-59
 export ACTIVE_ENVIRONMENT=development
 export APP_AUTOMATICALLY_INGEST_CONTENT=False
 export APP_NOTIFY_AFTER_INGESTING_CONTENT=False
+export APP_TASK_COMPLETION_SURVEY_URL=https://example.com/task-completion-survey

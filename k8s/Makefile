@@ -40,6 +40,9 @@ export APP_SECURE_HSTS_SECONDS = 31536000
 export APP_AUTOMATICALLY_INGEST_CONTENT ?= True
 export APP_NOTIFY_AFTER_INGESTING_CONTENT ?= False
 
+# Task-completion survey config
+export APP_TASK_COMPLETION_SURVEY_URL ?= undefined
+
 export CELERY_WORKER_NAME ?= celery-worker
 export CELERY_WORKER_REPLICAS ?= 1
 export CELERY_WORKER_CONCURRENCY ?= 2
