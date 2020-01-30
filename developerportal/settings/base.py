@@ -241,13 +241,13 @@ WAGTAILIMAGES_IMAGE_MODEL = "mozimages.MozImage"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = os.environ.get("BASE_URL")
+BASE_URL = os.environ.get("BASE_URL")  # eg https://cms.example.net
 
 # Explicit configuration of where the CDNed site will be. This needs to match
 # the root URL of the developerportal Site in Wagtail's configuration, because
 # THAT value (Site.hostname) is what determines the domain used in any absolute
 # URLs generated, and we want to ensure that means the CDN.
-EXPORTED_SITE_URL = os.environ.get("EXPORTED_SITE_URL")  # eg https://example.net
+CDN_URL = os.environ.get("CDN_URL")  # eg https://cdn.example.net
 
 
 AWS_REGION = os.environ.get("AWS_REGION")
