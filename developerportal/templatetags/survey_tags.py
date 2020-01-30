@@ -1,6 +1,8 @@
 from django import template
 from django.conf import settings
 
+import waffle
+
 register = template.Library()
 
 
@@ -13,7 +15,7 @@ def survey_prompt(context):
     if survey_url == "undefined":
         survey_url = None
 
-    return {
-        "request": request,  #  Needed by django-waffle in survey.html
-        "survey_url": survey_url,
-    }
+    # Trigger the waffle flag check: IFF the flag is using a Percentage-based rule,
+    # this will set the cookie that the client-side JS will look for
+    waffle.flag_is_active(request, "show_task_completion_survey")
+    return {"survey_url": survey_url}
