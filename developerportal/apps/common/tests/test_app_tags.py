@@ -4,6 +4,9 @@ from wagtail.core.models import Page
 
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
+    ENVIRONMENT_DEVELOPMENT,
+    ENVIRONMENT_PRODUCTION,
+    ENVIRONMENT_STAGING,
     PAGINATION_QUERYSTRING_KEY,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
@@ -13,6 +16,7 @@ from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
     get_favicon_path,
     has_at_least_two_filters,
+    is_production_site,
     pagination_additional_filter_params,
 )
 
@@ -242,3 +246,16 @@ class AppTagsTestCase(TestCase):
             with self.subTest(case=case):
                 with override_settings(ACTIVE_ENVIRONMENT=case["input"]):
                     self.assertEqual(get_favicon_path(), case["output"])
+
+    def test_is_production_site(self):
+
+        cases = [
+            {"input": ENVIRONMENT_DEVELOPMENT, "output": False},
+            {"input": ENVIRONMENT_PRODUCTION, "output": True},
+            {"input": ENVIRONMENT_STAGING, "output": False},
+        ]
+
+        for case in cases:
+            with self.subTest(case=case):
+                with override_settings(ACTIVE_ENVIRONMENT=case["input"]):
+                    self.assertEqual(is_production_site(), case["output"])

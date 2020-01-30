@@ -29,6 +29,10 @@
     Visit https://www.mozilla.org/contribute for more ways to get involved and
     help support Mozilla.
     -->
+
+    {% is_production_site as is_prod %}
+    {% if not is_prod %}<meta name="robots" content="noindex">{% endif %}
+
     {% with home=request.site.root_page.specific %}
       <title>
         {% block title %}

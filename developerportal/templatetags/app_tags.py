@@ -11,6 +11,7 @@ from django.utils.safestring import mark_safe
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
+    ENVIRONMENT_PRODUCTION,
     ENVIRONMENT_STAGING,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
@@ -153,3 +154,8 @@ def get_favicon_path():
     filename = spec.get(settings.ACTIVE_ENVIRONMENT, DEFAULT_FAVICON)
 
     return f"img/icons/{filename}"
+
+
+@register.simple_tag
+def is_production_site():
+    return settings.ACTIVE_ENVIRONMENT == ENVIRONMENT_PRODUCTION
