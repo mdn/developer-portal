@@ -72,7 +72,10 @@ class Videos(BasePage):
         )
     ]
 
-    settings_panels = [FieldPanel("slug"), FieldPanel("show_in_menus")]
+    settings_panels = BasePage.settings_panels + [
+        FieldPanel("slug"),
+        FieldPanel("show_in_menus"),
+    ]
 
     edit_handler = TabbedInterface(
         [
@@ -237,7 +240,7 @@ class Video(BasePage):
         ),
     ]
 
-    settings_panels = [FieldPanel("slug")]
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
 
     # Tabs
     edit_handler = TabbedInterface(

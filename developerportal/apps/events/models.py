@@ -137,7 +137,10 @@ class Events(BasePage):
     ]
 
     # Settings panels
-    settings_panels = [FieldPanel("slug"), FieldPanel("show_in_menus")]
+    settings_panels = BasePage.settings_panels + [
+        FieldPanel("slug"),
+        FieldPanel("show_in_menus"),
+    ]
 
     edit_handler = TabbedInterface(
         [
@@ -456,7 +459,7 @@ class Event(BasePage):
     ]
 
     # Settings panels
-    settings_panels = [FieldPanel("slug")]
+    settings_panels = BasePage.settings_panels + [FieldPanel("slug")]
 
     edit_handler = TabbedInterface(
         [
