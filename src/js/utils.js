@@ -41,3 +41,29 @@ exports.parseForm = form => {
   });
   return filter;
 };
+
+/**
+ * Helper function to get cookie value given a cookie name
+ *
+ * @param {string} name  // cookie name
+ * @returns {string}  // cookie value
+ */
+exports.getCookie = name => {
+  let cookieValue = null;
+  if (document.cookie) {
+    const cookies = document.cookie.split(';');
+    // eslint-disable-next-line no-restricted-syntax
+    for (let cookie of cookies) {
+      cookie = cookie.trim();
+
+      // eslint-disable-next-line prefer-template
+      const target = name + '=';
+      // Does this cookie string begin with the name (and equals sign) we want?
+      if (cookie.substring(0, name.length + 1) === target) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+};

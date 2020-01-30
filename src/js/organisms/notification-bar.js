@@ -1,5 +1,5 @@
 /**
- * Handles events related to the notification bar*
+ * Handles events related to the notification bar
  *
  * @class NotificationBar
  */

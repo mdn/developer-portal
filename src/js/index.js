@@ -12,6 +12,7 @@ const Modal = require('./atoms/modal');
 const TabbedPanels = require('./organisms/tabbed-panels');
 const Toggle = require('./atoms/toggle');
 const NotificationBar = require('./organisms/notification-bar');
+const TaskCompletionPrompt = require('./task-completion-prompt');
 
 /**
  * JS from Mozilla's Protocol design system
@@ -42,4 +43,5 @@ window.addEventListener('DOMContentLoaded', () => {
   TabbedPanels.init();
   Toggle.init();
   NotificationBar.init();
+  TaskCompletionPrompt.init();
 });
