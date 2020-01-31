@@ -85,3 +85,6 @@ YEAR_MONTH_QUERYSTRING_KEY = "year_month"
 ENVIRONMENT_PRODUCTION = "production"
 ENVIRONMENT_STAGING = "staging"
 ENVIRONMENT_DEVELOPMENT = "development"
+
+# django-waffle Flag names
+WAFFLE_FLAG_TASK_COMPLETION = "show_task_completion_survey"
