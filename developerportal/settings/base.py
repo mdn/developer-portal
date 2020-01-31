@@ -91,6 +91,7 @@ MIDDLEWARE = [
     "wagtail.core.middleware.SiteMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     "waffle.middleware.WaffleMiddleware",
+    "developerportal.apps.common.middleware.survey_waffle_flag_cdn_middleware",
 ]
 
 ROOT_URLCONF = "developerportal.urls"
