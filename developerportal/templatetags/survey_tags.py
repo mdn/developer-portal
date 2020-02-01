@@ -18,10 +18,11 @@ def survey_prompt(context):
     if survey_url == "undefined":
         survey_url = None
 
-    # Trigger the waffle flag check: IFF the flag is using a Percentage-based rule,
-    # this will set the cookie that the client-side JS will look for.
-    # NB: see common.middleware.survey_waffle_flag_cdn_middleware for some
-    # 'interesting' behaviour related to waffle flags
+    if survey_url:
+        # Trigger the waffle flag check: IFF the flag is using a Percentage-based
+        # rule, this will set the cookie that the client-side JS will look for.
+        # NB: see common.middleware.survey_waffle_flag_cdn_middleware for some
+        # 'interesting' behaviour related to waffle flags
+        waffle.flag_is_active(request, WAFFLE_FLAG_TASK_COMPLETION)
 
-    waffle.flag_is_active(request, WAFFLE_FLAG_TASK_COMPLETION)
     return {"survey_url": survey_url}
