@@ -12,7 +12,17 @@ FLAG_PARAMS = {
     "superusers": False,
     "staff": False,
     "authenticated": False,
-    "note": "Required for the User Task Completion survey to be selectively shown",
+    "note": (
+        "**Required for the User Task Completion survey to be selectively shown.** "
+        "It MUST be be configured to ONLY use the Percent rule with a non-zero value, "
+        "else IT WILL NOT WORK AS INTENDED because the crucial cookie will not be set. "
+        "('Everyone' must be 'Unknown', no languages set, no users or "
+        "groups specified and no checkboxes for testing, 'authenticated', superusers "
+        "or staff enabled.) You may change the percentage value, but note that setting "
+        "it to zero will effectively disable it and no cookie will be set. Please see "
+        "`survey_tags` and `common.middleware.survey_waffle_flag_cdn_middleware` for "
+        "more details."
+    ),
 }
 
 
