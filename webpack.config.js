@@ -51,6 +51,8 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins = [...config.plugins, new OptimizeCssAssetsPlugin()];
+  config.devtool = 'hidden-source-map';
+} else {
+  config.devtool = 'source-map';
 }
-
 module.exports = config;
