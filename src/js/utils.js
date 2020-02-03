@@ -52,8 +52,8 @@ exports.getCookie = name => {
   let cookieValue = null;
   if (document.cookie) {
     const cookies = document.cookie.split(';');
-    // eslint-disable-next-line no-restricted-syntax
-    for (let cookie of cookies) {
+    for (let i = 0; i < cookies.length; i += 1) {
+      let cookie = cookies[i];
       cookie = cookie.trim();
 
       // eslint-disable-next-line prefer-template
