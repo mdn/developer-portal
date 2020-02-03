@@ -90,9 +90,9 @@ def survey_waffle_flag_cdn_middleware(get_response):
         to ensure that we're not falling foul of a variation of this same problem.
         If that becomes the case, it might be simply that we can say "if there are no
         cookies (of ANY kind) in a request, _and_ we're setting ANY new cookie in the
-        response, don't cache that response. (ie, drop the checks via
-        `waffle_flag_enabled_with_percentage_rule` and
-        `request_had_survey_waffle_cookie()` and just execute the truthiest path)
+        response, don't cache that response. (ie, update/replace the checks made using
+        waffle_flag_enabled_with_percentage_rule and request_had_survey_waffle_cookie
+        to decide when to execute the truthiest path, below.
         """
 
         response = get_response(request)
