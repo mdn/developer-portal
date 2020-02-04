@@ -38,7 +38,3 @@
 
 # Replace this one with a real survey URL as required
 TASK_COMPLETION_SURVEY_URL = "https://example.com/task-completion-survey"
-
-# If you are developing locally using http://localhost and not the HTTPs site from Nginx
-# you need to set this to False, else it won't be set at all
-WAFFLE_SECURE = False

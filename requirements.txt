@@ -5,7 +5,6 @@ kombu==4.6.7  # Be careful when updating this - ensure works with celery
 django-celery-results==1.1.2
 django-countries==5.5
 django-redis==4.10.0
-django-waffle==0.19.0
 gunicorn==20.0.4
 meinheld==1.0.1
 mozilla-django-oidc==1.2.3

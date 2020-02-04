@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     "storages",
     "modelcluster",
     "taggit",
-    "waffle",
     "django_countries",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -90,8 +89,6 @@ MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "wagtail.core.middleware.SiteMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
-    "waffle.middleware.WaffleMiddleware",
-    "developerportal.apps.common.middleware.survey_waffle_flag_cdn_middleware",
 ]
 
 ROOT_URLCONF = "developerportal.urls"
@@ -369,12 +366,6 @@ WAGTAIL_EMAIL_MANAGEMENT_ENABLED = False
 
 # The task-completion survey is hosted by a third party
 TASK_COMPLETION_SURVEY_URL = os.environ.get("TASK_COMPLETION_SURVEY_URL")
-
-
-# Django-waffle configuration
-# https://waffle.readthedocs.io/en/stable/starting/configuring.html
-WAFFLE_LOG_MISSING_FLAGS = logging.WARNING
-WAFFLE_MAX_AGE = 60 * 60 * 24 * 7 * 8  # Eight weeks
 
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
