@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import logging
 import os
+from decimal import Decimal
 
 from django.core.management.utils import get_random_secret_key
 
@@ -366,6 +367,9 @@ WAGTAIL_EMAIL_MANAGEMENT_ENABLED = False
 
 # The task-completion survey is hosted by a third party
 TASK_COMPLETION_SURVEY_URL = os.environ.get("TASK_COMPLETION_SURVEY_URL")
+TASK_COMPLETION_SURVEY_PERCENTAGE = Decimal(
+    os.environ.get("TASK_COMPLETION_SURVEY_PERCENTAGE", "5.0")
+)
 
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")

@@ -48,7 +48,7 @@ exports.parseForm = form => {
  * @param {string} name  // cookie name
  * @returns {string}  // cookie value
  */
-exports.getCookie = name => {
+exports.getCookieValue = name => {
   let cookieValue = null;
   if (document.cookie) {
     const cookies = document.cookie.split(';');
@@ -56,8 +56,7 @@ exports.getCookie = name => {
       let cookie = cookies[i];
       cookie = cookie.trim();
 
-      // eslint-disable-next-line prefer-template
-      const target = name + '=';
+      const target = `${name}=`;
       // Does this cookie string begin with the name (and equals sign) we want?
       if (cookie.substring(0, name.length + 1) === target) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -65,5 +64,35 @@ exports.getCookie = name => {
       }
     }
   }
+  return cookieValue;
+};
+
+/**
+ * Helper function to set or replace cookie value given a cookie name
+ *
+ * @param {string} name  // cookie name
+ * @param {string} cookieValue  // cookie value to store
+ * @returns {string}  // cookie value
+ */
+exports.setCookieValue = (name, cookieValue) => {
+  if (document.cookie) {
+    const cookies = document.cookie.split(';');
+    // eslint-disable-next-line no-restricted-syntax
+    for (let i = 0; i < cookies.length; i += 1) {
+      let cookie = cookies[i];
+      cookie = cookie.trim();
+
+      const target = `${name}=`;
+      // Does this cookie string begin with the name (and equals sign) we want?
+      if (cookie.substring(0, name.length + 1) === target) {
+        const newCookieString = target + cookieValue;
+        document.cookie = newCookieString;
+        return cookieValue;
+      }
+    }
+  }
+  // No cookie, or not found a match? set a new cookie
+  const newCookieString = `${name}=${cookieValue}`;
+  document.cookie = newCookieString;
   return cookieValue;
 };

@@ -1,6 +1,9 @@
+import logging
+
 from django import template
 from django.conf import settings
 
+logger = logging.getLogger(__name__)
 register = template.Library()
 
 
@@ -12,4 +15,5 @@ def survey_prompt():
     if survey_url == "undefined":
         survey_url = None
 
-    return {"survey_url": survey_url}
+    survey_percentage = settings.TASK_COMPLETION_SURVEY_PERCENTAGE
+    return {"survey_url": survey_url, "survey_percentage": survey_percentage}
