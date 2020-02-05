@@ -42,6 +42,7 @@ export APP_NOTIFY_AFTER_INGESTING_CONTENT ?= False
 
 # Task-completion survey config
 export APP_TASK_COMPLETION_SURVEY_URL ?= undefined
+export APP_TASK_COMPLETION_SURVEY_PERCENTAGE ?= 5.00  # default 5%
 
 export CELERY_WORKER_NAME ?= celery-worker
 export CELERY_WORKER_REPLICAS ?= 1
