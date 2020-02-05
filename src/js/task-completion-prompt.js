@@ -1,9 +1,9 @@
-const { getCookieValue, setCookieValue } = require('./utils');
+const Cookies = require('js-cookie');
 
 const SURVEY_COOKIE_NAME = 'devportal_show_task_completion_survey';
-const SURVEY_COOKIE_EXPIRY = 60 * 60 * 24 * 7 * 6; // six weeks in seconds
+const SURVEY_COOKIE_EXPIRY = 7 * 6; // six weeks in days
 const USE_SECURE_COOKIE = window.location.protocol === 'https:';
-const percentageOfShowing =
+const PERCENTAGE_CHANCE_OF_SHOWING =
   window.DevPortal.TaskCompletionSurvey.displayPercentage;
 
 /**
@@ -14,11 +14,10 @@ const percentageOfShowing =
  */
 
 const setSurveyCookie = function setSurveyCookie(value) {
-  let cookieVal = `${value};path=/;max-age=${SURVEY_COOKIE_EXPIRY}`;
-  if (USE_SECURE_COOKIE) {
-    cookieVal = `${cookieVal};secure=true;`;
-  }
-  setCookieValue(SURVEY_COOKIE_NAME, cookieVal);
+  Cookies.set(SURVEY_COOKIE_NAME, value, {
+    expires: SURVEY_COOKIE_EXPIRY,
+    secure: USE_SECURE_COOKIE,
+  });
 };
 
 /**
@@ -62,6 +61,19 @@ const setupListeners = function setupListeners(notificationPanel) {
 };
 
 /**
+ * Generates a random boolean, weighted towards true in favour of the percentage
+ * passed in (so as `pc` gets larger, the chance of getting `true back grows).
+ *
+ *
+ * @param pc // the percentage value eg 75
+ * @returns {boolean}
+ */
+
+const getBooleanFromPercentage = function getBooleanFromPercentage(pc) {
+  return Math.random() >= 1 - pc / 100;
+};
+
+/**
  * Determines whether or not to show the survey.
  * It will look for a cookie and check its value, and if there is no cookie it will
  * psuedorandomly decide (based on a configured percentage) whether to show the prompt
@@ -71,7 +83,7 @@ const setupListeners = function setupListeners(notificationPanel) {
  */
 const showSurvey = function showSurvey() {
   let showSurveyVal = false;
-  const surveyCookieVal = getCookieValue(SURVEY_COOKIE_NAME); // a string
+  const surveyCookieVal = Cookies.get(SURVEY_COOKIE_NAME); // a string
   /* surveyCookieVal is ternary and can mean 'Show survey'
    * or 'Do not show it' or 'Unknown' */
   switch (surveyCookieVal) {
@@ -83,7 +95,7 @@ const showSurvey = function showSurvey() {
       break;
     default:
       // no cookie was set, so let's 'roll the dice'
-      showSurveyVal = Math.random() >= 1 - percentageOfShowing / 100;
+      showSurveyVal = getBooleanFromPercentage(PERCENTAGE_CHANCE_OF_SHOWING);
       setSurveyCookie(showSurveyVal);
   }
   return showSurveyVal;
