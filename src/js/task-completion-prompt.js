@@ -81,7 +81,7 @@ const getBooleanFromPercentage = function getBooleanFromPercentage(pc) {
  *
  * @returns {boolean}  // cookie value
  */
-const showSurvey = function showSurvey() {
+const shouldShowSurvey = function shouldShowSurvey() {
   let showSurveyVal = false;
   const surveyCookieVal = Cookies.get(SURVEY_COOKIE_NAME); // a string
   /* surveyCookieVal is ternary and can mean 'Show survey'
@@ -109,7 +109,7 @@ const showSurvey = function showSurvey() {
 
 module.exports = class TaskCompletionPrompt {
   static init() {
-    if (showSurvey()) {
+    if (shouldShowSurvey()) {
       const elements = document.getElementsByClassName(
         'js-task-completion-survey',
       );
