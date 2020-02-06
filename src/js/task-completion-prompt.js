@@ -70,7 +70,7 @@ const setupListeners = function setupListeners(notificationPanel) {
  */
 
 const getBooleanFromPercentage = function getBooleanFromPercentage(pc) {
-  return Math.random() >= 1 - pc / 100;
+  return Math.random() <= pc / 100;
 };
 
 /**
