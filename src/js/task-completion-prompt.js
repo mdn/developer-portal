@@ -86,17 +86,13 @@ const shouldShowSurvey = function shouldShowSurvey() {
   const surveyCookieVal = Cookies.get(SURVEY_COOKIE_NAME); // a string
   /* surveyCookieVal is ternary and can mean 'Show survey'
    * or 'Do not show it' or 'Unknown' */
-  switch (surveyCookieVal) {
-    case 'false':
-      showSurveyVal = false;
-      break;
-    case 'true':
-      showSurveyVal = true;
-      break;
-    default:
-      // no cookie was set, so let's 'roll the dice'
-      showSurveyVal = getBooleanFromPercentage(PERCENTAGE_CHANCE_OF_SHOWING);
-      setSurveyCookie(showSurveyVal);
+
+  if (surveyCookieVal === undefined) {
+    // no cookie was set, so let's 'roll the dice'
+    showSurveyVal = getBooleanFromPercentage(PERCENTAGE_CHANCE_OF_SHOWING);
+    setSurveyCookie(showSurveyVal);
+  } else {
+    showSurveyVal = JSON.parse(surveyCookieVal);
   }
   return showSurveyVal;
 };
