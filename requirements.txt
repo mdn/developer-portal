@@ -9,7 +9,7 @@ gunicorn==20.0.4
 meinheld==1.0.1
 mozilla-django-oidc==1.2.3
 django-storages==1.8
-boto3==1.11.11
+boto3==1.11.12
 psycopg2==2.8.4
 Pygments==2.5.2
 raven==6.10.0
