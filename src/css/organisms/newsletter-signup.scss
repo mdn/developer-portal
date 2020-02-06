@@ -11,28 +11,10 @@
     }
   }
 
-  label[for='newsletter-email'] {
-    display: inline-block;
-    margin-right: 4px;
-  }
-
-  a.privacy-link {
-    color: $color-blue-10;
-  }
-
-  input[type='email'] {
-    display: inline-block;
-  }
-
-  select {
-    width: 100%;
-
-    @media screen and (min-width: 480px) {
-      width: 200px;
+  a.newsletter-signup-link-button {
+    margin-bottom: 0px;
+    @media #{$mq-md} {
+      margin-bottom: 50px;
     }
-  }
-
-  p:last-child {
-    margin-bottom: 0;
   }
 }
