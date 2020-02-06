@@ -122,6 +122,7 @@ node {
     case 'dev-push':
       stage('Deploy') {
         deploy('dev', 'dev', 'mdn-apps-a')
+        record_rollout()
       }
       break
 
