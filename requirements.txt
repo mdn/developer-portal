@@ -1,4 +1,4 @@
-Django==2.2.10
+Django==2.2.11
 celery==4.4.0  # Be careful when updating this - ensure works with kombu
 redis==3.3.11
 kombu==4.6.7  # Be careful when updating this - ensure works with celery
