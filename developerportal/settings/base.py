@@ -362,6 +362,8 @@ WAGTAILUSERS_PASSWORD_ENABLED = False
 # addresses for users via Settings > Users)
 WAGTAIL_EMAIL_MANAGEMENT_ENABLED = False
 
+# Maintain old/pre-2.8 behaviour for responsive images
+WAGTAILEMBEDS_RESPONSIVE_HTML = True
 
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
