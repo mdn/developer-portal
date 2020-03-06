@@ -41,7 +41,7 @@
     "trailingComma": "all"
   },
   "devDependencies": {
-    "@mozilla-protocol/core": "9.0.1",
+    "@mozilla-protocol/core": "11.0.1",
     "@mozilla-protocol/tokens": "5.0.3",
     "autoprefixer": "9.7.4",
     "buble": "0.19.8",
