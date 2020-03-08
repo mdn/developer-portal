@@ -11,7 +11,7 @@ mozilla-django-oidc==1.2.3
 django-storages==1.8
 boto3==1.12.16
 psycopg2==2.8.4
-Pygments==2.5.2
+Pygments==2.6.1
 raven==6.10.0
 readtime==1.1.1
 wagtail==2.8
