@@ -6,6 +6,7 @@ from django.test import TestCase
 
 from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
+from ...content.models import ContentPage
 from ...home.models import HomePage
 from ..models import Topic, Topics, check_for_svg_file
 
@@ -26,7 +27,7 @@ class TopicTests(PatchedWagtailPageTests):
 
     def test_topic_page_subpages(self):
         """A topic page should not have child pages."""
-        self.assertAllowedSubpageTypes(Topic, {})
+        self.assertAllowedSubpageTypes(Topic, {ContentPage})
 
     def test_topic_page_articles(self):
         """A topic page should have article pages."""

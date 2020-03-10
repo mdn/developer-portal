@@ -83,7 +83,7 @@ class ParentTopic(Orderable):
 class Topic(BasePage):
     resource_type = "topic"
     parent_page_types = ["Topics"]
-    subpage_types = ["Topic"]
+    subpage_types = ["Topic", "content.ContentPage"]
     template = "topic.html"
 
     # Content fields

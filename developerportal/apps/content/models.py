@@ -23,7 +23,7 @@ class ContentPageTag(TaggedItemBase):
 
 
 class ContentPage(BasePage):
-    parent_page_types = ["home.HomePage", "content.ContentPage"]
+    parent_page_types = ["home.HomePage", "content.ContentPage", "topics.Topic"]
     subpage_types = ["people.People", "content.ContentPage"]
     template = "content.html"
 
