@@ -1,0 +1,12 @@
+/* Custom CSS for the Wagtail Admin */
+
+.Draftail-block--button-block {
+  border: 2px dotted gray;
+  padding: 10px 0px 10px 5px;
+  a {
+    background: black;
+    border: 2px solid black;
+    color: white;
+    padding: 3px;
+  }
+}

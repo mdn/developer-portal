@@ -1,0 +1,6 @@
+.links-as-buttons {
+  margin-bottom: 24px;
+  a {
+    @extend .mzp-c-button;
+  }
+}
