@@ -1,7 +1,7 @@
 $code-border-radius: 0.2em;
 
 code {
-  background-color: $color-gray-20;
+  background-color: $color-marketing-gray-20;
   border-radius: $code-border-radius;
   font-family: $monospace-font-family;
   font-size: 80%;
@@ -11,7 +11,7 @@ code {
 
 .syntax-highlight[data-lang] {
   -webkit-overflow-scrolling: touch;
-  background: $color-gray-20;
+  background: $color-marketing-gray-20;
   clear: both;
   margin-bottom: $spacing-md;
   overflow-x: auto;

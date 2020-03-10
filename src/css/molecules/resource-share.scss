@@ -14,7 +14,7 @@
 
   a {
     align-items: center;
-    border: 1px solid $color-gray-30;
+    border: 1px solid $color-marketing-gray-30;
     border-right: none;
     color: inherit;
     display: flex;
@@ -25,7 +25,7 @@
     width: 36px;
 
     &:hover {
-      color: $color-gray-70;
+      color: $color-marketing-gray-70;
     }
 
     &:active {
@@ -37,7 +37,7 @@
     }
 
     &:last-child {
-      border-right: 1px solid $color-gray-30;
+      border-right: 1px solid $color-marketing-gray-30;
       padding-right: 0;
     }
 
