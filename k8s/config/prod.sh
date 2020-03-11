@@ -36,5 +36,5 @@ export ACTIVE_ENVIRONMENT=production
 export APP_AUTOMATICALLY_INGEST_CONTENT=True
 export APP_NOTIFY_AFTER_INGESTING_CONTENT=True
 
-# export APP_TASK_COMPLETION_SURVEY_URL="TO COME"
-# export APP_TASK_COMPLETION_SURVEY_PERCENTAGE=5.00  # default in Makefile is 5, too
+export APP_TASK_COMPLETION_SURVEY_URL=https://www.surveygizmo.com/s3/5499588/Mozilla-Dev-Portal-Task-Completion
+export APP_TASK_COMPLETION_SURVEY_PERCENTAGE=5  # default in Makefile is 5, too
