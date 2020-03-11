@@ -35,3 +35,7 @@
 #     "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
 #     "django.contrib.auth.backends.ModelBackend",
 # )
+
+# Replace this one with a real survey URL as required
+TASK_COMPLETION_SURVEY_URL = "https://example.com/task-completion-survey"
+TASK_COMPLETION_SURVEY_PERCENTAGE = "99.9"
