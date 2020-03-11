@@ -31,10 +31,16 @@ def register_external_link(features):
 
 @hooks.register("register_rich_text_features")
 def register_button_section_feature(features):
-    """Support marking a block of links as buttons within Draftail."""
+    """Support marking a group of links as buttons within Draftail (which can then be
+    styled with custom CSS in the Admin) + ensure the block enclosing the links is
+    rendered with a custom CSS class we can target in the published page."""
+
     feature_name = "button-block"
     type_ = "button-block"
     tag = "div"
+    # The value of _type contributes to an Admin CSS classname
+    # of `.Draftail-block--button-block`
+
     control = {
         "type": type_,
         "label": "",
@@ -52,7 +58,12 @@ def register_button_section_feature(features):
             "from_database_format": {tag: BlockElementHandler(type_)},
             "to_database_format": {
                 "block_map": {
-                    type_: {"element": "div", "props": {"class": "links-as-buttons"}}
+                    type_: {
+                        "element": "div",
+                        "props": {
+                            "class": "links-as-buttons"
+                        },  # This CSS class is what's used on the rendered page
+                    }
                 }
             },
         },
@@ -60,7 +71,9 @@ def register_button_section_feature(features):
     features.default_features.append("button-block")
 
 
-@hooks.register("insert_global_admin_css", order=100)
+@hooks.register(
+    "insert_global_admin_css", order=10
+)  #  positive int for `order` means it will run after Wagtail core
 def global_admin_css():
     """Slot in custom CMS CSS to render the above button-block element nicely."""
     return format_html(
