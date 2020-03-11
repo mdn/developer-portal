@@ -1,0 +1,10 @@
+.links-as-buttons {
+  margin-bottom: 24px;
+  a {
+    @extend .mzp-c-button;
+  }
+
+  @media #{$mq-md} {
+    margin-bottom: 100px;
+  }
+}

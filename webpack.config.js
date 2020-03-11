@@ -7,6 +7,7 @@ const config = {
   entry: {
     bundle: './src/js/index.js',
     head: './src/js/head-includes.js',
+    admin_extras: './src/js/admin-extras.js',
   },
   output: {
     filename: 'js/[name].js',
@@ -44,7 +45,7 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/bundle.css',
+      filename: 'css/[name].css',
     }),
   ],
 };

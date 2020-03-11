@@ -49,6 +49,7 @@ RICH_TEXT_FEATURES = (
     "image",
     "italic",
     "link",
+    "button-block",  # custom - see common/wagtail_hooks.py
     "ol",
     "ul",
 )
