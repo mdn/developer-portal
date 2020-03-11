@@ -2,12 +2,7 @@
   .mzp-c-notification-bar-cta {
     text-decoration: underline;
     &:hover {
-      color: $color-marketing-gray-40;
+      color: $color-marketing-gray-40 !important;
     }
-  }
-
-  .mzp-c-notification-bar-button {
-    right: $spacing-xs;
-    top: $spacing-xs;
   }
 }
