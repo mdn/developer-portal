@@ -31,7 +31,7 @@ spec:
             - "--worker-class=meinheld.gmeinheld.MeinheldWorker"
             - "--bind=0.0.0.0:{{ APP_PORT }}"
             - "--access-logfile=-"
-            - "--access-logformat=%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %({X_Forwarded_For}i)s"
+            - "--access-logformat=%(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\" %({X_Forwarded_For}i)s"
             - "--timeout={{ APP_GUNICORN_TIMEOUT }}"
             - "developerportal.wsgi:application"
           ports:
