@@ -1,6 +1,6 @@
 Django==2.2.11
 celery==4.4.1  # Be careful when updating this - ensure works with kombu
-redis==3.3.11
+redis==3.4.1
 kombu==4.6.8  # Be careful when updating this - ensure works with celery
 django-celery-results==1.2.1
 django-countries==6.0
