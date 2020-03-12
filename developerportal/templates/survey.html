@@ -1,0 +1,31 @@
+{% if survey_url %}
+{% comment %}
+  For now, until https://github.com/mozilla/protocol/issues/460 is resolved
+  it is not possible to render a hyperlink inside a NotificationBar that
+  is created by JS. That would be our ideal, because it means the CDN can
+  cache a version of the page with no NotificationBar, and we add it as
+  required. However, for now, we cannot do this AND have a link in it.
+
+  As a *temporary* workaround, we are rendering the notification with the link
+  in all HTML pages, but keeping it hidden by default, then revealing via JS
+  only to the appropriate users after checking whether we should
+{% endcomment %}
+<aside class="mzp-c-notification-bar mzp-t-click js-task-completion-survey" hidden> {# NB: `hidden` attr #}
+  <button class="mzp-c-notification-bar-button mzp-js-notification-trigger" type="button"></button>
+  <p>
+      Your feedback is important. Would you
+        <a target="_blank" rel="noreferrer noopener" href="{{survey_url}}" class="mzp-c-notification-bar-cta">
+          complete a short survey
+        </a>
+      after visiting?
+  </p>
+</aside>
+
+<script>
+  window.DevPortal = window.DevPortal === undefined ? {} : window.DevPortal;
+  window.DevPortal.TaskCompletionSurvey = {
+    "displayPercentage":{{survey_percentage}}
+  };
+</script>
+
+{% endif %}

@@ -1,0 +1,8 @@
+.mzp-c-notification-bar {
+  .mzp-c-notification-bar-cta {
+    text-decoration: underline;
+    &:hover {
+      color: $color-marketing-gray-40 !important;
+    }
+  }
+}
