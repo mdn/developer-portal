@@ -31,7 +31,7 @@ services:
 
   app:
     <<: *common
-    command: gunicorn developerportal.wsgi:application --access-logfile=- --timeout=120 --worker-class=meinheld.gmeinheld.MeinheldWorker --bind=0.0.0.0:8000 --reload --workers=3
+    command: gunicorn developerportal.wsgi:application --access-logfile=- --timeout=120 --worker-class=gunicorn.workers.ggevent.GeventWorker --bind=0.0.0.0:8000 --reload --workers=3
     ports:
       - '8000:8000'
       # 8000 is left exposed if you want to access it not over SSL,
