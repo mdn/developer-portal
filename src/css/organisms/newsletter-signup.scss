@@ -30,16 +30,19 @@
     max-width: none;
     grid-column-start: 2;
   }
-
-  .container {
-    @media #{$mq-md} {
-      max-width: 420px;
-    }
+  .newsletter-email {
+    width: 80%;
   }
+  // .container {
+  //   @media #{$mq-md} {
+  //     max-width: 420px;
+  //   }
+  // }
 
-  a.newsletter-signup-link-button {
+  .mzp-c-button {
     margin-bottom: 0px;
     @media #{$mq-md} {
+      width: 80%;
       margin-bottom: 50px;
     }
   }
