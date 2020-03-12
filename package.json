@@ -41,7 +41,7 @@
     "trailingComma": "all"
   },
   "dependencies": {
-    "js-cookie": "^2.2.1"
+    "js-cookie": "2.2.1"
   },
   "devDependencies": {
     "@mozilla-protocol/core": "11.0.1",
