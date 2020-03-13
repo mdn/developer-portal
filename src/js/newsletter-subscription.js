@@ -52,7 +52,6 @@ module.exports = class NewsletterSubscription {
     this.form = form;
     this.form.onsubmit = event => {
       event.preventDefault();
-
       submitNewsletterSubscription(this.form)
         .then(({ success, errors }) => {
           if (success) {
@@ -73,15 +72,6 @@ module.exports = class NewsletterSubscription {
           complain(`There was a problem subscribing you. Please try again.`);
           // TODO? ping monitoring with ([e.toString()]) ?
         });
-
-      return fetch(NEWSLETTER_SUBSCRIBE_URL, {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(new FormData(this.form)).toString(),
-      }).then(response => response.json());
     };
   }
 };
