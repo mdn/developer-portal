@@ -1,19 +1,52 @@
 .newsletter-signup {
-  background: top center no-repeat url('../img/newsletter-background.svg')
-    $color-black;
-  color: $color-white;
-  padding: 140px 0 10px;
-  text-align: center;
+  margin: 0 auto 24px;
+  max-width: unset;
 
-  .container {
+  background: $color-white;
+  color: $color-black;
+  padding: $spacing-xl 0 $spacing-sm;
+
+  @media #{$mq-md} {
+    display: grid;
+    grid-template-columns: repeat(2, [col] 50%);
+    grid-gap: $grid-gap-mobile;
+  }
+
+  .mzp-c-newsletter-image {
+    display: none;
+    visibility: hidden;
     @media #{$mq-md} {
-      max-width: 420px;
+      display: grid;
+      grid-column-start: 1;
+      margin: auto;
+      max-width: none;
+      visibility: visible;
+      width: auto;
     }
   }
 
-  a.newsletter-signup-link-button {
-    margin-bottom: 0px;
+  .mzp-c-newsletter-form {
+    width: auto;
+    max-width: none;
+    grid-column-start: 2;
+  }
+  .newsletter-email {
+    width: 100%;
     @media #{$mq-md} {
+      width: 80%;
+    }
+  }
+  // .container {
+  //   @media #{$mq-md} {
+  //     max-width: 420px;
+  //   }
+  // }
+
+  .mzp-c-button {
+    margin-bottom: 0px;
+    width: 100%;
+    @media #{$mq-md} {
+      width: 80%;
       margin-bottom: 50px;
     }
   }
