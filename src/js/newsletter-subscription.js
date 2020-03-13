@@ -1,5 +1,12 @@
 const NEWSLETTER_SUBSCRIBE_URL = 'https://www.mozilla.org/en-US/newsletter/';
 
+/**
+ * Posts serialized data from the given form to the subscription endpoint,
+ * return the JSON result
+ *
+ * @param {object} form // whether or not the survey should be shown
+ * @returns {object} // JSON
+ */
 function submitNewsletterSubscription(form) {
   return fetch(NEWSLETTER_SUBSCRIBE_URL, {
     method: 'POST',
@@ -9,6 +16,15 @@ function submitNewsletterSubscription(form) {
     },
     body: new URLSearchParams(new FormData(form)).toString(),
   }).then(response => response.json());
+}
+
+/** Single place to raise an alert()
+ *
+ * @param {string} message
+ */
+function complain(message) {
+  // eslint-disable-next-line no-alert
+  alert(message);
 }
 
 /**
@@ -34,8 +50,6 @@ module.exports = class NewsletterSubscription {
 
   constructor(form) {
     this.form = form;
-    // eslint-disable-next-line no-console
-    console.log(this.form);
     this.form.onsubmit = event => {
       event.preventDefault();
 
@@ -52,13 +66,11 @@ module.exports = class NewsletterSubscription {
           }
 
           if (errors && errors.length) {
-            // eslint-disable-next-line no-alert
-            alert(`There was a problem subscribing you: ${errors}`);
+            complain(`There was a problem subscribing you: ${errors}`);
           }
         })
         .catch(() => {
-          // eslint-disable-next-line no-alert
-          alert(`There was a problem subscribing you. Please try again.`);
+          complain(`There was a problem subscribing you. Please try again.`);
           // TODO? ping monitoring with ([e.toString()]) ?
         });
 
