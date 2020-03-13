@@ -128,8 +128,8 @@ If things get messed up, you could (as a last resort) prune ALL Docker images, c
 
 The preferred way to do things is to have a local-dev-only AWS bucket configured as per `settings/local.py.example` so that user media goes up to S3, but it is possible to use local storage instead.
 
-
 ### Further Reading
+
 - [CDN Invalidation](docs/cdn-invalidation.md)
 - [Deployment](docs/deployed_environments.md)
 - [Developer notes](docs/developer-notes.md)
