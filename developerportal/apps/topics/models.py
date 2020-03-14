@@ -261,7 +261,7 @@ class Topic(BasePage):
 
 
 class Topics(BasePage):
-
+    resource_type = "topics"  # NB note plural
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Topic"]
     template = "topics.html"
