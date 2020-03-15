@@ -8,11 +8,17 @@
 
   .mzp-c-navigation-logo a {
     background-image: url('../img/logos/developer/black.svg');
-    height: 42px;
-    width: 114px;
+    height: auto;
+    width: auto;
     margin-top: 9px;
+    background-size: 160px;
+    @media #{$mq-md} {
+      height: 42px;
+      width: 114px;
+      margin-top: 9px;
+      background-size: 100%;
+    }
   }
-
   .mzp-c-menu-item {
     padding: 0px 24px 12px 0px;
     .mzp-c-menu-item-desc {
