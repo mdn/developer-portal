@@ -18,6 +18,15 @@
     .mzp-c-menu-item-desc {
       margin: $spacing-sm 0 0 $spacing-2xl;
     }
+
+    .mzp-c-menu-item-link {
+      .mzp-c-menu-item-icon {
+        top: 0px;
+        @media #{$mq-md} {
+          top: 8px;
+        }
+      }
+    }
   }
 
   //   .mzp-c-navigation .mzp-c-navigation-l-content {
