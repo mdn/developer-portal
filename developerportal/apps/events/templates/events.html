@@ -3,11 +3,6 @@
 
 {% block body_class %}events{% endblock %}
 
-{% block header %}
-  {{ block.super }}
-  {% include "utils/accent-color.html" with color='#ffd567' %}
-{% endblock %}
-
 {% block content %}
   <main>
     {% with page.featured|published as featured %}
