@@ -59,13 +59,13 @@
     min-height: 25px;
   }
 
-  &.mzp-has-video .mzp-c-card-tag {
-    background-image: url('#{$image-path}/icons/video-card.svg');
-  }
+  // &.mzp-has-video .mzp-c-card-tag {
+  //   background-image: url('#{$image-path}/icons/video-card.svg');
+  // }
 
-  &.mzp-has-audio .mzp-c-card-tag {
-    background-image: url('#{$image-path}/icons/audio-card.svg');
-  }
+  // &.mzp-has-audio .mzp-c-card-tag {
+  //   background-image: url('#{$image-path}/icons/audio-card.svg');
+  // }
 
   .mzp-c-card-title {
     @include text-display-xs;
