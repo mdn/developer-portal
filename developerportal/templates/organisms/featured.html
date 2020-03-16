@@ -1,11 +1,12 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags app_filters %}
+{% comment %}
+There can be between two and four featured items but the CSS and HTML supports rendering just one, which used to be allowed
+{% endcomment %}
 
 {% with featured|length as featured_count %}
-  <div class="section-header">
-    <h2>Featured</h2>
-  </div>
-  {% if featured_count != 2 %}
-    {# first item is rendered as a primary card #}
+  {% if featured_count == 1 %}
+    {% comment %} DEPRECATED - see note above {% endcomment %}
+    {# First/only item is rendered as a primary card #}
     {% with featured.0 as block %}
       {% if block.block_type == 'post' or block.block_type == 'event' or block.block_type == 'video' %}
         {% with block.value as page %}
@@ -17,40 +18,30 @@
         {% endwith %}
       {% endif %}
     {% endwith %}
-    {# remaining items are rendered side-by-side #}
-    {% if featured_count != 1 %}
-      <div class="card-container {% if featured_count == 3 %}card-container-2-wide{% endif %}">
-        {% for featured_item in featured %}
-          {% if not forloop.first %}
-            {% with featured_item as block %}
-              {% if block.block_type == 'post' or block.block_type == 'event' or block.block_type == 'video' %}
-                {% with block.value as page %}
-                  {% include "molecules/card-featured.html" with resource=page.specific block_type=block.block_type %}
-                {% endwith %}
-              {% elif block.block_type == 'external_page' %}
-                {% with block.value as external_page %}
-                  {% include "molecules/card-featured.html" with resource=external_page external_page=True block_type=block.block_type %}
-                {% endwith %}
-              {% endif %}
-            {% endwith %}
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
   {% else %}
-    {# 2 items rendered side-by-side #}
-    <div class="card-container card-container-2-wide">
+    {# 2-4 items rendered side-by-side #}
+    <div class="
+      {% if featured_count == 2 %}mzp-l-card-half{% endif %}
+      {% if featured_count == 3 %}mzp-l-card-third{% endif %}
+      {% if featured_count == 4 %}mzp-l-card-quarter{% endif %}
+    ">
       {% for featured_item in featured %}
         {% with featured_item as block %}
-          {% if block.block_type == 'post' or block.block_type == 'event' or block.block_type == 'video' %}
-            {% with block.value as page %}
-              {% include "molecules/card-featured.html" with resource=page.specific block_type=block.block_type %}
-            {% endwith %}
-          {% elif block.block_type == 'external_page' %}
-            {% with block.value as external_page %}
-              {% include "molecules/card-featured.html" with resource=external_page external_page=True block_type=block.block_type %}
-            {% endwith %}
-          {% endif %}
+          <section class="mzp-c-card
+            {% if featured_count == 2 %}mzp-c-card-medium mzp-has-aspect-3-2{% endif %}
+            {% if featured_count == 3 %}mzp-c-card-small mzp-has-aspect-16-9{% endif %}
+            {% if featured_count == 4 %}mzp-c-card-extra-small mzp-has-aspect-16-9{% endif %}
+          ">
+            {% if block.block_type == 'post' or block.block_type == 'event' or block.block_type == 'video' %}
+              {% with block.value as page %}
+                {% include "molecules/card-featured.html" with resource=page.specific block_type=block.block_type %}
+              {% endwith %}
+            {% elif block.block_type == 'external_page' %}
+              {% with block.value as external_page %}
+                {% include "molecules/card-featured.html" with resource=external_page external_page=True block_type=block.block_type %}
+              {% endwith %}
+            {% endif %}
+          </section>
         {% endwith %}
       {% endfor %}
     </div>

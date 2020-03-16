@@ -8,7 +8,7 @@
 
 {% load wagtailcore_tags %}
 
-<div class="container">
+<div class="mzp-l-content">
   <div class="section-header">
     <h2>{{ title|default:"People" }}</h2>
     {% if show_link and directory_pages.people %}
@@ -24,7 +24,7 @@
     </div>
   {% else %}
     {# 2 or 3 are rendered side-by-side #}
-    <div class="card-container {% if people|length == 2 %}card-container-2-wide{% endif %}">
+    <div class="card-mzp-l-content {% if people|length == 2 %}card-mzp-l-content-2-wide{% endif %}">
       {% for person in people %}
         {% include "molecules/item-person.html" with person=person type="person" full_width=False %}
       {% endfor %}

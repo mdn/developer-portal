@@ -8,14 +8,14 @@
     {% with page.featured|published as featured %}
       {% if featured %}
         <section class="section">
-          <div class="container">
+          <div class="mzp-l-content">
             {% include "organisms/featured.html" with featured=featured %}
           </div>
         </section>
       {% endif %}
     {% endwith %}
     <section class="section">
-      <article class="container">
+      <article class="mzp-l-content">
         {% for block in page.body %}
           {% if block.block_type == 'image' %}
             {% include "molecules/image-block.html" with block=block %}
@@ -30,7 +30,7 @@
     </section>
     {% if past_events %}
       <section id="past-events" class="section">
-        <div class="container">
+        <div class="mzp-l-content">
           <div class="section-header">
             <h2>Past events</h2>
           </div>

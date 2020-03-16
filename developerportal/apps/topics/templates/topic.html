@@ -11,7 +11,7 @@
   {% with page.featured|published as featured %}
     {% if featured %}
       <section class="section">
-        <div class="container">
+        <div class="mzp-l-content">
           {% include "organisms/featured.html" with featured=featured %}
         </div>
       </section>
@@ -19,7 +19,7 @@
   {% endwith %}
   {% if page.tabbed_panels %}
     <section class="section section-background section-background-gray">
-      <div class="container">
+      <div class="mzp-l-content">
         {% include "organisms/tabbed-panels.html" with resources=page.tabbed_panels %}
       </div>
     </section>
@@ -33,7 +33,7 @@
   {% endwith %}
   {% if page.articles %}
     <section class="section">
-      <div class="container">
+      <div class="mzp-l-content">
         <div class="section-header">
           <h2>Latest posts</h2>
           {% if directory_pages.articles %}
@@ -55,7 +55,7 @@
   {% endif %}
   {% if page.videos %}
   <section class="section">
-    <div class="container">
+    <div class="mzp-l-content">
       <div class="section-header">
         <h2>Latest videos</h2>
       </div>
