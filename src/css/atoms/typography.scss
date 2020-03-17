@@ -90,24 +90,24 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-// h1,
-// .heading1,
-// h2,
-// .heading2,
-// h3,
-// .heading3,
-// h4,
-// .heading4,
-// h5,
-// .heading5,
-// h6,
-// .heading6 {
-//   font-family: $heading-font-family;
-//   font-weight: 700;
-//   margin-bottom: 0.5em;
-//   margin-top: 0;
-//   position: relative;
-// }
+h1,
+.heading1,
+h2,
+.heading2,
+h3,
+.heading3,
+h4,
+.heading4,
+h5,
+.heading5,
+h6,
+.heading6 {
+  font-family: $heading-font-family;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  position: relative;
+}
 
 h5,
 .heading5 {
@@ -170,66 +170,66 @@ h5,
 //   }
 // }
 
-// @function heading-line-height($font-size) {
-//   @return $font-size + 8px;
-// }
+@function heading-line-height($font-size) {
+  @return $font-size + 8px;
+}
 
-// h1 {
-//   font-size: $h1-font-size-mobile;
-//   line-height: heading-line-height($h1-font-size-mobile);
+h1 {
+  font-size: $h1-font-size-mobile;
+  line-height: heading-line-height($h1-font-size-mobile);
 
-//   @media #{$mq-md} {
-//     font-size: $h1-font-size;
-//     line-height: heading-line-height($h1-font-size);
-//   }
-// }
+  @media #{$mq-md} {
+    font-size: $h1-font-size;
+    line-height: heading-line-height($h1-font-size);
+  }
+}
 
-// h2 {
-//   font-size: $h2-font-size-mobile;
-//   line-height: heading-line-height($h2-font-size-mobile);
+h2 {
+  font-size: $h2-font-size-mobile;
+  line-height: heading-line-height($h2-font-size-mobile);
 
-//   @media #{$mq-md} {
-//     font-size: $h2-font-size;
-//     line-height: heading-line-height($h2-font-size);
-//   }
-// }
+  @media #{$mq-md} {
+    font-size: $h2-font-size;
+    line-height: heading-line-height($h2-font-size);
+  }
+}
 
-// h3 {
-//   font-size: $h3-font-size-mobile;
-//   line-height: heading-line-height($h3-font-size-mobile);
+h3 {
+  font-size: $h3-font-size-mobile;
+  line-height: heading-line-height($h3-font-size-mobile);
 
-//   @media #{$mq-md} {
-//     font-size: $h3-font-size;
-//     line-height: heading-line-height($h3-font-size);
-//   }
-// }
+  @media #{$mq-md} {
+    font-size: $h3-font-size;
+    line-height: heading-line-height($h3-font-size);
+  }
+}
 
-// h4,
-// .heading4 {
-//   font-size: $h4-font-size-mobile;
-//   line-height: heading-line-height($h4-font-size-mobile);
+h4,
+.heading4 {
+  font-size: $h4-font-size-mobile;
+  line-height: heading-line-height($h4-font-size-mobile);
 
-//   @media #{$mq-md} {
-//     font-size: $h4-font-size;
-//     line-height: heading-line-height($h4-font-size);
-//   }
-// }
+  @media #{$mq-md} {
+    font-size: $h4-font-size;
+    line-height: heading-line-height($h4-font-size);
+  }
+}
 
-// h5,
-// .heading5 {
-//   font-size: $h5-font-size-mobile;
-//   line-height: heading-line-height($h5-font-size-mobile);
+h5,
+.heading5 {
+  font-size: $h5-font-size-mobile;
+  line-height: heading-line-height($h5-font-size-mobile);
 
-//   @media #{$mq-md} {
-//     font-size: $h5-font-size;
-//     line-height: heading-line-height($h5-font-size);
-//   }
-// }
+  @media #{$mq-md} {
+    font-size: $h5-font-size;
+    line-height: heading-line-height($h5-font-size);
+  }
+}
 
-// h6 {
-//   font-size: $h6-font-size;
-//   line-height: heading-line-height($h6-font-size);
-// }
+h6 {
+  font-size: $h6-font-size;
+  line-height: heading-line-height($h6-font-size);
+}
 
 // .highlight1,
 // .highlight2,
@@ -281,17 +281,17 @@ h5,
 //   }
 // }
 
-// b,
-// strong {
-//   font-weight: 700;
-// }
+b,
+strong {
+  font-weight: 700;
+}
 
-// p,
-// ul,
-// ol {
-//   margin-bottom: $spacing-md;
-//   margin-top: 0;
-// }
+p,
+ul,
+ol {
+  margin-bottom: $spacing-md;
+  margin-top: 0;
+}
 
 // .highlight {
 //   font-family: 'Zilla Slab Highlight';
