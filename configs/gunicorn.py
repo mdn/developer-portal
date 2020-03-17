@@ -20,7 +20,7 @@ keepalive = getenv('APP_GUNICORN_TIMEOUT', '118')
 # NOTE: use keepalive instead of timeout
 # timeout = getenv('APP_GUNICORN_TIMEOUT', '118')
 
-if getenv('DJANGO_ENV') is not None and getenv('DJANGO_ENV') == 'dev':
+if getenv('DJANGO_ENV') == 'dev':
     workers = '3'
 else:
     # Automatically figure number of workers if environment is not set
