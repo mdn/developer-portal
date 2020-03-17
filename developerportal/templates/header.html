@@ -5,7 +5,7 @@
   <header class="header">
     <div class="mzp-c-navigation">
       <div class="mzp-c-navigation-l-content">
-        <div class="mzp-c-navigation-mzp-l-content">
+        <div class="mzp-c-navigation-container">
           <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
           <div class="mzp-c-navigation-logo">
             <a href="/">
@@ -29,7 +29,7 @@
                         {% if child_pages %}
                           {% with specific_child_pages=child_pages.public.live.in_menu.specific %}
                           <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-{{ page.slug }}">
-                            <div class="mzp-c-menu-panel-mzp-l-content">
+                            <div class="mzp-c-menu-panel-container">
                               <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-{{ page.slug }}">
                                 Close {{ page.title }} menu
                               </button>
