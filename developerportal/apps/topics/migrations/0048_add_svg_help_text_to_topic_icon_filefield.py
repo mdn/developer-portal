@@ -15,9 +15,12 @@ class Migration(migrations.Migration):
             field=models.FileField(
                 blank=True,
                 default="",
-                help_text="MUST be a black-on-transparent SVG icon ONLY, with no bitmap embedded in it.",
+                help_text=(
+                    "MUST be a black-on-transparent SVG icon ONLY, "
+                    "with no bitmap embedded in it."
+                ),
                 upload_to="topics/icons",
-                validators=[developerportal.apps.topics.models.check_for_svg_file],
+                validators=[developerportal.apps.common.validators.check_for_svg_file],
             ),
         )
     ]

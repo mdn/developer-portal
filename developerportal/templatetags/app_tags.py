@@ -6,6 +6,7 @@ from mimetypes import guess_type
 
 from django import template
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.safestring import mark_safe
 
 from developerportal.apps.common.constants import (
@@ -46,6 +47,11 @@ def random_hash(start_with_letter=True):
 @register.simple_tag
 def render_svg(f):
     return mark_safe(f.read().decode("utf-8"))
+
+
+@register.filter
+def to_svg(f):
+    return render_svg(f)
 
 
 @register.simple_tag
@@ -159,3 +165,15 @@ def get_favicon_path():
 @register.simple_tag
 def is_production_site():
     return settings.ACTIVE_ENVIRONMENT == ENVIRONMENT_PRODUCTION
+
+
+@register.simple_tag
+def get_menu_item_icon(page):
+    icon_url = static("img/icons/default-d.svg")
+
+    try:
+        icon_url = page.icon.url
+    except (AttributeError, ValueError):
+        pass
+
+    return icon_url
