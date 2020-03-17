@@ -18,10 +18,10 @@
     @media #{$mq-md} {
       display: grid;
       grid-column-start: 1;
-      margin: auto;
+      margin: 13px auto 0 auto;
       max-width: none;
       visibility: visible;
-      width: 420px;
+      width: 380px;
     }
   }
 
@@ -36,11 +36,6 @@
       width: 80%;
     }
   }
-  // .container {
-  //   @media #{$mq-md} {
-  //     max-width: 420px;
-  //   }
-  // }
 
   .mzp-c-button {
     margin-bottom: 0px;
