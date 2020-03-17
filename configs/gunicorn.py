@@ -4,7 +4,7 @@ from multiprocessing import cpu_count
 bind = f"0.0.0.0:{getenv('APP_PORT', '8000')}"
 
 # Log section
-if getenv('DEBUG') == "true":
+if getenv('DEBUG').tolower() == "true":
     loglevel = 'debug'
 else:
     loglevel = 'info'
@@ -18,7 +18,7 @@ access_log_format = '%(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%
 keepalive = getenv('APP_GUNICORN_TIMEOUT', '118')
 
 # NOTE: use keepalive instead of timeout
-# timout = getenv('APP_GUNICORN_TIMEOUT', '118')
+# timeout = getenv('APP_GUNICORN_TIMEOUT', '118')
 
 if getenv('DJANGO_ENV') == 'dev':
     workers = '3'
