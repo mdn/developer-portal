@@ -8,26 +8,21 @@
 
 {% load wagtailcore_tags %}
 
-<div class="mzp-l-content">
+<div class="mzp-l-content people-section">
   <div class="section-header">
-    <h2>{{ title|default:"People" }}</h2>
+    <h2>{{ title|default:"People" }}
     {% if show_link and directory_pages.people %}
-      <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
+      <span>
+        <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
+      </span>
     {% endif %}
+    </h2>
   </div>
-  {% if people|length == 1 %}
-    {# a single person is rendered full width #}
-    <div>
-      {% with people.0 as person %}
-        {% include "molecules/item-person.html" with person=person type="person" full_width=True %}
-      {% endwith %}
-    </div>
-  {% else %}
-    {# 2 or 3 are rendered side-by-side #}
-    <div class="card-mzp-l-content {% if people|length == 2 %}card-mzp-l-content-2-wide{% endif %}">
-      {% for person in people %}
-        {% include "molecules/item-person.html" with person=person type="person" full_width=False %}
-      {% endfor %}
-    </div>
-  {% endif %}
+
+  {# Render cards side by side, up to three, always same width #}
+  <div class="mzp-l-card-third">
+    {% for person in people %}
+      {% include "molecules/item-person.html" with person=person type="person" full_width=False %}
+    {% endfor %}
+  </div>
 </div>
