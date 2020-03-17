@@ -4,7 +4,7 @@ from multiprocessing import cpu_count
 bind = f"0.0.0.0:{getenv('APP_PORT', '8000')}"
 
 # Log section
-if getenv('DEBUG').tolower() == "true":
+if getenv('DEBUG').lower() == "true":
     loglevel = 'debug'
 else:
     loglevel = 'info'
