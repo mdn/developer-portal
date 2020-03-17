@@ -5,11 +5,6 @@
 
 {% block body_class %}topic{% endblock %}
 
-{% block header %}
-  {{ block.super }}
-  {% include "utils/accent-color.html" with color=page.color_value %}
-{% endblock %}
-
 {% block content %}
 <main>
   {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}

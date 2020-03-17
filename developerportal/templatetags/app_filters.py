@@ -1,3 +1,5 @@
+import math
+
 from django import template
 from django.utils.safestring import mark_safe
 
@@ -57,3 +59,12 @@ def syntax_highlight(value, language):
 @register.filter(name="times")
 def times(number):
     return range(number)
+
+
+@register.filter
+def split_across_two_columns(list_):
+    """For the given list_, split its members across two smaller lists,
+    with the first containing more elements if the total number is odd.
+    """
+    cutoff = math.ceil(len(list_) / 2)
+    return (list_[:cutoff], list_[cutoff:])

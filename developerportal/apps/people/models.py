@@ -1,7 +1,15 @@
 from itertools import chain
 from operator import attrgetter
 
-from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, Q, TextField
+from django.db.models import (
+    CASCADE,
+    SET_NULL,
+    CharField,
+    FileField,
+    ForeignKey,
+    Q,
+    TextField,
+)
 
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -31,6 +39,7 @@ from ..common.constants import (
 )
 from ..common.models import BasePage
 from ..common.utils import get_past_event_cutoff, paginate_resources
+from ..common.validators import check_for_svg_file
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -59,12 +68,29 @@ class People(BasePage):
 
     # Meta fields
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
+    icon = FileField(
+        upload_to="people/icons",
+        blank=True,
+        default="",
+        help_text=(
+            "MUST be a black-on-transparent SVG icon ONLY, "
+            "with no bitmap embedded in it."
+        ),
+        validators=[check_for_svg_file],
+    )
 
     # Content panels
     content_panels = BasePage.content_panels + [FieldPanel("description")]
 
     # Meta panels
     meta_panels = [
+        MultiFieldPanel(
+            [FieldPanel("icon")],
+            heading="Theme",
+            help_text=(
+                "This icon will be used if, for example, this page is shown in a Menu"
+            ),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("seo_title"),
@@ -77,7 +103,7 @@ class People(BasePage):
                 "Optional fields to override the default title and description "
                 "for SEO purposes"
             ),
-        )
+        ),
     ]
 
     # Settings panels
