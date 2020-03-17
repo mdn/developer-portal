@@ -35,6 +35,7 @@ RUN pip install -U pip
 RUN pip install -r requirements.txt --no-cache-dir
 RUN apk --purge del .build-deps
 
+COPY configs/ /app/configs/
 COPY etc/newrelic.ini /app/etc/newrelic.ini
 COPY manage.py requirements.txt /app/
 COPY developerportal/ /app/developerportal/
