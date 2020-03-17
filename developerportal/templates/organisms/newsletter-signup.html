@@ -1,12 +1,30 @@
-<section id="newsletter" class="section section-background newsletter-signup">
-  <div class="container">
-    <h2 class="no-underline">Discover the best of web development</h2>
-    <p>Sign up for the Mozilla Developer Newsletter</p>
-    <p>
-      <a class="mzp-c-button mzp-t-small mzp-t-dark newsletter-signup-link-button"
-        href="https://www.mozilla.com/newsletter/developer/">
-        Sign up now
-      </a>
-    </p>
-  </div>
-</section>
+{% load static %}
+
+<div class="container">
+  <aside id="newsletter" class="newsletter-signup mzp-c-newsletter">
+    <div class="mzp-c-newsletter-image">
+      <img src="{% static 'img/newsletter-promo.jpg' %}" alt="Newsletter signup promotional image">
+    </div>
+    <form id="newsletter-form" class="mzp-c-newsletter-form" name="newsletter-form">
+      <h2 class="no-underline">Discover the best of web development</h2>
+      <p>Sign up for the Mozilla Developer Newsletter</p>
+      <div class="js-newsletter-fields" data-success-message="<b>Thank you. Please check your email to confirm your subscription.</b>">
+        <input type="hidden" name="newsletters" value="app-dev">
+        <input type="hidden" name="fmt" value="H">
+        <p>
+          <label for="newsletter-email">Your email address</label>
+          <input type="email" name="email" class="newsletter-email" id="newsletter-email" placeholder="you@example.com" required aria-required="true">
+        </p>
+        <p>
+          <label for="newsletter-privacy" class="mzp-u-inline">
+            <input type="checkbox" name="privacy" id="newsletter-privacy" required aria-required="true">
+            I'm okay with Mozilla handling my info as explained in this <a class="privacy-link" href="https://www.mozilla.org/privacy/websites/" target="_blank" rel="noopener noreferrer">Privacy Notice</a>.
+          </label>
+        </p>
+        <p>
+          <button type="submit" class="mzp-c-button mzp-t-small">Sign up now</button>
+        </p>
+      </div>
+    </form>
+  </aside>
+</div>
