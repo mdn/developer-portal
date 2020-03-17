@@ -53,7 +53,7 @@ beforeEach(() => {
   fetch.resetMocks();
 });
 
-test('Happy path', () => {
+test('Happy path', async () => {
   fetchMock.mockResponseOnce(JSON.stringify({ success: true }));
   document.body.innerHTML = exampleFormHTML;
   NewsletterSubscription.init(); // this is how it's invoked in index.js
@@ -79,13 +79,14 @@ test('Happy path', () => {
     'https://www.mozilla.org/en-US/newsletter/',
   );
 
-  // show the content in js-newsletter-fields has been updated after a successful POST
-  // THIS IS CURRENTLY FAILING EVEN THOUGH IT WORKS IN THE REAL BROWSER
-  //
-  // const newsletterFieldsDivContent = form.getElementsByClassName(
-  //   'js-newsletter-fields',
-  // )[0].innerHTML;
-  // expect(newsletterFieldsDivContent).toBe(
-  //   '<b>Thank you. Please check your email to confirm your subscription.</b>',
-  // );
+  // Show the content in js-newsletter-fields has been updated after a successful POST,
+  // but to do that we need to pause a moment
+  await new Promise(resolve => setTimeout(resolve));
+
+  const newsletterFieldsDivContent = form.getElementsByClassName(
+    'js-newsletter-fields',
+  )[0].innerHTML;
+  expect(newsletterFieldsDivContent).toBe(
+    '<b>Thank you. Please check your email to confirm your subscription.</b>',
+  );
 });
