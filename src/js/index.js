@@ -13,6 +13,7 @@ const TabbedPanels = require('./organisms/tabbed-panels');
 const Toggle = require('./atoms/toggle');
 const NotificationBar = require('./organisms/notification-bar');
 const TaskCompletionPrompt = require('./task-completion-prompt');
+const NewsletterSubscription = require('./newsletter-subscription');
 
 /**
  * JS from Mozilla's Protocol design system
@@ -44,4 +45,5 @@ window.addEventListener('DOMContentLoaded', () => {
   Toggle.init();
   NotificationBar.init();
   TaskCompletionPrompt.init();
+  NewsletterSubscription.init();
 });
