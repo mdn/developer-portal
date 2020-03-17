@@ -1,6 +1,10 @@
 .topic-links {
   background-color: $color-light-gray-10;
 
+  h3 {
+    font-family: Inter, X-LocaleSpecific, sans-serif;
+  }
+
   .section-header {
     padding: $spacing-sm 0px $spacing-xl;
   }
@@ -10,6 +14,7 @@
   }
 
   .mzp-c-card-title span {
+    font-family: Inter, X-LocaleSpecific, sans-serif;
     display: block;
     margin: $spacing-sm auto;
   }

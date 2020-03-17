@@ -5,13 +5,13 @@
     <div class="mzp-l-content">
       <div class="section-header">
         {% if pagetheme == 'home' or pagetheme == 'directory' %}
-          <h2>Browse {{TOPICS_TITLE_LABEL|lower}}</h2>
+          <h3>Browse {{TOPICS_TITLE_LABEL|lower}}</h3>
         {% endif %}
         {% if pagetheme == 'topic' %}
-          <h2>Continue exploring</h2>
+          <h3>Continue exploring</h3>
         {% endif %}
         {% if pagetheme == 'person' %}
-          <h2>{{TOPICS_TITLE_LABEL}} I specialize in</h2>
+          <h3>{{TOPICS_TITLE_LABEL}} I specialize in</h3>
         {% endif %}
       </div>
       {% if topics.count == 1 %}
