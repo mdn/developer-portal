@@ -4,7 +4,7 @@ from multiprocessing import cpu_count
 bind = f"0.0.0.0:{getenv('APP_PORT', '8000')}"
 
 # Log section
-if getenv('DEBUG').lower() == "true":
+if getenv('DEBUG') is not None and getenv('DEBUG').lower() == "true":
     loglevel = 'debug'
 else:
     loglevel = 'info'
@@ -20,7 +20,7 @@ keepalive = getenv('APP_GUNICORN_TIMEOUT', '118')
 # NOTE: use keepalive instead of timeout
 # timeout = getenv('APP_GUNICORN_TIMEOUT', '118')
 
-if getenv('DJANGO_ENV') == 'dev':
+if getenv('DJANGO_ENV') is not None and getenv('DJANGO_ENV') == 'dev':
     workers = '3'
 else:
     # Automatically figure number of workers if environment is not set
