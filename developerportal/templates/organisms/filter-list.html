@@ -3,7 +3,7 @@
     <div class="pattern-section-pattern pattern-section-pattern-before">
       {% include "atoms/pattern.html" %}
     </div>
-    <div class="container">
+    <div class="mzp-l-content">
         {% if heading %}
           <h2>{{ heading }}</h2>
         {% endif %}
@@ -18,7 +18,7 @@
             </div>
           </aside>
           <div class="filter-list-items">
-            <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
+            <div class="{% if type != 'event' %}card-mzp-l-content{% endif %}" id="{{ type }}-cards">
               {% for resource in resources %}
                 {% if type == "article" %}
                   {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}

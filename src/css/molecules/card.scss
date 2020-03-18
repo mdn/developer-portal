@@ -182,9 +182,209 @@
   }
 }
 
+/* -------------------------------------------------------------------------- */
+// Extra card CSS lifted from mozilla.org's home.css
+
+@media (min-width: 480px) {
+  .mzp-l-card-quarter {
+    zoom: 1;
+  }
+  .mzp-l-card-quarter:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+  .mzp-l-card-quarter .mzp-c-card {
+    width: calc(50% - (32px / 2));
+  }
+  .mzp-l-card-quarter .mzp-c-card {
+    float: left;
+    margin-left: 0;
+    margin-right: 32px;
+  }
+  [dir='rtl'] .mzp-l-card-quarter .mzp-c-card {
+    float: right;
+    margin-left: 32px;
+    margin-right: 0;
+  }
+  .mzp-l-card-quarter .mzp-c-card:nth-child(even) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media (min-width: 1024px) {
+  .mzp-l-card-quarter .mzp-c-card {
+    width: calc(25% - (32px - (32px / 4)));
+  }
+  .mzp-l-card-quarter .mzp-c-card {
+    margin-left: 0;
+    margin-right: 32px;
+  }
+  [dir='rtl'] .mzp-l-card-quarter .mzp-c-card {
+    margin-left: 32px;
+    margin-right: 0;
+  }
+  .mzp-l-card-quarter .mzp-c-card:nth-child(even) {
+    margin-left: 0;
+    margin-right: 32px;
+  }
+  [dir='rtl'] .mzp-l-card-quarter .mzp-c-card:nth-child(even) {
+    margin-left: 32px;
+    margin-right: 0;
+  }
+  .mzp-l-card-quarter .mzp-c-card:nth-child(4n) {
+    margin-right: 0;
+  }
+  [dir='rtl'] .mzp-l-card-quarter .mzp-c-card:nth-child(4n) {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .mzp-l-card-quarter .mzp-c-card:nth-child(4n + 1) {
+    clear: left;
+  }
+  [dir='rtl'] .mzp-l-card-quarter .mzp-c-card:nth-child(4n + 1) {
+    clear: right;
+  }
+}
+@media (min-width: 480px) {
+  .mzp-l-card-third {
+    zoom: 1;
+  }
+  .mzp-l-card-third:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+  .mzp-l-card-third .mzp-c-card {
+    width: calc(50% - (32px / 2));
+  }
+  .mzp-l-card-third .mzp-c-card {
+    float: left;
+    margin-left: 0;
+    margin-right: 32px;
+  }
+  [dir='rtl'] .mzp-l-card-third .mzp-c-card {
+    float: right;
+    margin-left: 32px;
+    margin-right: 0;
+  }
+  .mzp-l-card-third .mzp-c-card:nth-child(even) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media (min-width: 1024px) {
+  .mzp-l-card-third .mzp-c-card {
+    width: calc(33.3% - (32px - (32px / 3)));
+  }
+  .mzp-l-card-third .mzp-c-card:nth-child(even) {
+    margin-left: 0;
+    margin-right: 32px;
+  }
+  [dir='rtl'] .mzp-l-card-third .mzp-c-card:nth-child(even) {
+    margin-left: 32px;
+    margin-right: 0;
+  }
+  .mzp-l-card-third .mzp-c-card:nth-child(3n) {
+    margin-right: 0;
+  }
+  [dir='rtl'] .mzp-l-card-third .mzp-c-card:nth-child(3n) {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .mzp-l-card-third .mzp-c-card:nth-child(3n + 1) {
+    clear: left;
+  }
+  [dir='rtl'] .mzp-l-card-third .mzp-c-card:nth-child(3n + 1) {
+    clear: right;
+  }
+}
+@media (min-width: 768px) {
+  .mzp-l-card-third {
+    zoom: 1;
+  }
+  .mzp-l-card-third:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+  .mzp-l-card-third .mzp-c-card-picto {
+    width: 33.3%;
+  }
+  .mzp-l-card-third .mzp-c-card-picto {
+    float: left;
+  }
+  [dir='rtl'] .mzp-l-card-third .mzp-c-card-picto {
+    float: right;
+  }
+}
+@media (min-width: 480px) {
+  .mzp-l-card-half {
+    zoom: 1;
+  }
+  .mzp-l-card-half:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+  .mzp-l-card-half .mzp-c-card {
+    float: left;
+    margin-left: 0;
+    margin-right: 32px;
+  }
+  [dir='rtl'] .mzp-l-card-half .mzp-c-card {
+    float: right;
+    margin-left: 32px;
+    margin-right: 0;
+  }
+  .mzp-l-card-half .mzp-c-card:nth-child(2n) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .mzp-l-card-half .mzp-c-card:nth-child(2n + 1) {
+    clear: left;
+  }
+  [dir='rtl'] .mzp-l-card-half .mzp-c-card:nth-child(2n + 1) {
+    clear: right;
+  }
+  .mzp-l-card-half .mzp-c-card {
+    width: calc(50% - (32px - (32px / 2)));
+  }
+}
+@media (min-width: 768px) {
+  .mzp-l-card-half {
+    zoom: 1;
+  }
+  .mzp-l-card-half:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+  .mzp-l-card-half .mzp-c-card-picto {
+    width: 50%;
+  }
+  .mzp-l-card-half .mzp-c-card-picto {
+    float: left;
+  }
+  [dir='rtl'] .mzp-l-card-half .mzp-c-card-picto {
+    float: right;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 // OLD CSS BELOW - WILL BE REFACTORED/REMOVED
 
-.section-header,
+// .section-header,
 .card-container {
   margin-left: auto;
   margin-right: auto;
@@ -287,34 +487,39 @@
 }
 
 .card {
-  background-color: $color-white;
-  border: 2px solid $color-marketing-gray-20;
-  border-radius: 2px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 24px;
-  transition: box-shadow 100ms, transform 100ms;
-  width: 100%;
-  will-change: box-shadow, transform;
+  // background-color: $color-white;
+  // border: 2px solid $color-marketing-gray-20;
+  // border-radius: 2px;
+  // display: flex;
+  // flex-direction: column;
+  // margin-bottom: 24px;
+  // transition: box-shadow 100ms, transform 100ms;
+  // width: 100%;
+  // will-change: box-shadow, transform;
 
-  @media #{$mq-md} {
-    margin-bottom: 0;
-  }
+  // @media #{$mq-md} {
+  //   margin-bottom: 0;
+  // }
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    will-change: auto;
-  }
+  // @media (prefers-reduced-motion: reduce) {
+  //   transition: none;
+  //   will-change: auto;
+  // }
 
-  .card-link:hover & {
-    border-color: $color-black;
-    box-shadow: 4px 4px 0 0 $color-black;
-    transform: translate(-2px, -2px);
+  // .card-link:hover & {
+  //   border-color: $color-black;
+  //   box-shadow: 4px 4px 0 0 $color-black;
+  //   transform: translate(-2px, -2px);
 
-    @media (prefers-reduced-motion: reduce) {
-      box-shadow: none;
-      transform: none;
-    }
+  //   @media (prefers-reduced-motion: reduce) {
+  //     box-shadow: none;
+  //     transform: none;
+  //   }
+  // }
+
+  &.external-promo {
+    display: flex;
+    // flex-direction: column;
   }
 
   .card-container & {

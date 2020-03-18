@@ -8,7 +8,7 @@
     </div>
   {% else %}
     {# 2 or 3 are rendered side-by-side #}
-    <div class="card-container {% if cards|length == 2 %}card-container-2-wide{% endif %}">
+    <div class="card-mzp-l-content {% if cards|length == 2 %}card-mzp-l-content-2-wide{% endif %}">
       {% for card in cards|slice:count %}
         {% include "molecules/cards/card.html" with resource=card show_author=show_author card_number=forloop.counter %}
       {% endfor %}
