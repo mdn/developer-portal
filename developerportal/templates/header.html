@@ -43,9 +43,11 @@
                                           <img src="{% get_menu_item_icon page %}" class="mzp-c-menu-item-icon" alt="" width="24" height="24">
                                           <h4 class="mzp-c-menu-item-title">{{ page.title }}</h4>
                                         </a>
+                                        {% if page.nav_description %}
                                         <div class="mzp-c-menu-item-desc">
-                                          {{page.description|richtext}}
+                                          <p>{{page.nav_description}}</p>
                                         </div>
+                                        {% endif %}
                                       </section>
                                     </li>
                                   {% endfor %}
