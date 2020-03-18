@@ -72,6 +72,9 @@ class ContentPage(BasePage):
     )
 
     # Meta fields
+    nav_description = TextField(
+        "Navigation description", max_length=400, blank=True, default=""
+    )
     icon = FileField(
         upload_to="contentpage/icons",
         blank=True,
@@ -97,13 +100,38 @@ class ContentPage(BasePage):
 
     # Card panels
     card_panels = [
-        FieldPanel("card_title"),
-        FieldPanel("card_description"),
-        ImageChooserPanel("card_image"),
+        FieldPanel(
+            "card_title",
+            help_text=(
+                "Title displayed when this page is "
+                "represented by a card in a list of items. "
+                "If blank, the page's title is used."
+            ),
+        ),
+        FieldPanel(
+            "card_description",
+            help_text=(
+                "Summary text displayed when this page is "
+                "represented by a card in a list of items. "
+                "If blank, the page's description is used."
+            ),
+        ),
+        ImageChooserPanel(
+            "card_image",
+            help_text=(
+                "Summary image displayed when this page is "
+                "represented by a card in a list of items. "
+                "If blank, the page's image is used, if set."
+            ),
+        ),
     ]
 
     # Meta panels
     meta_panels = [
+        FieldPanel(
+            "nav_description",
+            help_text="Text to display in the navigation with the title for this page.",
+        ),
         MultiFieldPanel(
             [FieldPanel("icon")],
             heading="Theme",

@@ -21,6 +21,10 @@
     padding: 0px 24px 12px 0px;
     .mzp-c-menu-item-desc {
       margin: $spacing-sm 0 0 $spacing-2xl;
+
+      p {
+        margin-bottom: 0px;
+      }
     }
 
     .mzp-c-menu-item-link {
