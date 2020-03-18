@@ -67,6 +67,9 @@ class People(BasePage):
     )
 
     # Meta fields
+    nav_description = TextField(
+        "Navigation description", max_length=400, blank=True, default=""
+    )
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
     icon = FileField(
         upload_to="people/icons",
@@ -84,6 +87,10 @@ class People(BasePage):
 
     # Meta panels
     meta_panels = [
+        FieldPanel(
+            "nav_description",
+            help_text="Text to display in the navigation with the title for this page.",
+        ),
         MultiFieldPanel(
             [FieldPanel("icon")],
             heading="Theme",
