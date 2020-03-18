@@ -7,17 +7,17 @@
 {% block content %}
   <main>
     <section class="section">
-      <div class="container">
+      <div class="mzp-l-content">
         {% include "organisms/video-header.html" with title=page.title description=page.description %}
       </div>
     </section>
     <section class="section">
-      <div class="container">
+      <div class="mzp-l-content">
         {{ page.video_url }}
       </div>
     </section>
     <section class="section">
-      <div class="container article-content">
+      <div class="mzp-l-content article-content">
         <div class="article-body">
           <div class="resource-toolbar">
             {% include "molecules/article-details.html" with date=page.date authors=page.speakers %}

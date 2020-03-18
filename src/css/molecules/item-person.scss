@@ -1,119 +1,119 @@
-.card-person {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  transition: transform 100ms;
-  will-change: transform;
+// .card-person {
+//   align-items: center;
+//   display: flex;
+//   flex-direction: row;
+//   text-align: left;
+//   transition: transform 100ms;
+//   will-change: transform;
 
-  @media #{$mq-md} {
-    flex-direction: column;
-    text-align: center;
-  }
+//   @media #{$mq-md} {
+//     flex-direction: column;
+//     text-align: center;
+//   }
 
-  @media (prefers-reduced-motion: reduce) {
-    transform: none;
-    will-change: auto;
-  }
+//   @media (prefers-reduced-motion: reduce) {
+//     transform: none;
+//     will-change: auto;
+//   }
 
-  .card-link:hover & {
-    transform: translate(-2px, -2px);
+//   .card-link:hover & {
+//     transform: translate(-2px, -2px);
 
-    @media (prefers-reduced-motion: reduce) {
-      transform: none;
-    }
-  }
+//     @media (prefers-reduced-motion: reduce) {
+//       transform: none;
+//     }
+//   }
 
-  .heading5 {
-    margin-bottom: 0;
-  }
-}
+//   .heading5 {
+//     margin-bottom: 0;
+//   }
+// }
 
-.card-person-speaker {
-  align-self: flex-start;
-  flex-direction: row;
-  padding: 16px 0;
-  text-align: left;
+// .card-person-speaker {
+//   align-self: flex-start;
+//   flex-direction: row;
+//   padding: 16px 0;
+//   text-align: left;
 
-  h4 {
-    margin-bottom: 5px;
-  }
-}
+//   h4 {
+//     margin-bottom: 5px;
+//   }
+// }
 
-.card-person.card-full {
-  align-items: flex-start;
-  flex-direction: column;
-  margin: 0;
-  text-align: left;
+// .card-person.card-full {
+//   align-items: flex-start;
+//   flex-direction: column;
+//   margin: 0;
+//   text-align: left;
 
-  @media #{$mq-md} {
-    flex-direction: row;
-    margin: 0 90px;
-  }
+//   @media #{$mq-md} {
+//     flex-direction: row;
+//     margin: 0 90px;
+//   }
 
-  .heading5 {
-    margin-bottom: 0.5em;
-  }
+//   .heading5 {
+//     margin-bottom: 0.5em;
+//   }
 
-  .card-content {
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+//   .card-content {
+//     align-items: center;
+//     justify-content: center;
+//     width: 100%;
 
-    .rich-text > p {
-      display: none;
-    }
+//     .rich-text > p {
+//       display: none;
+//     }
 
-    @media #{$mq-md} {
-      align-items: flex-start;
-      justify-content: center;
+//     @media #{$mq-md} {
+//       align-items: flex-start;
+//       justify-content: center;
 
-      .rich-text > p {
-        display: initial;
-        text-align: left;
-      }
-    }
-  }
-}
+//       .rich-text > p {
+//         display: initial;
+//         text-align: left;
+//       }
+//     }
+//   }
+// }
 
-.card-person-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
+// .card-person-content {
+//   display: flex;
+//   flex-direction: column;
+//   flex-grow: 1;
+//   justify-content: center;
 
-  .highlight {
-    font-size: 24px;
-  }
-}
+//   .highlight {
+//     font-size: 24px;
+//   }
+// }
 
-.card-person-image {
-  font-size: 0;
-  margin-right: 16px;
-  max-width: 80px;
-  width: 100%;
+// .card-person-image {
+//   font-size: 0;
+//   margin-right: 16px;
+//   max-width: 80px;
+//   width: 100%;
 
-  @media #{$mq-md} {
-    margin-bottom: 16px;
-    margin-right: 0;
-    max-width: 284px;
-  }
+//   @media #{$mq-md} {
+//     margin-bottom: 16px;
+//     margin-right: 0;
+//     max-width: 284px;
+//   }
 
-  .card-full & {
-    margin-bottom: 0;
-    margin-right: 24px;
-  }
+//   .card-full & {
+//     margin-bottom: 0;
+//     margin-right: 24px;
+//   }
 
-  .card-person-speaker & {
-    flex-shrink: 0;
-    margin-bottom: 0;
-    margin-right: 16px;
-    max-width: 80px;
-  }
+//   .card-person-speaker & {
+//     flex-shrink: 0;
+//     margin-bottom: 0;
+//     margin-right: 16px;
+//     max-width: 80px;
+//   }
 
-  img {
-    border-radius: 50%;
-    filter: grayscale(1);
-    width: 100%;
-  }
-}
+//   img {
+//     border-radius: 50%;
+//     filter: grayscale(1);
+//     width: 100%;
+//   }
+// }

@@ -13,12 +13,12 @@
   <main>
     {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
     <section class="section">
-      <div class="container">
+      <div class="mzp-l-content">
         {% include "molecules/event-details.html" with resource=page %}
       </div>
     </section>
     <section class="section">
-      <div class="container article-content">
+      <div class="mzp-l-content article-content">
         <div class="article-body">
           <div class="resource-toolbar">
             {% include "molecules/resource-share.html" %}

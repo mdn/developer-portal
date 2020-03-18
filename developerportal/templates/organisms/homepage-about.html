@@ -1,16 +1,22 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-<section class="section homepage-about">
-  <div class="container">
-    <h1>{{ title }}</h1>
-    {% if subtitle %}
-      <h5 class="no-underline">{{ subtitle }}</h5>
-    {% endif %}
-    {% if button_url and button_text %}
-      <div class="homepage-header-actions">
-        <a href="{{ button_url }}" class="mzp-c-button">{{ button_text }}</a>
+<section class="mzp-c-call-out-compact mzp-t-dark hide-from-legacy-ie">
+  <div class="mzp-l-content">
+    <div class="mzp-c-call-out-content">
+      <div class="mzp-c-call-out-container">
+        <h2 class="mzp-c-call-out-title">{{ title }}</h2>
+        {% if subtitle %}
+          <h5>{{ subtitle }}</h5>
+        {% endif %}
       </div>
+    </div>
+    {% if button_url and button_text %}
+    <div class="mzp-c-call-out-cta">
+      <div class="mzp-c-call-out-cta-container">
+        <a href="{{ button_url }}" class="mzp-c-button mzp-t-dark">{{ button_text }}</a>
+      </div>
+    </div>
     {% endif %}
   </div>
-</section>
+<div></div></section>

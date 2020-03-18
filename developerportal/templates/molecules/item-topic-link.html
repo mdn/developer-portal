@@ -1,6 +1,9 @@
 {% load wagtailcore_tags %}
 {% load app_tags %}
-{% load staticfiles %}
+
+{% comment %}
+
+This partial is passed a full_width variable, but we no longer act upon it
 
 <a href="{{ topic.url }}" class="item-topic-link {% if full_width %}item-topic-link-full{% endif %}">
   <div class="item-topic-link-icon">
@@ -16,4 +19,18 @@
       {{ topic.description | richtext }}
     {% endif %}
   </div>
-</a>
+</a> {% endcomment %}
+
+<section class="mzp-c-card mzp-c-card-extra-small">
+  <a class="mzp-c-card-block-link" href="{{ topic.url }}">
+    <div class="mzp-c-card-content">
+      <img src="{% get_menu_item_icon topic %}" class="topic-item-icon" alt="" width="24" height="24">
+      <h2 class="mzp-c-card-title"><span>{{ topic.title }}</span></h2>
+      {% if topic.description %}
+        <div class="mzp-c-card-desc">
+        {{ topic.description | richtext }}
+        </div>
+      {% endif %}
+    </div>
+  </a>
+</section>
