@@ -8,7 +8,7 @@
 
   @media #{$mq-md} {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 15% repeat(2, 1fr) 15%;
     grid-gap: $grid-gap-mobile;
   }
 
@@ -17,9 +17,8 @@
     visibility: hidden;
     @media #{$mq-md} {
       display: grid;
-      grid-column-start: 1;
+      grid-column-start: 2;
       margin: 13px auto 0 auto;
-      max-width: none;
       visibility: visible;
       width: 380px;
     }
@@ -27,8 +26,8 @@
 
   .mzp-c-newsletter-form {
     width: auto;
-    max-width: none;
-    grid-column-start: 2;
+    max-width: 670px;
+    grid-column-start: 3;
     padding: 0px $spacing-lg;
   }
   .newsletter-email {
