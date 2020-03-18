@@ -1,25 +1,25 @@
 .filter-list-content {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 4fr 8fr;
-  column-gap: $grid-gap-mobile;
-  grid-template-columns: [items-start sidebar-start] 1fr [sidebar-end items-end];
+  // display: -ms-grid;
+  // display: grid;
+  // -ms-grid-columns: 4fr 8fr;
+  // column-gap: $grid-gap-mobile;
+  // grid-template-columns: [items-start sidebar-start] 1fr [sidebar-end items-end];
 
-  @media #{$mq-md} {
-    column-gap: $grid-gap;
-    grid-template-columns:
-      [sidebar-start] repeat(4, 1fr) [sidebar-end items-start] repeat(8, 1fr)
-      [items-end];
+  // @media #{$mq-md} {
+  //   column-gap: $grid-gap;
+  //   grid-template-columns:
+  //     [sidebar-start] repeat(4, 1fr) [sidebar-end items-start] repeat(8, 1fr)
+  //     [items-end];
 
-    html.no-js & {
-      grid-template-columns: [items-start] 1fr [items-end];
-    }
-  }
+  //   html.no-js & {
+  //     grid-template-columns: [items-start] 1fr [items-end];
+  //   }
+  // }
 }
 
 .filter-list-sidebar {
-  -ms-grid-column: 1;
-  grid-column: sidebar;
+  // -ms-grid-column: 1;
+  // grid-column: sidebar;
   margin-bottom: $grid-gap-mobile;
 
   html.no-js & {
@@ -68,8 +68,8 @@
 }
 
 .filter-list-items {
-  -ms-grid-column: 2;
-  grid-column: items;
+  // -ms-grid-column: 2;
+  // grid-column: items;
 
   .card-link {
     html.no-js &[hidden] {

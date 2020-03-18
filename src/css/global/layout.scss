@@ -1,0 +1,11 @@
+// Override Protocol's 25% / 75% layout to be 33% / 67%
+
+@media #{$mq-md} {
+  .mzp-l-sidebar {
+    width: 33.333% !important;
+  }
+
+  .mzp-l-main {
+    width: 66.665% !important;
+  }
+}

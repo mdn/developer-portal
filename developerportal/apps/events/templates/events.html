@@ -25,9 +25,9 @@
         {% endfor %}
       </article>
     </section>
-    <section class="section section-pattern">
+    <div class="section">
       {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=events no_resources_message="No upcoming events found" hide_pagination=True %}
-    </section>
+    </div>
     {% if past_events %}
       <section id="past-events" class="section">
         <div class="mzp-l-content">

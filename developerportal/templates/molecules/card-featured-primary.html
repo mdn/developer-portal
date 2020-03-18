@@ -43,13 +43,13 @@
           </span></span>
           {% endif %}
         </h2>
-        <p class="mzp-c-card-desc">
+        <div class="mzp-c-card-desc">
           {% if resource.card_description %}
             <p>{{ resource.card_description }}</p>
           {% else %}
             {{ resource.description | richtext }}
           {% endif %}
-        </p>
+        </div>
       </div>
     </a>
   </section>
