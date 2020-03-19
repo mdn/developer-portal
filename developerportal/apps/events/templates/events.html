@@ -4,6 +4,8 @@
 {% block body_class %}events{% endblock %}
 
 {% block content %}
+  {% include "molecules/header-strip.html" with content=page.title element="h1" %}
+
   <main>
     {% with page.featured|published as featured %}
       {% if featured %}
