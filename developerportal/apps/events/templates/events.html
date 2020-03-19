@@ -28,16 +28,6 @@
     <div class="section">
       {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=events no_resources_message="No upcoming events found" hide_pagination=True %}
     </div>
-    {% if past_events %}
-      <section id="past-events" class="section">
-        <div class="mzp-l-content">
-          <div class="section-header">
-            <h2>Past events</h2>
-          </div>
-          {% include "organisms/past-events.html" with events=past_events show_past_event_pagination=show_past_event_pagination %}
-        </div>
-      </section>
-    {% endif %}
     {% include "organisms/newsletter-signup.html" %}
   </main>
 {% endblock content %}
