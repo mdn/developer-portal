@@ -33,7 +33,7 @@ class EventsTests(PatchedWagtailPageTests):
     def test_events_subpages(self):
         self.assertAllowedSubpageTypes(Events, {Event})
 
-    def test_events_get_upcoming_events(self):
+    def test_events_get_events(self):
         # General test - more specific ones for the Qs are below
         events_page = Events.published_objects.first()
         now = datetime.datetime.now()
@@ -67,15 +67,22 @@ class EventsTests(PatchedWagtailPageTests):
         )
         event_day_before_yesterday.save()
 
-        events = events_page.get_upcoming_events(request)
+        events = events_page.get_events(request)
         self.assertIn(event_today, events)
         self.assertIn(event_tomorrow, events)
         self.assertIn(event_yesterday, events)  # CORRECT
         self.assertNotIn(event_day_before_yesterday, events)
 
+    @mock.patch("developerportal.apps.events.models.paginate_resources")
+    def test_events_get_events__paginates(self, mock_paginate_resources):
+        events_page = Events.published_objects.first()
+        request = RequestFactory().get("/")
+        events_page.get_events(request)
+        assert mock_paginate_resources.called
+
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     @mock.patch("developerportal.apps.events.models.get_combined_events")
-    def test_events__get_upcoming_events__query__no_params(
+    def test_events__get_events__query__no_params(
         self, mock_get_combined_events, mock_get_past_event_cutoff
     ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
@@ -84,14 +91,14 @@ class EventsTests(PatchedWagtailPageTests):
         fake_request = RequestFactory().get("/")
 
         expected_q = Q(start_date__gte=datetime.date(2022, 10, 3))
-        events_page.get_upcoming_events(fake_request)
+        events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
             events_page, q_object=expected_q
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     @mock.patch("developerportal.apps.events.models.get_combined_events")
-    def test_events__get_upcoming_events__query__all_params(
+    def test_events__get_events__query__all_params(
         self, mock_get_combined_events, mock_get_past_event_cutoff
     ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
@@ -123,7 +130,7 @@ class EventsTests(PatchedWagtailPageTests):
         expected_q.add(overall_date_q, Q.AND)
         expected_q.add(topics_q, Q.AND)
 
-        events_page.get_upcoming_events(fake_request)
+        events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
             events_page, q_object=expected_q
         )

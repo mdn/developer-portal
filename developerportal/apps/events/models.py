@@ -160,7 +160,7 @@ class Events(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
-        context["events"] = self.get_upcoming_events(request)
+        context["events"] = self.get_events(request)
         return context
 
     def _year_months_to_years_and_months_tuples(self, year_months):
@@ -203,9 +203,8 @@ class Events(BasePage):
         overall_date_q.add(default_future_events_q, Q.AND)
         return overall_date_q
 
-    def get_upcoming_events(self, request):
+    def get_events(self, request):
         """Return filtered future events in chronological order"""
-        # These are not paginated but ARE filtered
 
         countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
         years_months = request.GET.getlist(YEAR_MONTH_QUERYSTRING_KEY)
@@ -268,6 +267,8 @@ class Events(BasePage):
         pairs that _already_ appear in the list. If we don't, and if there is more than
         one Event for the same year-month, we end up with multiple Year-Months
         displayed in the filter options.
+
+        NB: also note that the template slots in a special "all past dates" option.
         """
         return sorted(set([datetime.date(x.year, x.month, 1) for x in dates]))
 
