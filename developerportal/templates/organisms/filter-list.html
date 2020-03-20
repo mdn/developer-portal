@@ -29,9 +29,9 @@
           {% include "molecules/cards/card.html" with resource=resource.event %}
         {% endif %}
       {% empty %}
-        <div class="filter-list-no-results">
-          <h2>{{ no_resources_message|default:"No results found" }}</h2>
-        </div>
+      <h2 class="filter-list-no-results">
+        {{ no_resources_message|default:"No results found" }}
+      </h2>
       {% endfor %}
     </div>
     {% if resources and not hide_pagination %}
