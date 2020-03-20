@@ -72,4 +72,7 @@ def filtering_constants(request):
         "ROLE_QUERYSTRING_KEY": constants.ROLE_QUERYSTRING_KEY,
         "COUNTRY_QUERYSTRING_KEY": constants.COUNTRY_QUERYSTRING_KEY,
         "YEAR_MONTH_QUERYSTRING_KEY": constants.YEAR_MONTH_QUERYSTRING_KEY,
+        "PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE": (
+            constants.PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE
+        ),
     }

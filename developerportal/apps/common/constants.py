@@ -81,6 +81,9 @@ ROLE_QUERYSTRING_KEY = "role"
 COUNTRY_QUERYSTRING_KEY = "country"
 YEAR_MONTH_QUERYSTRING_KEY = "year_month"
 
+# This is a special value for the above that indicates "all previous events"
+PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE = "all-past"
+
 # Note: see app_tags.pagination_additional_filter_params to add support/whitelisting
 # to anynew querystring keys you add here, else they will be ignored
 ENVIRONMENT_PRODUCTION = "production"

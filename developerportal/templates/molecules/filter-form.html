@@ -33,6 +33,12 @@
           {{ date|date:'F Y' }}
         </label>
       {% endfor %}
+      {% if show_past_date_option %}
+        <label>
+          <input type="checkbox" name="{{YEAR_MONTH_QUERYSTRING_KEY}}" value="{{ PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE }}">
+          Past events
+        </label>
+      {% endif %}
     </fieldset>
   {% endif %}
 
