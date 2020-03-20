@@ -37,6 +37,7 @@ from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExter
 from ..common.constants import (
     COUNTRY_QUERYSTRING_KEY,
     PAGINATION_QUERYSTRING_KEY,
+    PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
     TOPIC_QUERYSTRING_KEY,
     YEAR_MONTH_QUERYSTRING_KEY,
@@ -162,6 +163,27 @@ class Events(BasePage):
         context["filters"] = self.get_filters()
         context["events"] = self.get_events(request)
         return context
+
+    def _pop_past_events_marker_from_year_months(self, year_months):
+        """For the given list of "YYYY-MM" strings, return a list of tuples
+        containg the year and and month, as unmutated strings, PLUS a separate
+        boolean value, defaulting to False.
+
+        Example input:  ["2020-03", "2020-12"]
+        Example output:  (["2020-03", "2020-12"], False)
+
+        Example input:  ["2020-03", "2020-12", "all-past"]
+        Example output:  (["2020-03", "2020-12"], True)
+        """
+
+        all_past_found = bool(year_months) and (
+            PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE in year_months
+        )
+
+        if all_past_found:
+            year_months.pop(year_months.index(PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE))
+
+        return year_months, all_past_found
 
     def _year_months_to_years_and_months_tuples(self, year_months):
         """For the given list of "YYYY-MM" strings, return a list of tuples

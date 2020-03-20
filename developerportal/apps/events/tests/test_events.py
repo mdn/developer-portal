@@ -153,6 +153,37 @@ class EventsTests(PatchedWagtailPageTests):
                     case["out"],
                 )
 
+    def test_pop_past_events_marker_from_year_months(self):
+        events_page = Events()
+
+        cases = (
+            {"in": "", "out": ("", False)},
+            {"in": [""], "out": ([""], False)},
+            {"in": [None], "out": ([None], False)},
+            {"in": None, "out": (None, False)},
+            {"in": ["2019-10"], "out": (["2019-10"], False)},
+            {"in": ["2019-10", "2022-03"], "out": (["2019-10", "2022-03"], False)},
+            {
+                "in": ["2019-10", "2022-03", "all-past"],
+                "out": (["2019-10", "2022-03"], True),
+            },
+            {
+                "in": ["2019-10", "all-past", "2022-03"],
+                "out": (["2019-10", "2022-03"], True),
+            },
+            {
+                "in": ["all-past", "2019-10", "2022-03"],
+                "out": (["2019-10", "2022-03"], True),
+            },
+            {"in": ["all-past"], "out": ([], True)},
+        )
+        for case in cases:
+            with self.subTest(case=case):
+                self.assertEqual(
+                    events_page._pop_past_events_marker_from_year_months(case["in"]),
+                    case["out"],
+                )
+
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     def test__build_date_q__default_only(self, mock_get_past_event_cutoff):
 
