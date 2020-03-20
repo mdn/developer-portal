@@ -2,7 +2,7 @@
   {% if heading %}
     <h2>{{ heading }}</h2>
   {% endif %}
-  <aside class="mzp-l-sidebar">
+  <aside class="mzp-l-sidebar custom-width">
     {% comment %} filtering controls {% endcomment %}
     <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
       <summary>Filter</summary>
@@ -12,7 +12,7 @@
       {% include "molecules/filter-form.html" with resources=resources filters=filters %}
     </div>
   </aside>
-  <div class="mzp-l-main">
+  <div class="mzp-l-main custom-width">
     <div class="mzp-l-card-half" id="{{ type }}-cards">
       {% for resource in resources %}
         {% if type == "article" %}

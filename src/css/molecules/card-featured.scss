@@ -7,19 +7,21 @@
 }
 
 // Introduce a new 3-1 ratio image card, namespaced as devportal
-.mzp-c-card.devportal-has-aspect-3-1 .mzp-c-card-media-wrapper {
-  padding-bottom: 33.33%;
-  position: relative;
-}
-.mzp-c-card.devportal-has-aspect-3-1 .mzp-c-card-media-wrapper img,
-.mzp-c-card.devportal-has-aspect-3-1 .mzp-c-card-media-wrapper video,
-.mzp-c-card.devportal-has-aspect-3-1 .mzp-c-card-media-wrapper iframe,
-.mzp-c-card.devportal-has-aspect-3-1 .mzp-c-card-media-wrapper object,
-.mzp-c-card.devportal-has-aspect-3-1 .mzp-c-card-media-wrapper embed {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: -50%; // to mock-vertically center the image
-  /*! height:  50%; */
+.mzp-c-card.devportal-has-aspect-3-1 {
+  .mzp-c-card-media-wrapper {
+    padding-bottom: 33.33%;
+    position: relative;
+
+    img,
+    video,
+    iframe,
+    object,
+    embed {
+      position: absolute;
+      top: -50%; /* to mock-vertically center the image */
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
 }
