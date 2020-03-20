@@ -10,7 +10,7 @@
 {% include "molecules/header-strip.html" with content=page.title element="h1" %}
 
 <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
-  <main class="mzp-l-main">
+  <main class="mzp-l-main custom-width">
     <article>
       {% for block in page.body %}
         {% if block.block_type == 'image' %}
@@ -22,7 +22,7 @@
     </article>
   </main>
 
-  <aside class="mzp-l-sidebar">
+  <aside class="mzp-l-sidebar custom-width">
     <article>
       {% for block in page.sidebar %}
         {% if block.block_type == 'image' %}
