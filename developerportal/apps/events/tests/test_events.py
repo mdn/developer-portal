@@ -8,6 +8,7 @@ import pytz
 
 from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
+from ...common.constants import PAST_EVENTS_QUERYSTRING_VALUE
 from ...home.models import HomePage
 from ..models import Event, Events
 
@@ -68,6 +69,7 @@ class EventsTests(PatchedWagtailPageTests):
         event_day_before_yesterday.save()
 
         events = events_page.get_events(request)
+        # Default request is all future events, 8 per page
         self.assertIn(event_today, events)
         self.assertIn(event_tomorrow, events)
         self.assertIn(event_yesterday, events)  # CORRECT
@@ -98,7 +100,7 @@ class EventsTests(PatchedWagtailPageTests):
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     @mock.patch("developerportal.apps.events.models.get_combined_events")
-    def test_events__get_events__query__all_params(
+    def test_events__get_events__query__all_params_except_past_events(
         self, mock_get_combined_events, mock_get_past_event_cutoff
     ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
@@ -121,6 +123,46 @@ class EventsTests(PatchedWagtailPageTests):
         overall_date_q.add(date_q2, Q.OR)
         # Add the Q that stops past events for the selected month
         overall_date_q.add(Q(start_date__gte=datetime.date(2022, 10, 3)), Q.AND)
+
+        countries_q = Q(country__in=["CA", "ZA"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
+
+        expected_q = Q()
+        expected_q.add(countries_q, Q.AND)
+        expected_q.add(overall_date_q, Q.AND)
+        expected_q.add(topics_q, Q.AND)
+
+        events_page.get_events(fake_request)
+        mock_get_combined_events.assert_called_once_with(
+            events_page, q_object=expected_q, reverse=True
+        )
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    @mock.patch("developerportal.apps.events.models.get_combined_events")
+    def test_events__get_events__query__all_params_including_past_events(
+        self, mock_get_combined_events, mock_get_past_event_cutoff
+    ):
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+
+        events_page = Events.published_objects.first()
+        fake_request = RequestFactory().get(
+            (
+                "/?country=CA&country=ZA&topic=foo&topic=bar&topic=baz"
+                f"&date=2020-02&date=2020-03&date={PAST_EVENTS_QUERYSTRING_VALUE}"
+            )
+        )
+
+        date_q1 = Q(start_date__year="2020")
+        date_q1.add(Q(start_date__month="02"), Q.AND)
+
+        date_q2 = Q(start_date__year="2020")
+        date_q2.add(Q(start_date__month="03"), Q.AND)
+
+        overall_date_q = date_q1
+        overall_date_q.add(date_q2, Q.OR)
+
+        # Add the Q that INCLUDES all past events
+        overall_date_q.add(Q(start_date__lte=datetime.date(2022, 10, 3)), Q.OR)
 
         countries_q = Q(country__in=["CA", "ZA"])
         topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
@@ -164,18 +206,18 @@ class EventsTests(PatchedWagtailPageTests):
             {"in": ["2019-10"], "out": (["2019-10"], False)},
             {"in": ["2019-10", "2022-03"], "out": (["2019-10", "2022-03"], False)},
             {
-                "in": ["2019-10", "2022-03", "all-past"],
+                "in": ["2019-10", "2022-03", "include-past"],
                 "out": (["2019-10", "2022-03"], True),
             },
             {
-                "in": ["2019-10", "all-past", "2022-03"],
+                "in": ["2019-10", "include-past", "2022-03"],
                 "out": (["2019-10", "2022-03"], True),
             },
             {
-                "in": ["all-past", "2019-10", "2022-03"],
+                "in": ["include-past", "2019-10", "2022-03"],
                 "out": (["2019-10", "2022-03"], True),
             },
-            {"in": ["all-past"], "out": ([], True)},
+            {"in": ["include-past"], "out": ([], True)},
         )
         for case in cases:
             with self.subTest(case=case):
@@ -191,7 +233,8 @@ class EventsTests(PatchedWagtailPageTests):
         events_page = Events()
 
         output_q = events_page._build_date_q(
-            # the test above shows that this equates to no parameter-based filtering
+            # self.test_year_months_to_years_and_months_tuples() shows that this
+            # equates to no parameter-based filtering
             date_params=[""]
         )
 
@@ -200,7 +243,25 @@ class EventsTests(PatchedWagtailPageTests):
         self.assertEqual(output_q, expected_q)
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
-    def test__build_date_q__has_one_date_pair(self, mock_get_past_event_cutoff):
+    def test__build_date_q__past_events_specified(self, mock_get_past_event_cutoff):
+
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+        events_page = Events()
+
+        output_q = events_page._build_date_q(
+            # self.test_year_months_to_years_and_months_tuples() shows that this
+            # equates to no parameter-based filtering
+            date_params=["include-past"]
+        )
+
+        expected_q = Q()  # Just an empty Q with no date filtering at all
+
+        self.assertEqual(output_q, expected_q)
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    def test__build_date_q__has_one_date_pair_and_no_past_events(
+        self, mock_get_past_event_cutoff
+    ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
         events_page = Events()
 
@@ -223,7 +284,28 @@ class EventsTests(PatchedWagtailPageTests):
         self.assertEqual(output_q, expected_q)
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
-    def test__build_date_q__has_multiple_date_pairs(self, mock_get_past_event_cutoff):
+    def test__build_date_q__has_one_date_pair_and_past_events_specified(
+        self, mock_get_past_event_cutoff
+    ):
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+        events_page = Events()
+
+        output_q = events_page._build_date_q(date_params=["2023-10", "include-past"])
+
+        # build the expected result for comparison
+        date_q = Q(start_date__year="2023")
+        date_q.add(Q(start_date__month="10"), Q.AND)
+
+        expected_q = date_q
+        # Add the Q that INCLUDES all past events
+        expected_q.add(Q(start_date__lte=datetime.date(2022, 10, 3)), Q.OR)
+
+        self.assertEqual(output_q, expected_q)
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    def test__build_date_q__has_multiple_date_pairs_and_no_past_events(
+        self, mock_get_past_event_cutoff
+    ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
         events_page = Events()
         output_q = events_page._build_date_q(
@@ -246,6 +328,30 @@ class EventsTests(PatchedWagtailPageTests):
         expected_q.add(date_q2, Q.OR)
         # Add the Q that stops past events for the selected month
         expected_q.add(Q(start_date__gte=datetime.date(2022, 10, 3)), Q.AND)
+
+        self.assertEqual(output_q, expected_q)
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    def test__build_date_q__has_multiple_date_pairs_and_past_events_specified(
+        self, mock_get_past_event_cutoff
+    ):
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+        events_page = Events()
+        output_q = events_page._build_date_q(
+            date_params=["2024-03", "2023-10", "include-past"]
+        )
+
+        # build the expected result for comparison
+        date_q1 = Q(start_date__year="2024")
+        date_q1.add(Q(start_date__month="03"), Q.AND)
+
+        date_q2 = Q(start_date__year="2023")
+        date_q2.add(Q(start_date__month="10"), Q.AND)
+
+        expected_q = date_q1
+        expected_q.add(date_q2, Q.OR)
+        # Add the Q that INCLUDES all past events
+        expected_q.add(Q(start_date__lte=datetime.date(2022, 10, 3)), Q.OR)
 
         self.assertEqual(output_q, expected_q)
 

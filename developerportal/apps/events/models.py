@@ -173,18 +173,18 @@ class Events(BasePage):
         Example input:  ["2020-03", "2020-12"]
         Example output:  (["2020-03", "2020-12"], False)
 
-        Example input:  ["2020-03", "2020-12", "all-past"]
+        Example input:  ["2020-03", "2020-12", "include-past"]
         Example output:  (["2020-03", "2020-12"], True)
         """
 
-        all_past_events_flag = bool(date_params) and (
+        include_past_events_flag = bool(date_params) and (
             PAST_EVENTS_QUERYSTRING_VALUE in date_params
         )
 
-        if all_past_events_flag:
+        if include_past_events_flag:
             date_params.pop(date_params.index(PAST_EVENTS_QUERYSTRING_VALUE))
 
-        return date_params, all_past_events_flag
+        return date_params, include_past_events_flag
 
     def _year_months_to_years_and_months_tuples(self, year_months):
         """For the given list of "YYYY-MM" strings, return a list of tuples
@@ -198,16 +198,37 @@ class Events(BasePage):
             return []
         return [tuple(x.split("-")) for x in [y for y in year_months if y]]
 
-    def _build_date_q(self, year_months):
-        "Support filtering future events by selected year-month pair(s)"
-        default_future_events_q = Q(start_date__gte=get_past_event_cutoff())
+    def _build_date_q(self, date_params):
+        """Suport filtering events by selected year-month pair(s) and/or an
+        'all past events' Boolean.
 
+        Note that this method returns early, to avoid nested clauses
+
+        Arguments:
+            date_params: List(str) -- list of strings representing selected
+            dates in the filtering panel, where each string is either in YYYY-MM format
+            or the sentinel string PAST_EVENTS_QUERYSTRING_VALUE.
+
+        Returns:
+            django.models.QuerySet -- configured QuerySet based on arguments.
+        """
+
+        # Assemble facts from the year_months querystring data
+        year_months, include_past_events_flag = self._pop_past_events_marker_from_date_params(  # noqa: E501
+            date_params
+        )
         years_and_months_tuples = self._year_months_to_years_and_months_tuples(
             year_months
         )
+
+        if include_past_events_flag:
+            default_earliest_events_q = Q()  # Because we don't need to restrict
+        else:
+            default_earliest_events_q = Q(start_date__gte=get_past_event_cutoff())
+
         if not years_and_months_tuples:
             # Covers case where no year_months
-            return default_future_events_q
+            return default_earliest_events_q
 
         # Build a Q where it's (Month X AND Year X) OR (Month Y AND Year Y), etc
         overall_date_q = None
@@ -221,9 +242,18 @@ class Events(BasePage):
             else:
                 overall_date_q.add(date_q, Q.OR)
 
-        # Finally, ensure we don't include past events here (ie, same month as
-        # selected but before today)
-        overall_date_q.add(default_future_events_q, Q.AND)
+        if include_past_events_flag:
+            # Regardless of what's been specified in terms of specific dates, if
+            # "all past events" has been selected, we want to include all events
+            # UP TO the past/future threshold date but _without_ de-scoping
+            # whatever the other dates may have configured.
+            all_past_events_q = Q(start_date__lte=get_past_event_cutoff())
+
+            overall_date_q.add(all_past_events_q, Q.OR)  # NB: OR
+        else:
+            # Ensure we don't include past events here (ie, same month as
+            # selected but before _today_)
+            overall_date_q.add(default_earliest_events_q, Q.AND)  # NB: AND
         return overall_date_q
 
     def get_events(self, request):
@@ -234,9 +264,10 @@ class Events(BasePage):
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
         countries_q = Q(country__in=countries) if countries else Q()
-
         topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
-        # year_months need splitting to make them work
+
+        # date_params need splitting to make them work, plus we need to see if
+        # past events are also needed
         date_q = self._build_date_q(date_params)
 
         combined_q = Q()

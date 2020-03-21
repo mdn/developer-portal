@@ -82,7 +82,7 @@ COUNTRY_QUERYSTRING_KEY = "country"
 DATE_PARAMS_QUERYSTRING_KEY = "date"
 
 # This is a special value for the above that indicates "all previous events"
-PAST_EVENTS_QUERYSTRING_VALUE = "all-past"
+PAST_EVENTS_QUERYSTRING_VALUE = "include-past"
 
 # Note: see app_tags.pagination_additional_filter_params to add support/whitelisting
 # to anynew querystring keys you add here, else they will be ignored
