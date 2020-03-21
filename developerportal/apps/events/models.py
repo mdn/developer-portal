@@ -248,7 +248,7 @@ class Events(BasePage):
 
         # Combined_q will always have something because it includes
         # the start_date__gte test
-        events = get_combined_events(self, q_object=combined_q)
+        events = get_combined_events(self, reverse=True, q_object=combined_q)
 
         events = paginate_resources(
             events,

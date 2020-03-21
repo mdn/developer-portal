@@ -93,7 +93,7 @@ class EventsTests(PatchedWagtailPageTests):
         expected_q = Q(start_date__gte=datetime.date(2022, 10, 3))
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q
+            events_page, q_object=expected_q, reverse=True
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
@@ -132,7 +132,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q
+            events_page, q_object=expected_q, reverse=True
         )
 
     def test_year_months_to_years_and_months_tuples(self):
