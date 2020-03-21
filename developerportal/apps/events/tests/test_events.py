@@ -107,7 +107,7 @@ class EventsTests(PatchedWagtailPageTests):
         fake_request = RequestFactory().get(
             (
                 "/?country=CA&country=ZA&topic=foo&topic=bar&topic=baz"
-                "&year_month=2020-02&year_month=2020-03"
+                "&date=2020-02&date=2020-03"
             )
         )
 
@@ -153,7 +153,7 @@ class EventsTests(PatchedWagtailPageTests):
                     case["out"],
                 )
 
-    def test_pop_past_events_marker_from_year_months(self):
+    def test_pop_past_events_marker_from_date_params(self):
         events_page = Events()
 
         cases = (
@@ -180,7 +180,7 @@ class EventsTests(PatchedWagtailPageTests):
         for case in cases:
             with self.subTest(case=case):
                 self.assertEqual(
-                    events_page._pop_past_events_marker_from_year_months(case["in"]),
+                    events_page._pop_past_events_marker_from_date_params(case["in"]),
                     case["out"],
                 )
 
@@ -192,7 +192,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         output_q = events_page._build_date_q(
             # the test above shows that this equates to no parameter-based filtering
-            year_months=[""]
+            date_params=[""]
         )
 
         expected_q = Q(start_date__gte=datetime.date(2022, 10, 3))
@@ -205,7 +205,7 @@ class EventsTests(PatchedWagtailPageTests):
         events_page = Events()
 
         output_q = events_page._build_date_q(
-            year_months=[
+            date_params=[
                 "2023-10"
                 # This has to be after mock_get_past_event_cutoff,
                 # else it won't show
@@ -227,7 +227,7 @@ class EventsTests(PatchedWagtailPageTests):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
         events_page = Events()
         output_q = events_page._build_date_q(
-            year_months=[
+            date_params=[
                 "2024-03",
                 "2023-10",
                 # These have to be after mock_get_past_event_cutoff,

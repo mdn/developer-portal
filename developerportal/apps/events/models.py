@@ -36,11 +36,11 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import (
     COUNTRY_QUERYSTRING_KEY,
+    DATE_PARAMS_QUERYSTRING_KEY,
     PAGINATION_QUERYSTRING_KEY,
-    PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE,
+    PAST_EVENTS_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
     TOPIC_QUERYSTRING_KEY,
-    YEAR_MONTH_QUERYSTRING_KEY,
 )
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
@@ -164,10 +164,11 @@ class Events(BasePage):
         context["events"] = self.get_events(request)
         return context
 
-    def _pop_past_events_marker_from_year_months(self, year_months):
-        """For the given list of "YYYY-MM" strings, return a list of tuples
-        containg the year and and month, as unmutated strings, PLUS a separate
-        boolean value, defaulting to False.
+    def _pop_past_events_marker_from_date_params(self, date_params):
+        """For the given list of "YYYY-MM" strings and an optional sentinel that shows
+        whether we should include past events, return a list of tuples containing
+        the year and and month, as unmutated strings, PLUS a separate Boolean value,
+        defaulting to False.
 
         Example input:  ["2020-03", "2020-12"]
         Example output:  (["2020-03", "2020-12"], False)
@@ -176,14 +177,14 @@ class Events(BasePage):
         Example output:  (["2020-03", "2020-12"], True)
         """
 
-        all_past_found = bool(year_months) and (
-            PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE in year_months
+        all_past_events_flag = bool(date_params) and (
+            PAST_EVENTS_QUERYSTRING_VALUE in date_params
         )
 
-        if all_past_found:
-            year_months.pop(year_months.index(PAST_EVENTS_YEAR_MONTH_QUERYSTRING_VALUE))
+        if all_past_events_flag:
+            date_params.pop(date_params.index(PAST_EVENTS_QUERYSTRING_VALUE))
 
-        return year_months, all_past_found
+        return date_params, all_past_events_flag
 
     def _year_months_to_years_and_months_tuples(self, year_months):
         """For the given list of "YYYY-MM" strings, return a list of tuples
@@ -229,14 +230,14 @@ class Events(BasePage):
         """Return filtered future events in chronological order"""
 
         countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
-        years_months = request.GET.getlist(YEAR_MONTH_QUERYSTRING_KEY)
+        date_params = request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
         countries_q = Q(country__in=countries) if countries else Q()
-        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
 
+        topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
         # year_months need splitting to make them work
-        date_q = self._build_date_q(years_months)
+        date_q = self._build_date_q(date_params)
 
         combined_q = Q()
         if countries_q:
