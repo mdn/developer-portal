@@ -294,11 +294,7 @@ class Events(BasePage):
         # Relevant here means a country that a published Event is or was in
         raw_countries = (
             event.country
-            for event in Event.published_objects.filter(
-                start_date__gte=get_past_event_cutoff()
-            )
-            .distinct("country")
-            .order_by("country")
+            for event in Event.published_objects.distinct("country").order_by("country")
             if event.country
         )
 

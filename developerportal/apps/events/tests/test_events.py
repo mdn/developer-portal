@@ -499,11 +499,21 @@ class EventsTests(PatchedWagtailPageTests):
                 depth=2, path="00019997", start_date=_now, title="E", country="AR"
             )
         )
+        events_page.add_child(
+            instance=Event(
+                depth=2,
+                path="00019997",
+                start_date=_now - datetime.timedelta(days=9999),
+                title="E",
+                country="ZA",
+            )
+        )
         expected = [
             {"code": "AR", "name": "Argentina"},
             {"code": "DE", "name": "Germany"},
             {"code": "GB", "name": "United Kingdom"},  # only one appearance is correct
             {"code": "US", "name": "United States of America"},
+            {"code": "ZA", "name": "South Africa"},  # from a past event
         ]
         actual = events_page.get_relevant_countries()
         self.assertEqual(actual, expected)
