@@ -1,5 +1,6 @@
 # pylint: disable=no-member
 import datetime
+import logging
 from typing import List
 
 from django.db.models import (
@@ -50,6 +51,8 @@ from ..common.utils import (
     paginate_resources,
 )
 from ..topics.models import Topic
+
+logger = logging.getLogger(__name__)
 
 
 class EventsTag(TaggedItemBase):
@@ -233,14 +236,21 @@ class Events(BasePage):
         # Build a Q where it's (Month X AND Year X) OR (Month Y AND Year Y), etc
         overall_date_q = None
 
-        for year, month in years_and_months_tuples:
-            date_q = Q(**{"start_date__year": year})
-            date_q.add(Q(**{"start_date__month": month}), Q.AND)
+        try:
+            for year, month in years_and_months_tuples:
+                date_q = Q(**{"start_date__year": year})
+                date_q.add(Q(**{"start_date__month": month}), Q.AND)
 
-            if overall_date_q is None:
-                overall_date_q = date_q
-            else:
-                overall_date_q.add(date_q, Q.OR)
+                if overall_date_q is None:
+                    overall_date_q = date_q
+                else:
+                    overall_date_q.add(date_q, Q.OR)
+        except ValueError as e:
+            logger.warning(
+                "%s (years_and_months_tuples is %s)" % (e, years_and_months_tuples)
+            )
+            # Handles bad input and keeps the show on the road
+            overall_date_q = Q()
 
         if include_past_events_flag:
             # Regardless of what's been specified in terms of specific dates, if
