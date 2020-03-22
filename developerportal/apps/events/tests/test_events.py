@@ -206,18 +206,18 @@ class EventsTests(PatchedWagtailPageTests):
             {"in": ["2019-10"], "out": (["2019-10"], False)},
             {"in": ["2019-10", "2022-03"], "out": (["2019-10", "2022-03"], False)},
             {
-                "in": ["2019-10", "2022-03", "include-past"],
+                "in": ["2019-10", "2022-03", "past"],
                 "out": (["2019-10", "2022-03"], True),
             },
             {
-                "in": ["2019-10", "include-past", "2022-03"],
+                "in": ["2019-10", "past", "2022-03"],
                 "out": (["2019-10", "2022-03"], True),
             },
             {
-                "in": ["include-past", "2019-10", "2022-03"],
+                "in": ["past", "2019-10", "2022-03"],
                 "out": (["2019-10", "2022-03"], True),
             },
-            {"in": ["include-past"], "out": ([], True)},
+            {"in": ["past"], "out": ([], True)},
         )
         for case in cases:
             with self.subTest(case=case):
@@ -251,7 +251,7 @@ class EventsTests(PatchedWagtailPageTests):
         output_q = events_page._build_date_q(
             # self.test_year_months_to_years_and_months_tuples() shows that this
             # equates to no parameter-based filtering
-            date_params=["include-past"]
+            date_params=["past"]
         )
 
         expected_q = Q()  # Just an empty Q with no date filtering at all
@@ -290,7 +290,7 @@ class EventsTests(PatchedWagtailPageTests):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
         events_page = Events()
 
-        output_q = events_page._build_date_q(date_params=["2023-10", "include-past"])
+        output_q = events_page._build_date_q(date_params=["2023-10", "past"])
 
         # build the expected result for comparison
         date_q = Q(start_date__year="2023")
@@ -337,9 +337,7 @@ class EventsTests(PatchedWagtailPageTests):
     ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
         events_page = Events()
-        output_q = events_page._build_date_q(
-            date_params=["2024-03", "2023-10", "include-past"]
-        )
+        output_q = events_page._build_date_q(date_params=["2024-03", "2023-10", "past"])
 
         # build the expected result for comparison
         date_q1 = Q(start_date__year="2024")

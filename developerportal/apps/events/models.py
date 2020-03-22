@@ -176,7 +176,7 @@ class Events(BasePage):
         Example input:  ["2020-03", "2020-12"]
         Example output:  (["2020-03", "2020-12"], False)
 
-        Example input:  ["2020-03", "2020-12", "include-past"]
+        Example input:  ["2020-03", "2020-12", "past"]
         Example output:  (["2020-03", "2020-12"], True)
         """
 
