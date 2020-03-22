@@ -419,7 +419,7 @@ class EventsTests(PatchedWagtailPageTests):
                     datetime.date(2022, 11, 2),
                     datetime.date(2022, 10, 3),  # Same as first date
                 ],
-                "expected": [datetime.date(2022, 10, 1), datetime.date(2022, 11, 1)],
+                "expected": [datetime.date(2022, 11, 1), datetime.date(2022, 10, 1)],
             },
             {
                 "input": [
@@ -429,9 +429,9 @@ class EventsTests(PatchedWagtailPageTests):
                     datetime.date(2022, 11, 2),
                 ],
                 "expected": [
-                    datetime.date(2022, 10, 1),
-                    datetime.date(2022, 11, 1),
                     datetime.date(2023, 12, 1),
+                    datetime.date(2022, 11, 1),
+                    datetime.date(2022, 10, 1),
                 ],
             },
             {
@@ -441,9 +441,9 @@ class EventsTests(PatchedWagtailPageTests):
                     datetime.date(2022, 11, 2),
                 ],
                 "expected": [
-                    datetime.date(2022, 10, 1),
-                    datetime.date(2022, 11, 1),
                     datetime.date(2023, 12, 1),
+                    datetime.date(2022, 11, 1),
+                    datetime.date(2022, 10, 1),
                 ],
             },
             {

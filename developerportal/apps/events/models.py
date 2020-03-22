@@ -330,7 +330,9 @@ class Events(BasePage):
 
         NB: also note that the template slots in a special "all past dates" option.
         """
-        return sorted(set([datetime.date(x.year, x.month, 1) for x in dates]))
+        return sorted(
+            set([datetime.date(x.year, x.month, 1) for x in dates]), reverse=True
+        )
 
     def get_filters(self):
         return {
