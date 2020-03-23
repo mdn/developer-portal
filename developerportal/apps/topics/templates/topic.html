@@ -6,8 +6,9 @@
 {% block body_class %}topic{% endblock %}
 
 {% block content %}
+{% include "molecules/header-strip.html" with content=page.title element="h1" %}
+
 <main role="main">
-  {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
   {% with page.featured|published as featured %}
     {% if featured %}
       <section class="section">
