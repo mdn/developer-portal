@@ -6,30 +6,26 @@
 {% block content %}
   {% include "molecules/header-strip.html" with content=page.title element="h1" %}
 
-  <main>
-    {% with page.featured|published as featured %}
-      {% if featured %}
-        <section class="section">
-          <div class="mzp-l-content">
-            {% include "organisms/featured.html" with featured=featured %}
-          </div>
-        </section>
+<main>
+  {% with page.featured|published as featured %}
+    {% if featured %}
+      <div class="mzp-l-content">
+        {% include "organisms/featured.html" with featured=featured %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  <div class="mzp-l-content">
+    {% for block in page.body %}
+      {% if block.block_type == 'image' %}
+        {% include "molecules/image-block.html" with block=block %}
+      {% else %}
+        {{ block }}
       {% endif %}
-    {% endwith %}
-    <section class="section">
-      <article class="mzp-l-content">
-        {% for block in page.body %}
-          {% if block.block_type == 'image' %}
-            {% include "molecules/image-block.html" with block=block %}
-          {% else %}
-            {{ block }}
-          {% endif %}
-        {% endfor %}
-      </article>
-    </section>
-    <div class="section">
-      {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=events no_resources_message="No upcoming events found" hide_pagination=True %}
-    </div>
-    {% include "organisms/newsletter-signup.html" %}
-  </main>
+    {% endfor %}
+  </div>
+  <div id="events-list">
+    {% include "organisms/filter-list.html" with type="event" resources=events show_past_date_option=True no_resources_message="No relevant events found" hide_pagination=False page_anchor="#events-list" %}
+  </div>
+  {% include "organisms/newsletter-signup.html" %}
+</main>
 {% endblock content %}

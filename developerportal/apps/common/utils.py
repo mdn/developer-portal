@@ -94,6 +94,8 @@ def get_combined_videos(page, **filters):
 
 
 def get_past_event_cutoff():
+    # A safe datetime that defines when 'past' has happened
+    # so we don't stop showing events too soon
     return (tz_now() - datetime.timedelta(days=1)).date()
 
 
