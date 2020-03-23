@@ -487,36 +487,6 @@
 }
 
 .card {
-  // background-color: $color-white;
-  // border: 2px solid $color-marketing-gray-20;
-  // border-radius: 2px;
-  // display: flex;
-  // flex-direction: column;
-  // margin-bottom: 24px;
-  // transition: box-shadow 100ms, transform 100ms;
-  // width: 100%;
-  // will-change: box-shadow, transform;
-
-  // @media #{$mq-md} {
-  //   margin-bottom: 0;
-  // }
-
-  // @media (prefers-reduced-motion: reduce) {
-  //   transition: none;
-  //   will-change: auto;
-  // }
-
-  // .card-link:hover & {
-  //   border-color: $color-black;
-  //   box-shadow: 4px 4px 0 0 $color-black;
-  //   transform: translate(-2px, -2px);
-
-  //   @media (prefers-reduced-motion: reduce) {
-  //     box-shadow: none;
-  //     transform: none;
-  //   }
-  // }
-
   &.external-promo {
     display: flex;
     // flex-direction: column;

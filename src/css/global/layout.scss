@@ -1,0 +1,13 @@
+// Override Protocol's 25% / 75% layout to be 33% / 67%
+
+@media #{$mq-md} {
+  .mzp-l-sidebar.custom-width {
+    // .custom-width gives us greater specificity so we
+    // can override mzp-l-sidebar without needing !important
+    width: 33.333%;
+  }
+
+  .mzp-l-main.custom-width {
+    width: 66.665%;
+  }
+}

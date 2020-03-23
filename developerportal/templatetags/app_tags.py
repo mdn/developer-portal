@@ -11,12 +11,12 @@ from django.utils.safestring import mark_safe
 
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
+    DATE_PARAMS_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
     ENVIRONMENT_PRODUCTION,
     ENVIRONMENT_STAGING,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
-    YEAR_MONTH_QUERYSTRING_KEY,
 )
 
 register = template.Library()
@@ -128,7 +128,7 @@ def pagination_additional_filter_params(request):
         TOPIC_QUERYSTRING_KEY,
         ROLE_QUERYSTRING_KEY,
         COUNTRY_QUERYSTRING_KEY,
-        YEAR_MONTH_QUERYSTRING_KEY,
+        DATE_PARAMS_QUERYSTRING_KEY,
     )
 
     output_params_strings = []

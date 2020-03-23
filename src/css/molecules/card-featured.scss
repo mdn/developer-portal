@@ -1,182 +1,27 @@
 .mzp-l-card-full {
   .mzp-c-card {
-    &.mzp-c-card-x-large {
-      max-width: 1024px; // huge....
+    &.devportal-card-x-large {
+      max-width: 100%; // huge....
     }
   }
 }
 
-// .card-featured,
-// .card-featured-primary {
-//   transition: box-shadow 100ms, transform 100ms;
-//   will-change: box-shadow, transform;
+// Introduce a new 3-1 ratio image card, namespaced as devportal
+.mzp-c-card.devportal-has-aspect-3-1 {
+  .mzp-c-card-media-wrapper {
+    padding-bottom: 33.33%;
+    position: relative;
 
-//   @media (prefers-reduced-motion: reduce) {
-//     transition: none;
-//     will-change: auto;
-//   }
-
-//   &:hover {
-//     box-shadow: 4px 4px 0 0 $color-black;
-//     transform: translate(-2px, -2px);
-
-//     @media (prefers-reduced-motion: reduce) {
-//       box-shadow: none;
-//       opacity: 0.9;
-//       transform: none;
-//     }
-//   }
-
-//   .icon-external {
-//     position: relative;
-//     margin-left: 10px;
-//     top: -2px;
-//   }
-// }
-
-// .card-featured-primary {
-//   background-color: $color-black;
-//   border-radius: 2px;
-//   border: none;
-//   display: flex;
-//   flex-direction: column;
-//   overflow: hidden;
-//   margin-bottom: 32px;
-//   position: relative;
-
-//   .card-link:last-child & {
-//     margin-bottom: 0;
-//   }
-
-//   @media #{$mq-md} {
-//     flex-direction: row-reverse;
-//     min-height: 360px;
-//   }
-
-//   .card-featured-image {
-//     background-position: center;
-//     background-size: cover;
-//     padding-top: 75%;
-//     position: relative;
-
-//     @media #{$mq-md} {
-//       height: 100%;
-//       position: absolute;
-//       width: 100%;
-//     }
-//   }
-
-//   .card-featured-primary-body {
-//     display: flex;
-//     flex-direction: column;
-//     padding: 32px;
-//     position: relative;
-
-//     @media #{$mq-md} {
-//       width: 50%;
-//     }
-//   }
-
-//   .card-featured-image-wrapper {
-//     position: relative;
-//     width: 100%;
-
-//     @media #{$mq-md} {
-//       background-color: $color-black;
-//       clip-path: polygon(10% 0, 100% 0%, 100% 100%, 0 100%);
-//       width: 50%;
-//     }
-//   }
-// }
-
-// .card-featured-image {
-//   background-position: center;
-//   background-size: cover;
-//   padding-top: 75%;
-//   position: relative;
-// }
-
-// .card-featured-image-square {
-//   padding-top: 100%;
-// }
-
-// .card-featured-primary-content {
-//   bottom: 16px;
-//   color: $color-white;
-//   flex-grow: 1;
-//   left: 16px;
-//   max-width: 340px;
-
-//   @media #{$mq-md} {
-//     left: 32px;
-//     max-width: 400px;
-//     top: 32px;
-//   }
-
-//   .featured {
-//     margin-bottom: 16px;
-//   }
-
-//   p {
-//     margin-bottom: 0;
-
-//     @media #{$mq-md} {
-//       margin-bottom: 16px;
-//     }
-//   }
-// }
-
-// .card-featured {
-//   border-radius: 2px;
-//   border: none;
-//   color: $color-white;
-//   display: flex;
-//   flex-direction: column;
-//   min-height: 240px;
-//   overflow: hidden;
-//   position: relative;
-
-//   @media #{$mq-md} {
-//     margin-bottom: 0;
-//   }
-
-//   .card-container & {
-//     height: 100%;
-//   }
-
-//   .card-featured-image {
-//     padding-top: 60%;
-//   }
-
-//   .card-featured-content {
-//     padding: 24px 16px;
-//     position: absolute;
-
-//     @media #{$mq-md} {
-//       top: 0;
-//     }
-
-//     span {
-//       display: inline-block;
-//     }
-//   }
-
-//   .featured {
-//     margin-bottom: 16px;
-//   }
-
-//   p {
-//     width: max-content;
-//   }
-// }
-
-// .card-featured-caption {
-//   background: $color-black;
-//   color: $color-white;
-//   flex-grow: 1;
-//   padding: 16px;
-
-//   h5 {
-//     margin-bottom: 0;
-//   }
-// }
+    img,
+    video,
+    iframe,
+    object,
+    embed {
+      position: absolute;
+      top: -50%; /* to mock-vertically center the image */
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}

@@ -54,6 +54,7 @@
 @import 'molecules/event-details';
 @import 'molecules/external-promo';
 @import 'molecules/header';
+@import 'molecules/header-strip';
 @import 'molecules/item-get-started';
 @import 'molecules/item-person';
 @import 'molecules/item-topic-link';
@@ -86,4 +87,5 @@
 
 // Templates.
 @import 'templates/article';
+@import 'templates/content-page';
 @import 'templates/http-error';

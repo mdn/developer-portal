@@ -20,7 +20,7 @@
 
 
 <div class="mzp-l-card-full">
-  <section class="mzp-c-card mzp-c-card-x-large mzp-has-aspect-16-9">
+  <div class="mzp-c-card devportal-card-x-large devportal-has-aspect-3-1">
     {% if external_page %}
     <a href="{{ resource.url }}" class="mzp-c-card-block-link" data-type="external_page" target="_blank" rel="nofollow noopener">
     {% else %}
@@ -43,14 +43,14 @@
           </span></span>
           {% endif %}
         </h2>
-        <p class="mzp-c-card-desc">
+        <div class="mzp-c-card-desc">
           {% if resource.card_description %}
             <p>{{ resource.card_description }}</p>
           {% else %}
             {{ resource.description | richtext }}
           {% endif %}
-        </p>
+        </div>
       </div>
     </a>
-  </section>
+  </div>
 </div>

@@ -4,13 +4,13 @@ from wagtail.core.models import Page
 
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
+    DATE_PARAMS_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
     ENVIRONMENT_PRODUCTION,
     ENVIRONMENT_STAGING,
     PAGINATION_QUERYSTRING_KEY,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
-    YEAR_MONTH_QUERYSTRING_KEY,
 )
 from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
@@ -199,13 +199,13 @@ class AppTagsTestCase(TestCase):
                     f"?{PAGINATION_QUERYSTRING_KEY}=234&{ROLE_QUERYSTRING_KEY}=test"
                     f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
                     f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
-                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
+                    f"&{DATE_PARAMS_QUERYSTRING_KEY}=2020-2-20"
                 ),
                 "expected_output": (
                     f"&{ROLE_QUERYSTRING_KEY}=test"
                     f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
                     f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
-                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
+                    f"&{DATE_PARAMS_QUERYSTRING_KEY}=2020-2-20"
                 ),
             },
             {

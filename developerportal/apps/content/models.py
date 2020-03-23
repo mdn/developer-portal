@@ -45,6 +45,7 @@ class ContentPage(BasePage):
         help_text="Optional short text description, max. 400 characters",
         max_length=400,
     )
+    # NOT show in the Admin UI for now - see below
     hero_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
@@ -55,6 +56,15 @@ class ContentPage(BasePage):
     body = CustomStreamField(
         help_text=(
             "Main page body content. Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
+        )
+    )
+
+    sidebar = CustomStreamField(
+        help_text=(
+            "Sidebar page body content (narrower than main body). Rendered to the "
+            "right of the main body content in desktop and below it in mobile."
+            "Supports rich text, images, embed via URL, "
             "embed via HTML, and inline code snippets"
         )
     )
@@ -90,12 +100,15 @@ class ContentPage(BasePage):
     # Editor panel configuration
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
-        MultiFieldPanel(
-            [ImageChooserPanel("hero_image")],
-            heading="Hero image",
-            help_text="Image should be at least 1024px x 438px (21:9 aspect ratio)",
-        ),
+        # Disabled for now but not removed as I suspect we may want it
+        # back for some situations
+        # MultiFieldPanel(
+        #     [ImageChooserPanel("hero_image")],
+        #     heading="Hero image",
+        #     help_text="Image should be at least 1024px x 438px (21:9 aspect ratio)",
+        # ),
         StreamFieldPanel("body"),
+        StreamFieldPanel("sidebar"),
     ]
 
     # Card panels
