@@ -6,7 +6,6 @@ from django.db.models import (
     CharField,
     FileField,
     ForeignKey,
-    IntegerField,
     TextField,
 )
 
@@ -28,12 +27,7 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
-from ..common.constants import (
-    COLOR_CHOICES,
-    COLOR_VALUES,
-    RESOURCE_COUNT_CHOICES,
-    RICH_TEXT_FEATURES_SIMPLE,
-)
+from ..common.constants import COLOR_CHOICES, COLOR_VALUES, RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
 from ..common.utils import (
     get_combined_articles,
@@ -98,7 +92,8 @@ class Topic(BasePage):
                 ),
                 ("external_page", FeaturedExternalBlock()),
             ],
-            max_num=4,
+            min_num=2,
+            max_num=5,
             required=False,
         ),
         null=True,
@@ -111,11 +106,6 @@ class Topic(BasePage):
         blank=True,
         help_text="Optional tabbed panels for linking out to other resources, max. 3",
         verbose_name="Tabbed panels",
-    )
-    latest_articles_count = IntegerField(
-        choices=RESOURCE_COUNT_CHOICES,
-        default=3,
-        help_text="The number of posts to display for this topic.",
     )
 
     # Card fields
@@ -152,7 +142,6 @@ class Topic(BasePage):
         FieldPanel("description"),
         StreamFieldPanel("featured"),
         StreamFieldPanel("tabbed_panels"),
-        FieldPanel("latest_articles_count"),
         MultiFieldPanel(
             [InlinePanel("people")],
             heading="People",
