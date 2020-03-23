@@ -69,11 +69,11 @@ class EventsTests(PatchedWagtailPageTests):
         event_day_before_yesterday.save()
 
         events = events_page.get_events(request)
-        # Default request is all future events, 8 per page
+        # Default request is __all__ events, 8 per page
         self.assertIn(event_today, events)
         self.assertIn(event_tomorrow, events)
         self.assertIn(event_yesterday, events)  # CORRECT
-        self.assertNotIn(event_day_before_yesterday, events)
+        self.assertIn(event_day_before_yesterday, events)  # CORRECT
 
     @mock.patch("developerportal.apps.events.models.paginate_resources")
     def test_events_get_events__paginates(self, mock_paginate_resources):
@@ -92,7 +92,7 @@ class EventsTests(PatchedWagtailPageTests):
         events_page = Events.published_objects.first()
         fake_request = RequestFactory().get("/")
 
-        expected_q = Q(start_date__gte=datetime.date(2022, 10, 3))
+        expected_q = Q()  # no restrictions
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
             events_page, q_object=expected_q, reverse=True
@@ -238,7 +238,7 @@ class EventsTests(PatchedWagtailPageTests):
             date_params=[""]
         )
 
-        expected_q = Q(start_date__gte=datetime.date(2022, 10, 3))
+        expected_q = Q()  # Just an empty Q with no date filtering at all
 
         self.assertEqual(output_q, expected_q)
 
@@ -254,7 +254,7 @@ class EventsTests(PatchedWagtailPageTests):
             date_params=["past"]
         )
 
-        expected_q = Q()  # Just an empty Q with no date filtering at all
+        expected_q = Q(start_date__lte=datetime.date(2022, 10, 3))
 
         self.assertEqual(output_q, expected_q)
 

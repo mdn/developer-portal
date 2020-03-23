@@ -180,14 +180,14 @@ class Events(BasePage):
         Example output:  (["2020-03", "2020-12"], True)
         """
 
-        include_past_events_flag = bool(date_params) and (
+        past_events_flag = bool(date_params) and (
             PAST_EVENTS_QUERYSTRING_VALUE in date_params
         )
 
-        if include_past_events_flag:
+        if past_events_flag:
             date_params.pop(date_params.index(PAST_EVENTS_QUERYSTRING_VALUE))
 
-        return date_params, include_past_events_flag
+        return date_params, past_events_flag
 
     def _year_months_to_years_and_months_tuples(self, year_months):
         """For the given list of "YYYY-MM" strings, return a list of tuples
@@ -217,21 +217,21 @@ class Events(BasePage):
         """
 
         # Assemble facts from the year_months querystring data
-        year_months, include_past_events_flag = self._pop_past_events_marker_from_date_params(  # noqa: E501
+        year_months, past_events_flag = self._pop_past_events_marker_from_date_params(  # noqa: E501
             date_params
         )
         years_and_months_tuples = self._year_months_to_years_and_months_tuples(
             year_months
         )
 
-        if include_past_events_flag:
-            default_earliest_events_q = Q()  # Because we don't need to restrict
+        if past_events_flag:
+            default_events_q = Q(start_date__lte=get_past_event_cutoff())
         else:
-            default_earliest_events_q = Q(start_date__gte=get_past_event_cutoff())
+            default_events_q = Q()  # Because we don't need to restrict
 
         if not years_and_months_tuples:
-            # Covers case where no year_months
-            return default_earliest_events_q
+            # Covers case where no year_months, so no need to construct further queries
+            return default_events_q
 
         # Build a Q where it's (Month X AND Year X) OR (Month Y AND Year Y), etc
         overall_date_q = None
@@ -252,18 +252,21 @@ class Events(BasePage):
             # Handles bad input and keeps the show on the road
             overall_date_q = Q()
 
-        if include_past_events_flag:
+        if past_events_flag:
             # Regardless of what's been specified in terms of specific dates, if
-            # "all past events" has been selected, we want to include all events
+            # "past events" has been selected, we want to include all events
             # UP TO the past/future threshold date but _without_ de-scoping
             # whatever the other dates may have configured.
             all_past_events_q = Q(start_date__lte=get_past_event_cutoff())
 
             overall_date_q.add(all_past_events_q, Q.OR)  # NB: OR
         else:
-            # Ensure we don't include past events here (ie, same month as
-            # selected but before _today_)
-            overall_date_q.add(default_earliest_events_q, Q.AND)  # NB: AND
+            # We want specific months, but none in the past, so
+            # ensure we don't include past events here (ie, same month as
+            # selected dates, but before _today_)
+            overall_date_q.add(
+                Q(start_date__gte=get_past_event_cutoff()), Q.AND
+            )  # NB: AND
         return overall_date_q
 
     def get_events(self, request):
