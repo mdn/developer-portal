@@ -6,7 +6,7 @@
 {% block content %}
   {% include "molecules/header-strip.html" with content=page.title element="h1" %}
 
-<main>
+<main role="main">
   {% with page.featured|published as featured %}
     {% if featured %}
       <div class="mzp-l-content">
