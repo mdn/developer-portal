@@ -99,7 +99,7 @@ class Events(BasePage):
                 ),
                 ("external_page", FeaturedExternalBlock()),
             ],
-            max_num=1,
+            max_num=2,
             required=False,
         ),
         null=True,
