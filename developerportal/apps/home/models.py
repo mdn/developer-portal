@@ -80,13 +80,13 @@ class HomePage(BasePage):
                 ),
             ],
             min_num=2,
-            max_num=4,
+            max_num=5,
             required=False,
         ),
         null=True,
         blank=True,
         help_text=(
-            "Optional space for featured posts, videos or links, min. 2, max. 4. "
+            "Optional space for featured posts, videos or links, min. 2, max. 5. "
             "Note that External Video is NOT allowed here."
         ),
     )
