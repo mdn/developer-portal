@@ -9,7 +9,6 @@ require('./polyfills');
 const FilterForm = require('./organisms/filter-form');
 const MapEmbed = require('./atoms/map-embed');
 const Modal = require('./atoms/modal');
-const TabbedPanels = require('./organisms/tabbed-panels');
 const Toggle = require('./atoms/toggle');
 const NotificationBar = require('./organisms/notification-bar');
 const TaskCompletionPrompt = require('./task-completion-prompt');
@@ -41,7 +40,6 @@ window.addEventListener('DOMContentLoaded', () => {
   FilterForm.init();
   MapEmbed.init();
   Modal.init();
-  TabbedPanels.init();
   Toggle.init();
   NotificationBar.init();
   TaskCompletionPrompt.init();
