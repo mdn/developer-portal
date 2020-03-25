@@ -177,3 +177,66 @@ def get_menu_item_icon(page):
         pass
 
     return icon_url
+
+
+@register.simple_tag
+def split_featured_items(iterable):
+    """For the given `iterable`, return it split into two lists appropriate
+
+    The layout will look like this:
+
+    Five items:
+        [ 1 ] [ 2 ]
+        [3] [4] [5]
+
+    Four items:
+        [ 1 ] [ 2 ]
+        [ 3 ] [ 4 ]
+
+    Three items:
+        [1] [2] [3]
+
+    Two items:
+        [ 1 ] [ 2 ]
+
+    (There is no one-item version supported)
+
+    As such we return the following lists:
+        - top_row_of_2
+        - bottom_row_of_3
+        - bottom_row_b_of_2
+    where only one of bottom_row_of_3 OR bottom_row_b_of_2 will have members
+
+    Five items:
+        top_row_of_2        -> [1, 2]
+        bottom_row_of_3     -> [3, 4, 5]
+        bottom_row_b_of_2   -> []
+
+    Four items:
+        top_row_of_2        -> [1, 2]
+        bottom_row_of_3     -> []
+        bottom_row_b_of_2   -> [3, 4]
+
+    Three items:
+        top_row_of_2        -> []
+        bottom_row_of_3     -> [1, 2, 3]
+        bottom_row_b_of_2   -> []
+
+    Two items:
+        top_row_of_2        -> [1, 2]
+        bottom_row_of_3     -> []
+        bottom_row_b_of_2   -> []
+
+    """
+    if len(iterable) == 5:
+        output = (iterable[:2], iterable[2:], [])
+    elif len(iterable) == 4:
+        output = (iterable[:2], [], iterable[2:])
+    elif len(iterable) == 3:
+        output = ([], iterable, [])
+    elif len(iterable) == 2:
+        output = (iterable, [], [])
+
+    print("output", output)
+
+    return output

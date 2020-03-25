@@ -18,6 +18,7 @@ from developerportal.templatetags.app_tags import (
     has_at_least_two_filters,
     is_production_site,
     pagination_additional_filter_params,
+    split_featured_items,
 )
 
 
@@ -259,3 +260,16 @@ class AppTagsTestCase(TestCase):
             with self.subTest(case=case):
                 with override_settings(ACTIVE_ENVIRONMENT=case["input"]):
                     self.assertEqual(is_production_site(), case["output"])
+
+    def test_split_featured_items(self):
+
+        cases = [
+            {"input": [1, 2, 3, 4, 5], "output": ([1, 2], [3, 4, 5], [])},
+            {"input": [1, 2, 3, 4], "output": ([1, 2], [], [3, 4])},
+            {"input": [1, 2, 3], "output": ([], [1, 2, 3], [])},
+            {"input": [1, 2], "output": ([1, 2], [], [])},
+        ]
+
+        for case in cases:
+            with self.subTest(case=case):
+                self.assertEqual(split_featured_items(case["input"]), case["output"])
