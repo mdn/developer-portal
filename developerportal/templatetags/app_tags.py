@@ -237,6 +237,4 @@ def split_featured_items(iterable):
     elif len(iterable) == 2:
         output = (iterable, [], [])
 
-    print("output", output)
-
     return output
