@@ -13,7 +13,7 @@
   {% with page.featured|published as featured %}
     {% if featured %}
       <div class="mzp-l-content featured-items">
-        {% include "organisms/featured.html" with featured=featured new_layout=True %}
+        {% include "organisms/featured.html" with featured=featured %}
       </div>
     {% endif %}
   {% endwith %}

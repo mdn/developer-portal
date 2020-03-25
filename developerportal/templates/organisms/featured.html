@@ -1,13 +1,7 @@
 {% load wagtailcore_tags app_filters %}
 
 <div class="featured-items-wrapper">
-{% with featured|length as featured_count %}
 
-  {% if new_layout %}
-    {% include "organisms/partials/featured-2-to-5.html" with featured=featured %}
-  {% else %}
-    {% include "organisms/partials/featured-1-to-4.html" with featured=featured featured_count=featured_count %}
-  {% endif %}
+{% include "organisms/partials/featured-2-to-5.html" with featured=featured %}
 
-{% endwith %}
 </div>
