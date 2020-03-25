@@ -98,7 +98,7 @@ class Topic(BasePage):
         ),
         null=True,
         blank=True,
-        help_text="Optional space for featured posts, max. 4",
+        help_text="Optional space for featured items, max. 5",
     )
     #  "What We've Been Working On" panel
     recent_work = StreamField(
@@ -121,7 +121,6 @@ class Topic(BasePage):
                     ),
                 ),
             ],
-            min_num=1,
             max_num=4,
             required=False,
         ),
