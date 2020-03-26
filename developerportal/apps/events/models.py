@@ -14,7 +14,6 @@ from django.db.models import (
     TextField,
     URLField,
 )
-from django.utils.safestring import mark_safe
 
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -371,9 +370,20 @@ class Event(BasePage):
     )
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    latitude = FloatField(blank=True, null=True)
-    longitude = FloatField(blank=True, null=True)
+    latitude = FloatField(blank=True, null=True)  # DEPRECATED
+    longitude = FloatField(blank=True, null=True)  # DEPRECATED
     register_url = URLField("Register URL", blank=True, null=True)
+    official_website = URLField("Official website", blank=True, default="")
+    event_content = URLField(
+        "Event content",
+        blank=True,
+        default="",
+        help_text=(
+            "Link to a page (in this site or elsewhere) "
+            "with content about this event."
+        ),
+    )
+
     body = CustomStreamField(
         blank=True,
         null=True,
@@ -382,21 +392,27 @@ class Event(BasePage):
             "embed via HTML, and inline code snippets"
         ),
     )
-    venue_name = CharField(max_length=100, blank=True, default="")
-    venue_url = URLField("Venue URL", max_length=100, blank=True, default="")
-    address_line_1 = CharField(max_length=100, blank=True, default="")
-    address_line_2 = CharField(max_length=100, blank=True, default="")
-    address_line_3 = CharField(max_length=100, blank=True, default="")
+    venue_name = CharField(max_length=100, blank=True, default="")  # DEPRECATED
+    venue_url = URLField(
+        "Venue URL", max_length=100, blank=True, default=""
+    )  # DEPRECATED
+    address_line_1 = CharField(max_length=100, blank=True, default="")  # DEPRECATED
+    address_line_2 = CharField(max_length=100, blank=True, default="")  # DEPRECATED
+    address_line_3 = CharField(max_length=100, blank=True, default="")  # DEPRECATED
     city = CharField(max_length=100, blank=True, default="")
-    state = CharField("State/Province/Region", max_length=100, blank=True, default="")
-    zip_code = CharField("Zip/Postal code", max_length=100, blank=True, default="")
+    state = CharField(
+        "State/Province/Region", max_length=100, blank=True, default=""
+    )  # DEPRECATED
+    zip_code = CharField(
+        "Zip/Postal code", max_length=100, blank=True, default=""
+    )  # DEPRECATED
     country = CountryField(blank=True, default="")
     agenda = StreamField(
         StreamBlock([("agenda_item", AgendaItemBlock())], required=False),
         blank=True,
         null=True,
         help_text="Optional list of agenda items for this event",
-    )
+    )  # DEPRECATED
     speakers = StreamField(
         StreamBlock(
             [
@@ -408,7 +424,7 @@ class Event(BasePage):
         blank=True,
         null=True,
         help_text="Optional list of speakers for this event",
-    )
+    )  # DEPRECATED
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
@@ -440,42 +456,24 @@ class Event(BasePage):
             [
                 FieldPanel("start_date"),
                 FieldPanel("end_date"),
-                FieldPanel("latitude"),
-                FieldPanel("longitude"),
                 FieldPanel("register_url"),
+                FieldPanel("official_website"),
+                FieldPanel("event_content"),
             ],
             heading="Event details",
             classname="collapsible",
-            help_text=mark_safe(
-                "Optional time and location information for this event. Latitude and "
-                "longitude are used to show a map of the event’s location. For more "
-                "information on finding these values for a given location, "
-                "'<a href='https://support.google.com/maps/answer/18539'>"
-                "see this article</a>"
+            help_text=(
+                "'Event content' should be used to link to a page (anywhere) "
+                "which summarises the content of the event"
             ),
         ),
         StreamFieldPanel("body"),
         MultiFieldPanel(
-            [
-                FieldPanel("venue_name"),
-                FieldPanel("venue_url"),
-                FieldPanel("address_line_1"),
-                FieldPanel("address_line_2"),
-                FieldPanel("address_line_3"),
-                FieldPanel("city"),
-                FieldPanel("state"),
-                FieldPanel("zip_code"),
-                FieldPanel("country"),
-            ],
-            heading="Event address",
+            [FieldPanel("city"), FieldPanel("country")],
+            heading="Event location",
             classname="collapsible",
-            help_text=(
-                "Optional address fields. The city and country are also shown "
-                "on event cards"
-            ),
+            help_text=("The city and country are also shown on event cards"),
         ),
-        StreamFieldPanel("agenda"),
-        StreamFieldPanel("speakers"),
     ]
 
     # Card panels
@@ -572,3 +570,22 @@ class Event(BasePage):
             ):
                 return True
         return False
+
+    @property
+    def standfirst_summary(self):
+        """Return a simple plaintext string that can be used
+        as a standfirst"""
+
+        summary = ""
+        if self.event_dates:
+            summary += self.event_dates
+            if self.city or self.country:
+                summary += " | "
+
+        if self.city:
+            summary += self.city
+            if self.country:
+                summary += ", "
+        if self.country:
+            summary += self.country.code
+        return summary

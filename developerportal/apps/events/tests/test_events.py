@@ -22,6 +22,33 @@ class EventTests(PatchedWagtailPageTests):
     def test_event_subpages(self):
         self.assertAllowedSubpageTypes(Event, {})
 
+    def test_standfirst_summary(self):
+
+        start_date = datetime.datetime(2020, 3, 5)
+
+        cases = (
+            {
+                "input": {"path": "00019998", "country": "", "city": ""},
+                "output": "Mar 5",
+            },
+            {
+                "input": {"path": "00019997", "country": "FR", "city": ""},
+                "output": "Mar 5 | FR",
+            },
+            {
+                "input": {"path": "00019995", "country": "FR", "city": "Paris"},
+                "output": "Mar 5 | Paris, FR",
+            },
+        )
+
+        for case in cases:
+            with self.subTest(case=case):
+                event = Event(
+                    depth=2, start_date=start_date, title="Test", **case["input"]
+                )
+                event.save()
+                self.assertEqual(event.standfirst_summary, case["output"])
+
 
 class EventsTests(PatchedWagtailPageTests):
     """Tests for the Events model."""

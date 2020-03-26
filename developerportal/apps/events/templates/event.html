@@ -2,51 +2,44 @@
 {% load static %}
 {% load wagtailcore_tags %}
 
-{% block head %}
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.css' rel='stylesheet'>
-{% endblock %}
-
-{% block body_class %}event{% endblock %}
-
 {% block content %}
+
+
+  {% static "img/icons/events.svg" as page_icon_asset_url %}
+  {% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" standfirst=page.standfirst_summary %}
+
   <main>
-    {% include "organisms/article-header.html" with title=page.title description=page.description type="event" %}
-    <section class="section">
-      <div class="mzp-l-content">
-        {% include "molecules/event-details.html" with resource=page %}
-      </div>
-    </section>
-    <section class="section">
-      <div class="mzp-l-content article-content">
-        <div class="article-body">
-          <div class="resource-toolbar">
-            {% include "molecules/resource-share.html" %}
-          </div>
+    <div class="mzp-l-content">
+      {% include "molecules/event-details.html" with resource=page %}
+    </div>
+    <div class="mzp-l-content article-content">
+      <div class="article-body">
+        <div class="resource-toolbar">
+          {% include "molecules/resource-share.html" %}
         </div>
-        <article class="article-body">
-          {% for block in page.body %}
-            {% if block.block_type == 'image' %}
-              {% include "molecules/image-block.html" with block=block %}
-            {% else %}
-              {{ block }}
-            {% endif %}
-          {% endfor %}
-          {% if page.register_url %}
-            <a href="{{ page.register_url }}" class="mzp-c-button">
-              Register now
-            </a>
-          {% endif %}
-          {% include "organisms/event-map.html" with resource=page %}
-          {% include "organisms/event-agenda.html" with resource=page %}
-        </article>
-        <aside class="article-sidebar">
-          {% if page.primary_topic %}
-            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
-          {% endif %}
-        </aside>
       </div>
-    </section>
+      <article class="article-body">
+        {% for block in page.body %}
+          {% if block.block_type == 'image' %}
+            {% include "molecules/image-block.html" with block=block %}
+          {% else %}
+            {{ block }}
+          {% endif %}
+        {% endfor %}
+        {% if page.register_url %}
+          <a href="{{ page.register_url }}" class="mzp-c-button">
+            Register now
+          </a>
+        {% endif %}
+        {% include "organisms/event-map.html" with resource=page %}
+        {% include "organisms/event-agenda.html" with resource=page %}
+      </article>
+      <aside class="article-sidebar">
+        {% if page.primary_topic %}
+          {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+        {% endif %}
+      </aside>
+    </div>
     {% if page.speakers %}
     <section class="section section-background section-background-gray">
       {% include "organisms/event-speakers.html" with speakers=page.speakers %}
