@@ -6,7 +6,7 @@
 {% block body_class %}topic{% endblock %}
 
 {% block content %}
-{% include "molecules/header-strip.html" with content=page.title element="h1" %}
+{% include "molecules/header-strip.html" with page=page content=page.title element="h1" %}
 
 <main>
   {% comment %} FEATURED {% endcomment %}

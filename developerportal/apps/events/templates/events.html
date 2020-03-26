@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 {% load app_filters %}
 
 {% block body_class %}events{% endblock %}
 
 {% block content %}
-  {% include "molecules/header-strip.html" with content=page.title element="h1" %}
+  {% static "img/icons/events.svg" as page_icon_asset_url %}
+  {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url %}
 
 <main>
   {% with page.featured|published as featured %}
