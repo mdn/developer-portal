@@ -5,6 +5,8 @@
   .icon-wrapper {
     float: left;
     fill: currentColor;
+
+    img,
     svg {
       fill: currentColor;
       height: 52px;
@@ -23,6 +25,10 @@
         }
       }
     }
+
+    img {
+      padding-left: 13px;
+    }
   }
 
   .header-wrapper {
@@ -32,6 +38,9 @@
     h1 {
       float: left;
       margin: $spacing-sm 0 $spacing-md;
+    }
+    .plaintext-standfirst {
+      clear: both;
     }
   }
 }

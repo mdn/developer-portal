@@ -7,12 +7,22 @@
       <div class="icon-wrapper">
       {% render_svg page.icon %}
       </div>
+    {% elif page_icon_asset_url %}
+      <div class="icon-wrapper from-url">
+        <img src={{page_icon_asset_url}}>
+      </div>
     {% endif %}
     <div class="header-wrapper">
     <{{element}}>
       {{ content }}
     </{{element}}>
-    {{page.description|richtext}}
+    {% if standfirst %}
+      <div class="plaintext-standfirst">
+        {{standfirst}}
+      </div>
+    {% else %}
+      {{page.description|richtext}}
+    {% endif %}
     </div>
   </div>
 </div>
