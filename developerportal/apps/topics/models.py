@@ -6,7 +6,6 @@ from django.db.models import (
     CharField,
     FileField,
     ForeignKey,
-    IntegerField,
     TextField,
 )
 
@@ -27,13 +26,8 @@ from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
-from ..common.constants import (
-    COLOR_CHOICES,
-    COLOR_VALUES,
-    RESOURCE_COUNT_CHOICES,
-    RICH_TEXT_FEATURES_SIMPLE,
-)
+from ..common.blocks import FeaturedExternalBlock
+from ..common.constants import COLOR_CHOICES, COLOR_VALUES, RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
 from ..common.utils import (
     get_combined_articles,
@@ -98,24 +92,43 @@ class Topic(BasePage):
                 ),
                 ("external_page", FeaturedExternalBlock()),
             ],
+            min_num=2,
+            max_num=5,
+            required=True,
+        ),
+        null=True,
+        blank=True,
+        help_text="Optional space for featured items, max. 5",
+    )
+    #  "What We've Been Working On" panel
+    recent_work = StreamField(
+        StreamBlock(
+            [
+                (
+                    "post",
+                    PageChooserBlock(
+                        target_model=(
+                            "articles.Article",
+                            "externalcontent.ExternalArticle",
+                        )
+                    ),
+                ),
+                ("external_page", FeaturedExternalBlock()),
+                (
+                    "video",
+                    PageChooserBlock(
+                        target_model=("videos.Video", "externalcontent.ExternalVideo")
+                    ),
+                ),
+            ],
             max_num=4,
             required=False,
         ),
         null=True,
         blank=True,
-        help_text="Optional space for featured posts, max. 4",
-    )
-    tabbed_panels = StreamField(
-        StreamBlock([("panel", TabbedPanelBlock())], max_num=3, required=False),
-        null=True,
-        blank=True,
-        help_text="Optional tabbed panels for linking out to other resources, max. 3",
-        verbose_name="Tabbed panels",
-    )
-    latest_articles_count = IntegerField(
-        choices=RESOURCE_COUNT_CHOICES,
-        default=3,
-        help_text="The number of posts to display for this topic.",
+        help_text=(
+            "Optional space for featured posts, videos or links, min. 1, max. 4."
+        ),
     )
 
     # Card fields
@@ -151,12 +164,11 @@ class Topic(BasePage):
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         StreamFieldPanel("featured"),
-        StreamFieldPanel("tabbed_panels"),
-        FieldPanel("latest_articles_count"),
+        StreamFieldPanel("recent_work"),
         MultiFieldPanel(
             [InlinePanel("people")],
-            heading="People",
-            help_text="Optional list of people associated with this topic as experts",
+            heading="Content by",
+            help_text="Optional list of people who create content on this topic",
         ),
     ]
 

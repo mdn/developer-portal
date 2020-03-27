@@ -1,5 +1,18 @@
+{% load app_tags %}
+{% load wagtailcore_tags %}
+
 <div class="header-strip">
   <div class="mzp-l-content">
-    <{{element}}>{{ content }}</{{element}}>
+    {% if page.icon %}
+      <div class="icon-wrapper">
+      {% render_svg page.icon %}
+      </div>
+    {% endif %}
+    <div class="header-wrapper">
+    <{{element}}>
+      {{ content }}
+    </{{element}}>
+    {{page.description|richtext}}
+    </div>
   </div>
 </div>

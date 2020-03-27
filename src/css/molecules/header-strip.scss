@@ -2,7 +2,36 @@
   background-color: $color-black;
   color: $color-white;
 
-  h1 {
-    margin: $spacing-sm 0 $spacing-md;
+  .icon-wrapper {
+    float: left;
+    fill: currentColor;
+    svg {
+      fill: currentColor;
+      height: 52px;
+      padding-top: 12px;
+      margin-left: -13px;
+
+      @media #{$mq-sm} {
+        height: 60px;
+        padding-top: 14px;
+        margin-left: -13px;
+      }
+
+      g {
+        path {
+          fill: currentColor;
+        }
+      }
+    }
+  }
+
+  .header-wrapper {
+    @media #{$mq-sm} {
+      padding-left: 48px;
+    }
+    h1 {
+      float: left;
+      margin: $spacing-sm 0 $spacing-md;
+    }
   }
 }

@@ -99,12 +99,15 @@ class Events(BasePage):
                 ),
                 ("external_page", FeaturedExternalBlock()),
             ],
-            max_num=1,
+            max_num=2,
             required=False,
         ),
         null=True,
         blank=True,
-        help_text="Optional space to show a featured event",
+        help_text=(
+            "Optional space to show featured events. Note that these are "
+            "rendered two-up, so please set 0 or 2"
+        ),
     )
     body = CustomStreamField(
         help_text=(

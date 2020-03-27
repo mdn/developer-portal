@@ -1,4 +1,5 @@
 import math
+from urllib.parse import urlparse
 
 from django import template
 from django.utils.safestring import mark_safe
@@ -68,3 +69,16 @@ def split_across_two_columns(list_):
     """
     cutoff = math.ceil(len(list_) / 2)
     return (list_[:cutoff], list_[cutoff:])
+
+
+@register.filter
+def domain_from_url(url, request):
+    parsed = urlparse(url)
+    if parsed.netloc:
+        try:
+            output = ".".join(parsed.netloc.split(".")[-2:])
+        except Exception:  # Deliberately broad
+            output = ""
+    else:
+        output = request.META.get("HTTP_HOST", "")
+    return output
