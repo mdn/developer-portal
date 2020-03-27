@@ -8,9 +8,14 @@
 {% static "img/placeholders/event-16-9.jpg" as fallback_image %}
 
 <div class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9">
-  <a class="mzp-c-card-block-link" href="{% pageurl resource %}"
-    {% if resource.is_external %} target="_blank" rel="noopener noreferrer" {% endif %}
-    data-type="{{ resource.resource_type }}"
+  <a class="mzp-c-card-block-link"
+    {% if specific_link %}
+      href="{{ specific_link }}"
+    {% else %}
+      href="{% pageurl resource %}"
+      {% if resource.is_external %} target="_blank" rel="noopener noreferrer" {% endif %}
+      data-type="{{ resource.resource_type }}"
+    {% endif %}
   >
     <div class="mzp-c-card-media-wrapper">
       <img class="mzp-c-card-image" src="{% firstof card_image.url image.url fallback_image %}" alt="">
