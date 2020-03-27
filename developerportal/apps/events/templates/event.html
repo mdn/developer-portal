@@ -1,50 +1,73 @@
 {% extends "base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}event{% endblock %}
 
 {% block content %}
 
+{% if page.card_image %}
+  {% image page.card_image width-480 as img %}
+{% else %}
+  {% if page.image %}
+    {% image page.image width-480 as img %}
+  {% else %}
+    {% static "img/placeholders/event.jpg" as fallback_url %}
+  {% endif %}
+{% endif %}
 
 {% static "img/icons/events.svg" as page_icon_asset_url %}
 {% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" standfirst=page.summary_meta %}
 
-  <main>
-    <div class="mzp-l-content">
-      {% include "molecules/event-details.html" with resource=page %}
-    </div>
-    <div class="mzp-l-content article-content">
-      <div class="article-body">
-        <div class="resource-toolbar">
-          {% include "molecules/resource-share.html" %}
-        </div>
-      </div>
-      <article class="article-body">
-        {% for block in page.body %}
-          {% if block.block_type == 'image' %}
-            {% include "molecules/image-block.html" with block=block %}
-          {% else %}
-            {{ block }}
-          {% endif %}
-        {% endfor %}
+
+<div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
+  <main role="main" class="mzp-l-main custom-width">
+      {% for block in page.body %}
+        {% if block.block_type == 'image' %}
+          {% include "molecules/image-block.html" with block=block %}
+        {% else %}
+          {{ block }}
+        {% endif %}
+      {% endfor %}
+
+      <div class="outbound-links">
         {% if page.register_url %}
-          <a href="{{ page.register_url }}" class="mzp-c-button">
-            Register now
+          <a href="{{page.register_url}}" class="mzp-c-button">
+            Register
           </a>
         {% endif %}
-        {% include "organisms/event-map.html" with resource=page %}
-        {% include "organisms/event-agenda.html" with resource=page %}
-      </article>
-      <aside class="article-sidebar">
-        {% if page.primary_topic %}
-          {% include "molecules/card-topic.html" with topic=page.primary_topic %}
+        {% if page.official_website %}
+          <a href="{{page.register_url}}" class="mzp-c-button">
+            Official Website
+          </a>
         {% endif %}
-      </aside>
-    </div>
-    {% if page.speakers %}
-    <section class="section section-background section-background-gray">
-      {% include "organisms/event-speakers.html" with speakers=page.speakers %}
-    </section>
-    {% endif %}
-    {% include "organisms/newsletter-signup.html" %}
+        {% if page.event_content %}
+          <a href="{{page.register_url}}" class="mzp-c-button">
+            Event Content
+          </a>
+        {% endif %}
+
+        {% include "molecules/resource-share.html" %}
+
+
+      </div>
+
   </main>
+
+  <aside class="mzp-l-sidebar custom-width">
+
+    {% comment %}
+      specific_link will fall back to None if these are not set and card-event.html
+      is ready for this because normally it just uses {% pageurl page %}
+    {% endcomment %}
+
+    {% firstof page.event_content page.official_website page.register_url as specific_link %}
+    {% include "molecules/cards/card-event.html" with resource=page no_link=True specific_link=specific_link %}
+
+  </aside>
+</div>
+
+  {% include "organisms/newsletter-signup.html" %}
+
 {% endblock content %}

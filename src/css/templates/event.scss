@@ -1,0 +1,18 @@
+body.event {
+  div.outbound-links {
+    a {
+      margin-bottom: $spacing-md;
+    }
+
+    .resource-share {
+      display: inline-block;
+      margin: $spacing-md 0px $spacing-lg 0;
+
+      @media #{$mq-md} {
+        float: right;
+        margin-top: 10px; // for vertical centering
+        margin-left: $spacing-md;
+      }
+    }
+  }
+}
