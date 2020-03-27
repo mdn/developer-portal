@@ -10,18 +10,6 @@
     {% if page.show_header %}
       {% include "organisms/homepage-header.html" %}
     {% endif %}
-    {% if page.external_promos %}
-    <div class="mzp-l-content">
-      <div class="mzp-l-card-half">
-        {% for promo in page.external_promos|by_key:"value" %}
-        <section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-3-2">
-          {% include "molecules/external-promo.html" with resource=promo %}
-        </section>
-        {% endfor %}
-      </div>
-    </div>
-    {% endif %}
-
     {% with page.featured|published as featured %}
       {% if featured %}
         <section id="featured" class="section">

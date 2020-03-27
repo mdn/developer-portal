@@ -406,8 +406,7 @@
     margin-right: $grid-gap;
   }
 
-  .card-featured,
-  .card.external-promo {
+  .card-featured {
     max-width: 480px;
   }
 
@@ -440,10 +439,6 @@
 
     .card {
       max-width: none;
-    }
-
-    .card.external-promo {
-      max-width: 100%;
     }
 
     .card-featured {
@@ -487,11 +482,6 @@
 }
 
 .card {
-  &.external-promo {
-    display: flex;
-    // flex-direction: column;
-  }
-
   .card-container & {
     height: 100%;
   }

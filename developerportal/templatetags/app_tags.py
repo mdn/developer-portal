@@ -228,6 +228,8 @@ def split_featured_items(iterable):
         bottom_row_b_of_2   -> []
 
     """
+    output = (iterable, [], [])  # sane default
+
     if len(iterable) == 5:
         output = (iterable[:2], iterable[2:], [])
     elif len(iterable) == 4:
