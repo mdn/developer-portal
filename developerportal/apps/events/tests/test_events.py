@@ -22,7 +22,7 @@ class EventTests(PatchedWagtailPageTests):
     def test_event_subpages(self):
         self.assertAllowedSubpageTypes(Event, {})
 
-    def test_standfirst_summary(self):
+    def test_summary_meta(self):
 
         start_date = datetime.datetime(2020, 3, 5)
 
@@ -47,7 +47,7 @@ class EventTests(PatchedWagtailPageTests):
                     depth=2, start_date=start_date, title="Test", **case["input"]
                 )
                 event.save()
-                self.assertEqual(event.standfirst_summary, case["output"])
+                self.assertEqual(event.summary_meta, case["output"])
 
 
 class EventsTests(PatchedWagtailPageTests):

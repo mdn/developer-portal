@@ -5,8 +5,8 @@
 {% block content %}
 
 
-  {% static "img/icons/events.svg" as page_icon_asset_url %}
-  {% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" standfirst=page.standfirst_summary %}
+{% static "img/icons/events.svg" as page_icon_asset_url %}
+{% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" standfirst=page.summary_meta %}
 
   <main>
     <div class="mzp-l-content">

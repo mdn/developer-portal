@@ -572,7 +572,7 @@ class Event(BasePage):
         return False
 
     @property
-    def standfirst_summary(self):
+    def summary_meta(self):
         """Return a simple plaintext string that can be used
         as a standfirst"""
 
