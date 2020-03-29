@@ -13,16 +13,18 @@
       </div>
     {% endif %}
     <div class="header-wrapper">
-    <{{element}}>
-      {{ content }}
-    </{{element}}>
-    {% if standfirst %}
-      <div class="plaintext-standfirst">
-        {{standfirst}}
+      <{{element}}>
+        {{ content }}
+      </{{element}}>
+      <div class="standfirst-wrapper">
+      {% if standfirst %}
+        <div class="plaintext-standfirst">
+          {{standfirst}}
+        </div>
+      {% else %}
+        {{page.description|richtext}}
+      {% endif %}
       </div>
-    {% else %}
-      {{page.description|richtext}}
-    {% endif %}
     </div>
   </div>
 </div>

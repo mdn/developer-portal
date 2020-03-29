@@ -1,56 +1,25 @@
 {% extends "base.html" %}
+{% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
 {% block body_class %}video{% endblock %}
 
 {% block content %}
+
+{% static "img/icons/video-white.svg" as page_icon_asset_url %}
+{% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" %}
+
   <main>
-    <section class="section">
-      <div class="mzp-l-content">
-        {% include "organisms/video-header.html" with title=page.title description=page.description %}
-      </div>
-    </section>
-    <section class="section">
-      <div class="mzp-l-content">
+    {% comment %} the video embed comes from a video_url streamfield {% endcomment %}
+    <div class="mzp-l-content">
+      <div class="video-wrapper">
         {{ page.video_url }}
       </div>
-    </section>
-    <section class="section">
-      <div class="mzp-l-content article-content">
-        <div class="article-body">
-          <div class="resource-toolbar">
-            {% include "molecules/article-details.html" with date=page.date authors=page.speakers %}
-            {% include "molecules/resource-share.html" %}
-          </div>
-        </div>
-        <article class="article-body">
-          {% if page.body %}
-            {{ page.body | richtext }}
-          {% endif %}
-          {% if page.transcript %}
-            <h2>Transcript</h2>
-            {{ page.transcript | richtext }}
-          {% endif %}
-        </article>
-        <aside class="article-sidebar">
-          {% if page.related_links %}
-            {% include "molecules/related-links.html" with links=page.related_links %}
-          {% endif %}
-          {% if page.related_resources %}
-            <h4>Read more on this topic</h4>
-            <div class="article-sidebar-cards">
-              {% for resource in page.related_resources|slice:":3" %}
-                {% include "molecules/cards/card.html" with resource=resource %}
-              {% endfor %}
-            </div>
-          {% endif %}
-          {% if page.primary_topic %}
-            {% include "molecules/card-topic.html" with topic=page.primary_topic %}
-          {% endif %}
-        </aside>
-      </div>
-    </section>
-    {% include "organisms/newsletter-signup.html" %}
+      {% include "molecules/resource-share.html" %}
+    </div>
   </main>
+
+  {% include "organisms/newsletter-signup.html" %}
+
 {% endblock content %}
