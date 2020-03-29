@@ -14,6 +14,8 @@
 
     @media #{$mq-sm} {
       max-width: 50%;
+      min-height: 410px;
+      padding-top: 120px;
     }
 
     p {
@@ -32,6 +34,10 @@
     font-family: Inter, X-LocaleSpecific, sans-serif;
     font-size: 1.125rem;
     line-height: 1.5;
+    margin-top: $spacing-md;
+    @media #{$mq-sm} {
+      margin-top: $spacing-sm;
+    }
   }
 
   .c-primary-cta-button {
@@ -39,15 +45,24 @@
   }
 
   @media #{$mq-sm} {
-    &.developerportal-branding {
-      background-image: url('/static/img/homepage-header-image.png');
-      background-size: 815px 362px;
-      background-position: 52vw 0; // 52vw works with 50% max-width on .c-primary-cta-wrapper
+    &.devportal-branding {
+      background-image: url('/static/img/homepage@1x.png');
+      background-size: 1000px 410px;
+      background-position: 37vw 0vh;
       background-repeat: no-repeat;
+      @media #{$mq-high-res} {
+        background-image: url('/static/img/homepage@2x.png');
+      }
     }
   }
 }
 
 .homepage-header-actions {
   margin-top: 24px;
+}
+
+body.home {
+  .featured-items-wrapper {
+    margin-top: -50px;
+  }
 }
