@@ -3,7 +3,13 @@
 <div class="mzp-l-content">
   <aside id="newsletter" class="newsletter-signup mzp-c-newsletter">
     <div class="mzp-c-newsletter-image">
-      <img src="{% static 'img/newsletter-promo.jpg' %}" alt="Newsletter signup promotional image">
+      <img
+        srcset="
+          {% static 'img/promo/newsletter@1x.jpg' %},
+          {% static 'img/promo/newsletter@2x.jpg' %} 2x"
+        src="{% static 'img/promo/newsletter@2x.jpg' %}"
+        alt="Newsletter signup promotional image"
+      >
     </div>
     <form id="newsletter-form" class="mzp-c-newsletter-form" name="newsletter-form">
       <h2>Discover the best of web development</h2>
