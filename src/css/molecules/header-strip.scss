@@ -35,6 +35,7 @@
 
     img {
       padding-left: 13px;
+      width: 59px;
     }
   }
 
@@ -46,8 +47,13 @@
       float: left;
       margin: $spacing-sm 0 $spacing-md;
     }
-    .plaintext-standfirst {
-      clear: both;
+    .standfirst-wrapper {
+      @media #{$mq-sm} {
+        max-width: 66%;
+      }
+      .plaintext-standfirst {
+        clear: both;
+      }
     }
   }
 }

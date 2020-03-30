@@ -20,7 +20,6 @@
 {% static "img/icons/events.svg" as page_icon_asset_url %}
 {% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" standfirst=page.summary_meta %}
 
-
 <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
   <main role="main" class="mzp-l-main custom-width">
       {% for block in page.body %}
