@@ -1,11 +1,17 @@
 body.event {
   div.outbound-links {
     margin-top: $spacing-lg;
-    a {
-      display: block;
-      margin-bottom: $spacing-md;
+    li {
       @media #{$mq-md} {
-        display: inline-block;
+        float: left;
+        margin-right: $spacing-md;
+      }
+      a {
+        display: block;
+        margin-bottom: $spacing-md;
+        @media #{$mq-md} {
+          display: inline-block;
+        }
       }
     }
 

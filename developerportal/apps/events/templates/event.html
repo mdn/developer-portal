@@ -32,25 +32,31 @@
       {% endfor %}
 
       <div class="outbound-links">
+        <ul>
         {% if page.register_url %}
-          <a href="{{page.register_url}}" class="mzp-c-button">
-            Register
-          </a>
+          <li>
+            <a href="{{page.register_url}}" class="mzp-c-button">
+              Register
+            </a>
+          </li>
         {% endif %}
         {% if page.official_website %}
-          <a href="{{page.register_url}}" class="mzp-c-button">
-            Official Website
-          </a>
+          <li>
+            <a href="{{page.register_url}}" class="mzp-c-button">
+              Official Website
+            </a>
+          </li>
         {% endif %}
         {% if page.event_content %}
-          <a href="{{page.register_url}}" class="mzp-c-button">
-            Event Content
-          </a>
+          <li>
+            <a href="{{page.register_url}}" class="mzp-c-button">
+              Event Content
+            </a>
+          </li>
         {% endif %}
+        </ul>
 
         {% include "molecules/resource-share.html" %}
-
-
       </div>
 
   </main>
