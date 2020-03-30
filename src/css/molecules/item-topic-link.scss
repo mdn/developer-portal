@@ -1,42 +1,81 @@
-.topic-links {
-  background-color: $color-light-gray-10;
+.item-topic-link {
+  align-items: center;
+  background-color: $color-white;
+  border: 2px solid $color-marketing-gray-20;
+  border-radius: 2px;
+  color: inherit;
+  display: flex;
+  padding: 12px;
+  transition: box-shadow 100ms, transform 100ms;
+  width: 100%;
+  will-change: box-shadow, transform;
 
-  h3 {
-    margin-top: $spacing-sm;
-    font-family: Inter, X-LocaleSpecific, sans-serif;
-    font-size: 1.5rem;
+  @media #{$mq-md} {
+    align-items: unset;
+    padding: 16px;
   }
 
-  .section-header {
-    padding: $spacing-sm 0px $spacing-md;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    will-change: auto;
   }
 
-  .mzp-c-card-title span {
-    font-family: Inter, X-LocaleSpecific, sans-serif;
-    display: block;
-    margin: $spacing-sm auto;
-  }
+  &:hover {
+    border-color: $color-black;
+    box-shadow: 4px 4px 0 0 $color-black;
+    color: inherit;
+    transform: translate(-2px, -2px);
+    text-decoration: none;
 
-  .topic-item-icon {
-    float: left;
-    top: 5px;
-    position: relative;
-    margin-right: 5px;
-
-    @media #{$mq-md} {
-      float: none;
-      clear: both;
-      display: block;
-      padding-bottom: $spacing-xs;
+    @media (prefers-reduced-motion: reduce) {
+      box-shadow: none;
+      transform: none;
     }
   }
 
-  .mzp-c-card-desc {
+  &:active {
+    background-color: $color-white;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.item-topic-link-icon {
+  flex-shrink: 0;
+  font-size: 0; // Prevent spacing below icon.
+  margin-right: 16px;
+  padding-top: 4px;
+  width: 50px;
+  text-align: center;
+
+  img {
+    width: 24px;
+  }
+}
+
+.item-topic-link-content {
+  max-width: 672px;
+  @media #{$mq-md} {
+    padding-right: 6px;
+    flex-grow: 1;
+  }
+
+  h4 {
+    margin: 8px 0;
+  }
+
+  .rich-text {
     display: none;
-    visibility: hidden;
+
     @media #{$mq-md} {
       display: block;
-      visibility: visible;
     }
   }
+}
+
+.item-topic-link-full {
+  flex-direction: column;
+  padding-left: 96px;
 }

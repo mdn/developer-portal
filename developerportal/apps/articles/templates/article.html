@@ -5,11 +5,17 @@
 
 {% block body_class %}article{% endblock %}
 
+{% block header %}
+  {{ block.super }}
+  {% firstof page.primary_topic.color_value '#ffd567' as color %}
+  {% include "utils/accent-color.html" with color=color %}
+{% endblock %}
+
 {% block content %}
   <main>
     {% include "organisms/article-header.html" with title=page.title description=page.description date=page.date i=page.i authors=page.authors|published %}
     <section class="section">
-      <div class="mzp-l-content article-content">
+      <div class="container article-content">
         <div class="article-body">
           <div class="resource-toolbar">
             {% include "molecules/resource-meta.html" with resource=page read_time=read_time %}

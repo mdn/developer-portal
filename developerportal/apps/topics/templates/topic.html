@@ -5,25 +5,71 @@
 
 {% block body_class %}topic{% endblock %}
 
-{% block content %}
-{% include "molecules/header-strip.html" with page=page content=page.title element="h1" %}
+{% block header %}
+  {{ block.super }}
+  {% include "utils/accent-color.html" with color=page.color_value %}
+{% endblock %}
 
+{% block content %}
 <main>
-  {% comment %} FEATURED {% endcomment %}
+  {% include "organisms/pattern-bg-header.html" with title=page.title description=page.description icon=page.icon %}
   {% with page.featured|published as featured %}
     {% if featured %}
-      <div class="mzp-l-content featured-items">
-        {% include "organisms/featured.html" with featured=featured %}
-      </div>
+      <section class="section">
+        <div class="container">
+          {% include "organisms/featured.html" with featured=featured %}
+        </div>
+      </section>
     {% endif %}
   {% endwith %}
-
-  {% comment %} WHAT WE ARE WORKING ON {% endcomment %}
-  {% include "organisms/topic-recent-work.html" with recent_work=page.recent_work|published %}
-
-  {% comment %} PEOPLE/EXPERTS {% endcomment %}
+  {% if page.tabbed_panels %}
+    <section class="section section-background section-background-gray">
+      <div class="container">
+        {% include "organisms/tabbed-panels.html" with resources=page.tabbed_panels %}
+      </div>
+    </section>
+  {% endif %}
+  {% with subtopics=self.subtopics %}
+    {% if subtopics %}
+      <section class="section">
+        {% include "organisms/topic-links.html" with topics=subtopics pagetheme="topic" %}
+      </section>
+    {% endif %}
+  {% endwith %}
+  {% if page.articles %}
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Latest posts</h2>
+          {% if directory_pages.articles %}
+            <a href="{% pageurl directory_pages.articles %}?topic={{ page.slug }}">See more</a>
+          {% endif %}
+        </div>
+        {% with card_count_string=page.latest_articles_count|stringformat:"s" %}
+          {% with card_count=":"|add:card_count_string %}
+            {% include "organisms/latest-cards.html" with cards=page.articles card_count=card_count show_author=True %}
+          {% endwith %}
+        {% endwith %}
+      </div>
+    </section>
+  {% endif %}
   {% if page.experts %}
-  {% include "organisms/people-section.html" with people=page.experts is_topic=True show_link=True %}
+  <section class="section">
+    {% include "organisms/people-section.html" with people=page.experts is_topic=True show_link=True %}
+  </section>
+  {% endif %}
+  {% if page.videos %}
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Latest videos</h2>
+      </div>
+      {% include "organisms/latest-cards.html" with cards=page.videos %}
+    </div>
+  </section>
+  {% endif %}
+  {% if page.events %}
+    {% include "organisms/upcoming-events.html" with events=page.events topic=page.slug %}
   {% endif %}
   {% include "organisms/newsletter-signup.html" %}
 </main>

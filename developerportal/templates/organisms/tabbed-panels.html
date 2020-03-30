@@ -1,0 +1,76 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load app_filters %}
+
+<div id="tabbed-panels" class="tabbed-panels js-tabbed-panels">
+  <div class="tabbed-panels-mobile">
+    {% for block in resources %}
+      <details {% if forloop.first %}open=""{% endif %}>
+        <summary>
+          <h3 class="no-underline">{{ block.value.title }}</h3>
+        </summary>
+        <div class="tabbed-panels-item-content">
+          {% image block.value.image width-320 as image %}
+          <img
+            src="{{ image.url }}"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+            alt="{{ image.alt }}"
+          >
+          <p>{{ block.value.description }}</p>
+          {% if block.value.page_link %}
+            {% pageurl block.value.page_link as page_url %}
+          {% endif %}
+          {% firstof page_url block.value.external_link as url %}
+          {% if url %}
+            <div class="tabbed-panels-item-actions">
+              <a href="{{ url }}" class="mzp-c-button mzp-t-small"{% if block.value.external_link %} target="_blank" rel="nofollow noopener"{% endif %}>
+                {{ block.value.button_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+
+  <div class="tabbed-panels-desktop">
+    {% if resources|length > 1 %}
+      <nav class="tabbed-panels-nav">
+        {% for block in resources %}
+          <a href="#panel-{{ block.value.title|slugify }}" class="tabbed-panels-nav-item {% if forloop.first %}is-active{% endif %}">
+            {{ block.value.title }}
+          </a>
+        {% endfor %}
+      </nav>
+    {% endif %}
+    {% for block in resources %}
+      <div class="tabbed-panels-item is-active" data-hash="panel-{{ block.value.title|slugify }}">
+        <div class="tabbed-panels-item-content">
+          <h2>{{ block.value.title }}</h2>
+          <p>{{ block.value.description }}</p>
+          {% if block.value.page_link %}
+            {% pageurl block.value.page_link as page_url %}
+          {% endif %}
+          {% firstof page_url block.value.external_link as url %}
+          {% if url %}
+            <div class="tabbed-panels-item-actions">
+              <a href="{{ url }}" class="mzp-c-button"{% if block.value.external_link %} target="_blank" rel="nofollow noopener"{% endif %}>
+                {{ block.value.button_text }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="tabbed-panels-item-image">
+          {% image block.value.image width-320 as image %}
+          <img
+            src="{{ image.url }}"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+            alt="{{ image.alt }}"
+          >
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

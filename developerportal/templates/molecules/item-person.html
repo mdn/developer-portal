@@ -1,39 +1,39 @@
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-
-{% image person.image width-480 as img %}
-
+{% image person.image fill-284x284 as image %}
 {% if person.role == "staff" %}
-  {% static "img/placeholders/mozillian-16-9.jpg" as fallback_url %}
+  {% static "img/placeholders/mozillian.jpg" as fallback_image %}
 {% else %}
-  {% static "img/placeholders/person-16-9.jpg" as fallback_url %}
+  {% static "img/placeholders/person.jpg" as fallback_image %}
 {% endif %}
 
-<section class="mzp-c-card mzp-c-card-small mzp-has-aspect-16-9">
-
-  {% if type == 'speaker' or type == 'person' %}
-    <a href="{% pageurl person %}" class="card-link">
-  {% endif %}
-  {% if type == 'external_speaker' and person.url %}
-    <a href="{{ person.url }}" class="card-link" target="_blank" rel="nofollow noopener">
-  {% endif %}
-      <div class="mzp-c-card-media-wrapper">
-        <div class="lazy-image-container">
-          <img class="mzp-c-card-image" src="{% firstof img.url fallback_url %}" alt="">
-        </div>
+{% if type == 'speaker' or type == 'person' %}
+  <a href="{% pageurl person %}" class="card-link">
+{% endif %}
+{% if type == 'external_speaker' and person.url %}
+  <a href="{{ person.url }}" class="card-link" target="_blank" rel="nofollow noopener">
+{% endif %}
+    <div class="card-person{% if full_width %} card-full{% endif %}{% if type == 'speaker' or type == 'external_speaker' %} card-person-speaker{% endif %}">
+      <div class="card-person-image">
+        <img src="{% firstof image.url fallback_image %}" alt="{{ image.alt }}">
       </div>
-      <div class="mzp-c-card-content">
-        <div class="mzp-c-card-tag">{{person.get_role_display}}</div>
-        <h2 class="mzp-c-card-title">
-          <span>
-            {{ person.title }}
-          </span>
-        </h2>
-        <div class="mzp-c-card-desc">
-          {{ person.job_title }}
+      <div class="card-person-content">
+        <div>
+          {% if type == 'speaker' or type == 'external_speaker' %}
+            <h4 class="no-underline">{{ person.title }}</h4>
+          {% else %}
+            <div class="person-title highlight1">
+              {{ person.title }}
+            </div>
+          {% endif %}
         </div>
+        <span class="heading5">{{ person.job_title }}</span>
+        {% if full_width and person.description %}
+          {{ person.description | richtext }}
+        {% endif %}
       </div>
-    </a>
-
-</section>
+    </div>
+{% if person.url %}
+  </a>
+{% endif %}

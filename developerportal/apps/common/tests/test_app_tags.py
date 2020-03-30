@@ -4,13 +4,13 @@ from wagtail.core.models import Page
 
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
-    DATE_PARAMS_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
     ENVIRONMENT_PRODUCTION,
     ENVIRONMENT_STAGING,
     PAGINATION_QUERYSTRING_KEY,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
+    YEAR_MONTH_QUERYSTRING_KEY,
 )
 from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
@@ -18,7 +18,6 @@ from developerportal.templatetags.app_tags import (
     has_at_least_two_filters,
     is_production_site,
     pagination_additional_filter_params,
-    split_featured_items,
 )
 
 
@@ -200,13 +199,13 @@ class AppTagsTestCase(TestCase):
                     f"?{PAGINATION_QUERYSTRING_KEY}=234&{ROLE_QUERYSTRING_KEY}=test"
                     f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
                     f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
-                    f"&{DATE_PARAMS_QUERYSTRING_KEY}=2020-2-20"
+                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
                 ),
                 "expected_output": (
                     f"&{ROLE_QUERYSTRING_KEY}=test"
                     f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
                     f"&{COUNTRY_QUERYSTRING_KEY}=DE&{COUNTRY_QUERYSTRING_KEY}=AR"
-                    f"&{DATE_PARAMS_QUERYSTRING_KEY}=2020-2-20"
+                    f"&{YEAR_MONTH_QUERYSTRING_KEY}=2020-2-20"
                 ),
             },
             {
@@ -260,17 +259,3 @@ class AppTagsTestCase(TestCase):
             with self.subTest(case=case):
                 with override_settings(ACTIVE_ENVIRONMENT=case["input"]):
                     self.assertEqual(is_production_site(), case["output"])
-
-    def test_split_featured_items(self):
-
-        cases = [
-            {"input": [1, 2, 3, 4, 5], "output": ([1, 2], [3, 4, 5], [])},
-            {"input": [1, 2, 3, 4], "output": ([1, 2], [], [3, 4])},
-            {"input": [1, 2, 3], "output": ([], [1, 2, 3], [])},
-            {"input": [1, 2], "output": ([1, 2], [], [])},
-            {"input": [1], "output": ([1], [], [])},
-        ]
-
-        for case in cases:
-            with self.subTest(case=case):
-                self.assertEqual(split_featured_items(case["input"]), case["output"])

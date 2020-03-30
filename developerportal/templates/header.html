@@ -1,4 +1,4 @@
-{% load app_tags app_filters static %}
+{% load app_tags %}
 {% load wagtailcore_tags %}
 
 {% with home_page=request.site.root_page %}
@@ -9,7 +9,8 @@
           <button class="mzp-c-navigation-menu-button" type="button" aria-controls="patterns.organisms.navigation.navigation">Menu</button>
           <div class="mzp-c-navigation-logo">
             <a href="/">
-              <img class="mozilla-developer-logo" src="/static/img/logos/developer/black.svg" alt="Mozilla Developer logo" />
+              <span class="logo"></span>
+              <span class="logo-prefix">Mozilla</span><span class="heading5 logo-text">Developer</span>
             </a>
           </div>
           <div class="mzp-c-navigation-items" id="patterns.organisms.navigation.navigation">
@@ -27,41 +28,42 @@
                         </a>
                         {% endif %}
                         {% if child_pages %}
-                          {% with specific_child_pages=child_pages.public.live.in_menu.specific %}
                           <div class="mzp-c-menu-panel mzp-has-card" id="mzp-c-menu-panel-{{ page.slug }}">
                             <div class="mzp-c-menu-panel-container">
                               <button class="mzp-c-menu-button-close" type="button" aria-controls="mzp-c-menu-panel-{{ page.slug }}">
                                 Close {{ page.title }} menu
                               </button>
                               <div class="mzp-c-menu-panel-content">
-                                {% for child_page_group in specific_child_pages|split_across_two_columns %}
                                 <ul>
-                                  {% for page in child_page_group %}
+                                  {% for page in child_pages.public.live.in_menu.specific %}
                                     <li>
-                                      <section class="mzp-c-menu-item mzp-has-icon">
+                                      <section class="mzp-c-menu-item">
                                         <a class="mzp-c-menu-item-link" href="{{ page.url }}">
-                                          <img src="{% get_menu_item_icon page %}" class="mzp-c-menu-item-icon" alt="" width="24" height="24">
-                                          <h4 class="mzp-c-menu-item-title">{{ page.title }}</h4>
+                                          <p class="mzp-c-menu-item-title">{{ page.title }}</p>
                                         </a>
-                                        {% if page.nav_description %}
-                                        <div class="mzp-c-menu-item-desc">
-                                          <p>{{page.nav_description}}</p>
-                                        </div>
-                                        {% endif %}
                                       </section>
                                     </li>
                                   {% endfor %}
                                 </ul>
-                                {% endfor %}
                               </div>
-                              {% include "molecules/navigation/promotion.html" with page=page %}
                             </div>
                           </div>
-                          {% endwith %}
                         {% endif %}
                       </li>
                     {% endwith %}
                   {% endfor %}
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="https://developer.mozilla.org/" rel="nofollow noopener" target="_blank">
+                      <img src="/static/img/icons/social/mozilla/black.svg" alt="" width="16" height="16" />
+                      MDN Web Docs
+                    </a>
+                  </li>
+                  <li class="mzp-c-menu-category">
+                    <a class="mzp-c-menu-title" href="https://www.mozilla.org/firefox/developer/" rel="nofollow noopener" target="_blank">
+                      <img src="/static/img/icons/social/firefox/black.svg" alt="" width="16" height="16" />
+                      Firefox
+                    </a>
+                  </li>
                 </ul>
               </nav>
             </div>

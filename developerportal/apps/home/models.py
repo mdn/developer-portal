@@ -55,6 +55,17 @@ class HomePage(BasePage):
         on_delete=SET_NULL,
         related_name="+",
     )
+    external_promos = StreamField(
+        StreamBlock(
+            [("external_promo", FeaturedExternalBlock())], max_num=2, required=False
+        ),
+        null=True,
+        blank=True,
+        help_text=(
+            "Optional promo space under the header "
+            "for linking to external sites, max. 2"
+        ),
+    )
     featured = StreamField(
         StreamBlock(
             [
@@ -79,14 +90,13 @@ class HomePage(BasePage):
                     ),
                 ),
             ],
-            min_num=2,
-            max_num=5,
+            max_num=4,
             required=False,
         ),
         null=True,
         blank=True,
         help_text=(
-            "Optional space for featured posts, videos or links, min. 2, max. 5. "
+            "Optional space for featured posts, videos or links, max. 4. "
             "Note that External Video is NOT allowed here."
         ),
     )
@@ -141,6 +151,7 @@ class HomePage(BasePage):
                 "Optional image shown when sharing this page through social media"
             ),
         ),
+        StreamFieldPanel("external_promos"),
         StreamFieldPanel("featured"),
         StreamFieldPanel("featured_people"),
         MultiFieldPanel(

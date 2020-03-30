@@ -1,11 +1,4 @@
-from django.db.models import (
-    CASCADE,
-    SET_NULL,
-    CharField,
-    FileField,
-    ForeignKey,
-    TextField,
-)
+from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, TextField
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -17,13 +10,10 @@ from wagtail.admin.edit_handlers import (
     StreamFieldPanel,
     TabbedInterface,
 )
-from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
-from ..common.validators import check_for_svg_file
 
 
 class ContentPageTag(TaggedItemBase):
@@ -38,14 +28,6 @@ class ContentPage(BasePage):
     template = "content.html"
 
     # Content fields
-    description = RichTextField(
-        blank=True,
-        default="",
-        features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
-    )
-    # NOT show in the Admin UI for now - see below
     hero_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
@@ -56,15 +38,6 @@ class ContentPage(BasePage):
     body = CustomStreamField(
         help_text=(
             "Main page body content. Supports rich text, images, embed via URL, "
-            "embed via HTML, and inline code snippets"
-        )
-    )
-
-    sidebar = CustomStreamField(
-        help_text=(
-            "Sidebar page body content (narrower than main body). Rendered to the "
-            "right of the main body content in desktop and below it in mobile."
-            "Supports rich text, images, embed via URL, "
             "embed via HTML, and inline code snippets"
         )
     )
@@ -82,76 +55,27 @@ class ContentPage(BasePage):
     )
 
     # Meta fields
-    nav_description = TextField(
-        "Navigation description", max_length=400, blank=True, default=""
-    )
-    icon = FileField(
-        upload_to="contentpage/icons",
-        blank=True,
-        default="",
-        help_text=(
-            "MUST be a black-on-transparent SVG icon ONLY, "
-            "with no bitmap embedded in it."
-        ),
-        validators=[check_for_svg_file],
-    )
     keywords = ClusterTaggableManager(through=ContentPageTag, blank=True)
 
     # Editor panel configuration
     content_panels = BasePage.content_panels + [
-        FieldPanel("description"),
-        # Disabled for now but not removed as I suspect we may want it
-        # back for some situations
-        # MultiFieldPanel(
-        #     [ImageChooserPanel("hero_image")],
-        #     heading="Hero image",
-        #     help_text="Image should be at least 1024px x 438px (21:9 aspect ratio)",
-        # ),
+        MultiFieldPanel(
+            [ImageChooserPanel("hero_image")],
+            heading="Hero image",
+            help_text="Image should be at least 1024px x 438px (21:9 aspect ratio)",
+        ),
         StreamFieldPanel("body"),
-        StreamFieldPanel("sidebar"),
     ]
 
     # Card panels
     card_panels = [
-        FieldPanel(
-            "card_title",
-            help_text=(
-                "Title displayed when this page is "
-                "represented by a card in a list of items. "
-                "If blank, the page's title is used."
-            ),
-        ),
-        FieldPanel(
-            "card_description",
-            help_text=(
-                "Summary text displayed when this page is "
-                "represented by a card in a list of items. "
-                "If blank, the page's description is used."
-            ),
-        ),
-        ImageChooserPanel(
-            "card_image",
-            help_text=(
-                "Summary image displayed when this page is "
-                "represented by a card in a list of items. "
-                "If blank, the page's image is used, if set."
-            ),
-        ),
+        FieldPanel("card_title"),
+        FieldPanel("card_description"),
+        ImageChooserPanel("card_image"),
     ]
 
     # Meta panels
     meta_panels = [
-        FieldPanel(
-            "nav_description",
-            help_text="Text to display in the navigation with the title for this page.",
-        ),
-        MultiFieldPanel(
-            [FieldPanel("icon")],
-            heading="Theme",
-            help_text=(
-                "This icon will be used if, for example, this page is shown in a Menu"
-            ),
-        ),
         MultiFieldPanel(
             [
                 FieldPanel("seo_title"),
@@ -164,7 +88,7 @@ class ContentPage(BasePage):
                 "Optional fields to override the default title and "
                 "description for SEO purposes"
             ),
-        ),
+        )
     ]
 
     # Settings panels

@@ -1,0 +1,18 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% image resource.image width-400 as image %}
+
+<a href="{{ resource.url }}" class="card-link" target="_blank" rel="noopener noreferrer">
+  <div class="card external-promo">
+    <div class="card-image" style="background-image: url('{{ image.url }}')"></div>
+    <div class="external-promo-content">
+      <h4 class="no-underline">
+        {{ resource.title }}
+      </h4>
+      {% if resource.description %}
+        {{ resource.description | richtext }}
+      {% endif %}
+    </div>
+    {% include "atoms/icons/external.svg" %}
+  </div>
+</a>

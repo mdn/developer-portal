@@ -1,0 +1,125 @@
+.tabbed-panels {
+  @media #{$mq-md} {
+    flex-direction: row;
+  }
+}
+
+.tabbed-panels-item {
+  align-items: center;
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &.is-active {
+    display: flex;
+  }
+}
+
+.tabbed-panels-item-content p {
+  color: $color-nevada;
+  margin: 0;
+}
+
+.tabbed-panels-item-image {
+  flex-shrink: 0;
+
+  img {
+    width: 320px;
+  }
+}
+
+.tabbed-panels-desktop {
+  display: none;
+
+  @media #{$mq-md} {
+    display: block;
+    position: relative;
+  }
+
+  .tabbed-panels-nav {
+    margin-bottom: 40px;
+  }
+
+  .tabbed-panels-nav-item {
+    border-bottom: 2px solid transparent;
+    color: inherit;
+    display: inline-block;
+    margin-right: 48px;
+    padding-bottom: 16px;
+
+    &:active {
+      background: none;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.is-active {
+      border-color: #000;
+      font-weight: bold;
+      pointer-events: none;
+    }
+  }
+
+  .tabbed-panels-item-content {
+    flex-grow: 1;
+    margin-right: 32px;
+    max-width: 60%;
+  }
+
+  .tabbed-panels-item-actions {
+    margin-top: 32px;
+  }
+}
+
+.tabbed-panels-mobile {
+  display: block;
+
+  @media #{$mq-md} {
+    display: none;
+  }
+
+  details {
+    background-color: $color-marketing-gray-20;
+  }
+
+  summary {
+    background-color: $color-black;
+    padding: 10px 0 3px 12px;
+
+    &:before {
+      background: $url-image-expand-white top left no-repeat;
+      background-size: 20px, 20px;
+    }
+  }
+
+  h3 {
+    color: $color-white;
+    display: inline-block;
+    font-family: $heading-font-family;
+    font-size: $highlight2-font-size-mobile;
+    font-weight: 700;
+    line-height: 18px;
+
+    @media #{$mq-md} {
+      font-size: $highlight2-font-size;
+    }
+  }
+
+  .tabbed-panels-item-content {
+    margin: 0 auto;
+    max-width: 360px;
+    padding: 32px;
+    text-align: center;
+
+    img {
+      margin-bottom: 24px;
+      width: 180px;
+    }
+  }
+
+  .tabbed-panels-item-actions {
+    margin-top: 24px;
+  }
+}

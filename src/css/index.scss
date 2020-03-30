@@ -52,8 +52,8 @@
 @import 'molecules/card-topic';
 @import 'molecules/content-hero';
 @import 'molecules/event-details';
+@import 'molecules/external-promo';
 @import 'molecules/header';
-@import 'molecules/header-strip';
 @import 'molecules/item-get-started';
 @import 'molecules/item-person';
 @import 'molecules/item-topic-link';
@@ -69,24 +69,20 @@
 @import 'organisms/article-header';
 @import 'organisms/event-agenda';
 @import 'organisms/event-speakers';
-@import 'organisms/featured';
 @import 'organisms/filter-form';
 @import 'organisms/filter-list';
-@import 'organisms/footer';
 @import 'organisms/homepage-about';
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
 @import 'organisms/pattern-bg-header';
 @import 'organisms/pattern-section';
-@import 'organisms/people-section';
 @import 'organisms/person-header';
 @import 'organisms/person-overview';
-@import 'organisms/topic-recent-work';
+@import 'organisms/social-links';
+@import 'organisms/tabbed-panels';
 @import 'organisms/upcoming-events';
+@import 'organisms/video-header';
 
 // Templates.
 @import 'templates/article';
-@import 'templates/content-page';
-@import 'templates/event';
 @import 'templates/http-error';
-@import 'templates/video';

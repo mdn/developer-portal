@@ -5,17 +5,22 @@
 
 {% block body_class %}person{% endblock %}
 
+{% block header %}
+  {{ block.super }}
+  {% include "utils/accent-color.html" with color='#ffd567' %}
+{% endblock %}
+
 {% block content %}
   <main>
     {% include "organisms/pattern-bg-header.html" with title=page.display_title description=page.get_role_display type=page.resource_type role=page.role %}
     <section class="section">
-      <div class="mzp-l-content">
+      <div class="container">
         {% include "organisms/person-overview.html" with resource=page %}
       </div>
     </section>
     {% if page.articles %}
     <section class="section">
-      <div class="mzp-l-content">
+      <div class="container">
         <div class="section-header">
           <h2>Latest posts</h2>
         </div>
@@ -25,7 +30,7 @@
     {% endif %}
     {% if page.videos %}
     <section class="section">
-      <div class="mzp-l-content">
+      <div class="container">
         <div class="section-header">
           <h2>Latest videos</h2>
         </div>

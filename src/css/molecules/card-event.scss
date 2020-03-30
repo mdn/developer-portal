@@ -1,3 +1,138 @@
-address.mzp-c-card-desc {
-  font-style: normal;
+.card-event {
+  margin-bottom: 24px;
+
+  @media #{$mq-md} {
+    flex-direction: row;
+  }
+
+  .card-link:last-child & {
+    margin-bottom: 0;
+  }
+
+  address {
+    color: $color-nevada;
+    display: inline-block;
+    font-style: normal;
+  }
+
+  .icon-external {
+    position: relative;
+    margin-left: 10px;
+    top: -2px;
+  }
+}
+
+.card-event-ribbon-container {
+  left: -14px;
+  position: relative;
+  top: 14px;
+  z-index: 1;
+
+  @media #{$mq-md} {
+    left: -24px;
+  }
+}
+
+.card-event-ribbon {
+  margin: 0 auto;
+  padding: 11px 40px 8px;
+  position: absolute;
+  white-space: nowrap;
+  border-radius: 2px 2px 2px 0;
+
+  .highlight2 {
+    background-color: inherit;
+  }
+
+  &:before {
+    border: 14px solid $color-black;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    bottom: -14px;
+    content: '';
+    display: block;
+    height: 0px;
+    left: -14px;
+    position: absolute;
+    width: 0px;
+    z-index: -1;
+
+    @media #{$mq-md} {
+      border: 24px solid $color-black;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-top-color: transparent;
+      bottom: -24px;
+      left: -24px;
+    }
+  }
+}
+
+.card-event-title {
+  padding: 88px 24px 24px;
+  width: 100%;
+
+  .card-event-featured & {
+    padding: 0;
+  }
+
+  @media #{$mq-md} {
+    width: 50%;
+  }
+}
+
+.card-event-image {
+  min-height: 100%;
+  padding-top: 66.66%;
+}
+
+.card-event-details {
+  border-left: none;
+  border-top: 2px solid $color-marketing-gray-20;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px;
+  width: 100%;
+
+  @media #{$mq-md} {
+    border-left: 2px solid $color-marketing-gray-20;
+    border-top: none;
+    padding: 24px;
+    width: 50%;
+  }
+
+  .card-event-featured & {
+    justify-content: normal;
+    border-color: transparent;
+  }
+}
+
+.card-event-featured .card-event-meta {
+  margin-top: 16px;
+}
+
+.card-event-date {
+  color: $color-nevada;
+  display: flex;
+
+  .icon {
+    margin-right: 16px;
+  }
+}
+
+.card-event-location {
+  color: $color-nevada;
+  display: flex;
+  margin-top: 16px;
+
+  .icon {
+    margin-right: 16px;
+  }
+}
+
+.card-event-description {
+  color: $color-nevada;
+  margin: 16px 0 0;
 }

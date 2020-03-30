@@ -1,0 +1,16 @@
+.video-header {
+  h1,
+  p {
+    max-width: 672px;
+  }
+
+  &.no-description {
+    h1 {
+      margin-bottom: 0;
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
