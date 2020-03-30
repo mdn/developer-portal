@@ -3,7 +3,7 @@
 {% elif resource.resource_type == "event" %}
   {% include "molecules/cards/card-event.html" with resource=resource %}
 {% elif resource.resource_type == "person" %}
-  {% include "molecules/cards/card-person.html" with resource=resource %}
+  {% include "molecules/cards/card-person.html" with person=resource %}
 {% elif resource.resource_type == "video" %}
   {% include "molecules/cards/card-video.html" with resource=resource %}
 {% endif %}
