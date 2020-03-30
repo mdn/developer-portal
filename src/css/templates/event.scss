@@ -2,10 +2,17 @@ body.event {
   div.outbound-links {
     margin-top: $spacing-lg;
     a {
+      display: block;
       margin-bottom: $spacing-md;
+      @media #{$mq-md} {
+        display: inline-block;
+      }
     }
 
     .resource-share {
+      a {
+        display: inherit;
+      }
       display: inline-block;
       margin: $spacing-md 0px $spacing-lg 0;
 
