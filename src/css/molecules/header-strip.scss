@@ -3,6 +3,13 @@
   color: $color-white;
 
   .icon-wrapper {
+    display: none;
+    visibility: hidden;
+    @media #{$mq-sm} {
+      display: inherit;
+      visibility: visible;
+    }
+
     float: left;
     fill: currentColor;
 
