@@ -13,7 +13,7 @@
       href="{{ specific_link }}"
     {% else %}
       href="{% pageurl resource %}"
-      {% if resource.is_external %} target="_blank" rel="noopener noreferrer" {% endif %}
+      {% if resource.is_external %} target="_blank" rel="nofollow noopener noreferrer" {% endif %}
       data-type="{{ resource.resource_type }}"
     {% endif %}
   >
