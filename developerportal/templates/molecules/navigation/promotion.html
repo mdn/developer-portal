@@ -1,0 +1,74 @@
+{% load static %}
+
+{% comment %}
+Expects:
+  `page`- a Page subclass that we'll use to determing which promoted item to feature
+
+{% endcomment %}
+{% if page.specific.resource_type == "topics" %}
+
+<div class="mzp-c-menu-panel-card">
+  <section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-3-2">
+    <a class="mzp-c-card-block-link" href="https://www.mozilla.org/firefox/developer/" data-link-name="Firefox Developer Edition" data-link-type="nav" data-link-position="card" data-link-group="firefox">
+      <div class="mzp-c-card-media-wrapper">
+        <img
+          class="mzp-c-card-image"
+          srcset="
+            {% static 'img/promo/firefox-developer@1x.jpg' %},
+            {% static 'img/promo/firefox-developer@2x.jpg' %} 2x"
+          src="{% static 'img/promo/firefox-developer@1x.jpg' %}"
+          alt="Firefox Developer Edition banner">
+
+        <noscript>
+          <img
+            class="mzp-c-card-image"
+            src="{% static 'img/promo/firefox-developer@1x.jpg' %}"
+            alt="Firefox Developer Edition banner">
+        </noscript>
+      </div>
+      <div class="mzp-c-card-content">
+        <h2 class="mzp-c-card-title">
+          Firefox Developer
+        </h2>
+        <p class="mzp-c-card-desc">
+          Get the latest features, fast performance, and the development tools you need to build for the open web.
+        </p>
+      </div>
+    </a>
+  </section>
+</div>
+
+{% elif page.specific.title == "Communities" %} {% comment %} Unpleasant, but only way {% endcomment %}
+
+<div class="mzp-c-menu-panel-card">
+  <section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-3-2">
+    <a class="mzp-c-card-block-link" href="https://developer.mozilla.org/" data-link-name="Firefox Developer Edition" data-link-type="nav" data-link-position="card" data-link-group="firefox">
+      <div class="mzp-c-card-media-wrapper">
+        <img
+          class="mzp-c-card-image"
+          srcset="
+            {% static 'img/promo/mdn@1x.jpg' %},
+            {% static 'img/promo/mdn@2x.jpg' %} 2x"
+          src="{% static 'img/promo/mdn@1x.jpg' %}"
+          alt="MDN banner">
+
+        <noscript>
+          <img
+            class="mzp-c-card-image"
+            src="{% static 'img/promo/mdn@1x.jpg' %}"
+            alt="MDN banner">
+        </noscript>
+      </div>
+      <div class="mzp-c-card-content">
+        <h2 class="mzp-c-card-title">
+          MDN Web Docs
+        </h2>
+        <p class="mzp-c-card-desc">
+          Resources for developers, by developers.
+        </p>
+      </div>
+    </a>
+  </section>
+</div>
+
+{% endif %}

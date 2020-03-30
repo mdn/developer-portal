@@ -71,7 +71,10 @@ class Migration(migrations.Migration):
                     ),
                 ],
                 blank=True,
-                help_text="Optional space to show a featured event",
+                help_text=(
+                    "Optional space to show featured events. Note that these are "
+                    "rendered two-up, so please set 0 or 2"
+                ),
                 null=True,
             ),
         ),

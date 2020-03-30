@@ -1,5 +1,6 @@
 # pylint: disable=no-member
 import datetime
+import logging
 from typing import List
 
 from django.db.models import (
@@ -13,7 +14,6 @@ from django.db.models import (
     TextField,
     URLField,
 )
-from django.utils.safestring import mark_safe
 
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -36,10 +36,11 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import (
     COUNTRY_QUERYSTRING_KEY,
+    DATE_PARAMS_QUERYSTRING_KEY,
     PAGINATION_QUERYSTRING_KEY,
+    PAST_EVENTS_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
     TOPIC_QUERYSTRING_KEY,
-    YEAR_MONTH_QUERYSTRING_KEY,
 )
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
@@ -49,6 +50,8 @@ from ..common.utils import (
     paginate_resources,
 )
 from ..topics.models import Topic
+
+logger = logging.getLogger(__name__)
 
 
 class EventsTag(TaggedItemBase):
@@ -77,8 +80,7 @@ class EventSpeaker(Orderable):
 
 class Events(BasePage):
 
-    # Note that we only paginate PAST events right now, and not the future ones
-    PAST_EVENTS_PER_PAGE = 20
+    EVENTS_PER_PAGE = 8
 
     parent_page_types = ["home.HomePage"]
     subpage_types = ["events.Event"]
@@ -96,12 +98,15 @@ class Events(BasePage):
                 ),
                 ("external_page", FeaturedExternalBlock()),
             ],
-            max_num=1,
+            max_num=2,
             required=False,
         ),
         null=True,
         blank=True,
-        help_text="Optional space to show a featured event",
+        help_text=(
+            "Optional space to show featured events. Note that these are "
+            "rendered two-up, so please set 0 or 2"
+        ),
     )
     body = CustomStreamField(
         help_text=(
@@ -161,13 +166,30 @@ class Events(BasePage):
     def get_context(self, request):
         context = super().get_context(request)
         context["filters"] = self.get_filters()
-        context["events"] = self.get_upcoming_events(request)
-        past_events, total_past_events = self.get_past_events(request)
-        context["past_events"] = past_events
-        context["show_past_event_pagination"] = (
-            total_past_events > self.PAST_EVENTS_PER_PAGE
-        )
+        context["events"] = self.get_events(request)
         return context
+
+    def _pop_past_events_marker_from_date_params(self, date_params):
+        """For the given list of "YYYY-MM" strings and an optional sentinel that shows
+        whether we should include past events, return a list of tuples containing
+        the year and and month, as unmutated strings, PLUS a separate Boolean value,
+        defaulting to False.
+
+        Example input:  ["2020-03", "2020-12"]
+        Example output:  (["2020-03", "2020-12"], False)
+
+        Example input:  ["2020-03", "2020-12", "past"]
+        Example output:  (["2020-03", "2020-12"], True)
+        """
+
+        past_events_flag = bool(date_params) and (
+            PAST_EVENTS_QUERYSTRING_VALUE in date_params
+        )
+
+        if past_events_flag:
+            date_params.pop(date_params.index(PAST_EVENTS_QUERYSTRING_VALUE))
+
+        return date_params, past_events_flag
 
     def _year_months_to_years_and_months_tuples(self, year_months):
         """For the given list of "YYYY-MM" strings, return a list of tuples
@@ -181,47 +203,87 @@ class Events(BasePage):
             return []
         return [tuple(x.split("-")) for x in [y for y in year_months if y]]
 
-    def _build_date_q(self, year_months):
-        "Support filtering future events by selected year-month pair(s)"
-        default_future_events_q = Q(start_date__gte=get_past_event_cutoff())
+    def _build_date_q(self, date_params):
+        """Suport filtering events by selected year-month pair(s) and/or an
+        'all past events' Boolean.
 
+        Note that this method returns early, to avoid nested clauses
+
+        Arguments:
+            date_params: List(str) -- list of strings representing selected
+            dates in the filtering panel, where each string is either in YYYY-MM format
+            or the sentinel string PAST_EVENTS_QUERYSTRING_VALUE.
+
+        Returns:
+            django.models.QuerySet -- configured QuerySet based on arguments.
+        """
+
+        # Assemble facts from the year_months querystring data
+        year_months, past_events_flag = self._pop_past_events_marker_from_date_params(  # noqa: E501
+            date_params
+        )
         years_and_months_tuples = self._year_months_to_years_and_months_tuples(
             year_months
         )
+
+        if past_events_flag:
+            default_events_q = Q(start_date__lte=get_past_event_cutoff())
+        else:
+            default_events_q = Q()  # Because we don't need to restrict
+
         if not years_and_months_tuples:
-            # Covers case where no year_months
-            return default_future_events_q
+            # Covers case where no year_months, so no need to construct further queries
+            return default_events_q
 
         # Build a Q where it's (Month X AND Year X) OR (Month Y AND Year Y), etc
         overall_date_q = None
 
-        for year, month in years_and_months_tuples:
-            date_q = Q(**{"start_date__year": year})
-            date_q.add(Q(**{"start_date__month": month}), Q.AND)
+        try:
+            for year, month in years_and_months_tuples:
+                date_q = Q(**{"start_date__year": year})
+                date_q.add(Q(**{"start_date__month": month}), Q.AND)
 
-            if overall_date_q is None:
-                overall_date_q = date_q
-            else:
-                overall_date_q.add(date_q, Q.OR)
+                if overall_date_q is None:
+                    overall_date_q = date_q
+                else:
+                    overall_date_q.add(date_q, Q.OR)
+        except ValueError as e:
+            logger.warning(
+                "%s (years_and_months_tuples is %s)" % (e, years_and_months_tuples)
+            )
+            # Handles bad input and keeps the show on the road
+            overall_date_q = Q()
 
-        # Finally, ensure we don't include past events here (ie, same month as
-        # selected but before today)
-        overall_date_q.add(default_future_events_q, Q.AND)
+        if past_events_flag:
+            # Regardless of what's been specified in terms of specific dates, if
+            # "past events" has been selected, we want to include all events
+            # UP TO the past/future threshold date but _without_ de-scoping
+            # whatever the other dates may have configured.
+            all_past_events_q = Q(start_date__lte=get_past_event_cutoff())
+
+            overall_date_q.add(all_past_events_q, Q.OR)  # NB: OR
+        else:
+            # We want specific months, but none in the past, so
+            # ensure we don't include past events here (ie, same month as
+            # selected dates, but before _today_)
+            overall_date_q.add(
+                Q(start_date__gte=get_past_event_cutoff()), Q.AND
+            )  # NB: AND
         return overall_date_q
 
-    def get_upcoming_events(self, request):
+    def get_events(self, request):
         """Return filtered future events in chronological order"""
-        # These are not paginated but ARE filtered
 
         countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
-        years_months = request.GET.getlist(YEAR_MONTH_QUERYSTRING_KEY)
+        date_params = request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
         countries_q = Q(country__in=countries) if countries else Q()
         topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
 
-        # year_months need splitting to make them work
-        date_q = self._build_date_q(years_months)
+        # date_params need splitting to make them work, plus we need to see if
+        # past events are also needed
+        date_q = self._build_date_q(date_params)
 
         combined_q = Q()
         if countries_q:
@@ -233,35 +295,21 @@ class Events(BasePage):
 
         # Combined_q will always have something because it includes
         # the start_date__gte test
-        events = get_combined_events(self, q_object=combined_q)
+        events = get_combined_events(self, reverse=True, q_object=combined_q)
+
+        events = paginate_resources(
+            events,
+            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
+            per_page=self.EVENTS_PER_PAGE,
+        )
 
         return events
-
-    def get_past_events(self, request):
-        """Return paginated past events in reverse chronological order,
-        plus a count of how many there are in total
-        """
-        past_events = get_combined_events(
-            self, reverse=True, start_date__lt=get_past_event_cutoff()
-        )
-        total_past_events = len(past_events)
-
-        past_events = paginate_resources(
-            past_events,
-            page_ref=request.GET.get(PAGINATION_QUERYSTRING_KEY),
-            per_page=self.PAST_EVENTS_PER_PAGE,
-        )
-        return past_events, total_past_events
 
     def get_relevant_countries(self):
         # Relevant here means a country that a published Event is or was in
         raw_countries = (
             event.country
-            for event in Event.published_objects.filter(
-                start_date__gte=get_past_event_cutoff()
-            )
-            .distinct("country")
-            .order_by("country")
+            for event in Event.published_objects.distinct("country").order_by("country")
             if event.country
         )
 
@@ -284,8 +332,12 @@ class Events(BasePage):
         pairs that _already_ appear in the list. If we don't, and if there is more than
         one Event for the same year-month, we end up with multiple Year-Months
         displayed in the filter options.
+
+        NB: also note that the template slots in a special "all past dates" option.
         """
-        return sorted(set([datetime.date(x.year, x.month, 1) for x in dates]))
+        return sorted(
+            set([datetime.date(x.year, x.month, 1) for x in dates]), reverse=True
+        )
 
     def get_filters(self):
         return {
@@ -318,9 +370,20 @@ class Event(BasePage):
     )
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
-    latitude = FloatField(blank=True, null=True)
-    longitude = FloatField(blank=True, null=True)
+    latitude = FloatField(blank=True, null=True)  # DEPRECATED
+    longitude = FloatField(blank=True, null=True)  # DEPRECATED
     register_url = URLField("Register URL", blank=True, null=True)
+    official_website = URLField("Official website", blank=True, default="")
+    event_content = URLField(
+        "Event content",
+        blank=True,
+        default="",
+        help_text=(
+            "Link to a page (in this site or elsewhere) "
+            "with content about this event."
+        ),
+    )
+
     body = CustomStreamField(
         blank=True,
         null=True,
@@ -329,21 +392,27 @@ class Event(BasePage):
             "embed via HTML, and inline code snippets"
         ),
     )
-    venue_name = CharField(max_length=100, blank=True, default="")
-    venue_url = URLField("Venue URL", max_length=100, blank=True, default="")
-    address_line_1 = CharField(max_length=100, blank=True, default="")
-    address_line_2 = CharField(max_length=100, blank=True, default="")
-    address_line_3 = CharField(max_length=100, blank=True, default="")
+    venue_name = CharField(max_length=100, blank=True, default="")  # DEPRECATED
+    venue_url = URLField(
+        "Venue URL", max_length=100, blank=True, default=""
+    )  # DEPRECATED
+    address_line_1 = CharField(max_length=100, blank=True, default="")  # DEPRECATED
+    address_line_2 = CharField(max_length=100, blank=True, default="")  # DEPRECATED
+    address_line_3 = CharField(max_length=100, blank=True, default="")  # DEPRECATED
     city = CharField(max_length=100, blank=True, default="")
-    state = CharField("State/Province/Region", max_length=100, blank=True, default="")
-    zip_code = CharField("Zip/Postal code", max_length=100, blank=True, default="")
+    state = CharField(
+        "State/Province/Region", max_length=100, blank=True, default=""
+    )  # DEPRECATED
+    zip_code = CharField(
+        "Zip/Postal code", max_length=100, blank=True, default=""
+    )  # DEPRECATED
     country = CountryField(blank=True, default="")
     agenda = StreamField(
         StreamBlock([("agenda_item", AgendaItemBlock())], required=False),
         blank=True,
         null=True,
         help_text="Optional list of agenda items for this event",
-    )
+    )  # DEPRECATED
     speakers = StreamField(
         StreamBlock(
             [
@@ -355,7 +424,7 @@ class Event(BasePage):
         blank=True,
         null=True,
         help_text="Optional list of speakers for this event",
-    )
+    )  # DEPRECATED
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
@@ -387,42 +456,24 @@ class Event(BasePage):
             [
                 FieldPanel("start_date"),
                 FieldPanel("end_date"),
-                FieldPanel("latitude"),
-                FieldPanel("longitude"),
                 FieldPanel("register_url"),
+                FieldPanel("official_website"),
+                FieldPanel("event_content"),
             ],
             heading="Event details",
             classname="collapsible",
-            help_text=mark_safe(
-                "Optional time and location information for this event. Latitude and "
-                "longitude are used to show a map of the event’s location. For more "
-                "information on finding these values for a given location, "
-                "'<a href='https://support.google.com/maps/answer/18539'>"
-                "see this article</a>"
+            help_text=(
+                "'Event content' should be used to link to a page (anywhere) "
+                "which summarises the content of the event"
             ),
         ),
         StreamFieldPanel("body"),
         MultiFieldPanel(
-            [
-                FieldPanel("venue_name"),
-                FieldPanel("venue_url"),
-                FieldPanel("address_line_1"),
-                FieldPanel("address_line_2"),
-                FieldPanel("address_line_3"),
-                FieldPanel("city"),
-                FieldPanel("state"),
-                FieldPanel("zip_code"),
-                FieldPanel("country"),
-            ],
-            heading="Event address",
+            [FieldPanel("city"), FieldPanel("country")],
+            heading="Event location",
             classname="collapsible",
-            help_text=(
-                "Optional address fields. The city and country are also shown "
-                "on event cards"
-            ),
+            help_text=("The city and country are also shown on event cards"),
         ),
-        StreamFieldPanel("agenda"),
-        StreamFieldPanel("speakers"),
     ]
 
     # Card panels
@@ -498,7 +549,7 @@ class Event(BasePage):
         """Return a formatted string of the event start and end dates"""
         event_dates = self.start_date.strftime("%b %-d")
         if self.end_date and self.end_date != self.start_date:
-            event_dates += " &ndash; "
+            event_dates += " – "  # rather than &ndash; so we don't have to mark safe
             start_month = self.start_date.strftime("%m")
             if self.end_date.strftime("%m") == start_month:
                 event_dates += self.end_date.strftime("%-d")
@@ -519,3 +570,22 @@ class Event(BasePage):
             ):
                 return True
         return False
+
+    @property
+    def summary_meta(self):
+        """Return a simple plaintext string that can be used
+        as a standfirst"""
+
+        summary = ""
+        if self.event_dates:
+            summary += self.event_dates
+            if self.city or self.country:
+                summary += " | "
+
+        if self.city:
+            summary += self.city
+            if self.country:
+                summary += ", "
+        if self.country:
+            summary += self.country.code
+        return summary

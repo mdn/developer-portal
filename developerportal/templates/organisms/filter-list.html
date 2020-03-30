@@ -1,54 +1,41 @@
-<section class="pattern-section">
-  <div class="pattern-section-background">
-    <div class="pattern-section-pattern pattern-section-pattern-before">
-      {% include "atoms/pattern.html" %}
+<div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-left">
+  {% if heading %}
+    <h2>{{ heading }}</h2>
+  {% endif %}
+  <aside class="mzp-l-sidebar custom-width">
+    {% comment %} filtering controls {% endcomment %}
+    <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
+      <summary>Filter</summary>
+      {% include "molecules/filter-form.html" with resources=resources filters=filters show_past_date_option=show_past_date_option %}
+    </details>
+    <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
+      {% include "molecules/filter-form.html" with resources=resources filters=filters %}
     </div>
-    <div class="container">
-        {% if heading %}
-          <h2>{{ heading }}</h2>
+  </aside>
+  <div class="mzp-l-main custom-width">
+    <div class="mzp-l-card-half" id="{{ type }}-cards">
+      {% for resource in resources %}
+        {% if type == "article" %}
+          {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}
+        {% elif type == "article_or_video" %}
+          {% if resource.video %}
+            {% include "molecules/cards/card.html" with resource=resource.video %}
+          {% else %}
+            {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}
+          {% endif %}
+        {% elif type == "person" %}
+          {% include "molecules/cards/card.html" with resource=resource.person %}
+        {% elif type == "event" %}
+          {% include "molecules/cards/card.html" with resource=resource.event %}
         {% endif %}
-        <div class="filter-list-content">
-          <aside class="filter-list-sidebar">
-            <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
-              <summary>Filter</summary>
-              {% include "molecules/filter-form.html" with resources=resources filters=filters %}
-            </details>
-            <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
-              {% include "molecules/filter-form.html" with resources=resources filters=filters %}
-            </div>
-          </aside>
-          <div class="filter-list-items">
-            <div class="{% if type != 'event' %}card-container{% endif %}" id="{{ type }}-cards">
-              {% for resource in resources %}
-                {% if type == "article" %}
-                  {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}
-                {% elif type == "article_or_video" %}
-                  {% if resource.video %}
-                    {% include "molecules/cards/card.html" with resource=resource.video %}
-                  {% else %}
-                    {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}
-                  {% endif %}
-                {% elif type == "person" %}
-                  {% include "molecules/cards/card.html" with resource=resource.person %}
-                {% elif type == "event" %}
-                  {% include "molecules/cards/card.html" with resource=resource.event %}
-                {% endif %}
-              {% empty %}
-                <div class="filter-list-no-results">
-                  <h2>{{ no_resources_message|default:"No results found" }}</h2>
-                </div>
-              {% endfor %}
-            </div>
-
-            {% if resources and not hide_pagination %}
-            {% include "molecules/pagination.html" with items=resources %}
-            {% endif %}
-
-          </div>
-        </div>
+      {% empty %}
+      <h2 class="filter-list-no-results">
+        {{ no_resources_message|default:"No results found" }}
+      </h2>
+      {% endfor %}
     </div>
-    <div class="pattern-section-pattern pattern-section-pattern-after">
-      {% include "atoms/pattern.html" %}
-    </div>
+    {% if resources and not hide_pagination %}
+    {% include "molecules/pagination.html" with items=resources %}
+    {% endif %}
   </div>
-</section>
+</div>

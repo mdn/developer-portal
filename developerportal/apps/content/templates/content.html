@@ -6,30 +6,31 @@
 {% block body_class %}content{% endblock %}
 
 {% block content %}
-  <main>
-    {% if page.hero_image %}
-      {% image page.hero_image width-1024 as hero %}
-      <section class="section section-background content-hero">
-        <div class="content-hero-image" style="background-image: url('{{ hero.url }}')"></div>
-        <div class="container content-title">
-          <h1 class="highlighted">{{ page.title }}</h1>
-        </div>
-      </section>
-    {% endif %}
-    <section class="section">
-      <article class="container content-body">
-        {% if not page.hero_image %}
-        <h1>{{ page.title }}</h1>
+
+{% include "molecules/header-strip.html" with content=page.title element="h1" %}
+
+<div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
+  <main role="main" class="mzp-l-main custom-width">
+      {% for block in page.body %}
+        {% if block.block_type == 'image' %}
+          {% include "molecules/image-block.html" with block=block %}
+        {% else %}
+          {{ block }}
         {% endif %}
-        {% for block in page.body %}
-          {% if block.block_type == 'image' %}
-            {% include "molecules/image-block.html" with block=block %}
-          {% else %}
-            {{ block }}
-          {% endif %}
-        {% endfor %}
-      </article>
-    </section>
-    {% include "organisms/newsletter-signup.html" %}
+      {% endfor %}
   </main>
+
+  <aside class="mzp-l-sidebar custom-width">
+      {% for block in page.sidebar %}
+        {% if block.block_type == 'image' %}
+          {% include "molecules/image-block.html" with block=block %}
+        {% else %}
+          {{ block }}
+        {% endif %}
+      {% endfor %}
+  </aside>
+
+</div>
+
+{% include "organisms/newsletter-signup.html" %}
 {% endblock content %}

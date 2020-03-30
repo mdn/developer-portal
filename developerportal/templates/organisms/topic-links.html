@@ -1,38 +1,30 @@
 {% load app_filters %}
 
 {% if topics %}
-  <section class="pattern-section">
-    <div class="pattern-section-background">
-      <div class="pattern-section-pattern pattern-section-pattern-before">
-        {% include "atoms/pattern.html" %}
-      </div>
-      <div class="container">
-        <div class="section-header">
-          {% if pagetheme == 'home' or pagetheme == 'directory' %}
-            <h2>Browse {{TOPICS_TITLE_LABEL|lower}}</h2>
-          {% endif %}
-          {% if pagetheme == 'topic' %}
-            <h2>Continue exploring</h2>
-          {% endif %}
-          {% if pagetheme == 'person' %}
-            <h2>{{TOPICS_TITLE_LABEL}} I specialize in</h2>
-          {% endif %}
-        </div>
-        {% if topics.count == 1 %}
-        <div>
-          {% include "molecules/item-topic-link.html" with topic=topics.0.topic full_width=True %}
-        </div>
-        {% else %}
-        <div class="card-container {% if topics.count == 2 %}card-container-2-wide{% endif %}">
-          {% for topic in topics %}
-            {% include "molecules/item-topic-link.html" with topic=topic.topic %}
-          {% endfor %}
-        </div>
+  <section class="topic-links">
+    <div class="mzp-l-content">
+      <div class="section-header">
+        {% if pagetheme == 'home' or pagetheme == 'directory' %}
+          <h3>Browse {{TOPICS_TITLE_LABEL|lower}}</h3>
+        {% endif %}
+        {% if pagetheme == 'topic' %}
+          <h3>Continue exploring</h3>
+        {% endif %}
+        {% if pagetheme == 'person' %}
+          <h3>{{TOPICS_TITLE_LABEL}} I specialize in</h3>
         {% endif %}
       </div>
-      <div class="pattern-section-pattern pattern-section-pattern-after">
-        {% include "atoms/pattern.html" %}
+      {% if topics.count == 1 %}
+      <div class="mzp-l-card-quarter">
+        {% include "molecules/item-topic-link.html" with topic=topics.0.topic full_width=True %}
       </div>
+      {% else %}
+      <div class="mzp-l-card-quarter">
+        {% for topic in topics %}
+          {% include "molecules/item-topic-link.html" with topic=topic.topic %}
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
   </section>
 {% endif %}

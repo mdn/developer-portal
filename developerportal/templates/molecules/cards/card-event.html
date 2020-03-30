@@ -3,69 +3,37 @@
 {% load wagtailimages_tags %}
 {% load app_tags %}
 
-{% image resource.image width-1024 as image %}
-{% image resource.card_image width-1024 as card_image %}
-{% static "img/placeholders/event.jpg" as fallback_image %}
+{% image resource.image width-636 as image %}
+{% image resource.card_image width-636 as card_image %}
+{% static "img/placeholders/event-16-9.jpg" as fallback_image %}
 
-<a
-  href="{% pageurl resource %}"
-  class="card-link"
-  {% if resource.is_external %}
-    target="_blank"
-    rel="noopener noreferrer"
-  {% endif %}
-  data-type="{{ resource.resource_type }}"
->
-  <div class="card card-event{% if featured %} card-event-featured{% endif %}">
-    <div class="card-event-ribbon-container">
-      <div class="card-event-ribbon background-accent">
-        <span class="highlight2">{{ resource.event_dates|safe }}</span>
-      </div>
+<div class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9">
+  <a class="mzp-c-card-block-link"
+    {% if specific_link %}
+      href="{{ specific_link }}"
+    {% else %}
+      href="{% pageurl resource %}"
+      {% if resource.is_external %} target="_blank" rel="noopener noreferrer" {% endif %}
+      data-type="{{ resource.resource_type }}"
+    {% endif %}
+  >
+    <div class="mzp-c-card-media-wrapper">
+      <img class="mzp-c-card-image" src="{% firstof card_image.url image.url fallback_image %}" alt="">
     </div>
-    {% if featured %}
-      <div class="card-event-title">
-        <div class="card-image card-event-image" style="background-image: url('{% firstof card_image.url image.url fallback_image %}')"></div>
+    <div class="mzp-c-card-content">
+      <div class="mzp-c-card-tag">
+        {{ resource.event_dates_full|safe }}
       </div>
-    {% endif %}
-    {% if not featured %}
-      <div class="card-event-title">
-        <h4 class="no-underline">
-          {% firstof resource.card_title resource.title %}{% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
-        </h4>
-      </div>
-    {% endif %}
-    <div class="card-event-details">
-      {% if featured %}
-        <h4 class="no-underline">
-          {% firstof resource.card_title resource.title %}{% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
-        </h4>
-      {% endif %}
-      <div class="card-event-meta">
-        <div class="card-event-date">
-          <span class="icon">{% include "atoms/icons/date.svg" %}</span>
-          <span>{{ resource.event_dates_full|safe }}</span>
-        </div>
-        {% make_list_from_args resource.city resource.country as location %}
-        {% if location %}
-          <div class="card-event-location">
-            <span class="icon">{% include "atoms/icons/location.svg" %}</span>
-            <address>
-              {{ location | join:', ' }}
-            </address>
-          </div>
-        {% endif %}
-      </div>
-      {% if featured %}
-        {% if resource.card_description %}
-          <div class="card-event-description">
-            <p>{{ resource.card_description }}</p>
-          </div>
-        {% elif resource.description %}
-          <div class="card-event-description">
-            {{ resource.description | richtext }}
-          </div>
-        {% endif %}
+      <h2 class="mzp-c-card-title">
+        {% firstof resource.card_title resource.title %} {% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
+      </h2>
+
+      {% make_list_from_args resource.city resource.country as simple_address %}
+      {% if simple_address %}
+      <address class="mzp-c-card-desc">
+          {{ simple_address | join:', ' }}
+      </address>
       {% endif %}
     </div>
-  </div>
-</a>
+  </a>
+</div>

@@ -1,7 +1,8 @@
 .links-as-buttons {
-  margin-bottom: 24px;
+  margin-bottom: $spacing-lg;
   a {
     @extend .mzp-c-button;
+    margin-bottom: $spacing-sm;
   }
 
   @media #{$mq-md} {

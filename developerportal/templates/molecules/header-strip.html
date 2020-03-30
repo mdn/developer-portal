@@ -1,0 +1,30 @@
+{% load app_tags %}
+{% load wagtailcore_tags %}
+
+<div class="header-strip">
+  <div class="mzp-l-content">
+    {% if page.icon %}
+      <div class="icon-wrapper">
+      {% render_svg page.icon %}
+      </div>
+    {% elif page_icon_asset_url %}
+      <div class="icon-wrapper from-url">
+        <img alt="" src={{page_icon_asset_url}}>
+      </div>
+    {% endif %}
+    <div class="header-wrapper">
+      <{{element}}>
+        {{ content }}
+      </{{element}}>
+      <div class="standfirst-wrapper">
+      {% if standfirst %}
+        <div class="plaintext-standfirst">
+          {{standfirst}}
+        </div>
+      {% else %}
+        {{page.description|richtext}}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,23 +1,105 @@
-.homepage-about {
-  text-align: center;
-  padding: 32px 0;
+// Taken from mozilla.org's home.css
 
-  @media #{$mq-md} {
-    padding: 80px 0;
-  }
-
-  h2 {
-    font-size: 24px;
-    line-height: calc(29 / 24);
-  }
-
-  .container {
-    @media #{$mq-md} {
-      max-width: 600px;
-    }
+.mzp-c-call-out-compact {
+  background-color: $color-marketing-gray-20;
+}
+.mzp-c-call-out-compact.mzp-t-dark {
+  background-color: $color-marketing-gray-80;
+  color: $color-white;
+}
+.mzp-c-call-out-compact.mzp-t-dark .mzp-c-call-out-desc {
+  color: $color-marketing-gray-30;
+}
+.mzp-c-call-out-compact .mzp-c-call-out-title {
+  font-size: 21px;
+  font-size: 1.3125rem;
+  line-height: 1.1;
+}
+@media (min-width: 768px) {
+  .mzp-c-call-out-compact .mzp-c-call-out-title {
+    font-size: 32px;
+    font-size: 2rem;
   }
 }
+.mzp-c-call-out-compact .mzp-c-call-out-desc {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.mzp-c-call-out-compact .mzp-c-call-out-cta {
+  margin: $spacing-sm 0 0;
+}
 
-.homepage-about-actions {
-  margin-top: 24px;
+@media (min-width: 768px) {
+  .mzp-c-call-out-compact {
+    zoom: 1;
+  }
+  .mzp-c-call-out-compact:after {
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+  .mzp-c-call-out-compact .mzp-l-content {
+    margin: 0 auto;
+    max-width: 1056px;
+    padding-bottom: $spacing-2xl;
+    padding-top: $spacing-2xl;
+  }
+  .mzp-c-call-out-compact .mzp-c-call-out-desc,
+  .mzp-c-call-out-compact .mzp-c-call-out-title {
+    margin-bottom: 0;
+  }
+  .mzp-c-call-out-compact .mzp-c-call-out-title + .mzp-c-call-out-desc {
+    margin-top: 8px;
+  }
+  .mzp-c-call-out-compact .mzp-c-call-out-content {
+    max-width: 624px;
+    width: calc(66.6% - 24px);
+  }
+  .mzp-c-call-out-compact .mzp-c-call-out-content {
+    float: left;
+  }
+  [dir='rtl'] .mzp-c-call-out-compact .mzp-c-call-out-content {
+    float: right;
+  }
+  .mzp-c-call-out-compact .mzp-c-call-out-cta {
+    margin: 0;
+    position: relative;
+    width: calc(33.3% - 24px);
+  }
+  .mzp-c-call-out-compact .mzp-c-call-out-cta {
+    float: right;
+  }
+  [dir='rtl'] .mzp-c-call-out-compact .mzp-c-call-out-cta {
+    float: left;
+  }
+  .mzp-c-call-out-compact .mzp-c-button-download-container {
+    float: right;
+  }
+  [dir='rtl'] .mzp-c-call-out-compact .mzp-c-button-download-container {
+    float: left;
+  }
+}
+@supports (display: grid) {
+  @media (min-width: 768px) {
+    .mzp-c-call-out-compact .mzp-l-content {
+      grid-column-gap: $spacing-xl;
+      column-gap: $spacing-xl;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+    .mzp-c-call-out-compact .mzp-c-call-out-content {
+      display: flex;
+      width: auto;
+      align-items: center;
+    }
+    .mzp-c-call-out-compact .mzp-c-call-out-cta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: auto;
+    }
+  }
 }

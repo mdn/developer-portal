@@ -1,0 +1,59 @@
+.header-strip {
+  background-color: $color-black;
+  color: $color-white;
+
+  .icon-wrapper {
+    display: none;
+    visibility: hidden;
+    @media #{$mq-sm} {
+      display: inherit;
+      visibility: visible;
+    }
+
+    float: left;
+    fill: currentColor;
+
+    img,
+    svg {
+      fill: currentColor;
+      height: 52px;
+      padding-top: 12px;
+      margin-left: -13px;
+
+      @media #{$mq-sm} {
+        height: 60px;
+        padding-top: 14px;
+        margin-left: -13px;
+      }
+
+      g {
+        path {
+          fill: currentColor;
+        }
+      }
+    }
+
+    img {
+      padding-left: 13px;
+      width: 59px;
+    }
+  }
+
+  .header-wrapper {
+    @media #{$mq-sm} {
+      padding-left: 48px;
+    }
+    h1 {
+      float: left;
+      margin: $spacing-sm 0 $spacing-md;
+    }
+    .standfirst-wrapper {
+      @media #{$mq-sm} {
+        max-width: 66%;
+      }
+      .plaintext-standfirst {
+        clear: both;
+      }
+    }
+  }
+}

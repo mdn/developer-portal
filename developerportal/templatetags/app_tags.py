@@ -6,16 +6,17 @@ from mimetypes import guess_type
 
 from django import template
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.safestring import mark_safe
 
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
+    DATE_PARAMS_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
     ENVIRONMENT_PRODUCTION,
     ENVIRONMENT_STAGING,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
-    YEAR_MONTH_QUERYSTRING_KEY,
 )
 
 register = template.Library()
@@ -46,6 +47,11 @@ def random_hash(start_with_letter=True):
 @register.simple_tag
 def render_svg(f):
     return mark_safe(f.read().decode("utf-8"))
+
+
+@register.filter
+def to_svg(f):
+    return render_svg(f)
 
 
 @register.simple_tag
@@ -122,7 +128,7 @@ def pagination_additional_filter_params(request):
         TOPIC_QUERYSTRING_KEY,
         ROLE_QUERYSTRING_KEY,
         COUNTRY_QUERYSTRING_KEY,
-        YEAR_MONTH_QUERYSTRING_KEY,
+        DATE_PARAMS_QUERYSTRING_KEY,
     )
 
     output_params_strings = []
@@ -159,3 +165,78 @@ def get_favicon_path():
 @register.simple_tag
 def is_production_site():
     return settings.ACTIVE_ENVIRONMENT == ENVIRONMENT_PRODUCTION
+
+
+@register.simple_tag
+def get_menu_item_icon(page):
+    icon_url = static("img/icons/default-d.svg")
+
+    try:
+        icon_url = page.icon.url
+    except (AttributeError, ValueError):
+        pass
+
+    return icon_url
+
+
+@register.simple_tag
+def split_featured_items(iterable):
+    """For the given `iterable`, return it split into two lists appropriate
+
+    The layout will look like this:
+
+    Five items:
+        [ 1 ] [ 2 ]
+        [3] [4] [5]
+
+    Four items:
+        [ 1 ] [ 2 ]
+        [ 3 ] [ 4 ]
+
+    Three items:
+        [1] [2] [3]
+
+    Two items:
+        [ 1 ] [ 2 ]
+
+    (There is no one-item version supported)
+
+    As such we return the following lists:
+        - top_row_of_2
+        - bottom_row_of_3
+        - bottom_row_b_of_2
+    where only one of bottom_row_of_3 OR bottom_row_b_of_2 will have members
+
+    Five items:
+        top_row_of_2        -> [1, 2]
+        bottom_row_of_3     -> [3, 4, 5]
+        bottom_row_b_of_2   -> []
+
+    Four items:
+        top_row_of_2        -> [1, 2]
+        bottom_row_of_3     -> []
+        bottom_row_b_of_2   -> [3, 4]
+
+    Three items:
+        top_row_of_2        -> []
+        bottom_row_of_3     -> [1, 2, 3]
+        bottom_row_b_of_2   -> []
+
+    Two items:
+        top_row_of_2        -> [1, 2]
+        bottom_row_of_3     -> []
+        bottom_row_b_of_2   -> []
+
+    """
+    output = (iterable, [], [])  # sane default
+
+    if len(iterable) == 5:
+        output = (iterable[:2], iterable[2:], [])
+    elif len(iterable) == 4:
+        output = (iterable[:2], [], iterable[2:])
+    elif len(iterable) == 3:
+        output = ([], iterable, [])
+    elif len(iterable) == 2:
+        output = (iterable, [], [])
+
+    return output
