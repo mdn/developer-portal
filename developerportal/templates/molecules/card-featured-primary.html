@@ -9,11 +9,11 @@
     {% image resource.image width-1024 as img %}
   {% else %}
     {% if block_type == "video" %}
-      {% static "img/placeholders/video-16-9.jpg" as fallback_url %}
+      {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
     {% elif block_type == "event" %}
-      {% static "img/placeholders/event-16-9.jpg" as fallback_url %}
+      {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
     {% else %}
-      {% static "img/placeholders/article-16-9.jpg" as fallback_url %}
+      {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
     {% endif %}
   {% endif %}
 {% endif %}
@@ -28,7 +28,7 @@
     {% endif %}
       <div class="mzp-c-card-media-wrapper">
           <div class="lazy-image-container">
-            <img class="mzp-c-card-image" src="{% firstof img.url fallback_url %}" alt="">
+            <img class="mzp-c-card-image" src="{% firstof img.url fallback_image %}" alt="">
           </div>
       </div>
       <div class="mzp-c-card-content">

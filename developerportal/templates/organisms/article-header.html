@@ -5,9 +5,9 @@
 {% image page.image width-464 as image %}
 {% image page.card_image width-464 as card_image %}
 {% if type == "event" %}
-  {% static "img/placeholders/event.jpg" as fallback_image %}
+  {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
 {% else %}
-  {% static "img/placeholders/article.jpg" as fallback_image %}
+  {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 {% endif %}
 
 <header class="section section-background article-header">
