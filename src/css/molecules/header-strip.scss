@@ -3,8 +3,17 @@
   color: $color-white;
 
   .icon-wrapper {
+    display: none;
+    visibility: hidden;
+    @media #{$mq-sm} {
+      display: inherit;
+      visibility: visible;
+    }
+
     float: left;
     fill: currentColor;
+
+    img,
     svg {
       fill: currentColor;
       height: 52px;
@@ -23,6 +32,11 @@
         }
       }
     }
+
+    img {
+      padding-left: 13px;
+      width: 59px;
+    }
   }
 
   .header-wrapper {
@@ -32,6 +46,14 @@
     h1 {
       float: left;
       margin: $spacing-sm 0 $spacing-md;
+    }
+    .standfirst-wrapper {
+      @media #{$mq-sm} {
+        max-width: 66%;
+      }
+      .plaintext-standfirst {
+        clear: both;
+      }
     }
   }
 }
