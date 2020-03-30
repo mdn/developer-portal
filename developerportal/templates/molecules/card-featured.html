@@ -8,12 +8,18 @@
   {% if resource.image %}
     {% image resource.image width-480 as img %}
   {% else %}
-    {% if block_type == "video" %}
-      {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
-    {% elif block_type == "event" %}
-      {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
+    {% if block_type == "event" %}
+      {% if aspect_ratio == "3_2" %}
+        {% static "img/placeholders/event_3_2.jpg" as fallback_image %}
+      {% else %}
+        {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
+      {% endif %}
     {% else %}
-      {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
+      {% if aspect_ratio == "3_2" %}
+        {% static "img/placeholders/post_3_2.jpg" as fallback_image %}
+      {% else %}
+        {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endif %}
