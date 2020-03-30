@@ -4,9 +4,9 @@
 
 {% image author.image fill-288x288 as author_image %}
 {% if author.role == "staff" %}
-  {% static "img/placeholders/mozillian.jpg" as fallback_image %}
+  {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
 {% else %}
-  {% static "img/placeholders/person.jpg" as fallback_image %}
+  {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
 {% endif %}
 
 <div class="article-author">

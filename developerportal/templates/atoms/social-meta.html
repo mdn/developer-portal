@@ -23,8 +23,8 @@
 {% endwith %}
 
 {% get_scheme_and_host request as base_url %}
-{% static "img/placeholders/article.jpg" as fallback_image_url %}
-{% with fallback_image_width="960" fallback_image_height="720" %}
+{% static "img/placeholders/post_16_9.jpg" as fallback_image_url %}
+{% with fallback_image_width="600" fallback_image_height="338" %}
   {% if page.social_image %}
     {% image page.social_image width-1200 as image %}
   {% elif page.card_image %}

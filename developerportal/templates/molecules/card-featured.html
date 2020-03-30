@@ -8,12 +8,18 @@
   {% if resource.image %}
     {% image resource.image width-480 as img %}
   {% else %}
-    {% if block_type == "video" %}
-      {% static "img/placeholders/video.jpg" as fallback_url %}
-    {% elif block_type == "event" %}
-      {% static "img/placeholders/event.jpg" as fallback_url %}
+    {% if block_type == "event" %}
+      {% if aspect_ratio == "3_2" %}
+        {% static "img/placeholders/event_3_2.jpg" as fallback_image %}
+      {% else %}
+        {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
+      {% endif %}
     {% else %}
-      {% static "img/placeholders/article.jpg" as fallback_url %}
+      {% if aspect_ratio == "3_2" %}
+        {% static "img/placeholders/post_3_2.jpg" as fallback_image %}
+      {% else %}
+        {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
+      {% endif %}
     {% endif %}
   {% endif %}
 {% endif %}
@@ -28,7 +34,7 @@ Note that this partial needs wrapping with a div and a section with the appropri
 {% endif %}
   <div class="mzp-c-card-media-wrapper">
       <div class="lazy-image-container">
-        <img class="mzp-c-card-image" src="{% firstof img.url fallback_url %}" alt="">
+        <img class="mzp-c-card-image" src="{% firstof img.url fallback_image %}" alt="">
       </div>
   </div>
   <div class="mzp-c-card-content">

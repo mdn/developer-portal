@@ -35,7 +35,7 @@ where only one of bottom_row_of_3 OR bottom_row_b_of_2 will have members
   <div class="mzp-l-card-half">
     {% for block in top_row_of_two %}
       <section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-3-2">
-        {% include "organisms/partials/featured-card-selector.html" %}
+        {% include "organisms/partials/featured-card-selector.html" with aspect_ratio="3_2" %}
       </section>
     {% endfor %}
   </div>

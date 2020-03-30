@@ -5,9 +5,9 @@
 {% image person.image width-480 as img %}
 
 {% if person.role == "staff" %}
-  {% static "img/placeholders/mozillian-16-9.jpg" as fallback_url %}
+  {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
 {% else %}
-  {% static "img/placeholders/person-16-9.jpg" as fallback_url %}
+  {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
 {% endif %}
 
 <section class="mzp-c-card mzp-c-card-small mzp-has-aspect-16-9">
@@ -20,7 +20,7 @@
   {% endif %}
       <div class="mzp-c-card-media-wrapper">
         <div class="lazy-image-container">
-          <img class="mzp-c-card-image" src="{% firstof img.url fallback_url %}" alt="">
+          <img class="mzp-c-card-image" src="{% firstof img.url fallback_image %}" alt="">
         </div>
       </div>
       <div class="mzp-c-card-content">
