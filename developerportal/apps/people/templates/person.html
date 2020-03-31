@@ -3,44 +3,26 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
+
 {% block body_class %}person{% endblock %}
 
 {% block content %}
-  <main>
-    {% include "organisms/pattern-bg-header.html" with title=page.display_title description=page.get_role_display type=page.resource_type role=page.role %}
-    <section class="section">
-      <div class="mzp-l-content">
-        {% include "organisms/person-overview.html" with resource=page %}
-      </div>
-    </section>
-    {% if page.articles %}
-    <section class="section">
-      <div class="mzp-l-content">
-        <div class="section-header">
-          <h2>Latest posts</h2>
-        </div>
-        {% include "organisms/latest-cards.html" with cards=page.articles show_author=True%}
-      </div>
-    </section>
-    {% endif %}
-    {% if page.videos %}
-    <section class="section">
-      <div class="mzp-l-content">
-        <div class="section-header">
-          <h2>Latest videos</h2>
-        </div>
-        {% include "organisms/latest-cards.html" with cards=page.videos %}
-      </div>
-    </section>
-    {% endif %}
-    {% if page.events %}
-      {% include "organisms/upcoming-events.html" with events=page.events %}
-    {% endif %}
-    {% if page.topics.all %}
-      <section class="section">
-        {% include "organisms/topic-links.html" with topics=page.topics.all pagetheme="person" %}
-      </section>
-    {% endif %}
-    {% include "organisms/newsletter-signup.html" %}
+
+{% static "img/icons/people.svg" as page_icon_asset_url %}
+{% include "molecules/header-strip.html" with content=page.title element="h1" skip_standfirst=True page_icon_asset_url=page_icon_asset_url %}
+
+<div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
+  <main role="main" class="mzp-l-main custom-width">
+    <h2>About</h2>
+    {{page.description|richtext}}
   </main>
+
+  <aside class="mzp-l-sidebar custom-width">
+    {% include "molecules/cards/card.html" with resource=page %}
+  </aside>
+</div>
+
+{% include "organisms/topic-links.html" with topics=page.get_topics pagetheme='person' two_column=True %}
+
+{% include "organisms/newsletter-signup.html" %}
 {% endblock content %}

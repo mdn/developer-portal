@@ -16,6 +16,7 @@
       <{{element}}>
         {{ content }}
       </{{element}}>
+      {% if not skip_standfirst %}
       <div class="standfirst-wrapper">
       {% if standfirst %}
         <div class="plaintext-standfirst">
@@ -25,6 +26,7 @@
         {{page.description|richtext}}
       {% endif %}
       </div>
+      {% endif %}
     </div>
   </div>
 </div>

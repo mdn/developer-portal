@@ -1,0 +1,35 @@
+body.person {
+  .topic-links {
+    @media #{$mq-md} {
+      .topic-links-wrapper {
+        margin-top: 24px;
+      }
+    }
+    .mzp-c-card-content {
+      background-color: $color-white;
+
+      @media #{$mq-md} {
+        padding: $spacing-md;
+
+        .topic-item-icon,
+        .mzp-c-card-title,
+        .mzp-c-card-desc {
+          float: left;
+        }
+
+        .mzp-c-card-title {
+          font-size: 1.15rem;
+          margin-bottom: 0px;
+          margin-left: 8px;
+        }
+
+        .mzp-c-card-desc {
+          font-size: 0.9rem;
+          margin-left: 36px;
+          margin-top: 0px;
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}

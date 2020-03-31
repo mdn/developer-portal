@@ -1,5 +1,6 @@
 from itertools import chain
 from operator import attrgetter
+from typing import List
 
 from django.db.models import (
     CASCADE,
@@ -439,3 +440,12 @@ class Person(BasePage):
             if self.country
             else {"slug": ""}
         )
+
+    def get_topics(self) -> List:
+        """Return the live/published Topic pages associated with this Person"""
+
+        # Note that we do this in Python because django-modelcluster won't support
+        # `filter(topic__live=True)` when _previewing_ pages (even tho it'll work
+        # on saved ones)
+        topics = [pt.topic for pt in self.topics.all()]
+        return [t for t in topics if t.live]

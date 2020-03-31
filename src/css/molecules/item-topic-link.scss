@@ -3,8 +3,14 @@
 
   h3 {
     margin-top: $spacing-sm;
+  }
+  h3,
+  h4 {
     font-family: Inter, X-LocaleSpecific, sans-serif;
     font-size: 1.5rem;
+  }
+  h4 {
+    font-size: 1.5em;
   }
 
   .section-header {
