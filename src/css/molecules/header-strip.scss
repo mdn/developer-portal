@@ -1,6 +1,9 @@
 .header-strip {
   background-color: $color-black;
   color: $color-white;
+  @media #{$mq-md} {
+    margin-bottom: $layout-xl;
+  }
 
   .icon-wrapper {
     display: none;

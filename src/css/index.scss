@@ -49,13 +49,13 @@
 @import 'molecules/card';
 @import 'molecules/card-event';
 @import 'molecules/card-featured';
+@import 'molecules/card-person';
 @import 'molecules/card-topic';
 @import 'molecules/content-hero';
 @import 'molecules/event-details';
 @import 'molecules/header';
 @import 'molecules/header-strip';
 @import 'molecules/item-get-started';
-@import 'molecules/item-person';
 @import 'molecules/item-topic-link';
 @import 'molecules/notification-bar';
 @import 'molecules/related-links';
@@ -79,8 +79,6 @@
 @import 'organisms/pattern-bg-header';
 @import 'organisms/pattern-section';
 @import 'organisms/people-section';
-@import 'organisms/person-header';
-@import 'organisms/person-overview';
 @import 'organisms/topic-recent-work';
 @import 'organisms/upcoming-events';
 
@@ -89,4 +87,5 @@
 @import 'templates/content-page';
 @import 'templates/event';
 @import 'templates/http-error';
+@import 'templates/person';
 @import 'templates/video';

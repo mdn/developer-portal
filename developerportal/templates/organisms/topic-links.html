@@ -1,8 +1,12 @@
 {% load app_filters %}
 
+{% comment %}
+`two_column` is an optional param for this template and its children. The default is four columns
+{% endcomment %}
+
 {% if topics %}
-  <section class="topic-links">
-    <div class="mzp-l-content">
+  <div class="topic-links">
+    <div class="mzp-l-content topic-links-wrapper">
       <div class="section-header">
         {% if pagetheme == 'home' or pagetheme == 'directory' %}
           <h3>Browse {{TOPICS_TITLE_LABEL|lower}}</h3>
@@ -11,20 +15,14 @@
           <h3>Continue exploring</h3>
         {% endif %}
         {% if pagetheme == 'person' %}
-          <h3>{{TOPICS_TITLE_LABEL}} I specialize in</h3>
+          <h4>{{TOPICS_TITLE_LABEL}} specialized in</h4>
         {% endif %}
       </div>
-      {% if topics.count == 1 %}
-      <div class="mzp-l-card-quarter">
-        {% include "molecules/item-topic-link.html" with topic=topics.0.topic full_width=True %}
-      </div>
-      {% else %}
-      <div class="mzp-l-card-quarter">
+      <div class="{{two_column|yesno:'mzp-l-card-half, mzp-l-card-quarter'}}">
         {% for topic in topics %}
           {% include "molecules/item-topic-link.html" with topic=topic.topic %}
         {% endfor %}
       </div>
-      {% endif %}
     </div>
-  </section>
+  </div>
 {% endif %}

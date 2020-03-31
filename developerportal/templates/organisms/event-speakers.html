@@ -9,7 +9,7 @@
   <div class="card-mzp-l-content card-mzp-l-content-people">
     {% for block in speakers|list|slice:":6" %}
       {% with block.value as speaker %}
-        {% include "molecules/item-person.html" with person=speaker type=block.block_type %}
+        {% include "molecules/cards/card-person.html" with person=speaker type=block.block_type %}
       {% endwith %}
     {% endfor %}
   </div>
@@ -22,7 +22,7 @@
         <div class="card-mzp-l-content card-mzp-l-content-people" id="speaker-list" hidden>
           {% for block in speaker_rest %}
             {% with block.value as speaker %}
-              {% include "molecules/item-person.html" with person=speaker type=block.block_type %}
+              {% include "molecules/cards/card-person.html" with person=speaker type=block.block_type %}
             {% endwith %}
           {% endfor %}
         </div>

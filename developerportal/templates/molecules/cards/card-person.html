@@ -2,23 +2,34 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% image resource.image width-636 as image %}
-{% image resource.card_image width-636 as card_image %}
+{% image person.image fill-375x210 as img %}
 
-{% if resource.role == "staff" %}
-  {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
+{% if person.role == "staff" %}
+  {% static "img/placeholders/person_16_9.jpg" as fallback_url %}
 {% else %}
-  {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
+  {% static "img/placeholders/person_16_9.jpg" as fallback_url %}
 {% endif %}
 
-<a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
-  <div class="card">
-    <div class="card-image card-image-square" style="background-image: url('{% firstof card_image.url image.url fallback_image %}')"></div>
-    <div class="card-content">
-      <div class="card-content-main">
-        {% include "molecules/resource-meta.html" with resource=resource %}
-        <h4 class="no-underline">{% firstof resource.card_title resource.title %}</h4>
+<section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9">
+  {% if type == 'speaker' or type == 'person' %}
+    <a href="{% pageurl person %}" class="mzp-c-card-block-link" data-type="{{ person.resource_type }}">
+  {% endif %}
+  {% if type == 'external_speaker' and person.url %}
+    <a href="{{ person.url }}" class="mzp-c-card-block-link" data-type="{{ person.resource_type }}" target="_blank" rel="nofollow noreferrer noopener">
+  {% endif %}
+      <div class="mzp-c-card-media-wrapper">
+        <img class="mzp-c-card-image" src="{% firstof img.url fallback_url %}" alt="">
       </div>
-    </div>
-  </div>
-</a>
+      <div class="mzp-c-card-content">
+        <div class="mzp-c-card-tag">{{person.get_role_display}}</div>
+        <h2 class="mzp-c-card-title">
+          <span>
+            {{ person.title }}
+          </span>
+        </h2>
+        <div class="mzp-c-card-desc">
+          {{ person.job_title }}
+        </div>
+      </div>
+    </a>
+</section>
