@@ -1,36 +1,27 @@
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% load app_filters %}
 
 {% image resource.image width-636 as image %}
 {% image resource.card_image width-636 as card_image %}
 {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 
-<a
-  href="{% pageurl resource %}"
-  class="card-link {% if card_number and card_number > 3 %}card-overflow{% endif %}"
-  {% if resource.is_external %}
-    target="_blank"
-    rel="noopener noreferrer"
-  {% endif %}
-  data-type="{{ resource.resource_type }}"
->
-  <div class="card {% if full_width %}card-full{% endif %}">
-    <div class="card-image" style="background-image: url('{% firstof card_image.url image.url fallback_image %}')"></div>
-    <div class="card-content">
-      <div class="card-content-main">
-        {% include "molecules/resource-meta.html" with resource=resource %}
-        <h4 class="no-underline">
-          {% firstof resource.card_title resource.title %}{% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
-        </h4>
-        {% if full_width and resource.description %}
-          {{ resource.description | richtext }}
-        {% endif %}
-      </div>
-      {% if show_author and resource.authors|published %}
-        {% include "molecules/article-details.html" with date=resource.date authors=resource.authors|published disable_author_links=True %}
-      {% endif %}
+<div class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9">
+  <a class="mzp-c-card-block-link"
+    href="{% pageurl resource %}"
+    {% if resource.is_external %} target="_blank" rel="noopener noreferrer" {% endif %}
+    data-type="{{ resource.resource_type }}"
+  >
+    <div class="mzp-c-card-media-wrapper">
+      <img class="mzp-c-card-image" src="{% firstof card_image.url image.url fallback_image %}" alt="">
     </div>
-  </div>
-</a>
+    <div class="mzp-c-card-content card-article-content">
+      <div class="mzp-c-card-tag">
+          Article
+      </div>
+      <h2 class="mzp-c-card-title">
+        {% firstof resource.card_title resource.title %} {% if resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
+      </h2>
+    </div>
+  </a>
+</div>

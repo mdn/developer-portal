@@ -15,9 +15,7 @@
   <div class="mzp-l-main custom-width">
     <div class="mzp-l-card-half" id="{{ type }}-cards">
       {% for resource in resources %}
-        {% if type == "article" %}
-          {% include "molecules/cards/card.html" with resource=resource.article show_author=True %}
-        {% elif type == "article_or_video" %}
+        {% if type == "article_or_video" %}
           {% if resource.video %}
             {% include "molecules/cards/card.html" with resource=resource.video %}
           {% else %}
