@@ -1,4 +1,4 @@
-Django==2.2.11
+Django==2.2.12
 celery==4.4.2  # Be careful when updating this - ensure works with kombu
 redis==3.4.1
 kombu==4.6.8  # Be careful when updating this - ensure works with celery
@@ -13,7 +13,7 @@ gevent-socketio==0.3.6
 gevent-websocket==0.10.1
 mozilla-django-oidc==1.2.3
 django-storages==1.9.1
-boto3==1.12.31
+boto3==1.12.33
 psycopg2==2.8.4
 Pygments==2.6.1
 raven==6.10.0
