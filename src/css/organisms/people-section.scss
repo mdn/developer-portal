@@ -1,12 +1,13 @@
 .people-section {
   .section-header {
     padding: $spacing-sm 0px $spacing-xl;
+    h4 {
+      font-family: Inter, X-LocaleSpecific, sans-serif;
 
-    h2 {
       span {
         display: inline-block;
         padding-left: $spacing-sm;
-        font-size: $small-font-size;
+        font-size: 0.6em;
       }
     }
   }

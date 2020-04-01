@@ -10,13 +10,13 @@
 
 <div class="mzp-l-content people-section">
   <div class="section-header">
-    <h2>{{ title|default:"People" }}
+    <h4>{{ title|default:"People" }}
     {% if show_link and directory_pages.people %}
       <span>
         <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
       </span>
     {% endif %}
-    </h2>
+    </h4>
   </div>
 
   {# Render cards side by side, up to three, always same width #}
