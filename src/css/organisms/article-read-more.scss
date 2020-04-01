@@ -1,0 +1,14 @@
+.article-read-more {
+  .section-header {
+    padding: $spacing-sm 0px $spacing-xl;
+    h4 {
+      font-family: Inter, X-LocaleSpecific, sans-serif;
+
+      span {
+        display: inline-block;
+        padding-left: $spacing-sm;
+        font-size: 0.6em;
+      }
+    }
+  }
+}

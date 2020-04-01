@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+<p class="first-deck">
+  {{page.read_time}} | {{page.date|date}}
+</p>
+{% if page.description %}
+{{page.description|richtext}}
+{% endif %}

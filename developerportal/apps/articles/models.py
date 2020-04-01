@@ -10,6 +10,7 @@ from django.db.models import (
     Q,
     TextField,
 )
+from django.template.loader import render_to_string
 
 import readtime
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -294,6 +295,14 @@ class Article(BasePage):
     def get_absolute_url(self):
         # For the RSS feed
         return self.full_url
+
+    @property
+    def verbose_standfirst(self):
+        """Return a marked-safe HTML snippet that can be used as a verbose standfirst"""
+
+        template = "partials/verbose_standfirst.html"
+        rendered = render_to_string(template, context={"page": self})
+        return rendered
 
     @property
     def primary_topic(self):

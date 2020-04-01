@@ -2,6 +2,7 @@
   background-color: $color-black;
   color: $color-white;
   @media #{$mq-md} {
+    padding: $spacing-md 0px;
     margin-bottom: $layout-xl;
   }
 
@@ -53,8 +54,9 @@
     .standfirst-wrapper {
       @media #{$mq-sm} {
         max-width: 66%;
+        margin-bottom: 16px;
       }
-      .plaintext-standfirst {
+      .custom-standfirst {
         clear: both;
       }
     }

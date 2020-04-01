@@ -11,17 +11,26 @@
 {% endif %}
 
 <section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9">
-  {% if type == 'speaker' or type == 'person' %}
+  {% if type == 'speaker' or type == 'person' or type == 'author' %}
     <a href="{% pageurl person %}" class="mzp-c-card-block-link" data-type="{{ person.resource_type }}">
   {% endif %}
   {% if type == 'external_speaker' and person.url %}
+    <a href="{{ person.url }}" class="mzp-c-card-block-link" data-type="{{ person.resource_type }}" target="_blank" rel="nofollow noreferrer noopener">
+  {% endif %}
+  {% if type == 'external_author' and person.url %}
     <a href="{{ person.url }}" class="mzp-c-card-block-link" data-type="{{ person.resource_type }}" target="_blank" rel="nofollow noreferrer noopener">
   {% endif %}
       <div class="mzp-c-card-media-wrapper">
         <img class="mzp-c-card-image" src="{% firstof img.url fallback_url %}" alt="">
       </div>
       <div class="mzp-c-card-content">
-        <div class="mzp-c-card-tag">{{person.get_role_display}}</div>
+        <div class="mzp-c-card-tag">
+          {% if custom_title %}
+            {{custom_title}}
+          {% else %}
+            {{person.get_role_display}}
+          {% endif %}
+        </div>
         <h2 class="mzp-c-card-title">
           <span>
             {{ person.title }}
