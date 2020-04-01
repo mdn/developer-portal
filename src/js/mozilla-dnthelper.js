@@ -19,7 +19,7 @@ if (typeof window.Mozilla === 'undefined') {
  * @params {string} [ua] - An optional mock userAgent string to ease unit testing.
  * @returns {boolean} true if enabled else false
  */
-window.Mozilla.dntEnabled = function(dnt, ua) {
+window.Mozilla.dntEnabled = function (dnt, ua) {
   // for old version of IE we need to use the msDoNotTrack property of navigator
   // on newer versions, and newer platforms, this is doNotTrack but, on the window object
   // Safari also exposes the property on the window object.

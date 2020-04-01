@@ -53,7 +53,7 @@ module.exports = class MapEmbed {
    */
   static init() {
     const elements = document.querySelectorAll('.map');
-    return Array.from(elements).map(element => new MapEmbed(element));
+    return Array.from(elements).map((element) => new MapEmbed(element));
   }
 
   /**
@@ -66,8 +66,6 @@ module.exports = class MapEmbed {
     const coords = [lng, lat];
     const map = MapEmbed.createMap(coords, mapId);
     const popup = MapEmbed.createPopup(venue);
-    MapEmbed.createMarker(coords)
-      .setPopup(popup)
-      .addTo(map);
+    MapEmbed.createMarker(coords).setPopup(popup).addTo(map);
   }
 };

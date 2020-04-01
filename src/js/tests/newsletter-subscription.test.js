@@ -6,6 +6,7 @@
 
 /* global fetchMock */
 
+// eslint-disable-next-line import/no-unresolved
 require('jest-fetch-mock').enableMocks();
 
 Object.defineProperty(global.window, 'alert', function fakeAlert(val) {
@@ -81,7 +82,7 @@ test('Happy path', async () => {
 
   // Show the content in js-newsletter-fields has been updated after a successful POST,
   // but to do that we need to pause a moment
-  await new Promise(resolve => setTimeout(resolve));
+  await new Promise((resolve) => setTimeout(resolve));
 
   const newsletterFieldsDivContent = form.getElementsByClassName(
     'js-newsletter-fields',

@@ -104,7 +104,7 @@ module.exports = class Modal {
    */
   static init() {
     const elements = document.querySelectorAll('.js-modal-trigger');
-    return Array.from(elements).map(element => new Modal(element));
+    return Array.from(elements).map((element) => new Modal(element));
   }
 
   /**
@@ -114,7 +114,7 @@ module.exports = class Modal {
    */
   constructor(trigger) {
     this.trigger = trigger;
-    this.trigger.addEventListener('click', event => this.onClick(event));
+    this.trigger.addEventListener('click', (event) => this.onClick(event));
   }
 
   /**

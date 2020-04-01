@@ -15,7 +15,7 @@ function submitNewsletterSubscription(form) {
       'Content-type': 'application/x-www-form-urlencoded',
     },
     body: new URLSearchParams(new FormData(form)).toString(),
-  }).then(response => response.json());
+  }).then((response) => response.json());
 }
 
 /** Single place to raise an alert()
@@ -50,7 +50,7 @@ module.exports = class NewsletterSubscription {
 
   constructor(form) {
     this.form = form;
-    this.form.onsubmit = event => {
+    this.form.onsubmit = (event) => {
       event.preventDefault();
       submitNewsletterSubscription(this.form)
         .then(({ success, errors }) => {
