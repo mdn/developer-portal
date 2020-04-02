@@ -27,8 +27,12 @@
   </main>
 
   <aside class="mzp-l-sidebar custom-width">
+    {% if page.authors %}
+    <h4 class="authors-header">Content by</h4>
+    {% else %}
+    {% endif %}
     {% for author_block in page.authors %}
-      {% include "molecules/cards/card-person.html" with person=author_block.value type=author_block.block_type custom_title="Author" %}
+      {% include "molecules/cards/card-person.html" with person=author_block.value type=author_block.block_type %}
     {% endfor %}
   </aside>
 </div>
