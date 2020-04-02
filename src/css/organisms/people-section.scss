@@ -2,7 +2,7 @@
   .section-header {
     padding: $spacing-sm 0px $spacing-xl;
     h4 {
-      font-family: Inter, X-LocaleSpecific, sans-serif;
+      font-family: $body-font-family;
 
       span {
         display: inline-block;
