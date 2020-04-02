@@ -10,9 +10,6 @@
       {% for link in links|by_key:"value" %}
         <li>
           <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
-            <span class="icon icon-external">
-              {% include "atoms/icons/external.svg" %}
-            </span>
             <span class="related-links-link-text">
               {{ link.title }}
             </span>
