@@ -27,7 +27,7 @@
         {% elif agenda_item.external_speaker.name %}
           {% with agenda_item.external_speaker as speaker %}
             {% if speaker.url %}
-              <a href="{{ speaker.url }}" class="external-link" target="_blank" rel="nofollow noopener">
+              <a href="{{ speaker.url }}" target="_blank" rel="nofollow noopener">
                 {{ speaker.name }}
               </a>
             {% else %}
