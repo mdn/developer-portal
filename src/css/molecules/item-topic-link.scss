@@ -6,7 +6,7 @@
   }
   h3,
   h4 {
-    font-family: Inter, X-LocaleSpecific, sans-serif;
+    font-family: $body-font-family;
     font-size: 1.5rem;
   }
   h4 {
@@ -18,7 +18,7 @@
   }
 
   .mzp-c-card-title span {
-    font-family: Inter, X-LocaleSpecific, sans-serif;
+    font-family: $body-font-family;
     display: block;
     margin: $spacing-sm auto;
   }

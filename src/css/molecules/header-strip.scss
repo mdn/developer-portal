@@ -2,7 +2,8 @@
   background-color: $color-black;
   color: $color-white;
   @media #{$mq-md} {
-    margin-bottom: $layout-xl;
+    padding: $spacing-md 0px;
+    margin-bottom: 76px; // + 24px from mzp-l-content == 100px
   }
 
   .icon-wrapper {
@@ -53,8 +54,9 @@
     .standfirst-wrapper {
       @media #{$mq-sm} {
         max-width: 66%;
+        margin-bottom: 16px;
       }
-      .plaintext-standfirst {
+      .custom-standfirst {
         clear: both;
       }
     }
