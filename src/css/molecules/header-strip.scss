@@ -3,7 +3,7 @@
   color: $color-white;
   @media #{$mq-md} {
     padding: $spacing-md 0px;
-    margin-bottom: $layout-xl;
+    margin-bottom: 76px; // + 24px from mzp-l-content == 100px
   }
 
   .icon-wrapper {
