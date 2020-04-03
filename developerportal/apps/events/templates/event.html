@@ -7,16 +7,6 @@
 
 {% block content %}
 
-{% if page.card_image %}
-  {% image page.card_image width-480 as img %}
-{% else %}
-  {% if page.image %}
-    {% image page.image width-480 as img %}
-  {% else %}
-    {% static "img/placeholders/event.jpg" as fallback_url %}
-  {% endif %}
-{% endif %}
-
 {% static "img/icons/events.svg" as page_icon_asset_url %}
 {% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" standfirst=page.summary_meta %}
 
