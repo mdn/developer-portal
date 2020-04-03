@@ -20,7 +20,7 @@ body.event {
         display: inherit;
       }
       display: inline-block;
-      margin: $spacing-md 0px $spacing-lg 0;
+      margin: $spacing-md 0px $spacing-2xl 0;
 
       @media #{$mq-md} {
         float: right;

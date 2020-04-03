@@ -1,10 +1,23 @@
 .resource-share {
   align-items: center;
   display: flex;
+
+  // these take a different style to other icons in the site
+  .icon {
+    background: $color-black;
+    border-radius: 50%;
+    color: $color-white;
+    display: inline-block;
+    fill: currentColor;
+    height: 28px;
+    line-height: 0;
+    padding: 6px 2px;
+    vertical-align: middle;
+    width: 28px;
+  }
 }
 
 .resource-share-buttons {
-  color: #697276;
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -14,8 +27,6 @@
 
   a {
     align-items: center;
-    border: 1px solid $color-marketing-gray-30;
-    border-right: none;
     color: inherit;
     display: flex;
     height: 36px;
@@ -24,20 +35,11 @@
     text-decoration: none;
     width: 36px;
 
-    &:hover {
-      color: $color-marketing-gray-70;
-    }
-
-    &:active {
-      background: none;
-    }
-
     &:first-child {
       padding-left: 0;
     }
 
     &:last-child {
-      border-right: 1px solid $color-marketing-gray-30;
       padding-right: 0;
     }
 
