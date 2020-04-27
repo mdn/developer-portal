@@ -12,7 +12,7 @@
         <img {% if icon_img_class %}class="{{icon_img_class}}" {% endif %}alt="" src={{page_icon_asset_url}}>
       </div>
     {% endif %}
-    <div class="header-wrapper">
+    <div class="header-wrapper{% if not page.icon and not page_icon_asset_url %} no-icon{% endif %}">
       <{{element}}>
         {{ content }}
       </{{element}}>

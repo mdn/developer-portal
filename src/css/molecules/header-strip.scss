@@ -54,6 +54,9 @@
   .header-wrapper {
     @media #{$mq-sm} {
       padding-left: 48px;
+      &.no-icon {
+        padding-left: 0px;
+      }
     }
     h1 {
       float: left;
