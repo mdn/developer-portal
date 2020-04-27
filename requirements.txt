@@ -21,7 +21,7 @@ readtime==1.1.1
 wagtail==2.8.1
 whitenoise==5.0.1
 urlwait==1.0
-newrelic==5.10.0.138
+newrelic==5.12.0.140
 feedparser==5.2.1
 python-dateutil==2.8.1
 # Specific versions of dependencies to satisfy clashing requirements:
