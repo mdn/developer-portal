@@ -1,4 +1,7 @@
 .mzp-c-notification-bar {
+  @media #{$mq-md} {
+    margin: $spacing-md auto 0px;
+  }
   .mzp-c-notification-bar-cta {
     text-decoration: underline;
     &:hover {
