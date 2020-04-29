@@ -7,9 +7,10 @@ body.person {
     }
     .mzp-c-card-content {
       background-color: $color-white;
+      display: inline-block;
 
       @media #{$mq-md} {
-        padding: $spacing-md;
+        padding: $spacing-md $spacing-md 0 $spacing-md;
 
         .topic-item-icon,
         .mzp-c-card-title,
@@ -20,14 +21,15 @@ body.person {
         .mzp-c-card-title {
           font-size: 1.15rem;
           margin-bottom: 0px;
-          margin-left: 8px;
+          margin-left: $spacing-sm;
+          margin-bottom: $spacing-sm;
         }
 
         .mzp-c-card-desc {
           font-size: 0.9rem;
           margin-left: 36px;
           margin-top: 0px;
-          margin-bottom: 8px;
+          margin-bottom: $spacing-sm;
         }
       }
     }
