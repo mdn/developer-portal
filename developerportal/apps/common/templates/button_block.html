@@ -1,12 +1,13 @@
 {% load wagtailcore_tags %}
 {% load app_filters %}
 
-<p class="button-block">
-  {% if value.page_link %}
-    <a href="{% pageurl value.page_link %}" class="mzp-c-button">
-  {% else %}
-    <a href="{{ value.external_link }}" class="mzp-c-button" target="_blank" rel="nofollow noopener">
-  {% endif %}
-  {{ value.text }}
-  </a>
-</p>
+    {% if value.page_link or value.external_link %}
+    <p class="button-block">
+      {% if value.page_link %}
+        <a href="{% pageurl value.page_link %}" class="mzp-c-button">
+      {% elif value.external_link %}
+        <a href="{{ value.external_link }}" class="mzp-c-button" target="_blank" rel="nofollow noopener">
+      {% endif %}
+        {{ value.text }}
+        </a>
+    </p>{% endif %}
