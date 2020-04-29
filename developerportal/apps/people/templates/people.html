@@ -10,7 +10,7 @@
 {% static "img/icons/people.svg" as page_icon_asset_url %}
 {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url %}
 
-<main>
+<main role="main">
   <div id="people-list">
     {% include "organisms/filter-list.html" with type="person" resources=people no_resources_message="No people found" page_anchor="#people-list" %}
   </div>
