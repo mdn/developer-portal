@@ -3,16 +3,16 @@
 
 <div class="header-strip">
   <div class="mzp-l-content">
-    {% if page.icon %}
+    {% if page_icon_asset_url %}
+      <div class="icon-wrapper from-url">
+        <img {% if icon_img_class %}class="{{icon_img_class}}" {% endif %}alt="" src={{page_icon_asset_url}}>
+      </div>
+    {% elif page.icon %}
       <div class="icon-wrapper">
       {% render_svg page.icon %}
       </div>
-    {% elif page_icon_asset_url %}
-      <div class="icon-wrapper from-url">
-        <img alt="" src={{page_icon_asset_url}}>
-      </div>
     {% endif %}
-    <div class="header-wrapper">
+    <div class="header-wrapper{% if not page.icon and not page_icon_asset_url %} no-icon{% endif %}">
       <{{element}}>
         {{ content }}
       </{{element}}>

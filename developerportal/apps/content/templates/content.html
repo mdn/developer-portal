@@ -7,7 +7,8 @@
 
 {% block content %}
 
-{% include "molecules/header-strip.html" with content=page.title element="h1" %}
+{% static "img/icons/content-white.svg" as page_icon_asset_url %}
+{% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url %}
 
 <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
   <main role="main" class="mzp-l-main custom-width">

@@ -40,5 +40,15 @@
           {{ person.job_title }}
         </div>
       </div>
+
+  {% if type == 'speaker' or type == 'person' or type == 'author' %}
     </a>
+  {% endif %}
+  {% if type == 'external_speaker' and person.url %}
+    </a>
+  {% endif %}
+  {% if type == 'external_author' and person.url %}
+    </a>
+  {% endif %}
+
 </section>

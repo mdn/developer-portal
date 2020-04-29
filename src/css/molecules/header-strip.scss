@@ -2,8 +2,8 @@
   background-color: $color-black;
   color: $color-white;
   @media #{$mq-md} {
-    padding: $spacing-md 0px;
     margin-bottom: 76px; // + 24px from mzp-l-content == 100px
+    padding: $spacing-md 0px;
   }
 
   .icon-wrapper {
@@ -13,39 +13,51 @@
       display: inherit;
       visibility: visible;
     }
-
-    float: left;
     fill: currentColor;
+    float: left;
 
     img,
     svg {
       fill: currentColor;
       height: 52px;
-      padding-top: 12px;
       margin-left: -13px;
+      padding-top: 12px;
 
       @media #{$mq-sm} {
         height: 60px;
-        padding-top: 14px;
         margin-left: -13px;
+        padding-top: 14px;
       }
 
       g {
+        use,
         path {
           fill: currentColor;
         }
       }
     }
 
-    img {
-      padding-left: 13px;
-      width: 59px;
+    &.from-url img {
+      display: inline-block;
+      margin-top: 2px;
+      max-height: 54px;
+      max-width: 60px;
+      padding-left: 9px;
+
+      &.events-icon {
+        margin-top: 0px;
+        max-height: 60px;
+        max-width: 60px;
+      }
     }
   }
 
   .header-wrapper {
     @media #{$mq-sm} {
       padding-left: 48px;
+      &.no-icon {
+        padding-left: 0px;
+      }
     }
     h1 {
       float: left;
@@ -53,8 +65,8 @@
     }
     .standfirst-wrapper {
       @media #{$mq-sm} {
-        max-width: 66%;
         margin-bottom: 16px;
+        max-width: 66%;
       }
       .custom-standfirst {
         clear: both;
