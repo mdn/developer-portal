@@ -1,3 +1,10 @@
+body.home .topic-links .mzp-c-card,
+body.topics .topic-links .mzp-c-card {
+  @media #{$mq-md} {
+    background-color: transparent;
+  }
+}
+
 .topic-links {
   background-color: $color-light-gray-10;
 
@@ -15,6 +22,10 @@
 
   .section-header {
     padding: $spacing-sm 0px $spacing-md;
+    @media #{$mq-md} {
+      // move the header in slightly to balance out the lack of white bg on the cards
+      padding-left: $spacing-sm;
+    }
   }
 
   .mzp-c-card-title span {
