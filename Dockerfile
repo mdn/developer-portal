@@ -12,7 +12,7 @@ COPY src/ /app/src/
 RUN npm run build
 
 
-FROM python:3.7-alpine@sha256:f9b036bf5535f0d51d92537aa87babb01124267ce534fe974981ebf157216f61 AS app_base
+FROM python:3.7-alpine@sha256:7eb0834844428f3dae2eb81208b23445018cfd615404a56fecfe798de8f76394 AS app_base
 
 EXPOSE 8000
 WORKDIR /app/
