@@ -13,7 +13,7 @@ gevent-socketio==0.3.6
 gevent-websocket==0.10.1
 mozilla-django-oidc==1.2.3
 django-storages==1.9.1
-boto3==1.12.48
+boto3==1.12.49
 psycopg2==2.8.5
 Pygments==2.6.1
 raven==6.10.0
