@@ -1,4 +1,14 @@
 .filter-form {
+  padding: 16px 0;
+
+  @media #{$mq-md} {
+    padding: 24px 0;
+  }
+
+  fieldset,
+  label {
+    color: $color-black;
+  }
   margin-top: 16px;
 
   @media #{$mq-md} {
@@ -27,19 +37,23 @@
 }
 
 .filter-form-section {
-  border-bottom: 1px solid $color-marketing-gray-30;
-  padding: 16px 0;
-
   @media #{$mq-md} {
-    padding: 24px 0;
-  }
+    border-bottom: 1px solid $color-marketing-gray-30;
+    padding-bottom: 16px;
 
-  &:last-child {
-    border-bottom: 0;
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 
   label:last-child {
     margin-bottom: 0;
+  }
+
+  &.filter-form-footer {
+    @media #{$mq-md} {
+      padding-bottom: 0px;
+    }
   }
 }
 
