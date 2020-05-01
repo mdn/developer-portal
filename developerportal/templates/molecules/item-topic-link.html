@@ -10,7 +10,11 @@
     <div class="mzp-c-card-content">
       <img src="{% get_menu_item_icon topic %}" class="topic-item-icon" alt="" width="24" height="24">
       <h2 class="mzp-c-card-title"><span>{{ topic.title }}</span></h2>
-      {% if topic.description %}
+      {% if topic.card_description %}
+        <div class="mzp-c-card-desc">
+        {{ topic.card_description }}
+        </div>
+      {% elif topic.description %}
         <div class="mzp-c-card-desc">
         {{ topic.description | richtext }}
         </div>
