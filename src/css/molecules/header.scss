@@ -4,6 +4,10 @@
     box-sizing: unset;
   }
 
+  .mzp-c-navigation-logo {
+    margin-top: 23px; // 1px less than default, but is noticeable if not set
+  }
+
   .mzp-c-navigation-logo a {
     background-image: url('../img/logos/developer/black.svg');
     height: auto;
