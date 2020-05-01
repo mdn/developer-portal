@@ -1,18 +1,15 @@
 .filter-form {
-  padding: 16px 0;
-
-  @media #{$mq-md} {
-    padding: 24px 0;
-  }
-
   fieldset,
   label {
     color: $color-black;
   }
-  margin-top: 16px;
+
+  margin-bottom: 12px;
+  margin-top: 12px;
 
   @media #{$mq-md} {
-    margin-top: 0;
+    margin-bottom: 16px;
+    margin-top: 16px;
   }
 
   label {
@@ -37,12 +34,16 @@
 }
 
 .filter-form-section {
+  margin-top: 12px;
+
   @media #{$mq-md} {
     border-bottom: 1px solid $color-marketing-gray-30;
+    margin-top: 16px;
     padding-bottom: 16px;
 
     &:last-child {
       border-bottom: 0;
+      margin-bottom: 24px;
     }
   }
 
