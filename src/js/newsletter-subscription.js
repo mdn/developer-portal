@@ -1,5 +1,27 @@
 const NEWSLETTER_SUBSCRIBE_URL = 'https://www.mozilla.org/en-US/newsletter/';
 
+/** Opinionated function for extracting data from the form without needing FormData
+ *
+ * @param {object} form element
+ * @returns {string} URI-encoded string
+ */
+function getPayloadString(form) {
+  try {
+    return new URLSearchParams(new FormData(form)).toString();
+  } catch (err) {
+    // if we lack URLSearchParams or a fully-featured FormData (eg: IE11)
+    // let's just manually extract the data we need
+    const formInputs = form.getElementsByTagName('input');
+    const pairs = [];
+
+    for (let i = 0; i < formInputs.length; i += 1) {
+      const field = formInputs[i];
+      pairs.push(`${field.name}=${encodeURIComponent(field.value)}`);
+    }
+    return pairs.join('&');
+  }
+}
+
 /**
  * Posts serialized data from the given form to the subscription endpoint,
  * return the JSON result
@@ -14,7 +36,7 @@ function submitNewsletterSubscription(form) {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-type': 'application/x-www-form-urlencoded',
     },
-    body: new URLSearchParams(new FormData(form)).toString(),
+    body: getPayloadString(form),
   }).then((response) => response.json());
 }
 

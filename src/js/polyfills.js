@@ -1,4 +1,11 @@
 /* eslint-disable */
+
+// import promise polyfill to set it up - see https://github.com/taylorhakes/promise-polyfill
+import 'promise-polyfill/src/polyfill';
+
+// import fetch polyfill to set it up - see https://github.com/github/fetch
+import 'whatwg-fetch';
+
 // source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from#Polyfill
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 if (!Array.from) {
