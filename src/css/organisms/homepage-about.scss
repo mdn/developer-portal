@@ -15,7 +15,7 @@
   font-size: 1.3125rem;
   line-height: 1.1;
 }
-@media (min-width: 768px) {
+@media #{$mq-md} {
   .mzp-c-call-out-compact .mzp-c-call-out-title {
     font-size: 32px;
     font-size: 2rem;
@@ -27,10 +27,10 @@
   line-height: 1.5;
 }
 .mzp-c-call-out-compact .mzp-c-call-out-cta {
-  margin: $spacing-sm 0 0;
+  margin: $spacing-md 0 0; // top was $spacing-sm on mozilla.org
 }
 
-@media (min-width: 768px) {
+@media #{$mq-md} {
   .mzp-c-call-out-compact {
     zoom: 1;
   }
@@ -83,7 +83,7 @@
   }
 }
 @supports (display: grid) {
-  @media (min-width: 768px) {
+  @media #{$mq-md} {
     .mzp-c-call-out-compact .mzp-l-content {
       grid-column-gap: $spacing-xl;
       column-gap: $spacing-xl;
