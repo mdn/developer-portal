@@ -4,15 +4,30 @@
 {% block body_class %}videos{% endblock %}
 
 {% block content %}
+  {% comment %}
+
+  The Videos page has to exist in the CMS ( at /videos/) so that it can be the
+  parent page of actual Video pages eg (/videos/my-video-page/), but it
+  is not intended to be shown in menus nor accessed directly, so it is only ever
+  in existence in draft form.
+
+  As such, this template only has basic styling as a simple safety net in case
+  the page is made live (either in error or deliberately, before additional
+  styling is added)
+
+  {% endcomment %}
+
   <main role="main">
-    <ul>
-      {% for video in page.videos.all %}
-        <li>
-          <a href="{% pageurl video %}">
-            {{ video.title }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
+    <div class="mzp-l-content">
+      <ul>
+        {% for video in page.videos.all %}
+          <li>
+            <a href="{% pageurl video %}">
+              {{ video.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </main>
 {% endblock content %}
