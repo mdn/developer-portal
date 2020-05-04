@@ -91,3 +91,60 @@ test('Happy path', async () => {
     '<b>Thank you. Please check your email to confirm your subscription.</b>',
   );
 });
+
+test('IE11 manual fallback', async () => {
+  // Testing that the overall behaviour still works with IE11, which has
+  // no URLSearchParams or complete FormData implementation
+  // Store original implementation
+  const originalURLSearchParams = URLSearchParams;
+
+  // eslint-disable-next-line no-global-assign
+  URLSearchParams = jest.fn(() => {
+    throw new Error();
+  });
+
+  fetchMock.mockResponseOnce(JSON.stringify({ success: true }));
+  document.body.innerHTML = exampleFormHTML;
+  NewsletterSubscription.init(); // this is how it's invoked in index.js
+  const form = document.getElementById('newsletter-form');
+
+  populateFormData(document, {
+    email: 'test@example.com',
+    privacy: 'checked',
+  });
+  form.submit();
+
+  expect(fetch.mock.calls.length).toEqual(1);
+
+  expect(fetch.mock.calls[0][1].headers).toEqual({
+    'X-Requested-With': 'XMLHttpRequest',
+    'Content-type': 'application/x-www-form-urlencoded',
+  });
+  expect(fetch.mock.calls[0][1].method).toEqual('POST');
+  expect(fetch.mock.calls[0][1].body).toEqual(
+    'newsletters=app-dev&fmt=H&email=test%40example.com&privacy=checked',
+    // The manual fallback also sends confirmation that the privacy checkbox was ticked,
+    // because it assembles a payload from all fields
+  );
+  expect(fetch.mock.calls[0][0]).toEqual(
+    'https://www.mozilla.org/en-US/newsletter/',
+  );
+
+  // Show the content in js-newsletter-fields has been updated after a successful POST,
+  // but to do that we need to pause a moment
+  await new Promise((resolve) => setTimeout(resolve));
+
+  const newsletterFieldsDivContent = form.getElementsByClassName(
+    'js-newsletter-fields',
+  )[0].innerHTML;
+  expect(newsletterFieldsDivContent).toBe(
+    '<b>Thank you. Please check your email to confirm your subscription.</b>',
+  );
+
+  // Confirm that the mocked URLSearchParams was called
+  expect(URLSearchParams.mock.calls.length).toEqual(1);
+
+  // Restore original implementation
+  // eslint-disable-next-line no-global-assign
+  URLSearchParams = originalURLSearchParams;
+});
