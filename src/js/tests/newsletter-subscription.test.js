@@ -67,18 +67,19 @@ test('Happy path', async () => {
   form.submit();
 
   expect(fetch.mock.calls.length).toEqual(1);
-
-  expect(fetch.mock.calls[0][1].headers).toEqual({
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-type': 'application/x-www-form-urlencoded',
-  });
-  expect(fetch.mock.calls[0][1].method).toEqual('POST');
-  expect(fetch.mock.calls[0][1].body).toEqual(
-    'newsletters=app-dev&fmt=H&email=test%40example.com',
-  );
-  expect(fetch.mock.calls[0][0]).toEqual(
-    'https://www.mozilla.org/en-US/newsletter/',
-  );
+  expect(fetch.mock.calls).toEqual([
+    [
+      'https://www.mozilla.org/en-US/newsletter/',
+      {
+        body: 'newsletters=app-dev&fmt=H&email=test%40example.com',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        method: 'POST',
+      },
+    ],
+  ]);
 
   // Show the content in js-newsletter-fields has been updated after a successful POST,
   // but to do that we need to pause a moment
@@ -92,10 +93,11 @@ test('Happy path', async () => {
   );
 });
 
+/* Testing that the overall behaviour still works with IE11, which has
+ * no URLSearchParams or complete FormData implementation
+ * Store original implementation */
+
 test('IE11 manual fallback', async () => {
-  // Testing that the overall behaviour still works with IE11, which has
-  // no URLSearchParams or complete FormData implementation
-  // Store original implementation
   const originalURLSearchParams = URLSearchParams;
 
   // eslint-disable-next-line no-global-assign
@@ -115,20 +117,22 @@ test('IE11 manual fallback', async () => {
   form.submit();
 
   expect(fetch.mock.calls.length).toEqual(1);
-
-  expect(fetch.mock.calls[0][1].headers).toEqual({
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-type': 'application/x-www-form-urlencoded',
-  });
-  expect(fetch.mock.calls[0][1].method).toEqual('POST');
-  expect(fetch.mock.calls[0][1].body).toEqual(
-    'newsletters=app-dev&fmt=H&email=test%40example.com&privacy=checked',
-    // The manual fallback also sends confirmation that the privacy checkbox was ticked,
-    // because it assembles a payload from all fields
-  );
-  expect(fetch.mock.calls[0][0]).toEqual(
-    'https://www.mozilla.org/en-US/newsletter/',
-  );
+  expect(fetch.mock.calls).toEqual([
+    [
+      'https://www.mozilla.org/en-US/newsletter/',
+      {
+        body:
+          /* The manual fallback also sends confirmation that the privacy checkbox was ticked,
+           * because it assembles a payload from all fields */
+          'newsletters=app-dev&fmt=H&email=test%40example.com&privacy=checked',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        method: 'POST',
+      },
+    ],
+  ]);
 
   // Show the content in js-newsletter-fields has been updated after a successful POST,
   // but to do that we need to pause a moment
