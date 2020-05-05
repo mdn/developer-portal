@@ -20,7 +20,7 @@
                     {% with child_pages=page.get_children.public.live.in_menu %}
                       <li class="mzp-c-menu-category{% if child_pages %} mzp-has-drop-down mzp-js-expandable{% endif %}">
                         {% if child_pages %}
-                        <span class="mzp-c-menu-title" aria-haspopup="true" aria-controls="mzp-c-menu-panel-{{ page.slug }}">{{ page.title }}</span>
+                        <a href="#" class="mzp-c-menu-title" aria-haspopup="true" aria-controls="mzp-c-menu-panel-{{ page.slug }}">{{ page.title }}</a>
                         {% else %}
                         <a class="mzp-c-menu-title" href="{{ page.url }}">
                           {{ page.title }}
