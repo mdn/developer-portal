@@ -6,6 +6,7 @@ const NEWSLETTER_SUBSCRIBE_URL = 'https://www.mozilla.org/en-US/newsletter/';
  * @returns {string} URI-encoded string
  */
 function getPayloadString(form) {
+  let retval = null;
   if (typeof URLSearchParams === 'undefined') {
     // if we lack URLSearchParams or a fully-featured FormData (eg: IE11)
     // let's just manually extract the data we need
@@ -16,11 +17,11 @@ function getPayloadString(form) {
       const field = formInputs[i];
       pairs.push(`${field.name}=${encodeURIComponent(field.value)}`);
     }
-    return pairs.join('&');
-    // eslint-disable-next-line no-else-return
+    retval = pairs.join('&');
   } else {
-    return new URLSearchParams(new FormData(form)).toString();
+    retval = new URLSearchParams(new FormData(form)).toString();
   }
+  return retval;
 }
 
 /**
