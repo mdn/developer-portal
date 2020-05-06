@@ -1,7 +1,9 @@
 {% load app_tags %}
 {% load wagtailcore_tags %}
 
-{% with home_page=request.site.root_page %}
+{% wagtail_site as current_site %}
+
+{% with home_page=current_site.root_page %}
   <header class="header">
     <div class="mzp-c-navigation">
       <div class="mzp-c-navigation-l-content">

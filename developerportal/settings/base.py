@@ -88,7 +88,6 @@ MIDDLEWARE = [
     # In case someone has their Auth0 revoked while logged in, revalidate it:
     "mozilla_django_oidc.middleware.SessionRefresh",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "wagtail.core.middleware.SiteMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
