@@ -1,4 +1,4 @@
-{% load static wagtailuserbar app_tags survey_tags %}
+{% load wagtailcore_tags static wagtailuserbar app_tags survey_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -33,7 +33,9 @@
     {% is_production_site as is_prod %}
     {% if not is_prod %}<meta name="robots" content="noindex">{% endif %}
 
-    {% with home=request.site.root_page.specific %}
+    {% wagtail_site as current_site %}
+
+    {% with home=current_site.root_page.specific %}
       <title>
         {% block title %}
           {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}

@@ -18,11 +18,12 @@ psycopg2==2.8.5
 Pygments==2.6.1
 raven==6.10.0
 readtime==1.1.1
-wagtail==2.8.1
+wagtail==2.9
 whitenoise==5.0.1
 urlwait==1.0
 newrelic==5.12.1.141
 feedparser==5.2.1
 python-dateutil==2.8.1
+
 # Specific versions of dependencies to satisfy clashing requirements:
-beautifulsoup4==4.6.0  # from Wagtail 2.7
+beautifulsoup4<4.9,>=4.8  # from Wagtail 2.9
