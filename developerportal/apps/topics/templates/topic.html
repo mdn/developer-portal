@@ -8,7 +8,7 @@
 {% block content %}
 {% include "molecules/header-strip.html" with page=page content=page.title element="h1" %}
 
-<main>
+<main role="main">
   {% comment %} FEATURED {% endcomment %}
   {% with page.featured|published as featured %}
     {% if featured %}

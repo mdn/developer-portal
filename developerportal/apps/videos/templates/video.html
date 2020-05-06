@@ -10,7 +10,7 @@
 {% static "img/icons/video-white.svg" as page_icon_asset_url %}
 {% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url page=page content=page.title element="h1" %}
 
-  <main>
+  <main role="main">
     {% comment %} the video embed comes from a video_url streamfield {% endcomment %}
     <div class="mzp-l-content">
       <div class="video-wrapper">

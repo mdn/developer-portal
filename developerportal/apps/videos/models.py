@@ -49,6 +49,11 @@ class VideoTopic(Orderable):
 
 
 class Videos(BasePage):
+    # IMPORTANT: The Videos page has to exist in the CMS ( at /videos/) so that
+    # it can be the parent page of actual Video pages eg, but it is not intended
+    # to be shown in menus nor accessed directly, so it is only ever
+    # in existence in draft form.
+
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Video"]
     template = "videos.html"

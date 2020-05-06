@@ -52,7 +52,7 @@ class PeopleTag(TaggedItemBase):
 
 class People(BasePage):
 
-    RESOURCES_PER_PAGE = 10
+    RESOURCES_PER_PAGE = 8
 
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]

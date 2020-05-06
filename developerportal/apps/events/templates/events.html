@@ -8,7 +8,7 @@
   {% static "img/icons/events-white.svg" as page_icon_asset_url %}
   {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url icon_img_class="events-icon" %}
 
-<main>
+<main role="main">
   {% with page.featured|published as featured %}
     {% if featured %}
       <div class="mzp-l-content">
@@ -16,7 +16,7 @@
       </div>
     {% endif %}
   {% endwith %}
-  <div class="mzp-l-content">
+  <div class="mzp-l-content events-extra-content">
     {% for block in page.body %}
       {% if block.block_type == 'image' %}
         {% include "molecules/image-block.html" with block=block %}

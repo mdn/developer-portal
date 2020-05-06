@@ -16,11 +16,11 @@ Inputs:
 {% else %}
   {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 {% endif %}
-<section class="mzp-c-card mzp-c-card-small mzp-has-aspect-16-9">
+<section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
   {% if external_page or resource.is_external %}
     <a
       href="{{ resource.url }}"
-      class="card-link {% if resource.resource_type == 'video' %} js-modal-trigger{% endif %}"
+      class="mzp-c-card-block-link {% if resource.resource_type == 'video' %} js-modal-trigger{% endif %}"
       data-type="{{resource.resource_type}}"
       target="_blank"
       rel="nofollow noopener"
@@ -30,7 +30,7 @@ Inputs:
     {% endif %}
     >
   {% else%}
-    <a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
+    <a href="{% pageurl resource %}" class="mzp-c-card-block-link" data-type="{{ resource.resource_type }}">
   {% endif %}
       <div class="mzp-c-card-media-wrapper">
         <div class="lazy-image-container">

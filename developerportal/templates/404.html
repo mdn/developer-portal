@@ -5,27 +5,25 @@
 {% block title_suffix %}- Mozilla Developer{% endblock %}
 {% block body_class %}full-height{% endblock %}
 {% block content %}
-  <main>
-    <section class="section">
-      <div class="mzp-l-content">
-        <div class="http-error-header">
-          <h1 class="underline">Whoops, you shouldn't be here!</h1>
+  <main role="main">
+    <div class="mzp-l-content">
+      <div class="http-error-header">
+        <h1 class="underline">Whoops, you shouldn't be here!</h1>
+      </div>
+      <div class="http-error">
+        <div class="http-error-content">
+          <h3 class="no-underline">Did you make a left at that last URL instead of a right? No problem. Here are some tips to get you back on your way.</h3>
+          <p>If you typed in the address, check your spelling. Could be just a typo.</p>
+          <p>If you followed a link, it’s probably broken. Please <a href="https://bugzilla.mozilla.org/enter_bug.cgi" rel="nofollow noopener">let us know</a> and we’ll fix it.</p>
+          <ul class="http-error-links">
+            <li><a href="/">Go back to the home page</a></li>
+            <li><a href="https://developer.mozilla.org/" rel="nofollow noopener">Go to docs</a></li>
+          </ul>
         </div>
-        <div class="http-error">
-          <div class="http-error-content">
-            <h3 class="no-underline">Did you make a left at that last URL instead of a right? No problem. Here are some tips to get you back on your way.</h3>
-            <p>If you typed in the address, check your spelling. Could be just a typo.</p>
-            <p>If you followed a link, it’s probably broken. Please <a href="https://bugzilla.mozilla.org/enter_bug.cgi" rel="nofollow noopener">let us know</a> and we’ll fix it.</p>
-            <ul class="http-error-links">
-              <li><a href="/">Go back to the home page</a></li>
-              <li><a href="https://developer.mozilla.org/" rel="nofollow noopener">Go to docs</a></li>
-            </ul>
-          </div>
-          <div class="http-error-image">
-            <img src="{% static 'img/http-error.png' %}" alt="page not found">
-          </div>
+        <div class="http-error-image">
+          <img src="{% static 'img/http-error.png' %}" alt="page not found">
         </div>
       </div>
-    </section>
+    </div>
   </main>
 {% endblock %}

@@ -5,11 +5,13 @@ body.person {
         margin-top: 24px;
       }
     }
+
     .mzp-c-card-content {
       background-color: $color-white;
+      display: inline-block; // so that the border for mzp-c-card-block-link does not wrap short
 
-      @media #{$mq-md} {
-        padding: $spacing-md;
+      @media #{$mq-xs} {
+        padding: $spacing-md $spacing-md 0 $spacing-md;
 
         .topic-item-icon,
         .mzp-c-card-title,
@@ -20,14 +22,16 @@ body.person {
         .mzp-c-card-title {
           font-size: 1.15rem;
           margin-bottom: 0px;
-          margin-left: 8px;
+          margin-left: $spacing-sm;
+          margin-bottom: $spacing-sm;
         }
 
         .mzp-c-card-desc {
+          width: 100%; // so that short titles (eg 'CSS') don't cause it to flow up to the same line as the title
           font-size: 0.9rem;
           margin-left: 36px;
           margin-top: 0px;
-          margin-bottom: 8px;
+          margin-bottom: $spacing-sm;
         }
       }
     }

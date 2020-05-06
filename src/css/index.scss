@@ -27,7 +27,6 @@
 // Global.
 @import 'global/base';
 @import 'global/layout';
-@import 'global/section';
 
 // Atoms.
 @import 'atoms/buttons';
@@ -87,6 +86,7 @@
 @import 'templates/article';
 @import 'templates/content-page';
 @import 'templates/event';
+@import 'templates/events';
 @import 'templates/http-error';
 @import 'templates/person';
 @import 'templates/video';

@@ -6,13 +6,13 @@
 {% block body_class %}home{% endblock %}
 
 {% block content %}
-  <main>
+  <main role="main">
     {% if page.show_header %}
       {% include "organisms/homepage-header.html" %}
     {% endif %}
     {% with page.featured|published as featured %}
       {% if featured %}
-        <section id="featured" class="section">
+        <section id="featured">
           <div class="mzp-l-content">
             {% include "organisms/featured.html" with featured=featured %}
           </div>
@@ -20,17 +20,17 @@
       {% endif %}
     {% endwith %}
     {% if page.primary_topics.all %}
-      <section id="topics" class="section">
+      <section id="topics">
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
     {% endif %}
     {% if page.featured_people %}
-      <section id="latest-authors" class="section">
+      <section id="latest-authors">
         {% include "organisms/people-section.html" with people=page.featured_people|by_key:"value" show_link=True %}
       </section>
     {% endif %}
     {% if page.about_title %}
-      <section id="about" class="section section-background section-background-gray">
+      <section id="about">
         {% include "organisms/homepage-about.html" with title=page.about_title subtitle=page.about_subtitle button_url=page.about_button_url button_text=page.about_button_text %}
       </section>
     {% endif %}

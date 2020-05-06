@@ -4,12 +4,10 @@
 {% block body_class %}topics{% endblock %}
 
 {% block content %}
-  <main>
+  <main role="main">
     {% with page.topics.public.live.specific as topics %}
       {% if topics %}
-        <section class="section">
-          {% include "organisms/topic-links.html" with topics=topics pagetheme='directory' %}
-        </section>
+        {% include "organisms/topic-links.html" with topics=topics pagetheme='directory' %}
       {% endif %}
     {% endwith %}
   </main>
