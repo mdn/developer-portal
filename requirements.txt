@@ -18,7 +18,7 @@ psycopg2==2.8.5
 Pygments==2.6.1
 raven==6.10.0
 readtime==1.1.1
-wagtail==2.8.1
+wagtail==2.9
 whitenoise==5.0.1
 urlwait==1.0
 newrelic==5.12.1.141
