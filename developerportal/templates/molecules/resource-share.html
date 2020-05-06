@@ -1,7 +1,10 @@
+{% load wagtailcore_tags %}
+{% wagtail_site as current_site %}
+
 <div class="resource-share">
   <div class="resource-share-buttons">
     <span class="resource-share-buttons-label">Share:</span>
-    {% with url_root=request.site.root_url %}
+    {% with url_root=current_site.root_url %}
       <a href="http://twitter.com/share?url={{ url_root }}{{ request.path }}" target="_blank" rel="noopener noreferrer" aria-label="Share this page on Twitter">
         <span class="icon">
           {% include "atoms/icons/twitter.svg" %}
