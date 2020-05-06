@@ -54,7 +54,14 @@ beforeEach(() => {
   fetch.resetMocks();
 });
 
-test('Happy path', async () => {
+test('Happy path, for all but IE11', async () => {
+  /* Set up a spy on something we know will NOT be called unless the IE11 the
+   * fallback is running. This is a bit of a hack, but we can't spy on
+   * URLSearchParams without it blowing up with: `TypeError: Class constructor
+   * URLSearchParams cannot be invoked without 'new'`
+   */
+  const spy = jest.spyOn(global, 'encodeURIComponent');
+
   fetchMock.mockResponseOnce(JSON.stringify({ success: true }));
   document.body.innerHTML = exampleFormHTML;
   NewsletterSubscription.init(); // this is how it's invoked in index.js
@@ -67,18 +74,19 @@ test('Happy path', async () => {
   form.submit();
 
   expect(fetch.mock.calls.length).toEqual(1);
-
-  expect(fetch.mock.calls[0][1].headers).toEqual({
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-type': 'application/x-www-form-urlencoded',
-  });
-  expect(fetch.mock.calls[0][1].method).toEqual('POST');
-  expect(fetch.mock.calls[0][1].body).toEqual(
-    'newsletters=app-dev&fmt=H&email=test%40example.com',
-  );
-  expect(fetch.mock.calls[0][0]).toEqual(
-    'https://www.mozilla.org/en-US/newsletter/',
-  );
+  expect(fetch.mock.calls).toEqual([
+    [
+      'https://www.mozilla.org/en-US/newsletter/',
+      {
+        body: 'newsletters=app-dev&fmt=H&email=test%40example.com',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        method: 'POST',
+      },
+    ],
+  ]);
 
   // Show the content in js-newsletter-fields has been updated after a successful POST,
   // but to do that we need to pause a moment
@@ -90,4 +98,74 @@ test('Happy path', async () => {
   expect(newsletterFieldsDivContent).toBe(
     '<b>Thank you. Please check your email to confirm your subscription.</b>',
   );
+
+  expect(spy).not.toHaveBeenCalled();
+});
+
+/* Testing that the overall behaviour still works with IE11, which has
+ * no URLSearchParams or complete FormData implementation
+ */
+test('IE11 fallback behaviour', async () => {
+  // Store original implementation
+  const originalURLSearchParams = URLSearchParams;
+
+  // eslint-disable-next-line no-global-assign
+  URLSearchParams = undefined;
+
+  /* Set up a spy on something we know will be called if the fallback is running.
+   * (True, this is a bit of a hack, but we can't spy on our now-undefined
+   * URLSearchParams, because it's not a function)
+   * */
+  const spy = jest.spyOn(global, 'encodeURIComponent');
+
+  fetchMock.mockResponseOnce(JSON.stringify({ success: true }));
+  document.body.innerHTML = exampleFormHTML;
+  NewsletterSubscription.init(); // this is how it's invoked in index.js
+  const form = document.getElementById('newsletter-form');
+
+  populateFormData(document, {
+    email: 'test@example.com',
+    privacy: 'checked',
+  });
+  form.submit();
+
+  expect(fetch.mock.calls.length).toEqual(1);
+  expect(fetch.mock.calls).toEqual([
+    [
+      'https://www.mozilla.org/en-US/newsletter/',
+      {
+        body:
+          /* The manual fallback also sends confirmation that the privacy checkbox was ticked,
+           * because it assembles a payload from all fields
+           */
+          'newsletters=app-dev&fmt=H&email=test%40example.com&privacy=checked',
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        method: 'POST',
+      },
+    ],
+  ]);
+
+  // Show the content in js-newsletter-fields has been updated after a successful POST,
+  // but to do that we need to pause a moment
+  await new Promise((resolve) => setTimeout(resolve));
+
+  const newsletterFieldsDivContent = form.getElementsByClassName(
+    'js-newsletter-fields',
+  )[0].innerHTML;
+  expect(newsletterFieldsDivContent).toBe(
+    '<b>Thank you. Please check your email to confirm your subscription.</b>',
+  );
+
+  // Confirm code that only gets run when URLSearchParams is not available is called
+  expect(spy).toHaveBeenNthCalledWith(1, 'app-dev');
+  expect(spy).toHaveBeenNthCalledWith(2, 'H');
+  expect(spy).toHaveBeenNthCalledWith(3, 'test@example.com');
+  expect(spy).toHaveBeenNthCalledWith(4, 'checked');
+
+  // Restore original implementation
+  // eslint-disable-next-line no-global-assign
+  URLSearchParams = originalURLSearchParams;
 });
