@@ -29,6 +29,22 @@ def deploy(config, environment, cluster) {
   dir('k8s') {
     try {
 
+      // Verify if k8s manifest is legit
+      notify_slack([
+        status: "Verifying kubernetes deployment manifest (cluster: ${cluster})",
+        message: "developer-portal commit ${tag}"
+      ])
+
+      sh """
+        . config/${config}.sh
+        export APP_IMAGE_TAG=${tag}
+        make test-k8s-deployments
+      """
+      notify_slack([
+        status: "Verfied kubernetes deployment manifest (cluster: ${cluster})",
+        status: 'success'
+      ])
+
       notify_slack([
         status: "Pushing to ${environment} (cluster: ${cluster})",
         message: "developer-portal image ${tag}"
