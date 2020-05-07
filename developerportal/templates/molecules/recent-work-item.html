@@ -9,7 +9,7 @@ Inputs:
 {% load wagtailimages_tags %}
 {% load app_filters %}
 
-{% image resource.image width-480 as img %}
+{% image resource.card_image width-480 as img %}
 
 {% if block_type == "video" %}
   {% static "img/placeholders/post_16_9.jpg" as fallback_image %}

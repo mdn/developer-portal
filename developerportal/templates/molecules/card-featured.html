@@ -2,24 +2,26 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% if resource.card_image %}
+{% if resource.image %}
+  {% comment %}
+    While there is no longer an "image" field on a Page, Streamfield content
+    may feature an `image` node
+  {% endcomment %}
+  {% image resource.image width-480 as img %}
+{% elif resource.card_image %}
   {% image resource.card_image width-480 as img %}
 {% else %}
-  {% if resource.image %}
-    {% image resource.image width-480 as img %}
-  {% else %}
-    {% if block_type == "event" %}
-      {% if aspect_ratio == "3_2" %}
-        {% static "img/placeholders/event_3_2.jpg" as fallback_image %}
-      {% else %}
-        {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
-      {% endif %}
+  {% if block_type == "event" %}
+    {% if aspect_ratio == "3_2" %}
+      {% static "img/placeholders/event_3_2.jpg" as fallback_image %}
     {% else %}
-      {% if aspect_ratio == "3_2" %}
-        {% static "img/placeholders/post_3_2.jpg" as fallback_image %}
-      {% else %}
-        {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
-      {% endif %}
+      {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
+    {% endif %}
+  {% else %}
+    {% if aspect_ratio == "3_2" %}
+      {% static "img/placeholders/post_3_2.jpg" as fallback_image %}
+    {% else %}
+      {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
     {% endif %}
   {% endif %}
 {% endif %}
