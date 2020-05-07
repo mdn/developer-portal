@@ -361,13 +361,6 @@ class Event(BasePage):
         help_text="Optional short text description, max. 400 characters",
         max_length=400,
     )
-    image = ForeignKey(
-        "mozimages.MozImage",
-        null=True,
-        blank=True,
-        on_delete=SET_NULL,
-        related_name="+",
-    )
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
     latitude = FloatField(blank=True, null=True)  # DEPRECATED
@@ -445,14 +438,6 @@ class Event(BasePage):
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         MultiFieldPanel(
-            [ImageChooserPanel("image")],
-            heading="Image",
-            help_text=(
-                "Optional header image. If not specified a fallback will be used. "
-                "This image is also shown when sharing this page via social media"
-            ),
-        ),
-        MultiFieldPanel(
             [
                 FieldPanel("start_date"),
                 FieldPanel("end_date"),
@@ -480,7 +465,17 @@ class Event(BasePage):
     card_panels = [
         FieldPanel("card_title"),
         FieldPanel("card_description"),
-        ImageChooserPanel("card_image"),
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image")],
+            heading="Image",
+            help_text=(
+                "Image used for representing this page as a Card. "
+                "Should be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social "
+                "media unless a social image is specified."
+            ),
+        ),
     ]
 
     # Meta panels

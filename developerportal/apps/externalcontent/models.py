@@ -71,8 +71,11 @@ class ExternalContent(BasePage):
             [ImageChooserPanel("card_image")],
             heading="Image",
             help_text=(
-                "Optional header image. If not specified a fallback will be used. "
-                "This image is also shown when sharing this page via social media"
+                "Image used for representing this piece of content as a Card. "
+                "Should be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social "
+                "media unless a social image is specified."
             ),
         ),
         FieldPanel("external_url"),
