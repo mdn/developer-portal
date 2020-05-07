@@ -57,7 +57,7 @@ class ExternalContent(BasePage):
         ),
         max_length=2048,
     )
-    image = ForeignKey(
+    card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
         blank=True,
@@ -68,7 +68,7 @@ class ExternalContent(BasePage):
     card_panels = BasePage.content_panels + [
         FieldPanel("description"),
         MultiFieldPanel(
-            [ImageChooserPanel("image")],
+            [ImageChooserPanel("card_image")],
             heading="Image",
             help_text=(
                 "Optional header image. If not specified a fallback will be used. "
