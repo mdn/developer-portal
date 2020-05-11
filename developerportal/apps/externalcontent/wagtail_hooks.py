@@ -40,7 +40,11 @@ class BaseExternalEntityAdmin(ModelAdmin):
     not just the live ones. And we want to make it easy to see which
     of them is live and which is draft."""
 
-    list_display = ("title", "show_draft_status")
+    list_display = ("title", "latest_revision_created_at", "show_draft_status")
+
+    list_per_page = 15
+
+    ordering = ["-id"]
 
     def show_draft_status(self, obj):
         if obj.live:
