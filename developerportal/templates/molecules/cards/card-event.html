@@ -3,7 +3,6 @@
 {% load wagtailimages_tags %}
 {% load app_tags %}
 
-{% image resource.image width-636 as image %}
 {% image resource.card_image width-636 as card_image %}
 {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
 
@@ -18,7 +17,7 @@
     {% endif %}
   >
     <div class="mzp-c-card-media-wrapper">
-      <img class="mzp-c-card-image" src="{% firstof card_image.url image.url fallback_image %}" alt="">
+      <img class="mzp-c-card-image" src="{% firstof card_image.url fallback_image %}" alt="">
     </div>
     <div class="mzp-c-card-content">
       <div class="mzp-c-card-tag">

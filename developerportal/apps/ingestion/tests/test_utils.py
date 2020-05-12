@@ -410,6 +410,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         obj = generate_draft_from_external_data(
             factory_func=_make_external_article_page, data=data
         )
+        obj.refresh_from_db()
         self.assertEqual(type(obj), ExternalArticle)
         self.assertEqual(obj.slug, "ecsy-developer-tools-extension-c0a61483f56d")
         self.assertEqual(obj.title, data["title"])
@@ -417,7 +418,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         self.assertEqual(obj.external_url, data["url"])
         self.assertEqual(obj.date, data["timestamp"].date())
         mock_store_external_image.assert_called_once_with(data["image_url"])
-        self.assertEqual(obj.image, image)
+        self.assertEqual(obj.card_image, image)
         self.assertFalse(obj.live)
         self.assertTrue(obj.has_unpublished_changes)
         self.assertTrue(obj.get_parent().slug == "root")
@@ -439,6 +440,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         obj = generate_draft_from_external_data(
             factory_func=_make_video_page, data=data
         )
+        obj.refresh_from_db()
         self.assertEqual(type(obj), Video)
         self.assertEqual(obj.slug, "where-do-browser-styles-come-from-a36dd198ae6c")
         self.assertEqual(obj.title, data["title"])
@@ -446,7 +448,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         self.assertEqual(obj.video_url[0].value.url, data["url"])
         self.assertEqual(obj.date, data["timestamp"].date())
         mock_store_external_image.assert_called_once_with(data["image_url"])
-        self.assertEqual(obj.image, image)
+        self.assertEqual(obj.card_image, image)
         self.assertFalse(obj.live)
         self.assertTrue(obj.has_unpublished_changes)
         self.assertTrue(obj.get_parent().slug == "videos")

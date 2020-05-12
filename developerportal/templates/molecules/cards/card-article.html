@@ -2,7 +2,6 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% image resource.image width-636 as image %}
 {% image resource.card_image width-636 as card_image %}
 {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 
@@ -13,7 +12,7 @@
     data-type="{{ resource.resource_type }}"
   >
     <div class="mzp-c-card-media-wrapper">
-      <img class="mzp-c-card-image" src="{% firstof card_image.url image.url fallback_image %}" alt="">
+      <img class="mzp-c-card-image" src="{% firstof card_image.url fallback_image %}" alt="">
     </div>
     <div class="mzp-c-card-content card-article-content">
       <div class="mzp-c-card-tag">

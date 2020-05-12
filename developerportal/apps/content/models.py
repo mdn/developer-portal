@@ -45,14 +45,6 @@ class ContentPage(BasePage):
         help_text="Optional short text description, max. 400 characters",
         max_length=400,
     )
-    # NOT show in the Admin UI for now - see below
-    hero_image = ForeignKey(
-        "mozimages.MozImage",
-        null=True,
-        blank=True,
-        on_delete=SET_NULL,
-        related_name="+",
-    )
     body = CustomStreamField(
         help_text=(
             "Main page body content. Supports rich text, images, embed via URL, "
@@ -79,6 +71,7 @@ class ContentPage(BasePage):
         on_delete=SET_NULL,
         related_name="+",
         verbose_name="Image",
+        help_text="An image in 16:9 aspect ratio",
     )
 
     # Meta fields
@@ -100,13 +93,6 @@ class ContentPage(BasePage):
     # Editor panel configuration
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
-        # Disabled for now but not removed as I suspect we may want it
-        # back for some situations
-        # MultiFieldPanel(
-        #     [ImageChooserPanel("hero_image")],
-        #     heading="Hero image",
-        #     help_text="Image should be at least 1024px x 438px (21:9 aspect ratio)",
-        # ),
         StreamFieldPanel("body"),
         StreamFieldPanel("sidebar"),
     ]
@@ -129,12 +115,15 @@ class ContentPage(BasePage):
                 "If blank, the page's description is used."
             ),
         ),
-        ImageChooserPanel(
-            "card_image",
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image")],
+            heading="16:9 Image",
             help_text=(
-                "Summary image displayed when this page is "
-                "represented by a card in a list of items. "
-                "If blank, the page's image is used, if set."
+                "Image used for representing this page as a Card. "
+                "Should be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social "
+                "media unless a social image is specified."
             ),
         ),
     ]

@@ -57,22 +57,43 @@ class ExternalContent(BasePage):
         ),
         max_length=2048,
     )
-    image = ForeignKey(
+    card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
         blank=True,
         on_delete=SET_NULL,
         related_name="+",
+        help_text="An image in 16:9 aspect ratio",
     )
-
+    card_image_3_2 = ForeignKey(
+        "mozimages.MozImage",
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name="+",
+        verbose_name="Image",
+        help_text="An image in 3:2 aspect ratio",
+    )
     card_panels = BasePage.content_panels + [
         FieldPanel("description"),
         MultiFieldPanel(
-            [ImageChooserPanel("image")],
-            heading="Image",
+            [ImageChooserPanel("card_image")],
+            heading="16:9 Image",
             help_text=(
-                "Optional header image. If not specified a fallback will be used. "
-                "This image is also shown when sharing this page via social media"
+                "Image used for representing this piece of content as a Card. "
+                "Should be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social "
+                "media unless a social image is specified."
+            ),
+        ),
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image_3_2")],
+            heading="3:2 Image",
+            help_text=(
+                "Image used for representing this page as a Card. "
+                "Should be 3:2 aspect ratio. "
+                "If not specified a fallback will be used. "
             ),
         ),
         FieldPanel("external_url"),

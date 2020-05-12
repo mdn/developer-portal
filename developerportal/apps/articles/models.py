@@ -173,13 +173,6 @@ class Article(BasePage):
         help_text="Optional short text description, max. 400 characters",
         max_length=400,
     )
-    image = ForeignKey(
-        "mozimages.MozImage",
-        null=True,
-        blank=True,
-        on_delete=SET_NULL,
-        related_name="+",
-    )
     body = CustomStreamField(
         help_text=(
             "The main post content. Supports rich text, images, embed via URL, "
@@ -204,6 +197,16 @@ class Article(BasePage):
         on_delete=SET_NULL,
         related_name="+",
         verbose_name="Image",
+        help_text="An image in 16:9 aspect ratio",
+    )
+    card_image_3_2 = ForeignKey(
+        "mozimages.MozImage",
+        null=True,
+        blank=True,
+        on_delete=SET_NULL,
+        related_name="+",
+        verbose_name="Image",
+        help_text="An image in 3:2 aspect ratio",
     )
 
     # Meta fields
@@ -232,14 +235,6 @@ class Article(BasePage):
     # Content panels
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
-        MultiFieldPanel(
-            [ImageChooserPanel("image")],
-            heading="Image",
-            help_text=(
-                "Optional header image. If not specified a fallback will be used. "
-                "This image is also shown when sharing this page via social media"
-            ),
-        ),
         StreamFieldPanel("body"),
         StreamFieldPanel("related_links"),
     ]
@@ -248,7 +243,26 @@ class Article(BasePage):
     card_panels = [
         FieldPanel("card_title"),
         FieldPanel("card_description"),
-        ImageChooserPanel("card_image"),
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image")],
+            heading="16:9 Image",
+            help_text=(
+                "Image used for representing this page as a Card. "
+                "Should be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social "
+                "media unless a social image is specified."
+            ),
+        ),
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image_3_2")],
+            heading="3:2 Image",
+            help_text=(
+                "Image used for representing this page as a Card. "
+                "Should be 3:2 aspect ratio. "
+                "If not specified a fallback will be used. "
+            ),
+        ),
     ]
 
     # Meta panels

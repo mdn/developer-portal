@@ -224,13 +224,6 @@ class Person(BasePage):
         features=RICH_TEXT_FEATURES_SIMPLE,
         help_text="Optional ‘About me’ section content, supports rich text",
     )
-    image = ForeignKey(
-        "mozimages.MozImage",
-        null=True,
-        blank=True,
-        on_delete=SET_NULL,
-        related_name="+",
-    )
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
@@ -242,6 +235,7 @@ class Person(BasePage):
         on_delete=SET_NULL,
         related_name="+",
         verbose_name="Image",
+        help_text="An image in 16:9 aspect ratio",
     )
 
     # Meta
@@ -272,21 +266,23 @@ class Person(BasePage):
             heading="Details",
         ),
         FieldPanel("description"),
-        MultiFieldPanel(
-            [ImageChooserPanel("image")],
-            heading="Image",
-            help_text=(
-                "Optional header image. If not specified a fallback will be used. "
-                "This image is also shown when sharing this page via social media"
-            ),
-        ),
     ]
 
     # Card panels
     card_panels = [
         FieldPanel("card_title"),
         FieldPanel("card_description"),
-        ImageChooserPanel("card_image"),
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image")],
+            heading="16:9 Image",
+            help_text=(
+                "Image used for representing this page as a Card. "
+                "Should be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social "
+                "media unless a social image is specified."
+            ),
+        ),
     ]
 
     # Meta panels

@@ -251,7 +251,7 @@ def _make_video_page(data, extra_kwargs):
 def generate_draft_from_external_data(factory_func, data, **kwargs):
     """Create a draft page of the appropriate `model` (eg: ExternalArticle,
     Video) from the given `factory_func` and `data`, including any associated
-    thumbnail (which is saved down as a Wagtail image).
+    thumbnail (which is saved down as a Wagtail image on the card_image field).
     """
     logger.info(
         f"Generating a new draft using {factory_func.__name__} from {str(data)}"
@@ -262,6 +262,6 @@ def generate_draft_from_external_data(factory_func, data, **kwargs):
     # If there's an image to be associated, do that.
     if data.get("image_url"):
         image = _store_external_image(data["image_url"])
-        page.image = image
+        page.card_image = image
         page.save()
     return page

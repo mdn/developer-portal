@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% image person.image fill-375x210 as img %}
+{% image person.card_image fill-375x210 as img %}
 
 {% if person.role == "staff" %}
   {% static "img/placeholders/person_16_9.jpg" as fallback_url %}

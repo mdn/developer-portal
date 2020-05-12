@@ -141,6 +141,7 @@ class Topic(BasePage):
         on_delete=SET_NULL,
         related_name="+",
         verbose_name="Image",
+        help_text="An image in 16:9 aspect ratio",
     )
 
     # Meta
@@ -190,12 +191,14 @@ class Topic(BasePage):
                 "If blank, the page's description is used."
             ),
         ),
-        ImageChooserPanel(
-            "card_image",
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image")],
+            heading="16:9 Image",
             help_text=(
-                "Summary image displayed when this page is "
-                "represented by a card in a list of items. "
-                "If blank, the page's image is used, if set."
+                "Image used for representing this page as a Card. "
+                "Must be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also used for social media posts, unless overriden"
             ),
         ),
     ]
