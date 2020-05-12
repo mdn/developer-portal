@@ -53,12 +53,14 @@ class ContentPage(BasePage):
     )
 
     sidebar = CustomStreamField(
+        null=True,
+        blank=True,
         help_text=(
             "Sidebar page body content (narrower than main body). Rendered to the "
             "right of the main body content in desktop and below it in mobile."
             "Supports rich text, images, embed via URL, "
             "embed via HTML, and inline code snippets"
-        )
+        ),
     )
 
     # Card fields
