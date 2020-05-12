@@ -4,27 +4,40 @@
 
 {% if resource.image %}
   {% comment %}
-    While there is no longer an "image" field on a Page, Streamfield content
-    may feature an `image` node
+    While there is no longer an "image" field on a Page, a StreamField may feature
+    a StreamBlock with an `image` key (such as an image on an external link)
   {% endcomment %}
-  {% image resource.image width-480 as img %}
+  {% if aspect_ratio == "3_2" %}
+      {% image resource.image_3_2 width-480 as img %}
+    {% else %}
+      {% image resource.image width-480 as img %}
+  {% endif %}
+
 {% elif resource.card_image %}
-  {% image resource.card_image width-480 as img %}
-{% else %}
-  {% if block_type == "event" %}
-    {% if aspect_ratio == "3_2" %}
-      {% static "img/placeholders/event_3_2.jpg" as fallback_image %}
+
+  {% if aspect_ratio == "3_2" %}
+      {% image resource.card_image_3_2 width-480 as img %}
     {% else %}
-      {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
-    {% endif %}
+      {% image resource.card_image width-480 as img %}
+  {% endif %}
+
+{% endif %}
+
+{% comment %} Remember to set up a placeholder image {% endcomment %}
+{% if block_type == "event" %}
+  {% if aspect_ratio == "3_2" %}
+    {% static "img/placeholders/event_3_2.jpg" as fallback_image %}
   {% else %}
-    {% if aspect_ratio == "3_2" %}
-      {% static "img/placeholders/post_3_2.jpg" as fallback_image %}
-    {% else %}
-      {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
-    {% endif %}
+    {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
+  {% endif %}
+{% else %}
+  {% if aspect_ratio == "3_2" %}
+    {% static "img/placeholders/post_3_2.jpg" as fallback_image %}
+  {% else %}
+    {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
   {% endif %}
 {% endif %}
+
 
 {% comment %}
 Note that this partial needs wrapping with a div and a section with the appropriate classes

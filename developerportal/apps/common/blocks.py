@@ -76,7 +76,10 @@ class ExternalSpeakerBlock(blocks.StructBlock):
 
     title = blocks.CharBlock(label="Name")
     job_title = blocks.CharBlock()
-    image = ImageChooserBlock()
+    image = ImageChooserBlock(label="16:9 image", help_text="16:9 aspect-ratio image")
+    image_3_2 = ImageChooserBlock(
+        required=False, help_text="3:2 aspect-ratio image - optional but recommended"
+    )
     url = blocks.URLBlock(label="URL", required=False)
 
 
@@ -84,7 +87,10 @@ class ExternalAuthorBlock(blocks.StructBlock):
     """Content for an external author, for an internal or external article"""
 
     title = blocks.CharBlock(label="Name")
-    image = ImageChooserBlock()
+    image = ImageChooserBlock(label="16:9 image", help_text="16:9 aspect-ratio image")
+    image_3_2 = ImageChooserBlock(
+        required=False, help_text="3:2 aspect-ratio image - optional but recommended"
+    )
     description = blocks.CharBlock(label="About", required=False)
     url = blocks.URLBlock(label="URL", required=False)
 
@@ -95,7 +101,12 @@ class FeaturedExternalBlock(blocks.StructBlock):
     url = blocks.URLBlock()
     title = blocks.CharBlock()
     description = blocks.TextBlock(required=False)
-    image = ImageChooserBlock()
+    image = ImageChooserBlock(label="16:9 image", help_text="16:9 aspect-ratio image")
+    image_3_2 = ImageChooserBlock(
+        label="3:2 image",
+        required=False,
+        help_text="3:2 aspect-ratio image - optiopnal but recommended",
+    )
 
 
 class PersonalWebsiteBlock(blocks.StructBlock):

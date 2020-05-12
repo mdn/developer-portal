@@ -235,6 +235,7 @@ class Person(BasePage):
         on_delete=SET_NULL,
         related_name="+",
         verbose_name="Image",
+        help_text="An image in 16:9 aspect ratio",
     )
 
     # Meta
@@ -273,7 +274,7 @@ class Person(BasePage):
         FieldPanel("card_description"),
         MultiFieldPanel(
             [ImageChooserPanel("card_image")],
-            heading="Image",
+            heading="16:9 Image",
             help_text=(
                 "Image used for representing this page as a Card. "
                 "Should be 16:9 aspect ratio. "
