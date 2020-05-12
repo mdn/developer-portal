@@ -26,4 +26,4 @@ feedparser==5.2.1
 python-dateutil==2.8.1
 
 # Specific versions of dependencies to satisfy clashing requirements:
-beautifulsoup4==4.8.2  # from Wagtail 2.9
+beautifulsoup4==4.9.0  # from Wagtail 2.9
