@@ -109,10 +109,12 @@ class Events(BasePage):
         ),
     )
     body = CustomStreamField(
+        null=True,
+        blank=True,
         help_text=(
             "Main page body content. Supports rich text, images, embed via URL, "
             "embed via HTML, and inline code snippets"
-        )
+        ),
     )
 
     # Meta fields
