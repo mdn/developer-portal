@@ -1,3 +1,13 @@
+body.content {
+  figure,
+  div.rich-text,
+  p.button-block,
+  div.responsive-object,
+  div.syntax-highlight {
+    margin-bottom: $spacing-2xl;
+  }
+}
+
 .mzp-has-sidebar {
   &.mzp-l-sidebar-right {
     &.content-page {
