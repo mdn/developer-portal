@@ -12,6 +12,11 @@
 
 <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
   <main role="main" class="mzp-l-main custom-width">
+
+      {{page.description|richtext}}
+
+      {% if page.description and page.body %} <hr> {% endif %}
+
       {% for block in page.body %}
         {% if block.block_type == 'image' %}
           {% include "molecules/image-block.html" with block=block %}
