@@ -1,3 +1,19 @@
+body.content {
+  figure,
+  div.rich-text,
+  p.button-block,
+  div.responsive-object,
+  div.syntax-highlight {
+    margin-bottom: $spacing-2xl;
+  }
+
+  .standfirst-wrapper {
+    .rich-text {
+      margin-bottom: 0px;
+    }
+  }
+}
+
 .mzp-has-sidebar {
   &.mzp-l-sidebar-right {
     &.content-page {
