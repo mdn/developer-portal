@@ -6,6 +6,12 @@ body.content {
   div.syntax-highlight {
     margin-bottom: $spacing-2xl;
   }
+
+  .standfirst-wrapper {
+    .rich-text {
+      margin-bottom: 0px;
+    }
+  }
 }
 
 .mzp-has-sidebar {
