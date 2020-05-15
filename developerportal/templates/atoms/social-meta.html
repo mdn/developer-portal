@@ -26,9 +26,9 @@
 {% static "img/placeholders/post_16_9.jpg" as fallback_image_url %}
 {% with fallback_image_width="600" fallback_image_height="338" %}
   {% if page.social_image %}
-    {% image page.social_image width-1200 as image %}
+    {% image page.social_image width-600 as image %}
   {% elif page.card_image %}
-    {% image page.card_image width-1200 as image %}
+    {% image page.card_image width-600 as image %}
   {% endif %}
   {% if not image %}
     {# Fallback images are hosted by Django, so need absolute URLs creating #}

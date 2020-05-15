@@ -2,7 +2,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% image page.card_image width-464 as card_image %}
+{% image page.card_image width-480 as card_image %}
 {% if type == "event" %}
   {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
 {% else %}
