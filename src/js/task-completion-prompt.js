@@ -17,6 +17,7 @@ const setSurveyCookie = function setSurveyCookie(value) {
   Cookies.set(SURVEY_COOKIE_NAME, value, {
     expires: SURVEY_COOKIE_EXPIRY,
     secure: USE_SECURE_COOKIE,
+    sameSite: 'strict',
   });
 };
 
