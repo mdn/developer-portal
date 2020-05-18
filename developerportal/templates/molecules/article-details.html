@@ -7,11 +7,11 @@
   {% if authors %}
     <div class="article-details-avatars">
       {% for author in authors|by_key:"value" reversed %}
-        {% image author.image fill-96x96 as author_image %}
+        {% image author.card_image fill-96x96 as author_image %}
         {% if author.role == "staff" %}
-          {% static "img/placeholders/mozillian.jpg" as fallback_image %}
+          {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
         {% else %}
-          {% static "img/placeholders/person.jpg" as fallback_image %}
+          {% static "img/placeholders/person_16_9.jpg" as fallback_image %}
         {% endif %}
         <img src="{% firstof author_image.url fallback_image %}" alt="">
       {% endfor %}

@@ -79,7 +79,10 @@ PAGINATION_QUERYSTRING_KEY = "page"
 TOPIC_QUERYSTRING_KEY = "topic"
 ROLE_QUERYSTRING_KEY = "role"
 COUNTRY_QUERYSTRING_KEY = "country"
-YEAR_MONTH_QUERYSTRING_KEY = "year_month"
+DATE_PARAMS_QUERYSTRING_KEY = "date"
+
+# This is a special value for the above that indicates "all previous events"
+PAST_EVENTS_QUERYSTRING_VALUE = "past"
 
 # Note: see app_tags.pagination_additional_filter_params to add support/whitelisting
 # to anynew querystring keys you add here, else they will be ignored

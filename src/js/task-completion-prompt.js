@@ -17,6 +17,7 @@ const setSurveyCookie = function setSurveyCookie(value) {
   Cookies.set(SURVEY_COOKIE_NAME, value, {
     expires: SURVEY_COOKIE_EXPIRY,
     secure: USE_SECURE_COOKIE,
+    sameSite: 'strict',
   });
 };
 
@@ -53,7 +54,9 @@ const setupListeners = function setupListeners(notificationPanel) {
   );
 
   // There should be 0 or 1 of each, but let's not assume
-  Array.from(closeTriggers).map(closeTrigger => bindCookieUpdate(closeTrigger));
+  Array.from(closeTriggers).map((closeTrigger) =>
+    bindCookieUpdate(closeTrigger),
+  );
 
   // DISABLED FOR NOW: also set the cookie to False after visiting the survey link
   // const surveyLinks = notificationPanel.querySelectorAll('.js-survey-link');
@@ -110,8 +113,8 @@ module.exports = class TaskCompletionPrompt {
         'js-task-completion-survey',
       );
       // There should be 0 or 1 to reveal, but let's not assume
-      Array.from(elements).map(target => setupListeners(target));
-      Array.from(elements).map(target => target.removeAttribute('hidden'));
+      Array.from(elements).map((target) => setupListeners(target));
+      Array.from(elements).map((target) => target.removeAttribute('hidden'));
     }
   }
 };

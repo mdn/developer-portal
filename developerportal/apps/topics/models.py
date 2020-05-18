@@ -1,13 +1,11 @@
 # pylint: disable=no-member
 
-from django.core.exceptions import ValidationError
 from django.db.models import (
     CASCADE,
     SET_NULL,
     CharField,
     FileField,
     ForeignKey,
-    IntegerField,
     TextField,
 )
 
@@ -28,13 +26,8 @@ from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from ..common.blocks import FeaturedExternalBlock, TabbedPanelBlock
-from ..common.constants import (
-    COLOR_CHOICES,
-    COLOR_VALUES,
-    RESOURCE_COUNT_CHOICES,
-    RICH_TEXT_FEATURES_SIMPLE,
-)
+from ..common.blocks import FeaturedExternalBlock
+from ..common.constants import COLOR_CHOICES, COLOR_VALUES, RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
 from ..common.utils import (
     get_combined_articles,
@@ -42,16 +35,7 @@ from ..common.utils import (
     get_combined_videos,
     get_past_event_cutoff,
 )
-
-
-def check_for_svg_file(obj):
-    # A very light, naive check that the file at least has an .svg suffix.
-    # This is NOT 100% safe/guaranteed, but given the users are trusted, this just a
-    # small layer of protection against accidental oversights, because saving a bitmap
-    # into this field by accident will cause `app_tags.render_svg()` to fail.
-
-    if obj.file.name.split(".")[-1] != "svg":
-        raise ValidationError(u"Only SVG images are allowed here.")
+from ..common.validators import check_for_svg_file
 
 
 class TopicsTag(TaggedItemBase):
@@ -108,24 +92,43 @@ class Topic(BasePage):
                 ),
                 ("external_page", FeaturedExternalBlock()),
             ],
+            min_num=2,
+            max_num=5,
+            required=True,
+        ),
+        null=True,
+        blank=True,
+        help_text="Optional space for featured items, max. 5",
+    )
+    #  "What We've Been Working On" panel
+    recent_work = StreamField(
+        StreamBlock(
+            [
+                (
+                    "post",
+                    PageChooserBlock(
+                        target_model=(
+                            "articles.Article",
+                            "externalcontent.ExternalArticle",
+                        )
+                    ),
+                ),
+                ("external_page", FeaturedExternalBlock()),
+                (
+                    "video",
+                    PageChooserBlock(
+                        target_model=("videos.Video", "externalcontent.ExternalVideo")
+                    ),
+                ),
+            ],
             max_num=4,
             required=False,
         ),
         null=True,
         blank=True,
-        help_text="Optional space for featured posts, max. 4",
-    )
-    tabbed_panels = StreamField(
-        StreamBlock([("panel", TabbedPanelBlock())], max_num=3, required=False),
-        null=True,
-        blank=True,
-        help_text="Optional tabbed panels for linking out to other resources, max. 3",
-        verbose_name="Tabbed panels",
-    )
-    latest_articles_count = IntegerField(
-        choices=RESOURCE_COUNT_CHOICES,
-        default=3,
-        help_text="The number of posts to display for this topic.",
+        help_text=(
+            "Optional space for featured posts, videos or links, min. 1, max. 4."
+        ),
     )
 
     # Card fields
@@ -138,9 +141,13 @@ class Topic(BasePage):
         on_delete=SET_NULL,
         related_name="+",
         verbose_name="Image",
+        help_text="An image in 16:9 aspect ratio",
     )
 
     # Meta
+    nav_description = TextField(
+        "Navigation description", max_length=400, blank=True, default=""
+    )
     icon = FileField(
         upload_to="topics/icons",
         blank=True,
@@ -158,24 +165,50 @@ class Topic(BasePage):
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         StreamFieldPanel("featured"),
-        StreamFieldPanel("tabbed_panels"),
-        FieldPanel("latest_articles_count"),
+        StreamFieldPanel("recent_work"),
         MultiFieldPanel(
             [InlinePanel("people")],
-            heading="People",
-            help_text="Optional list of people associated with this topic as experts",
+            heading="Content by",
+            help_text="Optional list of people who create content on this topic",
         ),
     ]
 
     # Card panels
     card_panels = [
-        FieldPanel("card_title"),
-        FieldPanel("card_description"),
-        ImageChooserPanel("card_image"),
+        FieldPanel(
+            "card_title",
+            help_text=(
+                "Title displayed when this page is "
+                "represented by a card in a list of items. "
+                "If blank, the page's title is used."
+            ),
+        ),
+        FieldPanel(
+            "card_description",
+            help_text=(
+                "Summary text displayed when this page is "
+                "represented by a card in a list of items. "
+                "If blank, the page's description is used."
+            ),
+        ),
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image")],
+            heading="16:9 Image",
+            help_text=(
+                "Image used for representing this page as a Card. "
+                "Must be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also used for social media posts, unless overriden"
+            ),
+        ),
     ]
 
     # Meta panels
     meta_panels = [
+        FieldPanel(
+            "nav_description",
+            help_text="Text to display in the navigation with the title for this page.",
+        ),
         MultiFieldPanel(
             [
                 InlinePanel("parent_topics", label="Parent topic(s)"),
@@ -261,7 +294,7 @@ class Topic(BasePage):
 
 
 class Topics(BasePage):
-
+    resource_type = "topics"  # NB note plural
     parent_page_types = ["home.HomePage"]
     subpage_types = ["Topic"]
     template = "topics.html"

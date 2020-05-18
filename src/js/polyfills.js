@@ -1,4 +1,11 @@
 /* eslint-disable */
+
+// import promise polyfill to set it up - see https://github.com/taylorhakes/promise-polyfill
+import 'promise-polyfill/src/polyfill';
+
+// import fetch polyfill to set it up - see https://github.com/github/fetch
+import 'whatwg-fetch';
+
 // source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from#Polyfill
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 if (!Array.from) {
@@ -9,8 +16,12 @@ if (!Array.from) {
     };
     var toInteger = function (value) {
       var number = Number(value);
-      if (isNaN(number)) { return 0; }
-      if (number === 0 || !isFinite(number)) { return number; }
+      if (isNaN(number)) {
+        return 0;
+      }
+      if (number === 0 || !isFinite(number)) {
+        return number;
+      }
       return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
     };
     var maxSafeInteger = Math.pow(2, 53) - 1;
@@ -20,7 +31,7 @@ if (!Array.from) {
     };
 
     // The length property of the from method is 1.
-    return function from(arrayLike/*, mapFn, thisArg */) {
+    return function from(arrayLike /*, mapFn, thisArg */) {
       // 1. Let C be the this value.
       var C = this;
 
@@ -29,7 +40,9 @@ if (!Array.from) {
 
       // 3. ReturnIfAbrupt(items).
       if (arrayLike == null) {
-        throw new TypeError('Array.from requires an array-like object - not null or undefined');
+        throw new TypeError(
+          'Array.from requires an array-like object - not null or undefined',
+        );
       }
 
       // 4. If mapfn is undefined, then let mapping be false.
@@ -39,7 +52,9 @@ if (!Array.from) {
         // 5. else
         // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
         if (!isCallable(mapFn)) {
-          throw new TypeError('Array.from: when provided, the second argument must be a function');
+          throw new TypeError(
+            'Array.from: when provided, the second argument must be a function',
+          );
         }
 
         // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
@@ -65,7 +80,10 @@ if (!Array.from) {
       while (k < len) {
         kValue = items[k];
         if (mapFn) {
-          A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+          A[k] =
+            typeof T === 'undefined'
+              ? mapFn(kValue, k)
+              : mapFn.call(T, kValue, k);
         } else {
           A[k] = kValue;
         }
@@ -76,31 +94,30 @@ if (!Array.from) {
       // 20. Return A.
       return A;
     };
-  }());
+  })();
 }
 
 // source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries#Polyfill
 if (!Object.entries) {
-  Object.entries = function( obj ){
-    var ownProps = Object.keys( obj ),
-        i = ownProps.length,
-        resArray = new Array(i); // preallocate the Array
-    while (i--)
-      resArray[i] = [ownProps[i], obj[ownProps[i]]];
+  Object.entries = function (obj) {
+    var ownProps = Object.keys(obj),
+      i = ownProps.length,
+      resArray = new Array(i); // preallocate the Array
+    while (i--) resArray[i] = [ownProps[i], obj[ownProps[i]]];
 
     return resArray;
   };
 }
 
 if (!Array.prototype.includes) {
-  Object.defineProperty(Array.prototype, "includes", {
+  Object.defineProperty(Array.prototype, 'includes', {
     enumerable: false,
-    value: function(obj) {
-        var newArr = this.filter(function(el) {
-          return el == obj;
-        });
-        return newArr.length > 0;
-      }
+    value: function (obj) {
+      var newArr = this.filter(function (el) {
+        return el == obj;
+      });
+      return newArr.length > 0;
+    },
   });
 }
 
@@ -111,7 +128,7 @@ if (!window.Event || typeof window.Event !== 'function') {
    * @param {!string} inType
    * @param {?(EventInit)=} params
    */
-  window.Event = function(inType, params) {
+  window.Event = function (inType, params) {
     params = params || {};
     var e = document.createEvent('Event');
     e.initEvent(inType, Boolean(params.bubbles), Boolean(params.cancelable));
@@ -128,8 +145,8 @@ if (!window.Event || typeof window.Event !== 'function') {
 // from: https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/remove#Polyfill
 // source :https://github.com/jserz/js_piece/blob/master/DOM/ChildNode/remove()/remove().md
 if (!Object.remove) {
-  (function(arr) {
-    arr.forEach(function(item) {
+  (function (arr) {
+    arr.forEach(function (item) {
       if (item.hasOwnProperty('remove')) {
         return;
       }
@@ -146,4 +163,36 @@ if (!Object.remove) {
       });
     });
   })([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
+}
+
+// from: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
+if (typeof Object.assign !== 'function') {
+  // Must be writable: true, enumerable: false, configurable: true
+  Object.defineProperty(Object, 'assign', {
+    value: function assign(target, varArgs) {
+      // .length of function is 2
+      'use strict';
+      if (target === null || target === undefined) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+
+      var to = Object(target);
+
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments[index];
+
+        if (nextSource !== null && nextSource !== undefined) {
+          for (var nextKey in nextSource) {
+            // Avoid bugs when hasOwnProperty is shadowed
+            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+              to[nextKey] = nextSource[nextKey];
+            }
+          }
+        }
+      }
+      return to;
+    },
+    writable: true,
+    configurable: true,
+  });
 }

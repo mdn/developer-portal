@@ -1,0 +1,56 @@
+{% comment %}
+Inputs:
+  item: StreamBlock
+  block_type: str
+{% endcomment %}
+
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load app_filters %}
+
+{% image resource.card_image width-480 as img %}
+
+{% if block_type == "video" %}
+  {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
+{% else %}
+  {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
+{% endif %}
+<section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
+  {% if external_page or resource.is_external %}
+    <a
+      href="{{ resource.url }}"
+      class="mzp-c-card-block-link {% if resource.resource_type == 'video' %} js-modal-trigger{% endif %}"
+      data-type="{{resource.resource_type}}"
+      target="_blank"
+      rel="nofollow noopener"
+    {% if resource.resource_type == 'video' %}
+      data-class-name="mzp-has-media"
+      data-title="{{ resource.title }}"
+    {% endif %}
+    >
+  {% else%}
+    <a href="{% pageurl resource %}" class="mzp-c-card-block-link" data-type="{{ resource.resource_type }}">
+  {% endif %}
+      <div class="mzp-c-card-media-wrapper">
+        <div class="lazy-image-container">
+          <img class="mzp-c-card-image" src="{% firstof img.url fallback_image %}" alt="">
+        </div>
+      </div>
+      <div class="mzp-c-card-content">
+        <div class="mzp-c-card-tag">
+        {% if external_page %}
+          {{resource.url|domain_from_url:request }}
+        {% else %}
+          {% pageurl resource as page_url %}
+          {{page_url|domain_from_url:request }}
+        {% endif %}
+        </div>
+        <h2 class="mzp-c-card-title">
+          <span>
+            {{ resource.title }}
+          </span>
+        </h2>
+      </div>
+    </a>
+</section>

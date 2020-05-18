@@ -30,10 +30,10 @@ exports.parseQueryParams = () => {
  * @param {object} form
  * @returns {object}
  */
-exports.parseForm = form => {
+exports.parseForm = (form) => {
   const filter = {};
   const elements = form.querySelectorAll('input[type="checkbox"]:checked');
-  Array.from(elements).forEach(element => {
+  Array.from(elements).forEach((element) => {
     if (!filter[element.name]) {
       filter[element.name] = [];
     }

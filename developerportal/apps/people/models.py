@@ -1,7 +1,16 @@
 from itertools import chain
 from operator import attrgetter
+from typing import List
 
-from django.db.models import CASCADE, SET_NULL, CharField, ForeignKey, Q, TextField
+from django.db.models import (
+    CASCADE,
+    SET_NULL,
+    CharField,
+    FileField,
+    ForeignKey,
+    Q,
+    TextField,
+)
 
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -31,6 +40,7 @@ from ..common.constants import (
 )
 from ..common.models import BasePage
 from ..common.utils import get_past_event_cutoff, paginate_resources
+from ..common.validators import check_for_svg_file
 from .edit_handlers import CustomLabelFieldPanel
 
 
@@ -42,7 +52,7 @@ class PeopleTag(TaggedItemBase):
 
 class People(BasePage):
 
-    RESOURCES_PER_PAGE = 10
+    RESOURCES_PER_PAGE = 8
 
     parent_page_types = ["home.HomePage", "content.ContentPage"]
     subpage_types = ["Person"]
@@ -58,13 +68,37 @@ class People(BasePage):
     )
 
     # Meta fields
+    nav_description = TextField(
+        "Navigation description", max_length=400, blank=True, default=""
+    )
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
+    icon = FileField(
+        upload_to="people/icons",
+        blank=True,
+        default="",
+        help_text=(
+            "MUST be a black-on-transparent SVG icon ONLY, "
+            "with no bitmap embedded in it."
+        ),
+        validators=[check_for_svg_file],
+    )
 
     # Content panels
     content_panels = BasePage.content_panels + [FieldPanel("description")]
 
     # Meta panels
     meta_panels = [
+        FieldPanel(
+            "nav_description",
+            help_text="Text to display in the navigation with the title for this page.",
+        ),
+        MultiFieldPanel(
+            [FieldPanel("icon")],
+            heading="Theme",
+            help_text=(
+                "This icon will be used if, for example, this page is shown in a Menu"
+            ),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("seo_title"),
@@ -77,7 +111,7 @@ class People(BasePage):
                 "Optional fields to override the default title and description "
                 "for SEO purposes"
             ),
-        )
+        ),
     ]
 
     # Settings panels
@@ -190,13 +224,6 @@ class Person(BasePage):
         features=RICH_TEXT_FEATURES_SIMPLE,
         help_text="Optional ‘About me’ section content, supports rich text",
     )
-    image = ForeignKey(
-        "mozimages.MozImage",
-        null=True,
-        blank=True,
-        on_delete=SET_NULL,
-        related_name="+",
-    )
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
@@ -208,6 +235,7 @@ class Person(BasePage):
         on_delete=SET_NULL,
         related_name="+",
         verbose_name="Image",
+        help_text="An image in 16:9 aspect ratio",
     )
 
     # Meta
@@ -238,21 +266,23 @@ class Person(BasePage):
             heading="Details",
         ),
         FieldPanel("description"),
-        MultiFieldPanel(
-            [ImageChooserPanel("image")],
-            heading="Image",
-            help_text=(
-                "Optional header image. If not specified a fallback will be used. "
-                "This image is also shown when sharing this page via social media"
-            ),
-        ),
     ]
 
     # Card panels
     card_panels = [
         FieldPanel("card_title"),
         FieldPanel("card_description"),
-        ImageChooserPanel("card_image"),
+        MultiFieldPanel(
+            [ImageChooserPanel("card_image")],
+            heading="16:9 Image",
+            help_text=(
+                "Image used for representing this page as a Card. "
+                "Should be 16:9 aspect ratio. "
+                "If not specified a fallback will be used. "
+                "This image is also shown when sharing this page via social "
+                "media unless a social image is specified."
+            ),
+        ),
     ]
 
     # Meta panels
@@ -406,3 +436,12 @@ class Person(BasePage):
             if self.country
             else {"slug": ""}
         )
+
+    def get_topics(self) -> List:
+        """Return the live/published Topic pages associated with this Person"""
+
+        # Note that we do this in Python because django-modelcluster won't support
+        # `filter(topic__live=True)` when _previewing_ pages (even tho it'll work
+        # on saved ones)
+        topics = [pt.topic for pt in self.topics.all()]
+        return [t for t in topics if t.live]

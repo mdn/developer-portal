@@ -14,7 +14,7 @@ module.exports = class FilterForm {
    */
   static init() {
     const elements = document.querySelectorAll('.js-filter-form');
-    return Array.from(elements).map(element => new this(element));
+    return Array.from(elements).map((element) => new this(element));
   }
 
   /**
@@ -41,8 +41,8 @@ module.exports = class FilterForm {
 
   /** Sets up event listeners. */
   setupEvents() {
-    Array.from(this.clearButtons).forEach(btn => {
-      btn.addEventListener('click', e => this.uncheckInputs(e));
+    Array.from(this.clearButtons).forEach((btn) => {
+      btn.addEventListener('click', (e) => this.uncheckInputs(e));
     });
     this.form.addEventListener('change', () => this.onFormInput());
   }
@@ -57,8 +57,8 @@ module.exports = class FilterForm {
    * loading.
    */
   updateCheckboxes() {
-    Object.entries(this.state).forEach(pair => {
-      pair[1].forEach(value => {
+    Object.entries(this.state).forEach((pair) => {
+      pair[1].forEach((value) => {
         const el = this.form.querySelector(
           `input[name='${pair[0]}'][value='${value}']`,
         );
@@ -79,10 +79,11 @@ module.exports = class FilterForm {
     const { controls } = e.target.dataset;
     const checkboxes = this.form.querySelectorAll('input[type=checkbox]');
     const matchedCheckboxes = Array.from(checkboxes).filter(
-      checkbox => (!controls || checkbox.name === controls) && checkbox.checked,
+      (checkbox) =>
+        (!controls || checkbox.name === controls) && checkbox.checked,
     );
 
-    matchedCheckboxes.forEach(checkbox => {
+    matchedCheckboxes.forEach((checkbox) => {
       // eslint-disable-next-line no-param-reassign
       checkbox.checked = false;
     });
@@ -96,7 +97,7 @@ module.exports = class FilterForm {
   /** Toggles the visibility of clear buttons depending on selected filters. */
   updateClearVisibility() {
     const checkedControls = Object.keys(this.state);
-    Array.from(this.clearButtons).forEach(btn => {
+    Array.from(this.clearButtons).forEach((btn) => {
       const { controls } = btn.dataset;
 
       if (checkedControls.includes(controls)) {
@@ -107,11 +108,11 @@ module.exports = class FilterForm {
     });
 
     if (checkedControls.length) {
-      Array.from(this.clearSectionEls).forEach(el =>
+      Array.from(this.clearSectionEls).forEach((el) =>
         el.removeAttribute('hidden'),
       );
     } else {
-      Array.from(this.clearSectionEls).forEach(el =>
+      Array.from(this.clearSectionEls).forEach((el) =>
         el.setAttribute('hidden', ''),
       );
     }
@@ -120,7 +121,7 @@ module.exports = class FilterForm {
   /** Updates the URL to include selected filters. */
   updateUrlParams() {
     const stringResult = Object.entries(this.state)
-      .map(pair => {
+      .map((pair) => {
         return `${pair[0]}=${pair[1].join(',')}`;
       }, [])
       .join('&');

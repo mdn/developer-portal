@@ -1,0 +1,26 @@
+{% comment %}
+Inputs:
+  recent_work: <List>( <StreamChild> )
+{% endcomment %}
+
+{% if recent_work %}
+{# Render cards side by side, up to four, always same width #}
+<div class="topic-recent-work">
+  <div class="mzp-l-content">
+    <h4>What we're developing</h4>
+    <div class="mzp-l-card-quarter">
+      {% for block in recent_work %}
+        {% if block.block_type == 'post' or block.block_type == 'video' %}
+          {% with block.value as page %}
+            {% include "molecules/recent-work-item.html" with resource=page.specific block_type=block.block_type %}
+          {% endwith %}
+        {% elif block.block_type == 'external_page' %}
+          {% with block.value as external_page %}
+            {% include "molecules/recent-work-item.html" with resource=external_page external_page=True block_type=block.block_type %}
+          {% endwith %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

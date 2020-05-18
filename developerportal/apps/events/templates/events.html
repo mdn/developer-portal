@@ -1,48 +1,33 @@
 {% extends "base.html" %}
+{% load static %}
 {% load app_filters %}
 
 {% block body_class %}events{% endblock %}
 
-{% block header %}
-  {{ block.super }}
-  {% include "utils/accent-color.html" with color='#ffd567' %}
-{% endblock %}
-
 {% block content %}
-  <main>
-    {% with page.featured|published as featured %}
-      {% if featured %}
-        <section class="section">
-          <div class="container">
-            {% include "organisms/featured.html" with featured=featured %}
-          </div>
-        </section>
-      {% endif %}
-    {% endwith %}
-    <section class="section">
-      <article class="container">
-        {% for block in page.body %}
-          {% if block.block_type == 'image' %}
-            {% include "molecules/image-block.html" with block=block %}
-          {% else %}
-            {{ block }}
-          {% endif %}
-        {% endfor %}
-      </article>
-    </section>
-    <section class="section section-pattern">
-      {% include "organisms/filter-list.html" with type="event" heading="Upcoming events" resources=events no_resources_message="No upcoming events found" hide_pagination=True %}
-    </section>
-    {% if past_events %}
-      <section id="past-events" class="section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Past events</h2>
-          </div>
-          {% include "organisms/past-events.html" with events=past_events show_past_event_pagination=show_past_event_pagination %}
-        </div>
-      </section>
+  {% static "img/icons/events-white.svg" as page_icon_asset_url %}
+  {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url icon_img_class="events-icon" %}
+
+<main role="main">
+  {% with page.featured|published as featured %}
+    {% if featured %}
+      <div class="mzp-l-content">
+        {% include "organisms/featured.html" with featured=featured %}
+      </div>
     {% endif %}
-    {% include "organisms/newsletter-signup.html" %}
-  </main>
+  {% endwith %}
+  <div class="mzp-l-content events-extra-content">
+    {% for block in page.body %}
+      {% if block.block_type == 'image' %}
+        {% include "molecules/image-block.html" with block=block %}
+      {% else %}
+        {{ block }}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div id="events-list">
+    {% include "organisms/filter-list.html" with type="event" resources=events show_past_date_option=True no_resources_message="No relevant events found" hide_pagination=False page_anchor="#events-list" %}
+  </div>
+  {% include "organisms/newsletter-signup.html" %}
+</main>
 {% endblock content %}

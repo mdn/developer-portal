@@ -1,111 +1,44 @@
 .header {
-  border-bottom: 1px solid $color-marketing-gray-20;
-
   // FIX required for mzp
   .mzp-c-navigation-menu {
     box-sizing: unset;
   }
 
-  .mzp-c-navigation .mzp-c-navigation-l-content {
-    padding: 24px 0;
-
-    @media #{$mq-md} {
-      padding: 0;
-    }
-  }
-
-  .mzp-c-navigation .mzp-c-navigation-l-content > .mzp-c-navigation-container,
-  .mzp-c-menu-panel-container {
-    padding: 0 $grid-gap-mobile;
-
-    @media #{$mq-md} {
-      margin: 0 auto;
-      max-width: ($container-max-width + $grid-gap * 2);
-      padding: 0 $grid-gap;
-    }
-  }
-
   .mzp-c-navigation-logo {
-    margin-right: 32px;
-    position: relative;
-    top: -10px;
+    margin-top: 23px; // 1px less than default, but is noticeable if not set
+  }
 
-    @media screen and (min-width: 1056px) {
-      margin-right: 40px;
-      top: -6px;
+  .mzp-c-navigation-logo a {
+    background-image: url('../img/logos/developer/black.svg');
+    height: auto;
+    width: auto;
+    margin-top: 9px;
+    background-size: 160px;
+    @media #{$mq-md} {
+      height: 42px;
+      width: 114px;
+      margin-top: 9px;
+      background-size: 100%;
     }
+  }
+  .mzp-c-menu-item {
+    padding: 0px 24px 12px 0px;
+    .mzp-c-menu-item-desc {
+      margin: $spacing-sm 0 0 $spacing-2xl;
 
-    a {
-      background: none;
-      color: inherit;
-      overflow: initial;
-      text-decoration: none;
-    }
-
-    .logo {
-      background-image: url('#{$image-path}/logos/mozilla/black.svg');
-      background-size: 84px, 24px;
-      background-repeat: no-repeat;
-      display: block;
-      height: 24px;
-      margin: 0 auto;
-      width: 84px;
-
-      @media #{$mq-md} {
-        width: auto;
+      p {
+        margin-bottom: 0px;
       }
     }
 
-    .logo-prefix {
-      display: inline-block;
-      text-indent: -10000px;
-    }
-
-    .logo-text {
-      font-size: 18px;
-      letter-spacing: 0.8px;
-    }
-  }
-
-  .mzp-c-menu-category .mzp-c-menu-title {
-    cursor: pointer;
-    font-weight: normal;
-
-    @media #{$mq-xl} {
-      // OVERRIDE to make it the same as $mq-lg, so we can pack more in to the nav
-      // without awkward reflow
-      padding: 0 16px 24px;
-    }
-
-    img {
-      margin-right: 8px;
+    .mzp-c-menu-item-link {
+      padding-bottom: 0px;
+      .mzp-c-menu-item-icon {
+        top: 0px;
+        @media #{$mq-md} {
+          top: 8px;
+        }
+      }
     }
   }
-
-  .mzp-c-menu-panel-content ul {
-    @media #{$mq-md} {
-      display: grid;
-      grid-gap: 24px;
-      grid-template-columns: repeat(2, 1fr);
-      padding: 0 100px;
-      width: 100%;
-    }
-
-    @media #{$mq-lg} {
-      padding-left: 160px;
-      padding-right: 0;
-    }
-  }
-
-  .mzp-c-menu-item {
-    @media #{$mq-md} {
-      margin: 0;
-    }
-  }
-}
-
-.header-container {
-  margin: 0 auto;
-  max-width: $container-max-width;
-  padding: 0 $grid-gap;
 }

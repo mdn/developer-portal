@@ -6,6 +6,6 @@
 {% if image_mime_type == 'image/gif' %}
   {% render_gif block.value %}
 {% else %}
-  {% image block.value width-672 as rendition %}
+  {% image block.value width-800 as rendition %}
   {% include "atoms/image.html" with image=block.value rendition=rendition %}
 {% endif %}

@@ -10,13 +10,15 @@
       {% endif %}
     {% elif resource.resource_type == "video" %}
       {% include "atoms/icons/video.svg" %}
-    {% else %}
+    {% elif resource.resource_type == "article" %}
       {% include "atoms/icons/reading-time.svg" %}
     {% endif %}
   </span>
   <span class="resource-meta-body">
     {% if resource.resource_type == "article" %}
       {{ resource.read_time }}
+    {% elif resource.resource_type == "event" %}
+      {{ resource.event_dates|safe }}
     {% elif resource.resource_type == "person" %}
       {{ resource.get_role_display }}
     {% elif resource.resource_type == "video" and resource.duration %}

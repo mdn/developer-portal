@@ -1,11 +1,11 @@
 {% if resource.latitude and resource.longitude %}
 <div class="event-map">
   <h2>Venue</h2>
-  <div class="map-container">
+  <div class="map-mzp-l-content">
     <div class="h-card">
       <h5 class="p-name no-underline">
         {% if resource.venue_url %}
-        <a href="{{ resource.venue_url }}" class="u-url external-link" target="_blank" rel="nofollow noopener">
+        <a href="{{ resource.venue_url }}" class="u-url" target="_blank" rel="nofollow noopener">
           {{ resource.venue_name }}
         </a>
         {% else %}

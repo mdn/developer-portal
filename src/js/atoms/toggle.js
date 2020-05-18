@@ -12,7 +12,7 @@ module.exports = class Toggle {
    */
   static init() {
     const elements = document.querySelectorAll('.js-toggle');
-    return Array.from(elements).map(element => new Toggle(element));
+    return Array.from(elements).map((element) => new Toggle(element));
   }
 
   /**
@@ -22,7 +22,7 @@ module.exports = class Toggle {
 .   */
   constructor(element) {
     this.toggle = element;
-    element.addEventListener('click', e => this.onToggleClick(e));
+    element.addEventListener('click', (e) => this.onToggleClick(e));
   }
 
   /**
@@ -35,7 +35,7 @@ module.exports = class Toggle {
     const { controls } = this.toggle.dataset;
     const targetEls = document.querySelectorAll(controls);
 
-    Array.from(targetEls).forEach(targetEl => {
+    Array.from(targetEls).forEach((targetEl) => {
       // eslint-disable-next-line no-param-reassign
       targetEl.hidden = !targetEl.hidden;
     });

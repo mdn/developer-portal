@@ -2,30 +2,22 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% image page.image width-464 as image %}
-{% image page.card_image width-464 as card_image %}
+{% image page.card_image width-480 as card_image %}
 {% if type == "event" %}
-  {% static "img/placeholders/event.jpg" as fallback_image %}
+  {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
 {% else %}
-  {% static "img/placeholders/article.jpg" as fallback_image %}
+  {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 {% endif %}
 
 <header class="section section-background article-header">
-  <div class="container">
-    <div class="article-header-container">
+  <div class="mzp-l-content">
+    <div class="article-header-mzp-l-content">
       <div class="article-header-pattern">
         {% include "atoms/pattern.html" %}
       </div>
       <div class="article-header-expand">
         <div class="article-header-image">
-          {% if image %}
-            <img
-              src="{{ image.url }}"
-              width="{{ image.width }}"
-              height="{{ image.height }}"
-              alt="{{ image.alt }}"
-            >
-          {% elif card_image %}
+          {% if card_image %}
             <img
               src="{{ card_image.url }}"
               width="{{ card_image.width }}"

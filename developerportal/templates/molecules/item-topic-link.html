@@ -1,19 +1,24 @@
 {% load wagtailcore_tags %}
 {% load app_tags %}
-{% load staticfiles %}
 
-<a href="{{ topic.url }}" class="item-topic-link {% if full_width %}item-topic-link-full{% endif %}">
-  <div class="item-topic-link-icon">
-    {% if topic.icon %}
-      {% render_svg topic.icon %}
-    {% else %}
-      {% include 'molecules/icons/topic-default.svg' %}
-    {% endif %}
-  </div>
-  <div class="item-topic-link-content">
-    <h4 class="no-underline">{{ topic.title }}</h4>
-    {% if topic.description %}
-      {{ topic.description | richtext }}
-    {% endif %}
-  </div>
-</a>
+{% comment %}
+`two_column` is an optional param for this template. The default is four columns
+{% endcomment %}
+
+<section class="mzp-c-card {{two_column|yesno:'mzp-c-card-medium,mzp-c-card-extra-small'}}">
+  <a class="mzp-c-card-block-link" href="{{ topic.url }}">
+    <div class="mzp-c-card-content">
+      <img src="{% get_menu_item_icon topic %}" class="topic-item-icon" alt="" width="24" height="24">
+      <h2 class="mzp-c-card-title"><span>{{ topic.title }}</span></h2>
+      {% if topic.card_description %}
+        <div class="mzp-c-card-desc">
+        {{ topic.card_description }}
+        </div>
+      {% elif topic.description %}
+        <div class="mzp-c-card-desc">
+        {{ topic.description | richtext }}
+        </div>
+      {% endif %}
+    </div>
+  </a>
+</section>

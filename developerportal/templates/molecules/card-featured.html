@@ -1,27 +1,70 @@
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-{% image resource.image width-480 as image %}
-{% image resource.card_image width-480 as card_image %}
-{% if block_type == "video" %}
-  {% static "img/placeholders/video.jpg" as fallback_image_url %}
-{% elif block_type == "event" %}
-  {% static "img/placeholders/event.jpg" as fallback_image_url %}
-{% else %}
-  {% static "img/placeholders/article.jpg" as fallback_image_url %}
+
+{% if resource.image %}
+  {% comment %}
+    While there is no longer an "image" field on a Page, a StreamField may feature
+    a StreamBlock with an `image` key (such as an image on an external link)
+  {% endcomment %}
+  {% if aspect_ratio == "3_2" %}
+      {% image resource.image_3_2 width-600 as img %}
+    {% else %}
+      {% image resource.image width-400 as img %}
+  {% endif %}
+
+{% elif resource.card_image %}
+
+  {% if aspect_ratio == "3_2" %}
+      {% image resource.card_image_3_2 width-600 as img %}
+    {% else %}
+      {% image resource.card_image width-400 as img %}
+  {% endif %}
+
 {% endif %}
 
-{% if external_page %}
-<a href="{{ resource.url }}" class="card-link" data-type="external_page" target="_blank" rel="nofollow noopener">
+{% comment %} Remember to set up a placeholder image {% endcomment %}
+{% if block_type == "event" %}
+  {% if aspect_ratio == "3_2" %}
+    {% static "img/placeholders/event_3_2.jpg" as fallback_image %}
+  {% else %}
+    {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
+  {% endif %}
 {% else %}
-<a href="{% pageurl resource %}" class="card-link" data-type="{{ resource.resource_type }}">
+  {% if aspect_ratio == "3_2" %}
+    {% static "img/placeholders/post_3_2.jpg" as fallback_image %}
+  {% else %}
+    {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
+  {% endif %}
 {% endif %}
-  <div class="card-featured">
-    <div class="card-featured-image" style="background-image: url('{% firstof card_image.url image.url fallback_image_url %}')"></div>
-    <div class="card-featured-caption">
-      <h5 class="no-underline">
-        {% firstof resource.card_title resource.title %}{% if external_page or resource.is_external %}<span class="no-wrap">&#65279;<span class="icon icon-external">{% include "atoms/icons/external.svg" %}</span></span>{% endif %}
-      </h5>
+
+
+{% comment %}
+Note that this partial needs wrapping with a div and a section with the appropriate classes
+{% endcomment %}
+{% if external_page %}
+<a href="{{ resource.url }}" class="mzp-c-card-block-link" data-type="external_page" target="_blank" rel="nofollow noopener">
+{% else %}
+<a href="{% pageurl resource %}" class="mzp-c-card-block-link" data-type="{{ resource.resource_type }}">
+{% endif %}
+  <div class="mzp-c-card-media-wrapper">
+      <div class="lazy-image-container">
+        <img class="mzp-c-card-image" src="{% firstof img.url fallback_image %}" alt="">
+      </div>
+  </div>
+  <div class="mzp-c-card-content">
+    <div class="mzp-c-card-tag">{{resource.primary_topic|default:"Featured"}}</div>
+    <h2 class="mzp-c-card-title">
+      <span>
+        {% firstof resource.card_title resource.title %}
+      </span>
+    </h2>
+    <div class="mzp-c-card-desc">
+      {% if resource.card_description %}
+        {{ resource.card_description }}
+      {% else %}
+        {{ resource.description | richtext }}
+      {% endif %}
     </div>
   </div>
 </a>

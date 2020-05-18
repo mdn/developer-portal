@@ -1,31 +1,68 @@
 .homepage-header {
-  background: url('/static/img/homepage-header-pattern.svg') $color-black
-    calc(50% + 400px) no-repeat;
-  color: $color-white;
-  margin-top: -1px; // Overlap the navigation border.
-  padding: 0;
+  &.visually-hidden {
+    visibility: hidden;
+    height: 1px;
+  }
 }
 
-.homepage-header-content {
-  margin-right: 40%;
-  padding-bottom: 64px;
-  padding-top: 64px;
+.c-primary-cta {
+  .c-primary-cta-wrapper {
+    box-sizing: border-box;
+    padding-bottom: 32px;
+    position: relative;
+    padding-top: 32px;
 
-  @media screen and (min-width: 1024px) {
-    margin: 0 auto;
-    padding-bottom: 86px;
-    padding-top: 86px;
+    @media #{$mq-sm} {
+      max-width: 50%;
+      min-height: 410px;
+      padding-top: 120px;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
-  h1 {
-    margin-bottom: 0.2em;
+  .c-primary-cta-title {
+    font-family: $body-font-family;
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 0px;
   }
 
-  h5 {
-    margin-bottom: 0;
+  .c-primary-cta-desc {
+    font-family: $body-font-family;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    margin-top: $spacing-md;
+    @media #{$mq-sm} {
+      margin-top: $spacing-sm;
+    }
+  }
+
+  .c-primary-cta-button {
+    margin-top: 32px;
+  }
+
+  @media #{$mq-sm} {
+    &.devportal-branding {
+      background-image: url('/static/img/homepage@1x.png');
+      background-size: 1000px 410px;
+      background-position: 37vw 0vh;
+      background-repeat: no-repeat;
+      @media #{$mq-high-res} {
+        background-image: url('/static/img/homepage@2x.png');
+      }
+    }
   }
 }
 
 .homepage-header-actions {
   margin-top: 24px;
+}
+
+body.home {
+  .featured-items-wrapper {
+    margin-top: -50px;
+  }
 }
