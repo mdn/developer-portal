@@ -27,7 +27,14 @@ body.person {
         }
 
         .mzp-c-card-desc {
-          width: 100%; // so that short titles (eg 'CSS') don't cause it to flow up to the same line as the title
+          // Width has to be set large so that short titles (eg 'CSS') don't cause
+          // it to flow up to the same line as the title, but also that content
+          // doesn't overflow the wrapping box
+          width: 85%; // On narrower viewports, keep away from the right edge of the container
+          @media #{$mq-lg} {
+            width: 90%; // On larger viewports, we can be more generous
+          }
+
           font-size: 0.9rem;
           margin-left: 36px;
           margin-top: 0px;
