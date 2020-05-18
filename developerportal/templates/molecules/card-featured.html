@@ -8,17 +8,17 @@
     a StreamBlock with an `image` key (such as an image on an external link)
   {% endcomment %}
   {% if aspect_ratio == "3_2" %}
-      {% image resource.image_3_2 width-480 as img %}
+      {% image resource.image_3_2 width-600 as img %}
     {% else %}
-      {% image resource.image width-480 as img %}
+      {% image resource.image width-400 as img %}
   {% endif %}
 
 {% elif resource.card_image %}
 
   {% if aspect_ratio == "3_2" %}
-      {% image resource.card_image_3_2 width-480 as img %}
+      {% image resource.card_image_3_2 width-600 as img %}
     {% else %}
-      {% image resource.card_image width-480 as img %}
+      {% image resource.card_image width-400 as img %}
   {% endif %}
 
 {% endif %}
