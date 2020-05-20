@@ -9,7 +9,12 @@ Inputs:
 {% load wagtailimages_tags %}
 {% load app_filters %}
 
-{% image resource.card_image width-480 as img %}
+{% if external_page %}
+  {% comment %} This is from a StreamBlock, so the field is just called `image` {% endcomment %}
+  {% image resource.image width-480 as img %}
+{% else %}
+  {% image resource.card_image width-480 as img %}
+{% endif %}
 
 {% if block_type == "video" %}
   {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
