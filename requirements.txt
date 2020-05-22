@@ -18,7 +18,7 @@ Pygments==2.6.1
 raven==6.10.0
 readtime==1.1.1
 wagtail==2.9
-whitenoise==5.0.1
+whitenoise==5.1.0
 urlwait==1.0
 newrelic==5.12.1.141
 feedparser==5.2.1
