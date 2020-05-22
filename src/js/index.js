@@ -8,7 +8,6 @@ require('./polyfills');
 
 const FilterForm = require('./organisms/filter-form');
 const Modal = require('./atoms/modal');
-const Toggle = require('./atoms/toggle');
 const NotificationBar = require('./organisms/notification-bar');
 const TaskCompletionPrompt = require('./task-completion-prompt');
 const NewsletterSubscription = require('./newsletter-subscription');
@@ -38,7 +37,6 @@ window.addEventListener('DOMContentLoaded', () => {
   Mzp.Menu.init();
   FilterForm.init();
   Modal.init();
-  Toggle.init();
   NotificationBar.init();
   TaskCompletionPrompt.init();
   NewsletterSubscription.init();
