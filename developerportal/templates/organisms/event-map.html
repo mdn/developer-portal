@@ -1,3 +1,4 @@
+{% comment "This partial will need restyling when we bring it back into use" %}
 {% if resource.latitude and resource.longitude %}
 <div class="event-map">
   <h2>Venue</h2>
@@ -33,3 +34,4 @@
 mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}';
 </script>
 {% endif %}
+{% endcomment %}
