@@ -114,62 +114,6 @@ h5,
   font-weight: 700;
 }
 
-// h2,
-// h3,
-// h4,
-// h5,
-// h6 {
-//   &:not(.no-underline) {
-//     background: repeating-linear-gradient(
-//       to bottom,
-//       transparent 0,
-//       transparent 0.8em,
-//       transparentize($color-yellow-30, 0.5) 0.8em,
-//       transparentize($color-yellow-30, 0.5) 1.1em
-//     );
-//     display: inline;
-//     margin-bottom: 0;
-
-//     &:before {
-//       content: '';
-//       display: block;
-//     }
-
-//     &:after {
-//       content: '';
-//       display: block;
-//       margin-bottom: 0.5em;
-//     }
-//   }
-
-//   &:before {
-//     clear: both;
-//   }
-// }
-
-// .underline {
-//   background: repeating-linear-gradient(
-//     to bottom,
-//     transparent 0,
-//     transparent 0.8em,
-//     transparentize($color-yellow-30, 0.5) 0.8em,
-//     transparentize($color-yellow-30, 0.5) 1.1em
-//   );
-//   display: inline;
-
-//   &:before {
-//     content: '';
-//     display: block;
-//     margin-bottom: 0;
-//   }
-
-//   &:after {
-//     content: '';
-//     display: block;
-//     margin-bottom: 0.5em;
-//   }
-// }
-
 @function heading-line-height($font-size) {
   @return $font-size + 8px;
 }
@@ -231,56 +175,6 @@ h6 {
   line-height: heading-line-height($h6-font-size);
 }
 
-// .highlight1,
-// .highlight2,
-// .highlight3 {
-//   background-color: $color-white;
-//   color: $color-black;
-//   font-family: $highlight-font-family;
-//   font-weight: 700;
-
-//   &:hover {
-//     color: inherit;
-//   }
-// }
-
-// .highlight1-inverse,
-// .highlight2-inverse,
-// .highlight3-inverse {
-//   background-color: $color-black;
-//   color: $color-white;
-//   font-family: $highlight-font-family;
-//   font-weight: 700;
-
-//   &:hover {
-//     color: $color-white;
-//   }
-// }
-
-// .highlight1,
-// .highlight1-inverse {
-//   font-size: $highlight1-font-size-mobile;
-//   @media #{$mq-md} {
-//     font-size: $highlight1-font-size;
-//   }
-// }
-
-// .highlight2,
-// .highlight2-inverse {
-//   font-size: $highlight2-font-size-mobile;
-//   @media #{$mq-md} {
-//     font-size: $highlight2-font-size;
-//   }
-// }
-
-// .highlight3,
-// .highlight3-inverse {
-//   font-size: $highlight3-font-size-mobile;
-//   @media #{$mq-md} {
-//     font-size: $highlight3-font-size;
-//   }
-// }
-
 b,
 strong {
   font-weight: 700;
@@ -292,26 +186,3 @@ ol {
   margin-bottom: $spacing-md;
   margin-top: 0;
 }
-
-// .highlight {
-//   font-family: 'Zilla Slab Highlight';
-//   font-size: $highlight-font-size-mobile;
-
-//   @media #{$mq-md} {
-//     font-size: $highlight-font-size;
-//   }
-// }
-
-// .highlighted {
-//   background-color: $color-black;
-//   color: $color-white;
-// }
-
-// .highlighted-inline {
-//   background-color: $color-black;
-//   box-decoration-break: clone;
-//   box-shadow: 0 0 0 3px $color-black;
-//   display: inline;
-//   left: 3px;
-//   position: relative;
-// }
