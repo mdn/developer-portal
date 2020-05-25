@@ -199,16 +199,16 @@
     visibility: hidden;
   }
   .mzp-l-card-quarter .mzp-c-card {
-    width: calc(50% - (32px / 2));
+    width: calc(50% - (#{$layout-sm} / 2));
   }
   .mzp-l-card-quarter .mzp-c-card {
     float: left;
     margin-left: 0;
-    margin-right: 32px;
+    margin-right: $layout-sm;
   }
   [dir='rtl'] .mzp-l-card-quarter .mzp-c-card {
     float: right;
-    margin-left: 32px;
+    margin-left: $layout-sm;
     margin-right: 0;
   }
   .mzp-l-card-quarter .mzp-c-card:nth-child(even) {
@@ -218,22 +218,22 @@
 }
 @media (min-width: 1024px) {
   .mzp-l-card-quarter .mzp-c-card {
-    width: calc(25% - (32px - (32px / 4)));
+    width: calc(25% - (#{$layout-sm} - (#{$layout-sm} / 4)));
   }
   .mzp-l-card-quarter .mzp-c-card {
     margin-left: 0;
-    margin-right: 32px;
+    margin-right: $layout-sm;
   }
   [dir='rtl'] .mzp-l-card-quarter .mzp-c-card {
-    margin-left: 32px;
+    margin-left: $layout-sm;
     margin-right: 0;
   }
   .mzp-l-card-quarter .mzp-c-card:nth-child(even) {
     margin-left: 0;
-    margin-right: 32px;
+    margin-right: $layout-sm;
   }
   [dir='rtl'] .mzp-l-card-quarter .mzp-c-card:nth-child(even) {
-    margin-left: 32px;
+    margin-left: $layout-sm;
     margin-right: 0;
   }
   .mzp-l-card-quarter .mzp-c-card:nth-child(4n) {
@@ -262,16 +262,16 @@
     visibility: hidden;
   }
   .mzp-l-card-third .mzp-c-card {
-    width: calc(50% - (32px / 2));
+    width: calc(50% - (#{$layout-sm} / 2));
   }
   .mzp-l-card-third .mzp-c-card {
     float: left;
     margin-left: 0;
-    margin-right: 32px;
+    margin-right: $layout-sm;
   }
   [dir='rtl'] .mzp-l-card-third .mzp-c-card {
     float: right;
-    margin-left: 32px;
+    margin-left: $layout-sm;
     margin-right: 0;
   }
   .mzp-l-card-third .mzp-c-card:nth-child(even) {
@@ -281,14 +281,14 @@
 }
 @media (min-width: 1024px) {
   .mzp-l-card-third .mzp-c-card {
-    width: calc(33.3% - (32px - (32px / 3)));
+    width: calc(33.3% - (#{$layout-sm} - (#{$layout-sm} / 3)));
   }
   .mzp-l-card-third .mzp-c-card:nth-child(even) {
     margin-left: 0;
-    margin-right: 32px;
+    margin-right: $layout-sm;
   }
   [dir='rtl'] .mzp-l-card-third .mzp-c-card:nth-child(even) {
-    margin-left: 32px;
+    margin-left: $layout-sm;
     margin-right: 0;
   }
   .mzp-l-card-third .mzp-c-card:nth-child(3n) {
@@ -340,11 +340,11 @@
   .mzp-l-card-half .mzp-c-card {
     float: left;
     margin-left: 0;
-    margin-right: 32px;
+    margin-right: $layout-sm;
   }
   [dir='rtl'] .mzp-l-card-half .mzp-c-card {
     float: right;
-    margin-left: 32px;
+    margin-left: $layout-sm;
     margin-right: 0;
   }
   .mzp-l-card-half .mzp-c-card:nth-child(2n) {
@@ -358,7 +358,7 @@
     clear: right;
   }
   .mzp-l-card-half .mzp-c-card {
-    width: calc(50% - (32px - (32px / 2)));
+    width: calc(50% - (#{$layout-sm} - (#{$layout-sm} / 2)));
   }
 }
 @media (min-width: 768px) {
