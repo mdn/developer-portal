@@ -8,9 +8,9 @@
 .c-primary-cta {
   .c-primary-cta-wrapper {
     box-sizing: border-box;
-    padding-bottom: 32px;
+    padding-bottom: $layout-sm;
     position: relative;
-    padding-top: 32px;
+    padding-top: $layout-sm;
 
     @media #{$mq-sm} {
       max-width: 50%;
@@ -41,7 +41,7 @@
   }
 
   .c-primary-cta-button {
-    margin-top: 32px;
+    margin-top: $layout-sm;
   }
 
   @media #{$mq-sm} {
@@ -58,7 +58,7 @@
 }
 
 .homepage-header-actions {
-  margin-top: 24px;
+  margin-top: $layout-xs;
 }
 
 body.home {
