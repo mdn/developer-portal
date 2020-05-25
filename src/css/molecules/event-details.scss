@@ -40,7 +40,7 @@
   display: flex;
   justify-content: center;
   margin: -1px 0 0 0;
-  padding: 32px 0;
+  padding: $layout-sm 0;
 
   @media #{$mq-md} {
     align-items: center;
