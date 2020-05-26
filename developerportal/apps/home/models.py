@@ -1,7 +1,6 @@
 from django.db.models import (
     CASCADE,
     SET_NULL,
-    BooleanField,
     CharField,
     ForeignKey,
     TextField,
@@ -44,7 +43,6 @@ class HomePage(BasePage):
     template = "home.html"
 
     # Content fields
-    show_header = BooleanField(default=True)
     subtitle = TextField(max_length=250, blank=True, default="")
     button_text = CharField(max_length=30, blank=True, default="")
     button_url = CharField(max_length=2048, blank=True, default="")
@@ -126,7 +124,6 @@ class HomePage(BasePage):
     content_panels = BasePage.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel("show_header"),
                 FieldPanel("subtitle"),
                 FieldPanel("button_text"),
                 FieldPanel("button_url"),
