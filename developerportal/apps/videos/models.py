@@ -28,6 +28,7 @@ from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 
 from ..common.blocks import ExternalLinkBlock
 from ..common.constants import RICH_TEXT_FEATURES, RICH_TEXT_FEATURES_SIMPLE, VIDEO_TYPE
@@ -276,6 +277,12 @@ class Video(BasePage):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    # Search config
+    search_fields = BasePage.search_fields + [  # Inherit search_fields from Page
+        index.SearchField("description")
+        # "title" is already specced in BasePage
+    ]
 
     def get_absolute_url(self):
         # For the RSS feed
