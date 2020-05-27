@@ -27,7 +27,7 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock
-from ..common.constants import COLOR_CHOICES, COLOR_VALUES, RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
 from ..common.utils import (
     get_combined_articles,
@@ -158,7 +158,6 @@ class Topic(BasePage):
         ),
         validators=[check_for_svg_file],
     )
-    color = CharField(max_length=14, choices=COLOR_CHOICES, default="blue-40")
     keywords = ClusterTaggableManager(through=TopicTag, blank=True)
 
     # Content panels
@@ -222,15 +221,7 @@ class Topic(BasePage):
                 "on the parent topic’s page."
             ),
         ),
-        MultiFieldPanel(
-            [FieldPanel("icon"), FieldPanel("color")],
-            heading="Theme",
-            help_text=(
-                "Theme settings used on topic page and any tagged content. "
-                "For example, a post tagged with this topic "
-                "will use the color specified here as its accent color."
-            ),
-        ),
+        MultiFieldPanel([FieldPanel("icon")], heading="Theme"),
         MultiFieldPanel(
             [
                 FieldPanel("seo_title"),
@@ -283,10 +274,6 @@ class Topic(BasePage):
     def videos(self):
         """Return the latest videos and external videos for this topic. """
         return get_combined_videos(self, topics__topic__pk=self.pk)
-
-    @property
-    def color_value(self):
-        return dict(COLOR_VALUES)[self.color]
 
     @property
     def subtopics(self):
