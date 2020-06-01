@@ -240,12 +240,12 @@ class CustomSearchTests(TestCase):
 
         cases = [
             {
-                "desc": "No params so no narrower scoping",
+                "desc": "No params (empty string) so no narrower scoping",
                 "terms": "",
                 "expected_count": 22 + 2 + 1 + 2,
             },
             {
-                "desc": "No params so no narrower scoping",
+                "desc": "No params (None) so no narrower scoping",
                 "terms": None,
                 "expected_count": 22 + 2 + 1 + 2,
             },
