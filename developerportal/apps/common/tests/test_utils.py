@@ -245,6 +245,11 @@ class CustomSearchTests(TestCase):
                 "expected_count": 22 + 2 + 1 + 2,
             },
             {
+                "desc": "No params so no narrower scoping",
+                "terms": None,
+                "expected_count": 22 + 2 + 1 + 2,
+            },
+            {
                 "desc": "Title match",
                 "terms": "subgrid is coming to Firefox",
                 "expected_count": 1,
