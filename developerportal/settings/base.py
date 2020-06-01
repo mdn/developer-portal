@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "wagtail.documents",
     "wagtail.images",
     "wagtail.search",
+    "wagtail.contrib.postgres_search",
     "wagtail.admin",
     "wagtail.core",
     "storages",
@@ -224,6 +225,14 @@ SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", 3600))
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = "Mozilla Developer"
+
+WAGTAILSEARCH_BACKENDS = {
+    "default": {
+        "BACKEND": "wagtail.contrib.postgres_search.backend",
+        "AUTO_UPDATE": True,  # if this slows down editing, we can do things differently
+        "ATOMIC_REBUILD": True,
+    }
+}
 
 # Add support for CodePen oEmbed
 WAGTAILEMBEDS_FINDERS = [
