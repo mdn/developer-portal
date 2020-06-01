@@ -15,10 +15,18 @@ logger = logging.getLogger(__name__)
 
 
 @app.task
+def update_wagtail_search_index():
+    log_prefix = "[Wagtail Search]"
+    logger.info(f"{log_prefix} Trying to update search index")
+    call_command("wagtail_update_index")
+
+
+@app.task
 def publish_scheduled_pages():
     log_prefix = "[Publish scheduled pages]"
     logger.info(f"{log_prefix} Trying to publish/unpublish scheduled pages")
     call_command("publish_scheduled_pages")
+    update_wagtail_search_index()
 
 
 @app.task
