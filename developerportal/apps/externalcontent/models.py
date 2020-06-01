@@ -27,6 +27,7 @@ from wagtail.core.blocks import PageChooserBlock
 from wagtail.core.fields import RichTextField, StreamBlock, StreamField
 from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 
 from ..common.blocks import ExternalAuthorBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
@@ -197,6 +198,12 @@ class ExternalArticle(ExternalContent):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    # Search config
+    search_fields = BasePage.search_fields + [  # Inherit search_fields from Page
+        index.SearchField("description")
+        # "title" is already specced in BasePage
+    ]
 
     @property
     def article(self):
@@ -378,6 +385,12 @@ class ExternalVideo(ExternalContent):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    # Search config
+    search_fields = BasePage.search_fields + [  # Inherit search_fields from Page
+        index.SearchField("description")
+        # "title" is already specced in BasePage
+    ]
 
     @property
     def video(self):
