@@ -57,6 +57,13 @@
     }
   }
 
+  /* - Internet Explorer 10–11
+   - Internet Explorer Mobile 10-11 */
+  :-ms-input-placeholder {
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+
   .filter-form-search {
     width: 100%;
     margin-bottom: $spacing-md;

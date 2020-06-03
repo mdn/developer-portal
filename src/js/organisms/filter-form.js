@@ -65,7 +65,7 @@ module.exports = class FilterForm {
   onFormSubmit(e) {
     e.preventDefault();
     const searchFields = this.form.querySelectorAll("input[name='search']");
-    searchFields.forEach((field) => {
+    Array.from(searchFields).forEach((field) => {
       if (!field.value) {
         // eslint-disable-next-line no-param-reassign
         field.disabled = true; // disabled fields are not submitted to the server
