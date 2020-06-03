@@ -117,19 +117,4 @@ module.exports = class FilterForm {
       );
     }
   }
-
-  /** Updates the URL to include selected filters. */
-  updateUrlParams() {
-    const stringResult = Object.entries(this.state)
-      .map((pair) => {
-        return `${pair[0]}=${pair[1].join(',')}`;
-      }, [])
-      .join('&');
-
-    if (stringResult) {
-      window.history.replaceState({}, '', `?${stringResult}`);
-    } else {
-      window.history.replaceState({}, null, '.');
-    }
-  }
 };
