@@ -1,8 +1,4 @@
-const {
-  parseForm,
-  parseQueryParams,
-  decodeFormURLEncodedSpaces,
-} = require('../utils');
+const { parseQueryParams, decodeFormURLEncodedSpaces } = require('../utils');
 
 /**
  * Represents a directory page filter form; a traditional form-submission button
@@ -56,12 +52,6 @@ module.exports = class FilterForm {
     Array.from(this.clearSearchButtons).forEach((btn) => {
       btn.addEventListener('click', (e) => this.clearSearchFields(e));
     });
-    this.form.addEventListener('change', () => this.onFormInput());
-  }
-
-  /** Updates state and requests new results from the server when an input is updated. */
-  onFormInput() {
-    this.state = parseForm(this.form);
   }
 
   /**
