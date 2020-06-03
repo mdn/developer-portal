@@ -52,6 +52,31 @@ module.exports = class FilterForm {
     Array.from(this.clearSearchButtons).forEach((btn) => {
       btn.addEventListener('click', (e) => this.clearSearchFields(e));
     });
+    this.form.addEventListener('submit', (e) => this.onFormSubmit(e));
+  }
+
+  /**
+   * Before the form is submitted, skip over an empty search field, if
+   * present. Why? to avoid `search=` appearing in the URL whenever
+   * filters are set but there is no search term
+   *
+   * @param {Event} e
+   */
+  onFormSubmit(e) {
+    e.preventDefault();
+    const searchFields = this.form.querySelectorAll("input[name='search']");
+    searchFields.forEach((field) => {
+      if (!field.value) {
+        // eslint-disable-next-line no-param-reassign
+        field.disabled = true; // disabled fields are not submitted to the server
+      }
+    });
+
+    this.form.submit();
+    /**
+     * Note: when this switches to an AJAX submission, remember to
+     * re-enable the search field after submission!
+     */
   }
 
   /**
