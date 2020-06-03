@@ -33,7 +33,7 @@ module.exports = class FilterForm {
     // desktop viewports and one for mobile/collapsed-menu filtering
 
     this.clearButtons = document.querySelectorAll('.js-filter-clear');
-    this.clearSectionEls = document.querySelectorAll(
+    this.clearAllButtons = document.querySelectorAll(
       '.js-filter-form-clear-section',
     );
 
@@ -162,11 +162,11 @@ module.exports = class FilterForm {
     });
 
     if (checkedControls.length) {
-      Array.from(this.clearSectionEls).forEach((el) =>
+      Array.from(this.clearAllButtons).forEach((el) =>
         el.removeAttribute('hidden'),
       );
     } else {
-      Array.from(this.clearSectionEls).forEach((el) =>
+      Array.from(this.clearAllButtons).forEach((el) =>
         el.setAttribute('hidden', ''),
       );
     }
