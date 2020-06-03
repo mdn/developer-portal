@@ -41,3 +41,15 @@ exports.parseForm = (form) => {
   });
   return filter;
 };
+
+exports.decodeFormURLEncodedSpaces = (value) => {
+  /* Turn "foo+bar" into "foo bar".
+   * Context: decodeURIComponent (used above in parseQueryParams) does not
+   * convert `+` to spaces, because the `+` is from the spec for
+   * application/x-www-form-urlenconded, not encodeURIComponent)
+   *
+   * @param {string} value
+   * @returns {string}
+   */
+  return value.replace(/\+/g, ' ');
+};

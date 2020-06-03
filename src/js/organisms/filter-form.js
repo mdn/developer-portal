@@ -1,4 +1,8 @@
-const { parseForm, parseQueryParams } = require('../utils');
+const {
+  parseForm,
+  parseQueryParams,
+  decodeFormURLEncodedSpaces,
+} = require('../utils');
 
 /**
  * Represents a directory page filter form; a traditional form-submission button
@@ -29,12 +33,17 @@ module.exports = class FilterForm {
     this.state = parseQueryParams();
 
     // Elements for the filter form/list.
+    // IMPORTANT: there are TWO forms in any page featuring this component: one for
+    // desktop viewports and one for mobile/collapsed-menu filtering
+
     this.clearButtons = document.querySelectorAll('.js-filter-clear');
     this.clearSectionEls = document.querySelectorAll(
       '.js-filter-form-clear-section',
     );
 
-    this.updateCheckboxes();
+    this.clearSearchButtons = document.querySelectorAll('.js-search-clear');
+
+    this.updateFormControls();
     this.setupEvents();
     this.updateClearVisibility();
   }
@@ -43,6 +52,9 @@ module.exports = class FilterForm {
   setupEvents() {
     Array.from(this.clearButtons).forEach((btn) => {
       btn.addEventListener('click', (e) => this.uncheckInputs(e));
+    });
+    Array.from(this.clearSearchButtons).forEach((btn) => {
+      btn.addEventListener('click', (e) => this.clearSearchFields(e));
     });
     this.form.addEventListener('change', () => this.onFormInput());
   }
@@ -53,19 +65,31 @@ module.exports = class FilterForm {
   }
 
   /**
-   * Ensures the DOM reflects the current state. Used after query parameter
-   * loading.
+   * Ensures the DOM elements for the filter form (checkboxes and search input - if relevant)
+   * reflect the current state.
+   *
+   * Used after query parameter loading.
    */
-  updateCheckboxes() {
+  updateFormControls() {
     Object.entries(this.state).forEach((pair) => {
-      pair[1].forEach((value) => {
-        const el = this.form.querySelector(
-          `input[name='${pair[0]}'][value='${value}']`,
-        );
-        if (el) {
-          el.checked = true;
-        }
-      });
+      const [key, val] = pair;
+      if (key === 'search') {
+        // Search input requires specific behaviour
+        const searchInput = this.form.querySelectorAll(`input[name='${key}']`); // only one searchInput _per form_
+        /* because application/x-www-form-urlencoded has spaces turned
+         * to `+` not `%20`, we need to do a bit more work */
+        searchInput[0].value = decodeFormURLEncodedSpaces(val[0]);
+      } else {
+        // set the checkboxes as appropriate to the querystring
+        val.forEach((value) => {
+          const el = this.form.querySelector(
+            `input[name='${key}'][value='${value}']`,
+          );
+          if (el) {
+            el.checked = true;
+          }
+        });
+      }
     });
   }
 
@@ -92,6 +116,22 @@ module.exports = class FilterForm {
       const event = new Event('change');
       this.form.dispatchEvent(event);
     }
+  }
+
+  /**
+   * Clear the contents of the search input (which is event.target)
+   *
+   * @param {Event} e
+   */
+
+  // eslint-disable-next-line class-methods-use-this
+  clearSearchFields(e) {
+    e.preventDefault();
+    const searchInputs = document.querySelectorAll('.js-search-input');
+    Array.from(searchInputs).forEach((el) => {
+      // eslint-disable-next-line no-param-reassign
+      el.value = '';
+    });
   }
 
   /** Toggles the visibility of clear buttons depending on selected filters. */
