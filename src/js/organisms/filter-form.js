@@ -67,8 +67,7 @@ module.exports = class FilterForm {
     const searchFields = this.form.querySelectorAll("input[name='search']");
     Array.from(searchFields).forEach((field) => {
       if (!field.value) {
-        // eslint-disable-next-line no-param-reassign
-        field.disabled = true; // disabled fields are not submitted to the server
+        field.setAttribute('disabled', ''); // disabled fields are not submitted to the server
       }
     });
 
