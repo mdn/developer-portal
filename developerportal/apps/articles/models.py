@@ -143,7 +143,10 @@ class Articles(BasePage):
     def get_filters(self):
         from ..topics.models import Topic
 
-        return {"topics": Topic.published_objects.order_by("title")}
+        return {
+            "show_search_input": True,
+            "topics": Topic.published_objects.order_by("title"),
+        }
 
 
 class ArticleTag(TaggedItemBase):

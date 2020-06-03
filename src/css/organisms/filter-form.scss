@@ -56,6 +56,11 @@
       padding-bottom: 0px;
     }
   }
+
+  .filter-form-search {
+    width: 100%;
+    margin-bottom: $spacing-md;
+  }
 }
 
 .filter-form-section-header {
@@ -66,6 +71,6 @@
   position: relative;
 
   h5 {
-    margin: 0;
+    margin: 0 $spacing-md 0 0;
   }
 }
