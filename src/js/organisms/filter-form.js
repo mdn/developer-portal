@@ -37,8 +37,6 @@ module.exports = class FilterForm {
       '.js-filter-form-clear-section',
     );
 
-    this.clearSearchButtons = document.querySelectorAll('.js-search-clear');
-
     this.updateFormControls();
     this.setupEvents();
     this.updateClearVisibility();
@@ -47,10 +45,7 @@ module.exports = class FilterForm {
   /** Sets up event listeners. */
   setupEvents() {
     Array.from(this.clearButtons).forEach((btn) => {
-      btn.addEventListener('click', (e) => this.uncheckInputs(e));
-    });
-    Array.from(this.clearSearchButtons).forEach((btn) => {
-      btn.addEventListener('click', (e) => this.clearSearchFields(e));
+      btn.addEventListener('click', (e) => this.clearInputs(e));
     });
     this.form.addEventListener('submit', (e) => this.onFormSubmit(e));
   }
@@ -112,39 +107,29 @@ module.exports = class FilterForm {
    *
    * @param {Event} e
    */
-  uncheckInputs(e) {
+  clearInputs(e) {
     e.preventDefault();
     const { controls } = e.target.dataset;
-    const checkboxes = this.form.querySelectorAll('input[type=checkbox]');
-    const matchedCheckboxes = Array.from(checkboxes).filter(
-      (checkbox) =>
-        (!controls || checkbox.name === controls) && checkbox.checked,
+    const formInputs = this.form.querySelectorAll(
+      'input[type=checkbox], input[name="search"]',
     );
-
-    matchedCheckboxes.forEach((checkbox) => {
-      // eslint-disable-next-line no-param-reassign
-      checkbox.checked = false;
+    const matchedFormInputs = Array.from(formInputs).filter((input) => {
+      return (
+        // if there is a control group specced, is it the one we want to target?
+        (!controls || input.name === controls) &&
+        // and is the input called search or is it a checked checkbox?
+        (input.name === 'search' ? true : input.checked)
+      );
     });
 
-    if (matchedCheckboxes.length) {
-      const event = new Event('change');
-      this.form.dispatchEvent(event);
-    }
-  }
-
-  /**
-   * Clear the contents of the search input (which is event.target)
-   *
-   * @param {Event} e
-   */
-
-  // eslint-disable-next-line class-methods-use-this
-  clearSearchFields(e) {
-    e.preventDefault();
-    const searchInputs = document.querySelectorAll('.js-search-input');
-    Array.from(searchInputs).forEach((el) => {
-      // eslint-disable-next-line no-param-reassign
-      el.value = '';
+    matchedFormInputs.forEach((input) => {
+      if (input.name === 'search') {
+        // eslint-disable-next-line no-param-reassign
+        input.value = '';
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        input.checked = false;
+      }
     });
   }
 
