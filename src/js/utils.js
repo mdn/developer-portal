@@ -24,24 +24,6 @@ exports.parseQueryParams = () => {
   }, {});
 };
 
-/**
- * Creates an object based on a form's current input values.
- *
- * @param {object} form
- * @returns {object}
- */
-exports.parseForm = (form) => {
-  const filter = {};
-  const elements = form.querySelectorAll('input[type="checkbox"]:checked');
-  Array.from(elements).forEach((element) => {
-    if (!filter[element.name]) {
-      filter[element.name] = [];
-    }
-    filter[element.name].push(element.value);
-  });
-  return filter;
-};
-
 exports.decodeFormURLEncodedSpaces = (value) => {
   /* Turn "foo+bar" into "foo bar".
    * Context: decodeURIComponent (used above in parseQueryParams) does not
