@@ -7,9 +7,7 @@
 
 {% block content %}
   <main role="main">
-    {% if page.show_header %}
-      {% include "organisms/homepage-header.html" %}
-    {% endif %}
+    {% include "organisms/homepage-header.html" %}
     {% with page.featured|published as featured %}
       {% if featured %}
         <section id="featured">

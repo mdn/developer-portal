@@ -34,41 +34,27 @@
 @import 'atoms/embed';
 @import 'atoms/icon';
 @import 'atoms/image';
-@import 'atoms/map';
 @import 'atoms/modal';
-@import 'atoms/pattern';
 @import 'atoms/quote';
 @import 'atoms/rich-text';
-@import 'atoms/topic-icon';
 @import 'atoms/typography';
 
 // Molecules.
-@import 'molecules/article-authors';
-@import 'molecules/article-details';
 @import 'molecules/card';
 @import 'molecules/card-event';
 @import 'molecules/card-featured';
 @import 'molecules/card-person';
-@import 'molecules/card-topic';
-@import 'molecules/content-hero';
 @import 'molecules/event-details';
 @import 'molecules/header';
 @import 'molecules/header-strip';
-@import 'molecules/item-get-started';
 @import 'molecules/item-topic-link';
 @import 'molecules/notification-bar';
-@import 'molecules/related-links';
-@import 'molecules/resource-meta';
 @import 'molecules/resource-share';
 @import 'molecules/resource-toolbar';
-@import 'molecules/resource-topic-tags';
 @import 'molecules/pagination';
 
 // Organisms.
-@import 'organisms/article-header';
 @import 'organisms/article-read-more';
-@import 'organisms/event-agenda';
-@import 'organisms/event-speakers';
 @import 'organisms/featured';
 @import 'organisms/filter-form';
 @import 'organisms/filter-list';
@@ -76,11 +62,8 @@
 @import 'organisms/homepage-about';
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
-@import 'organisms/pattern-bg-header';
-@import 'organisms/pattern-section';
 @import 'organisms/people-section';
 @import 'organisms/topic-recent-work';
-@import 'organisms/upcoming-events';
 
 // Templates.
 @import 'templates/article';

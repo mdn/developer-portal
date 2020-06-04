@@ -7,9 +7,7 @@ require('./polyfills');
  */
 
 const FilterForm = require('./organisms/filter-form');
-const MapEmbed = require('./atoms/map-embed');
 const Modal = require('./atoms/modal');
-const Toggle = require('./atoms/toggle');
 const NotificationBar = require('./organisms/notification-bar');
 const TaskCompletionPrompt = require('./task-completion-prompt');
 const NewsletterSubscription = require('./newsletter-subscription');
@@ -38,9 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
   Mzp.Navigation.init();
   Mzp.Menu.init();
   FilterForm.init();
-  MapEmbed.init();
   Modal.init();
-  Toggle.init();
   NotificationBar.init();
   TaskCompletionPrompt.init();
   NewsletterSubscription.init();

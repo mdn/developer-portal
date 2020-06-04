@@ -1,6 +1,0 @@
-{% for event in events %}
-  {% include "molecules/cards/card.html" with resource=event %}
-{% endfor %}
-{% if show_past_event_pagination %}
-  {% include "molecules/pagination.html" with items=events page_anchor="#past-events"%}
-{% endif %}
