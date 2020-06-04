@@ -59,7 +59,7 @@ module.exports = class FilterForm {
    */
   onFormSubmit(e) {
     e.preventDefault();
-    const searchFields = this.form.querySelectorAll("input[name='search']");
+    const searchFields = document.querySelectorAll('.js-search-input');
     Array.from(searchFields).forEach((field) => {
       if (!field.value) {
         field.setAttribute('disabled', ''); // disabled fields are not submitted to the server
