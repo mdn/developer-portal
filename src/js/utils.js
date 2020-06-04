@@ -5,7 +5,6 @@
  */
 exports.parseQueryParams = () => {
   const { search } = window.location;
-
   if (!search) {
     return {};
   }
