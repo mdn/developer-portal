@@ -72,9 +72,9 @@ class HelperFunctionTests(TestCase):
             },
             {"desc": "Just spaces", "input": "     ", "expected": ""},
             {
-                "desc": "Markup allowed (at this level) - handled deeper down",
+                "desc": "Markup escaped via bleach",
                 "input": "<script>alert('boo');</script>",
-                "expected": "<script>alert('boo');</script>",
+                "expected": "&lt;script&gt;alert('boo');&lt;/script&gt;",
             },
             {"desc": "No change 1", "input": "findme", "expected": "findme"},
             {
