@@ -65,7 +65,17 @@
   }
 
   .filter-form-search {
-    width: 100%;
+    padding: $spacing-xs;
+
+    @media #{$mq-md} {
+      width: 100%;
+    }
+    width: 97%;
+    @supports (-webkit-touch-callout: none) {
+      // fix for mobile safari only
+      width: 92%;
+    }
+
     margin-bottom: $spacing-md;
   }
 }
