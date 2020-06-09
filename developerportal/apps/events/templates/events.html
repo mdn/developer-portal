@@ -26,7 +26,7 @@
     {% endfor %}
   </div>
   <div id="events-list">
-    {% include "organisms/filter-list.html" with type="event" resources=events show_past_date_option=True no_resources_message="No relevant events found" hide_pagination=False page_anchor="#events-list" %}
+    {% include "organisms/filter-list.html" with type="event" resources=events no_resources_message="No relevant events found" hide_pagination=False page_anchor="#events-list" %}
   </div>
   {% include "organisms/newsletter-signup.html" %}
 </main>
