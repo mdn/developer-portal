@@ -231,7 +231,7 @@ class Events(BasePage):
         if topics_q:
             combined_q.add(topics_q, Q.AND)
 
-        events = get_combined_events(self, reverse=True, q_object=combined_q)
+        events = get_combined_events(self, reverse=False, q_object=combined_q)
 
         events = paginate_resources(
             events,
