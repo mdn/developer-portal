@@ -16,16 +16,20 @@
       <{{element}}>
         {{ content }}
       </{{element}}>
-      {% if not skip_standfirst %}
-      <div class="standfirst-wrapper">
-      {% if standfirst %}
-        <div class="custom-standfirst">
-          {{standfirst}}
-        </div>
+      {% if skip_standfirst %}
+      {% comment %} Avoid rendering any standfirst at all {% endcomment %}
       {% else %}
-        {{page.description|richtext}}
-      {% endif %}
-      </div>
+        {% if standfirst %}
+        <div class="standfirst-wrapper">
+          <div class="custom-standfirst">
+            {{standfirst}}
+          </div>
+        </div>
+        {% elif page.description %}
+        <div class="standfirst-wrapper">
+          {{page.description|richtext}}
+        </div>
+        {% endif %}
       {% endif %}
     </div>
   </div>
