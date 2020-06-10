@@ -33,6 +33,7 @@ from wagtail.search import index
 
 from ..common.blocks import ExternalAuthorBlock, ExternalLinkBlock
 from ..common.constants import (
+    DESCRIPTION_MAX_LENGTH,
     PAGINATION_QUERYSTRING_KEY,
     RICH_TEXT_FEATURES_SIMPLE,
     SEARCH_QUERYSTRING_KEY,
@@ -67,8 +68,11 @@ class Articles(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
 
     # Meta fields
@@ -180,8 +184,11 @@ class Article(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
     body = CustomStreamField(
         help_text=(
@@ -199,7 +206,9 @@ class Article(BasePage):
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
-    card_description = TextField("Description", max_length=400, blank=True, default="")
+    card_description = TextField(
+        "Description", max_length=DESCRIPTION_MAX_LENGTH, blank=True, default=""
+    )
     card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
