@@ -69,3 +69,9 @@
     margin: 0;
   }
 }
+
+.filter-form-note {
+  font-style: italic;
+  font-size: 0.875rem; // same as label
+  padding-bottom: 12px; // had to set manually
+}

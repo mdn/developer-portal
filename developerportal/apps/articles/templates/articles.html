@@ -11,7 +11,7 @@
   {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url %}
 
   <div id="posts-list">
-    {% include "organisms/filter-list.html" with type="article_or_video" resources=resources show_past_date_option=True no_resources_message="No relevant posts found" hide_pagination=False page_anchor="#posts-list" %}
+    {% include "organisms/filter-list.html" with type="article_or_video" resources=resources no_resources_message="No relevant posts found" hide_pagination=False page_anchor="#posts-list" %}
   </div>
   {% include "organisms/newsletter-signup.html" %}
 {% endblock content %}

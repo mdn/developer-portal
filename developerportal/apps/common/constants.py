@@ -45,6 +45,9 @@ DATE_PARAMS_QUERYSTRING_KEY = "date"
 
 # This is a special value for the above that indicates "all previous events"
 PAST_EVENTS_QUERYSTRING_VALUE = "past"
+FUTURE_EVENTS_QUERYSTRING_VALUE = "future"
+DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS = 6
+
 
 # Note: see app_tags.pagination_additional_filter_params to add support/whitelisting
 # to anynew querystring keys you add here, else they will be ignored

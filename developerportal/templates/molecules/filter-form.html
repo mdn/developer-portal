@@ -16,7 +16,7 @@
   </header>
   {% endif %}
 
-  {% if filters.dates %}
+  {% if filters.event_dates.options %}
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
         <h5>Date</h5>
@@ -27,18 +27,17 @@
           Clear
         </a>
       </header>
-      {% for date in filters.dates %}
+      {% if not filters.event_dates.options_selected %}
+        <div class="filter-form-note">
+          Default view: next {{DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS}} month{{DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS|pluralize}}
+        </div>
+      {% endif %}
+      {% for option in filters.event_dates.options %}
         <label>
-          <input type="checkbox" name="{{DATE_PARAMS_QUERYSTRING_KEY}}" value="{{ date|date:'Y-m' }}">
-          {{ date|date:'F Y' }}
+          <input type="checkbox" name="{{DATE_PARAMS_QUERYSTRING_KEY}}" value="{{ option.value }}">
+          {{ option.label }}
         </label>
       {% endfor %}
-      {% if show_past_date_option %}
-        <label>
-          <input type="checkbox" name="{{DATE_PARAMS_QUERYSTRING_KEY}}" value="{{ PAST_EVENTS_QUERYSTRING_VALUE }}">
-          Past events
-        </label>
-      {% endif %}
     </fieldset>
   {% endif %}
 

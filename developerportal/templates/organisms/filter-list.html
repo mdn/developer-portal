@@ -6,7 +6,7 @@
     {% comment %} filtering controls {% endcomment %}
     <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
       <summary>Filter</summary>
-      {% include "molecules/filter-form.html" with resources=resources filters=filters show_past_date_option=show_past_date_option %}
+      {% include "molecules/filter-form.html" with resources=resources filters=filters %}
     </details>
     <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
       {% include "molecules/filter-form.html" with resources=resources filters=filters %}

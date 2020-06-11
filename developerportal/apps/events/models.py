@@ -1,7 +1,6 @@
 # pylint: disable=no-member
 import datetime
 import logging
-from typing import List
 
 from django.db.models import (
     CASCADE,
@@ -15,6 +14,7 @@ from django.db.models import (
     URLField,
 )
 
+from dateutil import relativedelta
 from django_countries.fields import CountryField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -37,6 +37,8 @@ from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExter
 from ..common.constants import (
     COUNTRY_QUERYSTRING_KEY,
     DATE_PARAMS_QUERYSTRING_KEY,
+    DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
+    FUTURE_EVENTS_QUERYSTRING_VALUE,
     PAGINATION_QUERYSTRING_KEY,
     PAST_EVENTS_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
@@ -167,111 +169,46 @@ class Events(BasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["filters"] = self.get_filters()
+        context["filters"] = self.get_filters(request)
         context["events"] = self.get_events(request)
         return context
 
-    def _pop_past_events_marker_from_date_params(self, date_params):
-        """For the given list of "YYYY-MM" strings and an optional sentinel that shows
-        whether we should include past events, return a list of tuples containing
-        the year and and month, as unmutated strings, PLUS a separate Boolean value,
-        defaulting to False.
-
-        Example input:  ["2020-03", "2020-12"]
-        Example output:  (["2020-03", "2020-12"], False)
-
-        Example input:  ["2020-03", "2020-12", "past"]
-        Example output:  (["2020-03", "2020-12"], True)
-        """
-
-        past_events_flag = bool(date_params) and (
-            PAST_EVENTS_QUERYSTRING_VALUE in date_params
-        )
-
-        if past_events_flag:
-            date_params.pop(date_params.index(PAST_EVENTS_QUERYSTRING_VALUE))
-
-        return date_params, past_events_flag
-
-    def _year_months_to_years_and_months_tuples(self, year_months):
-        """For the given list of "YYYY-MM" strings, return a list of tuples
-        containg the year and and month, still as strings.
-
-        Example input:  ["2020-03", "2020-12"]
-        Example output: [("2020", "03"), ("2020", "12")]
-        """
-
-        if not year_months:
-            return []
-        return [tuple(x.split("-")) for x in [y for y in year_months if y]]
-
     def _build_date_q(self, date_params):
-        """Suport filtering events by selected year-month pair(s) and/or an
-        'all past events' Boolean.
-
-        Note that this method returns early, to avoid nested clauses
+        """Suport filtering events by 'all future events' or 'all past events' Booleans.
 
         Arguments:
-            date_params: List(str) -- list of strings representing selected
-            dates in the filtering panel, where each string is either in YYYY-MM format
-            or the sentinel string PAST_EVENTS_QUERYSTRING_VALUE.
+            date_params: List(str) -- list of sentinel strings of
+                FUTURE_EVENTS_QUERYSTRING_VALUE and/or
+                PAST_EVENTS_QUERYSTRING_VALUE.
+
+                Specifying FUTURE_EVENTS_QUERYSTRING_VALUE will return all FUTURE events
+                Specifying PAST_EVENTS_QUERYSTRING_VALUE will return all PAST events
+                Specifying both will return ALL events, past and future
+                Specifying neither will trigger the default behaviour: to return events
+                    between now and DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS months time
 
         Returns:
             django.models.QuerySet -- configured QuerySet based on arguments.
         """
 
         # Assemble facts from the year_months querystring data
-        year_months, past_events_flag = self._pop_past_events_marker_from_date_params(  # noqa: E501
-            date_params
-        )
-        years_and_months_tuples = self._year_months_to_years_and_months_tuples(
-            year_months
-        )
+        past_events_flag = PAST_EVENTS_QUERYSTRING_VALUE in date_params
+        future_events_flag = FUTURE_EVENTS_QUERYSTRING_VALUE in date_params
 
-        if past_events_flag:
-            default_events_q = Q(start_date__lte=get_past_event_cutoff())
+        if past_events_flag and not future_events_flag:
+            date_q = Q(start_date__lte=get_past_event_cutoff())
+        elif not past_events_flag and future_events_flag:
+            date_q = Q(start_date__gte=get_past_event_cutoff())
+        elif past_events_flag and future_events_flag:
+            date_q = Q()  # Because we don't need to restrict
         else:
-            default_events_q = Q()  # Because we don't need to restrict
-
-        if not years_and_months_tuples:
-            # Covers case where no year_months, so no need to construct further queries
-            return default_events_q
-
-        # Build a Q where it's (Month X AND Year X) OR (Month Y AND Year Y), etc
-        overall_date_q = None
-
-        try:
-            for year, month in years_and_months_tuples:
-                date_q = Q(**{"start_date__year": year})
-                date_q.add(Q(**{"start_date__month": month}), Q.AND)
-
-                if overall_date_q is None:
-                    overall_date_q = date_q
-                else:
-                    overall_date_q.add(date_q, Q.OR)
-        except ValueError as e:
-            logger.warning(
-                "%s (years_and_months_tuples is %s)" % (e, years_and_months_tuples)
+            window_start = get_past_event_cutoff()
+            window_end = window_start + relativedelta.relativedelta(
+                months=DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
+                days=1,  # Because get_past_event_cutoff() goes back to yesterday
             )
-            # Handles bad input and keeps the show on the road
-            overall_date_q = Q()
-
-        if past_events_flag:
-            # Regardless of what's been specified in terms of specific dates, if
-            # "past events" has been selected, we want to include all events
-            # UP TO the past/future threshold date but _without_ de-scoping
-            # whatever the other dates may have configured.
-            all_past_events_q = Q(start_date__lte=get_past_event_cutoff())
-
-            overall_date_q.add(all_past_events_q, Q.OR)  # NB: OR
-        else:
-            # We want specific months, but none in the past, so
-            # ensure we don't include past events here (ie, same month as
-            # selected dates, but before _today_)
-            overall_date_q.add(
-                Q(start_date__gte=get_past_event_cutoff()), Q.AND
-            )  # NB: AND
-        return overall_date_q
+            date_q = Q(start_date__gte=window_start, start_date__lte=window_end)
+        return date_q
 
     def get_events(self, request):
         """Return filtered future events in chronological order"""
@@ -283,8 +220,7 @@ class Events(BasePage):
         countries_q = Q(country__in=countries) if countries else Q()
         topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
 
-        # date_params need splitting to make them work, plus we need to see if
-        # past events are also needed
+        # date_params need a little more logic to construct
         date_q = self._build_date_q(date_params)
 
         combined_q = Q()
@@ -295,9 +231,7 @@ class Events(BasePage):
         if topics_q:
             combined_q.add(topics_q, Q.AND)
 
-        # Combined_q will always have something because it includes
-        # the start_date__gte test
-        events = get_combined_events(self, reverse=True, q_object=combined_q)
+        events = get_combined_events(self, reverse=False, q_object=combined_q)
 
         events = paginate_resources(
             events,
@@ -319,32 +253,28 @@ class Events(BasePage):
             {"code": country.code, "name": country.name} for country in raw_countries
         ]
 
-    def get_relevant_dates(self):
-        # Relevant here means a date for a published *future* event
-        # TODO: would be good to cache this for short period of time
-        raw_events = get_combined_events(self, start_date__gte=get_past_event_cutoff())
-        return sorted([event.start_date for event in raw_events])
+    def get_event_date_options(self, request):
+        return {
+            "options_selected": (
+                (
+                    PAST_EVENTS_QUERYSTRING_VALUE
+                    in request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY, [])
+                )
+                or (
+                    FUTURE_EVENTS_QUERYSTRING_VALUE
+                    in request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY, [])
+                )
+            ),
+            "options": [
+                {"value": PAST_EVENTS_QUERYSTRING_VALUE, "label": "Past events"},
+                {"value": FUTURE_EVENTS_QUERYSTRING_VALUE, "label": "Future events"},
+            ],
+        }
 
-    def dates_to_unique_month_years(self, dates: List[datetime.date]):
-        """From the given list of dates, generate another list of dates where the
-        year-month combinations are unique and the `day` of each is set to the 1st.
-
-        We do this because the filter-form.html template only uses Y and M when
-        rendering the date options, so we must skip/merge dates that feature year-month
-        pairs that _already_ appear in the list. If we don't, and if there is more than
-        one Event for the same year-month, we end up with multiple Year-Months
-        displayed in the filter options.
-
-        NB: also note that the template slots in a special "all past dates" option.
-        """
-        return sorted(
-            set([datetime.date(x.year, x.month, 1) for x in dates]), reverse=True
-        )
-
-    def get_filters(self):
+    def get_filters(self, request):
         return {
             "countries": self.get_relevant_countries(),
-            "dates": self.dates_to_unique_month_years(self.get_relevant_dates()),
+            "event_dates": self.get_event_date_options(request),
             "topics": Topic.published_objects.order_by("title"),
         }
 
