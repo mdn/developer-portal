@@ -152,7 +152,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=True
+            events_page, q_object=expected_q, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
@@ -184,7 +184,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=True
+            events_page, q_object=expected_q, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
@@ -215,7 +215,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=True
+            events_page, q_object=expected_q, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
@@ -246,7 +246,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=True
+            events_page, q_object=expected_q, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
@@ -279,7 +279,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=True
+            events_page, q_object=expected_q, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
