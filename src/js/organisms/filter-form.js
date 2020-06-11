@@ -118,7 +118,7 @@ module.exports = class FilterForm {
         // if there is a control group specced, is it the one we want to target?
         (!controls || input.name === controls) &&
         // and is the input called search or is it a checked checkbox?
-        (input.name === 'search' ? true : input.checked)
+        (input.name === 'search' || input.checked)
       );
     });
 
