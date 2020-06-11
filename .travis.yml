@@ -4,8 +4,10 @@ services:
   - docker
 
 branches:
-  only:
-    - master
+  except:
+    - dev-push
+    - stage-push
+    - prod-push
 
 env:
   global:
