@@ -3,7 +3,7 @@ import logging
 import os
 import re
 from mimetypes import guess_type
-from urllib.parse import quote
+from urllib.parse import quote_plus
 
 from django import template
 from django.conf import settings
@@ -146,7 +146,7 @@ def pagination_additional_filter_params(request):
             # Note that using `urllib.parse.quote` avoids spaces appearing in
             # the output, which breaks Safari (because the space triggers a web
             # search, not a HTTP request to the site)
-            output_params_strings.append(f"{input_key}={quote(input_param)}")
+            output_params_strings.append(f"{input_key}={quote_plus(input_param)}")
 
     joined_params = "&".join(output_params_strings)
     if joined_params:

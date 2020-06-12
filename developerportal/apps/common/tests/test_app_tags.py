@@ -228,11 +228,11 @@ class AppTagsTestCase(TestCase):
                 "input_querystring": (
                     f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
                     f"&{PAGINATION_QUERYSTRING_KEY}=2"
-                    f"&{SEARCH_QUERYSTRING_KEY}=test%20string"
+                    f"&{SEARCH_QUERYSTRING_KEY}=test+string"
                 ),
                 "expected_output": (
                     f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
-                    f"&{SEARCH_QUERYSTRING_KEY}=test%20string"  # note: still escaped
+                    f"&{SEARCH_QUERYSTRING_KEY}=test+string"  # note: still escaped
                 ),
             },
         ]
