@@ -56,6 +56,28 @@
       padding-bottom: 0px;
     }
   }
+
+  /* - Internet Explorer 10–11
+   - Internet Explorer Mobile 10-11 */
+  :-ms-input-placeholder {
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+
+  .filter-form-search {
+    padding: $spacing-xs;
+
+    @media #{$mq-md} {
+      width: 100%;
+    }
+    width: 97%;
+    @supports (-webkit-touch-callout: none) {
+      // fix for mobile safari only
+      width: 92%;
+    }
+
+    margin-bottom: $spacing-md;
+  }
 }
 
 .filter-form-section-header {
@@ -66,7 +88,7 @@
   position: relative;
 
   h5 {
-    margin: 0;
+    margin: 0 $spacing-md 0 0;
   }
 }
 

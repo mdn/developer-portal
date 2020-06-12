@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.test import TestCase
 
 import pytz
+import wagtail
 from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.core.models import Page, Site
 
@@ -72,9 +73,9 @@ class HelperFunctionTests(TestCase):
             },
             {"desc": "Just spaces", "input": "     ", "expected": ""},
             {
-                "desc": "Markup allowed (at this level) - handled deeper down",
+                "desc": "Markup escaped via bleach",
                 "input": "<script>alert('boo');</script>",
-                "expected": "<script>alert('boo');</script>",
+                "expected": "&lt;script&gt;alert('boo');&lt;/script&gt;",
             },
             {"desc": "No change 1", "input": "findme", "expected": "findme"},
             {
@@ -240,12 +241,12 @@ class CustomSearchTests(TestCase):
 
         cases = [
             {
-                "desc": "No params so no narrower scoping",
+                "desc": "No params (empty string) so no narrower scoping",
                 "terms": "",
                 "expected_count": 22 + 2 + 1 + 2,
             },
             {
-                "desc": "No params so no narrower scoping",
+                "desc": "No params (None) so no narrower scoping",
                 "terms": None,
                 "expected_count": 22 + 2 + 1 + 2,
             },
@@ -345,3 +346,37 @@ class CustomSearchTests(TestCase):
         self.assertEqual(len(items), 1)
         self.assertEqual(items[0].id, 25)
         self.assertEqual(items[0].title, "ES6 In Depth: Destructuring")
+
+    def test_wagtail_version_increase(self):
+        """wagtailsearch for Wagtail <=2.9 contains a niggle where terms are not
+        escaped appropriately during indexing - which is why we bleach.clean() ours
+        before passing them to the backend and we'd be fine leaving it like that.
+
+        However, Wagtail 2.10 fixes this oversight, meaning we will have to amend
+        our use of bleach.clean() to continue to get accurate results for terms
+        that feature escape-requiring characters.
+
+        This canary test should fail when we are no on a version of Wagtail
+        greater than 2.9
+
+        This test was tested in the shell:
+
+        >>> _version = list(wagtail.VERSION)
+        >>> _version
+        [2, 9, 0, 'final', 1]
+        >>> (_version[0] > 2) or (_version[0] == 2 and _version[1] > 9)
+        False
+        >>> (_version[0] > 2) or (_version[0] == 2 and _version[1] > 8)
+        True
+        >>> (_version[0] > 3) or (_version[0] == 2 and _version[1] > 9)
+        False
+        >>> (_version[0] > 1) or (_version[0] == 2 and _version[1] > 9)
+        True
+
+        """
+        _version = list(wagtail.VERSION)
+        if (_version[0] > 2) or (_version[0] == 2 and _version[1] > 9):
+            raise Exception(
+                "This common.utils._prep_search_terms needs a review that it works "
+                "as expected with Wagtail > 2.9, and if so this test needs removing."
+            )
