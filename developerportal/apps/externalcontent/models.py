@@ -201,8 +201,10 @@ class ExternalArticle(ExternalContent):
 
     # Search config
     search_fields = BasePage.search_fields + [  # Inherit search_fields from Page
-        index.SearchField("description")
         # "title" is already specced in BasePage
+        index.SearchField("description"),
+        # Add FilterFields for things we may be filtering on (eg topics)
+        index.FilterField("slug"),
     ]
 
     @property
@@ -388,8 +390,10 @@ class ExternalVideo(ExternalContent):
 
     # Search config
     search_fields = BasePage.search_fields + [  # Inherit search_fields from Page
-        index.SearchField("description")
         # "title" is already specced in BasePage
+        index.SearchField("description"),
+        # Add FilterFields for things we may be filtering on (eg topics)
+        index.FilterField("slug"),
     ]
 
     @property
