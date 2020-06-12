@@ -118,6 +118,12 @@ docker-compose build
 docker-compose exec app python manage.py migrate
 ```
 
+…and/or update the wagtailsearch index:
+
+```shell
+docker-compose exec app python manage.py wagtail_update_index
+```
+
 If things get messed up, you could (as a last resort) prune ALL Docker images, containers and volumes, and start from scratch:
 
 ```shell

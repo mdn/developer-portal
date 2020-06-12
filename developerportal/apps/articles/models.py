@@ -129,6 +129,7 @@ class Articles(BasePage):
         topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
 
         search_terms = request.GET.get(SEARCH_QUERYSTRING_KEY)
+
         resources = get_combined_articles_and_videos(
             self, q_object=topics_q, search_terms=search_terms
         )
@@ -143,7 +144,10 @@ class Articles(BasePage):
     def get_filters(self):
         from ..topics.models import Topic
 
-        return {"topics": Topic.published_objects.order_by("title")}
+        return {
+            "show_search_input": True,
+            "topics": Topic.published_objects.order_by("title"),
+        }
 
 
 class ArticleTag(TaggedItemBase):

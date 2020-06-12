@@ -7,6 +7,8 @@ from django.apps import apps
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.timezone import now as tz_now
 
+import bleach
+
 
 def _combined_query(models, fn):
     """Execute callback `fn` for each model and chain the resulting querysets."""
@@ -21,12 +23,14 @@ def _resolve_model(model):
 def _prep_search_terms(terms: str) -> str:
     """Fix up provided terms ready for passing to Wagtail's .search() model
     manager method. Note that at a lower level, for safety, the postgres_search
-    backend does escaping and quoting for us: See Lexeme().as_sql() in
+    backend ALSO does escaping and quoting for us: See Lexeme().as_sql() in
     https://github.com/wagtail/wagtail/blob/master/wagtail/contrib/postgres_search/query.py  # noqa
     """
+
     terms = unquote(terms)
     NON_SPACE_WHITESPACE = "\n\t\r"
     terms = terms.translate(str.maketrans("", "", NON_SPACE_WHITESPACE))
+    terms = bleach.clean(terms)
     terms = terms.strip()
     return terms
 

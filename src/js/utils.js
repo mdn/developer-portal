@@ -5,7 +5,6 @@
  */
 exports.parseQueryParams = () => {
   const { search } = window.location;
-
   if (!search) {
     return {};
   }
@@ -24,20 +23,14 @@ exports.parseQueryParams = () => {
   }, {});
 };
 
-/**
- * Creates an object based on a form's current input values.
- *
- * @param {object} form
- * @returns {object}
- */
-exports.parseForm = (form) => {
-  const filter = {};
-  const elements = form.querySelectorAll('input[type="checkbox"]:checked');
-  Array.from(elements).forEach((element) => {
-    if (!filter[element.name]) {
-      filter[element.name] = [];
-    }
-    filter[element.name].push(element.value);
-  });
-  return filter;
+exports.decodeFormURLEncodedSpaces = (value) => {
+  /* Turn "foo+bar" into "foo bar".
+   * Context: decodeURIComponent (used above in parseQueryParams) does not
+   * convert `+` to spaces, because the `+` is from the spec for
+   * application/x-www-form-urlenconded, not encodeURIComponent)
+   *
+   * @param {string} value
+   * @returns {string}
+   */
+  return value.replace(/\+/g, ' ');
 };

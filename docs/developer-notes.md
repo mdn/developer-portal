@@ -11,3 +11,13 @@ As a result, the changes done were all kept (as part of ticket 624) at surface l
 Streamfield blocks have been renamed from 'article' to 'post' to keep the UI consistent, but the internal use of a `type` or `resource_type` attribute on a Page instance has been left with the value 'article', not changed to 'post' because that would have been a non-visible-to-humans change.
 
 However, in the future, we may decide that we definitely want to stick with "Posts", in which case a proper model-renaming exercise is worth it, along with CSS and template-name changes, too.
+
+## Manually updating the search index
+
+While Wagtail Search will auto-update the index when a page is saved, and while there is also a scheduled task that runs once a week to rebuild it all, if you're setting up a new build or have just loaded data from a DB backup or the like, you will need to manually rebuild the search index:
+
+```
+yourhost $ docker-compose app sh
+
+/app $ python manage.py wagtail_update_index
+```
