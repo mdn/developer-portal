@@ -1,4 +1,4 @@
-const { parseForm, parseQueryParams } = require('../utils');
+const { parseQueryParams, decodeFormURLEncodedSpaces } = require('../utils');
 
 /**
  * Represents a directory page filter form; a traditional form-submission button
@@ -29,12 +29,15 @@ module.exports = class FilterForm {
     this.state = parseQueryParams();
 
     // Elements for the filter form/list.
+    // IMPORTANT: there are TWO forms in any page featuring this component: one for
+    // desktop viewports and one for mobile/collapsed-menu filtering
+
     this.clearButtons = document.querySelectorAll('.js-filter-clear');
-    this.clearSectionEls = document.querySelectorAll(
+    this.clearAllButtons = document.querySelectorAll(
       '.js-filter-form-clear-section',
     );
 
-    this.updateCheckboxes();
+    this.updateFormControls();
     this.setupEvents();
     this.updateClearVisibility();
   }
@@ -42,30 +45,60 @@ module.exports = class FilterForm {
   /** Sets up event listeners. */
   setupEvents() {
     Array.from(this.clearButtons).forEach((btn) => {
-      btn.addEventListener('click', (e) => this.uncheckInputs(e));
+      btn.addEventListener('click', (e) => this.clearInputs(e));
     });
-    this.form.addEventListener('change', () => this.onFormInput());
-  }
-
-  /** Updates state and requests new results from the server when an input is updated. */
-  onFormInput() {
-    this.state = parseForm(this.form);
+    this.form.addEventListener('submit', (e) => this.onFormSubmit(e));
   }
 
   /**
-   * Ensures the DOM reflects the current state. Used after query parameter
-   * loading.
+   * Before the form is submitted, skip over an empty search field, if
+   * present. Why? to avoid `search=` appearing in the URL whenever
+   * filters are set but there is no search term
+   *
+   * @param {Event} e
    */
-  updateCheckboxes() {
+  onFormSubmit(e) {
+    e.preventDefault();
+    const searchFields = document.querySelectorAll('.js-search-input');
+    Array.from(searchFields).forEach((field) => {
+      if (!field.value) {
+        field.setAttribute('disabled', ''); // disabled fields are not submitted to the server
+      }
+    });
+
+    this.form.submit();
+    /**
+     * Note: when this switches to an AJAX submission, remember to
+     * re-enable the search field after submission!
+     */
+  }
+
+  /**
+   * Ensures the DOM elements for the filter form (checkboxes and search input - if relevant)
+   * reflect the current state.
+   *
+   * Used after query parameter loading.
+   */
+  updateFormControls() {
     Object.entries(this.state).forEach((pair) => {
-      pair[1].forEach((value) => {
-        const el = this.form.querySelector(
-          `input[name='${pair[0]}'][value='${value}']`,
-        );
-        if (el) {
-          el.checked = true;
-        }
-      });
+      const [key, val] = pair;
+      if (key === 'search') {
+        // Search input requires specific behaviour
+        const searchInput = this.form.querySelectorAll(`input[name='${key}']`); // only one searchInput _per form_
+        /* because application/x-www-form-urlencoded has spaces turned
+         * to `+` not `%20`, we need to do a bit more work */
+        searchInput[0].value = decodeFormURLEncodedSpaces(val[0]);
+      } else {
+        // set the checkboxes as appropriate to the querystring
+        val.forEach((value) => {
+          const el = this.form.querySelector(
+            `input[name='${key}'][value='${value}']`,
+          );
+          if (el) {
+            el.checked = true;
+          }
+        });
+      }
     });
   }
 
@@ -74,24 +107,31 @@ module.exports = class FilterForm {
    *
    * @param {Event} e
    */
-  uncheckInputs(e) {
+  clearInputs(e) {
     e.preventDefault();
-    const { controls } = e.target.dataset;
-    const checkboxes = this.form.querySelectorAll('input[type=checkbox]');
-    const matchedCheckboxes = Array.from(checkboxes).filter(
-      (checkbox) =>
-        (!controls || checkbox.name === controls) && checkbox.checked,
+    const triggerEl = e.target.closest('a.js-filter-clear');
+    const { controls } = triggerEl.dataset;
+    const formInputs = this.form.querySelectorAll(
+      'input[type=checkbox], input[name="search"]',
     );
-
-    matchedCheckboxes.forEach((checkbox) => {
-      // eslint-disable-next-line no-param-reassign
-      checkbox.checked = false;
+    const matchedFormInputs = Array.from(formInputs).filter((input) => {
+      return (
+        // if there is a control group specced, is it the one we want to target?
+        (!controls || input.name === controls) &&
+        // and is the input called search or is it a checked checkbox?
+        ((input.name === 'search' && input.value) || input.checked)
+      );
     });
 
-    if (matchedCheckboxes.length) {
-      const event = new Event('change');
-      this.form.dispatchEvent(event);
-    }
+    matchedFormInputs.forEach((input) => {
+      if (input.name === 'search') {
+        // eslint-disable-next-line no-param-reassign
+        input.value = '';
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        input.checked = false;
+      }
+    });
   }
 
   /** Toggles the visibility of clear buttons depending on selected filters. */
@@ -108,28 +148,13 @@ module.exports = class FilterForm {
     });
 
     if (checkedControls.length) {
-      Array.from(this.clearSectionEls).forEach((el) =>
+      Array.from(this.clearAllButtons).forEach((el) =>
         el.removeAttribute('hidden'),
       );
     } else {
-      Array.from(this.clearSectionEls).forEach((el) =>
+      Array.from(this.clearAllButtons).forEach((el) =>
         el.setAttribute('hidden', ''),
       );
-    }
-  }
-
-  /** Updates the URL to include selected filters. */
-  updateUrlParams() {
-    const stringResult = Object.entries(this.state)
-      .map((pair) => {
-        return `${pair[0]}=${pair[1].join(',')}`;
-      }, [])
-      .join('&');
-
-    if (stringResult) {
-      window.history.replaceState({}, '', `?${stringResult}`);
-    } else {
-      window.history.replaceState({}, null, '.');
     }
   }
 };

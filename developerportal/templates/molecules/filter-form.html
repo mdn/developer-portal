@@ -104,6 +104,24 @@
     </fieldset>
   {% endif %}
 
+  {% if filters.show_search_input %}
+    <fieldset class="filter-form-section">
+      <header class="filter-form-section-header">
+        <h5>Search</h5>
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="{{SEARCH_QUERYSTRING_KEY}}">
+          <span class="icon">
+            {% include "atoms/icons/close.svg" %}
+          </span>
+          Clear
+        </a>
+      </header>
+      <label for="id_search" class="visually-hidden">
+        Search
+      </label>
+      <input id="id_search" class="filter-form-search js-search-input" name="search" value="" placeholder="Refine with keywords"/>
+    </fieldset>
+  {% endif %}
+
   <div class="filter-form-section filter-form-footer">
     <button class="js-filter-form-submit mzp-c-button mzp-t-small" type="submit">Refine results</button>
   </div>

@@ -12,13 +12,13 @@ from django.db import transaction
 from django.utils.text import slugify
 from django.utils.timezone import now as tz_now
 
+import requests
 from dateutil.parser import parse as parse_datetime
 from wagtail.admin.mail import send_notification
 from wagtail.core.models import Page
 from wagtail.embeds.blocks import EmbedValue
 
 import feedparser
-import requests
 
 from ..externalcontent import models as externalcontent_models
 from ..mozimages.models import MozImage
