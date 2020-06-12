@@ -42,6 +42,7 @@ TOPIC_QUERYSTRING_KEY = "topic"
 ROLE_QUERYSTRING_KEY = "role"
 COUNTRY_QUERYSTRING_KEY = "country"
 DATE_PARAMS_QUERYSTRING_KEY = "date"
+SEARCH_QUERYSTRING_KEY = "search"
 
 # This is a special value for the above that indicates "all previous events"
 PAST_EVENTS_QUERYSTRING_VALUE = "past"
