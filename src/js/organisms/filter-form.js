@@ -109,7 +109,8 @@ module.exports = class FilterForm {
    */
   clearInputs(e) {
     e.preventDefault();
-    const { controls } = e.target.dataset;
+    const triggerEl = e.target.closest('a.js-filter-clear');
+    const { controls } = triggerEl.dataset;
     const formInputs = this.form.querySelectorAll(
       'input[type=checkbox], input[name="search"]',
     );
@@ -118,7 +119,7 @@ module.exports = class FilterForm {
         // if there is a control group specced, is it the one we want to target?
         (!controls || input.name === controls) &&
         // and is the input called search or is it a checked checkbox?
-        (input.name === 'search' || input.checked)
+        ((input.name === 'search' && input.value) || input.checked)
       );
     });
 
