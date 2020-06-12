@@ -10,6 +10,7 @@ from developerportal.apps.common.constants import (
     LOCATION_QUERYSTRING_KEY,
     PAGINATION_QUERYSTRING_KEY,
     ROLE_QUERYSTRING_KEY,
+    SEARCH_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
 )
 from developerportal.templatetags.app_tags import (
@@ -221,6 +222,18 @@ class AppTagsTestCase(TestCase):
                 "expected_output": (
                     f"&{ROLE_QUERYSTRING_KEY}=test"
                     f"&{TOPIC_QUERYSTRING_KEY}=css&{LOCATION_QUERYSTRING_KEY}=AR"
+                ),
+            },
+            {
+                # multiple topic and page info AND search
+                "input_querystring": (
+                    f"?{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{PAGINATION_QUERYSTRING_KEY}=2"
+                    f"&{SEARCH_QUERYSTRING_KEY}=test+string"
+                ),
+                "expected_output": (
+                    f"&{TOPIC_QUERYSTRING_KEY}=css&{TOPIC_QUERYSTRING_KEY}=javascript"
+                    f"&{SEARCH_QUERYSTRING_KEY}=test+string"  # note: still escaped
                 ),
             },
         ]

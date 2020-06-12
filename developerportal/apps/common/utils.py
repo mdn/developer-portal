@@ -1,6 +1,7 @@
 import datetime
 from itertools import chain
 from operator import attrgetter
+from urllib.parse import unquote
 
 from django.apps import apps
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -17,8 +18,27 @@ def _resolve_model(model):
     return apps.get_model(model) if isinstance(model, str) else model
 
 
+def _prep_search_terms(terms: str) -> str:
+    """Fix up provided terms ready for passing to Wagtail's .search() model
+    manager method. Note that at a lower level, for safety, the postgres_search
+    backend does escaping and quoting for us: See Lexeme().as_sql() in
+    https://github.com/wagtail/wagtail/blob/master/wagtail/contrib/postgres_search/query.py  # noqa
+    """
+    terms = unquote(terms)
+    NON_SPACE_WHITESPACE = "\n\t\r"
+    terms = terms.translate(str.maketrans("", "", NON_SPACE_WHITESPACE))
+    terms = terms.strip()
+    return terms
+
+
 def get_resources(
-    page, models, filters=None, q_object=None, order_by=None, reverse=False
+    page,
+    models,
+    filters=None,
+    q_object=None,
+    search_terms=None,
+    order_by=None,
+    reverse=False,
 ):
     """Get resources for provided models matching filters.
 
@@ -26,6 +46,7 @@ def get_resources(
         page - the current page, used to exclude from queries.
         models - a list of app.model strings, or Models.
         filters - optional dictionary of queryset filters.
+        search_terms - optional string of search terms
         q_object - optional way to run a more complex query
         order_by - key to order the combined set by, must be common to all models.
         reverse - whether to reverse the combined set, default false.
@@ -35,7 +56,14 @@ def get_resources(
         qs = model.published_objects
         if q_object:
             qs = qs.filter(q_object)
-        return qs.filter(**filters).not_page(page).specific()
+
+        qs = qs.filter(**filters).not_page(page).specific()
+
+        if search_terms:
+            # This has to come after .filter() because PostgresSearchResults
+            # does not offer .filter() as a method
+            qs = qs.search(_prep_search_terms(search_terms))
+        return qs
 
     result = _combined_query(models, callback)
     return sorted(set(result), key=attrgetter(order_by), reverse=reverse)
@@ -52,7 +80,7 @@ def get_combined_articles(page, **filters):
     )
 
 
-def get_combined_articles_and_videos(page, q_object=None, **filters):
+def get_combined_articles_and_videos(page, q_object=None, search_terms=None, **filters):
     """Get internal and external articles and videos matching filters."""
     return get_resources(
         page,
@@ -64,6 +92,7 @@ def get_combined_articles_and_videos(page, q_object=None, **filters):
         ],
         filters=filters,
         q_object=q_object,
+        search_terms=search_terms,
         order_by="date",
         reverse=True,
     )

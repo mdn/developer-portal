@@ -44,6 +44,7 @@ LOCATION_QUERYSTRING_KEY = (
     "location"
 )  #  NB this is used with the `country` field on page models
 DATE_PARAMS_QUERYSTRING_KEY = "date"
+SEARCH_QUERYSTRING_KEY = "search"
 
 # This is a special value for the above that indicates "all previous events"
 PAST_EVENTS_QUERYSTRING_VALUE = "past"
