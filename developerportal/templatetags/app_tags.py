@@ -3,6 +3,7 @@ import logging
 import os
 import re
 from mimetypes import guess_type
+from urllib.parse import quote_plus
 
 from django import template
 from django.conf import settings
@@ -16,6 +17,7 @@ from developerportal.apps.common.constants import (
     ENVIRONMENT_STAGING,
     LOCATION_QUERYSTRING_KEY,
     ROLE_QUERYSTRING_KEY,
+    SEARCH_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
 )
 
@@ -124,22 +126,27 @@ def pagination_additional_filter_params(request):
     """
 
     QUERY_PARAMS_TO_PASS_ON = (
-        # PAGINATION_QUERYSTRING_KEY,  # we DON'T want the page param
+        # PAGINATION_QUERYSTRING_KEY,  # we DON'T want this one: it's added separately
         TOPIC_QUERYSTRING_KEY,
         ROLE_QUERYSTRING_KEY,
         LOCATION_QUERYSTRING_KEY,
         DATE_PARAMS_QUERYSTRING_KEY,
+        SEARCH_QUERYSTRING_KEY,
     )
 
     output_params_strings = []
 
     input_keys = request.GET.keys()
+
     for input_key in input_keys:
         if input_key not in QUERY_PARAMS_TO_PASS_ON:
             continue
         input_params = request.GET.getlist(input_key)
         for input_param in input_params:
-            output_params_strings.append(f"{input_key}={input_param}")
+            # Note that using `urllib.parse.quote` avoids spaces appearing in
+            # the output, which breaks Safari (because the space triggers a web
+            # search, not a HTTP request to the site)
+            output_params_strings.append(f"{input_key}={quote_plus(input_param)}")
 
     joined_params = "&".join(output_params_strings)
     if joined_params:
