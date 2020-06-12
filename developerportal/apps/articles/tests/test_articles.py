@@ -1,3 +1,8 @@
+from unittest import mock
+
+from django.db.models import Q
+from django.test import RequestFactory, TestCase
+
 from developerportal.apps.common.test_helpers import PatchedWagtailPageTests
 
 from ...home.models import HomePage
@@ -59,3 +64,60 @@ class ArticlesTests(PatchedWagtailPageTests):
     def test_articles_page_subpages(self):
         """The Articles page should only have article child pages."""
         self.assertAllowedSubpageTypes(Articles, {Article})
+
+
+class ArticlesSearchTests(TestCase):
+    "Tests for the search behaviour used by Articles().get_resources()"
+
+    fixtures = ["common.json"]
+
+    @classmethod
+    def setUpTestData(cls):
+        # Note: relies on migrations to have populated the test DB
+        cls.page = Articles.objects.first()
+
+    @mock.patch("developerportal.apps.articles.models.get_combined_articles_and_videos")
+    def test_get_resources__calls_correct_params__no_params(
+        self, mock_get_combined_articles_and_videos
+    ):
+        request = RequestFactory().get("/posts/")
+        self.page.get_resources(request)
+        mock_get_combined_articles_and_videos.assert_called_once_with(
+            self.page, q_object=Q(), search_terms=None
+        )
+
+    @mock.patch("developerportal.apps.articles.models.get_combined_articles_and_videos")
+    def test_get_resources__calls_correct_params__search_terms_only(
+        self, mock_get_combined_articles_and_videos
+    ):
+        request = RequestFactory().get("/posts/?search=test%20test%20%3Ctest%3E")
+        self.page.get_resources(request)
+        mock_get_combined_articles_and_videos.assert_called_once_with(
+            self.page, q_object=Q(), search_terms="test test <test>"
+        )
+
+    @mock.patch("developerportal.apps.articles.models.get_combined_articles_and_videos")
+    def test_get_resources__search_terms_and_filters(
+        self, mock_get_combined_articles_and_videos
+    ):
+        request = RequestFactory().get(
+            "/posts/?topic=foo&topic=bar&search=testing%20test%20%3Ctesting%3E"
+        )
+        self.page.get_resources(request)
+        mock_get_combined_articles_and_videos.assert_called_once_with(
+            self.page,
+            q_object=Q(topics__topic__slug__in=["foo", "bar"]),
+            search_terms="testing test <testing>",
+        )
+
+    @mock.patch("developerportal.apps.articles.models.get_combined_articles_and_videos")
+    def test_get_resources__no_search_terms_and_filters(
+        self, mock_get_combined_articles_and_videos
+    ):
+        request = RequestFactory().get("/posts/?topic=foo&topic=bar")
+        self.page.get_resources(request)
+        mock_get_combined_articles_and_videos.assert_called_once_with(
+            self.page,
+            q_object=Q(topics__topic__slug__in=["foo", "bar"]),
+            search_terms=None,
+        )
