@@ -19,7 +19,9 @@ from wagtail.core.models import Page
 from wagtail.embeds.blocks import EmbedValue
 
 import feedparser
+from bs4 import BeautifulSoup
 
+from ..common.constants import DESCRIPTION_MAX_LENGTH
 from ..externalcontent import models as externalcontent_models
 from ..mozimages.models import MozImage
 from ..videos import models as video_models
@@ -50,6 +52,41 @@ def _get_item_image(entry) -> str:
     return ""
 
 
+def _get_item_description(entry) -> str:
+    """If an entry has a description field, grab it, suitable for use in
+    a RichText field"""
+
+    desc = ""
+
+    if entry and getattr(entry, "description") is not None:
+
+        # If it's a multi-line description, we only want the first
+        desc = entry.description.split("\n")[0]
+
+        # Extract the string within the first <p>, if any, in the content
+        # (eg this is how Wordpress appears to format it for Mozilla Hacks)
+        soup = BeautifulSoup(desc, features="lxml")
+        try:
+            desc = soup.find("p").text
+        except AttributeError as ae:
+            logger.warning("Problem with ingesting description from %s: %s", desc, ae)
+            desc = None  # Ditch anything we've got as `desc` as it's not right
+
+        if desc:
+            # truncate, allowing space to wrap in a <p>
+            max_length = DESCRIPTION_MAX_LENGTH - (len("<p>") + len("</p>"))
+            desc = desc[:max_length]
+
+        # Ensure wrapped in something that can go into a rich-text field
+        if desc:
+            desc = f"<p>{desc}</p>"
+
+        if desc is None:
+            desc = ""  # we need to emit a string, even if it's an empty one
+
+    return desc
+
+
 def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
     """For the given feed_url, fetch all entries that are timestamped since
     last_synced and return them as a list of 0...n standardised dictionaries
@@ -60,6 +97,8 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
             "title": <str> - title of the entry
             "authors": [<str>] - 0...n author names,
             "url": <str> - URL of the thing we want to link to as external content,
+            "description": <str> - description of the entry, limited to 400
+                chars, wrapped in <p>
             "image_url": <str> - URL of any accompanying image,
             "timestamp: <datetime.datetime> - item's own timestamp
         },
@@ -92,6 +131,7 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
                 title=entry.title,
                 authors=[x["name"] for x in entry.authors],
                 url=entry.link,
+                description=_get_item_description(entry),
                 image_url=_get_item_image(entry),
                 timestamp=timestamp,
             )
@@ -211,6 +251,7 @@ def _make_external_article_page(data, extra_kwargs):
         draft_title=data["title"],
         slug=_get_slug(data),
         date=data["timestamp"].date(),
+        description=data["description"],
         live=False,  # Needs to be set because default is True
         has_unpublished_changes=True,  # again, overriding a default
         owner=extra_kwargs.get("owner"),
@@ -234,6 +275,7 @@ def _make_video_page(data, extra_kwargs):
         draft_title=data["title"],
         slug=_get_slug(data),
         date=data["timestamp"].date(),
+        description=data["description"],
         live=False,  # Needs to be set because default is True
         has_unpublished_changes=True,  # again, overriding a default
         owner=extra_kwargs.get("owner"),

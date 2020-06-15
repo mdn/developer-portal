@@ -9,6 +9,7 @@ import pytz
 from dateutil.tz import tzlocal
 
 from developerportal.apps.ingestion.utils import (
+    _get_item_description,
     _get_slug,
     fetch_external_data,
     ingest_content,
@@ -100,6 +101,11 @@ class UtilsTestCaseWithoutFixtures(TestCase):
             title="ECSY Developer tools extension",
             authors=["Fernando Serrano"],
             url="https://blog.mozvr.com/ecsy-developer-tools/",
+            description=(
+                "<p>Two months ago we released ECSY, a framework-agnostic Entity "
+                "Component System library you could use to build real time "
+                "applications with the engine of your choice.</p>"
+            ),
             image_url="https://blog.mozvr.com/content/images/2019/12/ecsy-header.png",
             timestamp=datetime.datetime(2019, 12, 10, 22, 47, 43, tzinfo=pytz.UTC),
         )
@@ -116,6 +122,10 @@ class UtilsTestCaseWithoutFixtures(TestCase):
             title="Where do Browser Styles Come From?",
             authors=["Mozilla Developer"],
             url="https://www.youtube.com/watch?v=spK_S0HfzFw",
+            description=(
+                "<p>Not sure where that default 8px of margin on the body "
+                "comes from? Here's how to find out!</p>"
+            ),
             image_url="https://i4.ytimg.com/vi/spK_S0HfzFw/hqdefault.jpg",
             timestamp=datetime.datetime(2019, 12, 11, 11, 0, 10, tzinfo=tzlocal()),
         )
@@ -172,6 +182,7 @@ class UtilsTestCaseWithFixtures(TestCase):
                 title="Test one",
                 authors=["Fernando McTest"],
                 url="https://example.com/thing/one/",
+                description="<p>Test description one</p>",
                 # image_url="https://example.com/one.png",
                 # Image ingestion is tested elsewhere
                 timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
@@ -180,6 +191,7 @@ class UtilsTestCaseWithFixtures(TestCase):
                 title="Test two",
                 authors=["Alice McTest"],
                 url="https://example.com/thing/two/",
+                description="<p>Test description two</p>",
                 # image_url="https://example.com/two.png",
                 # Image ingestion is tested elsewhere
                 timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
@@ -188,6 +200,7 @@ class UtilsTestCaseWithFixtures(TestCase):
                 title="Test three",
                 authors=["Mary McTest"],
                 url="https://example.com/thing/three/",
+                description="<p>Test description three</p>",
                 # image_url="https://example.com/three.png",
                 # Image ingestion is tested elsewhere
                 timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
@@ -201,9 +214,24 @@ class UtilsTestCaseWithFixtures(TestCase):
         ingest_content(type_=IngestionConfiguration.CONTENT_TYPE_VIDEO)
         assert Video.objects.count() == 3
 
-        assert Video.objects.filter(title="Test one").count() == 1
-        assert Video.objects.filter(title="Test two").count() == 1
-        assert Video.objects.filter(title="Test three").count() == 1
+        assert (
+            Video.objects.filter(
+                title="Test one", description="<p>Test description one</p>"
+            ).count()
+            == 1
+        )
+        assert (
+            Video.objects.filter(
+                title="Test two", description="<p>Test description two</p>"
+            ).count()
+            == 1
+        )
+        assert (
+            Video.objects.filter(
+                title="Test three", description="<p>Test description three</p>"
+            ).count()
+            == 1
+        )
 
         # None of these has been published yet
         assert Video.objects.filter(first_published_at__isnull=True).count() == 3
@@ -218,6 +246,7 @@ class UtilsTestCaseWithFixtures(TestCase):
                 title="Test four",
                 authors=["Barry McTest"],
                 url="https://example.com/thing/four/",
+                description="<p>Test description four</p>",
                 # image_url="https://example.com/four.png",
                 # Image ingestion is tested elsewhere
                 timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
@@ -235,10 +264,30 @@ class UtilsTestCaseWithFixtures(TestCase):
         ingest_content(type_=IngestionConfiguration.CONTENT_TYPE_ARTICLE)
         assert ExternalArticle.objects.count() == 4
 
-        assert ExternalArticle.objects.filter(title="Test one for Post").count() == 1
-        assert ExternalArticle.objects.filter(title="Test two for Post").count() == 1
-        assert ExternalArticle.objects.filter(title="Test three for Post").count() == 1
-        assert ExternalArticle.objects.filter(title="Test four for Post").count() == 1
+        assert (
+            ExternalArticle.objects.filter(
+                title="Test one for Post", description="<p>Test description one</p>"
+            ).count()
+            == 1
+        )
+        assert (
+            ExternalArticle.objects.filter(
+                title="Test two for Post", description="<p>Test description two</p>"
+            ).count()
+            == 1
+        )
+        assert (
+            ExternalArticle.objects.filter(
+                title="Test three for Post", description="<p>Test description three</p>"
+            ).count()
+            == 1
+        )
+        assert (
+            ExternalArticle.objects.filter(
+                title="Test four for Post", description="<p>Test description four</p>"
+            ).count()
+            == 1
+        )
 
         # None of these has been published yet
         assert (
@@ -279,6 +328,7 @@ class UtilsTestCaseWithFixtures(TestCase):
                 title="Test one",
                 authors=["Fernando McTest"],
                 url="https://example.com/thing/one/",
+                description="<p>Test description</p>",
                 # image_url="https://example.com/one.png",
                 # Image ingestion is tested elsewhere
                 timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
@@ -314,6 +364,7 @@ class UtilsTestCaseWithFixtures(TestCase):
                 title="Test one",
                 authors=["Fernando McTest"],
                 url="https://example.com/thing/one/",
+                description="<p>Test description</p>",
                 # image_url="https://example.com/one.png",
                 # Image ingestion is tested elsewhere
                 timestamp=datetime.datetime(2020, 1, 10, 22, 47, 43, tzinfo=pytz.UTC),
@@ -322,7 +373,6 @@ class UtilsTestCaseWithFixtures(TestCase):
 
         mock_fetch_external_data.return_value = video_return_value
 
-        # First try Video content
         assert Video.objects.count() == 0
 
         with self.assertLogs(
@@ -342,6 +392,7 @@ class UtilsTestCaseWithFixtures(TestCase):
                     "{'title': 'Test one', "
                     "'authors': ['Fernando McTest'], "
                     "'url': 'https://example.com/thing/one/', "
+                    "'description': '<p>Test description</p>', "
                     "'timestamp': datetime.datetime(2020, 1, 10, 22, 47, 43, "
                     "tzinfo=<UTC>), 'owner': <User: ingestion_user>}"
                 ),
@@ -402,6 +453,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         data = dict(
             title="ECSY Developer tools extension",
             authors=["Fernando Serrano"],  # not used for now
+            description="<p>Test description</p>",
             url="https://blog.mozvr.com/ecsy-developer-tools/",
             image_url="https://blog.mozvr.com/content/images/2019/12/ecsy-header.png",
             timestamp=datetime.datetime(2019, 12, 10, 22, 47, 43, tzinfo=pytz.UTC),
@@ -412,7 +464,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         )
         obj.refresh_from_db()
         self.assertEqual(type(obj), ExternalArticle)
-        self.assertEqual(obj.slug, "ecsy-developer-tools-extension-c0a61483f56d")
+        self.assertEqual(obj.slug, "ecsy-developer-tools-extension-6705c559c5d3")
         self.assertEqual(obj.title, data["title"])
         self.assertEqual(obj.draft_title, data["title"])
         self.assertEqual(obj.external_url, data["url"])
@@ -433,6 +485,7 @@ class UtilsTestCaseWithFixtures(TestCase):
             title="Where do Browser Styles Come From?",
             authors=["Mozilla Developer"],  # Not used for now
             url="https://www.youtube.com/watch?v=spK_S0HfzFw",
+            description="<p>Test description</p>",
             image_url="https://i4.ytimg.com/vi/spK_S0HfzFw/hqdefault.jpg",
             timestamp=datetime.datetime(2019, 12, 11, 11, 0, 10, tzinfo=tzlocal()),
         )
@@ -442,7 +495,7 @@ class UtilsTestCaseWithFixtures(TestCase):
         )
         obj.refresh_from_db()
         self.assertEqual(type(obj), Video)
-        self.assertEqual(obj.slug, "where-do-browser-styles-come-from-a36dd198ae6c")
+        self.assertEqual(obj.slug, "where-do-browser-styles-come-from-cd6673c468b5")
         self.assertEqual(obj.title, data["title"])
         self.assertEqual(obj.draft_title, data["title"])
         self.assertEqual(obj.video_url[0].value.url, data["url"])
@@ -474,3 +527,47 @@ class UtilsTestCaseWithFixtures(TestCase):
         for case in cases:
             with self.subTest(input_=case["input"], expected=case["expected"]):
                 self.assertEqual(_get_slug(case["input"]), case["expected"])
+
+    def test__get_item_description(self):
+
+        cases = [
+            {
+                "input": "<h1>header</h1><p>test description</p>",
+                "expected": "<p>test description</p>",
+                "desc_": "skips header",
+            },
+            {
+                "input": "<p>test description!</p><p>another thing</p>",
+                "expected": "<p>test description!</p>",
+                "desc_": "multiple p nodes",
+            },
+            {
+                "input": "<h1>header</h1><p>test description",
+                "expected": "<p>test description</p>",
+                "desc_": "bad HTML 1 gets fixed",
+            },
+            {
+                "input": "<h1>header</h1><p>test description!<p>another thing</p>",
+                "expected": "<p>test description!</p>",
+                "desc_": "bad HTML 2 gets fixed",
+            },
+            {
+                "input": "<h1>header</h1><span>test description.<span>",
+                "expected": "",
+                "desc_": "No <p> node - skip it entirely",
+            },
+            {"input": "", "expected": "", "desc_": "Empty string"},
+            {"input": None, "expected": "", "desc_": "Description is None"},
+            {
+                "input": f"<p>{ 'x' * 393}, but not this</p>",
+                "expected": f"<p>{ 'x' * 393}</p>",
+                "desc_": "<p> node > 400 chars gets cut, but still wrapped in <p>",
+            },
+        ]
+        for case in cases:
+            with self.subTest(label=case["desc_"]):
+
+                mock_entry = mock.Mock(description=case["input"])
+                assert mock_entry.description == case["input"]  # Confirm patch
+
+                self.assertEqual(_get_item_description(mock_entry), case["expected"])
