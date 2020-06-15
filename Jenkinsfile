@@ -39,6 +39,7 @@ def deploy(config, environment, cluster) {
         export APP_IMAGE_TAG=${tag}
         make k8s-db-migration-job
         make k8s-deployments
+        make k8s-search-index-update-job
         make k8s-hpa
         make k8s-rollout-status
       """
