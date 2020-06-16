@@ -294,6 +294,7 @@ class ExternalEvent(ExternalContent):
         index.SearchField("description"),
         # Add FilterFields for things we may be filtering on (eg topics)
         index.FilterField("slug"),
+        index.FilterField("start_date"),
     ]
 
     @property
