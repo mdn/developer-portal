@@ -8,13 +8,21 @@
 .c-primary-cta {
   .c-primary-cta-wrapper {
     box-sizing: border-box;
-    padding-bottom: $layout-sm;
     position: relative;
+    padding-bottom: $layout-sm;
     padding-top: $layout-sm;
 
-    @media #{$mq-sm} {
+    @media #{$mq-md} {
       max-width: 50%;
       min-height: 410px;
+      padding-bottom: 60px;
+      padding-top: 60px;
+    }
+
+    @media #{$mq-lg} {
+      max-width: 50%;
+      min-height: 410px;
+      padding-bottom: 0px;
       padding-top: 120px;
     }
 
@@ -44,12 +52,20 @@
     margin-top: $layout-sm;
   }
 
-  @media #{$mq-sm} {
+  @media (min-width: #{$screen-md}) {
     &.devportal-branding {
       background-image: url('/static/img/homepage@1x.png');
       background-size: 1000px 410px;
-      background-position: 37vw 0vh;
       background-repeat: no-repeat;
+
+      background-position-x: calc(100%);
+
+      @media (min-width: #{$screen-lg}) {
+        background-position-x: calc(100% - 25px);
+      }
+      @media #{$mq-lg} {
+        background-position-x: calc(100% - 95px);
+      }
       @media #{$mq-high-res} {
         background-image: url('/static/img/homepage@2x.png');
       }
