@@ -129,9 +129,9 @@ class HelperFunctionTestsWithFixtures(TestCase):
         self.assertGreater(len(items), 0)
 
     def test_get_combined_events(self):
-        """Getting combined events should not return items."""
+        """Getting combined events should return items."""
         items = get_combined_events(self.page)
-        self.assertEqual(len(items), 0)
+        self.assertEqual(len(items), 5)
 
     def test_get_combined_videos(self):
         """Getting combined articles should not return items."""
