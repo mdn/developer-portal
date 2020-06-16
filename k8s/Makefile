@@ -187,7 +187,7 @@ k8s-delete-redirector-service:
 
 k8s-delete-redirector-deployment:
 	kubectl -n ${REDIRECTOR_NAMESPACE} delete --ignore-not-found deploy ${REDIRECTOR_NAME}
-  
+
 k8s-delete-deployment-hpa:
 	${KC} delete --ignore-not-found hpa ${APP_NAME}
 
@@ -231,6 +231,15 @@ k8s-jenkins-create-rbac:
 k8s-jenkins-delete-rbac:
 	kubectl delete -f jenkins-rbac.yaml
 
+k8s-search-index-update-job: k8s-delete-search-index-update-job
+	env NEW_RELIC_APP_NAME=dev-portal-web-${TARGET_ENVIRONMENT} \
+	j2 search-index-update-job.yaml.j2 | ${KC} apply -f -
+	env JOB_NAME=search-index-update ./wait_for_job.sh
+
+k8s-delete-search-index-update-job:
+	${KC} delete --ignore-not-found job search-index-update
+
+
 ### end core tasks
 ###############################
 
@@ -244,4 +253,5 @@ k8s-jenkins-delete-rbac:
 		k8s-rollback k8s-history k8s-db-migration-job \
 		k8s-delete-db-migration-job \
 		k8s-redirector k8s-redirector-ingress k8s-redirector-service k8s-redirector-deployment \
-		k8s-delete-redirector-ingress k8s-delete-redirector-service k8s-delete-redirector-deployment
+		k8s-delete-redirector-ingress k8s-delete-redirector-service k8s-delete-redirector-deployment \
+    k8s-search-index-update-job \ k8s-delete-search-index-update-job
