@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@mozilla-protocol/core": "11.0.2",
-    "@mozilla-protocol/tokens": "5.0.3",
+    "@mozilla-protocol/tokens": "5.0.5",
     "autoprefixer": "9.7.6",
     "buble": "0.20.0",
     "buble-loader": "0.5.1",
