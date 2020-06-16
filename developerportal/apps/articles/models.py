@@ -122,9 +122,6 @@ class Articles(BasePage):
     def get_resources(self, request):
         # This Page class will show both Articles/Posts and Videos in its listing
 
-        # We can't use __in in this deeply related query, so we have to make
-        # a custom Q object instead and pass is in as a filter, then deal with
-        # it later
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
         topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
 
