@@ -291,6 +291,14 @@ class ExternalEvent(ExternalContent):
         ]
     )
 
+    # Search config
+    search_fields = BasePage.search_fields + [  # Inherit search_fields from Page
+        # "title" is already specced in BasePage
+        index.SearchField("description"),
+        # Add FilterFields for things we may be filtering on (eg topics)
+        index.FilterField("slug"),
+    ]
+
     @property
     def event(self):
         return self
