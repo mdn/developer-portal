@@ -25,8 +25,8 @@
       {% endif %}
     {% endfor %}
   </div>
-  <div id="events-list">
-    {% include "organisms/filter-list.html" with type="event" resources=events no_resources_message="No relevant events found" hide_pagination=False page_anchor="#events-list" %}
+  <div id="results-list">
+    {% include "organisms/filter-list.html" with type="event" resources=events no_resources_message="No relevant events found" hide_pagination=False %}
   </div>
   {% include "organisms/newsletter-signup.html" %}
 </main>
