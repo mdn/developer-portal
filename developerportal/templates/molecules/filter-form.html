@@ -3,7 +3,7 @@
 <form
   class="filter-form js-filter-form"
   data-controls="{{ type }}-cards"
-  action="{{request.path}}" {# so we drop any anchor/hash from the URL (eg on events) #}
+  action="{{request.path}}#results-list"
 >
   {% if filters|has_at_least_two_filters %}
   <header class="filter-form-section js-filter-form-clear-section">
