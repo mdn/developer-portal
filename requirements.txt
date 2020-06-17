@@ -7,7 +7,7 @@ django-countries==6.1.2
 django-redis==4.12.1
 gunicorn==20.0.4
 gevent==1.4.0
-greenlet==0.4.15
+greenlet==0.4.16
 gevent-socketio==0.3.6
 gevent-websocket==0.10.1
 mozilla-django-oidc==1.2.3
