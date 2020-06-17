@@ -49,8 +49,8 @@ FUTURE_EVENTS_QUERYSTRING_VALUE = "future"
 DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS = 6
 
 
-# Note: see app_tags.pagination_additional_filter_params to add support/whitelisting
-# to anynew querystring keys you add here, else they will be ignored
+# Note: see app_tags.pagination_additional_filter_params to add support
+# for any new querystring keys you add here, else they will be ignored
 ENVIRONMENT_PRODUCTION = "production"
 ENVIRONMENT_STAGING = "staging"
 ENVIRONMENT_DEVELOPMENT = "development"
