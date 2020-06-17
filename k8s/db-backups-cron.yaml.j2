@@ -1,9 +1,20 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ RDS_BACKUP_NAME }}
+  labels:
+    app: {{ RDS_BACKUP_NAME }}
+  annotations:
+    eks.amazonaws.com/role-arn: {{ RDS_BACKUP_ROLE_ARN }}
+---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: dev-portal-rds-backup
+  name: {{ RDS_BACKUP_NAME }}
+  labels:
+    app: {{ RDS_BACKUP_NAME }}
 spec:
-  schedule: {{ RDS_BACKUP_SCHEDULE }}
+  schedule: "@daily"
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 3
   successfulJobsHistoryLimit: 3
@@ -12,9 +23,11 @@ spec:
       template:
         spec:
           restartPolicy: Never
+          serviceAccountName: {{ RDS_BACKUP_NAME }}
           containers:
-            - name: dev-portal-rds-backup
+            - name: {{ RDS_BACKUP_NAME }}
               image: {{ RDS_BACKUP_IMAGE }}:{{ RDS_BACKUP_IMAGE_TAG }}
+              imagePullPolicy: IfNotPresent
               {%- if RDS_BACKUP_DEBUG_MODE == 'true' %}
               command: [ "/bin/bash", "-c", "--" ]
               args: [ "while true; do sleep 30; done;" ]
@@ -26,16 +39,6 @@ spec:
                   value: {{ RDS_BACKUP_DIR }}
                 - name: BACKUP_BUCKET
                   value: {{ RDS_BACKUP_BUCKET }}
-                - name: AWS_ACCESS_KEY_ID
-                  valueFrom:
-                    secretKeyRef:
-                      name: dev-portal-backups
-                      key: AWS_ACCESS_KEY_ID
-                - name: AWS_SECRET_ACCESS_KEY
-                  valueFrom:
-                    secretKeyRef:
-                      name: dev-portal-backups
-                      key: AWS_SECRET_ACCESS_KEY
                 - name: BACKUP_PASSWORD
                   valueFrom:
                     secretKeyRef:

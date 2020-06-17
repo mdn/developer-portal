@@ -74,13 +74,14 @@ export GOOGLE_ANALYTICS ?= 0
 export ACTIVE_ENVIRONMENT ?= production
 
 # Backup config
+export RDS_BACKUP_NAME ?= "dev-portal-rds-backups"
 export RDS_BACKUP_DBTYPE ?= 'PGSQL'
-export RDS_BACKUP_SCHEDULE ?= '@daily'
 export RDS_BACKUP_IMAGE ?= mdnwebdocs/mdn-rds-backup
-export RDS_BACKUP_IMAGE_TAG ?= 6197650
-export RDS_BACKUP_DIR ?= '/backup'
-export RDS_BACKUP_BUCKET ?= 's3://developer-portal-backups-178589013767/backups'
+export RDS_BACKUP_IMAGE_TAG ?= 88e1721
+export RDS_BACKUP_DIR ?= "/backup"
+export RDS_BACKUP_BUCKET ?= "s3://developer-portal-backups-178589013767/backups"
 export RDS_BACKUP_DEBUG_MODE ?= 'false'
+export RDS_BACKUP_ROLE_ARN ?= "arn:aws:iam::178589013767:role/developer-portal-backups-role"
 
 ###############################
 ### core tasks
