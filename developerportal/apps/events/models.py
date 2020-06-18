@@ -38,6 +38,7 @@ from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExter
 from ..common.constants import (
     DATE_PARAMS_QUERYSTRING_KEY,
     DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
+    DESCRIPTION_MAX_LENGTH,
     FUTURE_EVENTS_QUERYSTRING_VALUE,
     LOCATION_QUERYSTRING_KEY,
     MOZILLA_SUPPORT_STRING,
@@ -314,8 +315,11 @@ class Event(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
     start_date = DateField(default=datetime.date.today)
     end_date = DateField(blank=True, null=True)
@@ -377,7 +381,9 @@ class Event(BasePage):
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
-    card_description = TextField("Description", max_length=400, blank=True, default="")
+    card_description = TextField(
+        "Description", max_length=DESCRIPTION_MAX_LENGTH, blank=True, default=""
+    )
     card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,

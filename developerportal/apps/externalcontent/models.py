@@ -30,7 +30,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 from ..common.blocks import ExternalAuthorBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import DESCRIPTION_MAX_LENGTH, RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
 
 logger = logging.getLogger(__name__)
@@ -45,8 +45,11 @@ class ExternalContent(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
     external_url = URLField(
         "URL",

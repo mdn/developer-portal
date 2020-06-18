@@ -1,5 +1,7 @@
 RESOURCE_COUNT_CHOICES = ((3, "3"), (6, "6"), (9, "9"))
 
+DESCRIPTION_MAX_LENGTH = 400
+
 RICH_TEXT_FEATURES = (
     "bold",
     "blockquote",
