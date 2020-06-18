@@ -20,7 +20,7 @@ readtime==1.1.1
 wagtail==2.9
 whitenoise==5.1.0
 urlwait==1.0
-newrelic==5.14.0.142
+newrelic==5.14.1.144
 feedparser==5.2.1
 python-dateutil==2.8.1
 
