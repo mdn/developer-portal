@@ -57,6 +57,11 @@ class ArticlesTests(PatchedWagtailPageTests):
         articles_page = Articles.objects.all()[0]
         self.assertEqual("Posts", articles_page.title)
 
+    def test_page_functions_with_search_params(self):
+        # If search is misconfigured, this will 500
+        response = self.client.get("/posts/?search=test")
+        assert response.status_code == 200
+
     def test_articles_page_parent_pages(self):
         """The Articles page can exist under another page."""
         self.assertAllowedParentPageTypes(Articles, {HomePage})
