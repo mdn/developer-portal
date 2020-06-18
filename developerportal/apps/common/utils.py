@@ -20,7 +20,7 @@ def _resolve_model(model):
     return apps.get_model(model) if isinstance(model, str) else model
 
 
-def _prep_search_terms(terms: str) -> str:
+def prep_search_terms(terms: str, use_bleach=True) -> str:
     """Fix up provided terms ready for passing to Wagtail's .search() model
     manager method. Note that at a lower level, for safety, the postgres_search
     backend ALSO does escaping and quoting for us: See Lexeme().as_sql() in
@@ -66,7 +66,7 @@ def get_resources(
         if search_terms:
             # This has to come after .filter() because PostgresSearchResults
             # does not offer .filter() as a method
-            qs = qs.search(_prep_search_terms(search_terms))
+            qs = qs.search(prep_search_terms(search_terms))
         return qs
 
     result = _combined_query(models, callback)
