@@ -1,0 +1,7 @@
+<div class="filter-form-summary">
+  {% if search_string %} Searched for: '{{search_string}}'{% endif %}
+  {% if search_string and filter_string %}<br>{% endif %}
+  {% if filter_string %}
+    Filters: {{filter_string}}
+  {% endif %}
+</div>

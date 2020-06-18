@@ -10,16 +10,23 @@ from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.safestring import mark_safe
 
+from django_countries import countries
+
 from developerportal.apps.common.constants import (
     COUNTRY_QUERYSTRING_KEY,
     DATE_PARAMS_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
     ENVIRONMENT_PRODUCTION,
     ENVIRONMENT_STAGING,
+    FUTURE_EVENTS_QUERYSTRING_VALUE,
+    PAST_EVENTS_QUERYSTRING_VALUE,
+    ROLE_CHOICES,
     ROLE_QUERYSTRING_KEY,
     SEARCH_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
 )
+from developerportal.apps.common.utils import prep_search_terms
+from developerportal.apps.topics import models as topic_models
 
 register = template.Library()
 
@@ -247,3 +254,59 @@ def split_featured_items(iterable):
         output = (iterable, [], [])
 
     return output
+
+
+@register.inclusion_tag("molecules/filter-form-summary.html")
+def selected_filter_summary(request):
+    """Build a presentational string summarising the params that are used
+    in the filter-form.html template."""
+
+    date_params = request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY)
+    role_params = request.GET.getlist(ROLE_QUERYSTRING_KEY)
+    search_params = request.GET.get(SEARCH_QUERYSTRING_KEY)
+    topic_params = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
+    country_params = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+
+    SUBLIST_DELIMITER = ", "
+    LIST_DELIMITER = "; "
+
+    search_string = ""
+    date_string = ""
+
+    # Search terms
+    if search_params:
+        search_string = prep_search_terms(search_params, use_bleach=False)
+
+    #  Dates
+    if (FUTURE_EVENTS_QUERYSTRING_VALUE in date_params) and (
+        PAST_EVENTS_QUERYSTRING_VALUE in date_params
+    ):
+        date_string = "All dates"
+    elif FUTURE_EVENTS_QUERYSTRING_VALUE in date_params:
+        date_string = "Future events"
+    elif PAST_EVENTS_QUERYSTRING_VALUE in date_params:
+        date_string = "Past events"
+
+    # Topics
+    topic_string = SUBLIST_DELIMITER.join(
+        topic_models.Topic.objects.filter(slug__in=topic_params).values_list(
+            "title", flat=True
+        )
+    )
+
+    # Countries
+    countries_lookup = dict(countries)
+    countries_string = SUBLIST_DELIMITER.join(
+        [countries_lookup[x] for x in country_params if x in countries_lookup.keys()]
+    )
+
+    # Roles
+    role_lookup = dict(ROLE_CHOICES)
+    role_string = SUBLIST_DELIMITER.join(
+        [role_lookup[x] for x in role_params if x in role_lookup.keys()]
+    )
+    filter_string = LIST_DELIMITER.join(
+        x for x in [topic_string, date_string, role_string, countries_string] if x
+    )
+
+    return {"search_string": search_string, "filter_string": filter_string}

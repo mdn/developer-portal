@@ -30,7 +30,9 @@ def prep_search_terms(terms: str, use_bleach=True) -> str:
     terms = unquote(terms)
     NON_SPACE_WHITESPACE = "\n\t\r"
     terms = terms.translate(str.maketrans("", "", NON_SPACE_WHITESPACE))
-    terms = bleach.clean(terms)
+    if use_bleach:
+        # if the following is removed, check/update app_tags.selected_filter_summary
+        terms = bleach.clean(terms)
     terms = terms.strip()
     return terms
 

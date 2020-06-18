@@ -1,9 +1,12 @@
+{% load app_tags %}
+
 <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-left">
   {% if heading %}
     <h2>{{ heading }}</h2>
   {% endif %}
   <aside class="mzp-l-sidebar custom-width">
     {% comment %} filtering controls {% endcomment %}
+    {% selected_filter_summary request %}
     <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
       <summary>Filter</summary>
       {% include "molecules/filter-form.html" with resources=resources filters=filters %}

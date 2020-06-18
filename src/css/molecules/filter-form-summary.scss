@@ -1,0 +1,16 @@
+.filter-form-summary {
+  font-size: $small-font-size;
+  color: $color-nevada;
+  margin-bottom: $spacing-md;
+
+  @media #{$mq-md} {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute !important; /* stylelint-disable-line declaration-no-important */
+    width: 1px;
+  }
+}

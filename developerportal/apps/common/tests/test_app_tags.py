@@ -1,4 +1,5 @@
 from django.test import RequestFactory, TestCase, override_settings
+from django.utils.safestring import SafeText
 
 from wagtail.core.models import Page
 
@@ -19,6 +20,7 @@ from developerportal.templatetags.app_tags import (
     has_at_least_two_filters,
     is_production_site,
     pagination_additional_filter_params,
+    selected_filter_summary,
     split_featured_items,
 )
 
@@ -287,3 +289,124 @@ class AppTagsTestCase(TestCase):
         for case in cases:
             with self.subTest(case=case):
                 self.assertEqual(split_featured_items(case["input"]), case["output"])
+
+
+class AppTagsTestCaseWithFixtures(TestCase):
+
+    fixtures = ["common.json"]
+
+    def test_selected_filter_summary(self):
+        "Test the Python logic of selected_filter_summary, if not the template logic"
+        cases = [
+            {
+                "label": "No params",
+                "input": "",
+                "output": {"search_string": "", "filter_string": ""},
+            },
+            {
+                "label": "Search only",
+                "input": "search=Test+search+params",
+                "output": {"search_string": "Test search params", "filter_string": ""},
+            },
+            {
+                "label": "Single Country filter only",
+                "input": "country=GY",
+                "output": {"search_string": "", "filter_string": "Guyana"},
+            },
+            {
+                "label": "Multiple Country filters only",
+                "input": "country=DK&country=DE",
+                "output": {"search_string": "", "filter_string": "Denmark, Germany"},
+            },
+            {
+                "label": "Single Topic filter only",
+                "input": "topic=javascript",
+                "output": {"search_string": "", "filter_string": "JavaScript"},
+            },
+            {
+                "label": "Multiple Topic filter only",
+                "input": "topic=css&topic=javascript",
+                "output": {"search_string": "", "filter_string": "CSS, JavaScript"},
+            },
+            {
+                "label": "Single Role filter only",
+                "input": "role=staff",
+                "output": {"search_string": "", "filter_string": "Staff"},
+            },
+            {
+                "label": "Multiple Role filters only",
+                "input": "role=staff&role=tech-speaker",
+                "output": {"search_string": "", "filter_string": "Staff, Tech Speaker"},
+            },
+            {
+                "label": "Future Date filter only",
+                "input": "date=future",
+                "output": {"search_string": "", "filter_string": "Future events"},
+            },
+            {
+                "label": "Past Date filter only",
+                "input": "date=past",
+                "output": {"search_string": "", "filter_string": "Past events"},
+            },
+            {
+                "label": "All Date filters only",
+                "input": "date=past&date=future",
+                "output": {"search_string": "", "filter_string": "All dates"},
+            },
+            {
+                "label": "All filters - never all trigggered in real use, but possible",
+                "input": (
+                    "topic=css&topic=javascript"
+                    "&date=past&date=future"
+                    "&role=staff&role=tech-speaker"
+                    "&country=DK&country=DE"
+                ),
+                "output": {
+                    "search_string": "",
+                    "filter_string": (
+                        "CSS, JavaScript; All dates; "
+                        "Staff, Tech Speaker; Denmark, Germany"
+                    ),
+                },
+            },
+            {
+                "label": "Search and all filters",
+                "input": (
+                    "search=All+The+Things+Enabled"
+                    "&topic=css&topic=javascript"
+                    "&date=past&date=future"
+                    "&role=staff&role=tech-speaker"
+                    "&country=DK&country=DE"
+                ),
+                "output": {
+                    "search_string": "All The Things Enabled",
+                    "filter_string": (
+                        "CSS, JavaScript; All dates; "
+                        "Staff, Tech Speaker; Denmark, Germany"
+                    ),
+                },
+            },
+        ]
+
+        for case in cases:
+            with self.subTest(label=case["label"]):
+
+                path = "/"
+                if case["input"]:
+                    params = case["input"]
+                    path = f"{path}?{params}"
+
+                fake_request = RequestFactory().get(path)
+
+                self.assertEqual(selected_filter_summary(fake_request), case["output"])
+
+    def test_selected_filter_summary__search_terms_escaping(self):
+
+        fake_request = RequestFactory().get(
+            "/?search=<script>alert('hello')%3B</script>"
+        )
+        output = selected_filter_summary(fake_request)
+        _search_string = output["search_string"]
+        assert _search_string == "<script>alert('hello');</script>"
+        assert type(_search_string) != SafeText
+        assert type(_search_string) == str
