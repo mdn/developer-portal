@@ -87,6 +87,11 @@ class EventsTests(PatchedWagtailPageTests):
     def test_events_subpages(self):
         self.assertAllowedSubpageTypes(Events, {Event})
 
+    def test_page_functions_with_search_params(self):
+        # If search is misconfigured, this will 500
+        response = self.client.get("/events/?search=test")
+        assert response.status_code == 200
+
     @mock.patch("developerportal.apps.common.utils.tz_now")
     def test_events_get_events(self, mock_tz_now):
         # General test - more specific ones for the Qs are below.
@@ -175,7 +180,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=False
+            events_page, q_object=expected_q, search_terms=None, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
@@ -187,7 +192,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page = Events.published_objects.first()
         fake_request = RequestFactory().get(
-            ("/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz")
+            "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz&search=test+event"
         )
 
         # Build the query we expect to be generated
@@ -207,12 +212,79 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=False
+            events_page, q_object=expected_q, search_terms="test event", reverse=False
+        )
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    @mock.patch("developerportal.apps.events.models.get_combined_events")
+    def test_events__get_events__query__filters__no_dates__no_search(
+        self, mock_get_combined_events, mock_get_past_event_cutoff
+    ):
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+
+        events_page = Events.published_objects.first()
+        fake_request = RequestFactory().get(
+            "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
+        )
+
+        # Build the query we expect to be generated
+        # no date params past means everything for the next X months
+        overall_date_q = Q(
+            start_date__gte=datetime.date(2022, 10, 3),
+            start_date__lte=datetime.date(2023, 4, 4),
+        )
+
+        countries_q = Q(country__in=["CA", "ZA"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
+
+        expected_q = Q()
+        expected_q.add(countries_q, Q.AND)
+        expected_q.add(overall_date_q, Q.AND)
+        expected_q.add(topics_q, Q.AND)
+
+        events_page.get_events(fake_request)
+        mock_get_combined_events.assert_called_once_with(
+            events_page, q_object=expected_q, search_terms=None, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     @mock.patch("developerportal.apps.events.models.get_combined_events")
     def test_events__get_events__query__all_params_including_past_events(
+        self, mock_get_combined_events, mock_get_past_event_cutoff
+    ):
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+
+        events_page = Events.published_objects.first()
+        fake_request = RequestFactory().get(
+            (
+                "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
+                f"&date={PAST_EVENTS_QUERYSTRING_VALUE}"
+                "&search=another+test+event"
+            )
+        )
+
+        # Add the Q that INCLUDES all past events
+        overall_date_q = Q(start_date__lte=datetime.date(2022, 10, 3))
+
+        countries_q = Q(country__in=["CA", "ZA"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
+
+        expected_q = Q()
+        expected_q.add(countries_q, Q.AND)
+        expected_q.add(overall_date_q, Q.AND)
+        expected_q.add(topics_q, Q.AND)
+
+        events_page.get_events(fake_request)
+        mock_get_combined_events.assert_called_once_with(
+            events_page,
+            q_object=expected_q,
+            search_terms="another test event",
+            reverse=False,
+        )
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    @mock.patch("developerportal.apps.events.models.get_combined_events")
+    def test_events__get_events__query__filters_and_past_events__no_search(
         self, mock_get_combined_events, mock_get_past_event_cutoff
     ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
@@ -238,12 +310,44 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=False
+            events_page, q_object=expected_q, search_terms=None, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     @mock.patch("developerportal.apps.events.models.get_combined_events")
     def test_events__get_events__query__all_params_including_future_events(
+        self, mock_get_combined_events, mock_get_past_event_cutoff
+    ):
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+
+        events_page = Events.published_objects.first()
+        fake_request = RequestFactory().get(
+            (
+                "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
+                f"&date={FUTURE_EVENTS_QUERYSTRING_VALUE}"
+                f"&search=test+here"
+            )
+        )
+
+        # Add the Q that INCLUDES all future events
+        overall_date_q = Q(start_date__gte=datetime.date(2022, 10, 3))
+
+        countries_q = Q(country__in=["CA", "ZA"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
+
+        expected_q = Q()
+        expected_q.add(countries_q, Q.AND)
+        expected_q.add(overall_date_q, Q.AND)
+        expected_q.add(topics_q, Q.AND)
+
+        events_page.get_events(fake_request)
+        mock_get_combined_events.assert_called_once_with(
+            events_page, q_object=expected_q, search_terms="test here", reverse=False
+        )
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    @mock.patch("developerportal.apps.events.models.get_combined_events")
+    def test_events__get_events__query__filters_and_future_events__no_search(
         self, mock_get_combined_events, mock_get_past_event_cutoff
     ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
@@ -269,12 +373,49 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=False
+            events_page, q_object=expected_q, search_terms=None, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     @mock.patch("developerportal.apps.events.models.get_combined_events")
     def test_events__get_events__query__all_params_including_past_and_future_events(
+        self, mock_get_combined_events, mock_get_past_event_cutoff
+    ):
+        # So we show all events
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+
+        events_page = Events.published_objects.first()
+        fake_request = RequestFactory().get(
+            (
+                "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
+                f"&date={PAST_EVENTS_QUERYSTRING_VALUE}"
+                f"&date={FUTURE_EVENTS_QUERYSTRING_VALUE}"
+                f"&search=another+test+query"
+            )
+        )
+
+        # Add the Q that INCLUDES ALL event dates
+        overall_date_q = Q()
+
+        countries_q = Q(country__in=["CA", "ZA"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
+
+        expected_q = Q()
+        expected_q.add(countries_q, Q.AND)
+        expected_q.add(overall_date_q, Q.AND)
+        expected_q.add(topics_q, Q.AND)
+
+        events_page.get_events(fake_request)
+        mock_get_combined_events.assert_called_once_with(
+            events_page,
+            q_object=expected_q,
+            search_terms="another test query",
+            reverse=False,
+        )
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    @mock.patch("developerportal.apps.events.models.get_combined_events")
+    def test_events__get_events__query__filters_and_past_and_future_events__no_search(
         self, mock_get_combined_events, mock_get_past_event_cutoff
     ):
         # So we show all events
@@ -302,7 +443,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page.get_events(fake_request)
         mock_get_combined_events.assert_called_once_with(
-            events_page, q_object=expected_q, reverse=False
+            events_page, q_object=expected_q, search_terms=None, reverse=False
         )
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")

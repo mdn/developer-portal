@@ -46,6 +46,7 @@ from ..common.constants import (
     PAGINATION_QUERYSTRING_KEY,
     PAST_EVENTS_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
+    SEARCH_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
 )
 from ..common.fields import CustomStreamField
@@ -195,7 +196,7 @@ class Events(BasePage):
         return context
 
     def _build_date_q(self, date_params):
-        """Suport filtering events by 'all future events' or 'all past events' Booleans.
+        """Support filtering events by 'all future events' or 'all past events' Booleans.
 
         Arguments:
             date_params: List(str) -- list of sentinel strings of
@@ -237,6 +238,7 @@ class Events(BasePage):
         countries = request.GET.getlist(LOCATION_QUERYSTRING_KEY)
         date_params = request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
+        search_terms = request.GET.get(SEARCH_QUERYSTRING_KEY)
 
         countries_q = Q(country__in=countries) if countries else Q()
         topics_q = Q(topics__topic__slug__in=topics) if topics else Q()
@@ -252,7 +254,9 @@ class Events(BasePage):
         if topics_q:
             combined_q.add(topics_q, Q.AND)
 
-        events = get_combined_events(self, reverse=False, q_object=combined_q)
+        events = get_combined_events(
+            self, reverse=False, q_object=combined_q, search_terms=search_terms
+        )
 
         events = paginate_resources(
             events,
@@ -299,6 +303,7 @@ class Events(BasePage):
 
     def get_filters(self, request):
         return {
+            "show_search_input": True,
             "countries": self.get_relevant_countries(),
             "event_dates": self.get_event_date_options(request),
             "topics": Topic.published_objects.order_by("title"),
@@ -588,6 +593,7 @@ class Event(BasePage):
         index.SearchField("body"),
         # Add FilterFields for things we may be filtering on (eg topics)
         index.FilterField("slug"),
+        index.FilterField("start_date"),
     ]
 
     def get_context(self, request):
