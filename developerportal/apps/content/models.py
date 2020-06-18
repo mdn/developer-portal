@@ -20,7 +20,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.core.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import DESCRIPTION_MAX_LENGTH, RICH_TEXT_FEATURES_SIMPLE
 from ..common.fields import CustomStreamField
 from ..common.models import BasePage
 from ..common.validators import check_for_svg_file
@@ -42,8 +42,11 @@ class ContentPage(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
     body = CustomStreamField(
         help_text=(
@@ -78,7 +81,10 @@ class ContentPage(BasePage):
 
     # Meta fields
     nav_description = TextField(
-        "Navigation description", max_length=400, blank=True, default=""
+        "Navigation description",
+        max_length=DESCRIPTION_MAX_LENGTH,
+        blank=True,
+        default="",
     )
     icon = FileField(
         upload_to="contentpage/icons",

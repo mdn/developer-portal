@@ -22,6 +22,7 @@ from wagtail.core.fields import StreamBlock, StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock
+from ..common.constants import DESCRIPTION_MAX_LENGTH
 from ..common.models import BasePage
 
 
@@ -107,7 +108,9 @@ class HomePage(BasePage):
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
-    card_description = TextField("Description", max_length=400, blank=True, default="")
+    card_description = TextField(
+        "Description", max_length=DESCRIPTION_MAX_LENGTH, blank=True, default=""
+    )
     card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,

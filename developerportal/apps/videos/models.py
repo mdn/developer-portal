@@ -31,7 +31,12 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 from ..common.blocks import ExternalLinkBlock
-from ..common.constants import RICH_TEXT_FEATURES, RICH_TEXT_FEATURES_SIMPLE, VIDEO_TYPE
+from ..common.constants import (
+    DESCRIPTION_MAX_LENGTH,
+    RICH_TEXT_FEATURES,
+    RICH_TEXT_FEATURES_SIMPLE,
+    VIDEO_TYPE,
+)
 from ..common.models import BasePage
 from ..common.utils import get_combined_articles_and_videos
 
@@ -121,8 +126,11 @@ class Video(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
     body = RichTextField(
         blank=True,
@@ -174,7 +182,9 @@ class Video(BasePage):
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
-    card_description = TextField("Description", max_length=400, blank=True, default="")
+    card_description = TextField(
+        "Description", max_length=DESCRIPTION_MAX_LENGTH, blank=True, default=""
+    )
     card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
