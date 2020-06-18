@@ -27,7 +27,7 @@ from wagtail.core.models import Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import FeaturedExternalBlock
-from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
+from ..common.constants import DESCRIPTION_MAX_LENGTH, RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
 from ..common.utils import get_combined_articles, get_combined_videos
 from ..common.validators import check_for_svg_file
@@ -70,8 +70,11 @@ class Topic(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
     featured = StreamField(
         StreamBlock(
@@ -151,7 +154,9 @@ class Topic(BasePage):
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
-    card_description = TextField("Description", max_length=400, blank=True, default="")
+    card_description = TextField(
+        "Description", max_length=DESCRIPTION_MAX_LENGTH, blank=True, default=""
+    )
     card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
@@ -164,7 +169,10 @@ class Topic(BasePage):
 
     # Meta
     nav_description = TextField(
-        "Navigation description", max_length=400, blank=True, default=""
+        "Navigation description",
+        max_length=DESCRIPTION_MAX_LENGTH,
+        blank=True,
+        default="",
     )
     icon = FileField(
         upload_to="topics/icons",

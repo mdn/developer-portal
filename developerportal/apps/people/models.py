@@ -32,6 +32,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import (
     LOCATION_QUERYSTRING_KEY,
+    DESCRIPTION_MAX_LENGTH,
     PAGINATION_QUERYSTRING_KEY,
     RICH_TEXT_FEATURES_SIMPLE,
     ROLE_CHOICES,
@@ -63,13 +64,19 @@ class People(BasePage):
         blank=True,
         default="",
         features=RICH_TEXT_FEATURES_SIMPLE,
-        help_text="Optional short text description, max. 400 characters",
-        max_length=400,
+        help_text=(
+            "Optional short text description, "
+            f"max. {DESCRIPTION_MAX_LENGTH} characters"
+        ),
+        max_length=DESCRIPTION_MAX_LENGTH,
     )
 
     # Meta fields
     nav_description = TextField(
-        "Navigation description", max_length=400, blank=True, default=""
+        "Navigation description",
+        max_length=DESCRIPTION_MAX_LENGTH,
+        blank=True,
+        default="",
     )
     keywords = ClusterTaggableManager(through=PeopleTag, blank=True)
     icon = FileField(
@@ -227,7 +234,9 @@ class Person(BasePage):
 
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
-    card_description = TextField("Description", max_length=400, blank=True, default="")
+    card_description = TextField(
+        "Description", max_length=DESCRIPTION_MAX_LENGTH, blank=True, default=""
+    )
     card_image = ForeignKey(
         "mozimages.MozImage",
         null=True,
