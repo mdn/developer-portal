@@ -210,7 +210,7 @@ class AppTagsTestCase(TestCase):
                 ),
             },
             {
-                # Show that only whitelisted params are covered - 'evil', area'
+                # Show that only expected params are covered - 'evil', area'
                 # and 'location' will be skipped
                 "input_querystring": (
                     f"?{PAGINATION_QUERYSTRING_KEY}=234&{ROLE_QUERYSTRING_KEY}=test"
