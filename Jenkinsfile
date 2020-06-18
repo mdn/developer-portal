@@ -41,7 +41,7 @@ def deploy(config, environment, cluster) {
         make test-k8s-deployments
       """
       notify_slack([
-        status: "Verfied kubernetes deployment manifest (cluster: ${cluster})",
+        stage: "Verfied kubernetes deployment manifest (cluster: ${cluster})",
         status: 'success'
       ])
 
