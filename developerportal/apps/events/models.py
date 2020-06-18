@@ -278,6 +278,7 @@ class Events(BasePage):
 
     def get_filters(self, request):
         return {
+            "show_search_input": True,
             "countries": self.get_relevant_countries(),
             "event_dates": self.get_event_date_options(request),
             "topics": Topic.published_objects.order_by("title"),
