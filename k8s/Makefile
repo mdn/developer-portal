@@ -95,10 +95,15 @@ k8s-delete-ns:
 k8s-services:
 	j2 app.svc.yaml.j2 | ${KC} apply -f -
 
+test-k8s-services:
+	j2 app.svc.yaml.j2 | kubeval --strict --ignore-missing-schemas
+
 k8s-delete-services:
 	${KC} delete --ignore-not-found svc ${APP_SERVICE_NAME}
 
 k8s-deployments: k8s-wagtail-deployments k8s-celery-deployments k8s-celery-beat-deployments
+
+test-k8s-deployments: test-k8s-wagtail-deployments test-k8s-celery-deployments test-k8s-celery-beat-deployments
 
 k8s-delete-deployments: k8s-delete-wagtail-deployments k8s-delete-celery-deployments k8s-delete-celery-beat-deployments
 
@@ -106,17 +111,33 @@ k8s-wagtail-deployments:
 	env NEW_RELIC_APP_NAME=dev-portal-web-${TARGET_ENVIRONMENT} \
 	j2 app.deploy.yaml.j2 | ${KC} apply -f -
 
+test-k8s-wagtail-deployments:
+	env NEW_RELIC_APP_NAME=dev-portal-web-${TARGET_ENVIRONMENT} \
+	j2 app.deploy.yaml.j2 | kubeval --strict --ignore-missing-schemas
+
 k8s-celery-deployments:
 	env NEW_RELIC_APP_NAME=dev-portal-celery-${TARGET_ENVIRONMENT} \
 	env DJANGO_SETTINGS_MODULE=developerportal.settings.worker \
 	j2 celery.yaml.j2 | ${KC} apply -f -
 
+test-k8s-celery-deployments:
+	env NEW_RELIC_APP_NAME=dev-portal-celery-${TARGET_ENVIRONMENT} \
+	env DJANGO_SETTINGS_MODULE=developerportal.settings.worker \
+	j2 celery.yaml.j2 | kubeval --strict --ignore-missing-schemas
+
 k8s-celery-beat-deployments:
 	env NEW_RELIC_APP_NAME="" \
 	j2 celery-beat.yaml.j2 | ${KC} apply -f -
 
+test-k8s-celery-beat-deployments:
+	env NEW_RELIC_APP_NAME="" \
+	j2 celery-beat.yaml.j2 | kubeval --strict --ignore-missing-schemas
+
 k8s-hpa:
 	j2 hpa.yaml.j2 | ${KC} apply -f -
+
+test-k8s-hpa:
+	j2 hpa.yaml.j2 | kubeval --strict --ignore-missing-schemas
 
 k8s-delete-hpa:
 	${KC} delete --ignode-not-found deploy ${APP_NAME}
