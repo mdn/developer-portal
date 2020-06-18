@@ -129,9 +129,9 @@ class HelperFunctionTestsWithFixtures(TestCase):
         self.assertGreater(len(items), 0)
 
     def test_get_combined_events(self):
-        """Getting combined events should not return items."""
+        """Getting combined events should return items."""
         items = get_combined_events(self.page)
-        self.assertEqual(len(items), 0)
+        self.assertEqual(len(items), 5)
 
     def test_get_combined_videos(self):
         """Getting combined articles should not return items."""
@@ -346,6 +346,55 @@ class CustomSearchTests(TestCase):
         self.assertEqual(len(items), 1)
         self.assertEqual(items[0].id, 25)
         self.assertEqual(items[0].title, "ES6 In Depth: Destructuring")
+
+    def test_get_combined_events__search_terms_only(self):
+
+        cases = [
+            {
+                "desc": "No params (empty string) so no narrower scoping",
+                "terms": "",
+                "expected_count": 5,
+            },
+            {
+                "desc": "No params (None) so no narrower scoping",
+                "terms": None,
+                "expected_count": 5,
+            },
+            {
+                "desc": "Title match: Event",
+                "terms": "Test Event Four",
+                "expected_count": 1,
+                "page_ids": [66],
+            },
+            {
+                "desc": "Description match: Event",
+                "terms": "targets for search",
+                "expected_count": 1,
+                "page_ids": [66],
+            },
+            {
+                "desc": "Broader match: descriptions",
+                "terms": "Multiple match target",
+                "expected_count": 3,
+                "page_ids": [42, 65, 71],
+                # 42 is an ExternalEvent, rest are Events
+            },
+            {
+                "desc": "Targetted title match: ExternalEvent",
+                "terms": "Test External Event",
+                "expected_count": 1,
+                "page_ids": [42],
+            },
+        ]
+        for case in cases:
+            with self.subTest(msg=case["desc"]):
+                items = get_combined_events(self.page, search_terms=case["terms"])
+                _expected_count = case["expected_count"]
+                self.assertEqual(len(items), _expected_count, items)
+                if case.get("page_ids") is not None:
+                    self.assertEqual(
+                        sorted([page.id for page in items]), case["page_ids"]
+                    )
 
     def test_wagtail_version_increase(self):
         """wagtailsearch for Wagtail <=2.9 contains a niggle where terms are not

@@ -584,12 +584,136 @@
 	{
 		"model": "events.events",
 		"pk": 33,
-		"fields": {
-			"social_image": null,
-			"featured": "[]",
-			"body": "[]"
-		}
+    "fields": {
+      "social_image": null,
+      "featured": "[{\"type\": \"event\", \"value\": 39, \"id\": \"25ea15ae-c793-4e9c-98e0-27c38c736a58\"}, {\"type\": \"event\", \"value\": 65, \"id\": \"261a28e6-ecea-4f33-a852-2db7483cfe00\"}]",
+      "body": "[{\"type\": \"button\", \"value\": {\"text\": \"Here is a test button\", \"page_link\": null, \"external_link\": \"https://example.com/test\"}, \"id\": \"f28519f5-ad66-4c44-bbaf-8216641f4f25\"}]"
+    }
 	},
+  {
+    "model": "events.event",
+    "pk": 48,
+    "fields": {
+      "social_image": null,
+      "description": "",
+      "start_date": "2020-06-15",
+      "end_date": "2020-06-25",
+      "latitude": null,
+      "longitude": null,
+      "register_url": "https://example.com/register",
+      "official_website": "https://example.com/",
+      "event_content": "https://example.com/event-x-2020-summary",
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3><p></p><p>Neque enim civitas in seditione beata esse potest nec in discordia dominorum domus; Quae sequuntur igitur? Atque hoc loco similitudines eas, quibus illi uti solent, dissimillimas proferebas. Nam aliquando posse recte fieri dicunt nulla expectata nec quaesita voluptate. Duo Reges: constructio interrete. Que Manilium, ab iisque M. Vide igitur ne non debeas verbis nostris uti, sententiis tuis. Itaque in rebus minime obscuris non multus est apud eos disserendi labor. Consequatur summas voluptates non modo parvo, sed per me nihilo, si potest; In eo enim positum est id, quod dicimus esse expetendum.</p><p></p><h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4><p></p><p>Neque enim civitas in seditione beata esse potest nec in discordia dominorum domus; Quae sequuntur igitur? Atque hoc loco similitudines eas, quibus illi uti solent, dissimillimas proferebas. Nam aliquando posse recte fieri dicunt nulla expectata nec quaesita voluptate.</p><ul><li>Duo Reges: constructio interrete.</li><li>Que Manilium, ab iisque M.</li><li>Vide igitur ne non debeas verbis nostris uti, sententiis tuis.</li></ul><p></p><p>Itaque in rebus minime obscuris non multus est apud eos disserendi labor. Consequatur summas voluptates non modo parvo, sed per me nihilo, si potest; In eo enim positum est id, quod dicimus esse expetendum.</p>\", \"id\": \"97b3a287-b79a-4429-bc3f-2e71c8e2164a\"}]",
+      "venue_name": "Test Hall",
+      "venue_url": "",
+      "address_line_1": "123 Test Street",
+      "address_line_2": "",
+      "address_line_3": "",
+      "city": "Testing-on-the-Wold",
+      "state": "Testshire",
+      "zip_code": "TE55ST",
+      "country": "GB",
+      "agenda": "[]",
+      "speakers": "[]",
+      "card_title": "",
+      "card_description": "",
+      "card_image": null,
+      "card_image_3_2": null
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 65,
+    "fields": {
+      "social_image": null,
+      "description": "<p>Description text is here. Lorem ipsum <b>dolor sit amet,</b> consectetur adipiscing elit. Hoc etsi multimodis reprehendi potest, tamen accipio, quod dant. <i>Quae fere omnia appellantur uno ingenii nomine, easque virtutes qui habent, ingeniosi vocantur.</i> At iam decimum annum in spelunca iacet. Ergo illi intellegunt quid Epicurus dicat, ego non intellego? Multiple match target. </p>",
+      "start_date": "2020-02-20",
+      "end_date": null,
+      "latitude": null,
+      "longitude": null,
+      "register_url": null,
+      "official_website": "",
+      "event_content": "",
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>This is some body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quodsi ipsam honestatem undique pertectam atque absolutam. Conferam tecum, quam cuique verso rem subicias; Atqui haec patefactio quasi rerum opertarum, cum quid quidque sit aperitur, definitio est. Cum salvum esse flentes sui respondissent, rogavit essentne fusi hostes. Scientiam pollicentur, quam non erat mirum sapientiae cupido patria esse cariorem. Duo Reges: constructio interrete. Quaesita enim virtus est, non quae relinqueret naturam, sed quae tueretur.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quodsi ipsam honestatem undique pertectam atque absolutam. Conferam tecum, quam cuique verso rem subicias; Atqui haec patefactio quasi rerum opertarum, cum quid quidque sit aperitur, definitio est. Cum salvum esse flentes sui respondissent, rogavit essentne fusi hostes. Scientiam pollicentur, quam non erat mirum sapientiae cupido patria esse cariorem. Duo Reges: constructio interrete. Quaesita enim virtus est, non quae relinqueret naturam, sed quae tueretur.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quodsi ipsam honestatem undique pertectam atque absolutam. Conferam tecum, quam cuique verso rem subicias; Atqui haec patefactio quasi rerum opertarum, cum quid quidque sit aperitur, definitio est. Cum salvum esse flentes sui respondissent, rogavit essentne fusi hostes. Scientiam pollicentur, quam non erat mirum sapientiae cupido patria esse cariorem. Duo Reges: constructio interrete. Quaesita enim virtus est, non quae relinqueret naturam, sed quae tueretur.</p><p></p>\", \"id\": \"1c82d453-bea2-4a40-89f9-de8d150ce5d2\"}]",
+      "venue_name": "",
+      "venue_url": "",
+      "address_line_1": "",
+      "address_line_2": "",
+      "address_line_3": "",
+      "city": "",
+      "state": "",
+      "zip_code": "",
+      "country": "CC",
+      "agenda": "[]",
+      "speakers": "[]",
+      "card_title": "",
+      "card_description": "",
+      "card_image": null,
+      "card_image_3_2": null
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 66,
+    "fields": {
+      "social_image": null,
+      "description": "This description has some keywords that are targets for search tests",
+      "start_date": "2020-02-13",
+      "end_date": null,
+      "latitude": null,
+      "longitude": null,
+      "register_url": null,
+      "official_website": "",
+      "event_content": "",
+      "body": "[{\"type\": \"paragraph\", \"value\": \"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Illud quaero, quid ei, qui in voluptate summum bonum ponat, consentaneum sit dicere. Non est ista, inquam, Piso, magna dissensio. Sed quoniam et advesperascit et mihi ad villam revertendum est, nunc quidem hactenus; Eam stabilem appellas. Non est igitur voluptas bonum. Quae tamen a te agetur non melior, quam illae sunt, quas interdum optines. Verum tamen cum de rebus grandioribus dicas, ipsae res verba rapiunt; Duo Reges: constructio interrete.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Illud quaero, quid ei, qui in voluptate summum bonum ponat, consentaneum sit dicere. Non est ista, inquam, Piso, magna dissensio. Sed quoniam et advesperascit et mihi ad villam revertendum est, nunc quidem hactenus; Eam stabilem appellas. Non est igitur voluptas bonum. Quae tamen a te agetur non melior, quam illae sunt, quas interdum optines. Verum tamen cum de rebus grandioribus dicas, ipsae res verba rapiunt; Duo Reges: constructio interrete.</p>\", \"id\": \"7450504a-7c98-4de4-88c9-82173dcedc28\"}]",
+      "venue_name": "",
+      "venue_url": "",
+      "address_line_1": "",
+      "address_line_2": "",
+      "address_line_3": "",
+      "city": "",
+      "state": "",
+      "zip_code": "",
+      "country": "AS",
+      "agenda": "[]",
+      "speakers": "[]",
+      "card_title": "",
+      "card_description": "",
+      "card_image": null,
+      "card_image_3_2": null
+    }
+  },
+  {
+    "model": "events.event",
+    "pk": 71,
+    "fields": {
+      "social_image": null,
+      "description": "<p>Description text here, not body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Illud quaero, quid ei, qui in voluptate summum bonum ponat, consentaneum sit dicere. Superiores tres erant, quae esse possent, quarum est una sola defensa, eaque vehementer. Tum Piso: Quoniam igitur aliquid omnes, quid Lucius noster? Duo Reges: constructio interrete. Multiple match target. </p>",
+      "start_date": "2020-04-02",
+      "end_date": null,
+      "latitude": null,
+      "longitude": null,
+      "register_url": null,
+      "official_website": "",
+      "event_content": "",
+      "body": "[]",
+      "venue_name": "",
+      "venue_url": "",
+      "address_line_1": "",
+      "address_line_2": "",
+      "address_line_3": "",
+      "city": "",
+      "state": "",
+      "zip_code": "",
+      "country": "",
+      "agenda": "[]",
+      "speakers": "[]",
+      "card_title": "",
+      "card_description": "",
+      "card_image": null,
+      "card_image_3_2": null
+    }
+  },
 	{
 		"model": "externalcontent.externalcontent",
 		"pk": 39,
@@ -624,6 +748,17 @@
 		}
 	},
 	{
+		"model": "externalcontent.externalcontent",
+		"pk": 42,
+		"fields": {
+			"social_image": null,
+			"description": "<p>An External Event. Multiple match target.</p>",
+			"external_url": "https://www.example.com/test-event",
+			"card_image": null,
+			"card_image_3_2": null
+		}
+	},
+	{
 		"model": "externalcontent.externalarticle",
 		"pk": 39,
 		"fields": {
@@ -651,6 +786,16 @@
 		}
 	},
 	{
+		"model": "externalcontent.externalevent",
+		"pk": 42,
+		"fields": {
+			"start_date": "2020-05-29",
+      "end_date": null,
+      "city": "",
+      "country": ""
+		}
+	},
+	{
 		"model": "home.homepage",
 		"pk": 3,
 		"fields": {
@@ -668,66 +813,6 @@
 			"card_title": "",
 			"card_description": "",
 			"card_image": null
-		}
-	},
-	{
-		"model": "ingestion.ingestionconfiguration",
-		"pk": 1,
-		"fields": {
-			"source_name": "Mozilla Hacks",
-			"integration_type": "ExternalArticle",
-			"source_url": "https://hacks.mozilla.org/feed/",
-			"last_sync": "2020-01-01T00:00:00Z"
-		}
-	},
-	{
-		"model": "ingestion.ingestionconfiguration",
-		"pk": 2,
-		"fields": {
-			"source_name": "Mozilla Developer (YouTube)",
-			"integration_type": "Video",
-			"source_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCh5UlGiu9d6LegIeUCW4N1w",
-			"last_sync": "2020-01-01T00:00:00Z"
-		}
-	},
-	{
-		"model": "ingestion.ingestionconfiguration",
-		"pk": 3,
-		"fields": {
-			"source_name": "Layout Land (YouTube)",
-			"integration_type": "Video",
-			"source_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC7TizprGknbDalbHplROtag",
-			"last_sync": "2020-01-01T00:00:00Z"
-		}
-	},
-	{
-		"model": "ingestion.ingestionconfiguration",
-		"pk": 4,
-		"fields": {
-			"source_name": "Mozilla Hacks (YouTube)",
-			"integration_type": "Video",
-			"source_url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCijjo5gfAscWgNCKFHWm1EA",
-			"last_sync": "2020-01-01T00:00:00Z"
-		}
-	},
-	{
-		"model": "ingestion.ingestionconfiguration",
-		"pk": 5,
-		"fields": {
-			"source_name": "Mixed Reality Blog",
-			"integration_type": "ExternalArticle",
-			"source_url": "https://blog.mozvr.com/rss",
-			"last_sync": "2020-01-01T00:00:00Z"
-		}
-	},
-	{
-		"model": "ingestion.ingestionconfiguration",
-		"pk": 6,
-		"fields": {
-			"source_name": "Add-ons Blog",
-			"integration_type": "ExternalArticle",
-			"source_url": "https://blog.mozilla.org/addons/feed",
-			"last_sync": "2020-01-01T00:00:00Z"
 		}
 	},
 	{
@@ -2145,6 +2230,170 @@
 			"live_revision": null
 		}
 	},
+	{
+		"model": "wagtailcore.page",
+		"pk": 42,
+		"fields": {
+			"path": "00010204",
+			"depth": 2,
+			"numchild": 0,
+			"title": "Test External Event",
+			"draft_title": "Test External Event",
+			"slug": "test-external-event",
+			"content_type": [
+				"externalcontent",
+				"externalevent"
+			],
+			"live": true,
+			"has_unpublished_changes": false,
+			"url_path": "/test-external-event/",
+			"owner": null,
+			"seo_title": "",
+			"show_in_menus": false,
+			"search_description": "",
+			"go_live_at": null,
+			"expire_at": null,
+			"expired": false,
+			"locked": false,
+			"locked_at": null,
+			"locked_by": null,
+			"first_published_at": "2020-05-29T21:52:43.104Z",
+			"last_published_at": "2020-05-29T21:52:43.104Z",
+			"latest_revision_created_at": "2020-05-29T21:52:43.075Z",
+			"live_revision": null
+		}
+	},  {
+    "model": "wagtailcore.page",
+    "pk": 48,
+    "fields": {
+      "path": "0001000100040001",
+      "depth": 4,
+      "numchild": 0,
+      "title": "event 1",
+      "draft_title": "event 1",
+      "slug": "test-event-1",
+      "content_type": [
+        "events",
+        "event"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/events/test-event-1/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "first_published_at": "2019-11-05T12:09:32.484Z",
+      "last_published_at": "2020-03-30T16:19:39.332Z",
+      "latest_revision_created_at": "2020-03-30T16:19:39.272Z",
+      "live_revision": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 71,
+    "fields": {
+      "path": "0001000100040008",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Test Event Two",
+      "draft_title": "Test Event Two",
+      "slug": "test-event-two",
+      "content_type": [
+        "events",
+        "event"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/events/test-event-two/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "first_published_at": "2019-12-11T17:02:42.601Z",
+      "last_published_at": "2020-05-12T14:38:39.446Z",
+      "latest_revision_created_at": "2020-05-12T14:38:39.385Z",
+      "live_revision": null
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 65,
+    "fields": {
+      "path": "0001000100040002",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Test Event 3",
+      "draft_title": "Test Event 3",
+      "slug": "event-three",
+      "content_type": [
+        "events",
+        "event"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/events/event-three/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "first_published_at": "2019-12-11T16:03:27.036Z",
+      "last_published_at": "2020-05-12T14:23:54.419Z",
+      "latest_revision_created_at": "2020-05-12T14:23:54.364Z",
+      "live_revision": null
+    }
+  },
+    {
+    "model": "wagtailcore.page",
+    "pk": 66,
+    "fields": {
+      "path": "0001000100040003",
+      "depth": 4,
+      "numchild": 0,
+      "title": "Test Event Four",
+      "draft_title": "Test Event Four",
+      "slug": "event-four",
+      "content_type": [
+        "events",
+        "event"
+      ],
+      "live": true,
+      "has_unpublished_changes": false,
+      "url_path": "/home/events/event-four/",
+      "owner": null,
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "go_live_at": null,
+      "expire_at": null,
+      "expired": false,
+      "locked": false,
+      "locked_at": null,
+      "locked_by": null,
+      "first_published_at": "2019-12-11T16:03:27.036Z",
+      "last_published_at": "2020-05-12T14:23:54.419Z",
+      "latest_revision_created_at": "2020-05-12T14:23:54.364Z",
+      "live_revision": null
+    }
+  },
 	{
 		"model": "wagtailcore.collection",
 		"pk": 1,
