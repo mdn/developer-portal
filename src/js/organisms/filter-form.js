@@ -1,5 +1,8 @@
 const { parseQueryParams, decodeFormURLEncodedSpaces } = require('../utils');
 
+const SEARCH_SUMMARY_SPAN_SELECTOR = '.js-filter-form-summary--search';
+const FILTERS_SUMMARY_SPAN_SELECTOR = '.js-filter-form-summary--filters';
+
 /**
  * Represents a directory page filter form; a traditional form-submission button
  * triggers server-side rendering of appropriately filtered results
@@ -103,6 +106,30 @@ module.exports = class FilterForm {
   }
 
   /**
+   * Wipe the contents of the search part of the search+filters summary
+   *
+   */
+  clearSearchSummary() {
+    this.clearSummary(SEARCH_SUMMARY_SPAN_SELECTOR);
+  }
+
+  /**
+   * Wipe the contents of the search part of the search+filters summary
+   *
+   */
+  clearFilterSummary() {
+    this.clearSummary(FILTERS_SUMMARY_SPAN_SELECTOR);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  clearSummary(selector) {
+    const els = document.querySelectorAll(selector);
+    if (els && els.length === 1) {
+      els[0].innerHTML = '';
+    }
+  }
+
+  /**
    * Uncheck checkboxes by the section they appear in.
    *
    * @param {Event} e
@@ -127,9 +154,11 @@ module.exports = class FilterForm {
       if (input.name === 'search') {
         // eslint-disable-next-line no-param-reassign
         input.value = '';
+        this.clearSearchSummary();
       } else {
         // eslint-disable-next-line no-param-reassign
         input.checked = false;
+        this.clearFilterSummary();
       }
     });
   }
