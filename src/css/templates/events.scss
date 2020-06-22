@@ -4,3 +4,11 @@ body.events {
     margin-top: -24px;
   }
 }
+
+.events-filter-header {
+  // we only want to show this on non-mobile viewports
+  @media #{$mq-md} {
+    display: none;
+    visibility: hidden;
+  }
+}
