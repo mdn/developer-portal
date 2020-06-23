@@ -1,10 +1,7 @@
 const FilterForm = require('../organisms/filter-form');
 
 // I wish there was a nicer way to get real HTML in here, rather than load a static copy-paste
-const {
-  PostsFilterFormTestHTML,
-  PostsFilterFormTestHTMLWithSummaryData,
-} = require('./filter-form-mock-html');
+const { PostsFilterFormTestHTML } = require('./filter-form-mock-html');
 
 describe('test FilterForm bootstrapping behaviour', () => {
   const { location } = window;
@@ -410,93 +407,5 @@ describe('test FilterForm clearing fields', () => {
     Array.from(document.querySelectorAll('.js-search-input')).forEach((el) => {
       expect(el.value).toBe('');
     });
-  });
-});
-
-describe('test FilterForm clearing also clears mobile summary', () => {
-  const { location } = window;
-
-  beforeAll(() => {
-    delete window.location;
-    window.location = {
-      href: '',
-      search: '',
-    };
-  });
-
-  afterAll(() => {
-    window.location = location;
-  });
-
-  beforeEach(async () => {
-    // include HTML that simulates there being content in the summary div
-    document.body.innerHTML = PostsFilterFormTestHTMLWithSummaryData;
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--search').length,
-    ).toBe(1);
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--search')[0].innerHTML,
-    ).toBe("Searched for: 'test test'");
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--filters').length,
-    ).toBe(1);
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--filters')[0]
-        .innerHTML,
-    ).toBe("Filters: 'test test'");
-  });
-
-  test('test clearing search fields empties the search summary shown for mobile', () => {
-    window.location.search = '?topic=css&topic=javascript&search=test+test';
-    window.location.href = `https://example.com/${window.location.search}`;
-
-    FilterForm.init();
-
-    document
-      .querySelectorAll('.js-filter-clear[data-controls="search"]')[0]
-      .click();
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--search')[0].innerHTML,
-    ).toBe('');
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--filters')[0]
-        .innerHTML,
-    ).toBe("Filters: 'test test'");
-  });
-
-  test('test clearing any filter fields empties the filter summary shown for mobile', () => {
-    FilterForm.init();
-    document
-      .querySelectorAll('.js-filter-clear[data-controls="topic"]')[0]
-      .click();
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--search')[0].innerHTML,
-    ).toBe("Searched for: 'test test'");
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--filters')[0]
-        .innerHTML,
-    ).toBe('');
-  });
-
-  test('test clearing all params empties the search summary AND filter summary', () => {
-    FilterForm.init();
-    document
-      .querySelectorAll('.js-filter-form-clear-section a.js-filter-clear')[0]
-      .click();
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--search')[0].innerHTML,
-    ).toBe('');
-
-    expect(
-      document.querySelectorAll('.js-filter-form-summary--filters')[0]
-        .innerHTML,
-    ).toBe('');
   });
 });

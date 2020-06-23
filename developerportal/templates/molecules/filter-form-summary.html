@@ -1,17 +1,7 @@
-<div class="filter-form-summary js-filter-form-summary">
-
-  {% if search_string %}
-    <span class="js-filter-form-summary--search">
-      Searched for: '{{search_string}}'
-    </span>
-  {% endif %}
-
+<div class="filter-form-summary">
+  {% if search_string %} Searched for: '{{search_string}}'{% endif %}
   {% if search_string and filter_string %}<br>{% endif %}
-
   {% if filter_string %}
-    <span class="js-filter-form-summary--filters">
-      Filters: {{filter_string}}
-    </span>
+    Filters: {{filter_string}}
   {% endif %}
-
 </div>

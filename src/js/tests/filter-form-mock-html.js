@@ -1,8 +1,6 @@
 exports.PostsFilterFormTestHTML = `
   <aside class="mzp-l-sidebar custom-width">
 
-    <div class="filter-form-summary js-filter-form-summary"></div>
-
     <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
       <summary>Filter</summary>
 
@@ -176,11 +174,3 @@ exports.PostsFilterFormTestHTML = `
       </form>
     </div>
   </aside>`;
-
-exports.PostsFilterFormTestHTMLWithSummaryData = this.PostsFilterFormTestHTML.replace(
-  `<div class="filter-form-summary js-filter-form-summary"></div>`,
-  `<div class="filter-form-summary js-filter-form-summary">
-      <span class="js-filter-form-summary--search">Searched for: 'test test'</span>
-      <span class="js-filter-form-summary--filters">Filters: 'test test'</span>
-    </div>`,
-);
