@@ -44,6 +44,14 @@ class TopicsTests(PatchedWagtailPageTests):
 
     fixtures = ["common.json"]
 
+    def setUp(self):
+        # purge any Topic titles we unintentionally cache
+        cache.clear()
+
+    def tearDown(self):
+        # purge any Topic titles we unintentionally cache
+        cache.clear()
+
     def test_topics__page_parent_pages(self):
         """The Topics page can exist under another page."""
         self.assertAllowedParentPageTypes(Topics, {HomePage})
