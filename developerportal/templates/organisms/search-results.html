@@ -1,13 +1,18 @@
-<div class="search-results">
+<div id="results-list" class="search-results">
 {% if search_results %}
   <h4 class="search-results-summary">
-    {{search_results|length}} results for "{{search_query}}"
+    {{total_results}} result{{total_results|pluralize}} found for "{{search_query}}"
   </h4>
   <ul class="search-results-items">
   {% for result in search_results %}
     {% include "molecules/search-result.html" with page=result.specific only %}
   {% endfor %}
   </ul>
+  {% if search_results %}
+
+    {% include "molecules/pagination.html" with items=search_results %}
+  {% endif %}
+
 {% elif search_query %}
   <div class="no-results">
     <h3>No results found for "{{search_query}}"</h3>

@@ -20,15 +20,15 @@
     ">
 
     <main role="main" class="mzp-l-main custom-width">
-      {% include "organisms/search-results.html" with search_query=search_query search_results=search_results only %}
+      {% include "organisms/search-results.html" with total_results=total_results search_query=search_query search_results=search_results %}
     </main>
 
     <aside class="mzp-l-sidebar custom-width">
       <form class="site-search-form" action="{% url 'search.site_search' %}" method="get">
-        <label for="id_query" class="visually-hidden">
+        <label for="id_query">
           Search this site
         </label>
-        <input class="site-search-field" id="id_query" type="text" name="query" placeholder="Search this site" value="{{ search_query|default:'' }}">
+        <input class="site-search-field" id="id_query" type="text" name="{{SEARCH_QUERYSTRING_KEY}}" placeholder="Enter search terms" value="{{ search_query|default:'' }}">
         <input class="mzp-c-button mzp-t-small" type="submit" value="Search">
       </form>
     </aside>
