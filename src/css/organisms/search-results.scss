@@ -1,0 +1,14 @@
+.search-results {
+  .search-results-summary {
+    color: $color-marketing-gray-60;
+  }
+  .no-results {
+    // padding: 60px 0;
+    // text-align: center;
+    height: 20vmax;
+
+    h3::after {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.search-result-item {
+  margin-left: calc(#{$spacing-sm} * -1);
+  margin-bottom: $spacing-md;
+  .mzp-c-card-block-link {
+    padding: $spacing-sm $spacing-sm $spacing-xs $spacing-sm;
+  }
+
+  h4 {
+    margin-bottom: 0.2em;
+  }
+
+  .search-result-title {
+    margin-right: $spacing-md;
+  }
+
+  .search-result-type {
+    color: $color-white;
+    background-color: $color-marketing-gray-60;
+    font-size: 0.7em;
+    padding: 2px 4px;
+    border-radius: 4px;
+    width: auto;
+    display: inline-block;
+    line-height: 1em;
+  }
+}

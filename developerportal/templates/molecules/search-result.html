@@ -1,0 +1,16 @@
+{% load wagtailcore_tags %}
+{% load app_filters %}
+
+<li class="mzp-c-card mzp-c-card-medium search-result-item">
+  <a class="mzp-c-card-block-link" href="{% pageurl page %}">
+  <h4>
+    <span class="search-result-title">{{ page.title }}</span>
+    {% with page|page_type_label as label %}
+      {% if label %}
+        <span class="search-result-type">{{label}}</span>
+      {% endif %}
+    {% endwith %}
+  </h4>
+  {{ page.card_description|default:page.description|richtext|truncatechars_html:140 }}
+  </a>
+</li>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% wagtail_site as current_site %}
+
+{% block title %}Search - {{current_site.site_name}} {% endblock %}
+
+{% block body_class %}site-search{% endblock %}
+
+{% block content %}
+  {% static "img/icons/article-white.svg" as page_icon_asset_url %}
+  {% include "molecules/header-strip.html" with content="Search" element="h1" page_icon_asset_url=page_icon_asset_url %}
+
+  <div
+    class="
+      mzp-l-content
+      mzp-has-sidebar
+      mzp-l-sidebar-right
+      {% if not search_results %}no-results{% endif %}
+    ">
+
+    <main role="main" class="mzp-l-main custom-width">
+      {% include "organisms/search-results.html" with search_query=search_query search_results=search_results only %}
+    </main>
+
+    <aside class="mzp-l-sidebar custom-width">
+      <form class="site-search-form" action="{% url 'search.site_search' %}" method="get">
+        <label for="id_query" class="visually-hidden">
+          Search this site
+        </label>
+        <input class="site-search-field" id="id_query" type="text" name="query" placeholder="Search this site" value="{{ search_query|default:'' }}">
+        <input class="mzp-c-button mzp-t-small" type="submit" value="Search">
+      </form>
+    </aside>
+
+  </div>
+{% endblock %}
