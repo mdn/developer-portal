@@ -295,7 +295,6 @@ class Video(BasePage):
         index.SearchField("body"),
         # Add FilterFields for things we may be filtering on (eg topics)
         index.FilterField("slug"),
-        index.FilterField("body"),
     ]
 
     def get_absolute_url(self):
