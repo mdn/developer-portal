@@ -11,13 +11,13 @@ from wagtail.core.models import Page, Site
 
 from ..forms import BasePageForm
 from ..utils import (
-    _prep_search_terms,
     get_combined_articles,
     get_combined_articles_and_videos,
     get_combined_events,
     get_combined_videos,
     get_past_event_cutoff,
     paginate_resources,
+    prep_search_terms,
 )
 
 
@@ -63,7 +63,7 @@ class HelperFunctionTests(TestCase):
         self.assertEqual(repr(resources), "<Page 1 of 3>")
         self.assertEqual([x for x in resources], [x for x in range(1, 11)])
 
-    def test_prep_search_terms(self):
+    def testprep_search_terms(self):
         cases = (
             {"desc": "Empty input", "input": "", "expected": ""},
             {
@@ -107,7 +107,7 @@ class HelperFunctionTests(TestCase):
 
         for case in cases:
             with self.subTest(msg=case["desc"]):
-                self.assertEqual(_prep_search_terms(case["input"]), case["expected"])
+                self.assertEqual(prep_search_terms(case["input"]), case["expected"])
 
 
 class HelperFunctionTestsWithFixtures(TestCase):
@@ -426,6 +426,6 @@ class CustomSearchTests(TestCase):
         _version = list(wagtail.VERSION)
         if (_version[0] > 2) or (_version[0] == 2 and _version[1] > 9):
             raise Exception(
-                "This common.utils._prep_search_terms needs a review that it works "
+                "This common.utils.prep_search_terms needs a review that it works "
                 "as expected with Wagtail > 2.9, and if so this test needs removing."
             )
