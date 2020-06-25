@@ -326,6 +326,7 @@ class Article(BasePage):
     search_fields = BasePage.search_fields + [  # Inherit search_fields from Page
         # "title" is already specced in BasePage
         index.SearchField("description"),
+        index.SearchField("body"),
         # Add FilterFields for things we may be filtering on (eg topics)
         index.FilterField("slug"),
     ]
