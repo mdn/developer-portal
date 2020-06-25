@@ -11,6 +11,10 @@
       {% endif %}
     {% endwith %}
   </h4>
-  {{ page.card_description|default:page.description|richtext|truncatechars_html:140 }}
+  {% if page.card_description %}
+    {{ page.card_description|richtext|truncatechars_html:140 }}
+  {% elif page.description %}
+    {{ page.description|richtext|truncatechars_html:140 }}
+  {% endif %}
   </a>
 </li>
