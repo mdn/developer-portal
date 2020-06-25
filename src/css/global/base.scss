@@ -51,3 +51,8 @@ body {
 .no-wrap {
   white-space: nowrap;
 }
+
+.mzp-c-button {
+  // temporary workaround for https://github.com/mozilla/protocol/issues/602
+  outline-style: none;
+}
