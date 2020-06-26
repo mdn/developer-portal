@@ -63,7 +63,7 @@ class HelperFunctionTests(TestCase):
         self.assertEqual(repr(resources), "<Page 1 of 3>")
         self.assertEqual([x for x in resources], [x for x in range(1, 11)])
 
-    def testprep_search_terms(self):
+    def test_prep_search_terms(self):
         cases = (
             {"desc": "Empty input", "input": "", "expected": ""},
             {
