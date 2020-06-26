@@ -24,18 +24,25 @@ Two items:
   {% split_featured_items featured as split_featured %}
 
   {% comment %}
-  `split_featured` is an iterable with the following lists:
-    - top_row_of_2
-    - bottom_row_of_3
-    - bottom_row_b_of_2
-  where only one of bottom_row_of_3 OR bottom_row_b_of_2 will have members
+
+
+  `split_featured` returns an iterable of dicts where each dict represents a list of
+  items to render on a particular row
+  [
+      {
+          items: <List>
+          count: <int>
+      },
+      ...
+  ]
+
   {% endcomment %}
 
-  {% with top_row_of_two=split_featured.0 bottom_row_of_three=split_featured.1 bottom_row_of_two=split_featured.2 %}
+  {% for row in split_featured %}
 
-    {% if top_row_of_two %}
+    {% if row.count == 2 %}
     <div class="mzp-l-card-half">
-      {% for block in top_row_of_two %}
+      {% for block in row.items %}
         <section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-3-2">
           {% include "organisms/partials/featured-card-selector.html" with aspect_ratio="3_2" %}
         </section>
@@ -43,18 +50,9 @@ Two items:
     </div>
     {% endif %}
 
-    {% comment %} Only one of bottom_row_of_two or bottom_row_of_three will evaluate to truthy {% endcomment %}
-    {% if bottom_row_of_two %}
-      <div class="mzp-l-card-half">
-        {% for block in bottom_row_of_two %}
-          <section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-3-2">
-            {% include "organisms/partials/featured-card-selector.html" with aspect_ratio="3_2" %}
-          </section>
-        {% endfor %}
-      </div>
-    {% elif bottom_row_of_three %}
+    {% if row.count == 3 %}
       <div class="mzp-l-card-third">
-        {% for block in bottom_row_of_three %}
+        {% for block in row.items %}
             <section class="mzp-c-card mzp-c-card-small mzp-has-aspect-16-9">
               {% include "organisms/partials/featured-card-selector.html" %}
             </section>
@@ -62,5 +60,15 @@ Two items:
       </div>
     {% endif %}
 
-  {% endwith %}
+    {% if row.count == 4 %}
+      <div class="mzp-l-card-quarter">
+        {% for block in row.items %}
+            <section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
+              {% include "organisms/partials/featured-card-selector.html" %}
+            </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  {% endfor %}
 </div>
