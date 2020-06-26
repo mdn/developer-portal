@@ -3,6 +3,11 @@
   <h4 class="search-results-summary">
     {{total_results}} result{{total_results|pluralize}} found for "{{search_query}}"
   </h4>
+  {% if total_results > 1 %}
+  <p class="pagination-summary">
+    Showing results {{search_results.start_index}} to {{search_results.end_index}}
+  </p>
+  {% endif %}
   <ul class="search-results-items">
   {% for result in search_results %}
     {% include "molecules/search-result.html" with page=result.specific request=request only %}
