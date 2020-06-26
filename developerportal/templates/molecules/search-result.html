@@ -2,19 +2,30 @@
 {% load app_filters %}
 
 <li class="mzp-c-card mzp-c-card-medium search-result-item">
-  <a class="mzp-c-card-block-link" href="{% pageurl page %}">
-  <h4>
-    <span class="search-result-title">{{ page.title }}</span>
-    {% with page|page_type_label as label %}
-      {% if label %}
-        <span class="search-result-type">{{label}}</span>
-      {% endif %}
-    {% endwith %}
-  </h4>
-  {% if page.card_description %}
-    {{ page.card_description|richtext|truncatechars_html:140 }}
-  {% elif page.description %}
-    {{ page.description|richtext|truncatechars_html:140 }}
-  {% endif %}
+  <a
+    class="mzp-c-card-block-link"
+    href="{% pageurl page %}"
+  >
+    <h4>
+      <span class="search-result-title">{{ page.title }}</span>
+      {% with page|page_type_label as label %}
+        {% if label %}
+          <span class="search-result-type">{{label}}</span>
+        {% endif %}
+      {% endwith %}
+    </h4>
+    {% if page.card_description %}
+      {{ page.card_description|richtext|truncatechars_html:140 }}
+    {% elif page.description %}
+      {{ page.description|richtext|truncatechars_html:140 }}
+    {% endif %}
+    <div class="mzp-c-card-tag">
+    {% if page.is_external %}
+      {{page.url|domain_from_url:request }}
+    {% else %}
+      {% pageurl page as page_url %}
+      {{page_url|domain_from_url:request }}
+    {% endif %}
+    </div>
   </a>
 </li>
