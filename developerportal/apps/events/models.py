@@ -539,6 +539,7 @@ class Event(BasePage):
         # Add FilterFields for things we may be filtering on (eg topics)
         index.FilterField("slug"),
         index.FilterField("start_date"),
+        index.FilterField("country"),
     ]
 
     def get_context(self, request):

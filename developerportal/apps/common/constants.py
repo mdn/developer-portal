@@ -62,3 +62,5 @@ ENVIRONMENT_DEVELOPMENT = "development"
 
 
 MOZILLA_SUPPORT_STRING = "Sponsored by Mozilla"
+POSTS_PAGE_SEARCH_FIELDS = ["title", "description"]
+EVENTS_PAGE_SEARCH_FIELDS = ["title", "description"]

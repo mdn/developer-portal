@@ -9,6 +9,8 @@ from django.utils.timezone import now as tz_now
 
 import bleach
 
+from ..common.constants import EVENTS_PAGE_SEARCH_FIELDS, POSTS_PAGE_SEARCH_FIELDS
+
 
 def _combined_query(models, fn):
     """Execute callback `fn` for each model and chain the resulting querysets."""
@@ -43,6 +45,7 @@ def get_resources(
     search_terms=None,
     order_by=None,
     reverse=False,
+    search_fields=None,
 ):
     """Get resources for provided models matching filters.
 
@@ -54,6 +57,7 @@ def get_resources(
         q_object - optional way to run a more complex query
         order_by - key to order the combined set by, must be common to all models.
         reverse - whether to reverse the combined set, default false.
+        search_fields - which fields to restrict the search to; optional
     """
 
     def callback(model):
@@ -66,7 +70,7 @@ def get_resources(
         if search_terms:
             # This has to come after .filter() because PostgresSearchResults
             # does not offer .filter() as a method
-            qs = qs.search(_prep_search_terms(search_terms))
+            qs = qs.search(_prep_search_terms(search_terms), fields=search_fields)
         return qs
 
     result = _combined_query(models, callback)
@@ -85,7 +89,8 @@ def get_combined_articles(page, **filters):
 
 
 def get_combined_articles_and_videos(page, q_object=None, search_terms=None, **filters):
-    """Get internal and external articles and videos matching filters."""
+    """Get internal and external articles and videos matching filters
+    and/or search terms"""
     return get_resources(
         page,
         [
@@ -99,13 +104,14 @@ def get_combined_articles_and_videos(page, q_object=None, search_terms=None, **f
         search_terms=search_terms,
         order_by="date",
         reverse=True,
+        search_fields=POSTS_PAGE_SEARCH_FIELDS,
     )
 
 
 def get_combined_events(
     page, reverse=False, q_object=None, search_terms=None, **filters
 ):
-    """Get internal and external events matching filters."""
+    """Get internal and external events matching filters and/or search terms"""
 
     return get_resources(
         page,
@@ -115,6 +121,7 @@ def get_combined_events(
         search_terms=search_terms,
         order_by="start_date",
         reverse=reverse,
+        search_fields=EVENTS_PAGE_SEARCH_FIELDS,
     )
 
 
