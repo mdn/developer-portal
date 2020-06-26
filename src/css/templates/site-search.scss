@@ -1,33 +1,29 @@
 body.site-search {
-  // .mzp-has-sidebar {
-  //   display: flex;
-  //   flex-direction: column;
-  //   @media #{$mq-md} {
-  //     display: block;
-  //     flex-direction: row;
-  //   }
-
-  //   &.no-results {
-  //     flex-direction: column-reverse;
-  //     @media #{$mq-md} {
-  //       flex-direction: row;
-  //     }
-  //   }
-  // }
+  .mzp-has-sidebar {
+    display: flex;
+    flex-direction: column-reverse;
+    @media #{$mq-md} {
+      display: block;
+      flex-direction: row;
+    }
+  }
 
   .site-search-form {
     margin-bottom: $spacing-xl;
 
-    .site-search-field {
-      padding: $spacing-xs;
+    input.site-search-field {
+      background-image: url('/static/img/icons/search-black.svg');
+      background-position: 3px 3px;
+      background-repeat: no-repeat;
+      background-size: 24px auto;
+      height: 2em;
+      margin-bottom: $spacing-md;
+      padding: $spacing-xs $spacing-xs $spacing-xs $spacing-xl;
       width: 100%;
 
       @media #{$mq-md} {
-        padding: $spacing-sm;
-        width: 66%;
+        width: 80%;
       }
-
-      margin-bottom: $spacing-md;
     }
   }
 }
