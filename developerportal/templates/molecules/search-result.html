@@ -3,10 +3,18 @@
 
 <li class="mzp-c-card mzp-c-card-medium search-result-item">
   <a
-    class="mzp-c-card-block-link"
     href="{% pageurl page %}"
+    class="mzp-c-card-block-link
+    {% if page.resource_type == "video" and page.is_external %}
+      js-modal-trigger{% endif %}"
+    {% if page.is_external %}
+      target="_blank"
+      rel="nofollow noopener"
+      data-title="{{ page.title }}"
+      data-type="{{ page.resource_type }}"
+    {% endif %}
   >
-    <h4>
+  <h4>
       <span class="search-result-title">{{ page.title }}</span>
       {% with page|page_type_label as label %}
         {% if label %}
