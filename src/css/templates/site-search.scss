@@ -6,6 +6,14 @@ body.site-search {
       display: block;
       flex-direction: row;
     }
+
+    .mzp-l-sidebar {
+      @media #{$mq-md} {
+        // hidden for non-sm viewports
+        display: none;
+        visibility: hidden;
+      }
+    }
   }
 
   .pagination-block {
