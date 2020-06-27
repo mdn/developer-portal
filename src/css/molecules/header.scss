@@ -51,3 +51,22 @@
     }
   }
 }
+
+.mzp-c-menu-category-list .site-search-form {
+  margin: 4px 0px 0px 0px;
+  padding: $spacing-lg 0;
+
+  @media #{$mq-md} {
+    margin: 4px 0px 0px 0px;
+    padding: 0 0 0 $spacing-md;
+  }
+  input.site-search-field {
+    width: 100%;
+    @media #{$mq-md} {
+      width: 200px;
+    }
+    @media #{$mq-xl} {
+      width: 100%;
+    }
+  }
+}

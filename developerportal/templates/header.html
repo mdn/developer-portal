@@ -64,6 +64,9 @@
                       </li>
                     {% endwith %}
                   {% endfor %}
+                  <li class="mzp-c-menu-category">
+                    {% include "molecules/site-search-form.html" with hide_label=True placeholder_text="Search" %}
+                  </li>
                 </ul>
               </nav>
             </div>
