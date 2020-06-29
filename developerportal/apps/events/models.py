@@ -89,6 +89,15 @@ class Events(BasePage):
     template = "events.html"
 
     # Content fields
+    top_content = CustomStreamField(
+        null=True,
+        blank=True,
+        help_text=(
+            "Free-form content that appears above the 'Featured' section. "
+            "Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
+        ),
+    )
     featured = StreamField(
         StreamBlock(
             [
@@ -118,14 +127,25 @@ class Events(BasePage):
             "embed via HTML, and inline code snippets"
         ),
     )
+    bottom_content = CustomStreamField(
+        null=True,
+        blank=True,
+        help_text=(
+            "Free-form content that appears below the list of Events. "
+            "Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
+        ),
+    )
 
     # Meta fields
     keywords = ClusterTaggableManager(through=EventsTag, blank=True)
 
     # Content panels
     content_panels = BasePage.content_panels + [
+        StreamFieldPanel("top_content"),
         StreamFieldPanel("featured"),
         StreamFieldPanel("body"),
+        StreamFieldPanel("bottom_content"),
     ]
 
     # Meta panels

@@ -9,6 +9,15 @@
   {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url icon_img_class="events-icon" %}
 
 <main role="main">
+  <div class="mzp-l-content events-top-content">
+    {% for block in page.top_content %}
+      {% if block.block_type == 'image' %}
+        {% include "molecules/image-block.html" with block=block %}
+      {% else %}
+        {{ block }}
+      {% endif %}
+    {% endfor %}
+  </div>
   {% with page.featured|published as featured %}
     {% if featured %}
       <div class="mzp-l-content">
@@ -27,6 +36,15 @@
   </div>
   <div id="results-list">
     {% include "organisms/filter-list.html" with type="event" resources=events no_resources_message="No relevant events found" hide_pagination=False %}
+  </div>
+  <div class="mzp-l-content events-tail-content">
+    {% for block in page.bottom_content %}
+      {% if block.block_type == 'image' %}
+        {% include "molecules/image-block.html" with block=block %}
+      {% else %}
+        {{ block }}
+      {% endif %}
+    {% endfor %}
   </div>
   {% include "organisms/newsletter-signup.html" %}
 </main>
