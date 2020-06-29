@@ -1,13 +1,19 @@
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
+
+from wagtail.core.models import Site
 
 from developerportal.templatetags.app_filters import domain_from_url
 
 
 class FilterTestCase(TestCase):
+    @override_settings(ALLOWED_HOSTS=["developer.mozilla.com"])
     def test_domain_from_url(self):
 
-        request = RequestFactory().get("/", HTTP_HOST="developer.mozilla.com")
+        Site.objects.create(
+            hostname="developer.mozilla.com", site_name="Test Site", root_page_id=1
+        )
 
+        request = RequestFactory().get("/", HTTP_HOST="developer.mozilla.com")
         assert request.META["HTTP_HOST"] == "developer.mozilla.com"
 
         cases = [
