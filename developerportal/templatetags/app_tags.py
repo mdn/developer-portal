@@ -181,62 +181,110 @@ def get_menu_item_icon(page):
 
 @register.simple_tag
 def split_featured_items(iterable):
-    """For the given `iterable`, return it split into two lists appropriate
+    """For the given `iterable`, return it split into two lists appropriate to
+    the length of the iterable and compatible with a sensible HTML layout
 
-    The layout will look like this:
+    As such we return the following list of dicts, each containing a list and a total
+
+    rows = [
+        {
+            items: <List>
+            count: <int>
+        },
+        ...
+    ]
+
+    At the moment, `rows` will have one or two members
+
+    Seven items:
+        rows = [
+            {
+                items: [item_1 , item_2, item_3],
+                count: 3
+            },
+            {
+                items: [item_4, item_5, item_6, item_7],
+                count: 4
+            }
+        ]
+
+    Six items:
+        rows = [
+            {
+                items: [item_1 , item_2, item_3],
+                count: 3
+            },
+            {
+                items: [item_4, item_5, item_6],
+                count: 3
+            }
+        ]
 
     Five items:
-        [ 1 ] [ 2 ]
-        [3] [4] [5]
+        rows = [
+            {
+                items: [item_1 , item_2],
+                count: 2
+            },
+            {
+                items: [item_3 , item_4, item_5],
+                count: 3
+            }
+        ]
 
     Four items:
-        [ 1 ] [ 2 ]
-        [ 3 ] [ 4 ]
+        rows = [
+            {
+                items: [item_1 , item_2],
+                count: 2
+            },
+            {
+                items: [item_3 , item_4],
+                count: 2
+            }
+        ]
 
     Three items:
-        [1] [2] [3]
+        rows = [
+            {
+                items: [item_1 , item_2, item_3],
+                count: 3
+            },
+        ]
 
     Two items:
-        [ 1 ] [ 2 ]
+        rows = [
+            {
+                items: [item_1 , item_2],
+                count: 2
+            },
+        ]
 
-    (There is no one-item version supported)
-
-    As such we return the following lists:
-        - top_row_of_2
-        - bottom_row_of_3
-        - bottom_row_b_of_2
-    where only one of bottom_row_of_3 OR bottom_row_b_of_2 will have members
-
-    Five items:
-        top_row_of_2        -> [1, 2]
-        bottom_row_of_3     -> [3, 4, 5]
-        bottom_row_b_of_2   -> []
-
-    Four items:
-        top_row_of_2        -> [1, 2]
-        bottom_row_of_3     -> []
-        bottom_row_b_of_2   -> [3, 4]
-
-    Three items:
-        top_row_of_2        -> []
-        bottom_row_of_3     -> [1, 2, 3]
-        bottom_row_b_of_2   -> []
-
-    Two items:
-        top_row_of_2        -> [1, 2]
-        bottom_row_of_3     -> []
-        bottom_row_b_of_2   -> []
+    One item:
+        rows = [
+            {
+                items: [item_1],
+                count: 1
+            },
+        ]
 
     """
-    output = (iterable, [], [])  # sane default
+    output = []
 
-    if len(iterable) == 5:
-        output = (iterable[:2], iterable[2:], [])
-    elif len(iterable) == 4:
-        output = (iterable[:2], [], iterable[2:])
-    elif len(iterable) == 3:
-        output = ([], iterable, [])
-    elif len(iterable) == 2:
-        output = (iterable, [], [])
+    if len(iterable) in [6, 7]:
+        # Two rows with 3 + 3 or 3 + 4
+        output = [
+            dict(items=iterable[:3], count=len(iterable[:3])),
+            dict(items=iterable[3:], count=len(iterable[3:])),
+        ]
+    elif len(iterable) in [4, 5]:
+        # Two rows with 2 + 2 or 2 + 3
+        output = [
+            dict(items=iterable[:2], count=len(iterable[:2])),
+            dict(items=iterable[2:], count=len(iterable[2:])),
+        ]
+    else:
+        # single row, the same length as the original iterable
+        output = [dict(items=iterable, count=len(iterable))]
 
     return output

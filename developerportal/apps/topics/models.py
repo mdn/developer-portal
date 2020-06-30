@@ -93,12 +93,12 @@ class Topic(BasePage):
                 ("external_page", FeaturedExternalBlock()),
             ],
             min_num=2,
-            max_num=5,
+            max_num=7,
             required=True,
         ),
         null=True,
         blank=True,
-        help_text="Optional space for featured items, max. 5",
+        help_text="Optional space for featured items, max. 7",
     )
     #  "What We've Been Working On" panel
     recent_work = StreamField(

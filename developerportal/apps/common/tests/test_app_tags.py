@@ -264,11 +264,37 @@ class AppTagsTestCase(TestCase):
     def test_split_featured_items(self):
 
         cases = [
-            {"input": [1, 2, 3, 4, 5], "output": ([1, 2], [3, 4, 5], [])},
-            {"input": [1, 2, 3, 4], "output": ([1, 2], [], [3, 4])},
-            {"input": [1, 2, 3], "output": ([], [1, 2, 3], [])},
-            {"input": [1, 2], "output": ([1, 2], [], [])},
-            {"input": [1], "output": ([1], [], [])},
+            {
+                "input": [1, 2, 3, 4, 5, 6, 7],
+                "output": [
+                    {"items": [1, 2, 3], "count": 3},
+                    {"items": [4, 5, 6, 7], "count": 4},
+                ],
+            },
+            {
+                "input": [1, 2, 3, 4, 5, 6],
+                "output": [
+                    {"items": [1, 2, 3], "count": 3},
+                    {"items": [4, 5, 6], "count": 3},
+                ],
+            },
+            {
+                "input": [1, 2, 3, 4, 5],
+                "output": [
+                    {"items": [1, 2], "count": 2},
+                    {"items": [3, 4, 5], "count": 3},
+                ],
+            },
+            {
+                "input": [1, 2, 3, 4],
+                "output": [
+                    {"items": [1, 2], "count": 2},
+                    {"items": [3, 4], "count": 2},
+                ],
+            },
+            {"input": [1, 2, 3], "output": [{"items": [1, 2, 3], "count": 3}]},
+            {"input": [1, 2], "output": [{"items": [1, 2], "count": 2}]},
+            {"input": [1], "output": [{"items": [1], "count": 1}]},
         ]
 
         for case in cases:

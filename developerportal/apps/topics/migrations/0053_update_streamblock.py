@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='topic',
             name='featured',
-            field=wagtail.core.fields.StreamField([('post', wagtail.core.blocks.PageChooserBlock(page_type=['articles.Article', 'externalcontent.ExternalArticle'])), ('external_page', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('description', wagtail.core.blocks.TextBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock(help_text='16:9 aspect-ratio image', label='16:9 image')), ('image_3_2', wagtail.images.blocks.ImageChooserBlock(help_text='3:2 aspect-ratio image - optiopnal but recommended', label='3:2 image', required=False))]))], blank=True, help_text='Optional space for featured items, max. 5', null=True),
+            field=wagtail.core.fields.StreamField([('post', wagtail.core.blocks.PageChooserBlock(page_type=['articles.Article', 'externalcontent.ExternalArticle'])), ('external_page', wagtail.core.blocks.StructBlock([('url', wagtail.core.blocks.URLBlock()), ('title', wagtail.core.blocks.CharBlock()), ('description', wagtail.core.blocks.TextBlock(required=False)), ('image', wagtail.images.blocks.ImageChooserBlock(help_text='16:9 aspect-ratio image', label='16:9 image')), ('image_3_2', wagtail.images.blocks.ImageChooserBlock(help_text='3:2 aspect-ratio image - optiopnal but recommended', label='3:2 image', required=False))]))], blank=True, help_text='Optional space for featured items, max. 7', null=True),
         ),
         migrations.AlterField(
             model_name='topic',
