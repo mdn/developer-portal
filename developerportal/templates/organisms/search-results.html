@@ -1,13 +1,21 @@
-<div id="results-list" class="search-results">
-{% if search_results %}
-  <h4 class="search-results-summary">
-    {{total_results}} result{{total_results|pluralize}} found for "{{search_query}}"
-  </h4>
-  {% if total_results > 1 %}
-  <p class="pagination-summary">
-    Showing results {{search_results.start_index}} to {{search_results.end_index}}
-  </p>
-  {% endif %}
+<article
+  id="results-list"
+  class="search-results"
+  {% if search_results %}aria-labelledby="results-heading"{% endif %}
+>
+  {% if search_results %}
+
+  <hgroup id="results-heading">
+    <h4 class="search-results-summary">
+      {{total_results}} result{{total_results|pluralize}} found for "{{search_query}}"
+    </h4>
+    {% if total_results > 1 %}
+    <h5 class="pagination-summary">
+      Showing results {{search_results.start_index}} to {{search_results.end_index}}
+    </h5>
+    {% endif %}
+  </hgroup>
+
   <ul class="search-results-items">
   {% for result in search_results %}
     {% include "molecules/search-result.html" with page=result.specific request=request only %}
@@ -27,4 +35,4 @@
     <h3>No search terms entered</h3>
   </div>
 {% endif %}
-</div>
+</article>
