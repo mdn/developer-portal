@@ -5,6 +5,7 @@ import logging
 from django.db.models import (
     CASCADE,
     SET_NULL,
+    BooleanField,
     CharField,
     DateField,
     FloatField,
@@ -39,6 +40,7 @@ from ..common.constants import (
     DATE_PARAMS_QUERYSTRING_KEY,
     DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
     FUTURE_EVENTS_QUERYSTRING_VALUE,
+    MOZILLA_SUPPORT_STRING,
     PAGINATION_QUERYSTRING_KEY,
     PAST_EVENTS_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
@@ -191,6 +193,7 @@ class Events(BasePage):
         context = super().get_context(request)
         context["filters"] = self.get_filters(request)
         context["events"] = self.get_events(request)
+        context["MOZILLA_SUPPORT_STRING"] = MOZILLA_SUPPORT_STRING
         return context
 
     def _build_date_q(self, date_params):
@@ -394,6 +397,12 @@ class Event(BasePage):
     )
     # Meta fields
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
+    is_mozilla_supported_event = BooleanField(
+        verbose_name="Is this event supported by Mozilla?",
+        null=True,
+        blank=True,
+        default=False,
+    )
 
     # Content panels
     content_panels = BasePage.content_panels + [
@@ -459,6 +468,7 @@ class Event(BasePage):
                 "in the page’s related content."
             ),
         ),
+        FieldPanel("is_mozilla_supported_event"),
         MultiFieldPanel(
             [
                 FieldPanel("seo_title"),
@@ -485,6 +495,11 @@ class Event(BasePage):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context["MOZILLA_SUPPORT_STRING"] = MOZILLA_SUPPORT_STRING
+        return context
 
     @property
     def is_upcoming(self):

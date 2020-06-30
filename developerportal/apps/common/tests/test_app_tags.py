@@ -15,6 +15,7 @@ from developerportal.apps.common.constants import (
 from developerportal.templatetags.app_tags import (
     filename_cachebreaker_to_querystring,
     get_favicon_path,
+    get_label_html,
     has_at_least_two_filters,
     is_production_site,
     pagination_additional_filter_params,
@@ -300,3 +301,12 @@ class AppTagsTestCase(TestCase):
         for case in cases:
             with self.subTest(case=case):
                 self.assertEqual(split_featured_items(case["input"]), case["output"])
+
+    def test_get_label_html__just_content(self):
+        expected = """<span class="label">Hello, World!</span>"""
+        self.assertEqual(get_label_html("Hello, World!").strip(), expected)
+
+    def test_get_label_html__also_css_class(self):
+        expected = """<span class="label test-class">Hello, World!</span>"""
+        output = get_label_html("Hello, World!", "test-class")
+        self.assertEqual(output.strip(), expected)
