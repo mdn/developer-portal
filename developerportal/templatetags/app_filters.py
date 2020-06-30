@@ -78,7 +78,7 @@ def domain_from_url(url, request):
     if parsed.netloc:
         try:
             output = ".".join(parsed.netloc.split(".")[-2:])
-        except Exception:  # Deliberately broad
+        except (AttributeError, IndexError):
             pass
     else:
         site = Site._find_for_request(request=request)
