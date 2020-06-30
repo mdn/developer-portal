@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 
 import pygments
 from pygments import formatters, lexers
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 
 register = template.Library()
 
@@ -73,12 +73,15 @@ def split_across_two_columns(list_):
 
 @register.filter
 def domain_from_url(url, request):
+    output = ""
     parsed = urlparse(url)
     if parsed.netloc:
         try:
             output = ".".join(parsed.netloc.split(".")[-2:])
-        except Exception:  # Deliberately broad
-            output = ""
+        except (AttributeError, IndexError):
+            pass
     else:
-        output = request.META.get("HTTP_HOST", "")
+        site = Site._find_for_request(request=request)
+        if site:
+            output = site.hostname
     return output
