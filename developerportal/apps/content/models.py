@@ -186,6 +186,7 @@ class ContentPage(BasePage):
         # "title" is already specced in BasePage
         index.SearchField("description"),
         index.SearchField("body"),
+        index.SearchField("sidebar"),
         # Add FilterFields for things we may be filtering on (eg topics)
         index.FilterField("slug"),
     ]
