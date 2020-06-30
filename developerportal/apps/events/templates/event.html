@@ -10,7 +10,12 @@
 
 {% static "img/icons/events-white.svg" as page_icon_asset_url %}
 
-{% get_label_html MOZILLA_SUPPORT_STRING as safe_label_markup %}
+{% comment %}
+We only set safe_label_markup if we want to show the label, but its absence does not break the render
+{% endcomment %}
+{% if page.is_mozilla_supported_event %}
+  {% get_label_html MOZILLA_SUPPORT_STRING as safe_label_markup %}
+{% endif %}
 {% include "molecules/header-strip.html" with page_icon_asset_url=page_icon_asset_url icon_img_class="events-icon" page=page content=page.title element="h1" standfirst=page.summary_meta safe_custom_html=safe_label_markup %}
 
 <div class="mzp-l-content mzp-has-sidebar mzp-l-sidebar-right content-page">
