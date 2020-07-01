@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
 from wagtail.core.models import Page
-from wagtail.search.models import Query
 
 from ..common.constants import PAGINATION_QUERYSTRING_KEY, SEARCH_QUERYSTRING_KEY
 from ..common.utils import paginate_resources, prep_search_terms
@@ -21,8 +20,6 @@ def site_search(request, template_name="site-search.html"):
             .exclude(id__in=get_page_ids_to_omit_from_site_search())
             .search(prep_search_terms(search_query))
         )
-        # Log the query so Wagtail can suggest promoted results
-        Query.get(search_query).add_hit()
     else:
         search_results = Page.objects.none()
 
