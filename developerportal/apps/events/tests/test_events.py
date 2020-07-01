@@ -67,11 +67,14 @@ class EventsTests(PatchedWagtailPageTests):
     def test_events_subpages(self):
         self.assertAllowedSubpageTypes(Events, {Event})
 
-    def test_events_get_events(self):
+    @mock.patch("developerportal.apps.common.utils.tz_now")
+    def test_events_get_events(self, mock_tz_now):
         # General test - more specific ones for the Qs are below.
         # These all fall into the "next X months" default view
         events_page = Events.published_objects.first()
-        now = datetime.datetime.now()
+
+        now = datetime.datetime(2020, 3, 5, 12, 34, 56, tzinfo=pytz.UTC)
+        mock_tz_now.return_value = now
 
         request = RequestFactory().get("/")
 
