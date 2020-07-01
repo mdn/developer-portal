@@ -23,7 +23,7 @@
       <div class="mzp-c-card-tag">
         {{ resource.event_dates_full|safe }}
         {% if resource.is_mozilla_supported_event and show_org_support %}
-          {% include "atoms/label.html" with content=MOZILLA_SUPPORT_STRING %}
+          {% include "atoms/label.html" with content=resource.support_summary_for_label %}
         {% endif %}
       </div>
       <h2 class="mzp-c-card-title">

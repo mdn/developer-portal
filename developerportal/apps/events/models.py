@@ -193,7 +193,6 @@ class Events(BasePage):
         context = super().get_context(request)
         context["filters"] = self.get_filters(request)
         context["events"] = self.get_events(request)
-        context["MOZILLA_SUPPORT_STRING"] = MOZILLA_SUPPORT_STRING
         return context
 
     def _build_date_q(self, date_params):
@@ -399,9 +398,22 @@ class Event(BasePage):
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
     is_mozilla_supported_event = BooleanField(
         verbose_name="Is this event supported by Mozilla?",
-        null=True,
         blank=True,
         default=False,
+        help_text=(
+            "Show a label with this event noting Mozilla support for it. "
+            "Customise the content via 'Event Support Description', below"
+        ),
+    )
+    event_support_description = CharField(
+        max_length=64,
+        blank=True,
+        null=False,
+        help_text=(
+            "Custom text for the label used to mark how this "
+            "event was supported by Mozilla. Optional. If absent "
+            f"'{MOZILLA_SUPPORT_STRING}' will be used"
+        ),
     )
 
     # Content panels
@@ -468,7 +480,16 @@ class Event(BasePage):
                 "in the page’s related content."
             ),
         ),
-        FieldPanel("is_mozilla_supported_event"),
+        MultiFieldPanel(
+            [
+                FieldPanel("is_mozilla_supported_event"),
+                FieldPanel("event_support_description"),
+            ],
+            heading="Event sponsorship",
+            help_text=(
+                "Add a label to an event and briefly describe its support from Mozilla"
+            ),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel("seo_title"),
@@ -498,8 +519,15 @@ class Event(BasePage):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context["MOZILLA_SUPPORT_STRING"] = MOZILLA_SUPPORT_STRING
         return context
+
+    @property
+    def support_summary_for_label(self):
+        """Display string showing MOzilla's support of this Event"""
+        if self.event_support_description:
+            return self.event_support_description
+        else:
+            return MOZILLA_SUPPORT_STRING
 
     @property
     def is_upcoming(self):
