@@ -14,14 +14,14 @@
       data-type="{{ page.resource_type }}"
     {% endif %}
   >
-  <h4>
+    <h2>
       <span class="search-result-title">{{ page.title }}</span>
       {% with page|page_type_label as label %}
         {% if label %}
           <span class="search-result-type">{{label}}</span>
         {% endif %}
       {% endwith %}
-    </h4>
+    </h2>
     {% if page.card_description %}
       {{ page.card_description|richtext|truncatechars_html:140 }}
     {% elif page.description %}

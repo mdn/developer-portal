@@ -5,8 +5,13 @@
     padding: $spacing-sm $spacing-sm $spacing-xs $spacing-sm;
   }
 
-  h4 {
+  h2 {
+    font-size: 1.4rem;
+    line-height: 1.5;
     margin-bottom: 0.2em;
+    @media #{$mq-md} {
+      font-size: 1.5rem;
+    }
   }
 
   .search-result-title {
@@ -14,14 +19,15 @@
   }
 
   .search-result-type {
-    color: $color-white;
     background-color: $color-marketing-gray-70;
-    font-size: 0.7em;
-    padding: 4px 6px;
     border-radius: 4px;
-    width: auto;
+    color: $color-white;
     display: inline-block;
+    font-size: 0.7em;
     line-height: 1.2em;
+    padding: 4px 6px;
+    vertical-align: 1px;
+    width: auto;
   }
 
   .rich-text {
