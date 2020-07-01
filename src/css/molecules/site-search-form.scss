@@ -2,9 +2,8 @@
   margin-bottom: $spacing-xl;
 
   input.site-search-field {
-    background-image: url('/static/img/icons/search-black.svg');
-    background-position: 3px 3px;
-    background-repeat: no-repeat;
+    background: transparent url('/static/img/icons/search-black.svg') 3px 3px
+      no-repeat;
     background-size: 24px auto;
     height: 2em;
     margin-bottom: $spacing-md;
