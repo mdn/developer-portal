@@ -44,11 +44,15 @@ Inputs:
       </div>
       <div class="mzp-c-card-content">
         <div class="mzp-c-card-tag">
-        {% if external_page %}
-          {{resource.url|domain_from_url:request }}
+        {% if show_domain %}
+          {% if external_page %}
+            {{resource.url|domain_from_url:request }}
+          {% else %}
+            {% pageurl resource as page_url %}
+            {{page_url|domain_from_url:request }}
+          {% endif %}
         {% else %}
-          {% pageurl resource as page_url %}
-          {{page_url|domain_from_url:request }}
+          {{resource.primary_topic|default:"Featured"}}
         {% endif %}
         </div>
         <h2 class="mzp-c-card-title">

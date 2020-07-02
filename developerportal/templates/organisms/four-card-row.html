@@ -1,0 +1,31 @@
+{% comment %}
+Inputs:
+  items: <List>( <StreamChild> )
+  header_text: <str> - custom header text for the panel, mandatory
+  show_domain: <Boolean> - whether the quarter-page-item molecule should show a domain or default to the primary topic
+
+{% endcomment %}
+
+{% if items %}
+{# Render cards side by side, up to four, always same width #}
+<div class="four-card-row">
+  <div class="mzp-l-content">
+    {% if header_text %}
+    <h4>{{header_text}}</h4>
+    {% endif %}
+    <div class="mzp-l-card-quarter">
+      {% for block in items %}
+        {% if block.block_type == 'post' or block.block_type == 'video' or block.block_type == 'event' %}
+          {% with block.value as page %}
+            {% include "molecules/quarter-page-item.html" with resource=page.specific block_type=block.block_type show_domain=show_domain %}
+          {% endwith %}
+        {% elif block.block_type == 'external_page' %}
+          {% with block.value as external_page %}
+            {% include "molecules/quarter-page-item.html" with resource=external_page external_page=True block_type=block.block_type show_domain=show_domain %}
+          {% endwith %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
