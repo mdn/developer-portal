@@ -22,12 +22,10 @@
   {% endif %}
   {% with page.featured|published as featured %}
     {% if featured %}
-      <div class="mzp-l-content">
-        {% include "organisms/featured.html" with featured=featured %}
-      </div>
+      {% include "organisms/four-card-row.html" with items=featured header_text="Featured events" show_domain=False %}
     {% endif %}
   {% endwith %}
-  <div class="mzp-l-content events-extra-content">
+  <div class="mzp-l-content events-middle-content">
     {% for block in page.body %}
       {% if block.block_type == 'image' %}
         {% include "molecules/image-block.html" with block=block %}

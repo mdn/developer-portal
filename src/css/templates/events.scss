@@ -1,6 +1,24 @@
 body.events {
-  div.events-extra-content {
-    padding-top: 0px;
-    margin-top: -24px;
+  div.header-strip {
+    margin-bottom: 0px; // to allow for the four-card-row div of featured items
+  }
+
+  div.events-top-content {
+    margin-bottom: $spacing-lg;
+    @media #{$mq-md} {
+      margin-top: 76px; // + 24px from mzp-l-content == 100px
+    }
+  }
+
+  div.events-top-content,
+  div.events-bottom-content,
+  div.events-middle-content {
+    .rich-text {
+      max-width: 768px;
+    }
+  }
+
+  div.four-card-row {
+    margin-bottom: $spacing-lg;
   }
 }
