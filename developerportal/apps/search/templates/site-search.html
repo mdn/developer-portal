@@ -3,13 +3,13 @@
 
 {% wagtail_site as current_site %}
 
-{% block title %}Search - {{current_site.site_name}} {% endblock %}
+{% block title %}Search results - {{current_site.site_name}} {% endblock %}
 
 {% block body_class %}site-search{% endblock %}
 
 {% block content %}
-  {% static "img/icons/search-white.svg" as page_icon_asset_url %}
-  {% include "molecules/header-strip.html" with content="Search" element="h1" page_icon_asset_url=page_icon_asset_url %}
+  {% comment "Disabling the icon because it makes users think the header is a search input" %} {% static "img/icons/search-white.svg" as page_icon_asset_url %} {% endcomment %}
+  {% include "molecules/header-strip.html" with content="Search results" element="h1" page_icon_asset_url=page_icon_asset_url %}
 
   <div
     class="
