@@ -39,11 +39,11 @@ class EventTests(PatchedWagtailPageTests):
             },
             {
                 "input": {"path": "00019997", "country": "FR", "city": ""},
-                "output": "Mar 5 | FR",
+                "output": "Mar 5 | France",
             },
             {
                 "input": {"path": "00019995", "country": "FR", "city": "Paris"},
-                "output": "Mar 5 | Paris, FR",
+                "output": "Mar 5 | Paris, France",
             },
         )
 

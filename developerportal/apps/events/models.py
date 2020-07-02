@@ -269,8 +269,13 @@ class Events(BasePage):
             if event.country
         )
 
+        # Need to do a separate sort by country name because "Online" has a fake country
+        # code of QQ - see settings.base.COUNTRIES_OVERRIDE
+        sorted_raw_countries = sorted(raw_countries, key=lambda country: country.name)
+
         return [
-            {"code": country.code, "name": country.name} for country in raw_countries
+            {"code": country.code, "name": country.name}
+            for country in sorted_raw_countries
         ]
 
     def get_event_date_options(self, request):
@@ -552,5 +557,5 @@ class Event(BasePage):
             if self.country:
                 summary += ", "
         if self.country:
-            summary += self.country.code
+            summary += self.country.name
         return summary

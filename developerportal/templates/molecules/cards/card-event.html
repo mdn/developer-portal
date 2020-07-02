@@ -27,7 +27,7 @@
         {% firstof resource.card_title resource.title %}
       </h2>
 
-      {% make_list_from_args resource.city resource.country as simple_address %}
+      {% make_list_from_args resource.city resource.country.name as simple_address %}
       {% if simple_address %}
       <address class="mzp-c-card-desc">
           {{ simple_address | join:', ' }}
