@@ -8,6 +8,8 @@ import pygments
 from pygments import formatters, lexers
 from wagtail.core.models import Page, Site
 
+from ..apps.common.constants import PAGE_TYPE_LOOKUP_FOR_LABEL
+
 register = template.Library()
 
 
@@ -85,3 +87,10 @@ def domain_from_url(url, request):
         if site:
             output = site.hostname
     return output
+
+
+@register.filter
+def page_type_label(page: Page) -> str:
+    "Return a user-facing string to describe the type of page provided"
+    page_class_name = page.specific.__class__.__name__
+    return PAGE_TYPE_LOOKUP_FOR_LABEL.get(page_class_name, None)

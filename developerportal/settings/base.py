@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "developerportal.apps.ingestion",
     "developerportal.apps.mozimages",
     "developerportal.apps.people",
+    "developerportal.apps.search",
     "developerportal.apps.taskqueue",
     "developerportal.apps.topics",
     "developerportal.apps.videos",

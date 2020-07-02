@@ -1,0 +1,36 @@
+.search-result-item {
+  margin-left: calc(#{$spacing-sm} * -1);
+  margin-bottom: $spacing-md;
+  .mzp-c-card-block-link {
+    padding: $spacing-sm $spacing-sm $spacing-xs $spacing-sm;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    margin-bottom: 0.2em;
+    @media #{$mq-md} {
+      font-size: 1.5rem;
+    }
+  }
+
+  .search-result-title {
+    margin-right: $spacing-md;
+  }
+
+  .search-result-type {
+    background-color: $color-marketing-gray-70;
+    border-radius: 4px;
+    color: $color-white;
+    display: inline-block;
+    font-size: 0.7em;
+    line-height: 1.2em;
+    padding: 4px 6px;
+    vertical-align: 1px;
+    width: auto;
+  }
+
+  .rich-text {
+    margin-bottom: $spacing-md;
+  }
+}

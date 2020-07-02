@@ -64,3 +64,22 @@ ENVIRONMENT_DEVELOPMENT = "development"
 MOZILLA_SUPPORT_STRING = "Sponsored by Mozilla"
 POSTS_PAGE_SEARCH_FIELDS = ["title", "description"]
 EVENTS_PAGE_SEARCH_FIELDS = ["title", "description"]
+
+POST = "Post"
+EVENT = "Event"
+PERSON = "Person"
+CONTENT = None  # Deliberate
+TOPIC = "Products & Technologies"
+
+PAGE_TYPE_LOOKUP_FOR_LABEL = {
+    "Article": POST,
+    "Video": POST,
+    "ExternalArticle": POST,
+    "ExternalVideo": POST,
+    "Event": EVENT,
+    "ExternalEvent": EVENT,
+    "Person": PERSON,
+    "ExternalEvent": EVENT,
+    "ContentPage": CONTENT,
+    "Topic": TOPIC,
+}

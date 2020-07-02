@@ -1,0 +1,23 @@
+{% comment %}
+Component for displaying site-search input.
+
+Optional params:
+- hide_label <Boolean>
+- placeholder_text <str>
+- search_input_id <str>
+
+
+{% endcomment %}
+
+
+<form class="site-search-form" action="{% url 'search.site_search' %}" method="get">
+  <label for="{{search_input_id}}" {% if hide_label %}class="visually-hidden"{% endif %}>
+    Search this site
+  </label>
+  <input
+    class="site-search-field"
+    id="{{search_input_id}}"
+    type="search"
+    name="{{SEARCH_QUERYSTRING_KEY}}" placeholder="{{placeholder_text|default:'Enter search terms'}}" value="{{ search_query|default:'' }}">
+  <button class="visually-hidden" type="submit">Search</button>
+</form>

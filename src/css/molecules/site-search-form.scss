@@ -1,0 +1,17 @@
+.site-search-form {
+  margin-bottom: $spacing-xl;
+
+  input.site-search-field {
+    background: transparent url('/static/img/icons/search-black.svg') 3px 3px
+      no-repeat;
+    background-size: 24px auto;
+    height: 2em;
+    margin-bottom: $spacing-md;
+    padding: $spacing-xs $spacing-xs $spacing-xs $spacing-xl;
+    width: 100%;
+
+    @media #{$mq-md} {
+      width: 80%;
+    }
+  }
+}
