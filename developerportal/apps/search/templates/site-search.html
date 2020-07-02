@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% wagtail_site as current_site %}
+
+{% block title %}Search results - {{current_site.site_name}} {% endblock %}
+
+{% block body_class %}site-search{% endblock %}
+
+{% block content %}
+  {% comment "Disabling the icon because it makes users think the header is a search input" %} {% static "img/icons/search-white.svg" as page_icon_asset_url %} {% endcomment %}
+  {% include "molecules/header-strip.html" with content="Search results" element="h1" page_icon_asset_url=page_icon_asset_url %}
+
+  <div
+    class="
+      mzp-l-content
+      mzp-has-sidebar
+      mzp-l-sidebar-right
+      {% if not search_results %}no-results{% endif %}
+    ">
+
+    <main role="main" class="mzp-l-main custom-width">
+      {% include "organisms/search-results.html" with total_results=total_results search_query=search_query search_results=search_results %}
+    </main>
+
+    <aside class="mzp-l-sidebar custom-width">
+      {% include "molecules/site-search-form.html" with search_input_id="body_query" %}
+    </aside>
+
+  </div>
+{% endblock %}

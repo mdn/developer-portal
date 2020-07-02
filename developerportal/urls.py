@@ -20,6 +20,7 @@ urlpatterns = [
     url(r"^sitemap\.xml$", sitemap),
     url(r"^posts-feed/", RssFeeds()),
     url(r"^auth/", include("mozilla_django_oidc.urls")),
+    url(r"^search/", include("developerportal.apps.search.urls")),
     url(
         r"^robots\.txt$",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
