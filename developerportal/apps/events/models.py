@@ -35,10 +35,10 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import (
-    COUNTRY_QUERYSTRING_KEY,
     DATE_PARAMS_QUERYSTRING_KEY,
     DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
     FUTURE_EVENTS_QUERYSTRING_VALUE,
+    LOCATION_QUERYSTRING_KEY,
     PAGINATION_QUERYSTRING_KEY,
     PAST_EVENTS_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
@@ -233,7 +233,7 @@ class Events(BasePage):
     def get_events(self, request):
         """Return filtered future events in chronological order"""
 
-        countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+        countries = request.GET.getlist(LOCATION_QUERYSTRING_KEY)
         date_params = request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 

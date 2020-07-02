@@ -10,11 +10,11 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.safestring import mark_safe
 
 from developerportal.apps.common.constants import (
-    COUNTRY_QUERYSTRING_KEY,
     DATE_PARAMS_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
     ENVIRONMENT_PRODUCTION,
     ENVIRONMENT_STAGING,
+    LOCATION_QUERYSTRING_KEY,
     ROLE_QUERYSTRING_KEY,
     TOPIC_QUERYSTRING_KEY,
 )
@@ -127,7 +127,7 @@ def pagination_additional_filter_params(request):
         # PAGINATION_QUERYSTRING_KEY,  # we DON'T want the page param
         TOPIC_QUERYSTRING_KEY,
         ROLE_QUERYSTRING_KEY,
-        COUNTRY_QUERYSTRING_KEY,
+        LOCATION_QUERYSTRING_KEY,
         DATE_PARAMS_QUERYSTRING_KEY,
     )
 

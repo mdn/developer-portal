@@ -37,7 +37,7 @@ class PeopleTests(PatchedWagtailPageTests):
         mock_filter.return_value = Person.objects.all()  # NBnot mocked
 
         request = RequestFactory().get(
-            "/?topic=foo&topic=bar&country=DE&country=ZA&role=staff&role=community"
+            "/?topic=foo&topic=bar&location=DE&location=ZA&role=staff&role=community"
         )
         people_page = People(
             title="person_page", path="000100010009", depth=5, slug="people-test"
@@ -103,7 +103,7 @@ class PeopleTests(PatchedWagtailPageTests):
         self.assertEqual(actual_q, expected_q)
 
         mock_filter.reset_mock()
-        request = RequestFactory().get("/?country=UK")
+        request = RequestFactory().get("/?location=UK")
         people_page.get_people(request)
         assert mock_filter.call_count == 1
 

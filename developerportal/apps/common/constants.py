@@ -40,7 +40,9 @@ VIDEO_TYPE = (
 PAGINATION_QUERYSTRING_KEY = "page"
 TOPIC_QUERYSTRING_KEY = "topic"
 ROLE_QUERYSTRING_KEY = "role"
-COUNTRY_QUERYSTRING_KEY = "country"
+LOCATION_QUERYSTRING_KEY = (
+    "location"
+)  #  NB this is used with the `country` field on page models
 DATE_PARAMS_QUERYSTRING_KEY = "date"
 
 # This is a special value for the above that indicates "all previous events"
