@@ -24,13 +24,7 @@
     </main>
 
     <aside class="mzp-l-sidebar custom-width">
-      <form class="site-search-form" action="{% url 'search.site_search' %}" method="get">
-        <label for="id_query">
-          Search this site
-        </label>
-        <input class="site-search-field" id="id_query" type="search" name="{{SEARCH_QUERYSTRING_KEY}}" placeholder="Enter search terms" value="{{ search_query|default:'' }}">
-        <button class="visually-hidden" type="submit">Search</button>
-      </form>
+      {% include "molecules/site-search-form.html" with search_input_id="body_query" %}
     </aside>
 
   </div>
