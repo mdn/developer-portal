@@ -1,0 +1,23 @@
+body.site-search {
+  .mzp-has-sidebar {
+    display: flex;
+    flex-direction: column-reverse;
+    @media #{$mq-md} {
+      display: block;
+      flex-direction: row;
+    }
+
+    .mzp-l-sidebar {
+      @media #{$mq-md} {
+        // hidden for non-sm viewports
+        display: none;
+      }
+    }
+  }
+
+  .pagination-block {
+    @media #{$mq-md} {
+      text-align: left;
+    }
+  }
+}

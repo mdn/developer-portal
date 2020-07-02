@@ -50,9 +50,11 @@
 @import 'molecules/header-strip';
 @import 'molecules/item-topic-link';
 @import 'molecules/notification-bar';
+@import 'molecules/pagination';
 @import 'molecules/resource-share';
 @import 'molecules/resource-toolbar';
-@import 'molecules/pagination';
+@import 'molecules/search-result';
+@import 'molecules/site-search-form';
 
 // Organisms.
 @import 'organisms/article-read-more';
@@ -65,6 +67,7 @@
 @import 'organisms/homepage-header';
 @import 'organisms/newsletter-signup';
 @import 'organisms/people-section';
+@import 'organisms/search-results';
 
 // Templates.
 @import 'templates/article';
@@ -73,4 +76,5 @@
 @import 'templates/events';
 @import 'templates/http-error';
 @import 'templates/person';
+@import 'templates/site-search';
 @import 'templates/video';
