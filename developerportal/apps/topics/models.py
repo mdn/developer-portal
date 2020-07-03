@@ -29,12 +29,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from ..common.blocks import FeaturedExternalBlock
 from ..common.constants import RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
-from ..common.utils import (
-    get_combined_articles,
-    get_combined_events,
-    get_combined_videos,
-    get_past_event_cutoff,
-)
+from ..common.utils import get_combined_articles, get_combined_videos
 from ..common.validators import check_for_svg_file
 
 
@@ -131,6 +126,25 @@ class Topic(BasePage):
         ),
     )
 
+    # "Relevant Events" panel
+    relevant_events = StreamField(
+        StreamBlock(
+            [
+                (
+                    "event",
+                    PageChooserBlock(
+                        target_model=("events.Event", "externalcontent.ExternalEvent")
+                    ),
+                )
+            ],
+            max_num=4,
+            required=False,
+        ),
+        null=True,
+        blank=True,
+        help_text=("Optional space for featured Events, max. 4."),
+    )
+
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
     card_description = TextField("Description", max_length=400, blank=True, default="")
@@ -164,7 +178,7 @@ class Topic(BasePage):
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         StreamFieldPanel("featured"),
-        StreamFieldPanel("recent_work"),
+        StreamFieldPanel("relevant_events"),
         MultiFieldPanel(
             [InlinePanel("people")],
             heading="Content by",
@@ -256,14 +270,6 @@ class Topic(BasePage):
     @property
     def articles(self):
         return get_combined_articles(self, topics__topic__pk=self.pk)
-
-    @property
-    def events(self):
-        """Return upcoming events for this topic,
-        ignoring events in the past, ordered by start date"""
-        return get_combined_events(
-            self, topics__topic__pk=self.pk, start_date__gte=get_past_event_cutoff()
-        )
 
     @property
     def experts(self):
