@@ -1,0 +1,11 @@
+{% comment %}
+
+Small element used to label other things
+
+Args:
+  - content: plaintext string
+  - extra_css_classes (optional): string of extra CSS classes, separated by spaces
+
+{% endcomment %}
+
+<span class="label{% if extra_css_classes %} {{extra_css_classes}}{% endif %}">{{content}}</span>

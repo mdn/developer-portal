@@ -24,7 +24,7 @@
         {% elif type == "person" %}
           {% include "molecules/cards/card.html" with resource=resource.person %}
         {% elif type == "event" %}
-          {% include "molecules/cards/card.html" with resource=resource.event %}
+          {% include "molecules/cards/card.html" with resource=resource.event show_org_support=True %}
         {% endif %}
       {% empty %}
       <h2 class="filter-list-no-results">
