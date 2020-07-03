@@ -356,7 +356,7 @@ class Event(BasePage):
     zip_code = CharField(
         "Zip/Postal code", max_length=100, blank=True, default=""
     )  # DEPRECATED
-    country = CountryField(blank=True, default="")
+    country = CountryField(verbose_name="Country or Region", blank=True, default="")
     agenda = StreamField(
         StreamBlock([("agenda_item", AgendaItemBlock())], required=False),
         blank=True,

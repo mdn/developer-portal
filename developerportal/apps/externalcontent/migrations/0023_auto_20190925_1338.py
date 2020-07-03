@@ -27,6 +27,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='externalevent',
             name='country',
-            field=django_countries.fields.CountryField(blank=True, default='', max_length=2),
+            field=django_countries.fields.CountryField(blank=True, default='', max_length=2, verbose_name='Country or Region'),
         ),
     ]

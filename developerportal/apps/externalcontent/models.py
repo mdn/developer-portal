@@ -242,7 +242,7 @@ class ExternalEvent(ExternalContent):
         blank=True, null=True, help_text="The date the event is scheduled to end"
     )
     city = CharField(max_length=100, blank=True, default="")
-    country = CountryField(blank=True, default="")
+    country = CountryField(verbose_name="Country or Region", blank=True, default="")
 
     meta_panels = [
         MultiFieldPanel(
