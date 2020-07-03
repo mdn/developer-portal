@@ -19,10 +19,11 @@
       {% if skip_standfirst %}
       {% comment %} Avoid rendering any standfirst at all {% endcomment %}
       {% else %}
-        {% if standfirst %}
+        {% if standfirst or safe_custom_html %}
         <div class="standfirst-wrapper">
           <div class="custom-standfirst">
             {{standfirst}}
+            {{safe_custom_html}}
           </div>
         </div>
         {% elif page.description %}

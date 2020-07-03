@@ -5,6 +5,7 @@ import logging
 from django.db.models import (
     CASCADE,
     SET_NULL,
+    BooleanField,
     CharField,
     DateField,
     FloatField,
@@ -39,6 +40,7 @@ from ..common.constants import (
     DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
     FUTURE_EVENTS_QUERYSTRING_VALUE,
     LOCATION_QUERYSTRING_KEY,
+    MOZILLA_SUPPORT_STRING,
     PAGINATION_QUERYSTRING_KEY,
     PAST_EVENTS_QUERYSTRING_VALUE,
     RICH_TEXT_FEATURES_SIMPLE,
@@ -399,6 +401,25 @@ class Event(BasePage):
     )
     # Meta fields
     keywords = ClusterTaggableManager(through=EventTag, blank=True)
+    is_mozilla_supported_event = BooleanField(
+        verbose_name="Is this event supported by Mozilla?",
+        blank=True,
+        default=False,
+        help_text=(
+            "Show a label with this event noting Mozilla support for it. "
+            "Customise the content via 'Event Support Description', below"
+        ),
+    )
+    event_support_description = CharField(
+        max_length=64,
+        blank=True,
+        null=False,
+        help_text=(
+            "Custom text for the label used to mark how this "
+            "event was supported by Mozilla. Optional. If absent "
+            f"'{MOZILLA_SUPPORT_STRING}' will be used"
+        ),
+    )
 
     # Content panels
     content_panels = BasePage.content_panels + [
@@ -466,6 +487,16 @@ class Event(BasePage):
         ),
         MultiFieldPanel(
             [
+                FieldPanel("is_mozilla_supported_event"),
+                FieldPanel("event_support_description"),
+            ],
+            heading="Event sponsorship",
+            help_text=(
+                "Add a label to an event and briefly describe its support from Mozilla"
+            ),
+        ),
+        MultiFieldPanel(
+            [
                 FieldPanel("seo_title"),
                 FieldPanel("search_description"),
                 ImageChooserPanel("social_image"),
@@ -490,6 +521,18 @@ class Event(BasePage):
             ObjectList(settings_panels, heading="Settings", classname="settings"),
         ]
     )
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return context
+
+    @property
+    def support_summary_for_label(self):
+        """Display string showing MOzilla's support of this Event"""
+        if self.event_support_description:
+            return self.event_support_description
+        else:
+            return MOZILLA_SUPPORT_STRING
 
     @property
     def is_upcoming(self):

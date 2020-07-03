@@ -13,6 +13,7 @@ from ...common.constants import (
     DATE_PARAMS_QUERYSTRING_KEY,
     DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
     FUTURE_EVENTS_QUERYSTRING_VALUE,
+    MOZILLA_SUPPORT_STRING,
     PAST_EVENTS_QUERYSTRING_VALUE,
 )
 from ...home.models import HomePage
@@ -54,6 +55,25 @@ class EventTests(PatchedWagtailPageTests):
                 )
                 event.save()
                 self.assertEqual(event.summary_meta, case["output"])
+
+    def test_support_summary_for_label(self):
+        cases = (
+            {"event_support_description": "", "expected": MOZILLA_SUPPORT_STRING},
+            {
+                "event_support_description": "Test string here",
+                "expected": "Test string here",
+            },
+        )
+        for i, case in enumerate(cases):
+            with self.subTest(case=case):
+                event = Event(
+                    depth=2,
+                    path=str(f"000199{i}"),
+                    title="Test",
+                    event_support_description=case["event_support_description"],
+                )
+                event.save()
+                self.assertEqual(event.support_summary_for_label, case["expected"])
 
 
 class EventsTests(PatchedWagtailPageTests):

@@ -288,3 +288,15 @@ def split_featured_items(iterable):
         output = [dict(items=iterable, count=len(iterable))]
 
     return output
+
+
+@register.simple_tag
+def get_label_html(text: str, extra_css_classes: str = None) -> str:
+    """Render the label atom HTML, using the provided `text`
+    and adding `extra_css_classes` if need be"""
+    return mark_safe(
+        template.loader.render_to_string(
+            "atoms/label.html",
+            {"content": text, "extra_css_classes": extra_css_classes},
+        )
+    )
