@@ -178,6 +178,7 @@ class Topic(BasePage):
     content_panels = BasePage.content_panels + [
         FieldPanel("description"),
         StreamFieldPanel("featured"),
+        StreamFieldPanel("recent_work"),
         StreamFieldPanel("relevant_events"),
         MultiFieldPanel(
             [InlinePanel("people")],
@@ -271,7 +272,6 @@ class Topic(BasePage):
     def articles(self):
         return get_combined_articles(self, topics__topic__pk=self.pk)
 
-    @property
     def experts(self):
         """Return Person instances for topic experts"""
         return [person.person for person in self.people.all()]
@@ -284,6 +284,38 @@ class Topic(BasePage):
     @property
     def subtopics(self):
         return [topic.child for topic in self.child_topics.all()]
+
+    def get_section_background_panel_hints(self) -> dict:
+        """When we have multiple optional sections on a Topic page, currently comprising
+        'recent_work', 'relevant_events' and 'experts', we want to ensure they are
+        rendered on contrasting panels.
+
+        This method (which is opinionated based on state, hence a method, not a
+        function) returns a dictionary referencing the name of each panel and whether
+        it should be on a tinted panel.
+        """
+        output = {
+            # Default state
+            "recent_work": False,
+            "relevant_events": False,
+            "experts": False,
+        }
+
+        if self.recent_work:
+            # If present, always takes a tint panel
+            output["recent_work"] = True
+
+        if self.relevant_events:
+            output["relevant_events"] = not self.recent_work
+
+        if self.experts:
+            if not self.recent_work and not self.relevant_events:
+                output["experts"] = True  # Only panel, so tint it
+            elif self.recent_work and self.relevant_events:
+                output["experts"] = True  # Third panel, so tint it
+            else:
+                output["experts"] = False
+        return output
 
 
 class Topics(BasePage):
