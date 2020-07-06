@@ -410,7 +410,16 @@ class Event(BasePage):
             "pages/resources related to this Event, max. 4."
         ),
     )
-
+    sidebar = CustomStreamField(
+        null=True,
+        blank=True,
+        help_text=(
+            "Additional content that appears below the event 'card' "
+            "in the right-hand column. "
+            "Supports rich text, images, embed via URL, "
+            "embed via HTML, and inline code snippets"
+        ),
+    )
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
     card_description = TextField("Description", max_length=400, blank=True, default="")
@@ -473,6 +482,7 @@ class Event(BasePage):
             ),
         ),
         StreamFieldPanel("body"),
+        StreamFieldPanel("sidebar"),
         MultiFieldPanel(
             [FieldPanel("city"), FieldPanel("country")],
             heading="Event location",
