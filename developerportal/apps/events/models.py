@@ -375,6 +375,42 @@ class Event(BasePage):
         help_text="Optional list of speakers for this event",
     )  # DEPRECATED
 
+    extra_content_panel_title = CharField(
+        "Panel title", max_length=140, blank=True, default="Related items"
+    )
+    extra_content_panel = StreamField(
+        StreamBlock(
+            [
+                (
+                    "post",
+                    PageChooserBlock(
+                        target_model=(
+                            "articles.Article",
+                            "externalcontent.ExternalArticle",
+                        )
+                    ),
+                ),
+                ("external_page", FeaturedExternalBlock()),
+                (
+                    "video",
+                    PageChooserBlock(
+                        target_model=("videos.Video", "externalcontent.ExternalVideo")
+                    ),
+                ),
+                ("topic", PageChooserBlock(target_model=("topics.Topic"))),
+            ],
+            max_num=4,
+            required=False,
+        ),
+        verbose_name="Links",
+        null=True,
+        blank=True,
+        help_text=(
+            "Optional space for links to other "
+            "pages/resources related to this Event, max. 4."
+        ),
+    )
+
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
     card_description = TextField("Description", max_length=400, blank=True, default="")
@@ -442,6 +478,15 @@ class Event(BasePage):
             heading="Event location",
             classname="collapsible",
             help_text=("The city and country are also shown on event cards"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("extra_content_panel_title"),
+                StreamFieldPanel("extra_content_panel"),
+            ],
+            heading="Supporting content",
+            classname="collapsible",
+            help_text=("Links out to other pages/sites, related to this Event"),
         ),
     ]
 
