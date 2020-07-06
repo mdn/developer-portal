@@ -240,7 +240,7 @@ class Person(BasePage):
 
     # Meta
     city = CharField(max_length=250, blank=True, default="")
-    country = CountryField(verbose_name="Country or Region")
+    country = CountryField(verbose_name="Country or Region", blank=True, default="")
     twitter = CharField(max_length=250, blank=True, default="")
     facebook = CharField(max_length=250, blank=True, default="")
     linkedin = CharField(max_length=250, blank=True, default="")
