@@ -87,9 +87,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # set_remote_addr_from_forwarded_for must come before rate_limiter
+    "developerportal.apps.common.middleware.set_remote_addr_from_forwarded_for",
+    "developerportal.apps.common.middleware.rate_limiter",
+    "ratelimit.middleware.RatelimitMiddleware",
     # In case someone has their Auth0 revoked while logged in, revalidate it:
     "mozilla_django_oidc.middleware.SessionRefresh",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
@@ -353,6 +357,14 @@ OIDC_OP_JWKS_ENDPOINT = "https://auth.mozilla.auth0.com/.well-known/jwks.json"
 # If True (which should only be done in settings.local), then show username and
 # password fields. You'll also need to enable the model backend in local settings
 USE_CONVENTIONAL_AUTH = False
+
+# django-ratelimit - see developerportal.apps.common.middleware.rate_limiter
+RATELIMIT_ENABLE = os.getenv("RATELIMIT_ENABLE", "True") == "True"
+RATELIMIT_USE_CACHE = os.getenv("RATELIMIT_USE_CACHE", "default")
+RATELIMIT_VIEW = "developerportal.apps.core.views.rate_limited"
+DEVPORTAL_RATELIMIT_DEFAULT_LIMIT = os.getenv(
+    "DEVPORTAL_RATELIMIT_DEFAULT_LIMIT", "25/m"
+)
 
 # Whether or not to automatically create content based on feeds configured in the DB
 AUTOMATICALLY_INGEST_CONTENT = (

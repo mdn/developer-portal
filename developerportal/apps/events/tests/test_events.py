@@ -357,6 +357,38 @@ class EventsTests(PatchedWagtailPageTests):
             (
                 "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
                 f"&date={FUTURE_EVENTS_QUERYSTRING_VALUE}"
+                f"&search=test+here"
+            )
+        )
+
+        # Add the Q that INCLUDES all future events
+        overall_date_q = Q(start_date__gte=datetime.date(2022, 10, 3))
+
+        countries_q = Q(country__in=["CA", "ZA"])
+        topics_q = Q(topics__topic__slug__in=["foo", "bar", "baz"])
+
+        expected_q = Q()
+        expected_q.add(countries_q, Q.AND)
+        expected_q.add(overall_date_q, Q.AND)
+        expected_q.add(topics_q, Q.AND)
+
+        events_page.get_events(fake_request)
+        mock_get_combined_events.assert_called_once_with(
+            events_page, q_object=expected_q, search_terms="test here", reverse=False
+        )
+
+    @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
+    @mock.patch("developerportal.apps.events.models.get_combined_events")
+    def test_events__get_events__query__filters_and_future_events__no_search(
+        self, mock_get_combined_events, mock_get_past_event_cutoff
+    ):
+        mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
+
+        events_page = Events.published_objects.first()
+        fake_request = RequestFactory().get(
+            (
+                "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
+                f"&date={FUTURE_EVENTS_QUERYSTRING_VALUE}"
             )
         )
 
