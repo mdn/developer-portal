@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Too Many Requests{% endblock %}
+{% block title_suffix %}- Mozilla Developer{% endblock %}
+{% block body_class %}full-height{% endblock %}
+{% block content %}
+  <main role="main">
+    <div class="mzp-l-content">
+      <div class="http-error-header">
+        <h1>Please, take it easy</h1>
+      </div>
+      <div class="http-error">
+        <div class="http-error-content">
+          <h3>Your request has been denied</h3>
+          <p>We've noticed your IP address has been making too many requests in a short space of time.</p>
+          <p>You can try again in about a minute.</p>
+        </div>
+        <div class="http-error-image">
+          <img src="{% static 'img/http-error.png' %}" alt="page not found">
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
