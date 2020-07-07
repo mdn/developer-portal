@@ -1,0 +1,9 @@
+<div class="featured-items-wrapper featured-events--four-up">
+  <div class="mzp-l-card-quarter">
+    {% for block in featured %}
+        <section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
+          {% include "organisms/partials/featured-card-selector.html" %}
+        </section>
+    {% endfor %}
+  </div>
+</div>

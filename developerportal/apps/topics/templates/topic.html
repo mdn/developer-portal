@@ -19,7 +19,7 @@
   {% endwith %}
 
   {% comment %} WHAT WE ARE WORKING ON {% endcomment %}
-  {% include "organisms/topic-recent-work.html" with recent_work=page.recent_work|published %}
+  {% include "organisms/four-card-row.html" with items=page.recent_work|published header_text="What we're developing" show_domain=True%}
 
   {% comment %} PEOPLE/EXPERTS {% endcomment %}
   {% if page.experts %}
