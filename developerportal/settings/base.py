@@ -88,6 +88,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    # set_remote_addr_from_forwarded_for must come before rate_limiter
+    "developerportal.apps.common.middleware.set_remote_addr_from_forwarded_for",
     "developerportal.apps.common.middleware.rate_limiter",
     "ratelimit.middleware.RatelimitMiddleware",
     # In case someone has their Auth0 revoked while logged in, revalidate it:
