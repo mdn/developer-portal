@@ -32,8 +32,8 @@ from wagtail.search import index
 
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import (
-    LOCATION_QUERYSTRING_KEY,
     DESCRIPTION_MAX_LENGTH,
+    LOCATION_QUERYSTRING_KEY,
     PAGINATION_QUERYSTRING_KEY,
     RICH_TEXT_FEATURES_SIMPLE,
     ROLE_CHOICES,
