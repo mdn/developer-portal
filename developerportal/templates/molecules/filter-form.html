@@ -87,8 +87,8 @@
   {% if filters.countries %}
     <fieldset class="filter-form-section">
       <header class="filter-form-section-header">
-        <h5>Country</h5>
-        <a href="#" class="filter-form-clear js-filter-clear" data-controls="{{COUNTRY_QUERYSTRING_KEY}}">
+        <h5>Location</h5>
+        <a href="#" class="filter-form-clear js-filter-clear" data-controls="{{LOCATION_QUERYSTRING_KEY}}">
           <span class="icon">
             {% include "atoms/icons/close.svg" %}
           </span>
@@ -97,7 +97,7 @@
       </header>
       {% for country in filters.countries %}
           <label>
-            <input type="checkbox" name="{{COUNTRY_QUERYSTRING_KEY}}" value="{{ country.code }}">
+            <input type="checkbox" name="{{LOCATION_QUERYSTRING_KEY}}" value="{{ country.code }}">
             {{ country.name }}
           </label>
       {% endfor %}

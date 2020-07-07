@@ -31,7 +31,7 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import PersonalWebsiteBlock
 from ..common.constants import (
-    COUNTRY_QUERYSTRING_KEY,
+    LOCATION_QUERYSTRING_KEY,
     PAGINATION_QUERYSTRING_KEY,
     RICH_TEXT_FEATURES_SIMPLE,
     ROLE_CHOICES,
@@ -144,7 +144,7 @@ class People(BasePage):
 
     def get_people(self, request):
 
-        countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+        countries = request.GET.getlist(LOCATION_QUERYSTRING_KEY)
         roles = request.GET.getlist(ROLE_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
@@ -240,7 +240,7 @@ class Person(BasePage):
 
     # Meta
     city = CharField(max_length=250, blank=True, default="")
-    country = CountryField()
+    country = CountryField(verbose_name="Country or Region", blank=True, default="")
     twitter = CharField(max_length=250, blank=True, default="")
     facebook = CharField(max_length=250, blank=True, default="")
     linkedin = CharField(max_length=250, blank=True, default="")

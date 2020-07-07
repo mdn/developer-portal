@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             model_name="event",
             name="country",
             field=django_countries.fields.CountryField(
-                blank=True, default="", max_length=2
+                blank=True, default='', max_length=2, verbose_name='Country or Region'
             ),
         ),
         migrations.AddField(

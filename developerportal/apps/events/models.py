@@ -36,10 +36,10 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 
 from ..common.blocks import AgendaItemBlock, ExternalSpeakerBlock, FeaturedExternalBlock
 from ..common.constants import (
-    COUNTRY_QUERYSTRING_KEY,
     DATE_PARAMS_QUERYSTRING_KEY,
     DEFAULT_EVENTS_LOOKAHEAD_WINDOW_MONTHS,
     FUTURE_EVENTS_QUERYSTRING_VALUE,
+    LOCATION_QUERYSTRING_KEY,
     MOZILLA_SUPPORT_STRING,
     PAGINATION_QUERYSTRING_KEY,
     PAST_EVENTS_QUERYSTRING_VALUE,
@@ -235,7 +235,7 @@ class Events(BasePage):
     def get_events(self, request):
         """Return filtered future events in chronological order"""
 
-        countries = request.GET.getlist(COUNTRY_QUERYSTRING_KEY)
+        countries = request.GET.getlist(LOCATION_QUERYSTRING_KEY)
         date_params = request.GET.getlist(DATE_PARAMS_QUERYSTRING_KEY)
         topics = request.GET.getlist(TOPIC_QUERYSTRING_KEY)
 
@@ -271,8 +271,13 @@ class Events(BasePage):
             if event.country
         )
 
+        # Need to do a separate sort by country name because "Online" has a fake country
+        # code of QQ - see settings.base.COUNTRIES_OVERRIDE
+        sorted_raw_countries = sorted(raw_countries, key=lambda country: country.name)
+
         return [
-            {"code": country.code, "name": country.name} for country in raw_countries
+            {"code": country.code, "name": country.name}
+            for country in sorted_raw_countries
         ]
 
     def get_event_date_options(self, request):
@@ -353,7 +358,7 @@ class Event(BasePage):
     zip_code = CharField(
         "Zip/Postal code", max_length=100, blank=True, default=""
     )  # DEPRECATED
-    country = CountryField(blank=True, default="")
+    country = CountryField(verbose_name="Country or Region", blank=True, default="")
     agenda = StreamField(
         StreamBlock([("agenda_item", AgendaItemBlock())], required=False),
         blank=True,
@@ -595,5 +600,5 @@ class Event(BasePage):
             if self.country:
                 summary += ", "
         if self.country:
-            summary += self.country.code
+            summary += self.country.name
         return summary

@@ -283,7 +283,11 @@ RSS_MAX_ITEMS = 20
 # Mapbox
 MAPBOX_ACCESS_TOKEN = os.environ.get("MAPBOX_ACCESS_TOKEN")
 
+# Django-Countries customisation
 COUNTRIES_FIRST = ["US", "GB"]
+
+ONLINE_COUNTRY_CODE = "QQ"  # https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#QQ
+COUNTRIES_OVERRIDE = {ONLINE_COUNTRY_CODE: "Online"}
 
 # Celery settings
 CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379")

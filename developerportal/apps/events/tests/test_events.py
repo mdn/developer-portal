@@ -40,11 +40,11 @@ class EventTests(PatchedWagtailPageTests):
             },
             {
                 "input": {"path": "00019997", "country": "FR", "city": ""},
-                "output": "Mar 5 | FR",
+                "output": "Mar 5 | France",
             },
             {
                 "input": {"path": "00019995", "country": "FR", "city": "Paris"},
-                "output": "Mar 5 | Paris, FR",
+                "output": "Mar 5 | Paris, France",
             },
         )
 
@@ -187,7 +187,7 @@ class EventsTests(PatchedWagtailPageTests):
 
         events_page = Events.published_objects.first()
         fake_request = RequestFactory().get(
-            ("/?country=CA&country=ZA&topic=foo&topic=bar&topic=baz")
+            ("/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz")
         )
 
         # Build the query we expect to be generated
@@ -220,7 +220,7 @@ class EventsTests(PatchedWagtailPageTests):
         events_page = Events.published_objects.first()
         fake_request = RequestFactory().get(
             (
-                "/?country=CA&country=ZA&topic=foo&topic=bar&topic=baz"
+                "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
                 f"&date={PAST_EVENTS_QUERYSTRING_VALUE}"
             )
         )
@@ -251,7 +251,7 @@ class EventsTests(PatchedWagtailPageTests):
         events_page = Events.published_objects.first()
         fake_request = RequestFactory().get(
             (
-                "/?country=CA&country=ZA&topic=foo&topic=bar&topic=baz"
+                "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
                 f"&date={FUTURE_EVENTS_QUERYSTRING_VALUE}"
             )
         )
@@ -283,7 +283,7 @@ class EventsTests(PatchedWagtailPageTests):
         events_page = Events.published_objects.first()
         fake_request = RequestFactory().get(
             (
-                "/?country=CA&country=ZA&topic=foo&topic=bar&topic=baz"
+                "/?location=CA&location=ZA&topic=foo&topic=bar&topic=baz"
                 f"&date={PAST_EVENTS_QUERYSTRING_VALUE}"
                 f"&date={FUTURE_EVENTS_QUERYSTRING_VALUE}"
             )
@@ -491,9 +491,9 @@ class EventsTests(PatchedWagtailPageTests):
         expected = [
             {"code": "AR", "name": "Argentina"},
             {"code": "DE", "name": "Germany"},
+            {"code": "ZA", "name": "South Africa"},  # from a past event
             {"code": "GB", "name": "United Kingdom"},  # only one appearance is correct
             {"code": "US", "name": "United States of America"},
-            {"code": "ZA", "name": "South Africa"},  # from a past event
         ]
         actual = events_page.get_relevant_countries()
         self.assertEqual(actual, expected)
