@@ -1,10 +1,11 @@
 from unittest import mock
 
 from django.db import DatabaseError
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 
+@override_settings(RATELIMIT_ENABLE=False)
 class HealthTestCases(TestCase):
     """Tests for the health-check endpoints."""
 
