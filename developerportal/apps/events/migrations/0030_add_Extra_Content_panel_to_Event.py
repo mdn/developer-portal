@@ -9,7 +9,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0027_add_Events_top_content_and_bottom_content'),
+        ('events', '0029_further_sponsored_events_changes'),
     ]
 
     operations = [

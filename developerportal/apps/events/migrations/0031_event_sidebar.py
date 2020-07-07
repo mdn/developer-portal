@@ -10,7 +10,7 @@ import wagtail.images.blocks
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('events', '0028_add_Extra_Content_panel_to_Event'),
+        ('events', '0030_add_Extra_Content_panel_to_Event'),
     ]
 
     operations = [
