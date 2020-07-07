@@ -64,3 +64,24 @@ def rate_limiter(get_response):
         return response
 
     return middleware
+
+
+def set_remote_addr_from_forwarded_for(get_response):
+    """
+    Middleware that sets REMOTE_ADDR based on HTTP_X_FORWARDED_FOR, if the
+    latter is set. This is useful if you're sitting behind a reverse proxy
+    """
+
+    def middleware(request):
+        forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+        if forwarded_for:
+            # HTTP_X_FORWARDED_FOR can be a comma-separated list of IPs.
+            # The client's claimed IP will be the first in the list, as CDN etc
+            # append to the end.
+            forwarded_for = forwarded_for.split(",")[0].strip()
+            request.META["REMOTE_ADDR"] = forwarded_for
+
+        response = get_response(request)
+        return response
+
+    return middleware

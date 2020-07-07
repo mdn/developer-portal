@@ -1,17 +1,25 @@
 from unittest import mock
 
+from django.conf import settings
 from django.core.cache import cache
 from django.test import RequestFactory, TestCase, override_settings
 
 from ratelimit.exceptions import Ratelimited
 
-from ..middleware import rate_limiter
+from ..middleware import rate_limiter, set_remote_addr_from_forwarded_for
 
 
 @override_settings(RATELIMIT_ENABLE=True, DEVPORTAL_RATELIMIT_DEFAULT_LIMIT="2/m")
 class RateLimiterMiddlewareTests(TestCase):
     def tearDown(self):
         cache.clear()
+
+    def test_rate_limiter_middleware_is_enabled(self):
+        for expected_middleware in [
+            "developerportal.apps.common.middleware.rate_limiter",
+            "ratelimit.middleware.RatelimitMiddleware",
+        ]:
+            assert expected_middleware in settings.MIDDLEWARE
 
     def test_rate_limiter__works_for_all_http_methods(self):
 
@@ -66,3 +74,52 @@ class RateLimiterMiddlewareTests(TestCase):
         middleware_func(fake_request)
         with self.assertRaises(Ratelimited):
             middleware_func(fake_request)
+
+
+class RemoteAddressMiddlewareTests(TestCase):
+    def test_set_remote_addr_from_forwarded_for_middleware_is_enabled(self):
+        assert (
+            "developerportal.apps.common.middleware.set_remote_addr_from_forwarded_for"
+            in settings.MIDDLEWARE
+        )
+
+    def test_set_remote_addr_from_forwarded_for_middleware(self):
+        remote_addr = "172.24.24.24"
+        cases = [
+            {
+                "x_forwarded_for_string": "172.31.255.255",
+                "expected_ip": "172.31.255.255",
+            },
+            {
+                "x_forwarded_for_string": "172.31.255.255, 172.16.1.1",
+                "expected_ip": "172.31.255.255",
+            },
+            {
+                "x_forwarded_for_string": "172.31.255.255, 172.16.1.1, 172.16.128.128",
+                "expected_ip": "172.31.255.255",
+            },
+            {"x_forwarded_for_string": "", "expected_ip": remote_addr},
+            {"x_forwarded_for_string": None, "expected_ip": remote_addr},
+        ]
+
+        factory = RequestFactory()
+
+        mock_get_response = mock.Mock(name="get_response")
+        middleware_func = set_remote_addr_from_forwarded_for(mock_get_response)
+
+        for case in cases:
+            mock_get_response.reset_mock()
+            with self.subTest(label=case):
+
+                xff = case["x_forwarded_for_string"]
+                if xff is None:
+                    kwargs = dict(REMOTE_ADDR=remote_addr)
+                else:
+                    kwargs = dict(REMOTE_ADDR=remote_addr, HTTP_X_FORWARDED_FOR=xff)
+                fake_request = factory.get("/", **kwargs)
+                middleware_func(fake_request)
+
+                updated_request = mock_get_response.call_args_list[0][0][0]
+                self.assertEqual(
+                    updated_request.META["REMOTE_ADDR"], case["expected_ip"]
+                )
