@@ -4,25 +4,29 @@
   * people    - Iterable QuerySet or list of Person pages, default: None
   * show_link - Whether to show ‘See more’ link, default: None
   * title     - Optional custom title for the section, default: "People"
+  * tinted_panel: <Boolean> - whether this panel is on a tinted background or not
+
 {% endcomment %}
 
 {% load wagtailcore_tags %}
 
-<div class="mzp-l-content people-section">
-  <div class="section-header">
-    <h4>{{ title|default:"People" }}
-    {% if show_link and directory_pages.people %}
-      <span>
-        <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
-      </span>
-    {% endif %}
-    </h4>
-  </div>
+<div class="people-section {% if tinted_panel %}has-tint{% endif %}">
+  <div class="mzp-l-content">
+    <div class="section-header">
+      <h4>{{ title|default:"People" }}
+      {% if show_link and directory_pages.people %}
+        <span>
+          <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
+        </span>
+      {% endif %}
+      </h4>
+    </div>
 
-  {# Render cards side by side, up to three, always same width #}
-  <div class="mzp-l-card-third">
-    {% for person in people %}
-      {% include "molecules/cards/card-person.html" with person=person type="person" full_width=False %}
-    {% endfor %}
+    {# Render cards side by side, up to three, always same width #}
+    <div class="mzp-l-card-third">
+      {% for person in people %}
+        {% include "molecules/cards/card-person.html" with person=person type="person" full_width=False %}
+      {% endfor %}
+    </div>
   </div>
 </div>

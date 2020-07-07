@@ -30,12 +30,7 @@ from wagtail.search import index
 from ..common.blocks import FeaturedExternalBlock
 from ..common.constants import DESCRIPTION_MAX_LENGTH, RICH_TEXT_FEATURES_SIMPLE
 from ..common.models import BasePage
-from ..common.utils import (
-    get_combined_articles,
-    get_combined_events,
-    get_combined_videos,
-    get_past_event_cutoff,
-)
+from ..common.utils import get_combined_articles, get_combined_videos
 from ..common.validators import check_for_svg_file
 
 
@@ -135,6 +130,25 @@ class Topic(BasePage):
         ),
     )
 
+    # "Relevant Events" panel
+    relevant_events = StreamField(
+        StreamBlock(
+            [
+                (
+                    "event",
+                    PageChooserBlock(
+                        target_model=("events.Event", "externalcontent.ExternalEvent")
+                    ),
+                )
+            ],
+            max_num=4,
+            required=False,
+        ),
+        null=True,
+        blank=True,
+        help_text=("Optional space for featured Events, max. 4."),
+    )
+
     # Card fields
     card_title = CharField("Title", max_length=140, blank=True, default="")
     card_description = TextField(
@@ -174,6 +188,7 @@ class Topic(BasePage):
         FieldPanel("description"),
         StreamFieldPanel("featured"),
         StreamFieldPanel("recent_work"),
+        StreamFieldPanel("relevant_events"),
         MultiFieldPanel(
             [InlinePanel("people")],
             heading="Content by",
@@ -274,15 +289,6 @@ class Topic(BasePage):
     def articles(self):
         return get_combined_articles(self, topics__topic__pk=self.pk)
 
-    @property
-    def events(self):
-        """Return upcoming events for this topic,
-        ignoring events in the past, ordered by start date"""
-        return get_combined_events(
-            self, topics__topic__pk=self.pk, start_date__gte=get_past_event_cutoff()
-        )
-
-    @property
     def experts(self):
         """Return Person instances for topic experts"""
         return [person.person for person in self.people.all()]
@@ -295,6 +301,38 @@ class Topic(BasePage):
     @property
     def subtopics(self):
         return [topic.child for topic in self.child_topics.all()]
+
+    def get_section_background_panel_hints(self) -> dict:
+        """When we have multiple optional sections on a Topic page, currently comprising
+        'recent_work', 'relevant_events' and 'experts', we want to ensure they are
+        rendered on contrasting panels.
+
+        This method (which is opinionated based on state, hence a method, not a
+        function) returns a dictionary referencing the name of each panel and whether
+        it should be on a tinted panel.
+        """
+        output = {
+            # Default state
+            "recent_work": False,
+            "relevant_events": False,
+            "experts": False,
+        }
+
+        if self.recent_work:
+            # If present, always takes a tint panel
+            output["recent_work"] = True
+
+        if self.relevant_events:
+            output["relevant_events"] = not self.recent_work
+
+        if self.experts:
+            if not self.recent_work and not self.relevant_events:
+                output["experts"] = True  # Only panel, so tint it
+            elif self.recent_work and self.relevant_events:
+                output["experts"] = True  # Third panel, so tint it
+            else:
+                output["experts"] = False
+        return output
 
 
 class Topics(BasePage):
