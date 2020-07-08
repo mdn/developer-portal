@@ -22,11 +22,21 @@
     }
   }
 
-  .mzp-c-newsletter-form {
+  .newsletter-content-wrapper {
     @media #{$mq-md} {
       width: 50%;
+    }
+  }
+
+  .newsletter-cta-copy {
+    padding-left: $spacing-2xl;
+  }
+
+  .mzp-c-newsletter-form {
+    @media #{$mq-md} {
+      float: left;
       max-width: 670px;
-      padding: 0px $spacing-lg 0px $spacing-2xl;
+      padding: 0 $spacing-lg 0 $spacing-2xl;
     }
   }
 
@@ -38,7 +48,7 @@
   }
 
   .mzp-c-button {
-    margin-bottom: 0px;
+    margin-bottom: 0;
     width: 100%;
     @media #{$mq-md} {
       width: 80%;
@@ -52,3 +62,25 @@
     }
   }
 }
+
+// .newsletter-signup--compact {
+//   .mzp-c-newsletter-form {
+//     width: 100%;
+//   }
+
+//   .mzp-c-newsletter-image {
+//     padding-left: 10px;
+//     img {
+//       max-height: 200px;
+//     }
+//   }
+//   .newsletter-fields,
+//   .newsletter-cta-copy {
+//     @media #{$mq-md} {
+//       width: 50%;
+//       float: left;
+//     }
+//   }
+// }
+
+//calc(33.3% - (32px - (32px / 3)));
