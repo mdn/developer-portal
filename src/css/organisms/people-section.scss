@@ -11,4 +11,10 @@
       }
     }
   }
+  &.has-tint {
+    background-color: $color-marketing-gray-20;
+    h4 {
+      margin-top: 16px;
+    }
+  }
 }

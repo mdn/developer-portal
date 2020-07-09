@@ -18,13 +18,20 @@
     {% endif %}
   {% endwith %}
 
+  {% with page.get_section_background_panel_hints as tint_hints %}
+
   {% comment %} WHAT WE ARE WORKING ON {% endcomment %}
-  {% include "organisms/four-card-row.html" with items=page.recent_work|published header_text="What we're developing" show_domain=True%}
+  {% include "organisms/four-card-row.html" with items=page.recent_work|published header_text="What we're developing" show_domain=True tinted_panel=tint_hints.recent_work %}
+
+  {% comment %} EVENTS {% endcomment %}
+  {% include "organisms/four-card-row.html" with items=page.relevant_events|published header_text="Related events" show_domain=False tinted_panel=tint_hints.relevant_events  %}
 
   {% comment %} PEOPLE/EXPERTS {% endcomment %}
   {% if page.experts %}
-  {% include "organisms/people-section.html" with people=page.experts is_topic=True show_link=True %}
+  {% include "organisms/people-section.html" with people=page.experts is_topic=True show_link=True tinted_panel=tint_hints.experts %}
   {% endif %}
+  {% endwith %}
+
   {% include "organisms/newsletter-signup.html" %}
 </main>
 {% endblock content %}

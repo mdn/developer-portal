@@ -38,6 +38,130 @@ class TopicTests(PatchedWagtailPageTests):
             topic_page_article.title,
         )
 
+    def test_get_section_background_panel_hints(self):
+        topic_page = Topic.objects.all()[0]
+
+        cases = (
+            {
+                "desc": "All panels present",
+                "setup": {
+                    "recent_work": [("heading", "DUMMY")],
+                    "relevant_events": [("heading", "DUMMY")],
+                    "experts": [1, 2, 3],
+                },
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": True,
+                    "relevant_events": False,
+                    "experts": True,
+                },
+            },
+            {
+                "desc": "No panels present",
+                "setup": {"recent_work": {}, "relevant_events": {}, "experts": []},
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": False,
+                    "relevant_events": False,
+                    "experts": False,
+                },
+            },
+            {
+                "desc": "Recent work only",
+                "setup": {
+                    "recent_work": [("heading", "DUMMY")],
+                    "relevant_events": {},
+                    "experts": [],
+                },
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": True,
+                    "relevant_events": False,
+                    "experts": False,
+                },
+            },
+            {
+                "desc": "Relevant events only",
+                "setup": {
+                    "recent_work": {},
+                    "relevant_events": [("heading", "DUMMY")],
+                    "experts": [],
+                },
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": False,
+                    "relevant_events": True,
+                    "experts": False,
+                },
+            },
+            {
+                "desc": "Experts only",
+                "setup": {
+                    "recent_work": {},
+                    "relevant_events": {},
+                    "experts": [1, 2, 3],
+                },
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": False,
+                    "relevant_events": False,
+                    "experts": True,
+                },
+            },
+            {
+                "desc": "Recent work and Relevant events present",
+                "setup": {
+                    "recent_work": [("heading", "DUMMY")],
+                    "relevant_events": [("heading", "DUMMY")],
+                    "experts": [],
+                },
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": True,
+                    "relevant_events": False,  # second item only so no need for tint panel
+                    "experts": False,
+                },
+            },
+            {
+                "desc": "Recent work and Experts present",
+                "setup": {
+                    "recent_work": [("heading", "DUMMY")],
+                    "relevant_events": {},
+                    "experts": [1, 2, 3],
+                },
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": True,
+                    "relevant_events": False,
+                    "experts": False,  # second item only so no need for tint panel
+                },
+            },
+            {
+                "desc": "Relevant Events and Experts only",
+                "setup": {
+                    "recent_work": {},
+                    "relevant_events": [("heading", "DUMMY")],
+                    "experts": [1, 2, 3],
+                },
+                "expected": {
+                    # Whether to use a tinted panel
+                    "recent_work": False,
+                    "relevant_events": True,
+                    "experts": False,  # second item only so no need for tint panel
+                },
+            },
+        )
+        for case in cases:
+            with self.subTest(test_label=case["desc"]):
+                # Patch with minimal data - fine as long as we're not saving the page
+                topic_page.recent_work = case["setup"]["recent_work"]
+                topic_page.relevant_events = case["setup"]["relevant_events"]
+                topic_page.experts = case["setup"]["experts"]
+
+                self.assertEqual(
+                    topic_page.get_section_background_panel_hints(), case["expected"]
+                )
+
 
 class TopicsTests(PatchedWagtailPageTests):
     """Tests for the Topics page model."""

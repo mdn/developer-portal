@@ -3,12 +3,13 @@ Inputs:
   items: <List>( <StreamChild> )
   header_text: <str> - custom header text for the panel, mandatory
   show_domain: <Boolean> - whether the quarter-page-item molecule should show a domain or default to the primary topic
+  tinted_panel: <Boolean> - whether this panel is on a tinted background or not
 
 {% endcomment %}
 
 {% if items %}
 {# Render cards side by side, up to four, always same width #}
-<div class="four-card-row">
+<div class="four-card-row {% if tinted_panel %}has-tint{% endif %}">
   <div class="mzp-l-content">
     {% if header_text %}
     <h4>{{header_text}}</h4>
