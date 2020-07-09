@@ -97,8 +97,7 @@
   }
   .mzp-c-newsletter-form {
     @media #{$mq-lg} {
-      padding-top: $spacing-xs;
-      padding: 0 0 0 $spacing-lg;
+      padding: $spacing-xs 0 0 $spacing-lg;
     }
   }
 
