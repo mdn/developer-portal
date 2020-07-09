@@ -2,4 +2,3 @@ User-agent: *
 Disallow: /admin/
 Disallow: /django-admin/
 Disallow: /static/
-Disallow: /search/
