@@ -22,7 +22,7 @@ import bleach
 import feedparser
 from bs4 import BeautifulSoup
 
-from ..common.constants import DESCRIPTION_MAX_LENGTH
+from ..common.constants import DESCRIPTION_MAX_LENGTH, NON_SPACE_WHITESPACE
 from ..externalcontent import models as externalcontent_models
 from ..mozimages.models import MozImage
 from ..videos import models as video_models
@@ -51,6 +51,17 @@ def _get_item_image(entry) -> str:
         return entry.media_content[0]["url"]
 
     return ""
+
+
+def _clean_string(string_: str) -> str:
+    "Get and clean up the given string, sanitising and dropping whitespace"
+    string_ = bleach.clean(string_, strip=True)
+    string_ = string_.translate(str.maketrans("", "", NON_SPACE_WHITESPACE))
+    return string_
+
+
+def _get_item_title(entry) -> str:
+    return _clean_string(entry.title)
 
 
 def _get_item_description(entry) -> str:
@@ -133,7 +144,7 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
 
         output.append(
             dict(
-                title=entry.title,
+                title=_get_item_title(entry),
                 authors=[x["name"] for x in entry.authors],
                 url=entry.link,
                 description=_get_item_description(entry),

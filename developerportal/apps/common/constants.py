@@ -83,3 +83,5 @@ PAGE_TYPE_LOOKUP_FOR_LABEL = {
     "ContentPage": CONTENT,
     "Topic": TOPIC,
 }
+
+NON_SPACE_WHITESPACE = "\n\t\r"

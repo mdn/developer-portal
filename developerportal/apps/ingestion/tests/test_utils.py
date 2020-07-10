@@ -10,6 +10,7 @@ from dateutil.tz import tzlocal
 
 from developerportal.apps.ingestion.utils import (
     _get_item_description,
+    _get_item_title,
     _get_slug,
     fetch_external_data,
     ingest_content,
@@ -527,6 +528,51 @@ class UtilsTestCaseWithFixtures(TestCase):
         for case in cases:
             with self.subTest(input_=case["input"], expected=case["expected"]):
                 self.assertEqual(_get_slug(case["input"]), case["expected"])
+
+    def test_get_item_title(self):
+
+        cases = [
+            {
+                "input": "<h1>title here</h1>",
+                "expected": "title here",
+                "desc_": "drops markup 1",
+            },
+            {
+                "input": "<title>title here</title>",
+                "expected": "title here",
+                "desc_": "drops markup 2",
+            },
+            {
+                "input": "<p>title here</p>",
+                "expected": "title here",
+                "desc_": "drops markup 3",
+            },
+            {
+                "input": "<p><h1>title here</h1></p>",
+                "expected": "title here",
+                "desc_": "drops markup 4 (nested)",
+            },
+            {
+                "input": '<script>alert("boo");</script>',
+                "expected": 'alert("boo");',
+                "desc_": "drops script markup 5",
+            },
+            {
+                "input": "\ttitle\n\r\t\nhere\n\n\r\n",
+                "expected": "titlehere",
+                "desc_": "drops whitespace",
+            },
+            {
+                "input": "test title!&lt;marquee&gt;test&lt;/marquee&gt;",
+                "expected": "test title!&lt;marquee&gt;test&lt;/marquee&gt;",
+                "desc_": "Already-escaped markup is retained",
+            },
+        ]
+        for case in cases:
+            with self.subTest(label=case["desc_"]):
+                mock_entry = mock.Mock(title=case["input"])
+                assert mock_entry.title == case["input"]  # Confirm patch
+                self.assertEqual(_get_item_title(mock_entry), case["expected"])
 
     def test__get_item_description(self):
 
