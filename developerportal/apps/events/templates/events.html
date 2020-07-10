@@ -22,7 +22,7 @@
   {% endif %}
   {% with page.featured|published as featured %}
     {% if featured %}
-      {% include "organisms/four-card-row.html" with items=featured header_text="Featured events" show_domain=False tinted_panel=True %}
+      {% include "organisms/four-card-row.html" with items=featured header_text="Featured" show_domain=False tinted_panel=True %}
     {% endif %}
   {% endwith %}
   <div class="mzp-l-content events-middle-content">
