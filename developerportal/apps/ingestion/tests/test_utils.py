@@ -563,6 +563,51 @@ class UtilsTestCaseWithFixtures(TestCase):
                 "expected": f"<p>{ 'x' * 393}</p>",
                 "desc_": "<p> node > 400 chars gets cut, but still wrapped in <p>",
             },
+            {
+                "input": (
+                    "<p>test description!&lt;marquee&gt;test&lt;/marquee&gt;</p>"
+                ),
+                "expected": (
+                    "<p>test description!&lt;marquee&gt;test&lt;/marquee&gt;</p>"
+                ),
+                "desc_": "Already-escaped markup is retained",
+            },
+            {
+                "input": "<p>test description!<marquee>test</marquee></p>",
+                "expected": "<p>test description!test</p>",
+                "desc_": "Unescaped markup is removed 1",
+            },
+            {
+                "input": '<p>test description!<script>alert("boo");</script></p>',
+                "expected": ('<p>test description!alert("boo");</p>'),
+                "desc_": "Unescaped markup is removed 2",
+            },
+            {
+                "input": '<script>alert("boo");</script>',
+                "expected": (""),
+                "desc_": "Unescaped markup is removed 3",
+            },
+            {
+                "input": (
+                    "<p>test description!"
+                    "<script>"
+                    '<script>alert("boo");</script>'
+                    "</script>"
+                    "</p>"
+                ),
+                "expected": (
+                    '<p>test description!&lt;script&gt;alert("boo");</p>'
+                    # Beautiful Soup drops the second </script> before we sanitise it
+                ),
+                "desc_": "Unescaped doubled-up markup is handled",
+            },
+            {
+                "input": (
+                    f"<p><script>alert('boo');</script>{ 'x' * 379}X, but not this</p>"
+                ),
+                "expected": (f"<p>alert('boo');{ 'x' * 379}X</p>"),
+                "desc_": "Truncation and removal of unescaped content",
+            },
         ]
         for case in cases:
             with self.subTest(label=case["desc_"]):

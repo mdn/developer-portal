@@ -18,6 +18,7 @@ from wagtail.admin.mail import send_notification
 from wagtail.core.models import Page
 from wagtail.embeds.blocks import EmbedValue
 
+import bleach
 import feedparser
 from bs4 import BeautifulSoup
 
@@ -76,6 +77,10 @@ def _get_item_description(entry) -> str:
             # truncate, allowing space to wrap in a <p>
             max_length = DESCRIPTION_MAX_LENGTH - (len("<p>") + len("</p>"))
             desc = desc[:max_length]
+
+        # Extra pass of sanitising, eg in case there are nested script tags
+        if desc:
+            desc = bleach.clean(desc, strip=False)
 
         # Ensure wrapped in something that can go into a rich-text field
         if desc:
