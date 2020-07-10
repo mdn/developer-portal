@@ -118,8 +118,8 @@ class TopicTests(PatchedWagtailPageTests):
                 "expected": {
                     # Whether to use a tinted panel
                     "recent_work": True,
-                    "relevant_events": False,
-                    "experts": False,  # second item only so no need for tint panel
+                    "relevant_events": False,  # second item only so no tint needed
+                    "experts": False,
                 },
             },
             {
