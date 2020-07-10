@@ -9,6 +9,7 @@ import pytz
 from dateutil.tz import tzlocal
 
 from developerportal.apps.ingestion.utils import (
+    _get_item_authors,
     _get_item_description,
     _get_item_title,
     _get_slug,
@@ -573,6 +574,71 @@ class UtilsTestCaseWithFixtures(TestCase):
                 mock_entry = mock.Mock(title=case["input"])
                 assert mock_entry.title == case["input"]  # Confirm patch
                 self.assertEqual(_get_item_title(mock_entry), case["expected"])
+
+    def test_get_item_authors(self):
+        cases = [
+            {"input": [], "expected": [], "desc_": "no author"},
+            {
+                "input": [{"name": "Test McTest", "uri": "https://example.com/test"}],
+                "expected": ["Test McTest"],
+                "desc_": "one author - good",
+            },
+            {
+                "input": [
+                    {
+                        "name": "<script>alert('boo');</script>Test McTest",
+                        "uri": "https://example.com/test",
+                    }
+                ],
+                "expected": ["alert('boo');Test McTest"],
+                "desc_": "one author - markup",
+            },
+            {
+                "input": [
+                    {"name": "\n\r\tTest\tMcTest\t", "uri": "https://example.com/test"}
+                ],
+                "expected": ["TestMcTest"],
+                "desc_": "one author - whitespace",
+            },
+            {
+                "input": [
+                    {"name": "Alice McTest", "uri": "https://example.com/test"},
+                    {"name": "Bob McTest", "uri": "https://example.com/test"},
+                    {"name": "Eve McTest", "uri": "https://example.com/test"},
+                ],
+                "expected": ["Alice McTest", "Bob McTest", "Eve McTest"],
+                "desc_": "multuple authors - all good",
+            },
+            {
+                "input": [
+                    {
+                        "name": "Alice <h2>McTest</h2>",
+                        "uri": "https://example.com/test",
+                    },
+                    {
+                        "name": "Bob<script>alert('boo');</script>McTest",
+                        "uri": "https://example.com/test",
+                    },
+                    {
+                        "name": "<marquee>Eve\t McTest</marquee>",
+                        "uri": "https://example.com/test",
+                    },
+                    {"name": "Zoë McTest", "uri": "https://example.com/test"},
+                ],
+                "expected": [
+                    "Alice McTest",
+                    "Bobalert('boo');McTest",
+                    "Eve McTest",
+                    "Zoë McTest",
+                ],
+                "desc_": "multiple authors - mixed quality",
+            },
+        ]
+        for case in cases:
+            with self.subTest(label=case["desc_"]):
+                mock_entry = mock.Mock(authors=case["input"])
+                assert mock_entry.authors == case["input"]  # Confirm patch
+                self.assertEqual(_get_item_authors(mock_entry), case["expected"])
 
     def test__get_item_description(self):
 

@@ -3,6 +3,7 @@ import datetime
 import hashlib
 import logging
 from io import BytesIO
+from typing import List
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -62,6 +63,19 @@ def _clean_string(string_: str) -> str:
 
 def _get_item_title(entry) -> str:
     return _clean_string(entry.title)
+
+
+def _get_item_authors(entry) -> List[str]:
+    "Get and clean up any string based on a list of author dicts"
+
+    cleaned_authors = []
+    for author in entry.authors:
+        author_name = author.get("name", "")
+        author_name = _clean_string(author_name)
+        if author_name:
+            cleaned_authors.append(author_name)
+
+    return cleaned_authors
 
 
 def _get_item_description(entry) -> str:
@@ -145,7 +159,7 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
         output.append(
             dict(
                 title=_get_item_title(entry),
-                authors=[x["name"] for x in entry.authors],
+                authors=_get_item_authors(entry),  # Note: this isn't used yet...
                 url=entry.link,
                 description=_get_item_description(entry),
                 image_url=_get_item_image(entry),
