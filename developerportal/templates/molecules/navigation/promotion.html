@@ -5,7 +5,7 @@ Expects:
   `page`- a Page subclass that we'll use to determing which promoted item to feature
 
 {% endcomment %}
-{% if page.specific.resource_type == "topics" %}
+{% if page.specific.title == "Communities" %} {% comment %} Unpleasant, but only way {% endcomment %}
 
 <div class="mzp-c-menu-panel-card">
   <section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-3-2">
@@ -38,7 +38,7 @@ Expects:
   </section>
 </div>
 
-{% elif page.specific.title == "Communities" %} {% comment %} Unpleasant, but only way {% endcomment %}
+{% elif page.specific.resource_type == "topics" %}
 
 <div class="mzp-c-menu-panel-card">
   <section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-3-2">
