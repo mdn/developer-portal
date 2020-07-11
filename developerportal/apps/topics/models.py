@@ -372,4 +372,4 @@ class Topics(BasePage):
 
     @property
     def topics(self):
-        return Topic.published_objects.order_by("title")
+        return Topic.published_objects.all()
