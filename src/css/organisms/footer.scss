@@ -14,15 +14,39 @@
     background-color: $color-black;
     color: $color-white;
 
-    section.link {
+    .social-link {
+      &:before {
+        background: transparent no-repeat 0 0;
+        background-size: 20px;
+        content: '';
+        display: inline-block;
+        fill: white;
+        height: 20px;
+        margin-right: 8px;
+        position: relative;
+        vertical-align: top;
+        width: 20px;
+      }
+
+      &.twitter {
+        &:before {
+          background-image: url('/static/img/icons/social/twitter/white.svg');
+        }
+      }
+      &.youtube {
+        &:before {
+          background-image: url('/static/img/icons/social/youtube/white.svg');
+          background-position-y: 2px;
+        }
+      }
+      &.mozilla {
+        &:before {
+          background-image: url('/static/img/logos/mdn-dino-white.svg');
+        }
+      }
+
       @media #{$mq-lg} {
         box-sizing: content-box !important;
-      }
-      img {
-        height: 20px;
-        margin-right: $spacing-sm;
-        vertical-align: middle;
-        width: 20px;
       }
     }
   }
