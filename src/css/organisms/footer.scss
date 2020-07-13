@@ -1,21 +1,29 @@
-.mozilla-developer-logo {
-  height: 64px; // custom to this project - bedrock/mozorg may differ
-  width: auto;
-}
+.mzp-c-footer {
+  .mozilla-developer-logo {
+    float: left;
+    height: 64px; // custom to this project - bedrock/mozorg may differ
+    width: auto;
+  }
 
-.social-links {
-  background-color: $color-black;
-  color: $color-white;
+  .footer-about-link {
+    float: left;
+    margin: $spacing-sm 0 0 $spacing-xl;
+  }
 
-  section.link {
-    @media #{$mq-lg} {
-      box-sizing: content-box !important;
-    }
-    img {
-      height: 20px;
-      margin-right: $spacing-sm;
-      vertical-align: middle;
-      width: 20px;
+  .social-links {
+    background-color: $color-black;
+    color: $color-white;
+
+    section.link {
+      @media #{$mq-lg} {
+        box-sizing: content-box !important;
+      }
+      img {
+        height: 20px;
+        margin-right: $spacing-sm;
+        vertical-align: middle;
+        width: 20px;
+      }
     }
   }
 }

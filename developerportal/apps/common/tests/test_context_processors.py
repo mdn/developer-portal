@@ -7,6 +7,7 @@ from wagtail.contrib.redirects.models import Redirect
 
 from developerportal import context_processors
 
+from ...content.models import ContentPage
 from ...topics.models import Topics
 
 
@@ -46,7 +47,7 @@ class ContextProcessorsTestCase(TestCase):
         TARGET_URL = "https://hacks.mozilla.org"
         PATH = "/blog"
         # Ensure there's a blog link/redirect set up
-        redirect, created = Redirect.objects.get_or_create(
+        redirect = Redirect.objects.get(
             old_path=PATH, redirect_link=TARGET_URL, is_permanent=False
         )
 
@@ -58,4 +59,22 @@ class ContextProcessorsTestCase(TestCase):
         redirect.delete()
         self.assertEqual(
             context_processors.blog_link(request=mock.Mock()), {"BLOG_LINK": None}
+        )
+
+    def test_about_link(self):
+
+        SLUG = "about"
+        page = ContentPage.objects.create(
+            title="TEST TITLE", path="000100010001", depth=6, slug=SLUG
+        )
+
+        self.assertEqual(
+            context_processors.about_link(request=mock.Mock()),
+            {"ABOUT_LINK": f"/{SLUG}/"},
+        )
+
+        # Now confirm behavior if the link is not there
+        page.delete()
+        self.assertEqual(
+            context_processors.about_link(request=mock.Mock()), {"ABOUT_LINK": None}
         )
