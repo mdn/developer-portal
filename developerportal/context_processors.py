@@ -4,6 +4,9 @@ from django.conf import settings
 from django.core.cache import cache
 
 from wagtail.contrib.redirects.models import Redirect
+from wagtail.core.models import Page
+
+from developerportal.apps.common.constants import ABOUT_PAGE_SLUG
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +21,6 @@ def google_analytics(request):
 
 
 def blog_link(request):
-
     blog_link = (
         Redirect.objects.filter(redirect_link="https://hacks.mozilla.org")
         .values_list("old_path", flat=True)
@@ -26,6 +28,17 @@ def blog_link(request):
     )  # Returns a string or None
 
     return {"BLOG_LINK": blog_link}
+
+
+def about_link(request):
+    "Confirm the About page exists and return a URL path to it"
+    about_link = None
+    about_page = Page.objects.live().public().filter(slug=ABOUT_PAGE_SLUG).first()
+
+    if about_page:
+        about_link = about_page.url
+
+    return {"ABOUT_LINK": about_link}
 
 
 def mapbox_access_token(request):

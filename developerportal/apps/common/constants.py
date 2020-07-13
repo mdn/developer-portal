@@ -85,3 +85,7 @@ PAGE_TYPE_LOOKUP_FOR_LABEL = {
 }
 
 NON_SPACE_WHITESPACE = "\n\t\r"
+
+ABOUT_PAGE_SLUG = (
+    "about"
+)  # needs to be kept in sync with DB, but better defined in one place
