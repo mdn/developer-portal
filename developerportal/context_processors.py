@@ -3,7 +3,6 @@ import logging
 from django.conf import settings
 from django.core.cache import cache
 
-from wagtail.contrib.redirects.models import Redirect
 from wagtail.core.models import Page
 
 from developerportal.apps.common.constants import ABOUT_PAGE_SLUG
@@ -21,13 +20,7 @@ def google_analytics(request):
 
 
 def blog_link(request):
-    blog_link = (
-        Redirect.objects.filter(redirect_link="https://hacks.mozilla.org")
-        .values_list("old_path", flat=True)
-        .first()
-    )  # Returns a string or None
-
-    return {"BLOG_LINK": blog_link}
+    return {"BLOG_LINK": settings.BLOG_URL}
 
 
 def about_link(request):
