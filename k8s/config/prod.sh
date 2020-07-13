@@ -22,6 +22,8 @@ export APP_MEMORY_REQUEST=2Gi
 export APP_GUNICORN_WORKERS=2
 export APP_HOST=developer-portal.prod.mdn.mozit.cloud
 export APP_CDN_HOST=developer.mozilla.com
+# APP_SUPPLEMENTARY_HOST is temporary
+export APP_SUPPLEMENTARY_HOST=mozilla.dev
 export APP_AWS_BUCKET_NAME=developer-portal-prod-178589013767
 export APP_AWS_STORAGE_BUCKET_NAME=devportal-media-prod
 export APP_AWS_BUCKET_REGION=us-west-2
