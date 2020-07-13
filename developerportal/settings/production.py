@@ -16,6 +16,12 @@ if CDN_URL:
     # It is different from the BASE_URL (where Wagtail is running).
     ALLOWED_HOSTS.append(urlparse(CDN_URL).hostname)
 
+if SUPPLEMENTARY_URL:
+    # This is the URL of an additional CDN/hostname to front the site,
+    # useful for domain switchover
+    # It is different from the BASE_URL (where Wagtail is running) and the CDN_URL
+    ALLOWED_HOSTS.append(urlparse(SUPPLEMENTARY_URL).hostname)
+
 try:
     from .local import *  # noqa
 except ImportError:
