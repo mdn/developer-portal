@@ -1,9 +1,7 @@
 from unittest import mock
 
 from django.core.cache import cache
-from django.test import TestCase
-
-from wagtail.contrib.redirects.models import Redirect
+from django.test import TestCase, override_settings
 
 from developerportal import context_processors
 
@@ -42,23 +40,12 @@ class ContextProcessorsTestCase(TestCase):
         )
         self.assertIsNone(cache.get(Topics.CACHE_KEY_TOPICS_TITLE))
 
+    @override_settings(BLOG_URL="https://example.com/test/")
     def test_blog_link(self):
 
-        TARGET_URL = "https://hacks.mozilla.org"
-        PATH = "/blog"
-        # Ensure there's a blog link/redirect set up
-        redirect = Redirect.objects.get(
-            old_path=PATH, redirect_link=TARGET_URL, is_permanent=False
-        )
-
         self.assertEqual(
-            context_processors.blog_link(request=mock.Mock()), {"BLOG_LINK": PATH}
-        )
-
-        # Now confirm behavior if the link is not there
-        redirect.delete()
-        self.assertEqual(
-            context_processors.blog_link(request=mock.Mock()), {"BLOG_LINK": None}
+            context_processors.blog_link(request=mock.Mock()),
+            {"BLOG_LINK": "https://example.com/test/"},
         )
 
     def test_about_link(self):

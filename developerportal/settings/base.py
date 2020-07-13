@@ -384,6 +384,9 @@ TASK_COMPLETION_SURVEY_PERCENTAGE = Decimal(
     os.environ.get("TASK_COMPLETION_SURVEY_PERCENTAGE", "5.0")
 )
 
+# For redirecting to Hacks developer blog
+BLOG_URL = "https://hacks.mozilla.org"
+
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
 SENTRY_DSN = os.environ.get("SENTRY_DSN")
