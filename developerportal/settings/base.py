@@ -265,6 +265,11 @@ BASE_URL = os.environ.get("BASE_URL")  # eg https://cms.example.net
 # URLs generated, and we want to ensure that means the CDN.
 CDN_URL = os.environ.get("CDN_URL")  # eg https://cdn.example.net
 
+# A supplementary URL we can add to ALLOWED_HOSTS to help with domain switchover
+SUPPLEMENTARY_URL = os.environ.get(
+    "SUPPLEMENTARY_URL"
+)  # eg https://domain-alternative.example.net
+
 
 AWS_REGION = os.environ.get("AWS_REGION")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
