@@ -104,6 +104,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "developerportal.context_processors.about_link",
                 "developerportal.context_processors.blog_link",
                 "developerportal.context_processors.directory_pages",
                 "developerportal.context_processors.google_analytics",

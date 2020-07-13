@@ -59,3 +59,7 @@ ENVIRONMENT_DEVELOPMENT = "development"
 
 
 MOZILLA_SUPPORT_STRING = "Sponsored by Mozilla"
+
+ABOUT_PAGE_SLUG = (
+    "about"
+)  # needs to be kept in sync with DB, but better defined in one place
