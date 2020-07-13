@@ -1,10 +1,11 @@
 from unittest import mock
 
 from django.core.cache import cache
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from developerportal import context_processors
 
+from ...content.models import ContentPage
 from ...topics.models import Topics
 
 
@@ -38,3 +39,29 @@ class ContextProcessorsTestCase(TestCase):
             {"TOPICS_TITLE_LABEL": "Topics"},
         )
         self.assertIsNone(cache.get(Topics.CACHE_KEY_TOPICS_TITLE))
+
+    @override_settings(BLOG_URL="https://example.com/test/")
+    def test_blog_link(self):
+
+        self.assertEqual(
+            context_processors.blog_link(request=mock.Mock()),
+            {"BLOG_LINK": "https://example.com/test/"},
+        )
+
+    def test_about_link(self):
+
+        SLUG = "about"
+        page = ContentPage.objects.create(
+            title="TEST TITLE", path="000100010001", depth=6, slug=SLUG
+        )
+
+        self.assertEqual(
+            context_processors.about_link(request=mock.Mock()),
+            {"ABOUT_LINK": f"/{SLUG}/"},
+        )
+
+        # Now confirm behavior if the link is not there
+        page.delete()
+        self.assertEqual(
+            context_processors.about_link(request=mock.Mock()), {"ABOUT_LINK": None}
+        )

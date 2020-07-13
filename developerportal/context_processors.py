@@ -3,6 +3,10 @@ import logging
 from django.conf import settings
 from django.core.cache import cache
 
+from wagtail.core.models import Page
+
+from developerportal.apps.common.constants import ABOUT_PAGE_SLUG
+
 logger = logging.getLogger(__name__)
 
 
@@ -13,6 +17,21 @@ def google_analytics(request):
     if ga_code and ga_code != DEFAULT_GA_PLACEHOLDER_VAL:
         output.update({"GOOGLE_ANALYTICS": ga_code})
     return output
+
+
+def blog_link(request):
+    return {"BLOG_LINK": settings.BLOG_URL}
+
+
+def about_link(request):
+    "Confirm the About page exists and return a URL path to it"
+    about_link = None
+    about_page = Page.objects.live().public().filter(slug=ABOUT_PAGE_SLUG).first()
+
+    if about_page:
+        about_link = about_page.url
+
+    return {"ABOUT_LINK": about_link}
 
 
 def mapbox_access_token(request):

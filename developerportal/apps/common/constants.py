@@ -83,3 +83,7 @@ PAGE_TYPE_LOOKUP_FOR_LABEL = {
     "ContentPage": CONTENT,
     "Topic": TOPIC,
 }
+
+ABOUT_PAGE_SLUG = (
+    "about"
+)  # needs to be kept in sync with DB, but better defined in one place

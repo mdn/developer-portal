@@ -110,6 +110,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "developerportal.context_processors.about_link",
+                "developerportal.context_processors.blog_link",
                 "developerportal.context_processors.directory_pages",
                 "developerportal.context_processors.google_analytics",
                 "developerportal.context_processors.mapbox_access_token",
@@ -403,6 +405,9 @@ TASK_COMPLETION_SURVEY_URL = os.environ.get("TASK_COMPLETION_SURVEY_URL")
 TASK_COMPLETION_SURVEY_PERCENTAGE = Decimal(
     os.environ.get("TASK_COMPLETION_SURVEY_PERCENTAGE", "5.0")
 )
+
+# For redirecting to Hacks developer blog
+BLOG_URL = "https://hacks.mozilla.org"
 
 # Sentry logging
 REVISION_HASH = os.environ.get("REVISION_HASH", "undefined")
