@@ -64,6 +64,13 @@
                       </li>
                     {% endwith %}
                   {% endfor %}
+                  {% if BLOG_LINK %}
+                  <li class="mzp-c-menu-category">
+                      <a class="mzp-c-menu-title" href="{{ BLOG_LINK }}">
+                          Blog
+                      </a>
+                  </li>
+                  {% endif %}
                   <li class="mzp-c-menu-category">
                     {% include "molecules/site-search-form.html" with hide_label=True placeholder_text="Search" search_input_id="nav_search_query" %}
                   </li>

@@ -3,6 +3,8 @@ import logging
 from django.conf import settings
 from django.core.cache import cache
 
+from wagtail.contrib.redirects.models import Redirect
+
 logger = logging.getLogger(__name__)
 
 
@@ -13,6 +15,17 @@ def google_analytics(request):
     if ga_code and ga_code != DEFAULT_GA_PLACEHOLDER_VAL:
         output.update({"GOOGLE_ANALYTICS": ga_code})
     return output
+
+
+def blog_link(request):
+
+    blog_link = (
+        Redirect.objects.filter(redirect_link="https://hacks.mozilla.org")
+        .values_list("old_path", flat=True)
+        .first()
+    )  # Returns a string or None
+
+    return {"BLOG_LINK": blog_link}
 
 
 def mapbox_access_token(request):
