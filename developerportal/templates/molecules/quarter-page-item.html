@@ -44,7 +44,9 @@ Inputs:
       </div>
       <div class="mzp-c-card-content">
         <div class="mzp-c-card-tag">
-        {% if show_domain %}
+        {% if show_dates %}
+          {{resource.event_dates_full}}
+        {% elif show_domain %}
           {% if external_page %}
             {{resource.url|domain_from_url:request }}
           {% else %}
