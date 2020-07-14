@@ -55,7 +55,7 @@ module.exports = class FilterForm {
    * present. Why? to avoid `search=` appearing in the URL whenever
    * filters are set but there is no search term
    *
-   * @param {Event} e
+   * @param {Event} e - A form submit event
    */
   onFormSubmit(e) {
     e.preventDefault();
