@@ -43,7 +43,7 @@
   "dependencies": {
     "js-cookie": "2.2.1",
     "promise-polyfill": "8.1.3",
-    "whatwg-fetch": "3.0.0"
+    "whatwg-fetch": "3.2.0"
   },
   "devDependencies": {
     "@mozilla-protocol/core": "11.0.2",
