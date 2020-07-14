@@ -210,6 +210,4 @@ class HomePage(BasePage):
         """The site’s top-level topics, i.e. topics without a parent topic."""
         from ..topics.models import Topic
 
-        return Topic.published_objects.filter(parent_topics__isnull=True).order_by(
-            "title"
-        )
+        return Topic.published_objects.filter(parent_topics__isnull=True)
