@@ -66,11 +66,14 @@
   </head>
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
+    {% include "molecules/accessibility-nav.html"%}
     {% block survey %}{% survey_prompt %}{% endblock survey%}
     {% block header %}
       {% include "header.html" %}
     {% endblock %}
+    <div id="content">
     {% block content %}{% endblock %}
+    </div>
     {% block footer %}
       {% include "footer.html" %}
     {% endblock %}
