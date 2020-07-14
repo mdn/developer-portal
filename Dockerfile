@@ -18,6 +18,8 @@ EXPOSE 8000
 WORKDIR /app/
 
 RUN apk add --no-cache --virtual .build-deps \
+  file \
+  make \
   gcc \
   musl-dev \
   postgresql-dev

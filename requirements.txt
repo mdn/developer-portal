@@ -6,7 +6,7 @@ django-celery-results==1.2.1
 django-countries==6.1.2
 django-redis==4.12.1
 gunicorn==20.0.4
-gevent==1.4.0
+gevent==20.6.2
 greenlet==0.4.16
 gevent-socketio==0.3.6
 gevent-websocket==0.10.1
