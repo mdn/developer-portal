@@ -193,7 +193,8 @@ k8s-jenkins-delete-rbac:
 .PHONY: k8s-ns k8s-delete-ns k8s-services k8s-delete-services \
 		k8s-deployments k8s-delete-deployments k8s-rollout-status \
 		k8s-wagtail-deployments k8s-celery-deployments \
-		k8s-deployment-hpa \
+		k8s-hpa k8s-deployment-hpa \
+		k8s-delete-deployment-hpa \
 		k8s-delete-wagtail-deployments k8s-delete-celery-deployments \
 		k8s-rollback k8s-history k8s-db-migration-job \
 		k8s-delete-db-migration-job
