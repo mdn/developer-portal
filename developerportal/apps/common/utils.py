@@ -9,7 +9,11 @@ from django.utils.timezone import now as tz_now
 
 import bleach
 
-from ..common.constants import EVENTS_PAGE_SEARCH_FIELDS, POSTS_PAGE_SEARCH_FIELDS
+from ..common.constants import (
+    EVENTS_PAGE_SEARCH_FIELDS,
+    NON_SPACE_WHITESPACE,
+    POSTS_PAGE_SEARCH_FIELDS,
+)
 
 
 def _combined_query(models, fn):
@@ -30,7 +34,6 @@ def prep_search_terms(terms: str) -> str:
     """
 
     terms = unquote(terms)
-    NON_SPACE_WHITESPACE = "\n\t\r"
     terms = terms.translate(str.maketrans("", "", NON_SPACE_WHITESPACE))
     terms = bleach.clean(terms)
     terms = terms.strip()

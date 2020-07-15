@@ -45,6 +45,9 @@ export APP_NOTIFY_AFTER_INGESTING_CONTENT ?= False
 export APP_TASK_COMPLETION_SURVEY_URL ?= undefined
 export APP_TASK_COMPLETION_SURVEY_PERCENTAGE ?= 5.00  # default 5%
 
+# Rate limiting
+export APP_RATELIMIT_ENABLE ?= True
+
 export CELERY_WORKER_NAME ?= celery-worker
 export CELERY_WORKER_REPLICAS ?= 1
 export CELERY_WORKER_CONCURRENCY ?= 2

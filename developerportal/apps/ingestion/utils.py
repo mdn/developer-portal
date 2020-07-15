@@ -3,6 +3,7 @@ import datetime
 import hashlib
 import logging
 from io import BytesIO
+from typing import List
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -18,10 +19,11 @@ from wagtail.admin.mail import send_notification
 from wagtail.core.models import Page
 from wagtail.embeds.blocks import EmbedValue
 
+import bleach
 import feedparser
 from bs4 import BeautifulSoup
 
-from ..common.constants import DESCRIPTION_MAX_LENGTH
+from ..common.constants import DESCRIPTION_MAX_LENGTH, NON_SPACE_WHITESPACE
 from ..externalcontent import models as externalcontent_models
 from ..mozimages.models import MozImage
 from ..videos import models as video_models
@@ -52,6 +54,30 @@ def _get_item_image(entry) -> str:
     return ""
 
 
+def _clean_string(string_: str) -> str:
+    "Get and clean up the given string, sanitising and dropping whitespace"
+    string_ = bleach.clean(string_, strip=True)
+    string_ = string_.translate(str.maketrans("", "", NON_SPACE_WHITESPACE))
+    return string_
+
+
+def _get_item_title(entry) -> str:
+    return _clean_string(entry.title)
+
+
+def _get_item_authors(entry) -> List[str]:
+    "Get and clean up any string based on a list of author dicts"
+
+    cleaned_authors = []
+    for author in entry.authors:
+        author_name = author.get("name", "")
+        author_name = _clean_string(author_name)
+        if author_name:
+            cleaned_authors.append(author_name)
+
+    return cleaned_authors
+
+
 def _get_item_description(entry) -> str:
     """If an entry has a description field, grab it, suitable for use in
     a RichText field"""
@@ -76,6 +102,10 @@ def _get_item_description(entry) -> str:
             # truncate, allowing space to wrap in a <p>
             max_length = DESCRIPTION_MAX_LENGTH - (len("<p>") + len("</p>"))
             desc = desc[:max_length]
+
+        # Extra pass of sanitising, eg in case there are nested script tags
+        if desc:
+            desc = bleach.clean(desc, strip=False)
 
         # Ensure wrapped in something that can go into a rich-text field
         if desc:
@@ -128,8 +158,8 @@ def fetch_external_data(feed_url: str, last_synced: datetime.datetime) -> list:
 
         output.append(
             dict(
-                title=entry.title,
-                authors=[x["name"] for x in entry.authors],
+                title=_get_item_title(entry),
+                authors=_get_item_authors(entry),  # Note: this isn't used yet...
                 url=entry.link,
                 description=_get_item_description(entry),
                 image_url=_get_item_image(entry),
