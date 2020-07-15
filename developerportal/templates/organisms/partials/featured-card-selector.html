@@ -1,4 +1,4 @@
-        {% if block.block_type == 'post' or block.block_type == 'event' or block.block_type == 'video' %}
+        {% if block.block_type == 'post' or block.block_type == 'event' or block.block_type == 'video' or block.block_type == 'content_page' %}
           {% with block.value as page %}
             {% include "molecules/card-featured.html" with resource=page.specific block_type=block.block_type %}
           {% endwith %}
