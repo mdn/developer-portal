@@ -66,6 +66,10 @@ class HomePage(BasePage):
                         )
                     ),
                 ),
+                (
+                    "content_page",
+                    PageChooserBlock(target_model=("content.ContentPage",)),
+                ),
                 ("external_page", FeaturedExternalBlock()),
                 (
                     "video",

@@ -89,6 +89,10 @@ class Topic(BasePage):
                         )
                     ),
                 ),
+                (
+                    "content_page",
+                    PageChooserBlock(target_model=("content.ContentPage",)),
+                ),
                 ("external_page", FeaturedExternalBlock()),
             ],
             min_num=2,
