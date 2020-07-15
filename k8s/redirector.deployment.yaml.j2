@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ REDIRECTOR_NAME }}
+  namespace: {{ REDIRECTOR_NAMESPACE }}
+  labels:
+    app: {{ REDIRECTOR_NAME }}
+spec:
+  replicas: {{ REDIRECTOR_REPLICAS }}
+  selector:
+    matchLabels:
+      app: {{ REDIRECTOR_NAME }}
+  template:
+    metadata:
+      labels:
+        app: {{ REDIRECTOR_NAME }}
+    spec:
+      containers:
+        - name: {{ REDIRECTOR_NAME }}
+          image: "{{ REDIRECTOR_IMAGE_NAME }}:{{ REDIRECTOR_IMAGE_TAG }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ REDIRECTOR_CONTAINER_PORT }}
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 1
+            requests:
+              memory: 256Mi
+              cpu: 500m
