@@ -18,6 +18,6 @@ def backwards(apps, schema_editor):
 
 class Migration(migrations.Migration):
 
-    dependencies = [("content", "0013_make_sidebar_optional")]
+    dependencies = [("content", "0014_contentpage_card_image_3_2")]
 
     operations = [migrations.RunPython(forwards, backwards)]
