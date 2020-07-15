@@ -2,19 +2,12 @@
 {% load wagtailimages_tags %}
 {% load static %}
 
-<header class="visually-hidden">
-  <h1>{{page.title}}{% if page.subtitle %} - {{page.subtitle}}{% endif %}</h1>
-</header>
-<section class="c-primary-cta devportal-branding mzp-l-content">
-    <div class="c-primary-cta-wrapper">
-      <h2 class="c-primary-cta-title">{{ page.title|linebreaksbr }}</h2>
-      {% if page.subtitle %}
-      <h5 class="c-primary-cta-desc">{{ page.subtitle }}</h5>
-      {% endif %}
-      {% if page.button_text and page.button_url %}
-      <p class="c-primary-cta-button">
-        <a href="{{ page.button_url }}" class="mzp-c-button">{{ page.button_text }}</a>
-      </p>
-      {% endif %}
-  </div>
+
+<section class="c-primary-cta devportal-branding mzp-l-content" aria-labelledby="hero-heading">
+  <hgroup id="hero-heading" class="c-primary-cta-wrapper">
+    <h1 class="c-primary-cta-title">{{page.title}}</h1>
+    {% if page.subtitle %}
+    <h2 class="c-primary-cta-desc">{{page.subtitle}}</h2>
+    {% endif %}
+  </hgroup>
 </section>
