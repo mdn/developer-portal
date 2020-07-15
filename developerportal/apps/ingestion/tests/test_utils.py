@@ -9,7 +9,9 @@ import pytz
 from dateutil.tz import tzlocal
 
 from developerportal.apps.ingestion.utils import (
+    _get_item_authors,
     _get_item_description,
+    _get_item_title,
     _get_slug,
     fetch_external_data,
     ingest_content,
@@ -528,6 +530,116 @@ class UtilsTestCaseWithFixtures(TestCase):
             with self.subTest(input_=case["input"], expected=case["expected"]):
                 self.assertEqual(_get_slug(case["input"]), case["expected"])
 
+    def test_get_item_title(self):
+
+        cases = [
+            {
+                "input": "<h1>title here</h1>",
+                "expected": "title here",
+                "desc_": "drops markup 1",
+            },
+            {
+                "input": "<title>title here</title>",
+                "expected": "title here",
+                "desc_": "drops markup 2",
+            },
+            {
+                "input": "<p>title here</p>",
+                "expected": "title here",
+                "desc_": "drops markup 3",
+            },
+            {
+                "input": "<p><h1>title here</h1></p>",
+                "expected": "title here",
+                "desc_": "drops markup 4 (nested)",
+            },
+            {
+                "input": '<script>alert("boo");</script>',
+                "expected": 'alert("boo");',
+                "desc_": "drops script markup 5",
+            },
+            {
+                "input": "\ttitle\n\r\t\nhere\n\n\r\n",
+                "expected": "titlehere",
+                "desc_": "drops whitespace",
+            },
+            {
+                "input": "test title!&lt;marquee&gt;test&lt;/marquee&gt;",
+                "expected": "test title!&lt;marquee&gt;test&lt;/marquee&gt;",
+                "desc_": "Already-escaped markup is retained",
+            },
+        ]
+        for case in cases:
+            with self.subTest(label=case["desc_"]):
+                mock_entry = mock.Mock(title=case["input"])
+                assert mock_entry.title == case["input"]  # Confirm patch
+                self.assertEqual(_get_item_title(mock_entry), case["expected"])
+
+    def test_get_item_authors(self):
+        cases = [
+            {"input": [], "expected": [], "desc_": "no author"},
+            {
+                "input": [{"name": "Test McTest", "uri": "https://example.com/test"}],
+                "expected": ["Test McTest"],
+                "desc_": "one author - good",
+            },
+            {
+                "input": [
+                    {
+                        "name": "<script>alert('boo');</script>Test McTest",
+                        "uri": "https://example.com/test",
+                    }
+                ],
+                "expected": ["alert('boo');Test McTest"],
+                "desc_": "one author - markup",
+            },
+            {
+                "input": [
+                    {"name": "\n\r\tTest\tMcTest\t", "uri": "https://example.com/test"}
+                ],
+                "expected": ["TestMcTest"],
+                "desc_": "one author - whitespace",
+            },
+            {
+                "input": [
+                    {"name": "Alice McTest", "uri": "https://example.com/test"},
+                    {"name": "Bob McTest", "uri": "https://example.com/test"},
+                    {"name": "Eve McTest", "uri": "https://example.com/test"},
+                ],
+                "expected": ["Alice McTest", "Bob McTest", "Eve McTest"],
+                "desc_": "multuple authors - all good",
+            },
+            {
+                "input": [
+                    {
+                        "name": "Alice <h2>McTest</h2>",
+                        "uri": "https://example.com/test",
+                    },
+                    {
+                        "name": "Bob<script>alert('boo');</script>McTest",
+                        "uri": "https://example.com/test",
+                    },
+                    {
+                        "name": "<marquee>Eve\t McTest</marquee>",
+                        "uri": "https://example.com/test",
+                    },
+                    {"name": "Zoë McTest", "uri": "https://example.com/test"},
+                ],
+                "expected": [
+                    "Alice McTest",
+                    "Bobalert('boo');McTest",
+                    "Eve McTest",
+                    "Zoë McTest",
+                ],
+                "desc_": "multiple authors - mixed quality",
+            },
+        ]
+        for case in cases:
+            with self.subTest(label=case["desc_"]):
+                mock_entry = mock.Mock(authors=case["input"])
+                assert mock_entry.authors == case["input"]  # Confirm patch
+                self.assertEqual(_get_item_authors(mock_entry), case["expected"])
+
     def test__get_item_description(self):
 
         cases = [
@@ -562,6 +674,51 @@ class UtilsTestCaseWithFixtures(TestCase):
                 "input": f"<p>{ 'x' * 393}, but not this</p>",
                 "expected": f"<p>{ 'x' * 393}</p>",
                 "desc_": "<p> node > 400 chars gets cut, but still wrapped in <p>",
+            },
+            {
+                "input": (
+                    "<p>test description!&lt;marquee&gt;test&lt;/marquee&gt;</p>"
+                ),
+                "expected": (
+                    "<p>test description!&lt;marquee&gt;test&lt;/marquee&gt;</p>"
+                ),
+                "desc_": "Already-escaped markup is retained",
+            },
+            {
+                "input": "<p>test description!<marquee>test</marquee></p>",
+                "expected": "<p>test description!test</p>",
+                "desc_": "Unescaped markup is removed 1",
+            },
+            {
+                "input": '<p>test description!<script>alert("boo");</script></p>',
+                "expected": ('<p>test description!alert("boo");</p>'),
+                "desc_": "Unescaped markup is removed 2",
+            },
+            {
+                "input": '<script>alert("boo");</script>',
+                "expected": (""),
+                "desc_": "Unescaped markup is removed 3",
+            },
+            {
+                "input": (
+                    "<p>test description!"
+                    "<script>"
+                    '<script>alert("boo");</script>'
+                    "</script>"
+                    "</p>"
+                ),
+                "expected": (
+                    '<p>test description!&lt;script&gt;alert("boo");</p>'
+                    # Beautiful Soup drops the second </script> before we sanitise it
+                ),
+                "desc_": "Unescaped doubled-up markup is handled",
+            },
+            {
+                "input": (
+                    f"<p><script>alert('boo');</script>{ 'x' * 379}X, but not this</p>"
+                ),
+                "expected": (f"<p>alert('boo');{ 'x' * 379}X</p>"),
+                "desc_": "Truncation and removal of unescaped content",
             },
         ]
         for case in cases:
