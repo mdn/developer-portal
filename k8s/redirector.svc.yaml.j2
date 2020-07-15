@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ REDIRECTOR_NAME }}
+  namespace: {{ REDIRECTOR_NAMESPACE }}
+  labels:
+    app: {{ REDIRECTOR_NAME }}
+spec:
+  selector:
+    app: {{ REDIRECTOR_NAME }}
+  ports:
+    - name: http
+      port: {{ REDIRECTOR_SERVICE_PORT }}
+      targetPort: {{ REDIRECTOR_CONTAINER_PORT }}
