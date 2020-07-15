@@ -47,7 +47,6 @@ export APP_TASK_COMPLETION_SURVEY_PERCENTAGE ?= 5.00  # default 5%
 
 export CELERY_WORKER_NAME ?= celery-worker
 export CELERY_WORKER_REPLICAS ?= 1
-export CELERY_WORKER_MAX_REPLICAS ?= 2
 export CELERY_WORKER_CONCURRENCY ?= 2
 export CELERY_WORKER_CPU_REQUEST ?= 100m
 export CELERY_WORKER_MEMORY_REQUEST ?= 512Mi
@@ -135,33 +134,18 @@ test-k8s-celery-beat-deployments:
 	env NEW_RELIC_APP_NAME="" \
 	j2 celery-beat.yaml.j2 | kubeval --strict --ignore-missing-schemas
 
-k8s-hpa: k8s-deployment-hpa k8s-celery-worker-hpa
-
-k8s-celery-worker-hpa:
-	env APP_NAME=${CELERY_WORKER_NAME} \
-		APP_REPLICAS=${CELERY_WORKER_REPLICAS} \
-		MAX_APP_REPLICAS=${CELERY_WORKER_MAX_REPLICAS} \
-	j2 hpa.yaml.j2 | ${KC} apply -f -
+k8s-hpa: k8s-deployment-hpa
 
 k8s-deployment-hpa:
 	j2 hpa.yaml.j2 | ${KC} apply -f -
 
-test-k8s-hpa: test-k8s-deployment-hpa test-k8s-celery-worker-hpa
+test-k8s-hpa: test-k8s-deployment-hpa
 
 test-k8s-deployment-hpa:
 	j2 hpa.yaml.j2 | kubeval --strict --ignore-missing-schemas
 
-test-k8s-celery-worker-hpa:
-	env APP_NAME=${CELERY_WORKER_NAME} \
-		APP_REPLICAS=${CELERY_WORKER_REPLICAS} \
-		MAX_APP_REPLICAS=${CELERY_WORKER_MAX_REPLICAS} \
-	j2 hpa.yaml.j2 | kubeval --strict --ignore-missing-schemas
-
 k8s-delete-deployment-hpa:
 	${KC} delete --ignore-not-found hpa ${APP_NAME}
-
-k8s-delete-celery-worker-hpa:
-	${KC} delete --ignore-not-found hpa ${CELERY_WORKER_NAME}
 
 k8s-delete-wagtail-deployments:
 	${KC} delete --ignore-not-found deploy ${APP_NAME}
