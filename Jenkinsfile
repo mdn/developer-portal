@@ -135,6 +135,9 @@ node {
       break
 
     case 'prod-push':
+      stage ('Deploy ingress') {
+        sh "make k8s-redirector"
+      }
       stage('Deploy') {
         deploy('prod', 'prod', 'mdn-apps-a')
       }

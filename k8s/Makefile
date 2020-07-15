@@ -84,6 +84,16 @@ export RDS_BACKUP_BUCKET ?= "s3://developer-portal-backups-178589013767/backups"
 export RDS_BACKUP_DEBUG_MODE ?= 'false'
 export RDS_BACKUP_ROLE_ARN ?= "arn:aws:iam::178589013767:role/developer-portal-backups-role"
 
+# Redirector
+export REDIRECTOR_NAME ?= "redirector"
+export REDIRECTOR_NAMESPACE ?= "redirector"
+export REDIRECTOR_REPLICAS ?= 1
+export REDIRECTOR_MAX_REPLICAS ?= 4
+export REDIRECTOR_IMAGE_NAME ?= mdnwebdocs/redirector
+export REDIRECTOR_IMAGE_TAG ?= ec2daf9
+export REDIRECTOR_SERVICE_PORT ?= 80
+export REDIRECTOR_CONTAINER_PORT ?= 80
+
 ###############################
 ### core tasks
 
@@ -140,6 +150,38 @@ k8s-hpa:
 test-k8s-hpa:
 	j2 hpa.yaml.j2 | kubeval --strict --ignore-missing-schemas
 
+k8s-redirector: k8s-redirector-ingress k8s-redirector-service k8s-redirector-deployment
+
+k8s-redirector-ns:
+	kubectl create ns ${REDIRECTOR_NAMESPACE} | true
+
+k8s-redirector-ingress:
+	j2 redirector.ingress.yaml.j2 | kubectl -n ${REDIRECTOR_NAMESPACE} apply -f -
+
+test-k8s-redirector-ingress:
+	j2 redirector.ingress.yaml.j2 | kubeval --strict --ignore-missing-schemas
+
+k8s-redirector-service:
+	j2 redirector.svc.yaml.j2 | kubectl -n ${REDIRECTOR_NAMESPACE} apply -f -
+
+test-k8s-redirector-service:
+	j2 redirector.svc.yaml.j2 | kubeval --strict --ignore-missing-schemas
+
+k8s-redirector-deployment:
+	j2 redirector.deployment.yaml.j2 | kubectl -n ${REDIRECTOR_NAMESPACE} apply -f -
+
+test-k8s-redirector-deployment:
+	j2 redirector.deployment.yaml.j2 | kubeval --strict --ignore-missing-schemas
+
+k8s-delete-redirector-ingress:
+	kubectl -n ${REDIRECTOR_NAMESPACE} delete --ignore-not-found ing ${REDIRECTOR_NAME}
+
+k8s-delete-redirector-service:
+	kubectl -n ${REDIRECTOR_NAMESPACE} delete --ignore-not-found svc ${REDIRECTOR_NAME}
+
+k8s-delete-redirector-deployment:
+	kubectl -n ${REDIRECTOR_NAMESPACE} delete --ignore-not-found deploy ${REDIRECTOR_NAME}
+
 k8s-delete-hpa:
 	${KC} delete --ignode-not-found deploy ${APP_NAME}
 
@@ -191,4 +233,6 @@ k8s-jenkins-delete-rbac:
 		k8s-wagtail-deployments k8s-celery-deployments \
 		k8s-delete-wagtail-deployments k8s-delete-celery-deployments \
 		k8s-rollback k8s-history k8s-db-migration-job \
-		k8s-delete-db-migration-job
+		k8s-delete-db-migration-job \
+		k8s-redirector k8s-redirector-ingress k8s-redirector-service k8s-redirector-deployment \
+		k8s-delete-redirector-ingress k8s-delete-redirector-service k8s-delete-redirector-deployment
