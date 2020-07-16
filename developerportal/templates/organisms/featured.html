@@ -19,7 +19,7 @@ Two items:
 
 {% endcomment %}
 
-<div class="featured-items-wrapper">
+<ul class="featured-items-wrapper">
 
   {% split_featured_items featured as split_featured %}
 
@@ -39,36 +39,38 @@ Two items:
   {% endcomment %}
 
   {% for row in split_featured %}
+    <li>
 
     {% if row.count == 2 %}
-    <div class="mzp-l-card-half">
+    <ul class="mzp-l-card-half">
       {% for block in row.items %}
-        <section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-3-2">
+        <li class="mzp-c-card mzp-c-card-medium mzp-has-aspect-3-2">
           {% include "organisms/partials/featured-card-selector.html" with aspect_ratio="3_2" %}
-        </section>
+        </li>
       {% endfor %}
-    </div>
+    </ul>
     {% endif %}
 
     {% if row.count == 3 %}
-      <div class="mzp-l-card-third">
+      <ul class="mzp-l-card-third">
         {% for block in row.items %}
-            <section class="mzp-c-card mzp-c-card-small mzp-has-aspect-16-9">
+            <li class="mzp-c-card mzp-c-card-small mzp-has-aspect-16-9">
               {% include "organisms/partials/featured-card-selector.html" %}
-            </section>
+            </li>
         {% endfor %}
-      </div>
+      </ul>
     {% endif %}
 
     {% if row.count == 4 %}
-      <div class="mzp-l-card-quarter">
+      <ul class="mzp-l-card-quarter">
         {% for block in row.items %}
-            <section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
+            <li class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
               {% include "organisms/partials/featured-card-selector.html" %}
-            </section>
+            </li>
         {% endfor %}
-      </div>
+      </ul>
     {% endif %}
 
+  </li>
   {% endfor %}
-</div>
+</ul>
