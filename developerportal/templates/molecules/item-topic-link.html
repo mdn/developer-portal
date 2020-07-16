@@ -5,11 +5,11 @@
 `two_column` is an optional param for this template. The default is four columns
 {% endcomment %}
 
-<section class="mzp-c-card {{two_column|yesno:'mzp-c-card-medium,mzp-c-card-extra-small'}}">
+<li class="mzp-c-card {{two_column|yesno:'mzp-c-card-medium,mzp-c-card-extra-small'}}">
   <a class="mzp-c-card-block-link" href="{{ topic.url }}">
     <div class="mzp-c-card-content">
       <img src="{% get_menu_item_icon topic %}" class="topic-item-icon" alt="" width="24" height="24">
-      <h2 class="mzp-c-card-title"><span>{{ topic.title }}</span></h2>
+      <h3 class="mzp-c-card-title"><span>{{ topic.title }}</span></h3>
       {% if topic.card_description %}
         <div class="mzp-c-card-desc">
         {{ topic.card_description }}
@@ -21,4 +21,4 @@
       {% endif %}
     </div>
   </a>
-</section>
+</li>

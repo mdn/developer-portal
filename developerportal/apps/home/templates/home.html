@@ -18,7 +18,7 @@
       {% endif %}
     {% endwith %}
     {% if page.primary_topics.all %}
-      <section id="topics">
+      <section id="topics" aria-labelledby="topics-heading">
         {% include "organisms/topic-links.html" with topics=page.primary_topics.all pagetheme='home' %}
       </section>
     {% endif %}

@@ -1,0 +1,12 @@
+.topic-links {
+  h2 {
+    font-family: $body-font-family;
+    font-size: $h4-font-size-mobile;
+    line-height: heading-line-height($h4-font-size-mobile);
+
+    @media #{$mq-md} {
+      font-size: $h4-font-size;
+      line-height: heading-line-height($h4-font-size);
+    }
+  }
+}
