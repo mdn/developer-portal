@@ -10,4 +10,10 @@
   &.has-tint {
     background-color: $color-marketing-gray-20;
   }
+
+  h3.mzp-c-card-title {
+    font-size: $h2-font-size; // TODO: sweep and rename these variables
+    line-height: heading-line-height($h2-font-size-mobile);
+    font-family: $body-font-family;
+  }
 }
