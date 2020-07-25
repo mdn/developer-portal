@@ -21,7 +21,7 @@ Inputs:
 {% else %}
   {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 {% endif %}
-<section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
+<li class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
   {% if external_page or resource.is_external %}
     <a
       href="{{ resource.url }}"
@@ -64,4 +64,4 @@ Inputs:
         </h2>
       </div>
     </a>
-</section>
+</li>

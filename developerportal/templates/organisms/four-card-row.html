@@ -15,7 +15,7 @@ Inputs:
     {% if header_text %}
     <h2>{{header_text}}</h2>
     {% endif %}
-    <div class="mzp-l-card-quarter">
+    <ul class="mzp-l-card-quarter">
       {% for block in items %}
         {% if block.block_type == 'post' or block.block_type == 'video' or block.block_type == 'event' %}
           {% with block.value as page %}
@@ -27,7 +27,7 @@ Inputs:
           {% endwith %}
         {% endif %}
       {% endfor %}
-    </div>
+    </ul>
   </div>
 </div>
 {% endif %}
