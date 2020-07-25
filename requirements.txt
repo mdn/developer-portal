@@ -12,12 +12,12 @@ gevent-socketio==0.3.6
 gevent-websocket==0.10.1
 mozilla-django-oidc==1.2.3
 django-storages==1.9.1
-boto3==1.14.21
+boto3==1.14.28
 psycopg2==2.8.5
 Pygments==2.6.1
 raven==6.10.0
 readtime==1.1.1
-wagtail==2.9.2
+wagtail==2.9.3
 whitenoise==5.1.0
 urlwait==1.0
 newrelic==5.14.1.144

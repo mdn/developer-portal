@@ -1,12 +1,19 @@
 .four-card-row {
   background-color: transparent;
-  h2,
-  h4 {
+  h2 {
+    font-size: $h4-font-size; // TODO: sweep and rename these variables
+    line-height: heading-line-height($h4-font-size-mobile);
     font-family: $body-font-family;
     margin: $spacing-md 0 $spacing-2xl;
   }
 
   &.has-tint {
     background-color: $color-marketing-gray-20;
+  }
+
+  h3.mzp-c-card-title {
+    font-size: $h2-font-size; // TODO: sweep and rename these variables
+    line-height: heading-line-height($h2-font-size-mobile);
+    font-family: $body-font-family;
   }
 }
