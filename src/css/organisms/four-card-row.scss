@@ -1,9 +1,16 @@
 .four-card-row {
   background-color: transparent;
   h2 {
-    font-size: $h4-font-size; // TODO: sweep and rename these variables
-    line-height: heading-line-height($h4-font-size-mobile);
     font-family: $body-font-family;
+
+    font-size: $h4-font-size-mobile; // TODO: sweep and rename these variables
+    line-height: heading-line-height($h4-font-size-mobile);
+
+    @media #{$mq-md} {
+      font-size: $h4-font-size;
+      line-height: heading-line-height($h4-font-size);
+    }
+
     margin: $spacing-md 0 $spacing-2xl;
   }
 
@@ -12,8 +19,13 @@
   }
 
   h3.mzp-c-card-title {
-    font-size: $h2-font-size; // TODO: sweep and rename these variables
-    line-height: heading-line-height($h2-font-size-mobile);
     font-family: $body-font-family;
+    font-size: $h2-font-size-mobile; // TODO: sweep and rename these variables
+    line-height: heading-line-height($h2-font-size-mobile);
+
+    @media #{$mq-md} {
+      font-size: $h2-font-size;
+      line-height: heading-line-height($h2-font-size);
+    }
   }
 }
