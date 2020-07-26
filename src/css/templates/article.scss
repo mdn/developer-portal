@@ -7,5 +7,12 @@ body.article {
   }
   .authors-header {
     font-family: $body-font-family;
+    font-size: $h4-font-size-mobile; // TODO: sweep and rename these variables
+    line-height: heading-line-height($h4-font-size-mobile);
+
+    @media #{$mq-md} {
+      font-size: $h4-font-size;
+      line-height: heading-line-height($h4-font-size);
+    }
   }
 }
