@@ -10,7 +10,9 @@
   {% static "img/placeholders/person_16_9.jpg" as fallback_url %}
 {% endif %}
 
-<section class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9 card-person">
+{% with node_type|default:"div" as el %}
+
+<{{el}} class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9 card-person">
   {% if type == 'speaker' or type == 'person' or type == 'author' %}
     <a href="{% pageurl person %}" class="mzp-c-card-block-link" data-type="{{ person.resource_type }}">
   {% endif %}
@@ -31,11 +33,9 @@
             {{person.get_role_display}}
           {% endif %}
         </div>
-        <h2 class="mzp-c-card-title">
-          <span>
+        <h3 class="mzp-c-card-title">
             {{ person.display_title }}
-          </span>
-        </h2>
+        </h3>
         <div class="mzp-c-card-desc">
           {{ person.job_title }}
         </div>
@@ -51,4 +51,5 @@
     </a>
   {% endif %}
 
-</section>
+</{{el}}>
+{% endwith %}

@@ -1,14 +1,21 @@
 .people-section {
-  .section-header {
-    padding: $spacing-sm 0px $spacing-xl;
-    h4 {
-      font-family: $body-font-family;
+  h2 {
+    font-family: $body-font-family;
 
-      span {
-        display: inline-block;
-        padding-left: $spacing-sm;
-        font-size: 0.6em;
-      }
+    font-size: $h4-font-size;
+    line-height: heading-line-height($h4-font-size);
+
+    margin: $spacing-md 0 $spacing-2xl;
+
+    @media #{$mq-md} {
+      font-size: $h4-font-size;
+      line-height: heading-line-height($h4-font-size);
+    }
+
+    span {
+      display: inline-block;
+      padding-left: $spacing-sm;
+      font-size: 0.6em;
     }
   }
   &.has-tint {
