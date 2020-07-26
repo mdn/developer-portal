@@ -12,21 +12,19 @@
 
 <div class="people-section {% if tinted_panel %}has-tint{% endif %}">
   <div class="mzp-l-content">
-    <div class="section-header">
-      <h4>{{ title|default:"People" }}
-      {% if show_link and directory_pages.people %}
-        <span>
-          <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
-        </span>
-      {% endif %}
-      </h4>
-    </div>
+    <h2>{{ title|default:"People" }}
+    {% if show_link and directory_pages.people %}
+      <span>
+        <a href="{% pageurl directory_pages.people %}{% if is_topic %}?topic={{ page.slug }}{% endif %}">See more</a>
+      </span>
+    {% endif %}
+    </h2>
 
     {# Render cards side by side, up to three, always same width #}
-    <div class="mzp-l-card-third">
+    <ul class="mzp-l-card-third">
       {% for person in people %}
-        {% include "molecules/cards/card-person.html" with person=person type="person" full_width=False %}
+        {% include "molecules/cards/card-person.html" with node_type="li" person=person type="person" full_width=False %}
       {% endfor %}
-    </div>
+    </ul>
   </div>
 </div>
