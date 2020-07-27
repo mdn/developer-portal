@@ -20,6 +20,7 @@ from developerportal.templatetags.app_tags import (
     has_at_least_two_filters,
     is_production_site,
     pagination_additional_filter_params,
+    render_embed_with_fixups,
     split_featured_items,
 )
 
@@ -323,3 +324,114 @@ class AppTagsTestCase(TestCase):
         expected = """<span class="label test-class">Hello, World!</span>"""
         output = get_label_html("Hello, World!", "test-class")
         self.assertEqual(output.strip(), expected)
+
+    def test_render_embed_with_fixups(self):
+        page = Page.objects.get(slug="home")
+        assert page.title == "Home"
+
+        self.maxDiff = None
+        cases = (
+            {
+                "description": "Single iframe cleanup: add title, remove frameborder",
+                "input": (
+                    '<div style="padding-bottom: 56.25%;" class="responsive-object">\n'
+                    '<iframe width="480" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'frameborder="0" allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen></iframe>\n'
+                    "</div>\n"
+                ),
+                "expected": (
+                    '<div class="responsive-object" style="padding-bottom: 56.25%;">\n '
+                    '<iframe allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen="" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'title="Home" width="480">\n </iframe>\n</div>\n'
+                ),
+            },
+            {
+                "description": "Title already present",
+                "input": (
+                    '<div style="padding-bottom: 56.25%;" class="responsive-object">\n'
+                    '<iframe width="480" height="270" title="This is a test" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'frameborder="0" allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen></iframe>\n'
+                    "</div>\n"
+                ),
+                "expected": (
+                    '<div class="responsive-object" style="padding-bottom: 56.25%;">\n '
+                    '<iframe allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen="" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'title="This is a test" width="480">\n </iframe>\n</div>\n'
+                ),
+            },
+            {
+                "description": "Title already present and no frameborder to clean",
+                "input": (
+                    '<div style="padding-bottom: 56.25%;" class="responsive-object">\n'
+                    '<iframe width="480" height="270" title="This is a test" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen></iframe>\n'
+                    "</div>\n"
+                ),
+                "expected": (
+                    '<div class="responsive-object" style="padding-bottom: 56.25%;">\n '
+                    '<iframe allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen="" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'title="This is a test" width="480">\n </iframe>\n</div>\n'
+                ),
+            },
+            {
+                "description": "Not title present; no frameborder to clean",
+                "input": (
+                    '<div style="padding-bottom: 56.25%;" class="responsive-object">\n'
+                    '<iframe width="480" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen></iframe>\n'
+                    "</div>\n"
+                ),
+                "expected": (
+                    '<div class="responsive-object" style="padding-bottom: 56.25%;">\n '
+                    '<iframe allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen="" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'title="Home" width="480">\n </iframe>\n</div>\n'
+                ),
+            },
+            {
+                "description": "unlikely: mutiple iframe cleanup: title, frameborder",
+                "input": (
+                    '<div style="padding-bottom: 56.25%;" class="responsive-object">\n'
+                    '<iframe width="480" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'frameborder="0" allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen></iframe>\n'
+                    '<iframe width="480" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'frameborder="0" allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen></iframe>\n'
+                    "</div>\n"
+                ),
+                "expected": (
+                    '<div class="responsive-object" style="padding-bottom: 56.25%;">\n '
+                    '<iframe allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen="" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'title="Home" width="480">\n </iframe>\n '
+                    '<iframe allow="accelerometer; autoplay; encrypted-media; '
+                    'gyroscope; picture-in-picture" allowfullscreen="" height="270" '
+                    'src="https://www.youtube.com/embed/UazfLa1O94M?feature=oembed" '
+                    'title="Home" width="480">\n </iframe>\n'
+                    "</div>\n"
+                ),
+            },
+        )
+        for case in cases:
+            with self.subTest(desc=case["description"]):
+                result = render_embed_with_fixups(page=page, embed_html=case["input"])
+                self.assertEqual(result, case["expected"])

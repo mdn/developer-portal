@@ -2,6 +2,7 @@
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load app_tags %}
 
 {% block body_class %}video{% endblock %}
 
@@ -14,7 +15,8 @@
     {% comment %} the video embed comes from a video_url streamfield {% endcomment %}
     <div class="mzp-l-content">
       <div class="video-wrapper">
-        {{ page.video_url }}
+      {% comment %} page.video_url is a streamfield with one embed block (or zero...) {% endcomment %}
+      {% render_embed_with_fixups page=page embed_html=page.video_url.0.value.html %}
       </div>
       {% include "molecules/resource-share.html" %}
     </div>
