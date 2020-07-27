@@ -347,7 +347,7 @@ class EventsTests(PatchedWagtailPageTests):
 
     @mock.patch("developerportal.apps.events.models.get_past_event_cutoff")
     @mock.patch("developerportal.apps.events.models.get_combined_events")
-    def test_events__get_events__query__filters_and_future_events__no_search(
+    def test_events__get_events__query__filters_and_future_events__has_search(
         self, mock_get_combined_events, mock_get_past_event_cutoff
     ):
         mock_get_past_event_cutoff.return_value = datetime.date(2022, 10, 3)
