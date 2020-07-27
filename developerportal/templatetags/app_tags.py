@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.safestring import mark_safe
 
+from bs4 import BeautifulSoup
 from developerportal.apps.common.constants import (
     DATE_PARAMS_QUERYSTRING_KEY,
     ENVIRONMENT_DEVELOPMENT,
@@ -307,3 +308,31 @@ def get_label_html(text: str, extra_css_classes: str = None) -> str:
             {"content": text, "extra_css_classes": extra_css_classes},
         )
     )
+
+
+@register.simple_tag
+def render_embed_with_fixups(page, embed_html):
+    """Fix up iframe embeds for HTML validation and a11y improvements.
+
+    * Embed iframes sometimes lack a title attribute, which hampers accessibility.
+    This templatetag addresses that by adding the page's title as the iframe's
+    title attribute.
+
+    * Also, `frameborder` is not a valid attribute in HTML5, so throws an error
+    when validated
+
+    Hat-tip to https://github.com/wagtail/wagtail/issues/5982#issuecomment-625534509"""
+
+    soup = BeautifulSoup(embed_html, "html.parser")
+    try:
+        iframe_tags = soup.find_all("iframe")
+        for iframe_tag in iframe_tags:
+            if not iframe_tag.get("title"):
+                iframe_tag["title"] = page.title
+            if iframe_tag.get("frameborder"):
+                del iframe_tag["frameborder"]
+        embed_html = soup.prettify()
+    except (AttributeError, TypeError):
+        pass
+
+    return mark_safe(embed_html)
