@@ -9,6 +9,7 @@
     margin-bottom: $spacing-md;
     padding: $spacing-xs $spacing-xs $spacing-xs $spacing-xl;
     width: 100%;
+    -webkit-appearance: none; // override blocking of styling in Safari
 
     @media #{$mq-md} {
       width: 80%;
