@@ -257,4 +257,5 @@ k8s-delete-search-index-update-job:
 		k8s-delete-db-migration-job \
     k8s-search-index-update-job \ k8s-delete-search-index-update-job
 		k8s-redirector k8s-redirector-ingress k8s-redirector-service k8s-redirector-deployment \
-		k8s-delete-redirector-ingress k8s-delete-redirector-service k8s-delete-redirector-deployment
+		k8s-delete-redirector-ingress k8s-delete-redirector-service k8s-delete-redirector-deployment \
+    k8s-search-index-update-job \ k8s-delete-search-index-update-job

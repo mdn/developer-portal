@@ -143,7 +143,7 @@ def pagination_additional_filter_params(request):
             continue
         input_params = request.GET.getlist(input_key)
         for input_param in input_params:
-            # Note that using `urllib.parse.quote` avoids spaces appearing in
+            # Note that using `urllib.parse.quote_plus` avoids spaces appearing in
             # the output, which breaks Safari (because the space triggers a web
             # search, not a HTTP request to the site)
             output_params_strings.append(f"{input_key}={quote_plus(input_param)}")
