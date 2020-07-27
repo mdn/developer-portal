@@ -6,10 +6,10 @@
     {% comment %} filtering controls {% endcomment %}
     <details class="filter-list-sidebar-content filter-list-sidebar-content-mobile">
       <summary>Filter</summary>
-      {% include "molecules/filter-form.html" with resources=resources filters=filters %}
+      {% include "molecules/filter-form.html" with resources=resources filters=filters search_input_id="search-m"%}
     </details>
     <div class="filter-list-sidebar-content filter-list-sidebar-content-desktop">
-      {% include "molecules/filter-form.html" with resources=resources filters=filters %}
+      {% include "molecules/filter-form.html" with resources=resources filters=filters search_input_id="search-d"%}
     </div>
   </aside>
   <div class="mzp-l-main custom-width">
