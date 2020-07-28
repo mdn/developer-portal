@@ -5,7 +5,8 @@
 {% image resource.card_image width-480 as card_image %}
 {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 
-<div class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9">
+{% with node_type|default:"li" as el %}
+<{{el}} class="mzp-c-card mzp-c-card-medium mzp-has-aspect-16-9">
   <a class="mzp-c-card-block-link"
     href="{% pageurl resource %}"
     {% if resource.is_external %} target="_blank" rel="noopener noreferrer" {% endif %}
@@ -23,4 +24,5 @@
       </h2>
     </div>
   </a>
-</div>
+</{{el}}>
+{% endwith %}

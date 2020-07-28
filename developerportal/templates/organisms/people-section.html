@@ -23,10 +23,10 @@
     </div>
 
     {# Render cards side by side, up to three, always same width #}
-    <div class="mzp-l-card-third">
+    <ul class="mzp-l-card-third">
       {% for person in people %}
         {% include "molecules/cards/card-person.html" with person=person type="person" full_width=False %}
       {% endfor %}
-    </div>
+    </ul>
   </div>
 </div>

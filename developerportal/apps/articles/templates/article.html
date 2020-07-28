@@ -32,7 +32,7 @@
     {% else %}
     {% endif %}
     {% for author_block in page.authors %}
-      {% include "molecules/cards/card-person.html" with person=author_block.value type=author_block.block_type %}
+      {% include "molecules/cards/card-person.html" with person=author_block.value type=author_block.block_type node_type="div" %}
     {% endfor %}
   </aside>
 </div>

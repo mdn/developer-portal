@@ -6,7 +6,8 @@
 {% image resource.card_image width-480 as card_image %}
 {% static "img/placeholders/event_16_9.jpg" as fallback_image %}
 
-<div class="mzp-c-card mzp-c-card-medium card-event mzp-has-aspect-16-9">
+{% with node_type|default:"li" as el %}
+<{{el}} class="mzp-c-card mzp-c-card-medium card-event mzp-has-aspect-16-9">
   <a class="mzp-c-card-block-link"
     {% if specific_link %}
       href="{{ specific_link }}"
@@ -38,4 +39,5 @@
       {% endif %}
     </div>
   </a>
-</div>
+</{{el}}>
+{% endwith %}

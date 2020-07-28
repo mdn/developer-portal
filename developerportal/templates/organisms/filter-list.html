@@ -13,7 +13,7 @@
     </div>
   </aside>
   <div class="mzp-l-main custom-width">
-    <div class="mzp-l-card-half" id="{{ type }}-cards">
+    <ul class="mzp-l-card-half" id="{{ type }}-cards">
       {% for resource in resources %}
         {% if type == "article_or_video" %}
           {% if resource.video %}
@@ -31,7 +31,7 @@
         {{ no_resources_message|default:"No results found" }}
       </h2>
       {% endfor %}
-    </div>
+    </ul>
     {% if resources and not hide_pagination %}
     {% include "molecules/pagination.html" with items=resources %}
     {% endif %}
