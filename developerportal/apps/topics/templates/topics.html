@@ -1,9 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 {% load app_filters %}
 
 {% block body_class %}topics{% endblock %}
 
 {% block content %}
+  {% static "img/icons/article-white.svg" as page_icon_asset_url %}
+  {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url %}
+
   <main role="main">
     {% with page.topics.public.live.specific as topics %}
       {% if topics %}
