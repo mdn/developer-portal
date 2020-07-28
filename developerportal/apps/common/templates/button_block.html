@@ -6,7 +6,7 @@
       {% if value.page_link %}
         <a href="{% pageurl value.page_link %}" class="mzp-c-button">
       {% elif value.external_link %}
-        <a href="{{ value.external_link }}" class="mzp-c-button" target="_blank" rel="nofollow noopener">
+        <a href="{{ value.external_link }}" class="mzp-c-button" target="_blank" rel="nofollow noopener noreferrer">
       {% endif %}
         {{ value.text }}
         </a>

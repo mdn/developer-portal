@@ -18,7 +18,10 @@ class NewWindowExternalLinkHandler(LinkHandler):
         href = attrs["href"]
         # Let's add the target attr, and also rel="noopener" + noreferrer fallback.
         # See https://github.com/whatwg/html/issues/4078.
-        return '<a href="%s" target="_blank" rel="noopener noreferrer">' % escape(href)
+        return (
+            '<a href="%s" target="_blank" rel="nofollow noopener noreferrer">'
+            % escape(href)
+        )
 
 
 @hooks.register("register_rich_text_features")

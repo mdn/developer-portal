@@ -28,7 +28,7 @@ Inputs:
       class="mzp-c-card-block-link {% if resource.resource_type == 'video' %} js-modal-trigger{% endif %}"
       data-type="{{resource.resource_type}}"
       target="_blank"
-      rel="nofollow noopener"
+      rel="nofollow noopener noreferrer"
     {% if resource.resource_type == 'video' %}
       data-class-name="mzp-has-media"
       data-title="{{ resource.title }}"

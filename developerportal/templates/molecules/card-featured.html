@@ -43,7 +43,7 @@
 Note that this partial needs wrapping with a div and a section with the appropriate classes
 {% endcomment %}
 {% if external_page %}
-<a href="{{ resource.url }}" class="mzp-c-card-block-link" data-type="external_page" target="_blank" rel="nofollow noopener">
+<a href="{{ resource.url }}" class="mzp-c-card-block-link" data-type="external_page" target="_blank" rel="nofollow noopener noreferrer">
 {% else %}
 <a href="{% pageurl resource %}" class="mzp-c-card-block-link" data-type="{{ resource.resource_type }}">
 {% endif %}
