@@ -12,7 +12,7 @@ gevent-socketio==0.3.6
 gevent-websocket==0.10.1
 mozilla-django-oidc==1.2.3
 django-storages==1.9.1
-boto3==1.14.28
+boto3==1.14.29
 psycopg2==2.8.5
 Pygments==2.6.1
 raven==6.10.0
@@ -24,7 +24,7 @@ newrelic==5.14.1.144
 feedparser==5.2.1
 python-dateutil==2.8.1
 bleach==3.1.5
-django-ratelimit==3.0.0
+django-ratelimit==3.0.1
 
 # Specific versions of dependencies to satisfy clashing requirements:
 beautifulsoup4==4.8.2  # from Wagtail 2.9

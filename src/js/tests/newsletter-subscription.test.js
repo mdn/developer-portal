@@ -28,7 +28,7 @@ const exampleFormHTML = `
     <p>
       <label for="newsletter-privacy" class="mzp-u-inline">
         <input type="checkbox" name="privacy" id="newsletter-privacy" required aria-required="true">
-        I'm okay with Mozilla handling my info as explained in this <a class="privacy-link" href="https://www.mozilla.org/privacy/websites/" target="_blank" rel="noopener noreferrer">Privacy Notice</a>.
+        I'm okay with Mozilla handling my info as explained in this <a class="privacy-link" href="https://www.mozilla.org/privacy/websites/" target="_blank" rel="noopener">Privacy Notice</a>.
       </label>
     </p>
     <p>
