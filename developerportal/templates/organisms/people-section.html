@@ -23,7 +23,7 @@
     {# Render cards side by side, up to three, always same width #}
     <ul class="mzp-l-card-third">
       {% for person in people %}
-        {% include "molecules/cards/card-person.html" with node_type="li" person=person type="person" full_width=False %}
+        {% include "molecules/cards/card-person.html" with person=person type="person" full_width=False %}
       {% endfor %}
     </ul>
   </div>
