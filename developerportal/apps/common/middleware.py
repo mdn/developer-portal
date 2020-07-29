@@ -6,6 +6,22 @@ from ratelimit import ALL
 from ratelimit.core import is_ratelimited
 from ratelimit.exceptions import Ratelimited
 
+RATELIMIT_GROUP_PUBLIC_REQUESTS = "public_requests"
+RATELIMIT_GROUP_ADMIN_REQUESTS = "admin_requests"
+
+
+def _get_group(request):
+    if request.user and request.user.is_authenticated and request.user.is_staff:
+        return RATELIMIT_GROUP_ADMIN_REQUESTS
+    return RATELIMIT_GROUP_PUBLIC_REQUESTS
+
+
+def _get_appropriate_rate(group):
+    if group == RATELIMIT_GROUP_ADMIN_REQUESTS:
+        return settings.DEVPORTAL_RATELIMIT_ADMIN_USER_LIMIT
+
+    return settings.DEVPORTAL_RATELIMIT_DEFAULT_LIMIT
+
 
 def rate_limiter(get_response):
     """Enforces rate-limiting on all views.
@@ -37,22 +53,26 @@ def rate_limiter(get_response):
     /admin/ either.
 
     """
-    # One-time configuration and initialization here
 
     def middleware(request):
-        # Code to be executed for each request before
-        # the view (and later middleware) are called.
+        # Code to be executed for each request before the view (and later middleware)
+        # are called.
 
-        # Set an arbitrary catch-all group name, because we need to provide
-        # a group because we don't have the view func available here.
-        group = "all_requests"
+        # We need to provide a group because we don't have the view func available here
+        # to do it automatically, plus, this is a good opportunity to split admin users
+        # from non-admins, so we can offer different throttling rates.
+        _group = _get_group(request)
+
+        # We need to pick an appropriate rate so that Wagtail Admin users aren't
+        # adversely affected in some places, such as the Wagtail Image Chooser
+        _rate = _get_appropriate_rate(_group)
 
         old_limited = getattr(request, "limited", False)
         ratelimited = is_ratelimited(
             request=request,
-            group=group,
+            group=_group,
             key="ip",
-            rate=settings.DEVPORTAL_RATELIMIT_DEFAULT_LIMIT,
+            rate=_rate,
             increment=True,
             method=ALL,  #  ie include GET, not just ratelimit.UNSAFE methods
         )
