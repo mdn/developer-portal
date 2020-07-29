@@ -8,16 +8,13 @@ body.topics .topic-links .mzp-c-card {
 .topic-links {
   background-color: $color-light-gray-10;
 
-  h3 {
+  h2 {
     margin-top: $spacing-sm;
   }
-  h3,
-  h4 {
+  h2,
+  h3 {
     font-family: $body-font-family;
     font-size: 1.5rem;
-  }
-  h4 {
-    font-size: 1.5em;
   }
 
   .section-header {

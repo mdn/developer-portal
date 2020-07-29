@@ -6,23 +6,23 @@
 
 {% if topics %}
   <div class="topic-links">
-    <div class="mzp-l-content topic-links-wrapper">
+    <div class="mzp-l-content topic-links">
       <div class="section-header">
         {% if pagetheme == 'home' or pagetheme == 'directory' %}
-          <h3>Browse {{TOPICS_TITLE_LABEL|lower}}</h3>
+          <h2 id="topics-heading">Browse {{TOPICS_TITLE_LABEL|lower}}</h2>
         {% endif %}
         {% if pagetheme == 'topic' %}
-          <h3>Continue exploring</h3>
+          <h2 id="topics-heading">Continue exploring</h2>
         {% endif %}
         {% if pagetheme == 'person' %}
-          <h4>{{TOPICS_TITLE_LABEL}} specialized in</h4>
+          <h2 id="topics-heading">{{TOPICS_TITLE_LABEL}} specialized in</h2>
         {% endif %}
       </div>
-      <div class="{{two_column|yesno:'mzp-l-card-half, mzp-l-card-quarter'}}">
+      <ul class="{{two_column|yesno:'mzp-l-card-half,mzp-l-card-quarter'}}">
         {% for topic in topics %}
           {% include "molecules/item-topic-link.html" with topic=topic.topic %}
         {% endfor %}
-      </div>
+      </ul>
     </div>
   </div>
 {% endif %}
