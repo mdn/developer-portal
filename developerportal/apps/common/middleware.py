@@ -19,7 +19,6 @@ def _get_group(request):
 def _get_appropriate_rate(group):
     if group == RATELIMIT_GROUP_ADMIN_REQUESTS:
         return settings.DEVPORTAL_RATELIMIT_ADMIN_USER_LIMIT
-
     return settings.DEVPORTAL_RATELIMIT_DEFAULT_LIMIT
 
 
