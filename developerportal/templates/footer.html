@@ -1,26 +1,25 @@
 <footer class="mzp-c-footer">
   <div class="mzp-l-content">
-    <img class="mozilla-developer-logo" src="/static/img/logos/developer/white.svg" alt="Mozilla Developer logo" />
+    <a href="/"><img class="mozilla-developer-logo" src="/static/img/logos/developer/white.svg" alt="Mozilla Developer home" /></a>
+    {% if ABOUT_LINK %}
+    <a class="footer-about-link" href="{{ABOUT_LINK}}">About this site</a>
+    {% endif %}
   </div>
 
-  <div class="social-links">
-    <section class="mzp-l-content">
-      <div class="mzp-c-footer-sections">
-        <section class="mzp-c-footer-section link">
-          <a href="https://hacks.mozilla.org/" rel="noopener"><img src="/static/img/logos/mdn-dino-white.svg" alt="Mozilla Hacks Blog logo" />Mozilla Hacks Blog</a>
-        </section>
-        <section class="mzp-c-footer-section link">
-          <a href="https://twitter.com/mozhacks" rel="noopener"><img src="/static/img/icons/social/twitter/white.svg" alt="Twitter logo" />@mozhacks</a>
-        </section>
-        <section class="mzp-c-footer-section link">
-          <a href="https://www.youtube.com/user/mozhacks" rel="noopener"><img src="/static/img/icons/social/youtube/white.svg" alt="YouTube logo for Mozilla Hacks" />@mozhacks</a>
-        </section>
-        <section class="mzp-c-footer-section link">
-          <a href="https://www.youtube.com/MozillaDeveloper" rel="noopener"><img src="/static/img/icons/social/youtube/white.svg" alt="YouTube logo for Mozilla Developer" />@MozillaDeveloper</a>
-        </section>
-      </div>
-    </section>
-  </div>
+  <ul class="mzp-l-content social-links mzp-c-footer-sections">
+    <li class="mzp-c-footer-section">
+      <a class="social-link mozilla" href="https://hacks.mozilla.org/">Mozilla Hacks Blog</a>
+    </li>
+    <li class="mzp-c-footer-section">
+      <a class="social-link twitter" href="https://twitter.com/mozhacks" aria-label="Follow @mozhacks on Twitter">@mozhacks</a>
+    </li>
+    <li class="mzp-c-footer-section">
+      <a class="social-link youtube" href="https://www.youtube.com/user/mozhacks" aria-label="Visit @mozhacks on YouTube">@mozhacks</a>
+    </li>
+    <li class="mzp-c-footer-section">
+      <a class="social-link youtube" href="https://www.youtube.com/MozillaDeveloper">@MozillaDeveloper</a>
+    </li>
+  </ul>
 
   <div class="mzp-l-content">
     <nav class="mzp-c-footer-secondary">
@@ -28,14 +27,14 @@
         <p class="mzp-c-footer-license">
           Portions of this content are &copy;1998–{% now "Y" %} by individual mozilla.org
           contributors.<br>Content available under a
-          <a href="https://www.mozilla.org/foundation/licensing/website-content/" rel="license noopener">Creative Commons license</a>.
+          <a href="https://www.mozilla.org/foundation/licensing/website-content/" rel="license">Creative Commons license</a>.
         </p>
         <ul class="mzp-c-footer-terms">
-          <li><a href="https://www.mozilla.org/about/" rel="noopener">About Mozilla</a></li>
-          <li><a href="https://www.mozilla.org/privacy/websites/" rel="noopener">Website Privacy Notice</a></li>
-          <li><a href="https://www.mozilla.org/privacy/websites/#cookies" rel="noopener">Cookies</a></li>
-          <li><a href="https://www.mozilla.org/about/legal/" rel="noopener">Legal</a></li>
-          <li><a href="https://www.mozilla.org/about/governance/policies/participation/" rel="noopener">Community Participation Guidelines</a></li>
+          <li><a href="https://www.mozilla.org/about/">About Mozilla</a></li>
+          <li><a href="https://www.mozilla.org/privacy/websites/">Website Privacy Notice</a></li>
+          <li><a href="https://www.mozilla.org/privacy/websites/#cookies">Cookies</a></li>
+          <li><a href="https://www.mozilla.org/about/legal/">Legal</a></li>
+          <li><a href="https://www.mozilla.org/about/governance/policies/participation/">Community Participation Guidelines</a></li>
         </ul>
       </div>
     </nav>

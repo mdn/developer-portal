@@ -12,7 +12,7 @@ from django.db import migrations
 logger = logging.getLogger(__name__)
 
 
-def drop_staticbuild_table(apps, schema_migration):
+def drop_staticbuild_table(apps, schema_editor):
     # We're not expecting any cascade. Here's the schema:
     #  Table "public.staticbuild_staticbuild"
     #  Column |           Type           | Collation | Nullable |                       Default  # noqa
@@ -35,5 +35,6 @@ class Migration(migrations.Migration):
     dependencies = [("common", "0001_drop_social_auth_app_tables")]
 
     operations = [
-        migrations.RunPython(drop_staticbuild_table, migrations.RunPython.noop)
+        # DISABLED BECAUSE WE NO LONGER NEED IT, BUT KEPT FOR REFERENCE
+        # migrations.RunPython(drop_staticbuild_table, migrations.RunPython.noop)
     ]
