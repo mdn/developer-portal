@@ -370,6 +370,9 @@ RATELIMIT_VIEW = "developerportal.apps.core.views.rate_limited"
 DEVPORTAL_RATELIMIT_DEFAULT_LIMIT = os.getenv(
     "DEVPORTAL_RATELIMIT_DEFAULT_LIMIT", "25/m"
 )
+DEVPORTAL_RATELIMIT_ADMIN_USER_LIMIT = os.getenv(
+    "DEVPORTAL_RATELIMIT_ADMIN_USER_LIMIT", "60/m"
+)
 
 # Whether or not to automatically create content based on feeds configured in the DB
 AUTOMATICALLY_INGEST_CONTENT = (
