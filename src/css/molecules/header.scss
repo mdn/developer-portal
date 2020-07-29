@@ -1,25 +1,23 @@
-.header {
-  // FIX required for mzp
-  .mzp-c-navigation-menu {
-    box-sizing: unset;
+// FIX required for mzp
+.mzp-c-navigation-menu {
+  box-sizing: unset;
+}
+
+.mzp-c-navigation-logo {
+  /* On mobile: set a negative margin to align better with hamburger menu. Remember
+    that the Mozilla Developer logo is taller than the black Mozilla bar on its own */
+  margin-top: -10px;
+  width: 165px; // This is to ensure the logo doesn't flow under the hamburger on mobile Safari
+
+  @media #{$mq-md} {
+    /* wider viewports need some specific tweaks to override the mobile defaults */
+    margin-top: 23px; // 1px less than default, but is noticeable if not set
+    width: 114px;
   }
 
-  .mzp-c-navigation-logo {
-    /* On mobile: set a negative margin to align better with hamburger menu. Remember
-      that the Mozilla Developer logo is taller than the black Mozilla bar on its own */
-    margin-top: -10px;
-    width: 165px; // This is to ensure the logo doesn't flow under the hamburger on mobile Safari
-
-    @media #{$mq-md} {
-      /* wider viewports need some specific tweaks to override the mobile defaults */
-      margin-top: 23px; // 1px less than default, but is noticeable if not set
-      width: 114px;
-    }
-  }
-
-  .mzp-c-navigation-logo a {
+  & a {
     background-image: url('../img/logos/developer/black.svg');
-    height: auto;
+    height: 70px;
     width: auto;
     margin-top: 9px;
     background-size: 160px;
@@ -30,23 +28,25 @@
       background-size: 100%;
     }
   }
-  .mzp-c-menu-item {
-    padding: 0 24px 12px 0;
-    .mzp-c-menu-item-desc {
-      margin: $spacing-sm 0 0 $spacing-2xl;
+}
 
-      p {
-        margin-bottom: 0;
-      }
+.header .mzp-c-menu-item {
+  padding: 0 24px 12px 0;
+
+  .mzp-c-menu-item-desc {
+    margin: $spacing-sm 0 0 $spacing-2xl;
+    p {
+      margin-bottom: 0;
     }
+  }
 
-    .mzp-c-menu-item-link {
-      padding-bottom: 0;
-      .mzp-c-menu-item-icon {
-        top: 0;
-        @media #{$mq-md} {
-          top: 8px;
-        }
+  .mzp-c-menu-item-link {
+    padding-bottom: 0;
+
+    .mzp-c-menu-item-icon {
+      top: 0;
+      @media #{$mq-md} {
+        top: 8px;
       }
     }
   }
