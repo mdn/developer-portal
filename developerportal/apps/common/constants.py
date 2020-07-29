@@ -89,3 +89,7 @@ ABOUT_PAGE_SLUG = (
 )  # needs to be kept in sync with DB, but better defined in one place
 
 NON_SPACE_WHITESPACE = "\n\t\r"
+
+ABOUT_PAGE_SLUG = (
+    "about"
+)  # needs to be kept in sync with DB, but better defined in one place
