@@ -132,8 +132,9 @@ class HomePage(BasePage):
         MultiFieldPanel(
             [
                 FieldPanel("subtitle"),
-                FieldPanel("button_text"),
-                FieldPanel("button_url"),
+                # DISABLED - header needs a design tweak to fit in a button robustly
+                # FieldPanel("button_text"),
+                # FieldPanel("button_url"),
             ],
             heading="Header section",
             help_text="Optional fields for the header section",
