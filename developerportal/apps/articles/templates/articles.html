@@ -10,8 +10,8 @@
   {% static "img/icons/article-white.svg" as page_icon_asset_url %}
   {% include "molecules/header-strip.html" with content=page.title element="h1" page_icon_asset_url=page_icon_asset_url %}
 
-  <div id="results-list">
+  <main id="results-list" role="main">
     {% include "organisms/filter-list.html" with type="article_or_video" resources=resources no_resources_message="No relevant posts found" hide_pagination=False %}
-  </div>
+  </main>
   {% include "organisms/newsletter-signup.html" %}
 {% endblock content %}
