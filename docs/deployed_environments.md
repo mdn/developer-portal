@@ -1,4 +1,4 @@
-# Deployed environments
+# Deployed environments
 
 The Developer Portal project currently has three deployed environments:
 
