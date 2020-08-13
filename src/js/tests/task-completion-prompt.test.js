@@ -23,7 +23,7 @@ const promptHTMLInHiddenState = `<aside class="mzp-c-notification-bar mzp-t-clic
   <button class="mzp-c-notification-bar-button mzp-js-notification-trigger" type="button"></button>
   <p>
       Your feedback is important. Would you
-        <a target="_blank" rel="noreferrer noopener" href="https://example.com/task-completion-survey" class="mzp-c-notification-bar-cta">
+        <a target="_blank" rel="nofollow noopener noreferrer" href="https://example.com/task-completion-survey" class="mzp-c-notification-bar-cta">
           complete a short survey
         </a>
       after visiting?
