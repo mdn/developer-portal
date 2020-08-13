@@ -5,9 +5,9 @@
 
   <span class="step-links">
   {% if items.has_previous %}
-    <a class="mzp-c-button mzp-t-small" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.previous_page_number }}{{additional_qs_params}}#results-list">Prev</a>
+    <a class="mzp-c-button mzp-t-small" href="?{{PAGINATION_QUERYSTRING_KEY}}={{ items.previous_page_number }}{{additional_qs_params}}#results-list">Previous</a>
   {% else %}
-    <button class="mzp-c-button mzp-t-small" disabled>Prev</button>
+    <button class="mzp-c-button mzp-t-small" disabled>Previous</button>
   {% endif %}
 
   <span class="pagination-current">

@@ -4,10 +4,11 @@
   text-align: center;
 
   & .mzp-c-button {
-    @media #{$mq-md} {
+    min-width: 90px;
+
+    @media #{$mq-sm} {
+      min-width: 135px;
       padding: 14px 30px;
-      // This is the default for mzp-c-button, but we
-      // want to override mzp-t-small on larger viewports
     }
   }
 }
