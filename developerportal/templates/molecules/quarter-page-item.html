@@ -21,7 +21,7 @@ Inputs:
 {% else %}
   {% static "img/placeholders/post_16_9.jpg" as fallback_image %}
 {% endif %}
-<section class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
+<li class="mzp-c-card mzp-c-card-extra-small mzp-has-aspect-16-9">
   {% if external_page or resource.is_external %}
     <a
       href="{{ resource.url }}"
@@ -57,11 +57,11 @@ Inputs:
           {{resource.primary_topic|default:"Featured"}}
         {% endif %}
         </div>
-        <h2 class="mzp-c-card-title">
+        <h3 class="mzp-c-card-title">
           <span>
             {{ resource.title }}
           </span>
-        </h2>
+        </h3>
       </div>
     </a>
-</section>
+</li>
