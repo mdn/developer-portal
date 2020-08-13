@@ -93,11 +93,11 @@ export REDIRECTOR_NAMESPACE ?= "redirector"
 export REDIRECTOR_REPLICAS ?= 1
 export REDIRECTOR_MAX_REPLICAS ?= 4
 export REDIRECTOR_IMAGE_NAME ?= mdnwebdocs/redirector
-export REDIRECTOR_IMAGE_TAG ?= d83919d
+export REDIRECTOR_IMAGE_TAG ?= 5dc4a49
 export REDIRECTOR_SERVICE_PORT ?= 80
 export REDIRECTOR_CONTAINER_PORT ?= 80
 # This list must be without quotes
-export REDIRECTOR_HOSTS ?= www.mozilla.dev,developer.mozilla.com
+export REDIRECTOR_HOSTS ?= mozilla.dev,www.mozilla.dev,developer.mozilla.com
 
 ###############################
 ### core tasks
