@@ -39,7 +39,7 @@ The current workflow has the expectation that code is merged to master before it
 
 - as above, but using the `prod-push` branch instead of `stage-push`
 
-### To get code on to Dev
+### To get code on to Dev
 
 This is a little different from above, because we're talking about WIP features or code being deployed to Dev to allow for manual QA, and it assumes that you want to deploy new code BEFORE you merge it to `master`. (If you don't, just treat `dev-push` like `stage-push`, but you'll have to work out how you handle WIP/non-signed-off code now having been merged to `master`).
 
